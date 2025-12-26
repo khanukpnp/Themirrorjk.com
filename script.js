@@ -1,241 +1,202 @@
-/* FILE: script.js (full replacement) */
+// script.js
 (() => {
   "use strict";
 
-  if (window.__TMJK_BOOTED__) return;
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-  const $ = (s, r = document) => r.querySelector(s);
-  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-
-  function setSpanText(containerId, text) {
-    const el = document.getElementById(containerId);
-    if (!el) return;
-    const span = el.querySelector("span");
-    if (!span) return;
-    span.textContent = text;
+  function pad(n) {
+    return String(n).padStart(2, "0");
   }
 
-  function formatDateTimeInTZ(tz) {
-    try {
-      const d = new Date();
-      const parts = new Intl.DateTimeFormat("en-GB", {
-        timeZone: tz,
-        weekday: "long",
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      }).formatToParts(d);
+  function formatTimeForTZ(date, timeZone) {
+    const parts = new Intl.DateTimeFormat("en-GB", {
+      timeZone,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    }).formatToParts(date);
 
-      const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
-      return `${map.weekday}, ${map.day} ${map.month} ${map.year} at ${map.hour}:${map.minute}:${map.second}`;
-    } catch {
-      return "";
+    const get = (t) => (parts.find(p => p.type === t) || {}).value || "00";
+    return `${get("hour")}:${get("minute")}:${get("second")}`;
+  }
+
+  function formatFullForTZ(date, timeZone) {
+    return new Intl.DateTimeFormat("en-GB", {
+      timeZone,
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    }).format(date);
+  }
+
+  function setClocks() {
+    const now = new Date();
+
+    const cest = $("#clock-cest span");
+    if (cest) cest.textContent = formatFullForTZ(now, "Europe/Zurich");
+
+    const ist = $("#tz-ist span");
+    if (ist) ist.textContent = formatTimeForTZ(now, "Asia/Kolkata");
+
+    const pkt = $("#tz-pkt span");
+    if (pkt) pkt.textContent = formatTimeForTZ(now, "Asia/Karachi");
+
+    const hijri = $("#cal-hijri span");
+    if (hijri) {
+      try {
+        const h = new Intl.DateTimeFormat("en-GB-u-ca-islamic-umalqura", {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        }).format(now);
+        hijri.textContent = h;
+      } catch {
+        hijri.textContent = "Hijri";
+      }
+    }
+
+    const saka = $("#cal-hindi span");
+    if (saka) {
+      try {
+        const s = new Intl.DateTimeFormat("en-GB-u-ca-indian", {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        }).format(now);
+        saka.textContent = s;
+      } catch {
+        saka.textContent = "Saka";
+      }
     }
   }
 
-  function formatTimeInTZ(tz) {
-    try {
-      return new Intl.DateTimeFormat("en-GB", {
-        timeZone: tz,
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      }).format(new Date());
-    } catch {
-      return "—:—";
-    }
+  function svgPlaceholder(text, accentName) {
+    const map = {
+      maroon: "#6b0f1a",
+      blue: "#1d4ed8",
+      green: "#166534",
+      red: "#b91c1c"
+    };
+    const stroke = map[accentName] || map.maroon;
+
+    const safeText = (text || "Placeholder").slice(0, 24);
+    const svg =
+      `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+        <rect x="18" y="18" width="1164" height="664" rx="40" fill="#ffffff" stroke="${stroke}" stroke-width="10"/>
+        <text x="600" y="360" text-anchor="middle"
+          font-family="Georgia, 'Times New Roman', serif"
+          font-size="92" font-weight="700" fill="${stroke}">
+          ${safeText}
+        </text>
+      </svg>`;
+
+    return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
   }
 
-  function formatHijri() {
-    try {
-      return new Intl.DateTimeFormat("en", {
-        calendar: "islamic-umalqura",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      }).format(new Date());
-    } catch {
-      return "Hijri unavailable";
-    }
+  function applyPlaceholders() {
+    const imgs = $$("img.img-ph");
+
+    imgs.forEach((img) => {
+      const phText = img.getAttribute("data-placeholder") || "Placeholder";
+      const accent = img.getAttribute("data-accent") || "maroon";
+      const realSrc = img.getAttribute("data-src");
+
+      img.src = svgPlaceholder(phText, accent);
+
+      if (!realSrc) return;
+
+      const tester = new Image();
+      tester.decoding = "async";
+      tester.loading = "lazy";
+
+      tester.onload = () => {
+        img.src = realSrc;
+        img.classList.add("is-real");
+      };
+
+      tester.onerror = () => {
+        img.src = svgPlaceholder(phText, accent);
+        img.classList.remove("is-real");
+      };
+
+      tester.src = realSrc;
+    });
   }
 
-  function formatSaka() {
-    try {
-      return new Intl.DateTimeFormat("en", {
-        calendar: "indian",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      }).format(new Date());
-    } catch {
-      return "VS unavailable";
-    }
-  }
-
-  function renderClocks() {
-    setSpanText("clock-cest", formatDateTimeInTZ("Europe/Zurich"));
-    setSpanText("cal-hijri", formatHijri());
-    setSpanText("cal-hindi", formatSaka());
-    setSpanText("tz-ist", formatTimeInTZ("Asia/Kolkata"));
-    setSpanText("tz-pkt", formatTimeInTZ("Asia/Karachi"));
-  }
-
-  const CITIES = [
-    { name: "Zurich", lat: 47.3769, lon: 8.5417 },
-    { name: "Jammu", lat: 32.7266, lon: 74.8570 },
-    { name: "Kashmir", lat: 34.0837, lon: 74.7973 },
-    { name: "Ladakh", lat: 34.1526, lon: 77.5770 },
-    { name: "Gilgit", lat: 35.9208, lon: 74.3146 },
-    { name: "Baltistan", lat: 35.3270, lon: 75.5510 },
-    { name: "Muzaffarabad", lat: 34.37, lon: 73.47 },
-    { name: "Rawalakot", lat: 33.857, lon: 73.763 }
-  ];
-
-  async function fetchTemp(city) {
-    const url =
-      "https://api.open-meteo.com/v1/forecast" +
-      `?latitude=${encodeURIComponent(city.lat)}` +
-      `&longitude=${encodeURIComponent(city.lon)}` +
-      "&current=temperature_2m" +
-      "&timezone=auto";
-
-    const res = await fetch(url, { cache: "no-store" });
-    if (!res.ok) throw new Error("weather");
-    const data = await res.json();
-
-    const temp =
-      data && data.current && typeof data.current.temperature_2m === "number"
-        ? data.current.temperature_2m
-        : null;
-
-    return { name: city.name, temp };
-  }
-
-  function renderWeatherBar(items) {
-    const bar = document.getElementById("weather-bar");
+  async function fetchWeather() {
+    const bar = $("#weather-bar");
     if (!bar) return;
 
-    bar.innerHTML = items.map(it => {
-      const t = it.temp === null ? "--" : `${Math.round(it.temp * 10) / 10}°C`;
-      return `<span class="weather-pill">${it.name}: ${t}</span>`;
-    }).join("");
-  }
+    const cities = [
+      { name: "Zurich", lat: 47.3769, lon: 8.5417 },
+      { name: "Jammu", lat: 32.7266, lon: 74.8570 },
+      { name: "Kashmir", lat: 34.0837, lon: 74.7973 },      // Srinagar
+      { name: "Ladakh", lat: 34.1526, lon: 77.5771 },       // Leh
+      { name: "Gilgit", lat: 35.9208, lon: 74.3081 },
+      { name: "Baltistan", lat: 35.2971, lon: 75.6333 },    // Skardu
+      { name: "Muzaffarabad", lat: 34.3700, lon: 73.4708 },
+      { name: "Rawalakot", lat: 33.8584, lon: 73.7669 }
+    ];
 
-  async function loadWeatherBar() {
-    const bar = document.getElementById("weather-bar");
-    if (!bar) return;
+    bar.innerHTML = "";
 
-    renderWeatherBar(CITIES.map(c => ({ name: c.name, temp: null })));
+    for (const c of cities) {
+      const chip = document.createElement("div");
+      chip.className = "chip tiny wx-chip";
+      chip.textContent = `${c.name}: …°C`;
+      bar.appendChild(chip);
 
-    try {
-      const results = await Promise.allSettled(CITIES.map(fetchTemp));
-      const ok = results
-        .filter(r => r.status === "fulfilled")
-        .map(r => r.value);
+      try {
+        const url =
+          `https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(c.lat)}&longitude=${encodeURIComponent(c.lon)}&current=temperature_2m&temperature_unit=celsius&timezone=auto`;
 
-      if (ok.length) renderWeatherBar(ok);
-    } catch {
-      // keep placeholders
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) throw new Error("Weather fetch failed");
+        const data = await res.json();
+        const t = data && data.current && typeof data.current.temperature_2m === "number"
+          ? data.current.temperature_2m
+          : null;
+
+        chip.textContent = `${c.name}: ${t === null ? "—" : t.toFixed(1)}°C`;
+      } catch {
+        chip.textContent = `${c.name}: —°C`;
+      }
     }
-  }
-
-  function setupDropdowns() {
-    const nav = $(".navbar");
-    if (!nav) return;
-
-    function closeAll() {
-      $$(".nav-item.has-sub.open", nav).forEach(li => li.classList.remove("open"));
-    }
-
-    $$(".nav-item.has-sub", nav).forEach(li => {
-      const btn = $(".nav-btn", li);
-      if (!btn) return;
-
-      btn.addEventListener("click", (e) => {
-        const isMobile = window.matchMedia("(max-width: 900px)").matches;
-        if (!isMobile) return;
-
-        e.preventDefault();
-        const willOpen = !li.classList.contains("open");
-        closeAll();
-        if (willOpen) li.classList.add("open");
-      });
-    });
-
-    document.addEventListener("click", (e) => {
-      const isMobile = window.matchMedia("(max-width: 900px)").matches;
-      if (!isMobile) return;
-      if (e.target.closest(".navbar")) return;
-      closeAll();
-    });
-
-    window.addEventListener("resize", closeAll);
-  }
-
-  function setupMobileMenu() {
-    const hamburger = document.getElementById("hamburger");
-    const mobileMenu = document.getElementById("mobile-menu");
-    const navList = document.getElementById("nav-list");
-    if (!hamburger || !mobileMenu || !navList) return;
-
-    if (!mobileMenu.dataset.built) {
-      const clone = navList.cloneNode(true);
-      clone.id = "nav-list-mobile";
-      mobileMenu.appendChild(clone);
-      mobileMenu.dataset.built = "1";
-    }
-
-    hamburger.addEventListener("click", () => {
-      const expanded = hamburger.getAttribute("aria-expanded") === "true";
-      hamburger.setAttribute("aria-expanded", expanded ? "false" : "true");
-      mobileMenu.hidden = expanded;
-    });
-
-    document.addEventListener("click", (e) => {
-      const isMobile = window.matchMedia("(max-width: 900px)").matches;
-      if (!isMobile) return;
-      if (e.target.closest(".navbar")) return;
-      mobileMenu.hidden = true;
-      hamburger.setAttribute("aria-expanded", "false");
-    });
   }
 
   function setupContactModal() {
-    const openBtn = document.getElementById("open-contact");
-    const closeBtn = document.getElementById("close-contact");
-    const modal = document.getElementById("contact-modal");
-    if (!modal) return;
+    const modal = $("#contact-modal");
+    const openBtn = $("#open-contact");
+    const closeBtn = $("#close-contact");
 
-    if (openBtn) {
-      openBtn.addEventListener("click", () => {
-        if (typeof modal.showModal === "function") modal.showModal();
-        else modal.setAttribute("open", "open");
-      });
-    }
+    if (!modal || !openBtn || !closeBtn) return;
 
-    if (closeBtn) {
-      closeBtn.addEventListener("click", () => {
-        if (typeof modal.close === "function") modal.close();
-        else modal.removeAttribute("open");
-      });
-    }
-  }
+    openBtn.addEventListener("click", () => {
+      if (typeof modal.showModal === "function") modal.showModal();
+    });
 
-  function setupYear() {
-    const y = document.getElementById("year");
-    if (y) y.textContent = String(new Date().getFullYear());
+    closeBtn.addEventListener("click", () => {
+      if (typeof modal.close === "function") modal.close();
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal && typeof modal.close === "function") modal.close();
+    });
   }
 
   function setupShare() {
-    const btn = document.getElementById("share-btn");
-    if (!btn) return;
+    const btn = $("#share-btn");
+    const stickyShare = $("#sticky-share");
 
-    btn.addEventListener("click", async () => {
-      const url = window.location.href;
-
+    async function doShare() {
+      const url = location.href;
       try {
         if (navigator.share) {
           await navigator.share({ title: document.title, url });
@@ -244,51 +205,186 @@
       } catch {}
 
       try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          const old = btn.textContent;
-          await navigator.clipboard.writeText(url);
-          btn.textContent = "Copied";
-          setTimeout(() => (btn.textContent = old), 1200);
-        }
-      } catch {}
-    });
+        await navigator.clipboard.writeText(url);
+        alert("Link copied.");
+      } catch {
+        prompt("Copy link:", url);
+      }
+    }
+
+    if (btn) btn.addEventListener("click", doShare);
+    if (stickyShare) stickyShare.addEventListener("click", doShare);
   }
 
   function setupSearch() {
-    const form = document.getElementById("search-form");
-    const input = document.getElementById("search-input");
-    if (!form || !input) return;
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const q = (input.value || "").trim().toLowerCase();
+    window.fakeSearch = function fakeSearch() {
+      const q = ($("#search-input")?.value || "").trim();
       if (!q) return;
+      alert(`Search is a placeholder for now. You searched: ${q}`);
+    };
 
-      const cards = document.querySelectorAll(".card.post, .card.rail, .card.video");
-      cards.forEach(card => {
-        const t = (card.textContent || "").toLowerCase();
-        card.style.display = t.includes(q) ? "" : "none";
+    const stickySearch = $("#sticky-search");
+    if (stickySearch) {
+      stickySearch.addEventListener("click", () => {
+        const input = $("#search-input");
+        if (input) input.focus();
+      });
+    }
+  }
+
+  function setupDropdowns() {
+    const items = $$(".nav-item.has-sub");
+
+    function closeAll(except) {
+      items.forEach((li) => {
+        if (li !== except) li.classList.remove("open");
+        const btn = li.querySelector(".nav-btn");
+        if (btn) btn.setAttribute("aria-expanded", li.classList.contains("open") ? "true" : "false");
+      });
+    }
+
+    items.forEach((li) => {
+      const btn = li.querySelector(".nav-btn");
+      if (!btn) return;
+
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const willOpen = !li.classList.contains("open");
+        closeAll();
+        li.classList.toggle("open", willOpen);
+        btn.setAttribute("aria-expanded", willOpen ? "true" : "false");
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      const nav = $(".navbar");
+      if (!nav) return;
+      if (!nav.contains(e.target)) closeAll();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeAll();
+    });
+  }
+
+  function setupMobileMenu() {
+    const hamburger = $("#hamburger");
+    const mobileMenu = $("#mobile-menu");
+    const navList = $("#nav-list");
+
+    if (!hamburger || !mobileMenu || !navList) return;
+
+    function buildMobile() {
+      mobileMenu.innerHTML = "";
+
+      const ul = document.createElement("ul");
+      ul.className = "nav-list mobile";
+
+      $$(".nav-item", navList).forEach((li) => {
+        const clone = li.cloneNode(true);
+
+        const btn = clone.querySelector("button.nav-btn");
+        const dd = clone.querySelector(".dropdown");
+
+        if (btn && dd) {
+          const wrap = document.createElement("div");
+          wrap.className = "mobile-dd";
+
+          const topBtn = document.createElement("button");
+          topBtn.type = "button";
+          topBtn.className = "nav-btn";
+          topBtn.textContent = btn.textContent;
+
+          const panel = document.createElement("div");
+          panel.className = "dropdown";
+          panel.innerHTML = dd.innerHTML;
+          panel.hidden = true;
+
+          topBtn.addEventListener("click", () => {
+            panel.hidden = confirms(panel.hidden) ? false : true;
+          });
+
+          function confirms(hiddenState) {
+            return hiddenState;
+          }
+
+          wrap.appendChild(topBtn);
+          wrap.appendChild(panel);
+
+          const liWrap = document.createElement("li");
+          liWrap.className = "nav-item has-sub";
+          liWrap.appendChild(wrap);
+
+          ul.appendChild(liWrap);
+        } else {
+          const a = clone.querySelector("a.nav-btn") || clone.querySelector("a");
+          if (a) {
+            const liWrap = document.createElement("li");
+            liWrap.className = "nav-item";
+            liWrap.appendChild(a);
+            ul.appendChild(liWrap);
+          }
+        }
+      });
+
+      mobileMenu.appendChild(ul);
+
+      $$("a", mobileMenu).forEach((a) => {
+        a.addEventListener("click", () => {
+          mobileMenu.hidden = true;
+          hamburger.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
+    buildMobile();
+
+    hamburger.addEventListener("click", () => {
+      const isOpen = !mobileMenu.hidden;
+      mobileMenu.hidden = isOpen;
+      hamburger.setAttribute("aria-expanded", isOpen ? "false" : "true");
+    });
+
+    const stickyMenu = $("#sticky-menu");
+    if (stickyMenu) {
+      stickyMenu.addEventListener("click", () => hamburger.click());
+    }
+  }
+
+  function setupReadMore() {
+    $$(".read-more").forEach((a) => {
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        alert("Read More is a placeholder. Next step is connecting articles.json to a full article page.");
       });
     });
   }
 
-  function boot() {
-    renderClocks();
-    setInterval(renderClocks, 1000);
+  function setupYear() {
+    const y = $("#year");
+    if (y) y.textContent = String(new Date().getFullYear());
+  }
 
-    loadWeatherBar();
-    setInterval(loadWeatherBar, 10 * 60 * 1000);
+  function init() {
+    setupYear();
+    setClocks();
+    setInterval(setClocks, 1000);
+
+    applyPlaceholders();
+    fetchWeather();
 
     setupDropdowns();
     setupMobileMenu();
-    setupContactModal();
-    setupYear();
-    setupShare();
-    setupSearch();
 
-    window.__TMJK_BOOTED__ = true;
+    setupSearch();
+    setupShare();
+    setupReadMore();
+    setupContactModal();
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
