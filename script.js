@@ -1,66 +1,54 @@
-(function () {
+(() => {
   "use strict";
 
-  function qs(sel, root) { return (root || document).querySelector(sel); }
-  function qsa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
-  function inHeader(el) {
-    if (!el) return false;
-    const header = qs("header") || document.body;
-    return header.contains(el);
+  function pad(n) {
+    return String(n).padStart(2, "0");
   }
 
-  function findByText(regex) {
-    const candidates = qsa("span,strong,div,p,li,a,button").filter(el => {
-      if (!inHeader(el)) return false;
-      const t = (el.textContent || "").trim();
-      if (!t) return false;
-      if (t.length > 80) return false;
-      return regex.test(t);
-    });
-
-    return candidates.length ? candidates[0] : null;
-  }
-
-  function setText(el, value) {
+  function setSpanText(containerId, text) {
+    const el = document.getElementById(containerId);
     if (!el) return;
-    el.textContent = value;
+    const span = el.querySelector("span");
+    if (!span) return;
+    span.textContent = text;
   }
 
-  function formatCESTDateTime() {
+  function formatDateTimeInTZ(tz) {
     try {
-      const now = new Date();
-      const datePart = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/Zurich",
+      const d = new Date();
+      const parts = new Intl.DateTimeFormat("en-GB", {
+        timeZone: tz,
         weekday: "long",
         day: "2-digit",
         month: "long",
-        year: "numeric"
-      }).format(now);
-
-      const timePart = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/Zurich",
+        year: "numeric",
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit"
-      }).format(now);
+      }).formatToParts(d);
 
-      return `${datePart} at ${timePart}`;
+      const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
+      return `${map.weekday}, ${map.day} ${map.month} ${map.year} at ${map.hour}:${map.minute}:${map.second}`;
     } catch {
-      return "";
+      const d = new Date();
+      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
     }
   }
 
-  function formatTime(tz) {
+  function formatTimeInTZ(tz) {
     try {
+      const d = new Date();
       return new Intl.DateTimeFormat("en-GB", {
         timeZone: tz,
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit"
-      }).format(new Date());
+      }).format(d);
     } catch {
-      return "--:--:--";
+      return "—:—";
     }
   }
 
@@ -73,7 +61,7 @@
         year: "numeric"
       }).format(new Date());
     } catch {
-      return "Unavailable";
+      return "Hijri unavailable";
     }
   }
 
@@ -86,49 +74,16 @@
         year: "numeric"
       }).format(new Date());
     } catch {
-      return "Unavailable";
+      return "VS unavailable";
     }
   }
 
-  function locateHeaderFields() {
-    const elCEST = qs("#dateTime, #currentDateTime, #datetime, [data-datetime], .date-time") || findByText(/CEST/i);
-    const elHijri = qs("#hijriDate, #hijri-date, [data-hijri], .hijri-date") || findByText(/Hijri|Rajab|Muharram|Safar|Rabi|Jumada|Shaban|Ramadan|Dhul/i);
-    const elSaka = qs("#sakaDate, #saka-date, [data-saka], .saka-date") || findByText(/\bVS\b|Saka|Phalguna|Chaitra|Baisakh|Kartika|Magha/i);
-    const elIST = qs("#istTime, #ist-time, [data-ist], .ist-time") || findByText(/\bIST\b/i);
-    const elPKT = qs("#pktTime, #pkt-time, [data-pkt], .pkt-time") || findByText(/\bPKT\b/i);
-
-    return { elCEST, elHijri, elSaka, elIST, elPKT };
-  }
-
-  function renderHeaderClocks() {
-    const { elCEST, elHijri, elSaka, elIST, elPKT } = locateHeaderFields();
-
-    if (elCEST) {
-      const hasWordCEST = /CEST/i.test((elCEST.textContent || ""));
-      setText(elCEST, hasWordCEST ? formatCESTDateTime() : formatCESTDateTime());
-    }
-
-    if (elHijri) {
-      const t = formatHijri();
-      setText(elHijri, t);
-    }
-
-    if (elSaka) {
-      const t = formatSaka();
-      setText(elSaka, t);
-    }
-
-    if (elIST) {
-      const t = formatTime("Asia/Kolkata");
-      const label = /IST/i.test((elIST.textContent || "")) ? "IST (JKL): " : "";
-      setText(elIST, label ? `${label}${t}` : t);
-    }
-
-    if (elPKT) {
-      const t = formatTime("Asia/Karachi");
-      const label = /PKT/i.test((elPKT.textContent || "")) ? "PKT (GBM): " : "";
-      setText(elPKT, label ? `${label}${t}` : t);
-    }
+  function renderClocks() {
+    setSpanText("clock-cest", formatDateTimeInTZ("Europe/Zurich"));
+    setSpanText("cal-hijri", formatHijri());
+    setSpanText("cal-hindi", formatSaka());
+    setSpanText("tz-ist", formatTimeInTZ("Asia/Kolkata"));
+    setSpanText("tz-pkt", formatTimeInTZ("Asia/Karachi"));
   }
 
   const CITIES = [
@@ -141,31 +96,6 @@
     { name: "Muzaffarabad", lat: 34.3700, lon: 73.4700 },
     { name: "Rawalakot", lat: 33.8570, lon: 73.7630 }
   ];
-
-  function findOrCreateTempRow() {
-    let row =
-      qs("#regionalTemps, #regional-temps, #weatherPills, #weather-chips, .weather-pills, .regional-temps, [data-regional-temps]");
-
-    if (row) return row;
-
-    const header = qs("header");
-    if (!header) return null;
-
-    const anchor = findByText(/CEST|Hijri|VS|IST|PKT/i);
-    const anchorRow = anchor ? anchor.closest("div") : null;
-
-    row = document.createElement("div");
-    row.className = "tm-weather-row";
-    row.id = "regional-temps";
-
-    if (anchorRow && anchorRow.parentElement) {
-      anchorRow.parentElement.insertBefore(row, anchorRow.nextSibling);
-    } else {
-      header.appendChild(row);
-    }
-
-    return row;
-  }
 
   async function fetchTemp(city) {
     const url =
@@ -187,19 +117,23 @@
     return { name: city.name, temp };
   }
 
-  function renderTemps(row, items) {
-    if (!row) return;
-    row.innerHTML = items.map(it => {
-      const t = it.temp === null ? "--" : `${Math.round(it.temp * 10) / 10}°C`;
-      return `<span class="tm-weather-pill">${it.name}: ${t}</span>`;
-    }).join("");
+  function renderWeatherBar(items) {
+    const bar = document.getElementById("weather-bar");
+    if (!bar) return;
+
+    bar.innerHTML = items
+      .map(it => {
+        const t = it.temp === null ? "--" : `${Math.round(it.temp * 10) / 10}°C`;
+        return `<span class="weather-pill">${it.name}: ${t}</span>`;
+      })
+      .join("");
   }
 
-  async function loadTemps() {
-    const row = findOrCreateTempRow();
-    if (!row) return;
+  async function loadWeatherBar() {
+    const bar = document.getElementById("weather-bar");
+    if (!bar) return;
 
-    renderTemps(row, CITIES.map(c => ({ name: c.name, temp: null })));
+    renderWeatherBar(CITIES.map(c => ({ name: c.name, temp: null })));
 
     try {
       const results = await Promise.allSettled(CITIES.map(fetchTemp));
@@ -207,61 +141,36 @@
         .filter(r => r.status === "fulfilled")
         .map(r => r.value);
 
-      if (ok.length) renderTemps(row, ok);
+      if (ok.length) renderWeatherBar(ok);
     } catch {
       // keep placeholders
     }
   }
 
+  function closeAllDropdowns(nav) {
+    $$(".nav-item.has-sub.open", nav).forEach(li => li.classList.remove("open"));
+  }
+
   function setupDropdowns() {
-    const nav = qs("nav");
+    const nav = $(".navbar");
     if (!nav) return;
 
-    const items = qsa("li", nav);
-    items.forEach(li => {
-      const sub = li.querySelector("ul, .dropdown, .submenu");
-      const a = li.querySelector(":scope > a");
-      if (!sub || !a) return;
+    $$(".nav-item.has-sub", nav).forEach(li => {
+      const btn = $(".nav-btn", li);
+      const drop = $(".dropdown", li);
+      if (!btn || !drop) return;
 
-      li.classList.add("has-submenu");
-
-      a.addEventListener("click", (e) => {
+      btn.addEventListener("click", (e) => {
         const isMobile = window.matchMedia("(max-width: 900px)").matches;
         if (!isMobile) return;
 
-        const href = (a.getAttribute("href") || "").trim();
-        const hasRealLink = href && href !== "#";
-
-        if (hasRealLink && !li.classList.contains("open")) {
-          e.preventDefault();
-          li.classList.add("open");
-          return;
-        }
-
-        if (!hasRealLink) {
-          e.preventDefault();
-          li.classList.toggle("open");
-        }
+        e.preventDefault();
+        const willOpen = !li.classList.contains("open");
+        closeAllDropdowns(nav);
+        if (willOpen) li.classList.add("open");
       });
     });
 
     document.addEventListener("click", (e) => {
       const isMobile = window.matchMedia("(max-width: 900px)").matches;
       if (!isMobile) return;
-      if (e.target.closest("nav")) return;
-      qsa("li.has-submenu.open", nav).forEach(li => li.classList.remove("open"));
-    });
-  }
-
-  function boot() {
-    renderHeaderClocks();
-    setInterval(renderHeaderClocks, 1000);
-
-    setupDropdowns();
-
-    loadTemps();
-    setInterval(loadTemps, 10 * 60 * 1000);
-  }
-
-  document.addEventListener("DOMContentLoaded", boot);
-})();
