@@ -317,3 +317,43 @@ input[type="email"], input[type="text"], textarea, input[type="file"]{ width:100
     display: block;
   }
 }
+.tm-weather-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 10px 12px;
+}
+
+.tm-weather-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgba(255,255,255,0.85);
+}
+
+li.has-submenu > ul,
+li.has-submenu > .dropdown,
+li.has-submenu > .submenu {
+  display: none;
+}
+
+@media (min-width: 901px) {
+  li.has-submenu:hover > ul,
+  li.has-submenu:hover > .dropdown,
+  li.has-submenu:hover > .submenu {
+    display: block;
+  }
+}
+
+@media (max-width: 900px) {
+  li.has-submenu.open > ul,
+  li.has-submenu.open > .dropdown,
+  li.has-submenu.open > .submenu {
+    display: block;
+  }
+}
