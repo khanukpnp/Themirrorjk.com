@@ -1,3 +1,4 @@
+<!-- FILE: index.html (full replacement) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +6,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <base href="./" />
   <title>THE MIRROR JAMMU KASHMIR</title>
-  <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard." />
+  <meta name="description" content="The Mirror Jammu Kashmir, Champion justice and amplify the voices of the unheard." />
   <link rel="preconnect" href="https://api.open-meteo.com">
-  <link rel="stylesheet" href="styles.css?v=4" />
+
+  <!-- Cache bust. Change v number if you ever need to force refresh -->
+  <link rel="stylesheet" href="styles.css?v=5" />
+
+  <!-- Minimal patch to ensure missing sections are visible and dropdowns behave -->
+  <style>
+    #weather-bar {
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 2px 0;
+    }
+    .weather-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      white-space: nowrap;
+      background: rgba(255,255,255,0.88);
+    }
+
+    .nav-item.has-sub .dropdown { display: none; }
+    .nav-item.has-sub.open .dropdown { display: block; }
+
+    @media (min-width: 901px) {
+      .nav-item.has-sub:hover .dropdown { display: block; }
+    }
+
+    .mobile-menu { width: 100%; }
+    .mobile-menu .nav-list { list-style: none; margin: 0; padding: 0; }
+  </style>
 </head>
+
 <body class="theme-maroon">
-  <header class="site-header">
+  <header class="site-header" id="top">
     <div class="header-row">
       <img src="assets/logo.png" alt="Logo" class="logo" loading="eager" decoding="async" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='logo.png';" />
       <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
@@ -29,7 +65,7 @@
     </div>
   </section>
 
-  <section class="bar weather-line" aria-label="Weather">
+  <section class="bar weather-line" aria-label="Weather and Regional Temperature">
     <div class="row nowrap super-tight" id="weather-bar"></div>
   </section>
 
@@ -37,9 +73,9 @@
     <div class="ticker">
       <span>BREAKING:</span>
       <ul id="ticker-items">
-        <li>Welcome to The Mirror Jammu Kashmir — empowering truth beyond borders.</li>
+        <li>Welcome to The Mirror Jammu Kashmir, empowering truth beyond borders.</li>
         <li>Submit your editorials and vlogs via the contact form below.</li>
-        <li>Multilingual support &amp; mobile-first design are built-in.</li>
+        <li>Multilingual support and mobile first design are built in.</li>
       </ul>
     </div>
     <div class="tools">
@@ -59,7 +95,7 @@
           <option value="nl">Dutch</option>
         </select>
       </label>
-      <form class="search" role="search" onsubmit="event.preventDefault(); fakeSearch();">
+      <form class="search" role="search" id="search-form">
         <input id="search-input" type="search" placeholder="Search…" aria-label="Search" />
         <button type="submit">🔍</button>
       </form>
@@ -70,7 +106,7 @@
     <button class="hamburger" aria-expanded="false" aria-controls="mobile-menu" id="hamburger">☰ Menu</button>
     <ul class="nav-list" id="nav-list">
       <li class="nav-item has-sub">
-        <button class="nav-btn">🏠 Home</button>
+        <button class="nav-btn" type="button">🏠 Home</button>
         <div class="dropdown">
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
@@ -79,7 +115,7 @@
       </li>
       <li class="nav-item"><a class="nav-btn" href="#breaking">🆕 Breaking News</a></li>
       <li class="nav-item has-sub">
-        <button class="nav-btn">📝 Blog</button>
+        <button class="nav-btn" type="button">📝 Blog</button>
         <div class="dropdown wide">
           <a href="#editorial">Editorial</a>
           <a href="#opinion">Opinion</a>
@@ -87,7 +123,7 @@
         </div>
       </li>
       <li class="nav-item has-sub">
-        <button class="nav-btn">🎥 Vlog</button>
+        <button class="nav-btn" type="button">🎥 Vlog</button>
         <div class="dropdown">
           <a href="#vlog-latest">Latest Vlogs</a>
           <a href="#vlog-archive">Archive</a>
@@ -95,7 +131,7 @@
       </li>
       <li class="nav-item"><a class="nav-btn" href="#epaper">📰 E-Paper</a></li>
       <li class="nav-item has-sub">
-        <button class="nav-btn">📍 Jammu Kashmir</button>
+        <button class="nav-btn" type="button">📍 Jammu Kashmir</button>
         <div class="dropdown wide">
           <a href="#jk-region">Regions</a>
           <a href="#jk-history">History</a>
@@ -103,7 +139,7 @@
         </div>
       </li>
       <li class="nav-item has-sub">
-        <button class="nav-btn">📜 Historical Documents</button>
+        <button class="nav-btn" type="button">📜 Historical Documents</button>
         <div class="dropdown wide">
           <a href="#docs-treaties">Treaties</a>
           <a href="#docs-archives">Archives</a>
@@ -111,7 +147,7 @@
         </div>
       </li>
       <li class="nav-item has-sub">
-        <button class="nav-btn">🕊️ UN &amp; Human Rights</button>
+        <button class="nav-btn" type="button">🕊️ UN &amp; Human Rights</button>
         <div class="dropdown">
           <a href="#unhrc">UNHRC</a>
           <a href="#reports">Reports</a>
@@ -119,7 +155,7 @@
         </div>
       </li>
       <li class="nav-item has-sub">
-        <button class="nav-btn">🌐 Global Advocacy</button>
+        <button class="nav-btn" type="button">🌐 Global Advocacy</button>
         <div class="dropdown wide">
           <a href="#campaigns">Campaigns</a>
           <a href="#partners">Partners</a>
@@ -133,7 +169,7 @@
   <main class="main">
     <section id="blog" class="card-col">
       <h2>📝 Latest Articles</h2>
-      <div class="cards three">
+      <div class="cards three" id="cards-latest">
         <article class="card post">
           <div class="media">
             <span class="badge cat">Politics</span>
@@ -150,6 +186,7 @@
             <a class="read-more" href="#">Read More →</a>
           </div>
         </article>
+
         <article class="card post">
           <div class="media">
             <span class="badge cat">Human Rights</span>
@@ -166,6 +203,7 @@
             <a class="read-more" href="#">Read More →</a>
           </div>
         </article>
+
         <article class="card post">
           <div class="media">
             <span class="badge cat">Education</span>
@@ -192,13 +230,13 @@
       </div>
       <p class="vlogs-sub">Watch in-depth reports, exclusive interviews, and documentary-style content.</p>
       <div class="filter-pills">
-        <button class="pill active">All</button>
-        <button class="pill">Interview</button>
-        <button class="pill">Documentary</button>
-        <button class="pill">Analysis</button>
-        <button class="pill">Culture</button>
-        <button class="pill">Forum</button>
-        <button class="pill">Feature</button>
+        <button class="pill active" type="button">All</button>
+        <button class="pill" type="button">Interview</button>
+        <button class="pill" type="button">Documentary</button>
+        <button class="pill" type="button">Analysis</button>
+        <button class="pill" type="button">Culture</button>
+        <button class="pill" type="button">Forum</button>
+        <button class="pill" type="button">Feature</button>
       </div>
       <div class="cards three media-cards">
         <article class="card video">
@@ -212,6 +250,7 @@
             <p>In-depth conversation with diplomatic sources about ongoing negotiations and next steps.</p>
           </div>
         </article>
+
         <article class="card video">
           <div class="media">
             <span class="badge cat">Documentary</span>
@@ -223,6 +262,7 @@
             <p>Documenting how local communities are adapting and supporting each other.</p>
           </div>
         </article>
+
         <article class="card video">
           <div class="media">
             <span class="badge cat">Analysis</span>
@@ -235,63 +275,14 @@
           </div>
         </article>
       </div>
-      <div class="center"><button class="btn load">Load More Videos</button></div>
-    </section>
-
-    <section class="section-rail">
-      <div class="rail-header"><span>🌐 International News</span></div>
-      <div class="cards two">
-        <article class="card rail">
-          <div class="media"><img src="assets/sample-2.jpg" alt="UNSC" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/placeholder.svg';" /></div>
-          <div class="card-body">
-            <h3>UN Security Council Addresses Regional Conflicts</h3>
-            <p>Emergency session discusses peaceful resolution mechanisms for disputed territories worldwide.</p>
-            <div class="meta"><span class="author">International Desk</span><span class="date">1 hour ago</span></div>
-            <a class="read-more" href="#">Read More →</a>
-          </div>
-        </article>
-        <article class="card rail">
-          <div class="media"><img src="assets/sample-1.jpg" alt="EU Parliament" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/placeholder.svg';" /></div>
-          <div class="card-body">
-            <h3>European Parliament Calls for Press Freedom</h3>
-            <p>Resolution passed supporting independent journalism in conflict zones.</p>
-            <div class="meta"><span class="author">Brussels Correspondent</span><span class="date">6 hours ago</span></div>
-            <a class="read-more" href="#">Read More →</a>
-          </div>
-        </article>
-      </div>
-      <div class="center"><a class="btn outline" href="#">View All International News</a></div>
-    </section>
-
-    <section class="section-rail">
-      <div class="rail-header"><span>🧑‍⚕️ Human Rights</span></div>
-      <div class="cards two">
-        <article class="card rail">
-          <div class="media"><img src="assets/sample-3.jpg" alt="Aid" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/placeholder.svg';" /></div>
-          <div class="card-body">
-            <h3>Humanitarian Organizations Launch Aid Initiative</h3>
-            <p>International relief efforts focus on providing essential services to affected communities.</p>
-            <div class="meta"><span class="author">Human Rights Desk</span><span class="date">3 hours ago</span></div>
-            <a class="read-more" href="#">Read More →</a>
-          </div>
-        </article>
-        <article class="card rail">
-          <div class="media"><img src="assets/sample-2.jpg" alt="Legal" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/placeholder.svg';" /></div>
-          <div class="card-body">
-            <h3>Legal Advocacy Groups File Petition</h3>
-            <p>Human rights lawyers present case for civilian protection measures.</p>
-            <div class="meta"><span class="author">Legal Correspondent</span><span class="date">5 hours ago</span></div>
-            <a class="read-more" href="#">Read More →</a>
-          </div>
-        </article>
-      </div>
-      <div class="center"><a class="btn outline" href="#">View All Human Rights</a></div>
+      <div class="center"><button class="btn load" type="button">Load More Videos</button></div>
     </section>
 
     <section id="epaper" class="epaper card">
       <h2>📰 E-Paper Upload</h2>
       <p>Upload your digital publication (PDF). This section is a placeholder; connect to your preferred CMS or cloud later.</p>
       <form name="epaper" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="epaper" />
         <input type="file" name="file" accept=".pdf" />
         <button class="btn" type="submit">Upload</button>
       </form>
@@ -301,6 +292,7 @@
       <div class="newsletter card">
         <h2>📬 Newsletter</h2>
         <form name="newsletter" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="newsletter" />
           <input type="email" name="email" placeholder="your@email.com" required />
           <button class="btn" type="submit">Subscribe</button>
         </form>
@@ -308,7 +300,7 @@
       <div class="contact card">
         <h2>✉️ Contact</h2>
         <p>Email: <a href="mailto:contact@themirrorjk.com">contact@themirrorjk.com</a> • Phone: <a href="tel:+41783131213">+41 783 13 12 13</a></p>
-        <button class="btn" id="open-contact">Open Contact Form</button>
+        <button class="btn" id="open-contact" type="button">Open Contact Form</button>
       </div>
     </section>
   </main>
@@ -319,13 +311,14 @@
       <a href="#" aria-label="Instagram">📸</a>
       <a href="#" aria-label="YouTube">▶️</a>
       <a href="#" aria-label="Facebook">📘</a>
-      <button class="btn small outline" id="share-btn">Share</button>
+      <button class="btn small outline" id="share-btn" type="button">Share</button>
     </div>
     <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved. <a href="/admin/" class="admin-link">Admin</a></p>
   </footer>
 
   <dialog id="contact-modal" class="modal">
     <form name="contact" method="POST" data-netlify="true" class="modal-card">
+      <input type="hidden" name="form-name" value="contact" />
       <h3>Contact Form</h3>
       <label> Name <input type="text" name="name" required /></label>
       <label> Email <input type="email" name="email" required /></label>
@@ -339,12 +332,271 @@
 
   <nav class="mobile-sticky">
     <a href="#top" aria-label="Home">🏠</a>
-    <button id="sticky-search" aria-label="Search">🔍</button>
-    <button id="sticky-like" aria-label="Like">❤️</button>
-    <button id="sticky-share" aria-label="Share">🔗</button>
-    <button id="sticky-menu" aria-label="Menu">☰</button>
+    <button id="sticky-search" aria-label="Search" type="button">🔍</button>
+    <button id="sticky-like" aria-label="Like" type="button">❤️</button>
+    <button id="sticky-share" aria-label="Share" type="button">🔗</button>
+    <button id="sticky-menu" aria-label="Menu" type="button">☰</button>
   </nav>
 
-  <script src="script.js?v=4"></script>
+  <!-- Use external file, and also include a fallback inline boot if the external file fails -->
+  <script src="script.js?v=5"></script>
+
+  <script>
+    if (!window.__TMJK_BOOTED__) {
+      (function () {
+        function $(s, r) { return (r || document).querySelector(s); }
+        function $$(s, r) { return Array.from((r || document).querySelectorAll(s)); }
+
+        function setSpanText(containerId, text) {
+          var el = document.getElementById(containerId);
+          if (!el) return;
+          var span = el.querySelector("span");
+          if (!span) return;
+          span.textContent = text;
+        }
+
+        function formatDateTimeInTZ(tz) {
+          try {
+            var d = new Date();
+            var parts = new Intl.DateTimeFormat("en-GB", {
+              timeZone: tz,
+              weekday: "long",
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit"
+            }).formatToParts(d);
+            var map = {};
+            parts.forEach(function (p) { map[p.type] = p.value; });
+            return map.weekday + ", " + map.day + " " + map.month + " " + map.year + " at " + map.hour + ":" + map.minute + ":" + map.second;
+          } catch (e) {
+            return "";
+          }
+        }
+
+        function formatTimeInTZ(tz) {
+          try {
+            return new Intl.DateTimeFormat("en-GB", {
+              timeZone: tz,
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit"
+            }).format(new Date());
+          } catch (e) {
+            return "—:—";
+          }
+        }
+
+        function formatHijri() {
+          try {
+            return new Intl.DateTimeFormat("en", {
+              calendar: "islamic-umalqura",
+              day: "numeric",
+              month: "long",
+              year: "numeric"
+            }).format(new Date());
+          } catch (e) {
+            return "Hijri unavailable";
+          }
+        }
+
+        function formatSaka() {
+          try {
+            return new Intl.DateTimeFormat("en", {
+              calendar: "indian",
+              day: "numeric",
+              month: "long",
+              year: "numeric"
+            }).format(new Date());
+          } catch (e) {
+            return "VS unavailable";
+          }
+        }
+
+        function renderClocks() {
+          setSpanText("clock-cest", formatDateTimeInTZ("Europe/Zurich"));
+          setSpanText("cal-hijri", formatHijri());
+          setSpanText("cal-hindi", formatSaka());
+          setSpanText("tz-ist", formatTimeInTZ("Asia/Kolkata"));
+          setSpanText("tz-pkt", formatTimeInTZ("Asia/Karachi"));
+        }
+
+        var CITIES = [
+          { name: "Zurich", lat: 47.3769, lon: 8.5417 },
+          { name: "Jammu", lat: 32.7266, lon: 74.8570 },
+          { name: "Kashmir", lat: 34.0837, lon: 74.7973 },
+          { name: "Ladakh", lat: 34.1526, lon: 77.5770 },
+          { name: "Gilgit", lat: 35.9208, lon: 74.3146 },
+          { name: "Baltistan", lat: 35.3270, lon: 75.5510 },
+          { name: "Muzaffarabad", lat: 34.37, lon: 73.47 },
+          { name: "Rawalakot", lat: 33.857, lon: 73.763 }
+        ];
+
+        function renderWeatherBar(items) {
+          var bar = document.getElementById("weather-bar");
+          if (!bar) return;
+          bar.innerHTML = items.map(function (it) {
+            var t = (it.temp === null) ? "--" : (Math.round(it.temp * 10) / 10) + "°C";
+            return '<span class="weather-pill">' + it.name + ": " + t + "</span>";
+          }).join("");
+        }
+
+        function fetchTemp(city) {
+          var url = "https://api.open-meteo.com/v1/forecast"
+            + "?latitude=" + encodeURIComponent(city.lat)
+            + "&longitude=" + encodeURIComponent(city.lon)
+            + "&current=temperature_2m"
+            + "&timezone=auto";
+          return fetch(url, { cache: "no-store" })
+            .then(function (res) { if (!res.ok) throw new Error("weather"); return res.json(); })
+            .then(function (data) {
+              var temp = (data && data.current && typeof data.current.temperature_2m === "number") ? data.current.temperature_2m : null;
+              return { name: city.name, temp: temp };
+            });
+        }
+
+        function loadWeatherBar() {
+          renderWeatherBar(CITIES.map(function (c) { return { name: c.name, temp: null }; }));
+          Promise.allSettled(CITIES.map(fetchTemp)).then(function (results) {
+            var ok = results.filter(function (r) { return r.status === "fulfilled"; }).map(function (r) { return r.value; });
+            if (ok.length) renderWeatherBar(ok);
+          }).catch(function () {});
+        }
+
+        function setupDropdowns() {
+          var nav = $(".navbar");
+          if (!nav) return;
+
+          function closeAll() {
+            $$(".nav-item.has-sub.open", nav).forEach(function (li) { li.classList.remove("open"); });
+          }
+
+          $$(".nav-item.has-sub", nav).forEach(function (li) {
+            var btn = $(".nav-btn", li);
+            if (!btn) return;
+            btn.addEventListener("click", function (e) {
+              var isMobile = window.matchMedia("(max-width: 900px)").matches;
+              if (!isMobile) return;
+              e.preventDefault();
+              var willOpen = !li.classList.contains("open");
+              closeAll();
+              if (willOpen) li.classList.add("open");
+            });
+          });
+
+          document.addEventListener("click", function (e) {
+            var isMobile = window.matchMedia("(max-width: 900px)").matches;
+            if (!isMobile) return;
+            if (e.target.closest(".navbar")) return;
+            closeAll();
+          });
+
+          window.addEventListener("resize", closeAll);
+        }
+
+        function setupMobileMenu() {
+          var hamburger = document.getElementById("hamburger");
+          var mobileMenu = document.getElementById("mobile-menu");
+          var navList = document.getElementById("nav-list");
+          if (!hamburger || !mobileMenu || !navList) return;
+
+          if (!mobileMenu.dataset.built) {
+            var clone = navList.cloneNode(true);
+            clone.id = "nav-list-mobile";
+            mobileMenu.appendChild(clone);
+            mobileMenu.dataset.built = "1";
+          }
+
+          hamburger.addEventListener("click", function () {
+            var expanded = hamburger.getAttribute("aria-expanded") === "true";
+            hamburger.setAttribute("aria-expanded", expanded ? "false" : "true");
+            mobileMenu.hidden = expanded;
+          });
+        }
+
+        function setupContactModal() {
+          var openBtn = document.getElementById("open-contact");
+          var closeBtn = document.getElementById("close-contact");
+          var modal = document.getElementById("contact-modal");
+          if (!modal) return;
+
+          if (openBtn) openBtn.addEventListener("click", function () {
+            if (typeof modal.showModal === "function") modal.showModal();
+            else modal.setAttribute("open", "open");
+          });
+
+          if (closeBtn) closeBtn.addEventListener("click", function () {
+            if (typeof modal.close === "function") modal.close();
+            else modal.removeAttribute("open");
+          });
+        }
+
+        function setupYear() {
+          var y = document.getElementById("year");
+          if (y) y.textContent = String(new Date().getFullYear());
+        }
+
+        function setupShare() {
+          var btn = document.getElementById("share-btn");
+          if (!btn) return;
+
+          btn.addEventListener("click", function () {
+            var url = window.location.href;
+            if (navigator.share) {
+              navigator.share({ title: document.title, url: url }).catch(function () {});
+              return;
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(url).then(function () {
+                var old = btn.textContent;
+                btn.textContent = "Copied";
+                setTimeout(function () { btn.textContent = old; }, 1200);
+              }).catch(function () {});
+            }
+          });
+        }
+
+        function setupSearch() {
+          var form = document.getElementById("search-form");
+          var input = document.getElementById("search-input");
+          if (!form || !input) return;
+
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            var q = (input.value || "").trim().toLowerCase();
+            if (!q) return;
+
+            var cards = document.querySelectorAll(".card.post, .card.rail, .card.video");
+            cards.forEach(function (card) {
+              var t = (card.textContent || "").toLowerCase();
+              card.style.display = t.indexOf(q) > -1 ? "" : "none";
+            });
+          });
+        }
+
+        function boot() {
+          renderClocks();
+          setInterval(renderClocks, 1000);
+
+          loadWeatherBar();
+          setInterval(loadWeatherBar, 10 * 60 * 1000);
+
+          setupDropdowns();
+          setupMobileMenu();
+          setupContactModal();
+          setupYear();
+          setupShare();
+          setupSearch();
+
+          window.__TMJK_BOOTED__ = true;
+        }
+
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+        else boot();
+      })();
+    }
+  </script>
 </body>
 </html>
