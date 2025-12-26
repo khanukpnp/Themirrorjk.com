@@ -115,3 +115,102 @@ input[type="email"], input[type="text"], textarea, input[type="file"]{ width:100
   border-color: #1f7a4d;
   color: #1f7a4d;
 }
+/* Solid ticker background */
+.ticker,
+.ticker-bar,
+.breaking-ticker {
+  background: #5b0a14;
+  color: #fff;
+}
+
+/* Shared centered content blocks */
+.container {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+
+.content-block {
+  width: min(980px, 100%);
+  margin: 0 auto;
+}
+
+/* Medium bold headings */
+.page-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.25;
+  text-align: center;
+  margin: 18px 0 10px;
+}
+
+/* Article body with wrapped image on right, around 35% */
+.article-body {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.inline-img-right {
+  float: right;
+  width: 35%;
+  max-width: 360px;
+  margin: 0 0 12px 14px;
+  border-radius: 10px;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Clear float at the end of article */
+.article-content::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* Card placeholder image behavior */
+.card-img,
+.article-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Footer actions */
+.page-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 18px auto 0;
+  padding: 10px 0;
+}
+
+.action-btn {
+  border: 1px solid rgba(255,255,255,0.18);
+  background: transparent;
+  color: inherit;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.action-btn:active {
+  transform: scale(0.98);
+}
+
+.footer-copy {
+  text-align: center;
+  padding: 12px 0 18px;
+}
+
+/* Responsive wrap for mobile */
+@media (max-width: 820px) {
+  .inline-img-right {
+    float: none;
+    width: 100%;
+    max-width: none;
+    margin: 0 0 12px 0;
+  }
+}
