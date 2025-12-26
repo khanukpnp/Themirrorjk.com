@@ -214,3 +214,106 @@ input[type="email"], input[type="text"], textarea, input[type="file"]{ width:100
     margin: 0 0 12px 0;
   }
 }
+.weather-pill,
+.weather-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tm-image-wrap {
+  position: relative;
+}
+
+.tm-image-placeholder {
+  display: none;
+  height: 220px;
+  border-radius: 16px;
+  background: rgba(0,0,0,0.06);
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.tm-image-missing .tm-image-placeholder {
+  display: flex;
+}
+
+.tm-card.tm-placeholder {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.tm-ph-box {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  background: rgba(0,0,0,0.03);
+}
+
+.tm-ph-text {
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 700;
+  text-align: center;
+  padding: 18px;
+}
+
+.tm-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+}
+
+.tm-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tm-read {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tm-readmore,
+.tm-readmore-btn,
+.tm-watch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.has-submenu > ul,
+.has-submenu > .dropdown,
+.has-submenu > .submenu {
+  display: none;
+}
+
+.has-submenu.open > ul,
+.has-submenu.open > .dropdown,
+.has-submenu.open > .submenu {
+  display: block;
+}
+
+@media (min-width: 901px) {
+  .has-submenu > ul,
+  .has-submenu > .dropdown,
+  .has-submenu > .submenu {
+    display: block;
+  }
+}
