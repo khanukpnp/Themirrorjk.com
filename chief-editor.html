@@ -1,1 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chief Editor | The Mirror Jammu Kashmir</title>
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-maroon">
+  <header class="site-header">
+    <div class="header-row">
+      <img class="logo" src="assets/logo.png" alt="The Mirror JK logo" onerror="this.classList.add('img-fallback')" />
+      <div class="header-center">
+        <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+        <div class="subheading">CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYOND BORDERS</div>
+      </div>
+      <img class="logo" src="assets/logo.png" alt="The Mirror JK logo" onerror="this.classList.add('img-fallback')" />
+    </div>
+  </header>
+
+  <section class="bar">
+    <div class="row nowrap">
+      <span class="chip" id="clock-cest"><span>Loading time…</span></span>
+      <span class="chip" id="islamic-date"><span>Loading…</span></span>
+      <span class="chip" id="hindi-date"><span>Loading…</span></span>
+      <span class="chip" id="ist-time"><span>Loading…</span></span>
+      <span class="chip" id="pkt-time"><span>Loading…</span></span>
+    </div>
+
+    <div class="row nowrap tight">
+      <div class="chip tiny" id="weather-bar">
+        <span class="city"><span class="name">Zurich</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Jammu</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Kashmir</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Ladakh</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Rawalakot</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Gilgit</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Baltistan</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Muzaffarabad</span>: <span class="temp">--</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticker-wrap">
+    <div class="ticker" id="ticker">
+      <span class="ticker-label">BREAKING</span>
+      <div class="ticker-viewport" aria-label="Breaking ticker">
+        <div class="ticker-track">
+          <span class="ticker-item">
+            CHIEF EDITOR PROFILE • THE MIRROR JAMMU KASHMIR • RESPONSIBLE JOURNALISM • HUMAN RIGHTS • INTERNATIONAL ADVOCACY
+          </span>
+          <span class="ticker-item" aria-hidden="true">
+            CHIEF EDITOR PROFILE • THE MIRROR JAMMU KASHMIR • RESPONSIBLE JOURNALISM • HUMAN RIGHTS • INTERNATIONAL ADVOCACY
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools">
+      <div class="lang-select">
+        <select id="lang" aria-label="Language">
+          <option value="en" selected>English</option>
+          <option value="ur">Urdu</option>
+          <option value="de">German</option>
+          <option value="fr">French</option>
+          <option value="ar">Arabic</option>
+          <option value="hi">Hindi</option>
+          <option value="es">Spanish</option>
+          <option value="ru">Russian</option>
+          <option value="he">Hebrew</option>
+          <option value="it">Italian</option>
+          <option value="nl">Dutch</option>
+        </select>
+      </div>
+
+      <form class="search" id="searchForm" role="search">
+        <input id="searchInput" type="search" placeholder="Search…" />
+        <button type="submit" aria-label="Search">🔎</button>
+      </form>
+    </div>
+  </section>
+
+  <nav class="navbar" aria-label="Primary navigation">
+    <button class="hamburger" id="hamburger" aria-label="Open menu">☰ Menu</button>
+
+    <ul class="nav-list" id="nav-list">
+      <li class="nav-item">
+        <button class="nav-btn" data-dd="home-dd">🏠 Home</button>
+        <div class="dropdown" id="home-dd">
+          <a href="index.html">Home Page</a>
+          <a href="about.html">About Us</a>
+          <a href="index.html#contact">Contact Us</a>
+        </div>
+      </li>
+
+      <li class="nav-item"><a class="nav-btn" href="index.html#breaking">🆕 Breaking News</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#latest">📝 Blog</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#vlogs">🎥 Vlog</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#epaper">📰 E-Paper</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#history">📜 Historical Documents</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#un">🕊️ UN &amp; Human Rights</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#global">🌐 Global Advocacy</a></li>
+    </ul>
+
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <ul id="nav-list-mobile"></ul>
+    </div>
+  </nav>
+
+  <main class="main">
+    <section class="card">
+      <div class="card-body">
+        <div class="profile-top">
+          <div class="profile-kicker">CHIEF EDITOR</div>
+          <h2 class="profile-name">Sardar Nasir Aziz Khan</h2>
+          <div class="profile-sub">Chief Editor, The Mirror Jammu Kashmir | Jammu Kashmir &amp; Switzerland</div>
+        </div>
+
+        <div class="profile-grid">
+          <div class="profile-text">
+            <p><strong>Sardar Nasir Aziz Khan</strong> serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional understanding, political clarity, and a strong commitment to human rights journalism. He is a Kashmiri human rights defender, political analyst, and columnist originally from Rawalakot in Pakistan administered Jammu and Kashmir. He currently lives in exile in Switzerland.</p>
+            <p>Alongside his editorial responsibilities, he is the Central Spokesperson of the United Kashmir People’s National Party and the main representative of the party and its affiliated civil society organizations to the United Nations in Geneva. In this role, he regularly engages with United Nations mechanisms, diplomats, and international media to document and highlight human rights violations and political repression.</p>
+            <p>His work focuses on issues that remain underreported or deliberately suppressed, including enforced disappearances, arbitrary detentions, restrictions on press freedom, and the erosion of civil and political rights.</p>
+
+            <div class="actions" style="margin-top:14px">
+              <button class="icon-btn" data-like>👍 Like</button>
+              <button class="icon-btn" data-copy>🔗 Copy Link</button>
+              <button class="icon-btn" data-share>📤 Share</button>
+            </div>
+          </div>
+
+          <div class="profile-media">
+            <img class="profile-img" src="assets/chief-editor.jpg" alt="Chief Editor" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="social">
+      <a href="#" aria-label="X">X</a>
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="YouTube">YouTube</a>
+      <a href="#" aria-label="Facebook">Facebook</a>
+      <button class="icon-btn" data-share>Share</button>
+    </div>
+    <div>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved. <a class="admin-link" href="/admin/">Admin</a></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
