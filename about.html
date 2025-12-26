@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About Us | The Mirror Jammu Kashmir</title>
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-maroon">
+  <header class="site-header">
+    <div class="header-row">
+      <img class="logo" src="assets/logo.png" alt="The Mirror JK logo" onerror="this.classList.add('img-fallback')" />
+      <div class="header-center">
+        <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+        <div class="subheading">CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYOND BORDERS</div>
+      </div>
+      <img class="logo" src="assets/logo.png" alt="The Mirror JK logo" onerror="this.classList.add('img-fallback')" />
+    </div>
+  </header>
+
+  <section class="bar">
+    <div class="row nowrap">
+      <span class="chip" id="clock-cest"><span>Loading time…</span></span>
+      <span class="chip" id="islamic-date"><span>Loading…</span></span>
+      <span class="chip" id="hindi-date"><span>Loading…</span></span>
+      <span class="chip" id="ist-time"><span>Loading…</span></span>
+      <span class="chip" id="pkt-time"><span>Loading…</span></span>
+    </div>
+
+    <div class="row nowrap tight">
+      <div class="chip tiny" id="weather-bar">
+        <span class="city"><span class="name">Zurich</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Jammu</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Kashmir</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Ladakh</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Rawalakot</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Gilgit</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Baltistan</span>: <span class="temp">--</span></span>
+        <span class="city"><span class="name">Muzaffarabad</span>: <span class="temp">--</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticker-wrap">
+    <div class="ticker" id="ticker">
+      <span class="ticker-label">BREAKING</span>
+      <div class="ticker-viewport" aria-label="Breaking ticker">
+        <div class="ticker-track">
+          <span class="ticker-item">
+            WELCOME TO THE MIRROR JAMMU KASHMIR. EMPOWERING TRUTH BEYOND BORDERS • SUBMIT YOUR EDITORIALS AND VLOGS VIA THE CONTACT FORM •
+            MULTILINGUAL SUPPORT AND MOBILE FIRST DESIGN ARE BUILT IN
+          </span>
+          <span class="ticker-item" aria-hidden="true">
+            WELCOME TO THE MIRROR JAMMU KASHMIR. EMPOWERING TRUTH BEYOND BORDERS • SUBMIT YOUR EDITORIALS AND VLOGS VIA THE CONTACT FORM •
+            MULTILINGUAL SUPPORT AND MOBILE FIRST DESIGN ARE BUILT IN
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools">
+      <div class="lang-select">
+        <select id="lang" aria-label="Language">
+          <option value="en" selected>English</option>
+          <option value="ur">Urdu</option>
+          <option value="de">German</option>
+          <option value="fr">French</option>
+          <option value="ar">Arabic</option>
+          <option value="hi">Hindi</option>
+          <option value="es">Spanish</option>
+          <option value="ru">Russian</option>
+          <option value="he">Hebrew</option>
+          <option value="it">Italian</option>
+          <option value="nl">Dutch</option>
+        </select>
+      </div>
+
+      <form class="search" id="searchForm" role="search">
+        <input id="searchInput" type="search" placeholder="Search…" />
+        <button type="submit" aria-label="Search">🔎</button>
+      </form>
+    </div>
+  </section>
+
+  <nav class="navbar" aria-label="Primary navigation">
+    <button class="hamburger" id="hamburger" aria-label="Open menu">☰ Menu</button>
+
+    <ul class="nav-list" id="nav-list">
+      <li class="nav-item">
+        <button class="nav-btn" data-dd="home-dd">🏠 Home</button>
+        <div class="dropdown" id="home-dd">
+          <a href="index.html">Home Page</a>
+          <a href="chief-editor.html">Chief Editor</a>
+          <a href="index.html#contact">Contact Us</a>
+        </div>
+      </li>
+
+      <li class="nav-item"><a class="nav-btn" href="index.html#breaking">🆕 Breaking News</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#latest">📝 Blog</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#vlogs">🎥 Vlog</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#epaper">📰 E-Paper</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#history">📜 Historical Documents</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#un">🕊️ UN &amp; Human Rights</a></li>
+      <li class="nav-item"><a class="nav-btn" href="index.html#global">🌐 Global Advocacy</a></li>
+    </ul>
+
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <ul id="nav-list-mobile"></ul>
+    </div>
+  </nav>
+
+  <main class="main">
+    <section class="card">
+      <div class="card-body">
+        <h2>About Us</h2>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <p>The Mirror Jammu Kashmir is an independent digital media platform focused on truth, justice, and human dignity.</p>
+            <p>We publish verified reporting, analysis, and documentation on Jammu Kashmir, human rights, international law, and global advocacy.</p>
+            <p>We amplify voices that are often ignored, and we present ground realities with responsible journalism.</p>
+            <p>If you have news, documentation, or urgent updates, use the contact form on the home page.</p>
+
+            <div class="actions" style="margin-top:14px">
+              <button class="icon-btn" data-like>👍 Like</button>
+              <button class="icon-btn" data-copy>🔗 Copy Link</button>
+              <button class="icon-btn" data-share>📤 Share</button>
+            </div>
+          </div>
+
+          <div class="about-media">
+            <img class="about-img" src="assets/logo.png" alt="The Mirror Jammu Kashmir logo" onerror="this.classList.add('img-fallback')" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="social">
+      <a href="#" aria-label="X">X</a>
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="YouTube">YouTube</a>
+      <a href="#" aria-label="Facebook">Facebook</a>
+      <button class="icon-btn" data-share>Share</button>
+    </div>
+    <div>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved. <a class="admin-link" href="/admin/">Admin</a></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
