@@ -1,13 +1,9 @@
-// script.js
+// script.js (FULL REPLACEMENT)
 (() => {
   "use strict";
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-
-  function pad(n) {
-    return String(n).padStart(2, "0");
-  }
 
   function formatTimeForTZ(date, timeZone) {
     const parts = new Intl.DateTimeFormat("en-GB", {
@@ -51,12 +47,11 @@
     const hijri = $("#cal-hijri span");
     if (hijri) {
       try {
-        const h = new Intl.DateTimeFormat("en-GB-u-ca-islamic-umalqura", {
+        hijri.textContent = new Intl.DateTimeFormat("en-GB-u-ca-islamic-umalqura", {
           day: "numeric",
           month: "long",
           year: "numeric"
         }).format(now);
-        hijri.textContent = h;
       } catch {
         hijri.textContent = "Hijri";
       }
@@ -65,12 +60,11 @@
     const saka = $("#cal-hindi span");
     if (saka) {
       try {
-        const s = new Intl.DateTimeFormat("en-GB-u-ca-indian", {
+        saka.textContent = new Intl.DateTimeFormat("en-GB-u-ca-indian", {
           day: "numeric",
           month: "long",
           year: "numeric"
         }).format(now);
-        saka.textContent = s;
       } catch {
         saka.textContent = "Saka";
       }
@@ -85,8 +79,8 @@
       red: "#b91c1c"
     };
     const stroke = map[accentName] || map.maroon;
-
     const safeText = (text || "Placeholder").slice(0, 24);
+
     const svg =
       `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
         <rect x="18" y="18" width="1164" height="664" rx="40" fill="#ffffff" stroke="${stroke}" stroke-width="10"/>
@@ -101,12 +95,17 @@
   }
 
   function applyPlaceholders() {
-    const imgs = $$("img.img-ph");
+    const imgs = $$("img[data-placeholder], img[data-accent]");
 
     imgs.forEach((img) => {
       const phText = img.getAttribute("data-placeholder") || "Placeholder";
       const accent = img.getAttribute("data-accent") || "maroon";
-      const realSrc = img.getAttribute("data-src");
+
+      const realSrc = img.getAttribute("data-src") || img.getAttribute("src") || "";
+
+      if (!img.getAttribute("data-src") && realSrc) {
+        img.setAttribute("data-src", realSrc);
+      }
 
       img.src = svgPlaceholder(phText, accent);
 
@@ -118,12 +117,10 @@
 
       tester.onload = () => {
         img.src = realSrc;
-        img.classList.add("is-real");
       };
 
       tester.onerror = () => {
         img.src = svgPlaceholder(phText, accent);
-        img.classList.remove("is-real");
       };
 
       tester.src = realSrc;
@@ -137,10 +134,10 @@
     const cities = [
       { name: "Zurich", lat: 47.3769, lon: 8.5417 },
       { name: "Jammu", lat: 32.7266, lon: 74.8570 },
-      { name: "Kashmir", lat: 34.0837, lon: 74.7973 },      // Srinagar
-      { name: "Ladakh", lat: 34.1526, lon: 77.5771 },       // Leh
+      { name: "Kashmir", lat: 34.0837, lon: 74.7973 },
+      { name: "Ladakh", lat: 34.1526, lon: 77.5771 },
       { name: "Gilgit", lat: 35.9208, lon: 74.3081 },
-      { name: "Baltistan", lat: 35.2971, lon: 75.6333 },    // Skardu
+      { name: "Baltistan", lat: 35.2971, lon: 75.6333 },
       { name: "Muzaffarabad", lat: 34.3700, lon: 73.4708 },
       { name: "Rawalakot", lat: 33.8584, lon: 73.7669 }
     ];
@@ -160,6 +157,7 @@
         const res = await fetch(url, { cache: "no-store" });
         if (!res.ok) throw new Error("Weather fetch failed");
         const data = await res.json();
+
         const t = data && data.current && typeof data.current.temperature_2m === "number"
           ? data.current.temperature_2m
           : null;
@@ -281,14 +279,13 @@
       ul.className = "nav-list mobile";
 
       $$(".nav-item", navList).forEach((li) => {
-        const clone = li.cloneNode(true);
+        const hasSub = li.classList.contains("has-sub");
+        const btn = li.querySelector(".nav-btn");
+        const dd = li.querySelector(".dropdown");
 
-        const btn = clone.querySelector("button.nav-btn");
-        const dd = clone.querySelector(".dropdown");
-
-        if (btn && dd) {
-          const wrap = document.createElement("div");
-          wrap.className = "mobile-dd";
+        if (hasSub && btn && dd) {
+          const liWrap = document.createElement("li");
+          liWrap.className = "nav-item has-sub";
 
           const topBtn = document.createElement("button");
           topBtn.type = "button";
@@ -301,29 +298,21 @@
           panel.hidden = true;
 
           topBtn.addEventListener("click", () => {
-            panel.hidden = confirms(panel.hidden) ? false : true;
+            panel.hidden = !panel.hidden;
           });
 
-          function confirms(hiddenState) {
-            return hiddenState;
-          }
-
-          wrap.appendChild(topBtn);
-          wrap.appendChild(panel);
-
-          const liWrap = document.createElement("li");
-          liWrap.className = "nav-item has-sub";
-          liWrap.appendChild(wrap);
-
+          liWrap.appendChild(topBtn);
+          liWrap.appendChild(panel);
           ul.appendChild(liWrap);
-        } else {
-          const a = clone.querySelector("a.nav-btn") || clone.querySelector("a");
-          if (a) {
-            const liWrap = document.createElement("li");
-            liWrap.className = "nav-item";
-            liWrap.appendChild(a);
-            ul.appendChild(liWrap);
-          }
+          return;
+        }
+
+        const link = li.querySelector("a.nav-btn") || li.querySelector("a");
+        if (link) {
+          const liWrap = document.createElement("li");
+          liWrap.className = "nav-item";
+          liWrap.appendChild(link.cloneNode(true));
+          ul.appendChild(liWrap);
         }
       });
 
@@ -346,9 +335,7 @@
     });
 
     const stickyMenu = $("#sticky-menu");
-    if (stickyMenu) {
-      stickyMenu.addEventListener("click", () => hamburger.click());
-    }
+    if (stickyMenu) stickyMenu.addEventListener("click", () => hamburger.click());
   }
 
   function setupReadMore() {
