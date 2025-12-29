@@ -1,377 +1,407 @@
-// script.js (FULL REPLACEMENT)
-(() => {
-  "use strict";
-
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-
-  function formatTimeForTZ(date, timeZone) {
-    const parts = new Intl.DateTimeFormat("en-GB", {
-      timeZone,
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false
-    }).formatToParts(date);
-
-    const get = (t) => (parts.find(p => p.type === t) || {}).value || "00";
-    return `${get("hour")}:${get("minute")}:${get("second")}`;
-  }
-
-  function formatFullForTZ(date, timeZone) {
-    return new Intl.DateTimeFormat("en-GB", {
-      timeZone,
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false
-    }).format(date);
-  }
-
-  function setClocks() {
-    const now = new Date();
-
-    const cest = $("#clock-cest span");
-    if (cest) cest.textContent = formatFullForTZ(now, "Europe/Zurich");
-
-    const ist = $("#tz-ist span");
-    if (ist) ist.textContent = formatTimeForTZ(now, "Asia/Kolkata");
-
-    const pkt = $("#tz-pkt span");
-    if (pkt) pkt.textContent = formatTimeForTZ(now, "Asia/Karachi");
-
-    const hijri = $("#cal-hijri span");
-    if (hijri) {
-      try {
-        hijri.textContent = new Intl.DateTimeFormat("en-GB-u-ca-islamic-umalqura", {
-          day: "numeric",
-          month: "long",
-          year: "numeric"
-        }).format(now);
-      } catch {
-        hijri.textContent = "Hijri";
-      }
-    }
-
-    const saka = $("#cal-hindi span");
-    if (saka) {
-      try {
-        saka.textContent = new Intl.DateTimeFormat("en-GB-u-ca-indian", {
-          day: "numeric",
-          month: "long",
-          year: "numeric"
-        }).format(now);
-      } catch {
-        saka.textContent = "Saka";
-      }
-    }
-  }
-
-  function svgPlaceholder(text, accentName) {
-    const map = {
-      maroon: "#6b0f1a",
-      blue: "#1d4ed8",
-      green: "#166534",
-      red: "#b91c1c"
-    };
-    const stroke = map[accentName] || map.maroon;
-    const safeText = (text || "Placeholder").slice(0, 24);
-
-    const svg =
-      `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
-        <rect x="18" y="18" width="1164" height="664" rx="40" fill="#ffffff" stroke="${stroke}" stroke-width="10"/>
-        <text x="600" y="360" text-anchor="middle"
-          font-family="Georgia, 'Times New Roman', serif"
-          font-size="92" font-weight="700" fill="${stroke}">
-          ${safeText}
-        </text>
-      </svg>`;
-
-    return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
-  }
-
-  function applyPlaceholders() {
-    const imgs = $$("img[data-placeholder], img[data-accent]");
-
-    imgs.forEach((img) => {
-      const phText = img.getAttribute("data-placeholder") || "Placeholder";
-      const accent = img.getAttribute("data-accent") || "maroon";
-
-      const realSrc = img.getAttribute("data-src") || img.getAttribute("src") || "";
-
-      if (!img.getAttribute("data-src") && realSrc) {
-        img.setAttribute("data-src", realSrc);
-      }
-
-      img.src = svgPlaceholder(phText, accent);
-
-      if (!realSrc) return;
-
-      const tester = new Image();
-      tester.decoding = "async";
-      tester.loading = "lazy";
-
-      tester.onload = () => {
-        img.src = realSrc;
-      };
-
-      tester.onerror = () => {
-        img.src = svgPlaceholder(phText, accent);
-      };
-
-      tester.src = realSrc;
-    });
-  }
-
-  async function fetchWeather() {
-    const bar = $("#weather-bar");
-    if (!bar) return;
-
-    const cities = [
-      { name: "Zurich", lat: 47.3769, lon: 8.5417 },
-      { name: "Jammu", lat: 32.7266, lon: 74.8570 },
-      { name: "Kashmir", lat: 34.0837, lon: 74.7973 },
-      { name: "Ladakh", lat: 34.1526, lon: 77.5771 },
-      { name: "Gilgit", lat: 35.9208, lon: 74.3081 },
-      { name: "Baltistan", lat: 35.2971, lon: 75.6333 },
-      { name: "Muzaffarabad", lat: 34.3700, lon: 73.4708 },
-      { name: "Rawalakot", lat: 33.8584, lon: 73.7669 }
-    ];
-
-    bar.innerHTML = "";
-
-    for (const c of cities) {
-      const chip = document.createElement("div");
-      chip.className = "chip tiny wx-chip";
-      chip.textContent = `${c.name}: …°C`;
-      bar.appendChild(chip);
-
-      try {
-        const url =
-          `https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(c.lat)}&longitude=${encodeURIComponent(c.lon)}&current=temperature_2m&temperature_unit=celsius&timezone=auto`;
-
-        const res = await fetch(url, { cache: "no-store" });
-        if (!res.ok) throw new Error("Weather fetch failed");
-        const data = await res.json();
-
-        const t = data && data.current && typeof data.current.temperature_2m === "number"
-          ? data.current.temperature_2m
-          : null;
-
-        chip.textContent = `${c.name}: ${t === null ? "—" : t.toFixed(1)}°C`;
-      } catch {
-        chip.textContent = `${c.name}: —°C`;
-      }
-    }
-  }
-
-  function setupContactModal() {
-    const modal = $("#contact-modal");
-    const openBtn = $("#open-contact");
-    const closeBtn = $("#close-contact");
-
-    if (!modal || !openBtn || !closeBtn) return;
-
-    openBtn.addEventListener("click", () => {
-      if (typeof modal.showModal === "function") modal.showModal();
-    });
-
-    closeBtn.addEventListener("click", () => {
-      if (typeof modal.close === "function") modal.close();
-    });
-
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal && typeof modal.close === "function") modal.close();
-    });
-  }
-
-  function setupShare() {
-    const btn = $("#share-btn");
-    const stickyShare = $("#sticky-share");
-
-    async function doShare() {
-      const url = location.href;
-      try {
-        if (navigator.share) {
-          await navigator.share({ title: document.title, url });
-          return;
-        }
-      } catch {}
-
-      try {
-        await navigator.clipboard.writeText(url);
-        alert("Link copied.");
-      } catch {
-        prompt("Copy link:", url);
-      }
-    }
-
-    if (btn) btn.addEventListener("click", doShare);
-    if (stickyShare) stickyShare.addEventListener("click", doShare);
-  }
-
-  function setupSearch() {
-    window.fakeSearch = function fakeSearch() {
-      const q = ($("#search-input")?.value || "").trim();
-      if (!q) return;
-      alert(`Search is a placeholder for now. You searched: ${q}`);
-    };
-
-    const stickySearch = $("#sticky-search");
-    if (stickySearch) {
-      stickySearch.addEventListener("click", () => {
-        const input = $("#search-input");
-        if (input) input.focus();
-      });
-    }
-  }
-
-  function setupDropdowns() {
-    const items = $$(".nav-item.has-sub");
-
-    function closeAll(except) {
-      items.forEach((li) => {
-        if (li !== except) li.classList.remove("open");
-        const btn = li.querySelector(".nav-btn");
-        if (btn) btn.setAttribute("aria-expanded", li.classList.contains("open") ? "true" : "false");
-      });
-    }
-
-    items.forEach((li) => {
-      const btn = li.querySelector(".nav-btn");
-      if (!btn) return;
-
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const willOpen = !li.classList.contains("open");
-        closeAll();
-        li.classList.toggle("open", willOpen);
-        btn.setAttribute("aria-expanded", willOpen ? "true" : "false");
-      });
-    });
-
-    document.addEventListener("click", (e) => {
-      const nav = $(".navbar");
-      if (!nav) return;
-      if (!nav.contains(e.target)) closeAll();
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeAll();
-    });
-  }
-
-  function setupMobileMenu() {
-    const hamburger = $("#hamburger");
-    const mobileMenu = $("#mobile-menu");
-    const navList = $("#nav-list");
-
-    if (!hamburger || !mobileMenu || !navList) return;
-
-    function buildMobile() {
-      mobileMenu.innerHTML = "";
-
-      const ul = document.createElement("ul");
-      ul.className = "nav-list mobile";
-
-      $$(".nav-item", navList).forEach((li) => {
-        const hasSub = li.classList.contains("has-sub");
-        const btn = li.querySelector(".nav-btn");
-        const dd = li.querySelector(".dropdown");
-
-        if (hasSub && btn && dd) {
-          const liWrap = document.createElement("li");
-          liWrap.className = "nav-item has-sub";
-
-          const topBtn = document.createElement("button");
-          topBtn.type = "button";
-          topBtn.className = "nav-btn";
-          topBtn.textContent = btn.textContent;
-
-          const panel = document.createElement("div");
-          panel.className = "dropdown";
-          panel.innerHTML = dd.innerHTML;
-          panel.hidden = true;
-
-          topBtn.addEventListener("click", () => {
-            panel.hidden = !panel.hidden;
-          });
-
-          liWrap.appendChild(topBtn);
-          liWrap.appendChild(panel);
-          ul.appendChild(liWrap);
-          return;
-        }
-
-        const link = li.querySelector("a.nav-btn") || li.querySelector("a");
-        if (link) {
-          const liWrap = document.createElement("li");
-          liWrap.className = "nav-item";
-          liWrap.appendChild(link.cloneNode(true));
-          ul.appendChild(liWrap);
-        }
-      });
-
-      mobileMenu.appendChild(ul);
-
-      $$("a", mobileMenu).forEach((a) => {
-        a.addEventListener("click", () => {
-          mobileMenu.hidden = true;
-          hamburger.setAttribute("aria-expanded", "false");
-        });
-      });
-    }
-
-    buildMobile();
-
-    hamburger.addEventListener("click", () => {
-      const isOpen = !mobileMenu.hidden;
-      mobileMenu.hidden = isOpen;
-      hamburger.setAttribute("aria-expanded", isOpen ? "false" : "true");
-    });
-
-    const stickyMenu = $("#sticky-menu");
-    if (stickyMenu) stickyMenu.addEventListener("click", () => hamburger.click());
-  }
-
-  function setupReadMore() {
-    $$(".read-more").forEach((a) => {
-      a.addEventListener("click", (e) => {
-        e.preventDefault();
-        alert("Read More is a placeholder. Next step is connecting articles.json to a full article page.");
-      });
-    });
-  }
-
-  function setupYear() {
-    const y = $("#year");
-    if (y) y.textContent = String(new Date().getFullYear());
-  }
-
-  function init() {
-    setupYear();
-    setClocks();
-    setInterval(setClocks, 1000);
-
-    applyPlaceholders();
-    fetchWeather();
-
-    setupDropdowns();
-    setupMobileMenu();
-
-    setupSearch();
-    setupShare();
-    setupReadMore();
-    setupContactModal();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-})();
+:root{
+  --maroon:#7a001e;
+  --maroon-2:#8a102e;
+  --text:#111;
+  --bg:#f5f5f7;
+  --card:#fff;
+  --shadow:0 6px 24px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.06);
+}
+
+/* RESET */
+*{ box-sizing:border-box }
+html,body{ margin:0; padding:0; scroll-behavior:smooth }
+body{
+  font-family: Georgia, "Times New Roman", serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* HEADER */
+.theme-maroon .site-header{ background:var(--maroon) }
+.site-header{
+  color:#fff;
+  padding:18px 8px 12px;
+  text-align:center;
+}
+.header-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+.logo{
+  width:72px;
+  height:72px;
+  object-fit:contain;
+  border-radius:12px;
+  background:#fff3;
+  padding:4px;
+}
+.site-title{
+  margin:0;
+  font-size:clamp(28px,5.8vw,56px);
+  font-weight:700;
+  text-transform:uppercase;
+}
+.subheading{
+  margin-top:6px;
+  font-size:clamp(11px,1.6vw,14px);
+  text-transform:uppercase;
+}
+
+/* INFO BARS */
+.bar{
+  background:#fff;
+  border-bottom:1px solid #e7e7ea;
+  box-shadow:var(--shadow);
+}
+.bar .row{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  padding:6px 8px;
+  flex-wrap:nowrap;
+}
+.chip{
+  background:#f0f2f5;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:12px;
+}
+
+/* WEATHER BAR CITY CHIPS (if your HTML uses .city) */
+#weather-bar .city{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:#f0f2f5;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:12px;
+  margin-right:6px;
+  white-space:nowrap;
+}
+#weather-bar .city .temp{ font-weight:700 }
+#weather-bar .city .name{ font-weight:600 }
+
+/* TICKER – FIXED SPEED + READABILITY */
+.ticker-wrap{
+  background:var(--maroon);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  overflow:hidden;
+}
+.ticker{
+  display:flex;
+  gap:12px;
+  flex:1;
+  overflow:hidden;
+}
+.ticker span{
+  font-weight:800;
+  white-space:nowrap;
+}
+.ticker ul{
+  display:flex;
+  gap:48px;
+  list-style:none;
+  padding:0;
+  margin:0;
+  white-space:nowrap;
+  animation:ticker-scroll 120s linear infinite;
+}
+.ticker li{
+  font-size:13px;
+  opacity:1;
+  text-shadow:0 1px 0 rgba(0,0,0,.25);
+}
+@keyframes ticker-scroll{
+  from{ transform:translateX(0) }
+  to{ transform:translateX(-50%) }
+}
+
+/* TOOLS (language + search) */
+.tools{ display:flex; align-items:center; gap:8px }
+.lang-select select,
+.search input,
+.search button{ font-size:12px }
+.lang-select select{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid #e3e3e8;
+  background:#fff;
+}
+.search{ display:flex; gap:6px }
+.search input{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid #e3e3e8;
+}
+.search button{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid #e3e3e8;
+  background:#fff;
+  cursor:pointer;
+}
+
+/* NAV */
+.navbar{ background:var(--maroon-2) }
+.nav-list{
+  display:flex;
+  justify-content:center;
+  gap:4px;
+  list-style:none;
+  margin:0;
+  padding:6px;
+}
+.nav-item{ position:relative }
+.nav-btn{
+  color:#fff;
+  background:none;
+  border:none;
+  padding:8px 10px;
+  border-radius:10px;
+  cursor:pointer;
+  text-decoration:none;
+}
+.nav-btn:hover{ background:rgba(255,255,255,.12) }
+
+/* Dropdown support (if your project uses it) */
+.dropdown{
+  position:absolute;
+  left:0;
+  top:calc(100% + 6px);
+  background:#fff;
+  color:#111;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  padding:8px;
+  display:none;
+  min-width:180px;
+  z-index:20;
+}
+.nav-item.open .dropdown{ display:block }
+.dropdown a{
+  display:block;
+  padding:8px 10px;
+  border-radius:8px;
+  color:#111;
+  text-decoration:none;
+  font-size:13px;
+}
+.dropdown a:hover{ background:#f3f5f8 }
+
+/* Mobile menu (if present) */
+.hamburger{
+  display:none;
+  background:none;
+  border:none;
+  color:#fff;
+  padding:10px 12px;
+  font-size:14px;
+}
+.mobile-menu{
+  display:none;
+  padding:10px;
+  background:#fff;
+  box-shadow:var(--shadow);
+}
+.mobile-menu[hidden]{ display:none }
+.mobile-menu ul{ list-style:none; margin:0; padding:0 }
+
+/* MAIN */
+.main{
+  max-width:1200px;
+  margin:18px auto;
+  padding:0 12px;
+}
+
+/* CARDS */
+.cards{ display:grid; gap:12px }
+.cards.three{ grid-template-columns:repeat(3,1fr) }
+.cards.two{ grid-template-columns:repeat(2,1fr) }
+
+.card{
+  background:var(--card);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.card .media{ position:relative; overflow:hidden }
+.card .media img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  display:block;
+}
+.badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:#ef5350;
+  color:#fff;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+}
+.badge.time{
+  left:auto;
+  right:10px;
+  background:#333;
+}
+.badge.breaking{
+  top:46px;
+  background:#d62828;
+}
+
+/* card text */
+.card .card-body{ padding:14px }
+.card .card-body h3{
+  margin:0 0 8px;
+  font-size:20px;
+  line-height:1.2;
+}
+.card .card-body p{
+  margin:0 0 10px;
+  font-size:14px;
+  color:#333;
+}
+.meta{
+  display:flex;
+  gap:10px;
+  font-size:13px;
+  color:#666;
+  margin-bottom:8px;
+}
+.read-more{
+  color:#d62828;
+  text-decoration:none;
+  font-weight:700;
+}
+
+/* Missing image placeholders */
+.media-placeholder{
+  height:200px;
+  background:#f2f2f2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+.media-placeholder-inner{
+  width:100%;
+  height:100%;
+  border:3px solid #7a0d22;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:26px;
+  font-weight:700;
+  color:#7a0d22;
+  background:#f7f7f7;
+}
+.media-placeholder.accent-blue .media-placeholder-inner{ border-color:#1f6feb; color:#1f6feb }
+.media-placeholder.accent-green .media-placeholder-inner{ border-color:#1f7a4d; color:#1f7a4d }
+
+/* ACTION BAR (bottom of each content) */
+.content-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  padding:12px 12px 14px;
+  border-top:1px solid #eee;
+  background:#fff;
+}
+.icon-btn{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:8px 12px;
+  border-radius:999px;
+  cursor:pointer;
+  font-size:13px;
+}
+.icon-btn:hover{ background:#f6f6f6 }
+.icon-btn.active{
+  border-color:#d62828;
+  background:#fff5f5;
+}
+
+/* ARTICLE PAGE */
+.article-wrap{
+  max-width:980px;
+  margin:0 auto;
+  padding:26px 16px 60px;
+}
+.article-card{
+  background:#fff;
+  border-radius:18px;
+  padding:22px 18px;
+  box-shadow:var(--shadow);
+}
+.article-title{
+  font-size:34px;
+  margin:0 0 10px;
+}
+.article-hero{
+  width:100%;
+  max-height:520px;
+  object-fit:cover;
+  border-radius:14px;
+  margin:12px 0;
+}
+.article-gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.article-gallery img{
+  height:160px;
+  object-fit:cover;
+  border-radius:12px;
+}
+.article-p{
+  font-size:17px;
+  line-height:1.85;
+  margin-bottom:14px;
+}
+
+/* ABOUT + CHIEF EDITOR (if used) */
+.page-hero-row{ display:flex; gap:16px }
+.page-side{ width:170px; text-align:center }
+.page-side img{
+  width:150px;
+  height:150px;
+  object-fit:cover;
+  border-radius:16px;
+}
+
+/* FOOTER */
+.footer{
+  background:var(--maroon);
+  color:#fff;
+  text-align:center;
+  padding:14px 10px;
+  margin-top:24px;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .cards.three{ grid-template-columns:repeat(2,1fr) }
+}
+@media(max-width:780px){
+  .hamburger{ display:inline-block }
+  .nav-list{ display:none }
+  .mobile-menu{ display:block }
+}
+@media(max-width:600px){
+  .cards.three,.cards.two{ grid-template-columns:1fr }
+  .article-hero{ max-height:360px }
+  .tools{ display:none }
+}
