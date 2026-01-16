@@ -141,7 +141,7 @@ body{ font-family: var(--serif); background:var(--bg); color:var(--text) }
   white-space:nowrap;
   width:max-content;
   will-change:transform;
-  animation: ticker-scroll var(--ticker-speed, 180s) linear infinite;
+  animation: ticker-scroll var(--ticker-speed, 210s) linear infinite;
 }
 
 .ticker li{
