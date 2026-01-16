@@ -80,10 +80,10 @@
 
   <ul class="nav-list" id="nav-list">
     <li class="nav-item">
-      <button class="nav-btn" data-toggle="dropdown">🏠 Home</button>
-      <div class="dropdown">
+      <button class="nav-btn" id="home-btn" aria-expanded="false">🏠 Home</button>
+      <div class="dropdown" id="home-dropdown">
         <a href="#about">About Us</a>
-        <a href="#chief-editor">Chief Editor</a>
+        <a href="chief-editor.html">Chief Editor</a>
         <a href="#contact">Contact Us</a>
       </div>
     </li>
@@ -144,5 +144,25 @@
 </footer>
 
 <script src="script.js?v=5"></script>
+
+<script>
+const homeBtn = document.getElementById("home-btn");
+const homeDropdown = document.getElementById("home-dropdown");
+
+if (homeBtn && homeDropdown) {
+  homeBtn.addEventListener("click", e => {
+    e.stopPropagation();
+    const isOpen = homeDropdown.style.display === "block";
+    homeDropdown.style.display = isOpen ? "none" : "block";
+    homeBtn.setAttribute("aria-expanded", String(!isOpen));
+  });
+
+  document.addEventListener("click", () => {
+    homeDropdown.style.display = "none";
+    homeBtn.setAttribute("aria-expanded", "false");
+  });
+}
+</script>
+
 </body>
 </html>
