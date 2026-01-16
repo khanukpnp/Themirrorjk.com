@@ -7,17 +7,19 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body>
+<body class="theme-maroon">
 
 <header class="site-header">
   <div class="header-row">
     <img class="logo" src="assets/images/logo.png" alt="The Mirror JK logo" />
+
     <div class="header-center">
       <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
       <div class="subheading">
         CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD. REVEALING THE TRUTH BEYOND BORDERS
       </div>
     </div>
+
     <img class="logo" src="assets/images/logo.png" alt="The Mirror JK logo" />
   </div>
 </header>
@@ -34,13 +36,12 @@
 
 <section class="ticker-wrap">
   <div class="ticker">
-    <span class="ticker-label">BREAKING</span>
-    <div class="ticker-viewport">
-      <div class="ticker-track" id="ticker-items">
-        <span class="ticker-item"></span>
-        <span class="ticker-item" aria-hidden="true"></span>
-      </div>
-    </div>
+    <span>BREAKING</span>
+    <ul id="ticker-items">
+      <li>THE MIRROR JAMMU KASHMIR AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH JUSTICE AND HUMAN DIGNITY.</li>
+      <li>WE CHALLENGE SILENCE EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES.</li>
+      <li>OUR MISSION IS TO CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR.</li>
+    </ul>
   </div>
 </section>
 
@@ -54,6 +55,7 @@
 </nav>
 
 <main class="main" style="padding:32px 16px; max-width:1200px; margin:auto">
+
   <section class="card">
     <div class="card-body">
       <h2>About Us</h2>
@@ -81,24 +83,19 @@
           </p>
 
           <div class="content-actions">
-            <button class="action-btn" data-like title="Like">
-              ❤️
-            </button>
-            <button class="action-btn" data-copy title="Copy link">
-              🔗
-            </button>
-            <button class="action-btn" data-share title="Share">
-              📤
-            </button>
+            <button class="action-btn" data-like aria-label="Like">❤️</button>
+            <button class="action-btn" data-copy aria-label="Copy link">🔗</button>
+            <button class="action-btn" data-share aria-label="Share">📤</button>
           </div>
         </div>
 
         <div class="about-media">
-          <img class="about-img" src="assets/images/logo.png" alt="The Mirror Jammu Kashmir logo">
+          <img class="about-img" src="assets/images/logo.png" alt="The Mirror Jammu Kashmir logo" />
         </div>
       </div>
     </div>
   </section>
+
 </main>
 
 <footer class="footer">
@@ -109,9 +106,9 @@
 
 <script>
 document.addEventListener("click", e => {
+
   if (e.target.dataset.copy !== undefined) {
     navigator.clipboard.writeText(window.location.href);
-    alert("Link copied");
   }
 
   if (e.target.dataset.share !== undefined && navigator.share) {
@@ -120,6 +117,11 @@ document.addEventListener("click", e => {
       url: window.location.href
     });
   }
+
+  if (e.target.dataset.like !== undefined) {
+    e.target.classList.toggle("liked");
+  }
+
 });
 </script>
 
