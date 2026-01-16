@@ -32,8 +32,8 @@
     <div id="clock-cest" class="chip tiny">🕒 <span>Loading CEST…</span></div>
     <div id="hijri-date" class="chip tiny">📅 <span>Hijri…</span></div>
     <div id="saka-date" class="chip tiny">📅 <span>Saka…</span></div>
-    <div id="ist-time" class="chip tiny">🕒 IST: <span>—:—</span></div>
-    <div id="pkt-time" class="chip tiny">🕒 PKT: <span>—:—</span></div>
+    <div id="ist-time" class="chip tiny">🕒 IST <span>—:—</span></div>
+    <div id="pkt-time" class="chip tiny">🕒 PKT <span>—:—</span></div>
   </div>
 </section>
 
@@ -46,11 +46,8 @@
     <span>BREAKING</span>
     <ul id="ticker-items">
       <li>WELCOME TO THE MIRROR JAMMU KASHMIR. EMPOWERING TRUTH BEYOND BORDERS.</li>
-      <li>SUBMIT NEWS, FEEDBACK, AND URGENT UPDATES VIA THE CONTACT SECTION.</li>
       <li>THE MIRROR JAMMU KASHMIR IS AN INDEPENDENT DIGITAL MEDIA PLATFORM.</li>
       <li>WE CHALLENGE SILENCE, EXPOSE INJUSTICE, AND AMPLIFY SUPPRESSED VOICES.</li>
-      <li>OUR MISSION IS TO CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR.</li>
-      <li>ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS.</li>
       <li>INDEPENDENT JOURNALISM IS ESSENTIAL FOR DEMOCRACY AND ACCOUNTABILITY.</li>
     </ul>
   </div>
@@ -79,11 +76,11 @@
   <button class="hamburger" id="hamburger">☰ Menu</button>
 
   <ul class="nav-list" id="nav-list">
-    <li class="nav-item">
-      <button class="nav-btn" data-toggle="dropdown">🏠 Home</button>
+    <li class="nav-item" id="home-item">
+      <button class="nav-btn" type="button">🏠 Home</button>
       <div class="dropdown">
-        <a href="#about">About Us</a>
-        <a href="#chief-editor">Chief Editor</a>
+        <a href="about.html">About Us</a>
+        <a href="chief-editor.html">Chief Editor</a>
         <a href="#contact">Contact Us</a>
       </div>
     </li>
@@ -101,33 +98,39 @@
 
 <main class="main">
 
-<section id="about" class="card">
+<section id="breaking" class="card">
   <div class="card-body">
-    <h3>About Us</h3>
-    <p>
-      The Mirror Jammu Kashmir is an independent digital media platform committed to truth, justice, and human dignity.
-    </p>
-    <p>
-      We focus on verified reporting, human rights documentation, international law, and ground realities.
-    </p>
+    <h2>Breaking News</h2>
+    <p>Latest verified updates and urgent developments.</p>
   </div>
 </section>
 
-<section id="chief-editor" class="card">
+<section id="blog" class="card">
   <div class="card-body">
-    <h3>Chief Editor</h3>
-    <p>
-      Editorial direction and ethical oversight are guided by experienced voices committed to responsible journalism.
-    </p>
-    <a class="read-more" href="chief-editor.html">Read full profile →</a>
+    <h2>Latest Articles</h2>
+    <p>Editorials, opinion pieces, and in depth analysis.</p>
+  </div>
+</section>
+
+<section id="vlog" class="card">
+  <div class="card-body">
+    <h2>Vlogs</h2>
+    <p>Video reports, interviews, and documentaries.</p>
+  </div>
+</section>
+
+<section id="epaper" class="card">
+  <div class="card-body">
+    <h2>E-Paper</h2>
+    <p>Digital editions and publications.</p>
   </div>
 </section>
 
 <section id="contact" class="card">
   <div class="card-body">
-    <h3>Contact Us</h3>
-    <p>Email: <strong>contact@themirrorjk@gmail.com</strong></p>
-    <p>Phone: <strong>+41 783 13 12 13</strong></p>
+    <h2>Contact</h2>
+    <p>Email: contact@themirrorjk@gmail.com</p>
+    <p>Phone: +41 783 13 12 13</p>
   </div>
 </section>
 
@@ -144,5 +147,20 @@
 </footer>
 
 <script src="script.js?v=5"></script>
+
+<script>
+const homeItem = document.getElementById("home-item");
+const homeBtn = homeItem.querySelector(".nav-btn");
+
+homeBtn.addEventListener("click", e => {
+  e.stopPropagation();
+  homeItem.classList.toggle("open");
+});
+
+document.addEventListener("click", () => {
+  homeItem.classList.remove("open");
+});
+</script>
+
 </body>
 </html>
