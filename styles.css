@@ -10,6 +10,7 @@
   --ui-font: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   --serif: Georgia, "Times New Roman", serif;
 }
+
 *{ box-sizing:border-box }
 html,body{ margin:0; padding:0; scroll-behavior:smooth }
 body{ font-family: var(--serif); background:var(--bg); color:var(--text) }
@@ -140,7 +141,7 @@ body{ font-family: var(--serif); background:var(--bg); color:var(--text) }
   white-space:nowrap;
   width:max-content;
   will-change:transform;
-  animation: ticker-scroll var(--ticker-speed, 210s) linear infinite;
+  animation: ticker-scroll var(--ticker-speed, 45s) linear infinite;
 }
 
 .ticker li{
@@ -153,7 +154,7 @@ body{ font-family: var(--serif); background:var(--bg); color:var(--text) }
 
 @keyframes ticker-scroll{
   from{ transform:translateX(0) }
-  to{ transform:translateX(-100%) }
+  to{ transform:translateX(-50%) }
 }
 
 .tools{ display:flex; align-items:center; gap:8px }
@@ -470,6 +471,12 @@ input[type="email"], input[type="text"], textarea, input[type="file"]{
 img[data-ph-ready="1"]{
   background:#f2f2f2;
 }
+
+/* Additions for index.html v5 class names, safe, no font scaling */
+.ticker-label{ font-weight:800; letter-spacing:.6px; }
+.section-title{ margin:0 0 10px; }
+.section-title.plain{ margin:0; }
+.globe{ display:inline-block; margin-right:6px; }
 
 /* Responsive */
 @media (max-width: 1000px){
