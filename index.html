@@ -16,151 +16,33 @@
   <div class="header-row">
     <img src="assets/images/logo.png" alt="Logo" class="logo" />
 
-    <div class="header-center">
-      <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-      <div class="subheading">
-        CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD. REVEALING THE TRUTH BEYOND BORDERS
-      </div>
-    </div>
+    <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
 
     <img src="assets/images/logo.png" alt="Logo" class="logo" />
   </div>
+
+  <div class="subheading">
+    CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD. REVEALING THE TRUTH BEYOND BORDERS
+  </div>
 </header>
 
+<!-- CLOCKS + CALENDARS -->
 <section class="bar">
   <div class="row tight nowrap">
-    <div id="clock-cest" class="chip tiny">🕒 <span>Loading CEST…</span></div>
-    <div id="hijri-date" class="chip tiny">📅 <span>Hijri…</span></div>
-    <div id="saka-date" class="chip tiny">📅 <span>Saka…</span></div>
-    <div id="ist-time" class="chip tiny">🕒 IST <span>—:—</span></div>
-    <div id="pkt-time" class="chip tiny">🕒 PKT <span>—:—</span></div>
+    <div id="clock-cest" class="chip tiny">🕒 <span>Loading…</span></div>
+    <div id="cal-hijri" class="chip tiny">📅 <span>Loading…</span></div>
+    <div id="cal-hindi" class="chip tiny">📅 <span>Loading…</span></div>
+    <div id="tz-ist" class="chip tiny">🕒 IST <span>—:—</span></div>
+    <div id="tz-pkt" class="chip tiny">🕒 PKT <span>—:—</span></div>
   </div>
 </section>
 
+<!-- WEATHER -->
 <section class="bar">
   <div class="row nowrap super-tight" id="weather-bar"></div>
 </section>
 
+<!-- TICKER -->
 <section class="ticker-wrap">
   <div class="ticker">
-    <span>BREAKING</span>
-    <ul id="ticker-items">
-      <li>WELCOME TO THE MIRROR JAMMU KASHMIR. EMPOWERING TRUTH BEYOND BORDERS.</li>
-      <li>THE MIRROR JAMMU KASHMIR IS AN INDEPENDENT DIGITAL MEDIA PLATFORM.</li>
-      <li>WE CHALLENGE SILENCE, EXPOSE INJUSTICE, AND AMPLIFY SUPPRESSED VOICES.</li>
-      <li>INDEPENDENT JOURNALISM IS ESSENTIAL FOR DEMOCRACY AND ACCOUNTABILITY.</li>
-    </ul>
-  </div>
-
-  <div class="tools">
-    <div class="lang-select">
-      <span>🌍</span>
-      <select>
-        <option selected>English</option>
-        <option>Urdu</option>
-        <option>German</option>
-        <option>French</option>
-        <option>Arabic</option>
-        <option>Hindi</option>
-      </select>
-    </div>
-
-    <form class="search" onsubmit="event.preventDefault()">
-      <input type="search" placeholder="Search…" />
-      <button type="submit">🔍</button>
-    </form>
-  </div>
-</section>
-
-<nav class="navbar">
-  <button class="hamburger" id="hamburger">☰ Menu</button>
-
-  <ul class="nav-list" id="nav-list">
-    <li class="nav-item" id="home-item">
-      <button class="nav-btn" type="button">🏠 Home</button>
-      <div class="dropdown">
-        <a href="about.html">About Us</a>
-        <a href="chief-editor.html">Chief Editor</a>
-        <a href="#contact">Contact Us</a>
-      </div>
-    </li>
-
-    <li class="nav-item"><a class="nav-btn" href="#breaking">🆕 Breaking News</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#blog">📝 Blog</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#vlog">🎥 Vlog</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#epaper">📰 E-Paper</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#un">🕊️ UN & Human Rights</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#global">🌐 Global Advocacy</a></li>
-  </ul>
-
-  <div class="mobile-menu" id="mobile-menu"></div>
-</nav>
-
-<main class="main">
-
-<section id="breaking" class="card">
-  <div class="card-body">
-    <h2>Breaking News</h2>
-    <p>Latest verified updates and urgent developments.</p>
-  </div>
-</section>
-
-<section id="blog" class="card">
-  <div class="card-body">
-    <h2>Latest Articles</h2>
-    <p>Editorials, opinion pieces, and in depth analysis.</p>
-  </div>
-</section>
-
-<section id="vlog" class="card">
-  <div class="card-body">
-    <h2>Vlogs</h2>
-    <p>Video reports, interviews, and documentaries.</p>
-  </div>
-</section>
-
-<section id="epaper" class="card">
-  <div class="card-body">
-    <h2>E-Paper</h2>
-    <p>Digital editions and publications.</p>
-  </div>
-</section>
-
-<section id="contact" class="card">
-  <div class="card-body">
-    <h2>Contact</h2>
-    <p>Email: contact@themirrorjk@gmail.com</p>
-    <p>Phone: +41 783 13 12 13</p>
-  </div>
-</section>
-
-</main>
-
-<footer class="footer">
-  <div class="social">
-    <a href="#">𝕏</a>
-    <a href="#">Instagram</a>
-    <a href="#">YouTube</a>
-    <a href="#">Facebook</a>
-  </div>
-  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-</footer>
-
-<script src="script.js?v=5"></script>
-
-<script>
-const homeItem = document.getElementById("home-item");
-const homeBtn = homeItem.querySelector(".nav-btn");
-
-homeBtn.addEventListener("click", e => {
-  e.stopPropagation();
-  homeItem.classList.toggle("open");
-});
-
-document.addEventListener("click", () => {
-  homeItem.classList.remove("open");
-});
-</script>
-
-</body>
-</html>
+    <span>BREAKING</s
