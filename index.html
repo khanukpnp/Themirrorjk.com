@@ -7,7 +7,7 @@
   <title>THE MIRROR JAMMU KASHMIR</title>
   <meta name="description" content="The Mirror Jammu Kashmir, Champion justice & amplify the voices of the unheard." />
   <link rel="preconnect" href="https://api.open-meteo.com">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=5" />
 </head>
 
 <body class="theme-maroon">
@@ -76,9 +76,9 @@
   <button class="hamburger" id="hamburger">☰ Menu</button>
 
   <ul class="nav-list" id="nav-list">
-    <li class="nav-item">
-      <button class="nav-btn" id="homeToggle">🏠 Home</button>
-      <div class="dropdown" id="homeDropdown">
+    <li class="nav-item" id="home-item">
+      <button class="nav-btn" type="button">🏠 Home</button>
+      <div class="dropdown">
         <a href="about.html">About Us</a>
         <a href="chief-editor.html">Chief Editor</a>
         <a href="#contact">Contact Us</a>
@@ -98,66 +98,36 @@
 
 <main class="main">
 
-  <section id="breaking" class="card">
-    <div class="card-body">
-      <h2>Breaking News</h2>
-      <p>Latest verified updates and urgent developments.</p>
-    </div>
-  </section>
-
-  <section id="blog" class="card">
-    <div class="card-body">
-      <h2>Latest Articles</h2>
-      <p>Editorials, opinion pieces, and in depth analysis.</p>
-    </div>
-  </section>
-
-  <section id="vlog" class="card">
-    <div class="card-body">
-      <h2>Vlogs</h2>
-      <p>Video reports, interviews, and documentaries.</p>
-    </div>
-  </section>
-
-  <section id="epaper" class="card">
-    <div class="card-body">
-      <h2>E-Paper</h2>
-      <p>Digital editions and publications.</p>
-    </div>
-  </section>
-
-  <section id="contact" class="card">
-    <div class="card-body">
-      <h2>Contact</h2>
-      <p>Email: contact@themirrorjk@gmail.com</p>
-      <p>Phone: +41 783 13 12 13</p>
-    </div>
-  </section>
-
-</main>
-
-<footer class="footer">
-  <div class="social">
-    <a href="#">𝕏</a>
-    <a href="#">Instagram</a>
-    <a href="#">YouTube</a>
-    <a href="#">Facebook</a>
+<section id="breaking" class="card">
+  <div class="card-body">
+    <h2>Breaking News</h2>
+    <p>Latest verified updates and urgent developments.</p>
   </div>
-  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-</footer>
+</section>
 
-<script src="script.js"></script>
+<section id="blog" class="card">
+  <div class="card-body">
+    <h2>Latest Articles</h2>
+    <p>Editorials, opinion pieces, and in depth analysis.</p>
+  </div>
+</section>
 
-<script>
-document.getElementById("homeToggle").addEventListener("click", function (e) {
-  e.stopPropagation();
-  document.getElementById("homeDropdown").classList.toggle("open");
-});
+<section id="vlog" class="card">
+  <div class="card-body">
+    <h2>Vlogs</h2>
+    <p>Video reports, interviews, and documentaries.</p>
+  </div>
+</section>
 
-document.addEventListener("click", function () {
-  document.getElementById("homeDropdown").classList.remove("open");
-});
-</script>
+<section id="epaper" class="card">
+  <div class="card-body">
+    <h2>E-Paper</h2>
+    <p>Digital editions and publications.</p>
+  </div>
+</section>
 
-</body>
-</html>
+<section id="contact" class="card">
+  <div class="card-body">
+    <h2>Contact</h2>
+    <p>Email: contact@themirrorjk@gmail.com</p>
+    <p>Phone: +41 783 13 12 13</p
