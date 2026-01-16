@@ -141,7 +141,7 @@ body{ font-family: var(--serif); background:var(--bg); color:var(--text) }
   white-space:nowrap;
   width:max-content;
   will-change:transform;
-  animation: ticker-scroll var(--ticker-speed, 45s) linear infinite;
+  animation: ticker-scroll var(--ticker-speed, 80s) linear infinite;
 }
 
 .ticker li{
@@ -154,7 +154,7 @@ body{ font-family: var(--serif); background:var(--bg); color:var(--text) }
 
 @keyframes ticker-scroll{
   from{ transform:translateX(0) }
-  to{ transform:translateX(-50%) }
+  to{ transform:translateX(-100%) }
 }
 
 .tools{ display:flex; align-items:center; gap:8px }
