@@ -1,31 +1,240 @@
 <!DOCTYPE html>
 <html lang="en" id="top">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <base href="./" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="./">
   <title>THE MIRROR JAMMU KASHMIR</title>
-  <meta name="description" content="The Mirror Jammu Kashmir, Champion justice & amplify the voices of the unheard." />
+
+  <meta name="description" content="The Mirror Jammu Kashmir. Champion justice and amplify the voices of the unheard.">
   <link rel="preconnect" href="https://api.open-meteo.com">
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 
 <body class="theme-maroon">
 
 <header class="site-header">
   <div class="header-row">
-    <img src="assets/images/logo.png" alt="Logo" class="logo" />
+    <img src="assets/logo.png" alt="Logo" class="logo">
+
     <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-    <img src="assets/images/logo.png" alt="Logo" class="logo" />
+
+    <img src="assets/logo.png" alt="Logo" class="logo">
   </div>
 
   <div class="subheading">
-    CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD. REVEALING THE TRUTH BEYOND BORDERS
+    CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD. REVEALING THE TRUTH BEYOND BORDERS
   </div>
 </header>
 
-<!-- CLOCKS & CALENDARS -->
 <section class="bar">
   <div class="row tight nowrap">
-    <div id="clock-cest" class="chip tiny">🕒 <span>Loading…</span></div>
-    <div id="cal-hijri" class="chip tiny">📅 <span>Loading…</span></di
+    <div id="clock-cest" class="chip tiny">🕒 CEST</div>
+    <div id="cal-hijri" class="chip tiny">📅 Hijri</div>
+    <div id="cal-hindi" class="chip tiny">📅 VS</div>
+    <div id="tz-ist" class="chip tiny">🕒 IST</div>
+    <div id="tz-pkt" class="chip tiny">🕒 PKT</div>
+  </div>
+</section>
+
+<section class="bar">
+  <div class="row super-tight nowrap" id="weather-bar"></div>
+</section>
+
+<section class="ticker-wrap">
+  <div class="ticker">
+    <span>BREAKING:</span>
+    <ul id="ticker-items">
+      <li>Welcome to The Mirror Jammu Kashmir</li>
+      <li>Independent journalism and human rights reporting</li>
+      <li>Multilingual and mobile first platform</li>
+    </ul>
+  </div>
+
+  <div class="tools">
+    <div class="lang-select">
+      🌍
+      <select>
+        <option>English</option>
+        <option>Urdu</option>
+        <option>German</option>
+        <option>French</option>
+        <option>Arabic</option>
+      </select>
+    </div>
+
+    <form class="search" onsubmit="event.preventDefault()">
+      <input type="search" placeholder="Search">
+      <button type="submit">🔍</button>
+    </form>
+  </div>
+</section>
+
+<nav class="navbar">
+  <button class="hamburger" id="hamburger">☰ Menu</button>
+
+  <ul class="nav-list" id="nav-list">
+    <li class="nav-item"><a class="nav-btn" href="#">🏠 Home</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">🆕 Breaking News</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">📝 Blog</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">🎥 Vlog</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">📰 E-Paper</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">📍 Jammu Kashmir</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">📜 Historical Documents</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">🕊️ UN & Human Rights</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">🌐 Global Advocacy</a></li>
+  </ul>
+
+  <div id="mobile-menu" class="mobile-menu" hidden></div>
+</nav>
+
+<main class="main">
+
+<section>
+  <h2 class="section-title">📝 Latest Articles</h2>
+
+  <div class="cards three">
+    <article class="card">
+      <div class="media">
+        <img data-placeholder="Editorial Placeholder" data-accent="maroon">
+      </div>
+      <div class="card-body">
+        <h3>Editorial Title</h3>
+        <p>Short editorial summary text.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="media">
+        <img data-placeholder="Opinion Placeholder" data-accent="blue">
+      </div>
+      <div class="card-body">
+        <h3>Opinion Title</h3>
+        <p>Short opinion summary text.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="media">
+        <img data-placeholder="Update Placeholder" data-accent="green">
+      </div>
+      <div class="card-body">
+        <h3>Update Title</h3>
+        <p>Short update summary text.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section-rail">
+  <div class="rail-header">🌐 International News</div>
+
+  <div class="cards two">
+    <article class="card rail">
+      <div class="media">
+        <img data-placeholder="International Placeholder" data-accent="maroon">
+      </div>
+      <div class="card-body">
+        <h3>International Headline</h3>
+        <p>International news summary.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+
+    <article class="card rail">
+      <div class="media">
+        <img data-placeholder="International Placeholder" data-accent="maroon">
+      </div>
+      <div class="card-body">
+        <h3>International Headline</h3>
+        <p>International news summary.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section-rail">
+  <div class="rail-header">🧑‍⚕️ Human Rights</div>
+
+  <div class="cards two">
+    <article class="card rail">
+      <div class="media">
+        <img data-placeholder="Human Rights Placeholder" data-accent="maroon">
+      </div>
+      <div class="card-body">
+        <h3>Human Rights Headline</h3>
+        <p>Human rights summary.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+
+    <article class="card rail">
+      <div class="media">
+        <img data-placeholder="Human Rights Placeholder" data-accent="maroon">
+      </div>
+      <div class="card-body">
+        <h3>Human Rights Headline</h3>
+        <p>Human rights summary.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="contact-wrap">
+  <div class="newsletter card">
+    <h2>📬 Newsletter</h2>
+    <form data-netlify="true" name="newsletter">
+      <input type="email" placeholder="your@email.com" required>
+      <button class="btn">Subscribe</button>
+    </form>
+  </div>
+
+  <div class="contact card">
+    <h2>✉️ Contact</h2>
+    <p>Email: <a href="mailto:mirrorjk@gmail.com">mirrorjk@gmail.com</a></p>
+    <button class="btn" id="open-contact">Open Contact Form</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="social">
+    <a href="#">𝕏</a>
+    <a href="#">📸</a>
+    <a href="#">▶️</a>
+    <a href="#">📘</a>
+  </div>
+
+  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+</footer>
+
+<dialog id="contact-modal" class="modal">
+  <form data-netlify="true" name="contact" class="modal-card">
+    <h3>Contact Form</h3>
+    <label>Name <input type="text" required></label>
+    <label>Email <input type="email" required></label>
+    <label>Message <textarea rows="4" required></textarea></label>
+    <div class="modal-actions">
+      <button class="btn">Submit</button>
+      <button type="button" class="btn outline" id="close-contact">Exit</button>
+    </div>
+  </form>
+</dialog>
+
+<nav class="mobile-sticky">
+  <a href="#top">🏠</a>
+  <button>🔍</button>
+  <button>❤️</button>
+  <button>🔗</button>
+  <button>☰</button>
+</nav>
+
+<script src="script.js?v=6"></script>
+</body>
+</html>
