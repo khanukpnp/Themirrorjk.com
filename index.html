@@ -1,501 +1,241 @@
-Stlyes css Jan 16 2026
-:root{
-  --maroon:#7a001e;
-  --maroon-2:#8a102e;
-  --text:#111;
-  --text-inv:#fff;
-  --bg:#f5f5f7;
-  --card:#fff;
-  --accent:#e53935;
-  --shadow:0 6px 24px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.06);
-  --ui-font: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  --serif: Georgia, "Times New Roman", serif;
-}
-
-*{ box-sizing:border-box }
-html,body{ margin:0; padding:0; scroll-behavior:smooth }
-body{ font-family: var(--serif); background:var(--bg); color:var(--text) }
-
-.theme-maroon .site-header{ background:var(--maroon) }
-.site-header{ color:#fff; padding:16px 10px 12px; text-align:center }
-
-.header-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  max-width:1200px;
-  margin:0 auto;
-}
-
-.logo{
-  width:70px;
-  height:70px;
-  object-fit:contain;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
-  border-radius:12px;
-  background:#ffffff22;
-  padding:6px;
-  flex:0 0 auto;
-}
-
-.site-title{
-  margin:0;
-  flex:1;
-  text-align:center;
-  font-family: var(--serif);
-  font-size: clamp(26px, 4.6vw, 48px);
-  line-height:1.05;
-  letter-spacing:.4px;
-  font-weight:800;
-  text-transform: uppercase;
-  text-shadow: 0 1px 0 rgba(255,255,255,.25), 0 2px 0 rgba(0,0,0,.12), 0 4px 6px rgba(0,0,0,.28);
-  white-space: nowrap;
-  overflow:hidden;
-  text-overflow: ellipsis;
-}
-
-.subheading{
-  margin-top:6px;
-  font-family: var(--serif);
-  font-size: clamp(11px, 1.4vw, 13px);
-  letter-spacing:.7px;
-  text-transform: uppercase;
-  opacity:.95;
-}
-
-.bar{
-  background:#fff;
-  border-bottom:1px solid #e7e7ea;
-  box-shadow: var(--shadow);
-  font-family: var(--ui-font);
-}
-
-.bar .row{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:6px 10px;
-}
-
-.bar .row.tight{ padding:4px 10px; gap:8px }
-.bar .row.super-tight{ padding:2px 8px; gap:6px }
-.bar .row.nowrap{ flex-wrap:nowrap; overflow:hidden }
-
-.chip{
-  background:#f0f2f5;
-  border-radius:999px;
-  padding:5px 10px;
-  font-size:12px;
-  white-space:nowrap;
-  box-shadow: inset 0 1px 0 #ffffff40, 0 1px 2px rgba(0,0,0,.05);
-}
-
-.chip.tiny{
-  padding:4px 9px;
-  font-size:12px;
-}
-
-#weather-bar{ white-space:nowrap }
-
-#weather-bar .chip,
-#weather-bar .wx-chip{
-  font-family: var(--ui-font);
-  font-size:12px;
-  padding:4px 9px;
-}
-
-.ticker-wrap{
-  background:var(--maroon);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 10px;
-  position:relative;
-  z-index:40;
-  font-family: var(--ui-font);
-}
-
-.ticker{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  overflow:hidden;
-  flex:1;
-}
-
-.ticker > span{
-  font-weight:800;
-  letter-spacing:.6px;
-}
-
-.ticker ul{
-  display:flex;
-  align-items:center;
-  gap:44px;
-  list-style:none;
-  padding:0;
-  margin:0;
-  flex-wrap:nowrap;
-  white-space:nowrap;
-  width:max-content;
-  will-change:transform;
-  animation: ticker-scroll var(--ticker-speed, 220s) linear infinite;
-}
-
-.ticker li{
-  text-transform:uppercase;
-  font-size:12px;
-  white-space:nowrap;
-  opacity:.95;
-  flex:0 0 auto;
-}
-
-@keyframes ticker-scroll{
-  from{ transform:translateX(0) }
-  to{ transform:translateX(-50%) }
-}
-
-.tools{ display:flex; align-items:center; gap:8px }
-.lang-select{ display:flex; align-items:center; gap:6px }
-.lang-select select, .search input, .search button{ font-family: var(--ui-font); font-size:12px }
-
-.lang-select select{
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid #e3e3e8;
-  background:#fff;
-}
-
-.search{ display:flex; gap:6px; align-items:center }
-.search input{
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid #e3e3e8;
-}
-
-.search button{
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid #e3e3e8;
-  background:#fff;
-  cursor:pointer;
-}
-
-.navbar{ background:var(--maroon-2); color:#fff; font-family: var(--ui-font) }
-
-.navbar .hamburger{
-  display:none;
-  background:none;
-  border:none;
-  color:#fff;
-  padding:10px 12px;
-  font-size:13px;
-}
-
-.nav-list{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  list-style:none;
-  margin:0;
-  padding:6px;
-  flex-wrap:wrap;
-}
-
-.nav-item{ position:relative }
-
-.nav-btn, .nav-item > a.nav-btn{
-  font-family: var(--ui-font);
-  font-size:12px;
-  letter-spacing:.25px;
-  color:#fff;
-  background:transparent;
-  border:none;
-  padding:8px 10px;
-  cursor:pointer;
-  border-radius:10px;
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-}
-
-.nav-btn:hover, .nav-item > a.nav-btn:hover{ background:rgba(255,255,255,.12) }
-
-.dropdown{
-  position:absolute;
-  left:0;
-  top:calc(100% + 6px);
-  background:#fff;
-  color:#111;
-  border-radius:12px;
-  box-shadow:var(--shadow);
-  padding:8px;
-  display:none;
-  min-width: 180px;
-  z-index:60;
-}
-
-.dropdown.wide{ min-width: 260px }
-
-.dropdown a{
-  display:block;
-  padding:8px 10px;
-  border-radius:8px;
-  color:#111;
-  text-decoration:none;
-  font-size:13px;
-  font-family: var(--ui-font);
-}
-
-.dropdown a:hover{ background:#f3f5f8 }
-.nav-item.open .dropdown{ display:block }
-
-.mobile-menu{
-  display:none;
-  padding:10px;
-  background:#fff;
-  box-shadow: var(--shadow);
-}
-
-.mobile-menu ul{ list-style:none; padding:0; margin:0 }
-.mobile-menu .nav-item{ border-bottom:1px solid #eee; padding:6px 0 }
-.mobile-menu .nav-btn, .mobile-menu .nav-item > a.nav-btn{ color:#111 }
-.mobile-menu .dropdown{
-  position:static;
-  display:block;
-  box-shadow:none;
-  padding:4px 0;
-  background:transparent;
-}
-.mobile-menu .dropdown a{ padding:6px 8px }
-
-.main{ max-width: 1200px; margin: 16px auto; padding: 0 12px }
-
-.cards{ display:grid; gap:12px }
-.cards.two{ grid-template-columns: repeat(2,1fr) }
-.cards.three{ grid-template-columns: repeat(3,1fr) }
-
-.card{
-  background:var(--card);
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:var(--shadow);
-}
-
-.card .media{ position:relative; overflow:hidden }
-.card .media img{ width:100%; height:200px; object-fit:cover; display:block }
-
-.badge{
-  position:absolute;
-  top:10px;
-  left:10px;
-  background:#ef5350;
-  color:#fff;
-  border-radius:999px;
-  padding:6px 10px;
-  font-size:12px;
-  font-weight:700;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  line-height:1;
-  z-index:3;
-  font-family: var(--ui-font);
-}
-
-.badge.time, .badge.duration{
-  right:10px;
-  left:auto;
-  background:#333;
-  opacity:.9;
-  z-index:3;
-}
-
-.card .card-body{ padding:14px }
-.card .card-body h3{ margin:0 0 8px; font-size:20px; line-height:1.15 }
-.card .card-body p{ margin:0 0 10px; color:#333; font-size:13px; line-height:1.5 }
-
-.meta{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-size:12px;
-  color:#666;
-  margin-bottom:6px;
-  font-family: var(--ui-font);
-}
-
-.read-more{ color:#e53935; text-decoration:none; font-weight:700; font-family: var(--ui-font) }
-
-.vlogs{ padding:12px }
-.vlogs-header{ display:flex; align-items:center; justify-content:space-between }
-.vlogs-sub{ margin:4px 0 8px; color:#444; font-size:13px; line-height:1.5 }
-.filter-pills{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px }
-
-.pill{
-  border:none;
-  background:#eef1f5;
-  padding:8px 14px;
-  border-radius:999px;
-  cursor:pointer;
-  font-family: var(--ui-font);
-  font-size:13px;
-}
-
-.pill.active{ background:#e74c3c; color:#fff }
-
-.btn{
-  background:var(--maroon);
-  color:#fff;
-  border:none;
-  padding:8px 12px;
-  border-radius:10px;
-  text-decoration:none;
-  cursor:pointer;
-  font-family: var(--ui-font);
-  font-size:13px;
-}
-
-.btn.outline{ background:#fff; color:var(--maroon); border:1px solid var(--maroon) }
-.btn.yt{ background:#e74c3c }
-.center{ display:flex; justify-content:center; margin:12px 0 }
-
-.section-rail{ margin-top:18px }
-.rail-header{
-  background:#e53935;
-  color:#fff;
-  padding:10px 14px;
-  border-radius:16px 16px 0 0;
-  font-weight:800;
-  font-family: var(--ui-font);
-}
-
-.card.rail .media img{ height:220px }
-
-.epaper{ padding:12px }
-
-.contact-wrap{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:12px;
-  margin-top:16px;
-}
-
-.newsletter, .contact{ padding:12px }
-
-.newsletter form, .contact form{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  align-items:center;
-}
-
-input[type="email"], input[type="text"], textarea, input[type="file"]{
-  width:100%;
-  max-width:320px;
-  padding:8px 10px;
-  border:1px solid #dfe3eb;
-  border-radius:10px;
-  font-size:13px;
-  font-family: var(--ui-font);
-}
-
-.footer{
-  background:var(--maroon);
-  color:#fff;
-  margin-top:24px;
-  padding:14px 10px;
-  text-align:center;
-  font-family: var(--ui-font);
-  font-size:13px;
-}
-
-.footer .social{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:6px;
-}
-
-.footer .social a, .footer .social button{
-  background:#ffffff18;
-  border:1px solid #ffffff30;
-  color:#fff;
-  padding:6px 10px;
-  border-radius:999px;
-  text-decoration:none;
-  font-family: var(--ui-font);
-  font-size:13px;
-}
-
-.admin-link{ color:#fff; text-decoration:underline; margin-left:10px; opacity:.75 }
-.admin-link:hover{ opacity:1 }
-
-.modal{ border:none; border-radius:16px; padding:0 }
-.modal-card{
-  padding:16px 16px 12px;
-  background:#fff;
-  border-radius:16px;
-  min-width: min(90vw, 520px);
-  font-family: var(--ui-font);
-}
-
-.modal-card h3{ margin:0 0 10px; font-family: var(--ui-font) }
-.modal-card label{ display:block; font-size:13px; margin:8px 0 }
-.modal-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:10px }
-
-.mobile-sticky{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#fff;
-  border-top:1px solid #eee;
-  display:none;
-  justify-content:space-around;
-  padding:8px 0;
-  z-index:50;
-}
-
-.mobile-sticky a, .mobile-sticky button{
-  background:none;
-  border:none;
-  font-size:20px;
-}
-
-/* SVG placeholder images rendered by script.js */
-img[data-ph-ready="1"]{
-  background:#f2f2f2;
-}
-
-/* Additions for index.html v5 class names, safe, no font scaling */
-.ticker-label{ font-weight:800; letter-spacing:.6px; }
-.section-title{ margin:0 0 10px; }
-.section-title.plain{ margin:0; }
-.globe{ display:inline-block; margin-right:6px; }
-
-/* Responsive */
-@media (max-width: 1000px){
-  .cards.three{ grid-template-columns: repeat(2, 1fr) }
-}
-
-@media (max-width: 780px){
-  .navbar .hamburger{ display:inline-block }
-  .nav-list{ display:none }
-  .mobile-menu{ display:block }
-  .mobile-sticky{ display:flex }
-  .cards.two{ grid-template-columns: 1fr }
-  .site-title{ white-space: normal }
-}
-
-@media (max-width: 620px){
-  .cards.three{ grid-template-columns: 1fr }
-  .logo{ width:56px; height:56px }
-  .chip.tiny{ font-size:11px; padding:3px 7px }
-  #weather-bar .chip, #weather-bar .wx-chip{ font-size:11px }
-}
+New index html 16 Jan 2026
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="./">
+  <title>THE MIRROR JAMMU KASHMIR</title>
+
+  <meta name="description" content="The Mirror Jammu Kashmir. Champion justice and amplify the voices of the unheard.">
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="stylesheet" href="styles.css?v=6">
+</head>
+
+<body class="theme-maroon">
+
+<header class="site-header">
+  <div class="header-row">
+    <img src="assets/logo.png" alt="Logo" class="logo">
+
+    <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+
+    <img src="assets/logo.png" alt="Logo" class="logo">
+  </div>
+
+  <div class="subheading">
+    CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD. REVEALING THE TRUTH BEYOND BORDERS
+  </div>
+</header>
+
+<section class="bar">
+  <div class="row tight nowrap">
+    <div id="clock-cest" class="chip tiny">🕒 CEST</div>
+    <div id="cal-hijri" class="chip tiny">📅 Hijri</div>
+    <div id="cal-hindi" class="chip tiny">📅 VS</div>
+    <div id="tz-ist" class="chip tiny">🕒 IST</div>
+    <div id="tz-pkt" class="chip tiny">🕒 PKT</div>
+  </div>
+</section>
+
+<section class="bar">
+  <div class="row super-tight nowrap" id="weather-bar"></div>
+</section>
+
+<section class="ticker-wrap">
+  <div class="ticker">
+    <span>BREAKING:</span>
+    <ul id="ticker-items">
+      <li>Welcome to The Mirror Jammu Kashmir</li>
+      <li>Independent journalism and human rights reporting</li>
+      <li>Multilingual and mobile first platform</li>
+    </ul>
+  </div>
+
+  <div class="tools">
+    <div class="lang-select">
+      🌍
+      <select>
+        <option>English</option>
+        <option>Urdu</option>
+        <option>German</option>
+        <option>French</option>
+        <option>Arabic</option>
+      </select>
+    </div>
+
+    <form class="search" onsubmit="event.preventDefault()">
+      <input type="search" placeholder="Search">
+      <button type="submit">🔍</button>
+    </form>
+  </div>
+</section>
+
+<nav class="navbar">
+  <button class="hamburger" id="hamburger">☰ Menu</button>
+
+  <ul class="nav-list" id="nav-list">
+    <li class="nav-item"><a class="nav-btn" href="#">🏠 Home</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">🆕 Breaking News</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">📝 Blog</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">🎥 Vlog</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">📰 E-Paper</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">📍 Jammu Kashmir</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">📜 Historical Documents</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">🕊️ UN & Human Rights</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">🌐 Global Advocacy</a></li>
+  </ul>
+
+  <div id="mobile-menu" class="mobile-menu" hidden></div>
+</nav>
+
+<main class="main">
+
+<section>
+  <h2 class="section-title">📝 Latest Articles</h2>
+
+  <div class="cards three">
+    <article class="card">
+      <div class="media">
+        <img data-placeholder="Editorial Placeholder" data-accent="maroon">
+      </div>
+      <div class="card-body">
+        <h3>Editorial Title</h3>
+        <p>Short editorial summary text.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="media">
+        <img data-placeholder="Opinion Placeholder" data-accent="blue">
+      </div>
+      <div class="card-body">
+        <h3>Opinion Title</h3>
+        <p>Short opinion summary text.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="media">
+        <img data-placeholder="Update Placeholder" data-accent="green">
+      </div>
+      <div class="card-body">
+        <h3>Update Title</h3>
+        <p>Short update summary text.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section-rail">
+  <div class="rail-header">🌐 International News</div>
+
+  <div class="cards two">
+    <article class="card rail">
+      <div class="media">
+        <img data-placeholder="International Placeholder" data-accent="maroon">
+      </div>
+      <div class="card-body">
+        <h3>International Headline</h3>
+        <p>International news summary.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+
+    <article class="card rail">
+      <div class="media">
+        <img data-placeholder="International Placeholder" data-accent="maroon">
+      </div>
+      <div class="card-body">
+        <h3>International Headline</h3>
+        <p>International news summary.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section-rail">
+  <div class="rail-header">🧑‍⚕️ Human Rights</div>
+
+  <div class="cards two">
+    <article class="card rail">
+      <div class="media">
+        <img data-placeholder="Human Rights Placeholder" data-accent="maroon">
+      </div>
+      <div class="card-body">
+        <h3>Human Rights Headline</h3>
+        <p>Human rights summary.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+
+    <article class="card rail">
+      <div class="media">
+        <img data-placeholder="Human Rights Placeholder" data-accent="maroon">
+      </div>
+      <div class="card-body">
+        <h3>Human Rights Headline</h3>
+        <p>Human rights summary.</p>
+        <a class="read-more" href="#">Read More →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="contact-wrap">
+  <div class="newsletter card">
+    <h2>📬 Newsletter</h2>
+    <form data-netlify="true" name="newsletter">
+      <input type="email" placeholder="your@email.com" required>
+      <button class="btn">Subscribe</button>
+    </form>
+  </div>
+
+  <div class="contact card">
+    <h2>✉️ Contact</h2>
+    <p>Email: <a href="mailto:mirrorjk@gmail.com">mirrorjk@gmail.com</a></p>
+    <button class="btn" id="open-contact">Open Contact Form</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="social">
+    <a href="#">𝕏</a>
+    <a href="#">📸</a>
+    <a href="#">▶️</a>
+    <a href="#">📘</a>
+  </div>
+
+  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+</footer>
+
+<dialog id="contact-modal" class="modal">
+  <form data-netlify="true" name="contact" class="modal-card">
+    <h3>Contact Form</h3>
+    <label>Name <input type="text" required></label>
+    <label>Email <input type="email" required></label>
+    <label>Message <textarea rows="4" required></textarea></label>
+    <div class="modal-actions">
+      <button class="btn">Submit</button>
+      <button type="button" class="btn outline" id="close-contact">Exit</button>
+    </div>
+  </form>
+</dialog>
+
+<nav class="mobile-sticky">
+  <a href="#top">🏠</a>
+  <button>🔍</button>
+  <button>❤️</button>
+  <button>🔗</button>
+  <button>☰</button>
+</nav>
+
+<script src="script.js?v=6"></script>
+</body>
+</html>
