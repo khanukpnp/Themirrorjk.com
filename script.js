@@ -1,8 +1,9 @@
-// JS v2 refresh (STABILIZED)
+// JS v2 refresh (FULLY FIXED & STABLE)
 
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
+/* ================= YEAR ================= */
 document.addEventListener("DOMContentLoaded", () => {
   const yearEl = $("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -34,13 +35,12 @@ function formatHijri() {
   const el = $("#cal-hijri span");
   if (!el) return;
   try {
-    const now = new Date();
     const fmt = new Intl.DateTimeFormat("en-u-ca-islamic", {
       day: "numeric",
       month: "long",
       year: "numeric",
     });
-    el.textContent = fmt.format(now) + " AH";
+    el.textContent = fmt.format(new Date()) + " AH";
   } catch {
     el.textContent = "Hijri unavailable";
   }
@@ -93,7 +93,7 @@ const cities = [
   { name: "Jammu", lat: 32.7266, lon: 74.857 },
   { name: "Kashmir", lat: 34.0837, lon: 74.7973 },
   { name: "Ladakh", lat: 34.1526, lon: 77.5771 },
-  { name: "Rawalakot", lat: 33.8578, lon:73.7604 }
+  { name: "Rawalakot", lat: 33.8578, lon: 73.7604 },
   { name: "Gilgit", lat: 35.9208, lon: 74.308 },
   { name: "Baltistan", lat: 35.3025, lon: 75.636 },
   { name: "Muzaffarabad", lat: 34.37, lon: 73.47 },
@@ -115,10 +115,10 @@ async function loadWeather() {
   for (const c of cities) {
     try {
       const res = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m`
+        `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`
       );
       const data = await res.json();
-      const t = data?.current?.temperature_2m;
+      const t = data?.current_weather?.temperature;
       weatherBar.appendChild(
         createCityChip(c.name, t !== undefined ? `${t}°C` : "— °C")
       );
@@ -130,7 +130,7 @@ async function loadWeather() {
 
 loadWeather();
 
-/* ================= PLACEHOLDER SAFETY ================= */
+/* ================= IMAGE PLACEHOLDERS ================= */
 
 window.replaceWithPlaceholder = function (imgEl) {
   if (!imgEl || !imgEl.parentElement) return;
@@ -149,7 +149,19 @@ window.replaceWithPlaceholder = function (imgEl) {
   imgEl.replaceWith(wrap);
 };
 
-/* ================= CONTACT & SHARE ================= */
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("img").forEach(img => {
+    img.addEventListener("error", () => {
+      if (img.dataset?.placeholder) {
+        replaceWithPlaceholder(img);
+      } else {
+        img.style.display = "none";
+      }
+    });
+  });
+});
+
+/* ================= SHARE ================= */
 
 function tryShare() {
   if (navigator.share) {
