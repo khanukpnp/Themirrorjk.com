@@ -115,3 +115,54 @@ input[type="email"], input[type="text"], textarea, input[type="file"]{ width:100
   border-color: #1f7a4d;
   color: #1f7a4d;
 }
+/* ===== FIXES: VISIBILITY & PLACEHOLDERS (SAFE) ===== */
+
+/* Ensure weather bar never collapses */
+#weather-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  min-height: 36px;
+}
+
+/* Ensure city chips always visible */
+#weather-bar .city {
+  flex: 0 0 auto;
+}
+
+/* Prevent placeholders from covering text */
+.card .media {
+  min-height: 200px;
+  background: #f2f2f2;
+}
+
+/* Placeholder layering fix */
+.media-placeholder {
+  position: relative;
+  z-index: 1;
+}
+
+.media-placeholder-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ensure card text always on top */
+.card .card-body {
+  position: relative;
+  z-index: 3;
+  background: #fff;
+}
+
+/* Prevent overflow overlap on small screens */
+.card {
+  overflow: hidden;
+}
+
+/* Calendar chips safety */
+.bar .chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
