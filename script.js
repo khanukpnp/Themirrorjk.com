@@ -174,3 +174,41 @@ function tryShare() {
 
 $("#share-btn")?.addEventListener("click", tryShare);
 $("#sticky-share")?.addEventListener("click", tryShare);
+/* ================= NAVIGATION DROPDOWNS ================= */
+
+function closeAllDropdowns(except = null) {
+  document.querySelectorAll(".nav-item.open").forEach(item => {
+    if (item !== except) item.classList.remove("open");
+  });
+}
+
+// Desktop dropdowns
+document.querySelectorAll(".nav-item.has-sub > .nav-btn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const item = btn.closest(".nav-item");
+    const isOpen = item.classList.contains("open");
+
+    closeAllDropdowns(item);
+
+    if (!isOpen) {
+      item.classList.add("open");
+    } else {
+      item.classList.remove("open");
+    }
+  });
+});
+
+// Close dropdowns when clicking outside
+document.addEventListener("click", () => {
+  closeAllDropdowns();
+});
+
+// Keyboard accessibility
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    closeAllDropdowns();
+  }
+});
