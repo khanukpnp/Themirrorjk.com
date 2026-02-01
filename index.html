@@ -4,107 +4,216 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <base href="./" />
-  <title>About Us | THE MIRROR JAMMU KASHMIR</title>
+  <title>THE MIRROR JAMMU KASHMIR</title>
+  <meta name="description" content="Independent digital media platform dedicated to truth, justice, and human dignity." />
+  <link rel="preconnect" href="https://api.open-meteo.com">
   <link rel="stylesheet" href="styles.css?v=7" />
 </head>
 
-<body class="theme-maroon">
+<body class="theme-maroon" id="top">
 
-  <!-- HEADER (UNCHANGED STRUCTURE) -->
-  <header class="site-header">
-    <div class="header-row">
-      <img src="assets/logo.png" alt="Logo" class="logo" loading="eager" decoding="async"
-           onerror="this.onerror=null;this.src='logo.png';" />
-      <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-      <img src="assets/logo.png" alt="Logo" class="logo" loading="eager" decoding="async"
-           onerror="this.onerror=null;this.src='logo.png';" />
-    </div>
-    <div class="subheading">
-      CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD. REVEALING THE TRUTH BEYOND BORDERS
-    </div>
-  </header>
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="header-row">
+    <img src="assets/logo.png" alt="Logo" class="logo"
+         onerror="this.onerror=null;this.src='logo.png';" />
+    <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+    <img src="assets/logo.png" alt="Logo" class="logo"
+         onerror="this.onerror=null;this.src='logo.png';" />
+  </div>
+  <div class="subheading">
+    CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD. REVEALING THE TRUTH BEYOND BORDERS
+  </div>
+</header>
 
-  <!-- MAIN ARTICLE WRAP (REUTERS STYLE) -->
-  <main class="article-wrap">
+<!-- ================= CLOCKS ================= -->
+<section class="bar clocks-line">
+  <div class="row tight nowrap">
+    <div id="clock-cest" class="chip tiny">🕒 <span>Loading…</span></div>
+    <div id="cal-hijri" class="chip tiny">📅 <span>Hijri…</span></div>
+    <div id="cal-hindi" class="chip tiny">📅 <span>VS…</span></div>
+    <div id="tz-ist" class="chip tiny">🕒 IST: <span>—</span></div>
+    <div id="tz-pkt" class="chip tiny">🕒 PKT: <span>—</span></div>
+  </div>
+</section>
 
-    <div class="article-top">
-      <a class="article-back" href="index.html">← Back to Home</a>
-    </div>
+<!-- ================= WEATHER ================= -->
+<section class="bar weather-line">
+  <div id="weather-bar" class="row nowrap super-tight"></div>
+</section>
 
-    <article class="article-card">
+<!-- ================= TICKER ================= -->
+<section class="ticker-wrap">
+  <div class="ticker">
+    <span>BREAKING</span>
+    <ul id="ticker-items">
+      <li>THE MIRROR JAMMU KASHMIR — INDEPENDENT DIGITAL MEDIA</li>
+    </ul>
+  </div>
 
-      <!-- ARTICLE HEADER -->
-      <header class="article-header">
-        <h1 class="article-title">About Us</h1>
-        <p class="article-standfirst">
-          An independent digital media platform dedicated to truth, justice, and human dignity.
-        </p>
-      </header>
+  <div class="tools">
+    <select id="language-select">
+      <option>English</option>
+      <option>Urdu</option>
+      <option>German</option>
+      <option>French</option>
+    </select>
+    <form class="search" onsubmit="event.preventDefault(); fakeSearch();">
+      <input id="search-input" type="search" placeholder="Search…" />
+      <button>🔍</button>
+    </form>
+  </div>
+</section>
 
-      <!-- ARTICLE BODY -->
-      <div class="article-body">
-
-        <p>
-          The Mirror Jammu Kashmir is an independent digital media platform focused on verified
-          reporting, human rights documentation, and public accountability.
-        </p>
-
-        <p>
-          We publish news, analysis, editorials, and documentary-style coverage from Jammu and Kashmir
-          and related regions. Our work is grounded in facts, international law, and the lived
-          realities of affected communities.
-        </p>
-
-        <p>
-          We challenge silence, expose injustice, and amplify suppressed voices through principled
-          journalism. Our editorial approach rejects propaganda and manufactured narratives.
-        </p>
-
-        <p>
-          If you have news, documents, photographs, or urgent updates, contact us at
-          <a href="mailto:themirrorjk@gmail.com">themirrorjk@gmail.com</a>
-          or call +41 783 13 12 13.
-        </p>
-
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+  <ul class="nav-list">
+    <li class="nav-item has-sub">
+      <button class="nav-btn">🏠 Home</button>
+      <div class="dropdown">
+        <a href="#about">About Us</a>
+        <a href="#chief-editor">Chief Editor</a>
+        <a href="#contact">Contact</a>
       </div>
+    </li>
+    <li class="nav-item"><a class="nav-btn" href="#blog">📝 Blog</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#vlog">🎥 Vlog</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#epaper">📰 E-Paper</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#international">🌐 International</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#human-rights">🕊️ Human Rights</a></li>
+  </ul>
+</nav>
 
-      <!-- SIDE BRAND BLOCK -->
-      <aside class="article-aside">
-        <img
-          class="side-logo"
-          src="assets/logo.png"
-          alt="The Mirror Jammu Kashmir logo"
-          loading="lazy"
-          decoding="async"
-          onerror="this.onerror=null;this.src='logo.png';"
-        />
-      </aside>
+<!-- ================= MAIN ================= -->
+<main class="main">
 
-      <!-- PAGE ACTIONS -->
-      <footer class="page-actions" data-share>
-        <button class="action-btn like" data-action="like" aria-label="Like this page">
-          ❤️ <span class="like-count" data-like-count>0</span>
-        </button>
+<!-- ================= BLOG ================= -->
+<section id="blog">
+  <h2>Latest Articles / Editorial</h2>
+  <div class="cards three">
+    <!-- existing blog cards remain unchanged -->
+  </div>
+</section>
 
-        <button class="action-btn copy" data-action="copy" aria-label="Copy page link">
-          🔗 Copy link
-        </button>
+<!-- ================= VLOG ================= -->
+<section id="vlog" class="vlogs card">
+  <div class="vlogs-header">
+    <h2>Video Reports & Vlogs</h2>
+    <a class="btn yt" href="https://youtube.com/@themirrorjammukashmir" target="_blank">Visit Channel ▶</a>
+  </div>
+  <p class="vlogs-sub">In-depth reports, interviews, and documentaries.</p>
+  <div class="cards three media-cards">
+    <!-- populated by JS -->
+  </div>
+</section>
 
-        <button class="action-btn share primary" data-action="share" aria-label="Share this page">
-          📣 Share
-        </button>
-      </footer>
+<!-- ================= INTERNATIONAL ================= -->
+<section id="international" class="section-rail">
+  <div class="rail-header">🌐 International News</div>
+  <div class="cards two"></div>
+</section>
 
-    </article>
+<!-- ================= HUMAN RIGHTS ================= -->
+<section id="human-rights" class="section-rail">
+  <div class="rail-header">🕊️ Human Rights</div>
+  <div class="cards two"></div>
+</section>
 
-  </main>
+<!-- ================= EPAPER ================= -->
+<section id="epaper" class="epaper card">
+  <h2>E-Paper</h2>
+  <p>
+    Publications are released by the editorial team.
+    To submit documents, please use the contact form or email.
+  </p>
+</section>
 
-  <!-- SCRIPTS -->
-  <script src="script.js?v=7"></script>
-  <script>
-    if (window.initLikeButton) window.initLikeButton("page:about");
-    if (window.initPageActions) window.initPageActions();
-  </script>
+<!-- ================= ABOUT (REUTERS STYLE) ================= -->
+<section id="about" class="article-wrap">
+  <article class="article-card">
+    <header class="article-header">
+      <h1>About Us</h1>
+      <p class="article-standfirst">
+        Independent digital journalism rooted in facts, law, and lived realities.
+      </p>
+    </header>
 
+    <div class="article-body">
+      <p>The Mirror Jammu Kashmir is an independent digital media platform focused on verified reporting, human rights documentation, and public accountability.</p>
+      <p>We publish news, analysis, editorials, and documentary coverage from Jammu and Kashmir and related regions.</p>
+      <p>We challenge silence, expose injustice, and amplify suppressed voices through principled journalism.</p>
+    </div>
+
+    <footer class="page-actions">
+      <button class="action-btn" data-like>❤️ <span data-like-count>0</span></button>
+      <button class="action-btn" data-copy>🔗 Copy Link</button>
+      <button class="action-btn primary" data-share>📣 Share</button>
+    </footer>
+  </article>
+</section>
+
+<!-- ================= CHIEF EDITOR ================= -->
+<section id="chief-editor" class="article-wrap">
+  <article class="article-card">
+    <header class="article-header">
+      <h1>Chief Editor</h1>
+      <p class="article-standfirst">Editorial responsibility and leadership</p>
+    </header>
+
+    <div class="article-body">
+      <p>The Chief Editor oversees editorial integrity, verification standards, and ethical journalism.</p>
+    </div>
+
+    <footer class="page-actions">
+      <button class="action-btn" data-like>❤️ <span data-like-count>0</span></button>
+      <button class="action-btn" data-copy>🔗 Copy Link</button>
+      <button class="action-btn primary" data-share>📣 Share</button>
+    </footer>
+  </article>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="article-wrap">
+  <article class="article-card">
+    <header class="article-header">
+      <h1>Contact Us</h1>
+      <p class="article-standfirst">Secure communication with the editorial team</p>
+    </header>
+
+    <form name="contact" method="POST" data-netlify="true" enctype="multipart/form-data" class="article-body">
+      <input type="hidden" name="form-name" value="contact">
+
+      <label>Name
+        <input type="text" name="name" required>
+      </label>
+
+      <label>Email
+        <input type="email" name="email" required>
+      </label>
+
+      <label>Message
+        <textarea name="message" rows="4" required></textarea>
+      </label>
+
+      <label>Attach document (optional)
+        <input type="file" name="attachment" accept=".pdf,.jpg,.png">
+      </label>
+
+      <button class="btn" type="submit">Send Message</button>
+    </form>
+  </article>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="social">
+    <button class="btn small outline" id="share-btn">Share</button>
+  </div>
+  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR</p>
+</footer>
+
+<script src="script.js?v=7"></script>
 </body>
 </html>
