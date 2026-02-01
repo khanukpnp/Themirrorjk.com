@@ -93,7 +93,7 @@ const cities = [
   { name: "Jammu", lat: 32.7266, lon: 74.857 },
   { name: "Kashmir", lat: 34.0837, lon: 74.7973 },
   { name: "Ladakh", lat: 34.1526, lon: 77.5771 },
-  { name:"Rawalakot", lat:33.8578, lon:73.7604 }
+  { name: "Rawalakot", lat: 33.8578, lon:73.7604 }
   { name: "Gilgit", lat: 35.9208, lon: 74.308 },
   { name: "Baltistan", lat: 35.3025, lon: 75.636 },
   { name: "Muzaffarabad", lat: 34.37, lon: 73.47 },
