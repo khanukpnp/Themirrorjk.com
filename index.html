@@ -1,4 +1,3 @@
-Stable new index html 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,11 +15,11 @@ Stable new index html
 <!-- ================= HEADER ================= -->
 <header class="site-header">
   <div class="header-row">
-    <img src="assets/logo.png" alt="Logo" class="logo" loading="eager" decoding="async"
-         onerror="this.onerror=null;this.src='logo.png';" />
+    <img src="assets/logo.png" class="logo" alt="Logo"
+         onerror="this.onerror=null;this.src='logo.png';">
     <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-    <img src="assets/logo.png" alt="Logo" class="logo" loading="eager" decoding="async"
-         onerror="this.onerror=null;this.src='logo.png';" />
+    <img src="assets/logo.png" class="logo" alt="Logo"
+         onerror="this.onerror=null;this.src='logo.png';">
   </div>
   <div class="subheading">
     CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYOND BORDERS
@@ -28,10 +27,10 @@ Stable new index html
 </header>
 
 <!-- ================= CLOCKS ================= -->
-<section class="bar clocks-line" aria-label="Clocks and Calendars">
+<section class="bar clocks-line">
   <div class="row tight nowrap">
     <div id="clock-cest" class="chip tiny">🕒 <span>Loading…</span></div>
-    <div id="cal-hijri" class="chip tiny">📅 <span>Hijri…</span></div>
+    <div id="cal-hijri" class="chip tiny" data-offset="-1">📅 <span>Hijri…</span></div>
     <div id="cal-hindi" class="chip tiny">📅 <span>VS…</span></div>
     <div id="tz-ist" class="chip tiny">🕒 IST (Jammu–Kashmir–Ladakh): <span>—</span></div>
     <div id="tz-pkt" class="chip tiny">🕒 PKT (Gilgit–Baltistan–Azad Kashmir): <span>—</span></div>
@@ -39,212 +38,157 @@ Stable new index html
 </section>
 
 <!-- ================= WEATHER ================= -->
-<section class="bar weather-line" aria-label="Weather">
-  <div class="row nowrap super-tight" id="weather-bar"></div>
+<section class="bar weather-line">
+  <div class="row nowrap super-tight" id="weather-bar">
+    <span data-city="Zurich"></span>
+    <span data-city="Jammu"></span>
+    <span data-city="Kashmir"></span>
+    <span data-city="Ladakh"></span>
+    <span data-city="Rawalakot"></span>
+    <span data-city="Gilgit"></span>
+    <span data-city="Baltistan"></span>
+    <span data-city="Muzaffarabad"></span>
+  </div>
 </section>
 
 <!-- ================= TICKER ================= -->
-<section class="ticker-wrap" aria-label="Breaking Ticker">
+<section class="ticker-wrap">
   <div class="ticker">
-    <span>BREAKING:</span>
+    <span class="ticker-label">BREAKING</span>
     <ul id="ticker-items">
       <li>THE MIRROR JAMMU KASHMIR — INDEPENDENT DIGITAL MEDIA PLATFORM</li>
       <li>WE CHALLENGE SILENCE, EXPOSE INJUSTICE, AND AMPLIFY SUPPRESSED VOICES</li>
-      <li>CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR</li>
-      <li>ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS</li>
-      <li>DEMOCRACY DERIVES LEGITIMACY FROM THE WILL OF THE PEOPLE</li>
-      <li>INDEPENDENT JOURNALISM IS ESSENTIAL TO HUMAN RIGHTS</li>
+      <li>SUBMIT YOUR EDITORIALS AND VLOGS VIA THE CONTACT FORM BELOW</li>
     </ul>
   </div>
 
   <div class="tools">
-    <label class="lang-select">
-      🌍
-        <select id="language-select" aria-label="Select language">
-          <option value="en" selected>English</option>
-          <option value="de">German</option>
-          <option value="fr">French</option>
-          <option value="ru">Russian</option>
-          <option value="he">Hebrew</option>
-          <option value="ur">Urdu</option>
-          <option value="hi">Hindi</option>
-          <option value="ar">Arabic</option>
-          <option value="es">Spanish</option>
-          <option value="it">Italian</option>
-          <option value="nl">Dutch</option>
-        </select>
-      </label>
-    <form class="search" role="search" onsubmit="event.preventDefault(); fakeSearch();">
+    <select id="language-select">
+      <option>English</option>
+      <option>Urdu</option>
+      <option>German</option>
+      <option>French</option>
+    </select>
+    <form class="search" onsubmit="event.preventDefault(); fakeSearch();">
       <input id="search-input" type="search" placeholder="Search…" />
       <button type="submit">🔍</button>
     </form>
   </div>
 </section>
+
 <!-- ================= NAVIGATION ================= -->
-<nav class="navbar" aria-label="Primary Navigation">
-  <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
+<nav class="navbar">
+  <button class="hamburger" id="hamburger">☰ Menu</button>
   <ul class="nav-list" id="nav-list">
-    <li class="nav-item"><a class="nav-btn" href="#blog">📝 Blog</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#vlog">🎥 Vlog</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#epaper">📰 E-Paper</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#international">🌐 International</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#human-rights">🕊️ Human Rights</a></li>
+
+    <li class="nav-item has-sub">
+      <button class="nav-btn">
+        <span class="icon">🏠</span><span class="label">Home</span>
+      </button>
+      <div class="dropdown">
+        <a href="about.html">About</a>
+        <a href="chief-editor.html">Chief Editor</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-btn" href="#blog">
+        <span class="icon">📝</span><span class="label">Blog</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-btn" href="#vlog">
+        <span class="icon">🎥</span><span class="label">Vlog</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-btn" href="#epaper">
+        <span class="icon">📰</span><span class="label">E-Paper</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-btn" href="#international">
+        <span class="icon">🌐</span><span class="label">International</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-btn" href="#human-rights">
+        <span class="icon">🕊️</span><span class="label">Human Rights</span>
+      </a>
+    </li>
+
   </ul>
-  <div id="mobile-menu" class="mobile-menu" hidden></div>
 </nav>
 
 <!-- ================= MAIN ================= -->
 <main class="main">
 
-<!-- BLOG -->
-<section id="blog" class="card-col">
-  <h2>📝 Latest Articles</h2>
-  <div class="cards three">
+  <!-- BLOG -->
+  <section id="blog" class="card-col">
+    <h2>📝 Latest Articles</h2>
+    <div class="cards three">
+      <article class="card post"><div class="media"></div></article>
+      <article class="card post"><div class="media"></div></article>
+      <article class="card post"><div class="media"></div></article>
+    </div>
+  </section>
 
-    <article class="card post">
-      <div class="media">
-        <span class="badge cat">Politics</span>
-        <span class="badge time">5 min read</span>
-        <div class="media-placeholder accent-maroon">Editorial Placeholder</div>
-      </div>
-      <div class="card-body">
-        <h3>Kashmir Peace Process: New Hope for Dialogue</h3>
-        <p>International mediators express optimism about renewed engagement.</p>
-        <div class="meta">
-          <span class="author">Sarah Ahmad Khan</span>
-          <span class="date">2025-01-15</span>
-        </div>
-        <a class="read-more" href="#">Read More →</a>
-      </div>
-    </article>
+  <!-- VLOG -->
+  <section id="vlog" class="vlogs card">
+    <h2>Video Reports &amp; Vlogs</h2>
+  </section>
 
-    <article class="card post">
-      <div class="media">
-        <span class="badge cat">Human Rights</span>
-        <span class="badge time">8 min read</span>
-        <div class="media-placeholder accent-blue">Opinion Placeholder</div>
-      </div>
-      <div class="card-body">
-        <h3>UN Human Rights Report: Urgent Action Needed</h3>
-        <p>Critical findings demand international monitoring.</p>
-        <div class="meta">
-          <span class="author">Dr. Ahmed Hassan</span>
-          <span class="date">2025-01-14</span>
-        </div>
-        <a class="read-more" href="#">Read More →</a>
-      </div>
-    </article>
+  <!-- EPAPER -->
+  <section id="epaper" class="epaper card">
+    <h2>📰 E-Paper Upload</h2>
+    <form name="epaper" method="POST" data-netlify="true">
+      <input type="file" name="file" accept=".pdf" />
+      <button class="btn" type="submit">Upload</button>
+    </form>
+  </section>
 
-    <article class="card post">
-      <div class="media">
-        <span class="badge cat">Education</span>
-        <span class="badge time">6 min read</span>
-        <div class="media-placeholder accent-green">Update Placeholder</div>
-      </div>
-      <div class="card-body">
-        <h3>Educational Reform Initiative Launched</h3>
-        <p>Remote regions receive new education programs.</p>
-        <div class="meta">
-          <span class="author">Fatima Sheikh</span>
-          <span class="date">2025-01-13</span>
-        </div>
-        <a class="read-more" href="#">Read More →</a>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-<!-- VLOG -->
-<section id="vlog" class="vlogs card">
-  <h2>🎥 Video Reports &amp; Vlogs</h2>
-  <p>Watch in-depth reports and interviews.</p>
-  <div class="cards three media-cards">
-    <article class="card video">
-      <div class="media video-placeholder">Video Placeholder</div>
-      <div class="card-body">
-        <h3>Exclusive Interview: Peace Process</h3>
-      </div>
-    </article>
-    <article class="card video">
-      <div class="media video-placeholder">Video Placeholder</div>
-      <div class="card-body">
-        <h3>Ground Report: Community Resilience</h3>
-      </div>
-    </article>
-    <article class="card video">
-      <div class="media video-placeholder">Video Placeholder</div>
-      <div class="card-body">
-        <h3>Analysis: Legal Framework</h3>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- INTERNATIONAL -->
-<section id="international" class="section-rail">
-  <div class="rail-header">🌐 International News</div>
-  <div class="cards two">
-    <article class="card rail">
-      <div class="media-placeholder accent-blue">Opinion Placeholder</div>
-      <div class="card-body">
-        <h3>UN Security Council Addresses Conflicts</h3>
-        <p>Emergency discussions held.</p>
-      </div>
-    </article>
-    <article class="card rail">
-      <div class="media-placeholder accent-maroon">Editorial Placeholder</div>
-      <div class="card-body">
-        <h3>European Parliament Calls for Press Freedom</h3>
-        <p>Resolution supports independent journalism.</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- HUMAN RIGHTS -->
-<section id="human-rights" class="section-rail">
-  <div class="rail-header">🕊️ Human Rights</div>
-  <div class="cards two">
-    <article class="card rail">
-      <div class="media-placeholder accent-green">Update Placeholder</div>
-      <div class="card-body">
-        <h3>Humanitarian Aid Initiative Launched</h3>
-        <p>Relief efforts expand.</p>
-      </div>
-    </article>
-    <article class="card rail">
-      <div class="media-placeholder accent-blue">Opinion Placeholder</div>
-      <div class="card-body">
-        <h3>Legal Advocacy Groups File Petition</h3>
-        <p>Case presented for civilian protection.</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- EPAPER -->
-<section id="epaper" class="epaper card">
-  <h2>📰 E-Paper Upload</h2>
-  <p>Upload your digital publication (PDF).</p>
-  <form name="epaper" method="POST" data-netlify="true">
-    <input type="file" name="file" accept=".pdf" />
-    <button class="btn" type="submit">Upload</button>
-  </form>
-</section>
+  <!-- CONTACT -->
+  <section id="contact" class="contact-wrap">
+    <div class="contact card">
+      <h2>✉️ Contact</h2>
+      <p>Email: <a href="mailto:themirrorjk@gmail.com">themirrorjk@gmail.com</a></p>
+      <button class="btn open-contact" id="open-contact" type="button">
+        Open Contact Form
+      </button>
+    </div>
+  </section>
 
 </main>
 
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
   <div class="social">
-    <a aria-label="X">𝕏</a>
+    <a aria-label="Twitter">𝕏</a>
     <a aria-label="Instagram">📸</a>
     <a aria-label="YouTube">▶️</a>
     <a aria-label="Facebook">📘</a>
   </div>
-  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR</p>
 </footer>
+
+<!-- ================= CONTACT MODAL ================= -->
+<dialog id="contact-modal" class="modal">
+  <form name="contact" method="POST" data-netlify="true" class="modal-card">
+    <h3>Contact Form</h3>
+    <label>Name <input type="text" name="name" required></label>
+    <label>Email <input type="email" name="email" required></label>
+    <label>Message <textarea name="message" rows="4" required></textarea></label>
+    <div class="modal-actions">
+      <button type="submit" class="btn">Submit</button>
+      <button type="button" class="btn outline" id="close-contact">Exit</button>
+    </div>
+  </form>
+</dialog>
 
 <script src="script.js?v=4"></script>
 </body>
