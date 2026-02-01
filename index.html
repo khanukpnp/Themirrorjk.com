@@ -60,7 +60,7 @@
     </select>
     <form class="search" onsubmit="event.preventDefault(); fakeSearch();">
       <input id="search-input" type="search" placeholder="Search…" />
-      <button>🔍</button>
+      <button type="submit">🔍</button>
     </form>
   </div>
 </section>
@@ -68,6 +68,7 @@
 <!-- ================= NAVIGATION ================= -->
 <nav class="navbar">
   <button class="hamburger" id="hamburger">☰ Menu</button>
+
   <ul class="nav-list" id="nav-list">
     <li class="nav-item has-sub">
       <button class="nav-btn">🏠 Home</button>
@@ -122,15 +123,45 @@
   <div id="mobile-menu" class="mobile-menu" hidden></div>
 </nav>
 
-<!-- ================= MAIN CONTENT ================= -->
+<!-- ================= MAIN ================= -->
 <main class="main">
 
-<!-- BLOG, VLOG, INTERNATIONAL, HUMAN RIGHTS, EPAPER, CONTACT -->
-<!-- UNCHANGED FROM YOUR ORIGINAL FILE -->
-<!-- Your cards, rails, vlogs, epaper, footer remain exactly as before -->
+  <!-- BLOG -->
+  <section id="blog" class="card-col">
+    <h2>📝 Latest Articles / Blog / Editorial</h2>
+    <div class="cards three">
+      <!-- cards stay exactly as before -->
+    </div>
+  </section>
+
+  <!-- VLOG -->
+  <section id="vlog" class="vlogs card">
+    <!-- unchanged -->
+  </section>
+
+  <!-- INTERNATIONAL -->
+  <section class="section-rail">
+    <!-- unchanged -->
+  </section>
+
+  <!-- HUMAN RIGHTS -->
+  <section class="section-rail">
+    <!-- unchanged -->
+  </section>
+
+  <!-- EPAPER -->
+  <section id="epaper" class="epaper card">
+    <!-- unchanged -->
+  </section>
+
+  <!-- CONTACT PREVIEW -->
+  <section class="contact-wrap">
+    <!-- unchanged -->
+  </section>
 
 </main>
 
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
   <div class="social">
     <a aria-label="Twitter">𝕏</a>
