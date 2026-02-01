@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <base href="./" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="./">
   <title>THE MIRROR JAMMU KASHMIR</title>
-  <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard." />
+  <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
   <link rel="preconnect" href="https://api.open-meteo.com">
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 
 <body class="theme-maroon" id="top">
@@ -15,14 +15,12 @@
 <!-- ================= HEADER ================= -->
 <header class="site-header">
   <div class="header-row">
-    <img src="assets/logo.png" class="logo" alt="Logo"
-         onerror="this.onerror=null;this.src='logo.png';">
+    <img src="assets/logo.png" class="logo" alt="Logo" onerror="this.src='logo.png'">
     <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-    <img src="assets/logo.png" class="logo" alt="Logo"
-         onerror="this.onerror=null;this.src='logo.png';">
+    <img src="assets/logo.png" class="logo" alt="Logo" onerror="this.src='logo.png'">
   </div>
   <div class="subheading">
-    CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYOND BORDERS
+    CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD. REVEALING THE TRUTH BEYOND BORDERS
   </div>
 </header>
 
@@ -64,13 +62,13 @@
 
   <div class="tools">
     <select id="language-select">
-      <option>English</option>
+      <option selected>English</option>
       <option>Urdu</option>
       <option>German</option>
       <option>French</option>
     </select>
     <form class="search" onsubmit="event.preventDefault(); fakeSearch();">
-      <input id="search-input" type="search" placeholder="Search…" />
+      <input id="search-input" type="search" placeholder="Search…">
       <button type="submit">🔍</button>
     </form>
   </div>
@@ -79,12 +77,10 @@
 <!-- ================= NAVIGATION ================= -->
 <nav class="navbar">
   <button class="hamburger" id="hamburger">☰ Menu</button>
-  <ul class="nav-list" id="nav-list">
 
+  <ul class="nav-list" id="nav-list">
     <li class="nav-item has-sub">
-      <button class="nav-btn">
-        <span class="icon">🏠</span><span class="label">Home</span>
-      </button>
+      <button class="nav-btn">🏠 Home</button>
       <div class="dropdown">
         <a href="about.html">About</a>
         <a href="chief-editor.html">Chief Editor</a>
@@ -92,74 +88,43 @@
       </div>
     </li>
 
-    <li class="nav-item">
-      <a class="nav-btn" href="#blog">
-        <span class="icon">📝</span><span class="label">Blog</span>
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-btn" href="#vlog">
-        <span class="icon">🎥</span><span class="label">Vlog</span>
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-btn" href="#epaper">
-        <span class="icon">📰</span><span class="label">E-Paper</span>
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-btn" href="#international">
-        <span class="icon">🌐</span><span class="label">International</span>
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-btn" href="#human-rights">
-        <span class="icon">🕊️</span><span class="label">Human Rights</span>
-      </a>
-    </li>
-
+    <li class="nav-item"><a class="nav-btn" href="#blog">📝 Blog</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#vlog">🎥 Vlog</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#epaper">📰 E-Paper</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#international">🌐 International</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#human-rights">🕊️ Human Rights</a></li>
   </ul>
 </nav>
 
 <!-- ================= MAIN ================= -->
 <main class="main">
 
-  <!-- BLOG -->
   <section id="blog" class="card-col">
     <h2>📝 Latest Articles</h2>
     <div class="cards three">
-      <article class="card post"><div class="media"></div></article>
-      <article class="card post"><div class="media"></div></article>
-      <article class="card post"><div class="media"></div></article>
+      <article class="card post"></article>
+      <article class="card post"></article>
+      <article class="card post"></article>
     </div>
   </section>
 
-  <!-- VLOG -->
   <section id="vlog" class="vlogs card">
     <h2>Video Reports &amp; Vlogs</h2>
   </section>
 
-  <!-- EPAPER -->
   <section id="epaper" class="epaper card">
     <h2>📰 E-Paper Upload</h2>
     <form name="epaper" method="POST" data-netlify="true">
-      <input type="file" name="file" accept=".pdf" />
+      <input type="file" name="file" accept=".pdf">
       <button class="btn" type="submit">Upload</button>
     </form>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact" class="contact-wrap">
     <div class="contact card">
       <h2>✉️ Contact</h2>
       <p>Email: <a href="mailto:themirrorjk@gmail.com">themirrorjk@gmail.com</a></p>
-      <button class="btn open-contact" id="open-contact" type="button">
-        Open Contact Form
-      </button>
+      <button class="btn" id="open-contact" type="button">Open Contact Form</button>
     </div>
   </section>
 
