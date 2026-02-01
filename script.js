@@ -1,214 +1,152 @@
-// JS v2 refresh (FULLY FIXED & STABLE)
+// ================= CORE HELPERS =================
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
-const $ = (sel, ctx = document) => ctx.querySelector(sel);
-const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
-
-/* ================= YEAR ================= */
 document.addEventListener("DOMContentLoaded", () => {
+
+  /* ================= YEAR ================= */
   const yearEl = $("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
-});
 
-/* ================= CLOCKS & CALENDARS ================= */
+  /* ================= CLOCKS & CALENDARS ================= */
 
-function formatCEST() {
-  const el = $("#clock-cest span");
-  if (!el) return;
-  const now = new Date();
-  const opts = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-    timeZone: "Europe/Zurich",
-  };
-  el.textContent = new Intl.DateTimeFormat("en-GB", opts)
-    .format(now)
-    .replace(",", " —");
-}
-
-function formatHijri() {
-  const el = $("#cal-hijri span");
-  if (!el) return;
-  try {
-    const fmt = new Intl.DateTimeFormat("en-u-ca-islamic", {
-      day: "numeric",
-      month: "long",
+  function formatCEST() {
+    const el = $("#clock-cest span");
+    if (!el) return;
+    const now = new Date();
+    el.textContent = new Intl.DateTimeFormat("en-GB", {
+      weekday: "long",
       year: "numeric",
-    });
-    el.textContent = fmt.format(new Date()) + " AH";
-  } catch {
-    el.textContent = "Hijri unavailable";
-  }
-}
-
-function formatVikramSamvatApprox() {
-  const el = $("#cal-hindi span");
-  if (!el) return;
-  const now = new Date();
-  const gYear = now.getFullYear();
-  const m = now.getMonth();
-  const d = now.getDate();
-  const vsYear = m >= 3 ? gYear + 57 : gYear + 56;
-  const months = [
-    "Pausha","Magha","Phalguna","Chaitra","Vaisakh","Jyeshtha",
-    "Ashadha","Shravana","Bhadrapada","Ashwin","Kartik","Margashirsha"
-  ];
-  const map = [9,10,11,3,4,5,6,7,8,0,1,2];
-  el.textContent = `${months[map[m]]} ${d}, ${vsYear} VS`;
-}
-
-function updateTimes() {
-  formatCEST();
-  formatHijri();
-  formatVikramSamvatApprox();
-
-  const now = new Date();
-  const fmt = tz =>
-    new Intl.DateTimeFormat("en-GB", {
+      month: "long",
+      day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
       hour12: false,
-      timeZone: tz,
+      timeZone: "Europe/Zurich"
     }).format(now);
-
-  const ist = $("#tz-ist span");
-  const pkt = $("#tz-pkt span");
-  if (ist) ist.textContent = fmt("Asia/Kolkata");
-  if (pkt) pkt.textContent = fmt("Asia/Karachi");
-}
-
-updateTimes();
-setInterval(updateTimes, 1000);
-
-/* ================= WEATHER ================= */
-
-const cities = [
-  { name: "Zurich", lat: 47.3769, lon: 8.5417 },
-  { name: "Jammu", lat: 32.7266, lon: 74.857 },
-  { name: "Kashmir", lat: 34.0837, lon: 74.7973 },
-  { name: "Ladakh", lat: 34.1526, lon: 77.5771 },
-  { name: "Rawalakot", lat: 33.8578, lon: 73.7604 },
-  { name: "Gilgit", lat: 35.9208, lon: 74.308 },
-  { name: "Baltistan", lat: 35.3025, lon: 75.636 },
-  { name: "Muzaffarabad", lat: 34.37, lon: 73.47 },
-];
-
-const weatherBar = $("#weather-bar");
-
-function createCityChip(name, text) {
-  const el = document.createElement("div");
-  el.className = "city";
-  el.innerHTML = `<span class="name">${name}:</span> <span class="temp">${text}</span>`;
-  return el;
-}
-
-async function loadWeather() {
-  if (!weatherBar) return;
-  weatherBar.innerHTML = "";
-
-  for (const c of cities) {
-    try {
-      const res = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`
-      );
-      const data = await res.json();
-      const t = data?.current_weather?.temperature;
-      weatherBar.appendChild(
-        createCityChip(c.name, t !== undefined ? `${t}°C` : "— °C")
-      );
-    } catch {
-      weatherBar.appendChild(createCityChip(c.name, "— °C"));
-    }
   }
-}
 
-loadWeather();
+  function formatHijriKashmir() {
+    const el = $("#cal-hijri span");
+    if (!el) return;
+    const now = new Date();
+    now.setDate(now.getDate() - 1); // Kashmir moon offset
+    const fmt = new Intl.DateTimeFormat("en-u-ca-islamic", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+    el.textContent = fmt.format(now) + " AH";
+  }
 
-/* ================= IMAGE PLACEHOLDERS ================= */
+  function formatVikramSamvat() {
+    const el = $("#cal-hindi span");
+    if (!el) return;
+    const d = new Date();
+    const y = d.getFullYear() + (d.getMonth() >= 3 ? 57 : 56);
+    el.textContent = `VS ${y}`;
+  }
 
-window.replaceWithPlaceholder = function (imgEl) {
-  if (!imgEl || !imgEl.parentElement) return;
+  function updateTimes() {
+    formatCEST();
+    formatHijriKashmir();
+    formatVikramSamvat();
 
-  const text = imgEl.dataset?.placeholder || "Image unavailable";
-  const accent = imgEl.dataset?.accent || "";
+    const now = new Date();
+    const time = tz =>
+      new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+        timeZone: tz
+      }).format(now);
 
-  const wrap = document.createElement("div");
-  wrap.className = "media-placeholder" + (accent ? " accent-" + accent : "");
+    $("#tz-ist span") && ($("#tz-ist span").textContent = time("Asia/Kolkata"));
+    $("#tz-pkt span") && ($("#tz-pkt span").textContent = time("Asia/Karachi"));
+  }
 
-  const inner = document.createElement("div");
-  inner.className = "media-placeholder-inner";
-  inner.textContent = text;
+  updateTimes();
+  setInterval(updateTimes, 1000);
 
-  wrap.appendChild(inner);
-  imgEl.replaceWith(wrap);
-};
+  /* ================= WEATHER ================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("img").forEach(img => {
-    img.addEventListener("error", () => {
-      if (img.dataset?.placeholder) {
-        replaceWithPlaceholder(img);
-      } else {
-        img.style.display = "none";
-      }
+  const cities = [
+    ["Zurich",47.37,8.54],
+    ["Jammu",32.73,74.86],
+    ["Kashmir",34.08,74.79],
+    ["Ladakh",34.15,77.57],
+    ["Rawalakot",33.86,73.76],
+    ["Gilgit",35.92,74.31],
+    ["Muzaffarabad",34.37,73.47]
+  ];
+
+  const weatherBar = $("#weather-bar");
+  if (weatherBar) {
+    cities.forEach(async ([n,lat,lon]) => {
+      const chip = document.createElement("div");
+      chip.className = "city";
+      chip.textContent = `${n}: —°C`;
+      weatherBar.appendChild(chip);
+      try {
+        const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+        const j = await r.json();
+        if (j.current_weather) chip.textContent = `${n}: ${j.current_weather.temperature}°C`;
+      } catch {}
+    });
+  }
+
+  /* ================= TICKER ================= */
+
+  const ticker = $("#ticker-items");
+  if (ticker) {
+    ticker.innerHTML += ticker.innerHTML;
+    let x = 0;
+    setInterval(() => {
+      x -= 1;
+      ticker.style.transform = `translateX(${x}px)`;
+      if (Math.abs(x) > ticker.scrollWidth / 2) x = 0;
+    }, 30);
+  }
+
+  /* ================= NAVIGATION ================= */
+
+  const hamburger = $("#hamburger");
+  const navList = $("#nav-list");
+
+  if (hamburger && navList) {
+    hamburger.addEventListener("click", () => {
+      navList.classList.toggle("open");
+    });
+  }
+
+  $$(".nav-item.has-sub > .nav-btn").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      btn.parentElement.classList.toggle("open");
     });
   });
-});
 
-/* ================= SHARE ================= */
-
-function tryShare() {
-  if (navigator.share) {
-    navigator.share({ title: document.title, url: location.href }).catch(() => {});
-  } else {
-    navigator.clipboard.writeText(location.href);
-    alert("Link copied to clipboard.");
-  }
-}
-
-$("#share-btn")?.addEventListener("click", tryShare);
-$("#sticky-share")?.addEventListener("click", tryShare);
-/* ================= NAVIGATION DROPDOWNS ================= */
-
-function closeAllDropdowns(except = null) {
-  document.querySelectorAll(".nav-item.open").forEach(item => {
-    if (item !== except) item.classList.remove("open");
+  document.addEventListener("click", () => {
+    $$(".nav-item.open").forEach(i => i.classList.remove("open"));
   });
-}
 
-// Desktop dropdowns
-document.querySelectorAll(".nav-item.has-sub > .nav-btn").forEach(btn => {
-  btn.addEventListener("click", e => {
-    e.preventDefault();
-    e.stopPropagation();
+  /* ================= CONTACT MODAL ================= */
 
-    const item = btn.closest(".nav-item");
-    const isOpen = item.classList.contains("open");
+  const modal = $("#contact-modal");
+  $("#open-contact")?.addEventListener("click", () => modal?.showModal());
+  $("#close-contact")?.addEventListener("click", () => modal?.close());
 
-    closeAllDropdowns(item);
+  /* ================= SHARE ================= */
 
-    if (!isOpen) {
-      item.classList.add("open");
-    } else {
-      item.classList.remove("open");
-    }
-  });
-});
-
-// Close dropdowns when clicking outside
-document.addEventListener("click", () => {
-  closeAllDropdowns();
-});
-
-// Keyboard accessibility
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") {
-    closeAllDropdowns();
+  function share() {
+    navigator.share
+      ? navigator.share({ title: document.title, url: location.href })
+      : navigator.clipboard.writeText(location.href);
   }
+
+  $("#share-btn")?.addEventListener("click", share);
+  $("#sticky-share")?.addEventListener("click", share);
+
 });
