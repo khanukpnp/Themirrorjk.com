@@ -1,103 +1,78 @@
-/* ================= ARTICLE PAGE (JSON-DRIVEN) ================= */
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title id="doc-title">Article | The Mirror Jammu Kashmir</title>
+  <meta name="description" content="Read the latest reporting from The Mirror Jammu Kashmir." />
+  <link rel="stylesheet" href="styles.css?v=9" />
+</head>
 
-window.initArticlePage = async function () {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const articleId = params.get("id");
-    if (!articleId) return;
+<body class="theme-maroon article-page">
 
-    const res = await fetch("content/articles.json", { cache: "no-store" });
-    if (!res.ok) return;
+<header class="site-header">
+  <div class="header-row">
+    <img src="assets/logo.png" class="logo" alt="Logo"
+         onerror="this.onerror=null;this.src='logo.png';" />
+    <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+    <img src="assets/logo.png" class="logo" alt="Logo"
+         onerror="this.onerror=null;this.src='logo.png';" />
+  </div>
+  <div class="subheading">
+    CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD
+  </div>
+</header>
 
-    const data = await res.json();
-    const article = (data.items || []).find(a => a.id === articleId);
-    if (!article) return;
+<main class="article-container">
 
-    // Title & metadata
-    document.getElementById("doc-title").textContent =
-      article.title + " | The Mirror Jammu Kashmir";
+  <article class="article-shell">
 
-    document.getElementById("article-title").textContent = article.title;
-    document.getElementById("article-category").textContent =
-      article.category || article.section || "";
+    <header class="article-header">
+      <span id="article-category" class="article-category"></span>
+      <h1 id="article-title" class="article-title">Loading…</h1>
 
-    document.getElementById("article-author").textContent =
-      article.author ? "By " + article.author : "";
+      <div class="article-meta">
+        <span id="article-author"></span>
+        <span id="article-date"></span>
+        <span id="article-readtime"></span>
+      </div>
+    </header>
 
-    document.getElementById("article-date").textContent =
-      article.date ? " | " + article.date : "";
+    <figure class="article-figure">
+      <img id="article-image" alt="" loading="lazy" />
+    </figure>
 
-    document.getElementById("article-readtime").textContent =
-      article.readTime ? " | " + article.readTime : "";
+    <section id="article-content" class="article-content"></section>
 
-    // Image
-    const img = document.getElementById("article-image");
-    if (img && article.image) {
-      img.src = article.image;
-      img.onerror = () => window.replaceWithPlaceholder(img);
-    }
+    <footer class="page-actions">
+      <button class="action-btn" data-like>
+        ❤️ Like <span data-like-count>0</span>
+      </button>
+      <button class="action-btn" data-copy>
+        🔗 Copy Link
+      </button>
+      <button class="action-btn primary" data-share>
+        📣 Share
+      </button>
+    </footer>
 
-    // Content (summary expanded like Reuters intro)
-    const body = document.getElementById("article-content");
-    body.innerHTML = "";
+  </article>
 
-    const lead = document.createElement("p");
-    lead.className = "article-lead";
-    lead.textContent = article.summary || "";
-    body.appendChild(lead);
+</main>
 
-    // Dummy paragraph expansion for now (safe default)
-    const p = document.createElement("p");
-    p.textContent =
-      "This report is part of The Mirror Jammu Kashmir’s ongoing coverage of political, human rights, and social developments. More verified updates will follow as information becomes available.";
-    body.appendChild(p);
+<footer class="footer">
+  <div class="social">
+    <a href="#">𝕏</a>
+    <a href="#">📸</a>
+    <a href="#">▶️</a>
+    <a href="#">📘</a>
+  </div>
+  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR</p>
+</footer>
 
-    // Init actions
-    if (window.initPageActions) window.initPageActions();
-    if (window.initLikeButton) window.initLikeButton("article:" + article.id);
-
-  } catch (e) {
-    console.warn("Article load failed:", e);
-  }
-};
-
-/* ================= PAGE ACTIONS ================= */
-
-window.initPageActions = function () {
-  document.querySelectorAll("[data-copy]").forEach(btn => {
-    btn.onclick = () => {
-      navigator.clipboard.writeText(location.href);
-      alert("Link copied");
-    };
-  });
-
-  document.querySelectorAll("[data-share]").forEach(btn => {
-    btn.onclick = () => {
-      if (navigator.share) {
-        navigator.share({ title: document.title, url: location.href });
-      } else {
-        navigator.clipboard.writeText(location.href);
-        alert("Link copied");
-      }
-    };
-  });
-};
-
-/* ================= LIKE SYSTEM (LOCAL SAFE) ================= */
-
-window.initLikeButton = function (key) {
-  const countEl = document.querySelector("[data-like-count]");
-  if (!countEl) return;
-
-  const storageKey = "likes:" + key;
-  let count = Number(localStorage.getItem(storageKey)) || 0;
-  countEl.textContent = count;
-
-  document.querySelectorAll("[data-like]").forEach(btn => {
-    btn.onclick = () => {
-      count++;
-      localStorage.setItem(storageKey, count);
-      countEl.textContent = count;
-    };
-  });
-};
+<script src="script.js?v=9"></script>
+<script>
+  if (window.initArticlePage) window.initArticlePage();
+</script>
+</body>
+</html>
