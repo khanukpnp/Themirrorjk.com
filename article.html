@@ -1,45 +1,103 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Article | The Mirror Jammu Kashmir</title>
-  <meta name="description" content="Read the latest reporting from The Mirror Jammu Kashmir." />
-  <link rel="stylesheet" href="styles.css" />
-</head>
+/* ================= ARTICLE PAGE (JSON-DRIVEN) ================= */
 
-<body>
-  <header>
-    <!-- keep your existing header exactly as it is on index.html -->
-  </header>
+window.initArticlePage = async function () {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const articleId = params.get("id");
+    if (!articleId) return;
 
-  <main class="container">
-    <section class="content-block article-page">
-      <h1 id="article-title" class="page-title">Loading...</h1>
+    const res = await fetch("content/articles.json", { cache: "no-store" });
+    if (!res.ok) return;
 
-      <div class="meta-row">
-        <div id="article-meta" class="meta"></div>
-      </div>
+    const data = await res.json();
+    const article = (data.items || []).find(a => a.id === articleId);
+    if (!article) return;
 
-      <div class="article-body">
-        <img id="article-image" class="inline-img-right" src="sample-1.jpg" alt="" loading="lazy" />
-        <div id="article-content" class="article-content"></div>
-      </div>
+    // Title & metadata
+    document.getElementById("doc-title").textContent =
+      article.title + " | The Mirror Jammu Kashmir";
 
-      <div class="page-actions" data-actions>
-        <button type="button" class="action-btn" data-like>👍 Like <span data-like-count>0</span></button>
-        <button type="button" class="action-btn" data-copy>🔗 Copy Link</button>
-        <button type="button" class="action-btn" data-share>📤 Share</button>
-      </div>
-    </section>
-  </main>
+    document.getElementById("article-title").textContent = article.title;
+    document.getElementById("article-category").textContent =
+      article.category || article.section || "";
 
-  <footer>
-    <!-- keep your existing footer exactly as it is -->
-    <div class="footer-copy">© The Mirror Jammu Kashmir</div>
-  </footer>
+    document.getElementById("article-author").textContent =
+      article.author ? "By " + article.author : "";
 
-  <script src="script.js"></script>
-</body>
-</html>
+    document.getElementById("article-date").textContent =
+      article.date ? " | " + article.date : "";
 
+    document.getElementById("article-readtime").textContent =
+      article.readTime ? " | " + article.readTime : "";
+
+    // Image
+    const img = document.getElementById("article-image");
+    if (img && article.image) {
+      img.src = article.image;
+      img.onerror = () => window.replaceWithPlaceholder(img);
+    }
+
+    // Content (summary expanded like Reuters intro)
+    const body = document.getElementById("article-content");
+    body.innerHTML = "";
+
+    const lead = document.createElement("p");
+    lead.className = "article-lead";
+    lead.textContent = article.summary || "";
+    body.appendChild(lead);
+
+    // Dummy paragraph expansion for now (safe default)
+    const p = document.createElement("p");
+    p.textContent =
+      "This report is part of The Mirror Jammu Kashmir’s ongoing coverage of political, human rights, and social developments. More verified updates will follow as information becomes available.";
+    body.appendChild(p);
+
+    // Init actions
+    if (window.initPageActions) window.initPageActions();
+    if (window.initLikeButton) window.initLikeButton("article:" + article.id);
+
+  } catch (e) {
+    console.warn("Article load failed:", e);
+  }
+};
+
+/* ================= PAGE ACTIONS ================= */
+
+window.initPageActions = function () {
+  document.querySelectorAll("[data-copy]").forEach(btn => {
+    btn.onclick = () => {
+      navigator.clipboard.writeText(location.href);
+      alert("Link copied");
+    };
+  });
+
+  document.querySelectorAll("[data-share]").forEach(btn => {
+    btn.onclick = () => {
+      if (navigator.share) {
+        navigator.share({ title: document.title, url: location.href });
+      } else {
+        navigator.clipboard.writeText(location.href);
+        alert("Link copied");
+      }
+    };
+  });
+};
+
+/* ================= LIKE SYSTEM (LOCAL SAFE) ================= */
+
+window.initLikeButton = function (key) {
+  const countEl = document.querySelector("[data-like-count]");
+  if (!countEl) return;
+
+  const storageKey = "likes:" + key;
+  let count = Number(localStorage.getItem(storageKey)) || 0;
+  countEl.textContent = count;
+
+  document.querySelectorAll("[data-like]").forEach(btn => {
+    btn.onclick = () => {
+      count++;
+      localStorage.setItem(storageKey, count);
+      countEl.textContent = count;
+    };
+  });
+};
