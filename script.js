@@ -1,3 +1,4 @@
+Java script js new 2 Feb 2026
 // JS v2 refresh
 const $ = (sel, ctx=document) => ctx.querySelector(sel);
 const $$ = (sel, ctx=document) => [...ctx.querySelectorAll(sel)];
@@ -365,7 +366,21 @@ window.replaceWithPlaceholder = function(imgEl){
   }
 };
 
-// Actions
+// ===== ABOUT US TOGGLE & ACTIONS =====
+(() => {
+  const section = document.getElementById("about-us");
+  if (!section) return;
+
+  // Open from nav
+  document.querySelectorAll('a[href="#about"]').forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      section.hidden = false;
+      section.scrollIntoView({ behavior: "smooth" });
+    });
+  });
+
+  // Actions
   const likeBtn = section.querySelector('[data-action="like"]');
   const subBtn = section.querySelector('[data-action="subscribe"]');
   const shareBtn = section.querySelector('[data-action="share"]');
@@ -435,63 +450,4 @@ window.replaceWithPlaceholder = function(imgEl){
       closeAbout();
     }
   });
-})();
-/* ===== ABOUT US (FINAL, CLEAN) ===== */
-(function () {
-  const aboutPanel = document.getElementById("about-panel");
-  if (!aboutPanel) return;
-
-  const openers = document.querySelectorAll('[data-open="about"]');
-  const closers = aboutPanel.querySelectorAll('[data-close="about"]');
-
-  openers.forEach(btn => {
-    btn.addEventListener("click", e => {
-      e.preventDefault();
-      aboutPanel.hidden = false;
-      document.body.style.overflow = "hidden";
-    });
-  });
-
-  const close = () => {
-    aboutPanel.hidden = true;
-    document.body.style.overflow = "";
-  };
-
-  closers.forEach(btn => btn.addEventListener("click", close));
-
-  aboutPanel.addEventListener("click", e => {
-    if (e.target === aboutPanel) close();
-  });
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && !aboutPanel.hidden) close();
-  });
-
-  // Actions
-  let likes = 0;
-  aboutPanel.querySelector('[data-action="like"]')
-    ?.addEventListener("click", e => {
-      likes++;
-      e.currentTarget.querySelector("span").textContent = likes;
-    });
-
-  aboutPanel.querySelector('[data-action="subscribe"]')
-    ?.addEventListener("click", e => {
-      e.currentTarget.textContent = "Subscribed";
-      e.currentTarget.disabled = true;
-    });
-
-  aboutPanel.querySelector('[data-action="share"]')
-    ?.addEventListener("click", () => {
-      navigator.share
-        ? navigator.share({ title: document.title, url: location.href })
-        : alert("Share not supported");
-    });
-
-  aboutPanel.querySelector('[data-action="copy"]')
-    ?.addEventListener("click", e => {
-      navigator.clipboard.writeText(location.href);
-      e.currentTarget.textContent = "Copied";
-      setTimeout(() => e.currentTarget.textContent = "📋 Copy Link", 1200);
-    });
 })();
