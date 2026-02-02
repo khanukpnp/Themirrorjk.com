@@ -1,4 +1,4 @@
-Java script js new 2 Feb 2026
+Script.js 
 // JS v2 refresh
 const $ = (sel, ctx=document) => ctx.querySelector(sel);
 const $$ = (sel, ctx=document) => [...ctx.querySelectorAll(sel)];
@@ -81,13 +81,13 @@ hamburger.addEventListener("click", () => {
 
 const cities = [
   { key:"zurich", name:"Zurich", lat:47.3769, lon:8.5417 },
-  { key:"rawalakot", name:"Rawalakot", lat:33.8578, lon:73.7604 },
-{ key:"jammu", name:"Jammu", lat:32.7266, lon:74.8570 },
+  { key:"jammu", name:"Jammu", lat:32.7266, lon:74.8570 },
   { key:"kashmir", name:"Kashmir", lat:34.0837, lon:74.7973 },
   { key:"ladakh", name:"Ladakh", lat:34.1526, lon:77.5771 },
+  { key:"rawalakot", name:"Rawalakot", lat:33.8578, lon:73.7604 }
   { key:"gilgit", name:"Gilgit", lat:35.9208, lon:74.3080 },
   { key:"baltistan", name:"Baltistan", lat:35.3025, lon:75.6360 },
-  { key:"muzaffarabad", name:"Muzaffarabad", lat:34.37, lon:73.47 }
+  { key:"muzaffarabad", name:"Muzaffarabad", lat:34.37, lon:73.47 },
 ];
 const weatherBar = $("#weather-bar");
 const codeToIcon = (code)=>{
@@ -365,89 +365,3 @@ window.replaceWithPlaceholder = function(imgEl){
     if (imgEl) imgEl.style.display = 'none';
   }
 };
-
-// ===== ABOUT US TOGGLE & ACTIONS =====
-(() => {
-  const section = document.getElementById("about-us");
-  if (!section) return;
-
-  // Open from nav
-  document.querySelectorAll('a[href="#about"]').forEach(link => {
-    link.addEventListener("click", e => {
-      e.preventDefault();
-      section.hidden = false;
-      section.scrollIntoView({ behavior: "smooth" });
-    });
-  });
-
-  // Actions
-  const likeBtn = section.querySelector('[data-action="like"]');
-  const subBtn = section.querySelector('[data-action="subscribe"]');
-  const shareBtn = section.querySelector('[data-action="share"]');
-  const copyBtn = section.querySelector('[data-action="copy"]');
-
-  let likes = 0;
-  likeBtn?.addEventListener("click", () => {
-    likes++;
-    likeBtn.querySelector("span").textContent = likes;
-  });
-
-  subBtn?.addEventListener("click", () => {
-    subBtn.textContent = "Subscribed";
-    subBtn.disabled = true;
-  });
-
-  shareBtn?.addEventListener("click", () => {
-    if (navigator.share) {
-      navigator.share({ title: document.title, url: location.href });
-    } else {
-      alert("Sharing not supported on this device");
-    }
-  });
-
-  copyBtn?.addEventListener("click", () => {
-    navigator.clipboard.writeText(location.href);
-    copyBtn.textContent = "Copied";
-    setTimeout(() => copyBtn.textContent = "📋 Copy Link", 1500);
-  });
-})();
-/* ===== ABOUT US (SCOPED, SAFE) ===== */
-
-(function () {
-  const aboutPanel = document.getElementById("about-panel");
-  if (!aboutPanel) return;
-
-  // Open About Us
-  document.querySelectorAll('[data-open="about"]').forEach(btn => {
-    btn.addEventListener("click", e => {
-      e.preventDefault();
-      aboutPanel.classList.add("active");
-      document.body.style.overflow = "hidden";
-    });
-  });
-
-  // Close handlers
-  const closeAbout = () => {
-    aboutPanel.classList.remove("active");
-    document.body.style.overflow = "";
-  };
-
-  // Close button inside panel
-  aboutPanel.querySelectorAll('[data-close="about"]').forEach(btn => {
-    btn.addEventListener("click", closeAbout);
-  });
-
-  // Click outside content closes panel
-  aboutPanel.addEventListener("click", e => {
-    if (e.target === aboutPanel) {
-      closeAbout();
-    }
-  });
-
-  // ESC key closes panel
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && aboutPanel.classList.contains("active")) {
-      closeAbout();
-    }
-  });
-})();
