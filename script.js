@@ -364,3 +364,49 @@ window.replaceWithPlaceholder = function(imgEl){
     if (imgEl) imgEl.style.display = 'none';
   }
 };
+
+// ===== ABOUT US TOGGLE & ACTIONS =====
+(() => {
+  const section = document.getElementById("about-us");
+  if (!section) return;
+
+  // Open from nav
+  document.querySelectorAll('a[href="#about"]').forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      section.hidden = false;
+      section.scrollIntoView({ behavior: "smooth" });
+    });
+  });
+
+  // Actions
+  const likeBtn = section.querySelector('[data-action="like"]');
+  const subBtn = section.querySelector('[data-action="subscribe"]');
+  const shareBtn = section.querySelector('[data-action="share"]');
+  const copyBtn = section.querySelector('[data-action="copy"]');
+
+  let likes = 0;
+  likeBtn?.addEventListener("click", () => {
+    likes++;
+    likeBtn.querySelector("span").textContent = likes;
+  });
+
+  subBtn?.addEventListener("click", () => {
+    subBtn.textContent = "Subscribed";
+    subBtn.disabled = true;
+  });
+
+  shareBtn?.addEventListener("click", () => {
+    if (navigator.share) {
+      navigator.share({ title: document.title, url: location.href });
+    } else {
+      alert("Sharing not supported on this device");
+    }
+  });
+
+  copyBtn?.addEventListener("click", () => {
+    navigator.clipboard.writeText(location.href);
+    copyBtn.textContent = "Copied";
+    setTimeout(() => copyBtn.textContent = "📋 Copy Link", 1500);
+  });
+})();
