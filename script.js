@@ -410,3 +410,43 @@ window.replaceWithPlaceholder = function(imgEl){
     setTimeout(() => copyBtn.textContent = "📋 Copy Link", 1500);
   });
 })();
+/* ===== ABOUT US (SCOPED, SAFE) ===== */
+
+(function () {
+  const aboutPanel = document.getElementById("about-panel");
+  if (!aboutPanel) return;
+
+  // Open About Us
+  document.querySelectorAll('[data-open="about"]').forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      aboutPanel.classList.add("active");
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  // Close handlers
+  const closeAbout = () => {
+    aboutPanel.classList.remove("active");
+    document.body.style.overflow = "";
+  };
+
+  // Close button inside panel
+  aboutPanel.querySelectorAll('[data-close="about"]').forEach(btn => {
+    btn.addEventListener("click", closeAbout);
+  });
+
+  // Click outside content closes panel
+  aboutPanel.addEventListener("click", e => {
+    if (e.target === aboutPanel) {
+      closeAbout();
+    }
+  });
+
+  // ESC key closes panel
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && aboutPanel.classList.contains("active")) {
+      closeAbout();
+    }
+  });
+})();
