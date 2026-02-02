@@ -19,18 +19,15 @@
 
 /* ===== BREAKING + TICKER ONE-LINE FIX ===== */
 
+/* ===== BREAKING TICKER – HARD FIX ===== */
+
 .ticker-wrap{
   background: var(--maroon);
-  color: #fff;
-  display: flex;
-  align-items: center;
   width: 100%;
   overflow: hidden;
-  padding: 0;
-  z-index: 40;
 }
 
-/* container */
+/* main row */
 .ticker{
   display: flex;
   align-items: center;
@@ -38,36 +35,35 @@
   overflow: hidden;
 }
 
-/* BREAKING label */
-.ticker > span{
+/* BREAKING label – fixed width */
+.breaking-label{
   background: #6f001a;
   color: #fff;
   font-weight: 800;
-  letter-spacing: .6px;
-  padding: 8px 16px;
+  padding: 8px 18px;
   white-space: nowrap;
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  z-index: 2;
 }
 
-/* scrolling list */
+/* scrolling container */
 .ticker ul{
   display: flex;
   align-items: center;
-  gap: 48px;
   list-style: none;
   margin: 0;
-  padding-left: 16px;
+  padding-left: 20px;
   white-space: nowrap;
-  width: max-content;
+  flex: 1 1 auto;
   animation: ticker-scroll 220s linear infinite;
 }
 
-/* ticker items */
+/* items */
 .ticker li{
+  margin-right: 48px;
   font-size: 12px;
   text-transform: uppercase;
-  flex-shrink: 0;
-  opacity: .95;
+  flex: 0 0 auto;
 }
 
 /* animation */
