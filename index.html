@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <base href="./" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="./">
   <title>THE MIRROR JAMMU KASHMIR</title>
-  <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard." />
+  <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
   <link rel="preconnect" href="https://api.open-meteo.com">
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 
 <body class="theme-maroon">
 
+<!-- ================= HEADER ================= -->
 <header class="site-header">
   <div class="header-row">
     <img src="assets/logo.png" class="logo" alt="Logo" onerror="this.src='logo.png'">
@@ -23,6 +24,7 @@
   </div>
 </header>
 
+<!-- ================= CLOCKS ================= -->
 <section class="bar clocks-line">
   <div class="row tight nowrap">
     <div id="clock-cest" class="chip tiny">🕒 <span>Loading…</span></div>
@@ -33,78 +35,150 @@
   </div>
 </section>
 
+<!-- ================= WEATHER ================= -->
 <section class="bar weather-line">
   <div id="weather-bar" class="row nowrap super-tight"></div>
 </section>
 
+<!-- ================= TICKER ================= -->
 <section class="ticker-wrap">
   <div class="ticker">
+    <span>BREAKING</span>
     <ul id="ticker-items">
       <li>THE MIRROR JAMMU KASHMIR — INDEPENDENT DIGITAL MEDIA PLATFORM</li>
     </ul>
   </div>
+
+  <div class="tools">
+    <label class="lang-select">
+      🌍
+      <select id="language-select">
+        <option selected>English</option>
+        <option>Urdu</option>
+        <option>Hindi</option>
+        <option>Arabic</option>
+        <option>German</option>
+        <option>French</option>
+      </select>
+    </label>
+
+    <form class="search" onsubmit="event.preventDefault(); fakeSearch();">
+      <input id="search-input" type="search" placeholder="Search…">
+      <button type="submit">🔍</button>
+    </form>
+  </div>
 </section>
 
+<!-- ================= NAVIGATION ================= -->
 <nav class="navbar">
-  <button class="hamburger" id="hamburger">☰ Menu</button>
+  <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
 
   <ul class="nav-list" id="nav-list">
+
     <li class="nav-item has-sub">
       <button class="nav-btn">🏠 Home</button>
       <div class="dropdown">
-        <a href="#" data-open="about">About</a>
+        <a href="#about-panel" data-open="about">About</a>
         <a href="#chief-editor">Chief Editor</a>
         <a href="#contact">Contact</a>
       </div>
     </li>
 
-    <li class="nav-item"><a class="nav-btn" href="#blog">📝 Blog</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#vlog">🎥 Vlog</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#epaper">📰 E-Paper</a></li>
+    <li class="nav-item has-sub">
+      <button class="nav-btn">📝 Blog</button>
+      <div class="dropdown">
+        <a href="#editorial">Editorial</a>
+        <a href="#opinion">Opinion</a>
+        <a href="#updates">Updates</a>
+      </div>
+    </li>
+
+    <li class="nav-item has-sub">
+      <button class="nav-btn">🎥 Vlog</button>
+      <div class="dropdown">
+        <a href="#vlog-latest">Latest</a>
+        <a href="#vlog-archive">Archive</a>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-btn" href="#epaper">📰 E-Paper</a>
+    </li>
+
   </ul>
 
   <div id="mobile-menu" class="mobile-menu" hidden></div>
 </nav>
 
+<!-- ================= MAIN ================= -->
 <main class="main">
-  <!-- YOUR MAIN CONTENT REMAINS UNCHANGED -->
+
+  <!-- Blog, Vlog, Rail sections unchanged -->
+  <!-- Your existing cards work with script.js -->
+
 </main>
 
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
   <div class="social">
-    <a>𝕏</a><a>📸</a><a>▶️</a><a>📘</a>
+    <a>𝕏</a>
+    <a>📸</a>
+    <a>▶️</a>
+    <a>📘</a>
     <button id="share-btn">Share</button>
   </div>
   <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR</p>
 </footer>
 
-<!-- ABOUT US PANEL (SINGLE, CORRECT) -->
+<!-- ================= CONTACT MODAL ================= -->
+<dialog id="contact-modal" class="modal">
+  <form class="modal-card" method="POST" data-netlify="true" enctype="multipart/form-data">
+    <h3>Contact Us</h3>
+
+    <label>
+      Name
+      <input type="text" name="name" required>
+    </label>
+
+    <label>
+      Email
+      <input type="email" name="email" required>
+    </label>
+
+    <label>
+      Message
+      <textarea name="message" rows="4" required></textarea>
+    </label>
+
+    <label>
+      Upload file
+      <input type="file" name="attachment">
+    </label>
+
+    <div class="modal-actions">
+      <button class="btn" type="submit">Send</button>
+      <button type="button" class="btn outline" id="close-contact">Exit</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ================= ABOUT PANEL ================= -->
 <section id="about-panel" class="aboutus-overlay" aria-hidden="true">
   <div class="aboutus-shell">
-
     <button data-close="about" class="aboutus-close">✕</button>
-
     <h2>About Us</h2>
-
-    <div class="aboutus-content">
-      <p>The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity.</p>
-      <p>We challenge silence, expose injustice, and amplify voices deliberately suppressed.</p>
-      <p>We do not manufacture narratives. We reflect reality.</p>
-    </div>
-
-    <figure class="aboutus-figure">
-      <img src="assets/about.jpg" alt="The Mirror Jammu Kashmir">
-    </figure>
-
-    <div class="aboutus-actions">
-      <button data-action="like">❤️ Like <span>0</span></button>
-      <button data-action="subscribe">🔔 Subscribe</button>
-      <button data-action="share">🔗 Share</button>
-      <button data-action="copy">📋 Copy Link</button>
-    </div>
-
+    <p>The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity.</p>
   </div>
 </section>
+
+<!-- ================= MOBILE STICKY ================= -->
+<nav class="mobile-sticky">
+  <a href="#">🏠</a>
+  <button id="sticky-search">🔍</button>
+  <button id="sticky-like">❤️</button>
+  <button id="sticky-share">🔗</button>
+  <button id="sticky-menu">☰</button>
+</nav>
 
 <script src="script.js?v=4"></script>
 </body>
