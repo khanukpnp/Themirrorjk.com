@@ -17,61 +17,15 @@
 #weather-bar .city{ display:inline-flex; align-items:center; gap:6px; background:#fff7f5; border:1px solid #ffe1db; border-radius:999px; padding:4px 8px; font-size:12px; margin-right:6px }
 #weather-bar .city .temp{ font-weight:700 } #weather-bar .city .name{ font-weight:600 }
 
-/* ===== BREAKING + TICKER ONE-LINE FIX ===== */
-
-/* ===== BREAKING TICKER – HARD FIX ===== */
-
-.ticker-wrap{
-  background: var(--maroon);
-  width: 100%;
-  overflow: hidden;
-}
-
-/* main row */
-.ticker{
-  display: flex;
-  align-items: center;
-  width: 100%;
-  overflow: hidden;
-}
-
-/* BREAKING label – fixed width */
-.breaking-label{
-  background: #6f001a;
-  color: #fff;
-  font-weight: 800;
-  padding: 8px 18px;
-  white-space: nowrap;
-  flex: 0 0 auto;
-  z-index: 2;
-}
-
-/* scrolling container */
-.ticker ul{
-  display: flex;
-  align-items: center;
-  list-style: none;
-  margin: 0;
-  padding-left: 20px;
-  white-space: nowrap;
-  flex: 1 1 auto;
-  animation: ticker-scroll 220s linear infinite;
-}
-
-/* items */
-.ticker li{
-  margin-right: 48px;
-  font-size: 12px;
-  text-transform: uppercase;
-  flex: 0 0 auto;
-}
-
-/* animation */
-@keyframes ticker-scroll{
-  from{ transform: translateX(0); }
-  to{ transform: translateX(-50%); }
-}
-
+.ticker-wrap{ background:var(--maroon); color:#fff; display:flex; align-items:center; gap:8px; padding:8px 10px; position:relative; z-index:40 }
+.ticker{ display:flex; align-items:center; gap:10px; overflow:hidden; flex:1 }
+.ticker > span{ font-weight:800; letter-spacing:.6px }
+.ticker ul{ display:flex; align-items:center; gap:48px; list-style:none; padding:0; margin:0; flex-wrap:nowrap; white-space:nowrap; width:max-content; will-change:transform; animation: ticker-scroll var(--ticker-speed, 250s) linear infinite }
+.ticker li{ text-transform:uppercase; font-size:12px; white-space:nowrap; opacity:.95; flex:0 0 auto }
+@keyframes ticker-scroll{ from{ transform:translateX(0)} to{ transform:translateX(-50%)} }
+.tools{ display:flex; align-items:center; gap:8px } .lang-select select, .search input, .search button{ font-size:12px }
+.lang-select select{ padding:6px 10px; border-radius:999px; border:1px solid #e3e3e8; background:#fff }
+.search{ display:flex; gap:6px } .search input{ padding:6px 10px; border-radius:999px; border:1px solid #e3e3e8 } .search button{ padding:6px 10px; border-radius:999px; border:1px solid #e3e3e8; background:#fff; cursor:pointer }
 
 .navbar{ background:var(--maroon-2); color:#fff } .navbar .hamburger{ display:none; background:none; border:none; color:#fff; padding:10px 12px; font-size:14px }
 .nav-list{ display:flex; align-items:center; justify-content:center; gap:4px; list-style:none; margin:0; padding:6px; flex-wrap:wrap }
