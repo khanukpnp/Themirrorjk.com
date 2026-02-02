@@ -80,13 +80,13 @@ hamburger.addEventListener("click", () => {
 
 const cities = [
   { key:"zurich", name:"Zurich", lat:47.3769, lon:8.5417 },
-  { key:"jammu", name:"Jammu", lat:32.7266, lon:74.8570 },
+  { key:"rawalakot", name:"Rawalakot", lat:33.8578, lon:73.7604 },
+{ key:"jammu", name:"Jammu", lat:32.7266, lon:74.8570 },
   { key:"kashmir", name:"Kashmir", lat:34.0837, lon:74.7973 },
   { key:"ladakh", name:"Ladakh", lat:34.1526, lon:77.5771 },
   { key:"gilgit", name:"Gilgit", lat:35.9208, lon:74.3080 },
   { key:"baltistan", name:"Baltistan", lat:35.3025, lon:75.6360 },
-  { key:"muzaffarabad", name:"Muzaffarabad", lat:34.37, lon:73.47 },
-  { key:"rawalakot", name:"Rawalakot", lat:33.8578, lon:73.7604 }
+  { key:"muzaffarabad", name:"Muzaffarabad", lat:34.37, lon:73.47 }
 ];
 const weatherBar = $("#weather-bar");
 const codeToIcon = (code)=>{
