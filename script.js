@@ -1,5 +1,5 @@
-console.log("SCRIPT LOADED OK");
 // ================= CORE HELPERS =================
+console.log("SCRIPT LOADED OK");
 const $ = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
