@@ -90,15 +90,14 @@
     <button class="hamburger" aria-expanded="false" aria-controls="mobile-menu" id="hamburger">☰ Menu</button>
     <ul class="nav-list" id="nav-list">
       <li class="nav-item has-sub">
-        <button class="nav-btn">🏠 Home</button>
-        <div class="dropdown">
-          <a href="#about-us" data-open-about>About</a>
-          <section id="about-panel">
-<button data-close="about">Close</button>
-          <a href="#chief-editor">Chief Editor</a>
-         <a href="#contact">Contact</a>
-        </div>
-      </li>
+  <button class="nav-btn">🏠 Home</button>
+  <div class="dropdown">
+    <a href="#" data-open="about">About Us</a>
+    <a href="#chief-editor">Chief Editor</a>
+    <a href="#contact">Contact</a>
+  </div>
+</li>
+
       <li class="nav-item"><a class="nav-btn" href="#breaking">🆕 Breaking News</a></li>
       <li class="nav-item has-sub">
         <button class="nav-btn">📝 Blog</button>
@@ -438,6 +437,29 @@
 <section id="about-panel" aria-hidden="true">
   <div class="about-shell">
     <!-- About Us content goes here -->
+  </div>
+</section>
+<section id="about-panel" class="aboutus-overlay">
+  <div class="aboutus-shell">
+    <button class="aboutus-close" data-close="about">✕</button>
+
+    <h2>About Us</h2>
+
+    <div class="aboutus-content">
+      <p>The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity.</p>
+      <!-- keep your full text here -->
+    </div>
+
+    <figure class="aboutus-figure">
+      <img src="assets/about.jpg" alt="The Mirror Jammu Kashmir">
+    </figure>
+
+    <div class="aboutus-actions">
+      <button>👍 Like</button>
+      <button>⭐ Subscribe</button>
+      <button>🔗 Copy Link</button>
+      <button>📣 Share</button>
+    </div>
   </div>
 </section>
 
