@@ -1,3 +1,4 @@
+Styles.css
 /* Updated v2 styles (single-line calendars + weather, new cards) */
 :root{ --maroon:#7a001e; --maroon-2:#8a102e; --text:#111; --text-inv:#fff; --bg:#f5f5f7; --card:#fff; --accent:#e53935; --shadow:0 6px 24px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.06); }
 *{ box-sizing:border-box } html,body{ margin:0; padding:0; scroll-behavior:smooth } body{ font-family: Georgia, "Times New Roman", serif; background:var(--bg); color:var(--text) }
@@ -26,7 +27,6 @@
 .tools{ display:flex; align-items:center; gap:8px } .lang-select select, .search input, .search button{ font-size:12px }
 .lang-select select{ padding:6px 10px; border-radius:999px; border:1px solid #e3e3e8; background:#fff }
 .search{ display:flex; gap:6px } .search input{ padding:6px 10px; border-radius:999px; border:1px solid #e3e3e8 } .search button{ padding:6px 10px; border-radius:999px; border:1px solid #e3e3e8; background:#fff; cursor:pointer }
-
 
 .navbar{ background:var(--maroon-2); color:#fff } .navbar .hamburger{ display:none; background:none; border:none; color:#fff; padding:10px 12px; font-size:14px }
 .nav-list{ display:flex; align-items:center; justify-content:center; gap:4px; list-style:none; margin:0; padding:6px; flex-wrap:wrap }
@@ -115,77 +115,4 @@ input[type="email"], input[type="text"], textarea, input[type="file"]{ width:100
 .media-placeholder.accent-green .media-placeholder-inner{
   border-color: #1f7a4d;
   color: #1f7a4d;
-}
-
-/* ===== ABOUT US (SCOPED, FIXED) ===== */
-
-#about-panel{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.6);
-  display: none;
-  overflow-y: auto;
-  z-index: 999;
-}
-
-#about-panel.active{
-  display: block;
-}
-
-.about-shell{
-  max-width: 900px;
-  margin: 40px auto;
-  background: #fff;
-  border-radius: 16px;
-  padding: 22px;
-  box-shadow: 0 6px 24px rgba(0,0,0,.15);
-}
-
-.about-shell h2{
-  font-size: 28px;
-  margin-bottom: 16px;
-}
-
-.about-content{
-  font-size: 16px;
-  line-height: 1.7;
-  color: #222;
-}
-
-.about-content p{
-  margin-bottom: 14px;
-}
-
-.about-figure{
-  float: right;
-  width: 35%;
-  margin: 6px 0 10px 18px;
-}
-
-.about-figure img{
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-.about-actions{
-  clear: both;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 18px;
-}
-
-.about-actions button{
-  border: 1px solid #ddd;
-  background: #fff;
-  padding: 8px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.about-actions button:hover{
-  background: #f2f2f2;
 }
