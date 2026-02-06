@@ -10,83 +10,41 @@
       "location": "Rawalakot, Poonch, Azad Kashmir",
       "date": "2025-12-16",
       "readTime": "7 min read",
-      "image": "assets/rawalakot-protest-01.jpg",
+
+      "image": "content/rawalakot-01.jpg",
+
       "body": [
         {
           "type": "paragraph",
           "text": "A complete shutter down brought life to a standstill in Rawalakot on Monday as thousands of residents from across District Poonch poured into the streets to protest prolonged power outages, severe load shedding, low voltage electricity, and persistent internet and mobile network disruptions."
         },
         {
+          "type": "image",
+          "src": "content/rawalakot-02.jpg",
+          "align": "right"
+        },
+        {
           "type": "paragraph",
           "text": "Markets remained closed and traffic was largely halted as protesters marched through the city and gathered near the grid station, demanding an immediate end to what they described as collective punishment of the population."
         },
         {
-          "type": "image",
-          "src": "assets/rawalakot-protest-02.jpg",
-          "alt": "Protesters gathering near the grid station in Rawalakot"
-        },
-        {
           "type": "paragraph",
-          "text": "Residents say Azad Kashmir has been subjected to extreme load shedding for several months, with the Poonch region facing between 15 and 20 hours of power cuts daily. Electricity supply remains unstable, voltage levels are dangerously low, and internet and mobile services are frequently disrupted or slowed to near unusable levels."
-        },
-        {
-          "type": "paragraph",
-          "text": "The impact has been widespread. Small businesses dependent on electricity and digital connectivity are struggling to survive. Hospitals, clinics, schools, universities, legal offices, and printing services report serious disruptions."
+          "text": "Residents say Azad Kashmir has been subjected to extreme load shedding for several months, with the Poonch region facing between 15 and 20 hours of power cuts daily."
         },
         {
           "type": "image",
-          "src": "assets/rawalakot-protest-03.jpg",
-          "alt": "Closed markets during shutter down in Rawalakot"
+          "src": "content/rawalakot-03.jpg",
+          "align": "left"
         },
         {
           "type": "paragraph",
-          "text": "Public frustration has been building for more than two and a half years. Previous protests forced authorities to enter into agreements promising electricity at production cost and improvements in essential infrastructure. Residents say those commitments were never honored."
+          "text": "Public frustration has been building for more than two and a half years. Previous protests forced authorities to enter into agreements promising electricity at production cost and improvements in essential infrastructure."
         },
         {
           "type": "paragraph",
-          "text": "Protesters announced an indefinite sit in in Rawalakot, stressing that all agreements made with the public must be implemented in full. They demanded an immediate end to collective punishment and restoration of reliable electricity and communication services."
+          "text": "Protesters announced an indefinite sit in in Rawalakot, stressing that all agreements made with the public must be implemented in full."
         }
-      ],
-      "seo": {
-        "headline": "Rawalakot Shutdown Protest Over Power Cuts and Internet Blackouts",
-        "description": "Thousands protest power outages and communication blackouts in Rawalakot, Azad Kashmir, as a complete shutter down paralyzes the city.",
-        "keywords": [
-          "Rawalakot",
-          "Azad Kashmir",
-          "Power Cuts",
-          "Internet Blackout",
-          "Human Rights",
-          "Protests"
-        ]
-      }
-    },
-
-    {
-      "id": "article-archive-2025-01",
-      "slug": "un-human-rights-report-urgent-action",
-      "title": "UN Human Rights Report Calls for Urgent International Action",
-      "category": "Human Rights",
-      "excerpt": "A United Nations Human Rights Council report highlights severe rights violations and urges immediate international monitoring and intervention.",
-      "author": "International Desk",
-      "date": "2025-01-14",
-      "readTime": "8 min read",
-      "image": "assets/sample-2.jpg",
-      "body": [
-        {
-          "type": "paragraph",
-          "text": "The latest United Nations Human Rights Council report has raised serious concerns over ongoing rights violations in several conflict regions, urging immediate international monitoring and accountability mechanisms."
-        }
-      ],
-      "seo": {
-        "headline": "UN Human Rights Council Urges Immediate Global Action",
-        "description": "UN report warns of serious human rights violations and calls for urgent international intervention.",
-        "keywords": [
-          "UNHRC",
-          "Human Rights",
-          "International Law",
-          "Conflict Zones"
-        ]
-      }
+      ]
     }
   ]
 }
