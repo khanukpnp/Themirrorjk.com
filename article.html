@@ -3,13 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title id="doc-title">Article | The Mirror Jammu Kashmir</title>
+
+  <title>Article | The Mirror Jammu Kashmir</title>
   <meta name="description" content="Read the latest reporting from The Mirror Jammu Kashmir." />
+
+  <!-- Use existing global stylesheet -->
   <link rel="stylesheet" href="styles.css?v=9" />
 </head>
 
 <body class="theme-maroon article-page">
 
+<!-- ===== HEADER (UNCHANGED STRUCTURE) ===== -->
 <header class="site-header">
   <div class="header-row">
     <img src="assets/logo.png" class="logo" alt="Logo"
@@ -19,39 +23,91 @@
          onerror="this.onerror=null;this.src='logo.png';" />
   </div>
   <div class="subheading">
-    CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD
+    CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD
   </div>
 </header>
 
+<!-- ===== ARTICLE CONTENT ===== -->
 <main class="article-container">
 
   <article class="article-shell">
 
     <header class="article-header">
-      <span id="article-category" class="article-category"></span>
-      <h1 id="article-title" class="article-title">Loading…</h1>
+      <span class="article-category">About Us</span>
+
+      <h1 class="article-title">
+        The Mirror Jammu Kashmir
+      </h1>
 
       <div class="article-meta">
-        <span id="article-author"></span>
-        <span id="article-date"></span>
-        <span id="article-readtime"></span>
+        <span>Independent Media Platform</span>
+        <span>Updated 2026</span>
       </div>
     </header>
 
+    <!-- ===== ARTICLE TEXT ===== -->
+    <section class="article-content">
+
+      <p>
+        The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth,
+        justice, and human dignity. We exist to challenge silence, expose injustice, and amplify
+        voices that are ignored or deliberately suppressed. Our work is rooted in facts,
+        international law, and lived realities, not in narratives shaped by power or propaganda.
+      </p>
+
+      <p>
+        Our mission is simple and uncompromising. To champion justice. To speak the truth without
+        fear. To bring forward voices from the margins. To document realities that others choose
+        to ignore. We believe hope must never be abandoned. Hope only becomes real through action.
+        Through persistence. Through principled journalism that refuses to give up.
+      </p>
+
+      <p>
+        We are guided by the belief that all human beings are born free and equal in dignity and
+        rights. These rights are universal, indivisible, and non negotiable. No state, institution,
+        or ideology has the authority to deny them. Equality without discrimination is not a
+        privilege. It is a right.
+      </p>
+
+      <p>
+        Democracy derives its legitimacy from the will of the people. From their voices. Their
+        choices. Their free and equal participation. Democracy cannot survive where human rights
+        are violated or where entire populations are excluded. A democracy that excludes is no
+        democracy at all.
+      </p>
+
+      <p>
+        We do not manufacture narratives. We reflect reality. The Mirror Jammu Kashmir holds up a
+        mirror to power, to policy, to history, and to truth.
+      </p>
+
+    </section>
+
+    <!-- ===== INLINE IMAGE (BOTTOM OF TEXT) ===== -->
     <figure class="article-figure">
-      <img id="article-image" alt="" loading="lazy" />
+      <img
+        src="assets/about-us.jpg"
+        alt="The Mirror Jammu Kashmir editorial desk"
+        loading="lazy"
+        onerror="this.style.display='none';"
+      />
     </figure>
 
-    <section id="article-content" class="article-content"></section>
-
+    <!-- ===== ACTION BUTTONS ===== -->
     <footer class="page-actions">
-      <button class="action-btn" data-like>
-        ❤️ Like <span data-like-count>0</span>
+      <button class="action-btn" id="like-btn">
+        ❤️ Like <span id="like-count">0</span>
       </button>
-      <button class="action-btn" data-copy>
-        🔗 Copy Link
+
+      <button class="action-btn" id="subscribe-btn">
+        🔔 Subscribe
       </button>
-      <button class="action-btn primary" data-share>
+
+      <button class="action-btn" id="copy-btn">
+        📋 Copy Link
+      </button>
+
+      <button class="action-btn primary" id="share-btn">
         📣 Share
       </button>
     </footer>
@@ -60,6 +116,7 @@
 
 </main>
 
+<!-- ===== FOOTER (UNCHANGED STRUCTURE) ===== -->
 <footer class="footer">
   <div class="social">
     <a href="#">𝕏</a>
@@ -70,9 +127,59 @@
   <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR</p>
 </footer>
 
-<script src="script.js?v=9"></script>
+<!-- ===== SCOPED SCRIPT (ARTICLE ONLY) ===== -->
 <script>
-  if (window.initArticlePage) window.initArticlePage();
+(function () {
+  const likeBtn = document.getElementById("like-btn");
+  const likeCount = document.getElementById("like-count");
+  const subscribeBtn = document.getElementById("subscribe-btn");
+  const copyBtn = document.getElementById("copy-btn");
+  const shareBtn = document.getElementById("share-btn");
+
+  let likes = 0;
+
+  if (likeBtn) {
+    likeBtn.addEventListener("click", () => {
+      likes++;
+      likeCount.textContent = likes;
+    });
+  }
+
+  if (subscribeBtn) {
+    subscribeBtn.addEventListener("click", () => {
+      subscribeBtn.textContent = "Subscribed";
+      subscribeBtn.disabled = true;
+    });
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(location.href);
+      copyBtn.textContent = "Copied";
+      setTimeout(() => {
+        copyBtn.textContent = "📋 Copy Link";
+      }, 1500);
+    });
+  }
+
+  if (shareBtn) {
+    shareBtn.addEventListener("click", () => {
+      if (navigator.share) {
+        navigator.share({
+          title: document.title,
+          url: location.href
+        });
+      } else {
+        navigator.clipboard.writeText(location.href);
+        alert("Link copied");
+      }
+    });
+  }
+
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
 </script>
+
 </body>
 </html>
