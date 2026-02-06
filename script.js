@@ -1,15 +1,13 @@
-/* ===========================
-   Utilities
-=========================== */
+/* =========================
+   Helpers
+========================= */
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+$("#year").textContent = new Date().getFullYear();
 
-const yearEl = $("#year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-/* ===========================
-   Time & Calendars
-=========================== */
+/* =========================
+   Clocks & Calendars
+========================= */
 function formatCEST() {
   const now = new Date();
   const opts = {
@@ -23,50 +21,42 @@ function formatCEST() {
     hour12: false,
     timeZone: "Europe/Zurich"
   };
-  const el = $("#clock-cest span");
-  if (el) {
-    el.textContent = new Intl.DateTimeFormat("en-GB", opts)
-      .format(now)
-      .replace(",", " —");
-  }
+  $("#clock-cest span").textContent =
+    new Intl.DateTimeFormat("en-GB", opts).format(now).replace(",", " —");
 }
 
 function formatHijri() {
-  const el = $("#cal-hijri span");
-  if (!el) return;
   try {
+    const now = new Date();
     const fmt = new Intl.DateTimeFormat("en-u-ca-islamic", {
       day: "numeric",
       month: "long",
       year: "numeric"
     });
-    el.textContent = fmt.format(new Date()) + " AH";
+    $("#cal-hijri span").textContent = fmt.format(now) + " AH";
   } catch {
-    el.textContent = "Hijri calendar not supported";
+    $("#cal-hijri span").textContent = "Hijri calendar not supported";
   }
 }
 
 function formatVikramSamvatApprox() {
-  const el = $("#cal-hindi span");
-  if (!el) return;
   const now = new Date();
-  const gYear = now.getFullYear();
-  const vsYear = now.getMonth() >= 3 ? gYear + 57 : gYear + 56;
+  const vsYear = now.getMonth() >= 3 ? now.getFullYear() + 57 : now.getFullYear() + 56;
   const months = [
     "Pausha","Magha","Phalguna","Chaitra","Vaisakh","Jyeshtha",
     "Ashadha","Shravana","Bhadrapada","Ashwin","Kartik","Margashirsha"
   ];
   const map = [9,10,11,3,4,5,6,7,8,0,1,2];
-  el.textContent = `${months[map[now.getMonth()]]} ${now.getDate()}, ${vsYear} VS`;
+  $("#cal-hindi span").textContent =
+    `${months[map[now.getMonth()]]} ${now.getDate()}, ${vsYear} VS`;
 }
 
 function updateTimes() {
   formatCEST();
   formatHijri();
   formatVikramSamvatApprox();
-
   const now = new Date();
-  const fmt = (tz) =>
+  const fmt = tz =>
     new Intl.DateTimeFormat("en-GB", {
       hour: "2-digit",
       minute: "2-digit",
@@ -74,213 +64,192 @@ function updateTimes() {
       hour12: false,
       timeZone: tz
     }).format(now);
-
-  const ist = $("#tz-ist span");
-  const pkt = $("#tz-pkt span");
-  if (ist) ist.textContent = fmt("Asia/Kolkata");
-  if (pkt) pkt.textContent = fmt("Asia/Karachi");
+  $("#tz-ist span").textContent = fmt("Asia/Kolkata");
+  $("#tz-pkt span").textContent = fmt("Asia/Karachi");
 }
-
 updateTimes();
 setInterval(updateTimes, 1000);
 
-/* ===========================
+/* =========================
    Navigation
-=========================== */
+========================= */
 $$(".nav-item.has-sub > .nav-btn").forEach(btn => {
   btn.addEventListener("click", e => {
     const li = e.currentTarget.closest(".nav-item");
-    if (!li) return;
-    const open = li.classList.contains("open");
     $$(".nav-item.open").forEach(n => n.classList.remove("open"));
-    if (!open) li.classList.add("open");
+    li.classList.toggle("open");
   });
 });
-
 document.addEventListener("click", e => {
-  if (!e.target.closest(".navbar")) {
+  if (!e.target.closest(".navbar"))
     $$(".nav-item.open").forEach(n => n.classList.remove("open"));
-  }
 });
 
 const hamburger = $("#hamburger");
 const mobileMenu = $("#mobile-menu");
-
-if (hamburger && mobileMenu) {
-  hamburger.addEventListener("click", () => {
-    const expanded = hamburger.getAttribute("aria-expanded") === "true";
-    hamburger.setAttribute("aria-expanded", String(!expanded));
-
-    if (!expanded) {
-      mobileMenu.innerHTML = "";
-      const clone = $("#nav-list")?.cloneNode(true);
-      if (!clone) return;
-
-      clone.id = "nav-list-mobile";
-      clone.querySelectorAll(".nav-item.has-sub > .nav-btn").forEach(b => {
+hamburger.addEventListener("click", () => {
+  const open = hamburger.getAttribute("aria-expanded") === "true";
+  hamburger.setAttribute("aria-expanded", String(!open));
+  if (!open) {
+    mobileMenu.innerHTML = "";
+    const clone = $("#nav-list").cloneNode(true);
+    clone.id = "nav-list-mobile";
+    clone.querySelectorAll(".nav-btn").forEach(b => {
+      if (b.tagName === "BUTTON") {
         const a = document.createElement("a");
         a.textContent = b.textContent;
         a.className = "nav-btn";
         a.href = "#";
         b.replaceWith(a);
-      });
-      mobileMenu.appendChild(clone);
-      mobileMenu.hidden = false;
-    } else {
-      mobileMenu.hidden = true;
-    }
-  });
-}
+      }
+    });
+    mobileMenu.appendChild(clone);
+    mobileMenu.hidden = false;
+  } else {
+    mobileMenu.hidden = true;
+  }
+});
 
-/* ===========================
+/* =========================
    Weather
-=========================== */
+========================= */
 const cities = [
   { name: "Zurich", lat: 47.3769, lon: 8.5417 },
   { name: "Rawalakot", lat: 33.8578, lon: 73.7604 },
-  { name: "Jammu", lat: 32.7266, lon: 74.8570 },
+  { name: "Jammu", lat: 32.7266, lon: 74.857 },
   { name: "Kashmir", lat: 34.0837, lon: 74.7973 },
   { name: "Ladakh", lat: 34.1526, lon: 77.5771 },
-  { name: "Gilgit", lat: 35.9208, lon: 74.3080 },
-  { name: "Baltistan", lat: 35.3025, lon: 75.6360 },
+  { name: "Gilgit", lat: 35.9208, lon: 74.308 },
+  { name: "Baltistan", lat: 35.3025, lon: 75.636 },
   { name: "Muzaffarabad", lat: 34.37, lon: 73.47 }
 ];
-
 const weatherBar = $("#weather-bar");
 
-const iconForCode = c =>
-  c === 0 ? "☀️" :
-  [1,2,3].includes(c) ? "⛅" :
-  [45,48].includes(c) ? "🌫️" :
-  [51,53,55,56,57].includes(c) ? "🌦️" :
-  [61,63,65,80,81,82].includes(c) ? "🌧️" :
-  [71,73,75,85,86].includes(c) ? "🌨️" :
-  [95,96,99].includes(c) ? "⛈️" : "🌡️";
-
 async function loadWeather() {
-  if (!weatherBar) return;
   weatherBar.textContent = "";
-
   for (const c of cities) {
     try {
       const res = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m,weather_code`
+        `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`
       );
       const data = await res.json();
-      const t = data?.current?.temperature_2m;
-      const code = data?.current?.weather_code;
-
-      const el = document.createElement("div");
-      el.className = "city";
-      el.innerHTML = `<span class="name">${c.name}:</span>
-        <span class="temp">${t ?? "—"}°C ${iconForCode(Number(code))}</span>`;
-      weatherBar.appendChild(el);
+      const t = data?.current_weather?.temperature ?? "—";
+      const div = document.createElement("div");
+      div.className = "city";
+      div.innerHTML = `<span class="name">${c.name}:</span> <span class="temp">${t}°C</span>`;
+      weatherBar.appendChild(div);
     } catch {
-      const el = document.createElement("div");
-      el.className = "city";
-      el.textContent = `${c.name}: —`;
-      weatherBar.appendChild(el);
+      weatherBar.appendChild(
+        Object.assign(document.createElement("div"), {
+          className: "city",
+          textContent: `${c.name}: — °C`
+        })
+      );
     }
   }
 }
 loadWeather();
 
-/* ===========================
-   JSON Loader (SAFE)
-=========================== */
+/* =========================
+   JSON Loader
+========================= */
 async function loadJSON(path) {
   const tryFetch = async p => {
-    const res = await fetch(p, { cache: "no-store" });
-    return res.ok ? res.json() : null;
+    const r = await fetch(p, { cache: "no-store" });
+    return r.ok ? r : null;
   };
-  return (
-    await tryFetch(path) ||
-    (path.startsWith("content/") ? await tryFetch(path.replace("content/", "")) : null)
-  );
+  return (await (await tryFetch(path) || tryFetch(path.replace("content/", ""))).json());
 }
 
-/* ===========================
-   Ticker
-=========================== */
-function renderTicker(items = []) {
+/* =========================
+   Placeholder handling
+========================= */
+const PLACEHOLDER =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23f2f2f2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='40' fill='%23999'%3EImage unavailable%3C/text%3E%3C/svg%3E";
+
+function replaceWithPlaceholder(img) {
+  if (img.dataset.done) return;
+  img.dataset.done = "1";
+  img.src = PLACEHOLDER;
+}
+
+/* =========================
+   Content apply
+========================= */
+async function applyContent() {
+  try {
+    const site = await loadJSON("content/site.json");
+    const articles = await loadJSON("content/articles.json");
+    renderTicker(site.ticker || []);
+
+    /* Latest article → first homepage card */
+    const latest = articles.items?.[0];
+    const card = $("#blog .card.post");
+    if (latest && card) {
+      card.querySelector("h3").textContent = latest.title;
+      card.querySelector("p").textContent = latest.excerpt;
+      card.querySelector(".author").textContent = latest.author;
+      card.querySelector(".date").textContent = latest.date;
+      card.querySelector(".badge.cat").textContent = latest.category;
+      card.querySelector(".badge.time").textContent = latest.readTime;
+      const img = card.querySelector("img");
+      img.src = latest.image;
+      card.querySelector(".read-more").href =
+        `article.html?slug=${latest.slug}`;
+    }
+  } catch (e) {
+    console.warn("Content load skipped", e);
+  }
+}
+
+function renderTicker(items) {
   const ul = $("#ticker-items");
-  if (!ul) return;
   ul.innerHTML = "";
   items.forEach(t => {
     const li = document.createElement("li");
-    li.textContent = String(t);
+    li.textContent = t.toUpperCase();
     ul.appendChild(li);
   });
+  ul.innerHTML += ul.innerHTML;
 }
 
-/* ===========================
-   Vlogs
-=========================== */
-function renderTopVlogs(videos = [], channelUrl = "") {
-  const cards = $$("#vlog article.card.video");
-  videos.slice(0, 3).forEach((v, i) => {
-    const card = cards[i];
-    if (!card) return;
+/* =========================
+   DOM Ready
+========================= */
+document.addEventListener("DOMContentLoaded", () => {
+  applyContent();
 
-    card.querySelector(".badge.cat").textContent = v.category || "Video";
-    card.querySelector(".badge.duration").textContent = v.duration || "";
-    card.querySelector("h3").textContent = v.title || "";
-    card.querySelector("p").textContent = v.description || "";
-
-    const media = card.querySelector(".media");
-    media.innerHTML = `<iframe loading="lazy" allowfullscreen
-      src="https://www.youtube.com/embed/${encodeURIComponent(v.youtubeId || "")}"></iframe>`;
+  document.querySelectorAll("img").forEach(img => {
+    img.addEventListener("error", () => replaceWithPlaceholder(img));
+    if (img.complete && img.naturalWidth === 0) replaceWithPlaceholder(img);
   });
+});
 
-  $$('a[href*="youtube"]').forEach(a => {
-    a.href = channelUrl || a.href;
-    a.target = "_blank";
-    a.rel = "noopener";
-  });
-}
-
-/* ===========================
-   Apply Content
-=========================== */
-async function applyContent() {
-  const site = await loadJSON("content/site.json");
-  const vlogs = await loadJSON("content/vlogs.json");
-
-  if (site?.siteTitle) {
-    const title = $(".site-title");
-    if (title) title.textContent = site.siteTitle;
-  }
-  if (site?.siteTagline) {
-    const tag = $(".subheading");
-    if (tag) tag.textContent = site.siteTagline;
-  }
-
-  if (site?.ticker) renderTicker(site.ticker);
-  if (vlogs?.videos) renderTopVlogs(vlogs.videos, site?.youtubeChannelUrl);
-}
-
-document.addEventListener("DOMContentLoaded", applyContent);
-
-/* ===========================
-   Article Page Actions
-=========================== */
+/* =========================
+   Article page actions
+========================= */
 window.initArticlePage = function () {
   let likes = 0;
-  const like = $('[data-like]');
-  const count = $('[data-like-count]');
-  const copy = $('[data-copy]');
-  const share = $('[data-share]');
+  const likeBtn = document.querySelector("[data-like]");
+  const count = document.querySelector("[data-like-count]");
+  if (likeBtn)
+    likeBtn.onclick = () => {
+      likes++;
+      count.textContent = likes;
+    };
 
-  if (like && count) {
-    like.onclick = () => (count.textContent = ++likes);
-  }
-  if (copy) {
-    copy.onclick = () => navigator.clipboard.writeText(location.href);
-  }
-  if (share) {
-    share.onclick = () =>
+  const copyBtn = document.querySelector("[data-copy]");
+  if (copyBtn)
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(location.href);
+      copyBtn.textContent = "Copied";
+      setTimeout(() => (copyBtn.textContent = "🔗 Copy Link"), 1500);
+    };
+
+  const shareBtn = document.querySelector("[data-share]");
+  if (shareBtn)
+    shareBtn.onclick = () =>
       navigator.share
         ? navigator.share({ title: document.title, url: location.href })
         : navigator.clipboard.writeText(location.href);
-  }
 };
