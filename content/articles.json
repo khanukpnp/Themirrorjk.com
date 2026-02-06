@@ -23,11 +23,11 @@
         {
           "type": "image",
           "src": "assets/rawalakot-protest-02.jpg",
-          "alt": "Protesters gathering near grid station in Rawalakot"
+          "alt": "Protesters gathering near the grid station in Rawalakot"
         },
         {
           "type": "paragraph",
-          "text": "Residents say Azad Kashmir has been subjected to extreme load shedding for several months, with the Poonch region facing between 15 and 20 hours of power cuts daily. Electricity supply remains unstable, voltage levels are dangerously low, and internet and mobile services are frequently disrupted."
+          "text": "Residents say Azad Kashmir has been subjected to extreme load shedding for several months, with the Poonch region facing between 15 and 20 hours of power cuts daily. Electricity supply remains unstable, voltage levels are dangerously low, and internet and mobile services are frequently disrupted or slowed to near unusable levels."
         },
         {
           "type": "paragraph",
@@ -36,7 +36,7 @@
         {
           "type": "image",
           "src": "assets/rawalakot-protest-03.jpg",
-          "alt": "Shutdown markets in Rawalakot"
+          "alt": "Closed markets during shutter down in Rawalakot"
         },
         {
           "type": "paragraph",
@@ -44,11 +44,12 @@
         },
         {
           "type": "paragraph",
-          "text": "Protesters announced an indefinite sit-in in Rawalakot, stressing that all agreements made with the public must be implemented in full. They demanded an immediate end to collective punishment and restoration of reliable electricity and communication services."
+          "text": "Protesters announced an indefinite sit in in Rawalakot, stressing that all agreements made with the public must be implemented in full. They demanded an immediate end to collective punishment and restoration of reliable electricity and communication services."
         }
       ],
       "seo": {
         "headline": "Rawalakot Shutdown Protest Over Power Cuts and Internet Blackouts",
+        "description": "Thousands protest power outages and communication blackouts in Rawalakot, Azad Kashmir, as a complete shutter down paralyzes the city.",
         "keywords": [
           "Rawalakot",
           "Azad Kashmir",
@@ -73,9 +74,19 @@
       "body": [
         {
           "type": "paragraph",
-          "text": "The latest UN Human Rights Council report has raised alarm over continuing rights violations in multiple conflict regions, calling for urgent international action."
+          "text": "The latest United Nations Human Rights Council report has raised serious concerns over ongoing rights violations in several conflict regions, urging immediate international monitoring and accountability mechanisms."
         }
-      ]
+      ],
+      "seo": {
+        "headline": "UN Human Rights Council Urges Immediate Global Action",
+        "description": "UN report warns of serious human rights violations and calls for urgent international intervention.",
+        "keywords": [
+          "UNHRC",
+          "Human Rights",
+          "International Law",
+          "Conflict Zones"
+        ]
+      }
     }
   ]
 }
