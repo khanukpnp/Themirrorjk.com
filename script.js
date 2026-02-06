@@ -409,3 +409,50 @@ window.initArticlePage = function () {
     });
   }
 };
+/* ===== SAFE ARTICLE INJECTION (NO LAYOUT CHANGES) ===== */
+async function renderArticlesIntoCards() {
+  let data;
+  try {
+    data = await loadJSON("content/articles.json");
+  } catch (e) {
+    console.warn("Articles JSON not loaded");
+    return;
+  }
+
+  if (!data || !Array.isArray(data.items)) return;
+
+  const cards = document.querySelectorAll("article.card.post");
+  if (!cards.length) return;
+
+  data.items.slice(0, cards.length).forEach((item, i) => {
+    const card = cards[i];
+    if (!card) return;
+
+    const title = card.querySelector("h3");
+    const excerpt = card.querySelector("p");
+    const author = card.querySelector(".author");
+    const date = card.querySelector(".date");
+    const img = card.querySelector("img");
+    const readMore = card.querySelector(".read-more");
+
+    if (title) title.textContent = item.title || "";
+    if (excerpt) excerpt.textContent = item.excerpt || "";
+    if (author) author.textContent = item.author || "";
+    if (date) date.textContent = item.date || "";
+
+    if (img && item.image) {
+      img.src = item.image;
+      img.alt = item.title || "Article image";
+      img.dataset.placeholder = "Image unavailable";
+    }
+
+    if (readMore && item.id) {
+      readMore.href = `article.html?id=${encodeURIComponent(item.id)}`;
+    }
+  });
+}
+
+/* Run after everything else */
+document.addEventListener("DOMContentLoaded", () => {
+  renderArticlesIntoCards();
+});
