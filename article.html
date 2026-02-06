@@ -151,3 +151,90 @@
 
 </body>
 </html>
+<script>
+(async function () {
+  const params = new URLSearchParams(location.search);
+  const slug = params.get("slug");
+
+  if (!slug) return;
+
+  let data;
+  try {
+    const res = await fetch("content/articles.json", { cache: "no-store" });
+    data = await res.json();
+  } catch (e) {
+    document.getElementById("title").textContent = "Failed to load article";
+    return;
+  }
+
+  const article = data.items.find(a => a.slug === slug);
+
+  if (!article) {
+    document.getElementById("title").textContent = "Article not found";
+    return;
+  }
+
+  document.title = article.title + " | The Mirror Jammu Kashmir";
+  document.getElementById("title").textContent = article.title;
+
+  document.getElementById("meta").textContent =
+    [article.location, article.date, article.readTime].filter(Boolean).join(" • ");
+
+  const contentEl = document.getElementById("content");
+  contentEl.innerHTML = "";
+
+  if (Array.isArray(article.body)) {
+    article.body.forEach(block => {
+      if (block.type === "paragraph") {
+        const p = document.createElement("p");
+        p.textContent = block.text;
+        contentEl.appendChild(p);
+      }
+
+      if (block.type === "image") {
+        const fig = document.createElement("figure");
+        fig.className = "article-image";
+
+        const img = document.createElement("img");
+        img.src = block.src;
+        img.alt = block.alt || "Article image";
+        img.loading = "lazy";
+        img.dataset.placeholder = "Image unavailable";
+
+        fig.appendChild(img);
+        contentEl.appendChild(fig);
+      }
+    });
+  }
+
+  // Like
+  let likes = 0;
+  document.getElementById("likeBtn").onclick = () => {
+    likes++;
+    document.getElementById("likeCount").textContent = likes;
+  };
+
+  // Subscribe
+  document.getElementById("subscribeBtn").onclick = e => {
+    e.target.classList.toggle("active");
+  };
+
+  // Share
+  document.getElementById("shareBtn").onclick = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: article.title,
+        url: location.href
+      });
+    } else {
+      navigator.clipboard.writeText(location.href);
+      alert("Link copied");
+    }
+  };
+
+  // Copy
+  document.getElementById("copyBtn").onclick = () => {
+    navigator.clipboard.writeText(location.href);
+  };
+})();
+</script>
