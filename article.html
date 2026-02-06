@@ -3,181 +3,149 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>Article | The Mirror Jammu Kashmir</title>
-  <meta name="description" content="Read the latest reporting from The Mirror Jammu Kashmir." />
+  <meta name="description" content="Read verified reporting from The Mirror Jammu Kashmir." />
 
-  <!-- Use existing global stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <!-- Scoped styles only -->
+  <style>
+    .article-page {
+      max-width: 820px;
+      margin: 32px auto;
+      padding: 0 16px;
+      font-family: inherit;
+    }
+
+    .article-header h1 {
+      font-size: 32px;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .article-meta {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 24px;
+    }
+
+    .article-content {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #111;
+    }
+
+    .article-content p {
+      margin-bottom: 16px;
+    }
+
+    .article-image {
+      margin: 28px 0;
+    }
+
+    .article-image img {
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    .article-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .article-actions button {
+      font-size: 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .article-actions button.active {
+      background: #f2f2f2;
+    }
+  </style>
 </head>
 
-<body class="theme-maroon article-page">
+<body>
 
-<!-- ===== HEADER (UNCHANGED STRUCTURE) ===== -->
-<header class="site-header">
-  <div class="header-row">
-    <img src="assets/logo.png" class="logo" alt="Logo"
-         onerror="this.onerror=null;this.src='logo.png';" />
-    <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-    <img src="assets/logo.png" class="logo" alt="Logo"
-         onerror="this.onerror=null;this.src='logo.png';" />
+<main class="article-page">
+
+  <header class="article-header">
+    <h1 id="title">Loading…</h1>
+    <div class="article-meta" id="meta"></div>
+  </header>
+
+  <section class="article-content" id="content"></section>
+
+  <figure class="article-image" id="image" hidden>
+    <img alt="Article image">
+  </figure>
+
+  <div class="article-actions">
+    <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+    <button id="subscribeBtn">🔔 Subscribe</button>
+    <button id="shareBtn">📣 Share</button>
+    <button id="copyBtn">🔗 Copy Link</button>
   </div>
-  <div class="subheading">
-    CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD
-  </div>
-</header>
-
-<!-- ===== ARTICLE CONTENT ===== -->
-<main class="article-container">
-
-  <article class="article-shell">
-
-    <header class="article-header">
-      <span class="article-category">About Us</span>
-
-      <h1 class="article-title">
-        The Mirror Jammu Kashmir
-      </h1>
-
-      <div class="article-meta">
-        <span>Independent Media Platform</span>
-        <span>Updated 2026</span>
-      </div>
-    </header>
-
-    <!-- ===== ARTICLE TEXT ===== -->
-    <section class="article-content">
-
-      <p>
-        The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth,
-        justice, and human dignity. We exist to challenge silence, expose injustice, and amplify
-        voices that are ignored or deliberately suppressed. Our work is rooted in facts,
-        international law, and lived realities, not in narratives shaped by power or propaganda.
-      </p>
-
-      <p>
-        Our mission is simple and uncompromising. To champion justice. To speak the truth without
-        fear. To bring forward voices from the margins. To document realities that others choose
-        to ignore. We believe hope must never be abandoned. Hope only becomes real through action.
-        Through persistence. Through principled journalism that refuses to give up.
-      </p>
-
-      <p>
-        We are guided by the belief that all human beings are born free and equal in dignity and
-        rights. These rights are universal, indivisible, and non negotiable. No state, institution,
-        or ideology has the authority to deny them. Equality without discrimination is not a
-        privilege. It is a right.
-      </p>
-
-      <p>
-        Democracy derives its legitimacy from the will of the people. From their voices. Their
-        choices. Their free and equal participation. Democracy cannot survive where human rights
-        are violated or where entire populations are excluded. A democracy that excludes is no
-        democracy at all.
-      </p>
-
-      <p>
-        We do not manufacture narratives. We reflect reality. The Mirror Jammu Kashmir holds up a
-        mirror to power, to policy, to history, and to truth.
-      </p>
-
-    </section>
-
-    <!-- ===== INLINE IMAGE (BOTTOM OF TEXT) ===== -->
-    <figure class="article-figure">
-      <img
-        src="assets/about-us.jpg"
-        alt="The Mirror Jammu Kashmir editorial desk"
-        loading="lazy"
-        onerror="this.style.display='none';"
-      />
-    </figure>
-
-    <!-- ===== ACTION BUTTONS ===== -->
-    <footer class="page-actions">
-      <button class="action-btn" id="like-btn">
-        ❤️ Like <span id="like-count">0</span>
-      </button>
-
-      <button class="action-btn" id="subscribe-btn">
-        🔔 Subscribe
-      </button>
-
-      <button class="action-btn" id="copy-btn">
-        📋 Copy Link
-      </button>
-
-      <button class="action-btn primary" id="share-btn">
-        📣 Share
-      </button>
-    </footer>
-
-  </article>
 
 </main>
 
-<!-- ===== FOOTER (UNCHANGED STRUCTURE) ===== -->
-<footer class="footer">
-  <div class="social">
-    <a href="#">𝕏</a>
-    <a href="#">📸</a>
-    <a href="#">▶️</a>
-    <a href="#">📘</a>
-  </div>
-  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR</p>
-</footer>
-
-<!-- ===== SCOPED SCRIPT (ARTICLE ONLY) ===== -->
 <script>
-(function () {
-  const likeBtn = document.getElementById("like-btn");
-  const likeCount = document.getElementById("like-count");
-  const subscribeBtn = document.getElementById("subscribe-btn");
-  const copyBtn = document.getElementById("copy-btn");
-  const shareBtn = document.getElementById("share-btn");
+(async function () {
+  const params = new URLSearchParams(location.search);
+  const slug = params.get("slug");
 
+  if (!slug) return;
+
+  const res = await fetch("content/articles.json");
+  const data = await res.json();
+  const article = data.items.find(a => a.slug === slug);
+
+  if (!article) {
+    document.getElementById("title").textContent = "Article not found";
+    return;
+  }
+
+  document.title = article.title + " | The Mirror Jammu Kashmir";
+  document.getElementById("title").textContent = article.title;
+
+  document.getElementById("meta").textContent =
+    article.location + " | " + article.date + " • " + article.readTime;
+
+  document.getElementById("content").innerHTML =
+    article.body.map(p => `<p>${p}</p>`).join("");
+
+  if (article.image) {
+    const fig = document.getElementById("image");
+    fig.hidden = false;
+    fig.querySelector("img").src = article.image;
+  }
+
+  // Like
   let likes = 0;
+  document.getElementById("likeBtn").onclick = () => {
+    likes++;
+    document.getElementById("likeCount").textContent = likes;
+  };
 
-  if (likeBtn) {
-    likeBtn.addEventListener("click", () => {
-      likes++;
-      likeCount.textContent = likes;
-    });
-  }
+  // Subscribe
+  document.getElementById("subscribeBtn").onclick = e => {
+    e.target.classList.toggle("active");
+  };
 
-  if (subscribeBtn) {
-    subscribeBtn.addEventListener("click", () => {
-      subscribeBtn.textContent = "Subscribed";
-      subscribeBtn.disabled = true;
-    });
-  }
+  // Share
+  document.getElementById("shareBtn").onclick = () => {
+    if (navigator.share) {
+      navigator.share({ title: article.title, url: location.href });
+    }
+  };
 
-  if (copyBtn) {
-    copyBtn.addEventListener("click", () => {
-      navigator.clipboard.writeText(location.href);
-      copyBtn.textContent = "Copied";
-      setTimeout(() => {
-        copyBtn.textContent = "📋 Copy Link";
-      }, 1500);
-    });
-  }
-
-  if (shareBtn) {
-    shareBtn.addEventListener("click", () => {
-      if (navigator.share) {
-        navigator.share({
-          title: document.title,
-          url: location.href
-        });
-      } else {
-        navigator.clipboard.writeText(location.href);
-        alert("Link copied");
-      }
-    });
-  }
-
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  // Copy
+  document.getElementById("copyBtn").onclick = () => {
+    navigator.clipboard.writeText(location.href);
+  };
 })();
 </script>
 
