@@ -1,227 +1,242 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Article | The Mirror Jammu Kashmir</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Article | The Mirror Jammu Kashmir</title>
 
-  <style>
-    .article-page {
-      max-width: 820px;
-      margin: 40px auto;
-      padding: 0 18px;
-      font-family: inherit;
-    }
+<style>
+.article-page {
+  max-width: 820px;
+  margin: 40px auto;
+  padding: 0 18px;
+}
 
-    .article-header h1 {
-      font-size: 32px;
-      line-height: 1.25;
-      margin-bottom: 10px;
-    }
+.article-header h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
 
-    .article-meta {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 24px;
-    }
+.article-meta {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
 
-    .article-content {
-      font-size: 17px;
-      line-height: 1.7;
-      color: #111;
-    }
+/* HERO */
+.hero {
+  width: 100%;
+  height: 360px;
+  background: #f1f1f1;
+  border-radius: 8px;
+  margin: 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-size: 18px;
+  position: relative;
+  overflow: hidden;
+}
 
-    .article-content p {
-      margin-bottom: 16px;
-    }
+.hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    /* HERO PLACEHOLDER */
-    .hero {
-      width: 100%;
-      height: 360px;
-      background: #f2f2f2;
-      border-radius: 8px;
-      margin: 24px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #888;
-      font-size: 18px;
-      position: relative;
-      overflow: hidden;
-    }
+/* ARTICLE */
+.article-content {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #111;
+}
 
-    .hero img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+.article-content p {
+  margin-bottom: 16px;
+}
 
-    /* INLINE IMAGES */
-    .img-right {
-      float: right;
-      width: 35%;
-      margin: 6px 0 12px 18px;
-      border-radius: 6px;
-    }
+/* INLINE IMAGES */
+.img-right {
+  float: right;
+  width: 35%;
+  margin: 6px 0 12px 18px;
+  border-radius: 6px;
+}
 
-    .img-left {
-      float: left;
-      width: 35%;
-      margin: 6px 18px 12px 0;
-      border-radius: 6px;
-    }
+.img-left {
+  float: left;
+  width: 35%;
+  margin: 6px 18px 12px 0;
+  border-radius: 6px;
+}
 
-    .clearfix {
-      clear: both;
-    }
+.clearfix { clear: both; }
 
-    @media (max-width: 700px) {
-      .img-right,
-      .img-left {
-        float: none;
-        width: 100%;
-        margin: 16px 0;
-      }
-    }
+@media (max-width: 700px) {
+  .img-right, .img-left {
+    float: none;
+    width: 100%;
+    margin: 16px 0;
+  }
+}
 
-    .article-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 36px;
-      flex-wrap: wrap;
-    }
+/* ACTIONS */
+.article-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
 
-    .article-actions button {
-      font-size: 14px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid #ccc;
-      background: #fff;
-      cursor: pointer;
-    }
-  </style>
+.article-actions button {
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
 <main class="article-page">
 
-  <header class="article-header">
-    <h1 id="title">Loading…</h1>
-    <div class="article-meta" id="meta"></div>
-  </header>
+<header class="article-header">
+  <h1 id="title">Loading…</h1>
+  <div class="article-meta" id="meta"></div>
+</header>
 
-  <section class="article-content" id="content"></section>
+<section class="article-content" id="content"></section>
 
-  <div class="article-actions">
-    <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-    <button id="subscribeBtn">🔔 Subscribe</button>
-    <button id="shareBtn">📣 Share</button>
-    <button id="copyBtn">🔗 Copy Link</button>
-  </div>
+<div class="article-actions">
+  <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+  <button id="subscribeBtn">🔔 Subscribe</button>
+  <button id="shareBtn">📣 Share</button>
+  <button id="copyBtn">🔗 Copy Link</button>
+</div>
 
 </main>
 
 <script>
-(async function () {
+(async () => {
 
-  const params = new URLSearchParams(location.search);
-  const id = params.get("id");
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
 
-  if (!id) {
-    document.getElementById("title").textContent = "Article not found";
-    return;
-  }
+const titleEl = document.getElementById("title");
+const metaEl = document.getElementById("meta");
+const contentEl = document.getElementById("content");
 
-  const res = await fetch("content/articles.json", { cache: "no-store" });
-  const data = await res.json();
-  const article = data.items.find(a => a.id === id || a.slug === id);
+if (!id) {
+  titleEl.textContent = "Article not found";
+  return;
+}
 
-  if (!article) {
-    document.getElementById("title").textContent = "Article not found";
-    return;
-  }
+const res = await fetch("content/articles.json", { cache: "no-store" });
+const data = await res.json();
 
-  document.title = article.title + " | The Mirror Jammu Kashmir";
-  document.getElementById("title").textContent = article.title;
-  document.getElementById("meta").textContent =
-    `${article.location || ""} | ${article.date} • ${article.readTime}`;
+const article = data.items.find(a => a.id === id || a.slug === id);
 
-  const content = document.getElementById("content");
+if (!article) {
+  titleEl.textContent = "Article not found";
+  return;
+}
 
-  /* HERO IMAGE WITH PLACEHOLDER */
-  const hero = document.createElement("div");
-  hero.className = "hero";
-  hero.textContent = "Image loading…";
+/* HEADER */
+document.title = article.title + " | The Mirror Jammu Kashmir";
+titleEl.textContent = article.title;
+metaEl.textContent =
+  `${article.location || ""} | ${article.date} • ${article.readTime}`;
 
-  if (article.image) {
-    const img = document.createElement("img");
-    img.src = article.image;
-    img.alt = article.title;
-    img.onload = () => hero.textContent = "";
-    img.onerror = () => hero.textContent = "Image unavailable";
-    hero.appendChild(img);
-  }
+/* HERO PLACEHOLDER ALWAYS */
+const hero = document.createElement("div");
+hero.className = "hero";
+hero.textContent = "Featured image";
 
-  content.appendChild(hero);
+if (article.image) {
+  const img = document.createElement("img");
+  img.src = article.image;
+  img.alt = article.title;
+  img.onload = () => {};
+  img.onerror = () => {};
+  hero.appendChild(img);
+}
 
-  let inlineImageIndex = 0;
+contentEl.appendChild(hero);
 
-  article.body.forEach(block => {
+/* BODY */
+let imgCount = 0;
 
-    if (block.type === "image") {
-      inlineImageIndex++;
+article.body.forEach((block, index) => {
 
-      const img = document.createElement("img");
-      img.src = block.src;
-      img.alt = block.alt || "Article image";
+  if (block.type === "paragraph") {
+    const p = document.createElement("p");
 
-      img.className =
-        inlineImageIndex === 1
-          ? "img-right"
-          : inlineImageIndex % 2 === 0
-            ? "img-left"
-            : "img-right";
-
-      content.appendChild(img);
-      return;
-    }
-
-    if (block.type === "paragraph") {
-      const p = document.createElement("p");
-      p.textContent = block.text;
-      content.appendChild(p);
-    }
-  });
-
-  content.appendChild(Object.assign(document.createElement("div"), { className: "clearfix" }));
-
-  /* ACTIONS */
-  let likes = 0;
-  document.getElementById("likeBtn").onclick = () => {
-    likes++;
-    document.getElementById("likeCount").textContent = likes;
-  };
-
-  document.getElementById("subscribeBtn").onclick = e => {
-    e.target.textContent = "Subscribed";
-    e.target.disabled = true;
-  };
-
-  document.getElementById("shareBtn").onclick = () => {
-    if (navigator.share) {
-      navigator.share({ title: article.title, url: location.href });
+    // Bold first key sentence
+    if (index === 0) {
+      const firstDot = block.text.indexOf(".");
+      if (firstDot !== -1) {
+        p.innerHTML =
+          "<strong>" +
+          block.text.slice(0, firstDot + 1) +
+          "</strong>" +
+          block.text.slice(firstDot + 1);
+      } else {
+        p.innerHTML = "<strong>" + block.text + "</strong>";
+      }
+    } else if (block.text.startsWith("Protesters announced")) {
+      p.innerHTML = "<strong>Protesters announced an indefinite sit-in.</strong> " +
+                    block.text.replace("Protesters announced an indefinite sit-in in Rawalakot, ", "");
     } else {
-      navigator.clipboard.writeText(location.href);
-      alert("Link copied");
+      p.textContent = block.text;
     }
-  };
 
-  document.getElementById("copyBtn").onclick = () => {
+    contentEl.appendChild(p);
+  }
+
+  if (block.type === "image") {
+    imgCount++;
+    const img = document.createElement("img");
+    img.src = block.src;
+    img.alt = block.alt || "Article image";
+    img.className = imgCount === 1 ? "img-right" : imgCount % 2 === 0 ? "img-left" : "img-right";
+    contentEl.appendChild(img);
+  }
+
+});
+
+contentEl.appendChild(document.createElement("div")).className = "clearfix";
+
+/* ACTIONS */
+let likes = 0;
+document.getElementById("likeBtn").onclick = () => {
+  likes++;
+  document.getElementById("likeCount").textContent = likes;
+};
+
+document.getElementById("subscribeBtn").onclick = e => {
+  e.target.textContent = "Subscribed";
+  e.target.disabled = true;
+};
+
+document.getElementById("shareBtn").onclick = () => {
+  if (navigator.share) {
+    navigator.share({ title: article.title, url: location.href });
+  } else {
     navigator.clipboard.writeText(location.href);
     alert("Link copied");
-  };
+  }
+};
+
+document.getElementById("copyBtn").onclick = () => {
+  navigator.clipboard.writeText(location.href);
+  alert("Link copied");
+};
 
 })();
 </script>
