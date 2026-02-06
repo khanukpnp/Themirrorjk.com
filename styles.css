@@ -115,3 +115,58 @@ input[type="email"], input[type="text"], textarea, input[type="file"]{ width:100
   border-color: #1f7a4d;
   color: #1f7a4d;
 }
+/* ===== ARTICLE PAGE (SCOPED) ===== */
+
+.article-page .article-container {
+  max-width: 860px;
+  margin: 32px auto;
+  padding: 0 18px;
+}
+
+.article-page .article-shell {
+  background: #ffffff;
+  padding: 28px 30px;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+}
+
+.article-page .article-content p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+.article-page .article-figure {
+  margin-top: 22px;
+}
+
+.article-page .article-figure img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+.article-page .page-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid #eee;
+}
+
+.article-page .action-btn {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.article-page .action-btn.primary {
+  background: var(--maroon);
+  color: #fff;
+  border-color: var(--maroon);
+}
