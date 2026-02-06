@@ -364,3 +364,48 @@ window.replaceWithPlaceholder = function(imgEl){
     if (imgEl) imgEl.style.display = 'none';
   }
 };
+window.initArticlePage = function () {
+  const likeBtn = document.querySelector('[data-like]');
+  const likeCount = document.querySelector('[data-like-count]');
+  const copyBtn = document.querySelector('[data-copy]');
+  const shareBtn = document.querySelector('[data-share]');
+  const subBtn = document.querySelector('[data-subscribe]');
+
+  let likes = 0;
+
+  if (likeBtn) {
+    likeBtn.addEventListener('click', () => {
+      likes++;
+      likeCount.textContent = likes;
+    });
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(location.href);
+      copyBtn.textContent = 'Copied';
+      setTimeout(() => copyBtn.textContent = '🔗 Copy Link', 1500);
+    });
+  }
+
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => {
+      if (navigator.share) {
+        navigator.share({
+          title: document.title,
+          url: location.href
+        });
+      } else {
+        navigator.clipboard.writeText(location.href);
+        alert('Link copied');
+      }
+    });
+  }
+
+  if (subBtn) {
+    subBtn.addEventListener('click', () => {
+      subBtn.textContent = 'Subscribed';
+      subBtn.disabled = true;
+    });
+  }
+};
