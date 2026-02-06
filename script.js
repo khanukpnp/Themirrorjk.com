@@ -9,15 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // =====================
   // Footer year
   // =====================
-  const yearEl = $("#year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  $("#year") && ($("#year").textContent = new Date().getFullYear());
 
   // =====================
   // Clocks
   // =====================
   function updateTimes() {
     const now = new Date();
-
     $("#clock-cest span").textContent =
       new Intl.DateTimeFormat("en-GB", {
         dateStyle: "full",
@@ -54,30 +52,26 @@ document.addEventListener("DOMContentLoaded", () => {
       li.classList.toggle("open");
     });
   });
-
-  document.addEventListener("click", () => {
-    $$(".nav-item.open").forEach(n => n.classList.remove("open"));
-  });
+  document.addEventListener("click", () =>
+    $$(".nav-item.open").forEach(n => n.classList.remove("open"))
+  );
 
   // =====================
   // Mobile menu
   // =====================
   const hamburger = $("#hamburger");
   const mobileMenu = $("#mobile-menu");
-
   if (hamburger && mobileMenu) {
     hamburger.addEventListener("click", () => {
       const expanded = hamburger.getAttribute("aria-expanded") === "true";
       hamburger.setAttribute("aria-expanded", String(!expanded));
       mobileMenu.hidden = expanded;
-      if (!expanded) {
-        mobileMenu.innerHTML = $("#nav-list").outerHTML;
-      }
+      if (!expanded) mobileMenu.innerHTML = $("#nav-list").outerHTML;
     });
   }
 
   // =====================
-  // Weather (FIXED)
+  // Weather
   // =====================
   const cities = [
     ["Zurich", 47.3769, 8.5417],
@@ -91,59 +85,75 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const weatherBar = $("#weather-bar");
-
   async function loadWeather() {
     if (!weatherBar) return;
     weatherBar.innerHTML = "";
-
     for (const [name, lat, lon] of cities) {
       try {
-        const res = await fetch(
+        const r = await fetch(
           `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
         );
-        const data = await res.json();
-        const t = data?.current_weather?.temperature;
-        const div = document.createElement("div");
-        div.className = "city";
-        div.innerHTML = `<span class="name">${name}:</span> <span class="temp">${t ?? "—"}°C</span>`;
-        weatherBar.appendChild(div);
+        const d = await r.json();
+        const t = d?.current_weather?.temperature;
+        weatherBar.insertAdjacentHTML(
+          "beforeend",
+          `<div class="city"><span class="name">${name}:</span> <span class="temp">${t ?? "—"}°C</span></div>`
+        );
       } catch {
-        const div = document.createElement("div");
-        div.className = "city";
-        div.textContent = `${name}: —`;
-        weatherBar.appendChild(div);
+        weatherBar.insertAdjacentHTML(
+          "beforeend",
+          `<div class="city"><span class="name">${name}:</span> <span class="temp">—</span></div>`
+        );
       }
     }
   }
   loadWeather();
 
   // =====================
-  // Contact modal (RESTORED)
+  // Contact modal
   // =====================
   const modal = $("#contact-modal");
-  const openBtn = $("#open-contact");
-  const closeBtn = $("#close-contact");
+  $("#open-contact")?.addEventListener("click", () => modal.showModal());
+  $("#close-contact")?.addEventListener("click", () => modal.close());
 
-  if (modal && openBtn && closeBtn) {
-    openBtn.addEventListener("click", () => modal.showModal());
-    closeBtn.addEventListener("click", () => modal.close());
+  // =====================
+  // PLACEHOLDERS (RESTORED PROPERLY)
+  // =====================
+  $$("img").forEach(img => {
+    if (!img.getAttribute("src")) {
+      injectPlaceholder(img);
+    }
+    img.addEventListener("error", () => injectPlaceholder(img));
+  });
+
+  function injectPlaceholder(img) {
+    if (img.dataset.fallbackApplied) return;
+    img.dataset.fallbackApplied = "1";
+
+    const text = img.dataset.placeholder || "Image unavailable";
+    const holder = document.createElement("div");
+    holder.className = "media-placeholder";
+    holder.textContent = text;
+    img.replaceWith(holder);
   }
 
   // =====================
-  // Image fallback (SAFE)
+  // YOUTUBE EMBEDS (RESTORED)
   // =====================
-  $$("img").forEach(img => {
-    img.addEventListener("error", () => {
-      if (img.dataset.fallbackApplied) return;
-      img.dataset.fallbackApplied = "1";
+  $$(".card.video .media").forEach(media => {
+    const yt = media.dataset.youtube || media.getAttribute("data-youtube");
+    if (!yt) return;
 
-      if (img.dataset.placeholder) {
-        const ph = document.createElement("div");
-        ph.className = "media-placeholder";
-        ph.textContent = img.dataset.placeholder;
-        img.replaceWith(ph);
-      }
-    });
+    media.innerHTML = `
+      <iframe
+        src="https://www.youtube.com/embed/${yt}"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        style="width:100%;height:100%;border:0">
+      </iframe>
+    `;
   });
 
   // =====================
@@ -157,8 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Link copied");
     }
   }
-
   $("#share-btn")?.addEventListener("click", sharePage);
   $("#sticky-share")?.addEventListener("click", sharePage);
-
 });
