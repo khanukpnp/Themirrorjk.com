@@ -6,7 +6,6 @@
   <title>Article | The Mirror Jammu Kashmir</title>
   <meta name="description" content="Read verified reporting from The Mirror Jammu Kashmir." />
 
-  <!-- Scoped styles only -->
   <style>
     .article-page {
       max-width: 820px;
@@ -14,45 +13,37 @@
       padding: 0 16px;
       font-family: inherit;
     }
-
     .article-header h1 {
       font-size: 32px;
       line-height: 1.25;
       margin-bottom: 12px;
     }
-
     .article-meta {
       font-size: 14px;
       color: #555;
       margin-bottom: 24px;
     }
-
     .article-content {
       font-size: 17px;
       line-height: 1.7;
       color: #111;
     }
-
     .article-content p {
       margin-bottom: 16px;
     }
-
     .article-image {
       margin: 28px 0;
     }
-
     .article-image img {
       width: 100%;
       border-radius: 6px;
     }
-
     .article-actions {
       display: flex;
       gap: 12px;
       margin-top: 28px;
       flex-wrap: wrap;
     }
-
     .article-actions button {
       font-size: 14px;
       padding: 8px 14px;
@@ -60,10 +51,6 @@
       border: 1px solid #ccc;
       background: #fff;
       cursor: pointer;
-    }
-
-    .article-actions button.active {
-      background: #f2f2f2;
     }
   </style>
 </head>
@@ -79,10 +66,6 @@
 
   <section class="article-content" id="content"></section>
 
-  <figure class="article-image" id="image" hidden>
-    <img alt="Article image">
-  </figure>
-
   <div class="article-actions">
     <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
     <button id="subscribeBtn">🔔 Subscribe</button>
@@ -94,14 +77,25 @@
 
 <script>
 (async function () {
+
   const params = new URLSearchParams(location.search);
-  const slug = params.get("slug");
+  const id = params.get("id");
 
-  if (!slug) return;
+  if (!id) {
+    document.getElementById("title").textContent = "Article not found";
+    return;
+  }
 
-  const res = await fetch("content/articles.json");
+  let res;
+  try {
+    res = await fetch("content/articles.json", { cache: "no-store" });
+  } catch {
+    document.getElementById("title").textContent = "Failed to load article";
+    return;
+  }
+
   const data = await res.json();
-  const article = data.items.find(a => a.slug === slug);
+  const article = data.items.find(a => a.id === id);
 
   if (!article) {
     document.getElementById("title").textContent = "Article not found";
@@ -112,16 +106,38 @@
   document.getElementById("title").textContent = article.title;
 
   document.getElementById("meta").textContent =
-    article.location + " | " + article.date + " • " + article.readTime;
+    (article.location || "") +
+    " | " + article.date +
+    " • " + article.readTime;
 
-  document.getElementById("content").innerHTML =
-    article.body.map(p => `<p>${p}</p>`).join("");
+  const content = document.getElementById("content");
 
-  if (article.image) {
-    const fig = document.getElementById("image");
-    fig.hidden = false;
-    fig.querySelector("img").src = article.image;
-  }
+  article.body.forEach(block => {
+
+    if (block.type === "paragraph") {
+      const p = document.createElement("p");
+      p.textContent = block.text;
+      content.appendChild(p);
+    }
+
+    if (block.type === "image") {
+      const figure = document.createElement("figure");
+      figure.className = "article-image";
+
+      const img = document.createElement("img");
+      img.src = block.src;
+      img.alt = block.alt || "Article image";
+      img.loading = "lazy";
+
+      img.onerror = () => {
+        img.replaceWith(document.createTextNode("Image unavailable"));
+      };
+
+      figure.appendChild(img);
+      content.appendChild(figure);
+    }
+
+  });
 
   // Like
   let likes = 0;
@@ -132,100 +148,14 @@
 
   // Subscribe
   document.getElementById("subscribeBtn").onclick = e => {
-    e.target.classList.toggle("active");
+    e.target.textContent = "Subscribed";
+    e.target.disabled = true;
   };
 
   // Share
   document.getElementById("shareBtn").onclick = () => {
     if (navigator.share) {
       navigator.share({ title: article.title, url: location.href });
-    }
-  };
-
-  // Copy
-  document.getElementById("copyBtn").onclick = () => {
-    navigator.clipboard.writeText(location.href);
-  };
-})();
-</script>
-
-</body>
-</html>
-<script>
-(async function () {
-  const params = new URLSearchParams(location.search);
-  const slug = params.get("slug");
-
-  if (!slug) return;
-
-  let data;
-  try {
-    const res = await fetch("content/articles.json", { cache: "no-store" });
-    data = await res.json();
-  } catch (e) {
-    document.getElementById("title").textContent = "Failed to load article";
-    return;
-  }
-
-  const article = data.items.find(a => a.slug === slug);
-
-  if (!article) {
-    document.getElementById("title").textContent = "Article not found";
-    return;
-  }
-
-  document.title = article.title + " | The Mirror Jammu Kashmir";
-  document.getElementById("title").textContent = article.title;
-
-  document.getElementById("meta").textContent =
-    [article.location, article.date, article.readTime].filter(Boolean).join(" • ");
-
-  const contentEl = document.getElementById("content");
-  contentEl.innerHTML = "";
-
-  if (Array.isArray(article.body)) {
-    article.body.forEach(block => {
-      if (block.type === "paragraph") {
-        const p = document.createElement("p");
-        p.textContent = block.text;
-        contentEl.appendChild(p);
-      }
-
-      if (block.type === "image") {
-        const fig = document.createElement("figure");
-        fig.className = "article-image";
-
-        const img = document.createElement("img");
-        img.src = block.src;
-        img.alt = block.alt || "Article image";
-        img.loading = "lazy";
-        img.dataset.placeholder = "Image unavailable";
-
-        fig.appendChild(img);
-        contentEl.appendChild(fig);
-      }
-    });
-  }
-
-  // Like
-  let likes = 0;
-  document.getElementById("likeBtn").onclick = () => {
-    likes++;
-    document.getElementById("likeCount").textContent = likes;
-  };
-
-  // Subscribe
-  document.getElementById("subscribeBtn").onclick = e => {
-    e.target.classList.toggle("active");
-  };
-
-  // Share
-  document.getElementById("shareBtn").onclick = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: article.title,
-        url: location.href
-      });
     } else {
       navigator.clipboard.writeText(location.href);
       alert("Link copied");
@@ -235,6 +165,11 @@
   // Copy
   document.getElementById("copyBtn").onclick = () => {
     navigator.clipboard.writeText(location.href);
+    alert("Link copied");
   };
+
 })();
 </script>
+
+</body>
+</html>
