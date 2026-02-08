@@ -6,7 +6,6 @@
   <title>Article | The Mirror Jammu Kashmir</title>
   <meta name="description" content="Read verified reporting from The Mirror Jammu Kashmir." />
 
-  <!-- Scoped styles only -->
   <style>
     .article-page {
       max-width: 860px;
@@ -15,24 +14,26 @@
       font-family: inherit;
     }
 
-    /* ===== HERO PLACEHOLDER CARD ===== */
-    .hero-card {
-      margin-bottom: 20px;
-      border-radius: 8px;
+    /* ===== EDITORIAL PLACEHOLDER CARD ===== */
+    .editorial-placeholder {
+      max-height: 220px;
       overflow: hidden;
-      background: #f2f2f2;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      background: #eee;
     }
 
-    .hero-card img {
+    .editorial-placeholder img {
       width: 100%;
-      display: block;
+      height: 220px;
       object-fit: cover;
+      display: block;
     }
 
-    .hero-caption {
+    .editorial-caption {
       font-size: 13px;
       color: #555;
-      padding: 8px 12px;
+      padding: 6px 10px;
       background: #fafafa;
     }
 
@@ -40,7 +41,7 @@
     .article-header h1 {
       font-size: 32px;
       line-height: 1.25;
-      margin: 16px 0 10px;
+      margin: 12px 0 8px;
     }
 
     .article-meta {
@@ -60,13 +61,13 @@
       margin-bottom: 16px;
     }
 
-    .article-content p strong {
+    .article-content strong {
       font-weight: 600;
     }
 
     /* ===== FULL WIDTH IMAGE ===== */
     .img-full {
-      margin: 24px 0;
+      margin: 22px 0;
     }
 
     .img-full img {
@@ -78,7 +79,7 @@
     /* ===== INLINE FLOAT IMAGES ===== */
     .img-float {
       width: 35%;
-      margin: 6px 0 12px;
+      margin: 6px 0 10px;
     }
 
     .img-right {
@@ -108,8 +109,7 @@
       color: #777;
     }
 
-    /* Clear floats */
-    .clearfix {
+    .clear {
       clear: both;
     }
 
@@ -130,24 +130,16 @@
       cursor: pointer;
     }
 
-    /* ===== FADE IN ===== */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-
-    .fade-in.loaded {
-      opacity: 1;
-      transform: none;
-    }
-
     /* ===== MOBILE ===== */
     @media (max-width: 768px) {
       .img-float {
         float: none;
         width: 100%;
         margin: 16px 0;
+      }
+
+      .editorial-placeholder img {
+        height: 180px;
       }
     }
   </style>
@@ -157,8 +149,8 @@
 
 <main class="article-page">
 
-  <!-- HERO PLACEHOLDER -->
-  <div id="hero" class="hero-card" hidden></div>
+  <!-- EDITORIAL PLACEHOLDER -->
+  <div id="editorialHero" class="editorial-placeholder" hidden></div>
 
   <header class="article-header">
     <h1 id="title">Loading…</h1>
@@ -181,144 +173,15 @@
 
   const params = new URLSearchParams(location.search);
   const id = params.get("id");
-
   if (!id) return;
 
   const res = await fetch("content/articles.json", { cache: "no-store" });
   const data = await res.json();
   const article = data.items.find(a => a.id === id);
-
-  if (!article) {
-    document.getElementById("title").textContent = "Article not found";
-    return;
-  }
+  if (!article) return;
 
   document.title = article.title + " | The Mirror Jammu Kashmir";
   document.getElementById("title").textContent = article.title;
 
   document.getElementById("meta").textContent =
-    (article.location || "") + " | " + article.date + " • " + article.readTime;
-
-  /* ===== HERO PLACEHOLDER ===== */
-  if (article.heroImage) {
-    const hero = document.getElementById("hero");
-    hero.hidden = false;
-
-    hero.innerHTML = `
-      <img src="${article.heroImage.src}" loading="lazy" class="fade-in">
-      <div class="hero-caption">
-        ${article.heroImage.caption || ""}
-        ${article.heroImage.credit ? " • " + article.heroImage.credit : ""}
-      </div>
-    `;
-  }
-
-  const content = document.getElementById("content");
-  let floatToggle = "right";
-  let firstImageRendered = false;
-
-  article.body.forEach(block => {
-
-    if (block.type === "paragraph") {
-      const p = document.createElement("p");
-      p.innerHTML = block.text
-        .replace("complete shutter down", "<strong>complete shutter down</strong>")
-        .replace("collective punishment", "<strong>collective punishment</strong>");
-      content.appendChild(p);
-    }
-
-    if (block.type === "image") {
-
-      // First body image = full width
-      if (!firstImageRendered) {
-        firstImageRendered = true;
-
-        const wrap = document.createElement("div");
-        wrap.className = "img-full fade-in";
-
-        wrap.innerHTML = `
-          <img src="${block.src}" loading="lazy">
-          <div class="img-caption">${block.caption || ""}</div>
-          <div class="img-credit">${block.credit || ""}</div>
-        `;
-
-        content.appendChild(wrap);
-        return;
-      }
-
-      const wrap = document.createElement("div");
-      wrap.className = `img-float img-${floatToggle} fade-in`;
-
-      wrap.innerHTML = `
-        <img src="${block.src}" loading="lazy">
-        <div class="img-caption">${block.caption || ""}</div>
-        <div class="img-credit">${block.credit || ""}</div>
-      `;
-
-      content.appendChild(wrap);
-
-      const clear = document.createElement("div");
-      clear.className = "clearfix";
-      content.appendChild(clear);
-
-      floatToggle = floatToggle === "right" ? "left" : "right";
-    }
-
-  });
-
-  /* ===== FADE IN ===== */
-  requestAnimationFrame(() => {
-    document.querySelectorAll(".fade-in").forEach(el => {
-      el.classList.add("loaded");
-    });
-  });
-
-  /* ===== ACTIONS ===== */
-  let likes = 0;
-  document.getElementById("likeBtn").onclick = () => {
-    likes++;
-    document.getElementById("likeCount").textContent = likes;
-  };
-
-  document.getElementById("subscribeBtn").onclick = e => {
-    e.target.textContent = "Subscribed";
-    e.target.disabled = true;
-  };
-
-  document.getElementById("shareBtn").onclick = () => {
-    if (navigator.share) {
-      navigator.share({ title: article.title, url: location.href });
-    } else {
-      navigator.clipboard.writeText(location.href);
-      alert("Link copied");
-    }
-  };
-
-  document.getElementById("copyBtn").onclick = () => {
-    navigator.clipboard.writeText(location.href);
-    alert("Link copied");
-  };
-
-})();
-</script>
-
-<!-- SEO SCHEMA -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "NewsArticle",
-  "headline": "{{title}}",
-  "datePublished": "{{date}}",
-  "author": {
-    "@type": "Organization",
-    "name": "The Mirror Jammu Kashmir"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "The Mirror Jammu Kashmir"
-  }
-}
-</script>
-
-</body>
-</html>
+    (article
