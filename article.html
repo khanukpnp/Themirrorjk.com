@@ -1,221 +1,323 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Article | The Mirror Jammu Kashmir</title>
+  <meta name="description" content="Read verified reporting from The Mirror Jammu Kashmir." />
 
-<title>Article | The Mirror Jammu Kashmir</title>
+  <!-- Scoped styles only -->
+  <style>
+    .article-page {
+      max-width: 860px;
+      margin: 32px auto;
+      padding: 0 16px;
+      font-family: inherit;
+    }
 
-<style>
-.article-page {
-  max-width: 820px;
-  margin: 40px auto;
-  padding: 0 16px;
-  font-family: inherit;
-}
+    /* ===== HERO PLACEHOLDER CARD ===== */
+    .hero-card {
+      margin-bottom: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f2f2f2;
+    }
 
-.article-header h1 {
-  font-size: 34px;
-  line-height: 1.25;
-  margin-bottom: 10px;
-}
+    .hero-card img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
 
-.article-meta {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 26px;
-}
+    .hero-caption {
+      font-size: 13px;
+      color: #555;
+      padding: 8px 12px;
+      background: #fafafa;
+    }
 
-.hero-placeholder {
-  background: #f2f2f2;
-  border-radius: 10px;
-  margin: 32px 0;
-  overflow: hidden;
-  text-align: center;
-}
+    /* ===== HEADER ===== */
+    .article-header h1 {
+      font-size: 32px;
+      line-height: 1.25;
+      margin: 16px 0 10px;
+    }
 
-.hero-placeholder img {
-  width: 100%;
-  display: block;
-}
+    .article-meta {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 24px;
+    }
 
-.hero-placeholder .placeholder-text {
-  padding: 60px 20px;
-  color: #999;
-  font-size: 18px;
-}
+    /* ===== BODY ===== */
+    .article-content {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #111;
+    }
 
-.article-content {
-  font-size: 17px;
-  line-height: 1.7;
-  color: #111;
-}
+    .article-content p {
+      margin-bottom: 16px;
+    }
 
-.article-content p {
-  margin-bottom: 18px;
-}
+    .article-content p strong {
+      font-weight: 600;
+    }
 
-.inline-img {
-  width: 35%;
-  margin: 6px 0 16px 16px;
-  float: right;
-  border-radius: 6px;
-}
+    /* ===== FULL WIDTH IMAGE ===== */
+    .img-full {
+      margin: 24px 0;
+    }
 
-.inline-img.left {
-  float: left;
-  margin: 6px 16px 16px 0;
-}
+    .img-full img {
+      width: 100%;
+      border-radius: 6px;
+      display: block;
+    }
 
-@media (max-width: 700px) {
-  .inline-img,
-  .inline-img.left {
-    float: none;
-    width: 100%;
-    margin: 18px 0;
-  }
-}
+    /* ===== INLINE FLOAT IMAGES ===== */
+    .img-float {
+      width: 35%;
+      margin: 6px 0 12px;
+    }
 
-.article-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 36px;
-  flex-wrap: wrap;
-}
+    .img-right {
+      float: right;
+      margin-left: 16px;
+    }
 
-.article-actions button {
-  font-size: 14px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: 1px solid #ccc;
-  background: #fff;
-  cursor: pointer;
-}
-</style>
+    .img-left {
+      float: left;
+      margin-right: 16px;
+    }
+
+    .img-float img {
+      width: 100%;
+      border-radius: 6px;
+      display: block;
+    }
+
+    .img-caption {
+      font-size: 13px;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .img-credit {
+      font-size: 12px;
+      color: #777;
+    }
+
+    /* Clear floats */
+    .clearfix {
+      clear: both;
+    }
+
+    /* ===== ACTIONS ===== */
+    .article-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .article-actions button {
+      font-size: 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    /* ===== FADE IN ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .fade-in.loaded {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .img-float {
+        float: none;
+        width: 100%;
+        margin: 16px 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <main class="article-page">
 
-<header class="article-header">
-  <h1 id="title">Loading…</h1>
-  <div class="article-meta" id="meta"></div>
-</header>
+  <!-- HERO PLACEHOLDER -->
+  <div id="hero" class="hero-card" hidden></div>
 
-<!-- HERO IMAGE -->
-<div id="hero"></div>
+  <header class="article-header">
+    <h1 id="title">Loading…</h1>
+    <div class="article-meta" id="meta"></div>
+  </header>
 
-<section class="article-content" id="content"></section>
+  <section class="article-content" id="content"></section>
 
-<div class="article-actions">
-  <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-  <button id="subscribeBtn">🔔 Subscribe</button>
-  <button id="shareBtn">📣 Share</button>
-  <button id="copyBtn">🔗 Copy Link</button>
-</div>
+  <div class="article-actions">
+    <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+    <button id="subscribeBtn">🔔 Subscribe</button>
+    <button id="shareBtn">📣 Share</button>
+    <button id="copyBtn">🔗 Copy Link</button>
+  </div>
 
 </main>
 
 <script>
 (async function () {
 
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
-if (!id) return;
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id");
 
-const res = await fetch("content/articles.json", { cache: "no-store" });
-const data = await res.json();
-const article = data.items.find(a => a.id === id);
+  if (!id) return;
 
-if (!article) {
-  document.getElementById("title").textContent = "Article not found";
-  return;
-}
+  const res = await fetch("content/articles.json", { cache: "no-store" });
+  const data = await res.json();
+  const article = data.items.find(a => a.id === id);
 
-document.title = article.title;
-document.getElementById("title").textContent = article.title;
-document.getElementById("meta").textContent =
-  (article.location || "") + " | " + article.date + " • " + article.readTime;
+  if (!article) {
+    document.getElementById("title").textContent = "Article not found";
+    return;
+  }
 
-/* HERO IMAGE (Image 01) */
-const hero = document.getElementById("hero");
-if (article.image) {
-  const wrap = document.createElement("div");
-  wrap.className = "hero-placeholder";
+  document.title = article.title + " | The Mirror Jammu Kashmir";
+  document.getElementById("title").textContent = article.title;
 
-  const img = document.createElement("img");
-  img.src = article.image;
-  img.alt = article.title;
+  document.getElementById("meta").textContent =
+    (article.location || "") + " | " + article.date + " • " + article.readTime;
 
-  img.onerror = () => {
-    wrap.innerHTML = '<div class="placeholder-text">Editorial Image Placeholder</div>';
+  /* ===== HERO PLACEHOLDER ===== */
+  if (article.heroImage) {
+    const hero = document.getElementById("hero");
+    hero.hidden = false;
+
+    hero.innerHTML = `
+      <img src="${article.heroImage.src}" loading="lazy" class="fade-in">
+      <div class="hero-caption">
+        ${article.heroImage.caption || ""}
+        ${article.heroImage.credit ? " • " + article.heroImage.credit : ""}
+      </div>
+    `;
+  }
+
+  const content = document.getElementById("content");
+  let floatToggle = "right";
+  let firstImageRendered = false;
+
+  article.body.forEach(block => {
+
+    if (block.type === "paragraph") {
+      const p = document.createElement("p");
+      p.innerHTML = block.text
+        .replace("complete shutter down", "<strong>complete shutter down</strong>")
+        .replace("collective punishment", "<strong>collective punishment</strong>");
+      content.appendChild(p);
+    }
+
+    if (block.type === "image") {
+
+      // First body image = full width
+      if (!firstImageRendered) {
+        firstImageRendered = true;
+
+        const wrap = document.createElement("div");
+        wrap.className = "img-full fade-in";
+
+        wrap.innerHTML = `
+          <img src="${block.src}" loading="lazy">
+          <div class="img-caption">${block.caption || ""}</div>
+          <div class="img-credit">${block.credit || ""}</div>
+        `;
+
+        content.appendChild(wrap);
+        return;
+      }
+
+      const wrap = document.createElement("div");
+      wrap.className = `img-float img-${floatToggle} fade-in`;
+
+      wrap.innerHTML = `
+        <img src="${block.src}" loading="lazy">
+        <div class="img-caption">${block.caption || ""}</div>
+        <div class="img-credit">${block.credit || ""}</div>
+      `;
+
+      content.appendChild(wrap);
+
+      const clear = document.createElement("div");
+      clear.className = "clearfix";
+      content.appendChild(clear);
+
+      floatToggle = floatToggle === "right" ? "left" : "right";
+    }
+
+  });
+
+  /* ===== FADE IN ===== */
+  requestAnimationFrame(() => {
+    document.querySelectorAll(".fade-in").forEach(el => {
+      el.classList.add("loaded");
+    });
+  });
+
+  /* ===== ACTIONS ===== */
+  let likes = 0;
+  document.getElementById("likeBtn").onclick = () => {
+    likes++;
+    document.getElementById("likeCount").textContent = likes;
   };
 
-  wrap.appendChild(img);
-  hero.appendChild(wrap);
-}
+  document.getElementById("subscribeBtn").onclick = e => {
+    e.target.textContent = "Subscribed";
+    e.target.disabled = true;
+  };
 
-/* BODY CONTENT */
-const content = document.getElementById("content");
-let imageIndex = 0;
-
-article.body.forEach(block => {
-
-  if (block.type === "paragraph") {
-    const p = document.createElement("p");
-
-    // Emphasize first strong phrase in first two paragraphs
-    if (imageIndex < 1 && block.text.length > 80) {
-      const parts = block.text.split(". ");
-      p.innerHTML = "<strong>" + parts[0] + ".</strong> " + parts.slice(1).join(". ");
+  document.getElementById("shareBtn").onclick = () => {
+    if (navigator.share) {
+      navigator.share({ title: article.title, url: location.href });
     } else {
-      p.textContent = block.text;
+      navigator.clipboard.writeText(location.href);
+      alert("Link copied");
     }
+  };
 
-    content.appendChild(p);
-  }
-
-  if (block.type === "image") {
-    imageIndex++;
-
-    const img = document.createElement("img");
-    img.src = block.src;
-    img.alt = block.alt || "";
-    img.loading = "lazy";
-    img.className = "inline-img";
-
-    if (imageIndex > 1 && imageIndex % 2 === 0) {
-      img.classList.add("left");
-    }
-
-    content.appendChild(img);
-  }
-});
-
-/* ACTIONS */
-let likes = 0;
-likeBtn.onclick = () => {
-  likes++;
-  likeCount.textContent = likes;
-};
-
-subscribeBtn.onclick = e => {
-  e.target.textContent = "Subscribed";
-  e.target.disabled = true;
-};
-
-shareBtn.onclick = () => {
-  navigator.share
-    ? navigator.share({ title: article.title, url: location.href })
-    : navigator.clipboard.writeText(location.href);
-};
-
-copyBtn.onclick = () => {
-  navigator.clipboard.writeText(location.href);
-};
+  document.getElementById("copyBtn").onclick = () => {
+    navigator.clipboard.writeText(location.href);
+    alert("Link copied");
+  };
 
 })();
+</script>
+
+<!-- SEO SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "{{title}}",
+  "datePublished": "{{date}}",
+  "author": {
+    "@type": "Organization",
+    "name": "The Mirror Jammu Kashmir"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Mirror Jammu Kashmir"
+  }
+}
 </script>
 
 </body>
