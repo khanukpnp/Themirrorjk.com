@@ -1,171 +1,194 @@
 <!doctype html>
-<html ⚡ lang="en">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Article | The Mirror Jammu Kashmir</title>
-  <link rel="canonical" href="article.html">
-  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-  <meta name="description" content="Verified reporting from The Mirror Jammu Kashmir.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Article | The Mirror Jammu Kashmir</title>
 
-  <!-- AMP runtime -->
-  <script async src="https://cdn.ampproject.org/v0.js"></script>
+<style>
+.article-page {
+  max-width: 860px;
+  margin: 32px auto;
+  padding: 0 16px;
+  font-family: inherit;
+}
 
-  <!-- AMP components -->
-  <script async custom-element="amp-img"
-          src="https://cdn.ampproject.org/v0/amp-img-0.1.js"></script>
+/* ===== HERO PLACEHOLDER CARD ===== */
+.hero-card {
+  height: 220px;
+  background: #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.hero-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-  <!-- AMP boilerplate -->
-  <style amp-boilerplate>
-    body{visibility:hidden}
-  </style>
-  <noscript>
-    <style amp-boilerplate>
-      body{visibility:visible}
-    </style>
-  </noscript>
+/* ===== HEADER ===== */
+.article-header h1 {
+  font-size: 32px;
+  line-height: 1.25;
+  margin: 8px 0;
+}
+.article-meta {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 24px;
+}
 
-  <!-- AMP scoped styles -->
-  <style amp-custom>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #fff;
-      color: #111;
-      margin: 0;
-    }
+/* ===== BODY ===== */
+.article-content {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #111;
+}
+.article-content p {
+  margin-bottom: 16px;
+}
+.article-content strong {
+  font-weight: 600;
+}
 
-    .article {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 16px;
-    }
+/* ===== IMAGES ===== */
+.img-full img {
+  width: 100%;
+  border-radius: 6px;
+  margin: 20px 0;
+}
+.img-float {
+  width: 35%;
+  margin: 6px 0 12px;
+}
+.img-right { float:right; margin-left:16px; }
+.img-left { float:left; margin-right:16px; }
+.img-float img {
+  width: 100%;
+  border-radius: 6px;
+}
+.figcap {
+  font-size: 13px;
+  color: #555;
+}
+.clear { clear:both; }
 
-    .hero {
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      background: #eee;
-    }
+/* ===== ACTIONS ===== */
+.article-actions {
+  display:flex;
+  gap:12px;
+  margin-top:32px;
+  flex-wrap:wrap;
+}
+.article-actions button {
+  font-size:14px;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid #ccc;
+  background:#fff;
+  cursor:pointer;
+}
 
-    h1 {
-      font-size: 30px;
-      line-height: 1.25;
-      margin: 12px 0 8px;
-    }
+/* ===== FADE IN ===== */
+.fade {
+  opacity:0;
+  transform:translateY(10px);
+  animation:fadeIn .6s ease forwards;
+}
+@keyframes fadeIn {
+  to { opacity:1; transform:none; }
+}
 
-    .meta {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 20px;
-    }
-
-    p {
-      font-size: 17px;
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-
-    strong {
-      font-weight: 600;
-    }
-
-    figure {
-      margin: 22px 0;
-    }
-
-    figcaption {
-      font-size: 13px;
-      color: #666;
-      margin-top: 6px;
-    }
-
-    .footer {
-      border-top: 1px solid #eee;
-      margin-top: 32px;
-      padding-top: 16px;
-      font-size: 14px;
-      color: #555;
-    }
-  </style>
-
-  <!-- SEO structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
-    "publisher": {
-      "@type": "Organization",
-      "name": "The Mirror Jammu Kashmir"
-    },
-    "headline": "Article",
-    "datePublished": "2025-12-16"
-  }
-  </script>
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+  .img-float { float:none; width:100%; margin:16px 0; }
+  .hero-card { height:180px; }
+}
+</style>
 </head>
 
 <body>
 
-<main class="article">
+<main class="article-page">
 
-  <!-- HERO IMAGE -->
-  <div class="hero">
-    <amp-img
-      src="content/rawalakot-01.jpg"
-      width="1200"
-      height="675"
-      layout="responsive"
-      alt="Rawalakot shutter down protest">
-    </amp-img>
-  </div>
+<div id="hero" class="hero-card" hidden></div>
 
-  <h1>Complete Shutter Down Paralyzes Rawalakot as Thousands Protest Power Cuts and Blackouts</h1>
+<header class="article-header">
+  <h1 id="title">Loading…</h1>
+  <div id="meta" class="article-meta"></div>
+</header>
 
-  <div class="meta">
-    Rawalakot, Poonch, Azad Kashmir · 16 December 2025 · 7 min read
-  </div>
+<section id="content" class="article-content"></section>
 
-  <p>
-    <strong>A complete shutter down brought life to a standstill</strong> in Rawalakot as thousands of residents from across District Poonch poured into the streets to protest prolonged power outages and communication blackouts.
-  </p>
-
-  <figure>
-    <amp-img
-      src="content/rawalakot-02.jpg"
-      width="800"
-      height="600"
-      layout="responsive"
-      alt="Protesters marching in Rawalakot">
-    </amp-img>
-    <figcaption>
-      Protesters march through Rawalakot demanding restoration of electricity and internet services.
-    </figcaption>
-  </figure>
-
-  <p>
-    Markets remained closed and traffic was largely halted as demonstrators gathered near the grid station, calling the situation collective punishment of the population.
-  </p>
-
-  <figure>
-    <amp-img
-      src="content/rawalakot-03.jpg"
-      width="800"
-      height="600"
-      layout="responsive"
-      alt="Closed markets during shutdown">
-    </amp-img>
-    <figcaption>
-      Closed markets during the complete shutter down in Rawalakot.
-    </figcaption>
-  </figure>
-
-  <p>
-    <strong>Public frustration has been building for more than two years</strong>, with repeated protests over electricity shortages, low voltage supply, and failing communication networks.
-  </p>
-
-  <div class="footer">
-    © The Mirror Jammu Kashmir
-  </div>
+<div class="article-actions">
+  <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+  <button id="subBtn">🔔 Subscribe</button>
+  <button id="shareBtn">📣 Share</button>
+  <button id="copyBtn">🔗 Copy Link</button>
+</div>
 
 </main>
+
+<script>
+(async () => {
+
+const id = new URLSearchParams(location.search).get("id");
+if(!id) return;
+
+const res = await fetch("content/articles.json",{cache:"no-store"});
+const data = await res.json();
+const a = data.items.find(x=>x.id===id);
+if(!a) return;
+
+/* Header */
+document.title = a.title;
+title.textContent = a.title;
+meta.textContent = `${a.location || ""} · ${a.date} · ${a.readTime}`;
+
+/* Hero placeholder */
+if(a.image){
+  hero.hidden=false;
+  hero.innerHTML=`<img src="${a.image}" alt="${a.title}">`;
+}
+
+/* Body */
+let floatSide="right";
+a.body.forEach(b=>{
+  if(b.type==="paragraph"){
+    const p=document.createElement("p");
+    p.innerHTML=b.text
+      .replace(/(complete shutter down|public frustration)/gi,"<strong>$1</strong>");
+    p.className="fade";
+    content.appendChild(p);
+  }
+
+  if(b.type==="image"){
+    const div=document.createElement("div");
+    if(!document.querySelector(".img-full")){
+      div.className="img-full fade";
+    }else{
+      div.className=`img-float img-${floatSide} fade`;
+      floatSide = floatSide==="right"?"left":"right";
+    }
+    div.innerHTML=`<img src="${b.src}" alt=""><div class="figcap">${b.alt||""}</div>`;
+    content.appendChild(div);
+    const clr=document.createElement("div");
+    clr.className="clear";
+    content.appendChild(clr);
+  }
+});
+
+/* Actions */
+let likes=0;
+likeBtn.onclick=()=>{ likeCount.textContent=++likes; };
+subBtn.onclick=()=>{ subBtn.textContent="Subscribed"; subBtn.disabled=true; };
+shareBtn.onclick=()=> navigator.share ? navigator.share({title:a.title,url:location.href}) : alert("Share not supported");
+copyBtn.onclick=()=>{ navigator.clipboard.writeText(location.href); alert("Link copied"); };
+
+})();
+</script>
 
 </body>
 </html>
