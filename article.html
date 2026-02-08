@@ -14,43 +14,44 @@
       font-family: inherit;
     }
 
+    /* ===== BREADCRUMBS ===== */
+    .breadcrumbs {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .breadcrumbs a {
+      color: inherit;
+      text-decoration: none;
+    }
+
     /* ===== EDITORIAL PLACEHOLDER ===== */
     .editorial-placeholder {
-      height: 220px;
-      background: #f0f0f0;
-      border-radius: 8px;
+      max-height: 220px;
       overflow: hidden;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      background: #eee;
     }
-
     .editorial-placeholder img {
       width: 100%;
-      height: 100%;
+      height: 220px;
       object-fit: cover;
       display: block;
-      opacity: 0;
-      transition: opacity 0.6s ease;
     }
-
-    .editorial-placeholder img.loaded {
-      opacity: 1;
-    }
-
-    .editorial-placeholder span {
-      font-size: 15px;
-      color: #777;
+    .editorial-caption {
+      font-size: 13px;
+      color: #555;
+      padding: 6px 10px;
+      background: #fafafa;
     }
 
     /* ===== HEADER ===== */
     .article-header h1 {
       font-size: 32px;
       line-height: 1.25;
-      margin: 10px 0 8px;
+      margin: 12px 0 8px;
     }
-
     .article-meta {
       font-size: 14px;
       color: #555;
@@ -63,20 +64,17 @@
       line-height: 1.7;
       color: #111;
     }
-
     .article-content p {
       margin-bottom: 16px;
     }
-
     .article-content strong {
       font-weight: 600;
     }
 
     /* ===== IMAGES ===== */
     .img-full {
-      margin: 24px 0;
+      margin: 22px 0;
     }
-
     .img-full img {
       width: 100%;
       border-radius: 6px;
@@ -85,38 +83,55 @@
 
     .img-float {
       width: 35%;
-      margin: 6px 0 12px;
+      margin: 6px 0 10px;
     }
-
     .img-right {
       float: right;
       margin-left: 16px;
     }
-
     .img-left {
       float: left;
       margin-right: 16px;
     }
-
     .img-float img {
       width: 100%;
       border-radius: 6px;
       display: block;
     }
-
     .img-caption {
       font-size: 13px;
       color: #555;
       margin-top: 4px;
     }
-
     .img-credit {
       font-size: 12px;
       color: #777;
     }
-
     .clear {
       clear: both;
+    }
+
+    /* ===== FADE IN ===== */
+    .fade {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===== PAGINATION ===== */
+    .article-pagination {
+      display: flex;
+      justify-content: space-between;
+      margin: 40px 0 20px;
+      font-size: 14px;
+    }
+    .article-pagination a {
+      text-decoration: none;
+      color: #333;
     }
 
     /* ===== ACTIONS ===== */
@@ -126,7 +141,6 @@
       margin-top: 32px;
       flex-wrap: wrap;
     }
-
     .article-actions button {
       font-size: 14px;
       padding: 8px 14px;
@@ -141,7 +155,10 @@
       .img-float {
         float: none;
         width: 100%;
-        margin: 18px 0;
+        margin: 16px 0;
+      }
+      .editorial-placeholder img {
+        height: 180px;
       }
     }
   </style>
@@ -151,21 +168,20 @@
 
 <main class="article-page">
 
-  <!-- EDITORIAL HERO -->
-  <div id="editorialHero" class="editorial-placeholder">
-    <span>Editorial Image Placeholder</span>
-  </div>
+  <div id="editorialHero" class="editorial-placeholder fade" hidden></div>
 
-  <header class="article-header">
+  <nav class="breadcrumbs" id="breadcrumbs"></nav>
+
+  <header class="article-header fade">
     <h1 id="title">Loading…</h1>
     <div class="article-meta" id="meta"></div>
   </header>
 
   <section class="article-content" id="content"></section>
 
-  <div class="clear"></div>
+  <nav class="article-pagination" id="pagination"></nav>
 
-  <div class="article-actions">
+  <div class="article-actions fade">
     <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
     <button id="subscribeBtn">🔔 Subscribe</button>
     <button id="shareBtn">📣 Share</button>
@@ -176,95 +192,90 @@
 
 <script>
 (async function () {
+
   const params = new URLSearchParams(location.search);
   const id = params.get("id");
   if (!id) return;
 
   const res = await fetch("content/articles.json", { cache: "no-store" });
   const data = await res.json();
-  const article = data.items.find(a => a.id === id);
+  const items = data.items || [];
+  const index = items.findIndex(a => a.id === id);
+  const article = items[index];
   if (!article) return;
 
-  /* ===== TITLE & META ===== */
   document.title = article.title + " | The Mirror Jammu Kashmir";
   document.getElementById("title").textContent = article.title;
-  document.getElementById("meta").textContent =
-    `${article.location || ""} | ${article.date} • ${article.readTime}`;
 
-  /* ===== HERO PLACEHOLDER ===== */
-  const hero = document.getElementById("editorialHero");
+  document.getElementById("meta").textContent =
+    (article.location || "") + " | " + article.date + " • " + article.readTime;
+
+  /* ===== BREADCRUMBS ===== */
+  document.getElementById("breadcrumbs").innerHTML =
+    `<a href="/">Home</a> › <a href="/blog.html">Blog</a> › ${article.category || ""}`;
+
+  /* ===== EDITORIAL PLACEHOLDER ===== */
   if (article.image) {
-    hero.innerHTML = "";
-    const img = document.createElement("img");
-    img.src = article.image;
-    img.alt = article.title;
-    img.loading = "lazy";
-    img.onload = () => img.classList.add("loaded");
-    hero.appendChild(img);
+    const hero = document.getElementById("editorialHero");
+    hero.hidden = false;
+    hero.innerHTML =
+      `<img src="${article.image}" alt="${article.title}" loading="lazy">
+       <div class="editorial-caption">Image credit: The Mirror Jammu Kashmir</div>`;
   }
 
   /* ===== BODY RENDER ===== */
   const content = document.getElementById("content");
-  let floatToggle = "right";
+  let floatToggle = true;
 
-  article.body.forEach((block, i) => {
-
+  article.body.forEach(block => {
     if (block.type === "paragraph") {
       const p = document.createElement("p");
+      p.className = "fade";
       p.innerHTML = block.text
-        .replace(/collective punishment/gi, "<strong>collective punishment</strong>")
-        .replace(/basic rights and dignity/gi, "<strong>basic rights and dignity</strong>");
+        .replace("complete shutter down", "<strong>complete shutter down</strong>")
+        .replace("collective punishment", "<strong>collective punishment</strong>");
       content.appendChild(p);
     }
 
     if (block.type === "image") {
       const wrap = document.createElement("div");
-      wrap.className = "img-float img-" + (block.align || floatToggle);
+      const cls = block.align === "right" ? "img-right" : "img-left";
+      wrap.className = `img-float ${cls} fade`;
 
-      const img = document.createElement("img");
-      img.src = block.src;
-      img.alt = block.alt || "";
-      img.loading = "lazy";
+      wrap.innerHTML =
+        `<img src="${block.src}" loading="lazy" alt="">
+         <div class="img-caption">${block.alt || ""}</div>
+         <div class="img-credit">Image credit: The Mirror Jammu Kashmir</div>`;
 
-      const cap = document.createElement("div");
-      cap.className = "img-caption";
-      cap.textContent = block.alt || "";
-
-      const credit = document.createElement("div");
-      credit.className = "img-credit";
-      credit.textContent = "© The Mirror Jammu Kashmir";
-
-      wrap.appendChild(img);
-      wrap.appendChild(cap);
-      wrap.appendChild(credit);
       content.appendChild(wrap);
-
-      floatToggle = floatToggle === "right" ? "left" : "right";
+      floatToggle = !floatToggle;
     }
   });
 
+  content.appendChild(Object.assign(document.createElement("div"), { className: "clear" }));
+
+  /* ===== PAGINATION ===== */
+  const pag = document.getElementById("pagination");
+  if (items[index - 1]) {
+    pag.innerHTML += `<a href="article.html?id=${items[index - 1].id}">← Previous</a>`;
+  }
+  if (items[index + 1]) {
+    pag.innerHTML += `<a href="article.html?id=${items[index + 1].id}">Next →</a>`;
+  }
+
   /* ===== ACTIONS ===== */
   let likes = 0;
-  document.getElementById("likeBtn").onclick = () => {
-    likes++;
-    document.getElementById("likeCount").textContent = likes;
-  };
+  likeBtn.onclick = () => likeCount.textContent = ++likes;
+  subscribeBtn.onclick = e => { e.target.textContent = "Subscribed"; e.target.disabled = true; };
+  shareBtn.onclick = () => navigator.share ? navigator.share({ title: article.title, url: location.href }) : null;
+  copyBtn.onclick = () => navigator.clipboard.writeText(location.href);
 
-  document.getElementById("subscribeBtn").onclick = e => {
-    e.target.textContent = "Subscribed";
-    e.target.disabled = true;
-  };
+  /* ===== FADE-IN ===== */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => e.isIntersecting && e.target.classList.add("visible"));
+  }, { threshold: .15 });
 
-  document.getElementById("shareBtn").onclick = () => {
-    if (navigator.share) {
-      navigator.share({ title: article.title, url: location.href });
-    }
-  };
-
-  document.getElementById("copyBtn").onclick = () => {
-    navigator.clipboard.writeText(location.href);
-    alert("Link copied");
-  };
+  document.querySelectorAll(".fade").forEach(el => io.observe(el));
 
   /* ===== SEO SCHEMA ===== */
   const schema = {
@@ -273,17 +284,12 @@
     "headline": article.title,
     "datePublished": article.date,
     "author": { "@type": "Organization", "name": article.author },
-    "image": article.image,
-    "publisher": {
-      "@type": "Organization",
-      "name": "The Mirror Jammu Kashmir"
-    }
+    "image": article.image
   };
-
-  const script = document.createElement("script");
-  script.type = "application/ld+json";
-  script.textContent = JSON.stringify(schema);
-  document.head.appendChild(script);
+  const s = document.createElement("script");
+  s.type = "application/ld+json";
+  s.textContent = JSON.stringify(schema);
+  document.head.appendChild(s);
 
 })();
 </script>
