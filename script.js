@@ -296,3 +296,68 @@ async function renderArticlePage(){
 }
 
 });
+document.addEventListener("DOMContentLoaded", () => {
+
+const aboutPanel = document.getElementById("about-panel");
+const aboutClose = document.getElementById("about-close");
+
+const aboutBtn = document.querySelector('a[href="#about"]');
+
+if (aboutBtn && aboutPanel) {
+aboutBtn.addEventListener("click", function(e){
+e.preventDefault();
+aboutPanel.hidden = false;
+document.body.style.overflow = "hidden";
+});
+}
+
+if (aboutClose && aboutPanel) {
+aboutClose.addEventListener("click", function(){
+aboutPanel.hidden = true;
+document.body.style.overflow = "";
+});
+}
+
+// Like button
+let likes = 0;
+const likeBtn = document.getElementById("about-like");
+const likeCount = document.getElementById("about-like-count");
+
+if(likeBtn){
+likeBtn.addEventListener("click", ()=>{
+likes++;
+likeCount.textContent = likes;
+});
+}
+
+// Subscribe
+const subBtn = document.getElementById("about-subscribe");
+if(subBtn){
+subBtn.addEventListener("click", function(){
+this.textContent = "Subscribed";
+this.disabled = true;
+});
+}
+
+// Share
+const shareBtn = document.getElementById("about-share");
+if(shareBtn){
+shareBtn.addEventListener("click", ()=>{
+if(navigator.share){
+navigator.share({
+title: "About The Mirror Jammu Kashmir",
+url: location.href + "#about"
+});
+}
+});
+}
+
+// Copy
+const copyBtn = document.getElementById("about-copy");
+if(copyBtn){
+copyBtn.addEventListener("click", ()=>{
+navigator.clipboard.writeText(location.href + "#about");
+});
+}
+
+});
