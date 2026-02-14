@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Chief Editor | The Mirror Jammu Kashmir</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -20,6 +20,26 @@
   </div>
 </header>
 
+<section class="bar">
+  <div class="row nowrap">
+    <span class="chip" id="clock-cest">Loading time</span>
+    <span class="chip" id="hijri-date">Loading</span>
+    <span class="chip" id="saka-date">Loading</span>
+    <span class="chip" id="ist-time">Loading</span>
+    <span class="chip" id="pkt-time">Loading</span>
+  </div>
+</section>
+
+<section class="ticker-wrap">
+  <div class="ticker">
+    <span>CHIEF EDITOR</span>
+    <ul id="ticker-items">
+      <li>THE MIRROR JAMMU KASHMIR • RESPONSIBLE JOURNALISM • HUMAN RIGHTS</li>
+      <li>INDEPENDENT MEDIA • INTERNATIONAL ADVOCACY • TRUTH ABOVE POWER</li>
+    </ul>
+  </div>
+</section>
+
 <nav class="navbar">
   <ul class="nav-list">
     <li><a class="nav-btn" href="index.html">🏠 Home</a></li>
@@ -29,23 +49,21 @@
   </ul>
 </nav>
 
-<main class="main" style="max-width:1000px;margin:40px auto;padding:0 20px;">
+<main class="main" style="max-width:1200px;margin:auto;padding:40px 20px;">
 
   <section class="card">
-    <div class="card-body" style="padding:40px;">
+    <div class="card-body">
 
-      <h2 style="margin-top:0;">Chief Editor</h2>
+      <h2>Chief Editor</h2>
+      <h3>The Mirror Jammu Kashmir</h3>
 
-      <figure style="float:right;width:40%;margin:0 0 20px 24px;">
-        <img src="assets/chief-editor.jpg"
-             alt="Sardar Nasir Aziz Khan"
-             style="width:100%;object-fit:cover;">
-      </figure>
-
-      <p><strong>The Mirror Jammu Kashmir</strong></p>
+      <img src="assets/chief-editor.jpg"
+           alt="Sardar Nasir Aziz Khan"
+           style="float:right;width:40%;margin:0 0 20px 24px;object-fit:cover;"
+           onerror="this.onerror=null;this.src='assets/logo.png';">
 
       <p>
-        Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional insight, political clarity, and a firm commitment to principled and rights based journalism. A Kashmiri human rights defender, political analyst, and columnist, he is originally from Rawalakot in the Poonch region of the historical State of Jammu and Kashmir and is currently based in Switzerland.
+        <strong>Sardar Nasir Aziz Khan</strong> serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional insight, political clarity, and a firm commitment to principled and rights based journalism. A Kashmiri human rights defender, political analyst, and columnist, he is originally from Rawalakot in the Poonch region of the historical State of Jammu and Kashmir and is currently based in Switzerland.
       </p>
 
       <p>
@@ -73,21 +91,17 @@
       </p>
 
       <p>
-        He can be reached at 
-        <a href="mailto:themirrorjk@gmail.com">themirrorjk@gmail.com</a> 
-        or by phone at 
-        <a href="tel:+41783131213">+41 783 13 12 13</a>. 
-        On X, he can be followed at <strong>@NasirKhanUKPNP</strong>.
+        He can be reached at <a href="mailto:themirrorjk@gmail.com">themirrorjk@gmail.com</a> or by phone at <a href="tel:+41783131213">+41 783 13 12 13</a>. On X, he can be followed at @NasirKhanUKPNP.
       </p>
 
-      <div style="clear:both;"></div>
-
-      <div style="margin-top:30px;padding-top:20px;border-top:1px solid #eee;">
-        <button class="btn">👍 Like</button>
-        <button class="btn outline">⭐ Subscribe</button>
-        <button class="btn outline">📣 Share</button>
-        <button class="btn outline">📋 Copy Link</button>
+      <div style="margin-top:30px;">
+        <button>👍 Like</button>
+        <button>⭐ Subscribe</button>
+        <button>📣 Share</button>
+        <button onclick="navigator.clipboard.writeText(window.location.href)">📋 Copy Link</button>
       </div>
+
+      <div style="clear:both;"></div>
 
     </div>
   </section>
