@@ -6,19 +6,31 @@
 <title>Article | The Mirror Jammu Kashmir</title>
 
 <style>
+
+/* FORCE ISOLATED ARTICLE LAYOUT */
+body{
+  background:#fff;
+}
+
+.article-wrapper{
+  display:flex;
+  justify-content:center;
+  width:100%;
+}
+
 .article-page{
-  max-width:860px;
-  margin:32px auto;
-  padding:0 16px;
+  width:100%;
+  max-width:820px;
+  padding:40px 20px;
 }
 
 /* HERO */
 .hero-card{
-  height:240px;
+  width:100%;
+  height:260px;
   background:#eee;
   border-radius:6px;
   overflow:hidden;
-  margin-bottom:10px;
 }
 .hero-card img{
   width:100%;
@@ -29,62 +41,69 @@
 .hero-caption{
   font-size:13px;
   color:#555;
-  margin-bottom:20px;
-}
-.hero-caption span{
-  color:#777;
+  margin-top:6px;
+  margin-bottom:24px;
 }
 
 /* HEADER */
 .article-header h1{
-  font-size:32px;
-  line-height:1.25;
-  margin:10px 0;
+  font-size:34px;
+  line-height:1.2;
+  margin:12px 0;
 }
 .article-meta{
   font-size:14px;
   color:#666;
-  margin-bottom:24px;
+  margin-bottom:30px;
 }
 
 /* BODY */
 .article-content{
-  font-size:17px;
-  line-height:1.75;
+  font-size:18px;
+  line-height:1.8;
   color:#111;
 }
 .article-content p{
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
-/* IMAGES */
+/* INLINE IMAGES */
 .img-float{
-  width:35%;
-  margin:8px 0 14px;
+  width:36%;
+  margin:6px 0 10px;
 }
-.img-left{float:left;margin-right:18px;}
-.img-right{float:right;margin-left:18px;}
+.img-left{
+  float:left;
+  margin-right:20px;
+}
+.img-right{
+  float:right;
+  margin-left:20px;
+}
 .img-float img{
   width:100%;
   border-radius:6px;
+  display:block;
 }
 .figcap{
   font-size:13px;
   color:#555;
   margin-top:4px;
 }
-.clear{clear:both;}
+.clear{
+  clear:both;
+}
 
 /* ACTIONS */
 .article-actions{
   display:flex;
-  gap:12px;
-  margin-top:40px;
+  gap:14px;
+  margin-top:50px;
   flex-wrap:wrap;
 }
 .article-actions button{
   font-size:14px;
-  padding:8px 14px;
+  padding:8px 16px;
   border-radius:999px;
   border:1px solid #ccc;
   background:#fff;
@@ -93,18 +112,25 @@
 
 /* MOBILE */
 @media(max-width:768px){
+  .article-page{
+    padding:20px 14px;
+  }
   .img-float{
     float:none;
     width:100%;
     margin:18px 0;
   }
-  .hero-card{height:190px;}
+  .hero-card{
+    height:200px;
+  }
 }
+
 </style>
 </head>
 
 <body>
 
+<div class="article-wrapper">
 <main class="article-page">
 
 <div id="hero" hidden>
@@ -127,6 +153,7 @@
 </div>
 
 </main>
+</div>
 
 <script>
 (async()=>{
@@ -147,8 +174,8 @@ meta.textContent=`${a.location||""} · ${a.date} · ${a.readTime}`;
 /* HERO */
 if(a.heroImage && a.heroImage.src){
   hero.hidden=false;
-  heroCard.innerHTML=`<img src="${a.heroImage.src}" alt="">`;
-  heroCaption.innerHTML=`${a.heroImage.caption||""} ${a.heroImage.credit? "<span>© "+a.heroImage.credit+"</span>" : ""}`;
+  heroCard.innerHTML=`<img src="/${a.heroImage.src}" alt="">`;
+  heroCaption.innerHTML=`${a.heroImage.caption||""} ${a.heroImage.credit? "© "+a.heroImage.credit : ""}`;
 }
 
 /* BODY */
@@ -164,10 +191,10 @@ a.body.forEach(block=>{
     const div=document.createElement("div");
     div.className=`img-float img-${block.align||"right"}`;
     div.innerHTML=`
-      <img src="${block.src}" alt="">
+      <img src="/${block.src}" alt="">
       <div class="figcap">
         ${block.caption||""}
-        ${block.credit? "<span> © "+block.credit+"</span>" : ""}
+        ${block.credit? " © "+block.credit : ""}
       </div>
     `;
     content.appendChild(div);
