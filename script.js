@@ -1,168 +1,218 @@
-// JS v3 stable — global safe + article safe
+// JS v2 hardened stable
 
 const $ = (sel, ctx=document) => ctx.querySelector(sel);
 const $$ = (sel, ctx=document) => [...ctx.querySelectorAll(sel)];
 
-document.addEventListener("DOMContentLoaded", () => {
+/* ===== YEAR SAFE ===== */
+if ($("#year")) {
+  $("#year").textContent = new Date().getFullYear();
+}
 
-  /* =========================
-     GLOBAL CLOCKS + CALENDAR
-  ========================== */
+/* ===== CLOCKS ===== */
+function formatCEST() {
+  const el = $("#clock-cest span");
+  if(!el) return;
 
-  if ($("#year")) {
-    $("#year").textContent = new Date().getFullYear();
-  }
+  const now = new Date();
+  const opts = {
+    weekday:'long', year:'numeric', month:'long', day:'numeric',
+    hour:'2-digit', minute:'2-digit', second:'2-digit',
+    hour12:false, timeZone:'Europe/Zurich'
+  };
+  el.textContent =
+    new Intl.DateTimeFormat('en-GB', opts)
+    .format(now).replace(',', ' —');
+}
 
-  function formatCEST() {
+function formatHijri() {
+  const el = $("#cal-hijri span");
+  if(!el) return;
+
+  try{
     const now = new Date();
-    const opts = {
-      weekday:'long', year:'numeric', month:'long', day:'numeric',
-      hour:'2-digit', minute:'2-digit', second:'2-digit',
-      hour12:false, timeZone:'Europe/Zurich'
-    };
-    const el = $("#clock-cest span");
-    if(el){
-      el.textContent =
-        new Intl.DateTimeFormat('en-GB', opts)
-        .format(now).replace(',', ' —');
-    }
+    const fmt = new Intl.DateTimeFormat(
+      'en-u-ca-islamic',
+      { day:'numeric', month:'long', year:'numeric' }
+    );
+    el.textContent = fmt.format(now) + " AH";
+  }catch(e){
+    el.textContent = "Hijri calendar not supported";
   }
+}
 
-  function formatHijri(){
-    try{
-      const now = new Date();
-      const fmt = new Intl.DateTimeFormat(
-        'en-u-ca-islamic',
-        { day:'numeric', month:'long', year:'numeric' }
-      );
-      const el = $("#cal-hijri span");
-      if(el) el.textContent = fmt.format(now) + " AH";
-    }catch(e){}
-  }
+function formatVikramSamvatApprox(){
+  const el = $("#cal-hindi span");
+  if(!el) return;
 
-  function formatVikram(){
-    const now = new Date();
-    const gYear = now.getFullYear();
-    const m = now.getMonth();
-    const d = now.getDate();
-    const vsYear = (m >= 3) ? gYear + 57 : gYear + 56;
-    const months = [
-      "Pausha","Magha","Phalguna","Chaitra",
-      "Vaisakh","Jyeshtha","Ashadha","Shravana",
-      "Bhadrapada","Ashwin","Kartik","Margashirsha"
-    ];
-    const map = [9,10,11,3,4,5,6,7,8,0,1,2];
-    const el = $("#cal-hindi span");
-    if(el){
-      el.textContent =
-        `${months[map[m]]} ${d}, ${vsYear} VS`;
-    }
-  }
+  const now = new Date();
+  const gYear = now.getFullYear();
+  const m = now.getMonth();
+  const d = now.getDate();
+  const vsYear = (m >= 3) ? gYear + 57 : gYear + 56;
 
-  function updateTimes(){
-    formatCEST();
-    formatHijri();
-    formatVikram();
-  }
+  const months = [
+    "Pausha","Magha","Phalguna","Chaitra",
+    "Vaisakh","Jyeshtha","Ashadha","Shravana",
+    "Bhadrapada","Ashwin","Kartik","Margashirsha"
+  ];
 
-  updateTimes();
-  setInterval(updateTimes,1000);
+  const map = [9,10,11,3,4,5,6,7,8,0,1,2];
+  el.textContent =
+    `${months[map[m]]} ${d}, ${vsYear} VS`;
+}
 
-  /* =========================
-     SAFE ARTICLE PAGE LOGIC
-  ========================== */
+function updateTimes(){
+  formatCEST();
+  formatHijri();
+  formatVikramSamvatApprox();
 
-  if (location.pathname.includes("article.html")) {
-    renderArticlePage();
-  }
+  const now = new Date();
+  const fmt = (tz) =>
+    new Intl.DateTimeFormat(
+      'en-GB',
+      { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false, timeZone: tz }
+    ).format(now);
 
+  const ist = $("#tz-ist span");
+  const pkt = $("#tz-pkt span");
+
+  if(ist) ist.textContent = fmt('Asia/Kolkata');
+  if(pkt) pkt.textContent = fmt('Asia/Karachi');
+}
+
+updateTimes();
+setInterval(updateTimes, 1000);
+
+/* ===== NAV SAFE ===== */
+$$(".nav-item.has-sub > .nav-btn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    const li = e.currentTarget.closest(".nav-item");
+    if(!li) return;
+
+    const isOpen = li.classList.contains("open");
+    $$(".nav-item.open").forEach(n => n.classList.remove("open"));
+    if(!isOpen) li.classList.add("open");
+  });
 });
 
-
-/* =========================
-   ARTICLE RENDER FUNCTION
-========================== */
-
-async function renderArticlePage(){
-
-  const id = new URLSearchParams(location.search).get("id");
-  if(!id) return;
-
-  let data;
-  try{
-    const res = await fetch("content/articles.json",{cache:"no-store"});
-    if(!res.ok) return;
-    data = await res.json();
-  }catch(e){
-    console.warn("Articles JSON failed");
-    return;
+document.addEventListener("click", (e) => {
+  if(!e.target.closest(".navbar")) {
+    $$(".nav-item.open").forEach(n => n.classList.remove("open"));
   }
+});
 
-  if(!data.items) return;
+const hamburger = $("#hamburger");
+const mobileMenu = $("#mobile-menu");
 
-  const article = data.items.find(x=>x.id===id);
-  if(!article) return;
+if(hamburger && mobileMenu){
+  hamburger.addEventListener("click", () => {
+    const expanded = hamburger.getAttribute("aria-expanded") === "true";
+    hamburger.setAttribute("aria-expanded", String(!expanded));
 
-  const titleEl = document.getElementById("title");
-  const metaEl = document.getElementById("meta");
-  const contentEl = document.getElementById("content");
-  const heroWrap = document.getElementById("heroWrap");
-  const heroImg = document.getElementById("heroImg");
-  const heroCaption = document.getElementById("heroCaption");
+    if(!expanded){
+      mobileMenu.innerHTML = "";
+      const navList = $("#nav-list");
+      if(!navList) return;
 
-  if(titleEl) titleEl.textContent = article.title;
-  if(metaEl) metaEl.textContent =
-    `${article.location || ""} · ${article.date} · ${article.readTime}`;
+      const clone = navList.cloneNode(true);
+      clone.id = "nav-list-mobile";
 
-  if(heroWrap && heroImg && article.heroImage?.src){
-    heroWrap.style.display="block";
-    heroImg.src = article.heroImage.src;
-    heroCaption.innerHTML =
-      `${article.heroImage.caption || ""} ${
-        article.heroImage.credit ? "© " + article.heroImage.credit : ""
-      }`;
-  }
+      clone.querySelectorAll(".nav-item.has-sub > .nav-btn")
+        .forEach(b => {
+          const a = document.createElement("a");
+          a.textContent = b.textContent;
+          a.className = "nav-btn";
+          a.href = "#";
+          b.replaceWith(a);
+        });
 
-  if(!contentEl) return;
-
-  contentEl.innerHTML = "";
-
-  article.body.forEach(block=>{
-
-    if(block.type==="paragraph"){
-      const p = document.createElement("p");
-      p.textContent = block.text;
-      contentEl.appendChild(p);
+      mobileMenu.appendChild(clone);
+      mobileMenu.hidden = false;
+    } else {
+      mobileMenu.hidden = true;
     }
-
-    if(block.type==="image"){
-      const figure = document.createElement("figure");
-      figure.className = "article-figure";
-      figure.style.width = "36%";
-      figure.style.float =
-        block.align==="left" ? "left" : "right";
-      figure.style.margin =
-        block.align==="left"
-          ? "8px 20px 12px 0"
-          : "8px 0 12px 20px";
-
-      const img = document.createElement("img");
-      img.src = block.src;
-      img.alt = block.caption || "";
-
-      const cap = document.createElement("figcaption");
-      cap.style.fontSize="13px";
-      cap.style.color="#555";
-      cap.style.marginTop="6px";
-      cap.textContent =
-        (block.caption || "") +
-        (block.credit ? " © " + block.credit : "");
-
-      figure.appendChild(img);
-      figure.appendChild(cap);
-      contentEl.appendChild(figure);
-    }
-
   });
-
 }
+
+/* ===== WEATHER SAFE ===== */
+const weatherBar = $("#weather-bar");
+
+const cities = [
+  { key:"zurich", name:"Zurich", lat:47.3769, lon:8.5417 },
+  { key:"rawalakot", name:"Rawalakot", lat:33.8578, lon:73.7604 },
+  { key:"jammu", name:"Jammu", lat:32.7266, lon:74.8570 },
+  { key:"kashmir", name:"Kashmir", lat:34.0837, lon:74.7973 },
+  { key:"ladakh", name:"Ladakh", lat:34.1526, lon:77.5771 },
+  { key:"gilgit", name:"Gilgit", lat:35.9208, lon:74.3080 },
+  { key:"baltistan", name:"Baltistan", lat:35.3025, lon:75.6360 },
+  { key:"muzaffarabad", name:"Muzaffarabad", lat:34.37, lon:73.47 }
+];
+
+function codeToIcon(code){
+  if([0].includes(code)) return "☀️";
+  if([1,2,3].includes(code)) return "⛅";
+  if([45,48].includes(code)) return "🌫️";
+  if([51,53,55,56,57].includes(code)) return "🌦️";
+  if([61,63,65,66,67,80,81,82].includes(code)) return "🌧️";
+  if([71,73,75,77,85,86].includes(code)) return "🌨️";
+  if([95,96,99].includes(code)) return "⛈️";
+  return "🌡️";
+}
+
+function createCityChip(name, text){
+  const el = document.createElement("div");
+  el.className = "city";
+  el.innerHTML =
+    `<span class="name">${name}:</span> <span class="temp">${text}</span>`;
+  return el;
+}
+
+async function loadWeather(){
+  if(!weatherBar) return;
+
+  weatherBar.textContent = "";
+
+  for(const c of cities){
+    try{
+      const res = await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`
+      );
+      const data = await res.json();
+      const t = data?.current_weather?.temperature ?? "—";
+      const code = data?.current_weather?.weathercode ?? null;
+      const icon = codeToIcon(Number(code));
+      weatherBar.appendChild(
+        createCityChip(c.name, `${t}°C ${icon}`)
+      );
+    }catch(e){
+      weatherBar.appendChild(createCityChip(c.name,"— °C"));
+    }
+  }
+}
+
+loadWeather();
+
+/* ===== CONTENT SAFE ===== */
+async function loadJSON(path){
+  const res = await fetch(path,{cache:"no-store"});
+  if(!res.ok) throw new Error("Failed to load "+path);
+  return await res.json();
+}
+
+async function applyContent(){
+  try{
+    const [site] = await Promise.all([
+      loadJSON("content/site.json")
+    ]);
+
+    const titleEl =
+      document.querySelector(".site-title");
+    if(titleEl && site.siteTitle)
+      titleEl.textContent = site.siteTitle;
+
+  }catch(e){
+    console.warn("Content skipped:", e);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", applyContent);
