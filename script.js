@@ -1,22 +1,31 @@
-// ================= GLOBAL UTIL =================
+// ================= GLOBAL SELECTORS =================
 const $ = (sel, ctx=document) => ctx.querySelector(sel);
 const $$ = (sel, ctx=document) => [...ctx.querySelectorAll(sel)];
 
 // ================= YEAR =================
-const yearEl = $("#year");
-if(yearEl) yearEl.textContent = new Date().getFullYear();
+document.addEventListener("DOMContentLoaded", () => {
+  const yearEl = $("#year");
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
+});
 
-// ================= CLOCKS =================
+// ================= CLOCK =================
 function updateTimes(){
   const now = new Date();
-
   const cest = $("#clock-cest span");
+
   if(cest){
     const opts = {
-      weekday:'long', year:'numeric', month:'long', day:'numeric',
-      hour:'2-digit', minute:'2-digit', second:'2-digit',
-      hour12:false, timeZone:'Europe/Zurich'
+      weekday:'long',
+      year:'numeric',
+      month:'long',
+      day:'numeric',
+      hour:'2-digit',
+      minute:'2-digit',
+      second:'2-digit',
+      hour12:false,
+      timeZone:'Europe/Zurich'
     };
+
     cest.textContent =
       new Intl.DateTimeFormat('en-GB', opts)
       .format(now)
@@ -38,11 +47,11 @@ const cities = [
   {name:"Muzaffarabad", lat:34.37, lon:73.47}
 ];
 
-const weatherBar = $("#weather-bar");
-
 async function loadWeather(){
+  const weatherBar = $("#weather-bar");
   if(!weatherBar) return;
-  weatherBar.innerHTML="";
+
+  weatherBar.innerHTML = "";
 
   for(const c of cities){
     try{
@@ -51,9 +60,11 @@ async function loadWeather(){
       );
       const data = await res.json();
       const t = data?.current_weather?.temperature ?? "—";
+
       weatherBar.innerHTML +=
-        `<div class="city"><span>${c.name}:</span> ${t}°C</div>`;
-    }catch(e){
+        `<div class="city"><span class="name">${c.name}:</span>
+         <span class="temp">${t}°C</span></div>`;
+    }catch{
       weatherBar.innerHTML +=
         `<div class="city"><span>${c.name}:</span> —°C</div>`;
     }
@@ -62,19 +73,21 @@ async function loadWeather(){
 loadWeather();
 
 // ================= CONTACT MODAL =================
-const dlg = $("#contact-modal");
-const open = $("#open-contact");
-const close = $("#close-contact");
+document.addEventListener("DOMContentLoaded", ()=>{
+  const dlg = $("#contact-modal");
+  const open = $("#open-contact");
+  const close = $("#close-contact");
 
-if(dlg && open && close){
-  open.addEventListener("click",()=>dlg.showModal());
-  close.addEventListener("click",()=>dlg.close());
-}
+  if(dlg && open && close){
+    open.addEventListener("click",()=>dlg.showModal());
+    close.addEventListener("click",()=>dlg.close());
+  }
+});
 
-// ================= IMAGE PLACEHOLDER =================
+// ================= IMAGE FALLBACK =================
 function applyImageFallback(context=document){
   const placeholder =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23f2f2f2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='42' fill='%23999'%3EImage unavailable%3C/text%3E%3C/svg%3E";
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23f2f2f2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='42' fill='%23999'%3EImage unavailable%3C/text%3E%3C/svg%3E";
 
   $$("img", context).forEach(img=>{
     img.addEventListener("error",()=>{
@@ -83,6 +96,51 @@ function applyImageFallback(context=document){
   });
 }
 applyImageFallback();
+
+// ================= NAV DROPDOWN =================
+document.addEventListener("DOMContentLoaded", ()=>{
+
+  const navItems = $$(".nav-item.has-sub");
+
+  navItems.forEach(item=>{
+    const btn = item.querySelector(".nav-btn");
+    if(!btn) return;
+
+    btn.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      navItems.forEach(other=>{
+        if(other !== item){
+          other.classList.remove("open");
+        }
+      });
+
+      item.classList.toggle("open");
+    });
+  });
+
+  document.addEventListener("click", ()=>{
+    navItems.forEach(item=>item.classList.remove("open"));
+  });
+
+});
+
+// ================= MOBILE HAMBURGER =================
+document.addEventListener("DOMContentLoaded", ()=>{
+  const hamburger = $("#hamburger");
+  const navList = $("#nav-list");
+
+  if(hamburger && navList){
+    hamburger.addEventListener("click", ()=>{
+      const expanded =
+        hamburger.getAttribute("aria-expanded")==="true";
+
+      hamburger.setAttribute("aria-expanded", !expanded);
+      navList.style.display = expanded ? "none" : "flex";
+    });
+  }
+});
 
 // ================= HOMEPAGE CARDS =================
 async function renderCards(){
@@ -97,6 +155,7 @@ async function renderCards(){
 
     data.items.slice(0,cards.length).forEach((item,i)=>{
       const card = cards[i];
+
       card.querySelector("h3").textContent = item.title;
       card.querySelector("p").textContent = item.excerpt;
 
@@ -107,10 +166,14 @@ async function renderCards(){
       if(img && item.heroImage?.src){
         img.src = item.heroImage.src;
       }
+
+      const author = card.querySelector(".author");
+      if(author) author.textContent = "Special Correspondent";
     });
 
     applyImageFallback();
-  }catch(e){
+
+  }catch{
     console.warn("Cards failed");
   }
 }
@@ -131,20 +194,22 @@ async function renderVlogs(){
     data.videos.slice(0,cards.length).forEach((v,i)=>{
       const card = cards[i];
       const media = card.querySelector(".media");
+      if(!media) return;
+
       media.innerHTML = "";
 
       if(v.youtubeId){
         const iframe = document.createElement("iframe");
         iframe.src = "https://www.youtube.com/embed/" + v.youtubeId;
-        iframe.width = "100%";
-        iframe.height = "100%";
         iframe.allowFullscreen = true;
         iframe.style.border = "0";
+        iframe.width = "100%";
+        iframe.height = "100%";
         media.appendChild(iframe);
       }
     });
 
-  }catch(e){
+  }catch{
     console.warn("Vlogs failed");
   }
 }
@@ -194,7 +259,8 @@ async function renderArticlePage(){
         }
         if(block.type==="image"){
           const fig=document.createElement("figure");
-          fig.innerHTML =
+          fig.className="article-figure";
+          fig.innerHTML=
             `<img src="${block.src}" alt="">
              <figcaption>${block.caption||""}</figcaption>`;
           content.appendChild(fig);
@@ -208,15 +274,3 @@ async function renderArticlePage(){
     console.warn("Article load failed",e);
   }
 }
-const btn = item.querySelector(".nav-btn");
-
-btn.addEventListener("click", function(e){
-  e.stopPropagation();
-
-  /* close other open dropdowns */
-  navItems.forEach(other => {
-    if(other !== item) other.classList.remove("open");
-  });
-
-  item.classList.toggle("open");
-});
