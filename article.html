@@ -10,11 +10,38 @@
 
 <body class="theme-maroon">
 
+<!-- ===== HEADER (same structure as index) ===== -->
 <header class="site-header">
-  <h1 class="site-title">The Mirror Jammu Kashmir</h1>
+  <div class="header-row">
+    <h1 class="site-title">The Mirror Jammu Kashmir</h1>
+  </div>
 </header>
 
+<!-- ===== CLOCK + WEATHER BAR ===== -->
+<div class="bar">
+  <div class="row tight nowrap">
+    <div class="chip tiny" id="clock-cest">🕒 <span></span></div>
+    <div class="chip tiny" id="cal-hijri">🌙 <span></span></div>
+    <div class="chip tiny" id="cal-hindi">🗓 <span></span></div>
+    <div id="weather-bar"></div>
+  </div>
+</div>
+
+<!-- ===== NAVIGATION (basic wrapper, dropdown logic handled in script.js) ===== -->
+<nav class="navbar">
+  <button class="hamburger" id="hamburger" aria-expanded="false">☰</button>
+  <ul class="nav-list" id="nav-list">
+    <li class="nav-item"><a class="nav-btn" href="index.html">🏠 Home</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">📝 Blog</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">🎥 Vlog</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#">📰 E-Paper</a></li>
+  </ul>
+  <div class="mobile-menu" id="mobile-menu" hidden></div>
+</nav>
+
+<!-- ===== MAIN ARTICLE CONTENT ===== -->
 <main class="main">
+
   <section class="article-container">
     <div class="article-shell">
 
@@ -41,50 +68,110 @@
 
     </div>
   </section>
+
 </main>
 
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="social">
+    <button id="share-btn">Share</button>
+  </div>
+  <p>© <span id="year"></span> The Mirror Jammu Kashmir</p>
+</footer>
+
+<!-- ===== GLOBAL SCRIPT ===== -->
+<script src="script.js"></script>
+
+<!-- ===== ARTICLE RENDER SCRIPT (SAFE, SEPARATE) ===== -->
 <script>
-(async function(){
+document.addEventListener("DOMContentLoaded", async function(){
 
-const id = new URLSearchParams(location.search).get("id");
-if(!id) return;
+  if(!location.pathname.includes("article.html")) return;
 
-let data;
+  const id = new URLSearchParams(location.search).get("id");
+  if(!id) return;
 
-try{
-  const res = await fetch("content/articles.json",{cache:"no-store"});
-  data = await res.json();
-}catch(e){
-  console.error("JSON failed");
-  return;
-}
-
-if(!data.items) return;
-
-const a = data.items.find(x => x.id === id);
-if(!a) return;
-
-document.getElementById("title").textContent = a.title;
-document.getElementById("meta").textContent =
-  `${a.location || ""} · ${a.date} · ${a.readTime}`;
-
-if(a.heroImage && a.heroImage.src){
-  document.getElementById("heroWrap").style.display="block";
-  document.getElementById("heroImg").src = a.heroImage.src;
-  document.getElementById("heroCaption").textContent =
-    (a.heroImage.caption || "") +
-    (a.heroImage.credit ? " © " + a.heroImage.credit : "");
-}
-
-const content = document.getElementById("content");
-
-a.body.forEach(block => {
-
-  if(block.type === "paragraph"){
-    const p = document.createElement("p");
-    p.textContent = block.text;
-    content.appendChild(p);
+  let data;
+  try{
+    const res = await fetch("content/articles.json",{cache:"no-store"});
+    data = await res.json();
+  }catch(e){
+    console.warn("Article JSON failed");
+    return;
   }
 
-  if(block.type === "image"){
-    const figure
+  if(!data.items) return;
+
+  const article = data.items.find(x=>x.id===id);
+  if(!article) return;
+
+  document.getElementById("title").textContent = article.title;
+  document.getElementById("meta").textContent =
+    `${article.location || ""} · ${article.date} · ${article.readTime}`;
+
+  if(article.heroImage && article.heroImage.src){
+    document.getElementById("heroWrap").style.display="block";
+    document.getElementById("heroImg").src = article.heroImage.src;
+    document.getElementById("heroCaption").textContent =
+      (article.heroImage.caption || "") +
+      (article.heroImage.credit ? " © " + article.heroImage.credit : "");
+  }
+
+  const content = document.getElementById("content");
+  content.innerHTML = "";
+
+  article.body.forEach(block => {
+
+    if(block.type === "paragraph"){
+      const p = document.createElement("p");
+      p.textContent = block.text;
+      content.appendChild(p);
+    }
+
+    if(block.type === "image"){
+      const figure = document.createElement("figure");
+      figure.className = "article-figure";
+      figure.style.width = "36%";
+      figure.style.float =
+        block.align === "left" ? "left" : "right";
+      figure.style.margin =
+        block.align === "left"
+          ? "8px 20px 12px 0"
+          : "8px 0 12px 20px";
+
+      const img = document.createElement("img");
+      img.src = block.src;
+      img.alt = block.caption || "";
+
+      const cap = document.createElement("figcaption");
+      cap.textContent =
+        (block.caption || "") +
+        (block.credit ? " © " + block.credit : "");
+
+      figure.appendChild(img);
+      figure.appendChild(cap);
+      content.appendChild(figure);
+    }
+
+  });
+
+  let likes = 0;
+  document.getElementById("likeBtn").onclick =
+    () => document.getElementById("likeCount").textContent = ++likes;
+
+  document.getElementById("subBtn").onclick =
+    function(){ this.textContent="Subscribed"; this.disabled=true; };
+
+  document.getElementById("shareBtn").onclick =
+    () => navigator.share
+      ? navigator.share({title:article.title,url:location.href})
+      : alert("Share not supported");
+
+  document.getElementById("copyBtn").onclick =
+    () => navigator.clipboard.writeText(location.href);
+
+});
+</script>
+
+</body>
+</html>
