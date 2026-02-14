@@ -304,6 +304,24 @@
             <div class="meta"><span class="author">Human Rights Desk</span><span class="date">3 hours ago</span></div>
             <a class="read-more" href="#">Read More →</a>
           </div>
+          <section class="section-rail">
+  <div class="rail-header">
+    <span>📜 Historical Documents Archive</span>
+  </div>
+
+  <div class="card epaper">
+    <form name="historical" method="POST" data-netlify="true" enctype="multipart/form-data">
+      <input type="hidden" name="form-name" value="historical">
+      <input type="file" name="pdf" accept=".pdf" required>
+      <button class="btn" type="submit">Upload Historical PDF</button>
+    </form>
+
+    <div class="pdf-list" id="historical-list">
+      <p>No historical documents uploaded yet.</p>
+    </div>
+  </div>
+</section>
+
         </article>
         <article class="card rail">
           <div class="media"><img src="assets/sample-2.jpg" alt="Legal" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/placeholder.svg';" /></div>
@@ -319,13 +337,20 @@
     </section>
 
     <section id="epaper" class="epaper card">
-      <h2>📰 E-Paper Upload</h2>
-      <p>Upload your digital publication (PDF). This section is a placeholder; connect to your preferred CMS or cloud later.</p>
-      <form name="epaper" method="POST" data-netlify="true">
-        <input type="file" name="file" accept=".pdf" />
-        <button class="btn" type="submit">Upload</button>
-      </form>
-    </section>
+  <h2>📰 E-Paper & PDF Archive</h2>
+  <p>Upload official PDF publications. Files will appear below after deployment.</p>
+
+  <form name="epaper" method="POST" data-netlify="true" enctype="multipart/form-data">
+    <input type="hidden" name="form-name" value="epaper">
+    <input type="file" name="pdf" accept=".pdf" required>
+    <button class="btn" type="submit">Upload PDF</button>
+  </form>
+
+  <div class="pdf-list" id="epaper-list">
+    <p>No publications uploaded yet.</p>
+  </div>
+</section>
+
 
     <section id="contact" class="contact-wrap">
       <div class="newsletter card">
