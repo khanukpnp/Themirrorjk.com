@@ -1,21 +1,21 @@
 {
   "items": [
     {
-      "id": "rawalakot-power-protest",
-      "title": "Rawalakot Shuts Down Over Prolonged Power Cuts",
+      "id": "test-article",
+      "title": "Test Article Working",
       "location": "Rawalakot",
       "date": "2025-12-16",
-      "readTime": "7 min read",
+      "readTime": "5 min read",
+      "excerpt": "This is a test article to confirm JSON is loading.",
       "heroImage": {
-        "src": "content/rawalakot-01.jpg",
-        "caption": "Power infrastructure damaged amid prolonged outages in Rawalakot.",
+        "src": "assets/logo.png",
+        "caption": "Test image",
         "credit": "The Mirror Jammu Kashmir"
       },
-      "excerpt": "Thousands protest prolonged power cuts and internet disruption in Rawalakot.",
       "body": [
         {
           "type": "paragraph",
-          "text": "A complete shutter down brought life to a standstill in Rawalakot as residents protested prolonged electricity cuts."
+          "text": "If you can read this, your JSON is working correctly."
         }
       ]
     }
