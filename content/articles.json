@@ -1,64 +1,48 @@
 {
-  "items": [
+  "id": "rawalakot-power-protest",
+  "title": "Rawalakot Shuts Down Over Prolonged Power Cuts",
+  "date": "2025-12-16",
+  "readTime": "7 min read",
+  "image": "content/rawalakot-01.jpg",
+  "heroImage": {
+    "src": "content/rawalakot-01.jpg",
+    "caption": "Power infrastructure damaged amid prolonged outages in Rawalakot.",
+    "credit": "The Mirror Jammu Kashmir"
+  },
+  "body": [
     {
-      "id": "article-001",
-      "slug": "rawalakot-shutter-down-december-2025",
-      "title": "Complete Shutter Down Paralyzes Rawalakot as Thousands Protest Power Cuts and Blackouts",
-      "category": "Breaking News",
-      "excerpt": "A complete shutter down brought life to a standstill in Rawalakot as thousands protested prolonged power outages, low voltage electricity, and communication blackouts across District Poonch.",
-      "author": "The Mirror Jammu Kashmir",
-      "location": "Rawalakot, Poonch, Azad Kashmir",
-      "date": "2025-12-16",
-      "readTime": "7 min read",
-
-      "heroImage": {
-        "src": "content/rawalakot-01.jpg",
-        "caption": "Power infrastructure damaged amid prolonged outages in Rawalakot.",
-        "credit": "The Mirror Jammu Kashmir"
-      },
-
-      "body": [
-        {
-          "type": "paragraph",
-          "text": "A complete shutter down brought life to a standstill in Rawalakot on Monday as thousands of residents from across District Poonch poured into the streets to protest prolonged power outages, severe load shedding, low voltage electricity, and persistent internet and mobile network disruptions."
-        },
-
-        {
-          "type": "image",
-          "src": "content/rawalakot-02.jpg",
-          "align": "right",
-          "caption": "Protesters gather near the grid station demanding an end to power cuts.",
-          "credit": "Local sources"
-        },
-
-        {
-          "type": "paragraph",
-          "text": "Markets remained closed and traffic was largely halted as protesters marched through the city and gathered near the grid station, demanding an immediate end to what they described as collective punishment of the population."
-        },
-
-        {
-          "type": "paragraph",
-          "text": "Residents say Azad Kashmir has faced between 15 and 20 hours of electricity outages daily, with dangerously low voltage and frequent internet and mobile service disruptions."
-        },
-
-        {
-          "type": "image",
-          "src": "content/rawalakot-03.jpg",
-          "align": "left",
-          "caption": "Shuttered markets during the complete shutdown in Rawalakot.",
-          "credit": "The Mirror Jammu Kashmir"
-        },
-
-        {
-          "type": "paragraph",
-          "text": "Public frustration has been building for more than two and a half years. Earlier protests forced authorities to promise electricity at production cost, commitments residents say were never fulfilled."
-        },
-
-        {
-          "type": "paragraph",
-          "text": "Protesters announced an indefinite sit-in, warning that electricity cuts and communication restrictions will not silence demands for basic rights and dignity."
-        }
-      ]
+      "type": "paragraph",
+      "text": "A complete shutter down brought life to a standstill in Rawalakot on Monday as thousands of residents from across District Poonch poured into the streets to protest prolonged power outages, severe load shedding, low voltage electricity, and persistent internet and mobile network disruptions."
+    },
+    {
+      "type": "image",
+      "src": "content/rawalakot-02.jpg",
+      "align": "right",
+      "caption": "Protesters gather near the grid station demanding an end to power cuts.",
+      "credit": "Local sources"
+    },
+    {
+      "type": "paragraph",
+      "text": "Markets remained closed and traffic was largely halted as protesters marched through the city and gathered near the grid station, demanding an immediate end to what they described as collective punishment of the population."
+    },
+    {
+      "type": "paragraph",
+      "text": "Residents say Azad Kashmir has faced between 15 and 20 hours of electricity outages daily, with dangerously low voltage and frequent internet and mobile service disruptions."
+    },
+    {
+      "type": "image",
+      "src": "content/rawalakot-03.jpg",
+      "align": "left",
+      "caption": "Shuttered markets during the complete shutdown in Rawalakot.",
+      "credit": "The Mirror Jammu Kashmir"
+    },
+    {
+      "type": "paragraph",
+      "text": "Public frustration has been building for more than two and a half years. Earlier protests forced authorities to promise electricity at production cost, commitments residents say were never fulfilled."
+    },
+    {
+      "type": "paragraph",
+      "text": "Protesters announced an indefinite sit-in, warning that electricity cuts and communication restrictions will not silence demands for basic rights and dignity."
     }
   ]
 }
