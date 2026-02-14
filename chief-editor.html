@@ -53,47 +53,65 @@
   </ul>
 </nav>
 
-<main class="main" style="padding:32px 16px; max-width:1200px; margin:auto">
+<main class="article-page">
 
-  <section class="card">
-    <div class="card-body">
+  <article class="article-container">
 
-      <div class="profile-top">
-        <div class="profile-kicker">CHIEF EDITOR</div>
-        <h2 class="profile-name">Sardar Nasir Aziz Khan</h2>
-        <div class="profile-sub">
-          Chief Editor, The Mirror Jammu Kashmir | Jammu Kashmir & Switzerland
-        </div>
-      </div>
+    <header class="article-header">
+      <h1>Chief Editor</h1>
+      <p class="article-subtitle">
+        Editorial Leadership · Human Rights Advocacy · International Engagement
+      </p>
+    </header>
 
-      <div class="profile-grid">
-        <div class="profile-text">
-          <p>
-            <strong>Sardar Nasir Aziz Khan</strong> serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional understanding, political clarity, and a strong commitment to human rights journalism. He is a Kashmiri human rights defender, political analyst, and columnist originally from Rawalakot in Pakistan administered Jammu and Kashmir. He currently lives in exile in Switzerland.
-          </p>
+    <figure style="float:right;width:40%;margin:0 0 20px 25px;">
+      <img src="assets/chief-editor.jpg"
+           alt="Chief Editor"
+           style="width:100%;height:auto;object-fit:cover;">
+    </figure>
 
-          <p>
-            Alongside his editorial responsibilities, he is the Central Spokesperson of the United Kashmir People’s National Party and the main representative of the party and its affiliated civil society organizations to the United Nations in Geneva. In this role, he regularly engages with United Nations mechanisms, diplomats, and international media to document and highlight human rights violations and political repression.
-          </p>
+    <div class="article-content">
 
-          <p>
-            His work focuses on issues that remain underreported or deliberately suppressed, including enforced disappearances, arbitrary detentions, restrictions on press freedom, and the erosion of civil and political rights.
-          </p>
+      <p>
+        <strong>Sardar Nasir Aziz Khan</strong> serves as Chief Editor of The Mirror Jammu Kashmir. He brings regional insight, political clarity, and a firm commitment to principled journalism.
+      </p>
 
-          <div class="content-actions" style="margin-top:16px">
-            <button class="action-btn" data-like aria-label="Like">❤️</button>
-            <button class="action-btn" data-copy aria-label="Copy link">🔗</button>
-            <button class="action-btn" data-share aria-label="Share">📤</button>
-          </div>
-        </div>
+      <p>
+        Originally from Rawalakot in Pakistan administered Jammu and Kashmir, he currently lives in exile in Switzerland. His editorial leadership reflects both lived experience and sustained international engagement.
+      </p>
 
-        <div class="profile-media">
-          <img class="profile-img" src="assets/chief-editor.jpg" alt="Chief Editor" />
-        </div>
-      </div>
+      <p>
+        In addition to his editorial responsibilities, he serves as Central Spokesperson of the United Kashmir People’s National Party and represents the party and affiliated civil society organizations at the United Nations in Geneva.
+      </p>
+
+      <p>
+        He regularly engages with United Nations mechanisms, diplomats, and international media to document and raise awareness about human rights violations, restrictions on civil liberties, and political repression.
+      </p>
+
+      <p>
+        His work focuses on issues often underreported, including enforced disappearances, arbitrary detentions, limitations on press freedom, and the erosion of democratic participation.
+      </p>
+
+      <p>
+        As Chief Editor, his responsibility is to safeguard editorial independence and ensure that journalism remains accountable to truth, not power.
+      </p>
+
+      <p><strong>
+        Journalism must serve the public interest. It must remain independent, factual, and guided by principle.
+      </strong></p>
 
     </div>
-  </section>
+
+    <div style="clear:both;"></div>
+
+    <div class="aboutus-actions" style="margin-top:30px;">
+      <button data-action="like">👍 Like <span>0</span></button>
+      <button data-action="subscribe">⭐ Subscribe</button>
+      <button data-action="share">📣 Share</button>
+      <button data-action="copy">📋 Copy Link</button>
+    </div>
+
+  </article>
 
 </main>
 
@@ -104,21 +122,24 @@
 <script src="script.js"></script>
 
 <script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
 document.addEventListener("click", e => {
 
-  if (e.target.dataset.copy !== undefined) {
+  if (e.target.dataset.action === "copy") {
     navigator.clipboard.writeText(window.location.href);
   }
 
-  if (e.target.dataset.share !== undefined && navigator.share) {
+  if (e.target.dataset.action === "share" && navigator.share) {
     navigator.share({
       title: document.title,
       url: window.location.href
     });
   }
 
-  if (e.target.dataset.like !== undefined) {
-    e.target.classList.toggle("liked");
+  if (e.target.dataset.action === "like") {
+    const span = e.target.querySelector("span");
+    span.textContent = parseInt(span.textContent) + 1;
   }
 
 });
