@@ -4,61 +4,34 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Article | The Mirror Jammu Kashmir</title>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
 
-<body class="theme-maroon article-page">
+<body class="article-page theme-maroon">
 
-<!-- ===== HEADER (same structure as index) ===== -->
-<header class="site-header">
-  <div class="header-row">
-    <h1 class="site-title">The Mirror Jammu Kashmir</h1>
-  </div>
-</header>
-
-<!-- ===== CLOCK + WEATHER BAR ===== -->
-<div class="bar">
-  <div class="row tight nowrap">
-    <div class="chip tiny" id="clock-cest">🕒 <span></span></div>
-    <div class="chip tiny" id="cal-hijri">🌙 <span></span></div>
-    <div class="chip tiny" id="cal-hindi">🗓 <span></span></div>
-    <div id="weather-bar"></div>
-  </div>
-</div>
-
-<!-- ===== NAVIGATION (basic wrapper, dropdown logic handled in script.js) ===== -->
-<nav class="navbar">
-  <button class="hamburger" id="hamburger" aria-expanded="false">☰</button>
-  <ul class="nav-list" id="nav-list">
-    <li class="nav-item"><a class="nav-btn" href="index.html">🏠 Home</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#">📝 Blog</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#">🎥 Vlog</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#">📰 E-Paper</a></li>
-  </ul>
-  <div class="mobile-menu" id="mobile-menu" hidden></div>
-</nav>
-
-<!-- ===== MAIN ARTICLE CONTENT ===== -->
 <main class="main">
 
   <section class="article-container">
     <div class="article-shell">
 
+      <!-- TITLE FIRST -->
+      <header class="article-header">
+        <h1 id="title"></h1>
+        <div id="meta" class="article-meta"></div>
+      </header>
+
+      <!-- HERO IMAGE BELOW TITLE -->
       <div id="heroWrap" style="display:none;">
-        <figure class="article-figure">
+        <figure class="article-figure hero-figure">
           <img id="heroImg" src="" alt="">
           <figcaption id="heroCaption"></figcaption>
         </figure>
       </div>
 
-      <header>
-        <h1 id="title"></h1>
-        <div id="meta"></div>
-      </header>
-
+      <!-- ARTICLE CONTENT -->
       <div id="content" class="article-content"></div>
 
+      <!-- ACTION BUTTONS -->
       <div class="page-actions">
         <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
         <button id="subBtn">🔔 Subscribe</button>
@@ -71,7 +44,6 @@
 
 </main>
 
-<!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="social">
     <button id="share-btn">Share</button>
@@ -79,14 +51,10 @@
   <p>© <span id="year"></span> The Mirror Jammu Kashmir</p>
 </footer>
 
-<!-- ===== GLOBAL SCRIPT ===== -->
-<script src="script.js"></script>
+<script src="script.js?v=4"></script>
 
-<!-- ===== ARTICLE RENDER SCRIPT (SAFE, SEPARATE) ===== -->
 <script>
 document.addEventListener("DOMContentLoaded", async function(){
-
-  if(!location.pathname.includes("article.html")) return;
 
   const id = new URLSearchParams(location.search).get("id");
   if(!id) return;
@@ -107,7 +75,9 @@ document.addEventListener("DOMContentLoaded", async function(){
 
   document.getElementById("title").textContent = article.title;
   document.getElementById("meta").textContent =
-    `${article.location || ""} · ${article.date} · ${article.readTime}`;
+    (article.location || "") + " · " +
+    article.date + " · " +
+    article.readTime;
 
   if(article.heroImage && article.heroImage.src){
     document.getElementById("heroWrap").style.display="block";
@@ -131,9 +101,9 @@ document.addEventListener("DOMContentLoaded", async function(){
     if(block.type === "image"){
       const figure = document.createElement("figure");
       figure.className = "article-figure";
+
       figure.style.width = "36%";
-      figure.style.float =
-        block.align === "left" ? "left" : "right";
+      figure.style.float = block.align === "left" ? "left" : "right";
       figure.style.margin =
         block.align === "left"
           ? "8px 20px 12px 0"
@@ -160,7 +130,10 @@ document.addEventListener("DOMContentLoaded", async function(){
     () => document.getElementById("likeCount").textContent = ++likes;
 
   document.getElementById("subBtn").onclick =
-    function(){ this.textContent="Subscribed"; this.disabled=true; };
+    function(){
+      this.textContent="Subscribed";
+      this.disabled=true;
+    };
 
   document.getElementById("shareBtn").onclick =
     () => navigator.share
