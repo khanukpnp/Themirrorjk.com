@@ -208,3 +208,15 @@ async function renderArticlePage(){
     console.warn("Article load failed",e);
   }
 }
+const btn = item.querySelector(".nav-btn");
+
+btn.addEventListener("click", function(e){
+  e.stopPropagation();
+
+  /* close other open dropdowns */
+  navItems.forEach(other => {
+    if(other !== item) other.classList.remove("open");
+  });
+
+  item.classList.toggle("open");
+});
