@@ -4,160 +4,87 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Article | The Mirror Jammu Kashmir</title>
+
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="article-page">
+<body class="theme-maroon">
 
-<div class="main">
-  <div class="article-container">
+<header class="site-header">
+  <h1 class="site-title">The Mirror Jammu Kashmir</h1>
+</header>
+
+<main class="main">
+  <section class="article-container">
     <div class="article-shell">
 
       <div id="heroWrap" style="display:none;">
         <figure class="article-figure">
           <img id="heroImg" src="" alt="">
-          <figcaption id="heroCaption" style="font-size:13px;color:#555;margin-top:6px;"></figcaption>
+          <figcaption id="heroCaption"></figcaption>
         </figure>
       </div>
 
-      <header style="margin-bottom:24px;">
-        <h1 id="title" style="font-size:34px;line-height:1.2;margin-bottom:8px;"></h1>
-        <div id="meta" style="font-size:14px;color:#666;"></div>
+      <header>
+        <h1 id="title"></h1>
+        <div id="meta"></div>
       </header>
 
       <div id="content" class="article-content"></div>
 
       <div class="page-actions">
-        <button class="action-btn" id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-        <button class="action-btn primary" id="subBtn">🔔 Subscribe</button>
-        <button class="action-btn" id="shareBtn">📣 Share</button>
-        <button class="action-btn" id="copyBtn">🔗 Copy Link</button>
+        <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+        <button id="subBtn">🔔 Subscribe</button>
+        <button id="shareBtn">📣 Share</button>
+        <button id="copyBtn">🔗 Copy Link</button>
       </div>
 
     </div>
-  </div>
-</div>
+  </section>
+</main>
 
 <script>
-(async()=>{
+(async function(){
 
-const id=new URLSearchParams(location.search).get("id");
+const id = new URLSearchParams(location.search).get("id");
 if(!id) return;
 
-const res=await fetch("content/articles.json",{cache:"no-store"});
-const data=await res.json();
-const a=data.items.find(x=>x.id===id);
-if(!a) return;
-
-/* TITLE */
-document.title=a.title;
-title.textContent=a.title;
-meta.textContent=`${a.location||""} · ${a.date} · ${a.readTime}`;
-
-/* HERO */
-if(a.heroImage && a.heroImage.src){
-  heroWrap.style.display="block";
-  heroImg.src=a.heroImage.src;
-  heroCaption.innerHTML=`${a.heroImage.caption||""} ${a.heroImage.credit? "© "+a.heroImage.credit : ""}`;
-}
-
-/* BODY */
-a.body.forEach(block=>{
-
-  if(block.type==="paragraph"){
-    const p=document.createElement("p");
-    p.textContent=block.text;
-    content.appendChild(p);
-  }
-
-  if(block.type==="image"){
-    const figure=document.createElement("figure");
-    figure.className="article-figure";
-    figure.style.width="36%";
-    figure.style.float=block.align==="left"?"left":"right";
-    figure.style.margin=block.align==="left"?"8px 20px 12px 0":"8px 0 12px 20px";
-
-    figure.innerHTML=`
-      <img src="${block.src}" alt="">
-      <figcaptio
-<script>
-(async()=>{
+let data;
 
 try{
-
-const id=new URLSearchParams(location.search).get("id");
-if(!id){
-  console.error("No article ID in URL");
+  const res = await fetch("content/articles.json",{cache:"no-store"});
+  data = await res.json();
+}catch(e){
+  console.error("JSON failed");
   return;
 }
 
-const res=await fetch("content/articles.json");
-if(!res.ok){
-  console.error("Failed to load JSON");
-  return;
-}
+if(!data.items) return;
 
-const data=await res.json();
+const a = data.items.find(x => x.id === id);
+if(!a) return;
 
-if(!data.items){
-  console.error("JSON structure incorrect");
-  return;
-}
+document.getElementById("title").textContent = a.title;
+document.getElementById("meta").textContent =
+  `${a.location || ""} · ${a.date} · ${a.readTime}`;
 
-const a=data.items.find(x=>x.id===id);
-
-if(!a){
-  console.error("Article not found:", id);
-  return;
-}
-
-/* TITLE */
-document.getElementById("title").textContent=a.title;
-document.getElementById("meta").textContent=
-  `${a.location||""} · ${a.date} · ${a.readTime}`;
-
-/* HERO */
 if(a.heroImage && a.heroImage.src){
   document.getElementById("heroWrap").style.display="block";
-  document.getElementById("heroImg").src=a.heroImage.src;
-  document.getElementById("heroCaption").innerHTML=
-    `${a.heroImage.caption||""} ${a.heroImage.credit? "© "+a.heroImage.credit : ""}`;
+  document.getElementById("heroImg").src = a.heroImage.src;
+  document.getElementById("heroCaption").textContent =
+    (a.heroImage.caption || "") +
+    (a.heroImage.credit ? " © " + a.heroImage.credit : "");
 }
 
-/* BODY */
-const content=document.getElementById("content");
+const content = document.getElementById("content");
 
-a.body.forEach(block=>{
+a.body.forEach(block => {
 
-  if(block.type==="paragraph"){
-    const p=document.createElement("p");
-    p.textContent=block.text;
+  if(block.type === "paragraph"){
+    const p = document.createElement("p");
+    p.textContent = block.text;
     content.appendChild(p);
   }
 
-  if(block.type==="image"){
-    const figure=document.createElement("figure");
-    figure.className="article-figure";
-    figure.style.width="36%";
-    figure.style.float=block.align==="left"?"left":"right";
-    figure.style.margin=
-      block.align==="left"?"8px 20px 12px 0":"8px 0 12px 20px";
-
-    figure.innerHTML=`
-      <img src="${block.src}" alt="">
-      <figcaption style="font-size:13px;color:#555;margin-top:6px;">
-        ${block.caption||""}
-        ${block.credit? " © "+block.credit : ""}
-      </figcaption>
-    `;
-
-    content.appendChild(figure);
-  }
-
-});
-
-}catch(err){
-  console.error("Article script crashed:", err);
-}
-
-})();
-</script>
+  if(block.type === "image"){
+    const figure
