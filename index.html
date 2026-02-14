@@ -7,98 +7,115 @@
 <title>THE MIRROR JAMMU KASHMIR</title>
 <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
 <link rel="preconnect" href="https://api.open-meteo.com">
-<link rel="stylesheet" href="styles.css?v=6">
+<link rel="stylesheet" href="styles.css?v=5">
 </head>
 
 <body class="theme-maroon">
 
 <!-- ================= HEADER ================= -->
-<header class="site-header">
-  <div class="header-row">
-    <img src="assets/logo.png" alt="Logo" class="logo">
-    <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-    <img src="assets/logo.png" alt="Logo" class="logo">
-  </div>
-  <div class="subheading">
-    CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYOND BORDERS
-  </div>
+
+<header class="site-header" id="top">
+<div class="header-row">
+<img src="assets/logo.png" class="logo" alt="Logo">
+<h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+<img src="assets/logo.png" class="logo" alt="Logo">
+</div>
+<div class="subheading">
+CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD. REVEALING THE TRUTH BEYOND BORDERS
+</div>
 </header>
 
 <!-- ================= CLOCKS ================= -->
-<section class="bar">
-  <div class="row nowrap">
-    <div id="clock-cest" class="chip tiny">🕒 <span></span></div>
-    <div id="cal-hijri" class="chip tiny">🌙 <span></span></div>
-    <div id="cal-hindi" class="chip tiny">🗓 <span></span></div>
-    <div id="tz-ist" class="chip tiny">🕒 IST: <span></span></div>
-    <div id="tz-pkt" class="chip tiny">🕒 PKT: <span></span></div>
-  </div>
+
+<section class="bar clocks-line">
+<div class="row tight nowrap">
+<div id="clock-cest" class="chip tiny">🕒 <span>Loading CEST…</span></div>
+<div id="cal-hijri" class="chip tiny">📅 <span>Hijri…</span></div>
+<div id="cal-hindi" class="chip tiny">📅 <span>VS…</span></div>
+<div id="tz-ist" class="chip tiny">🕒 IST (Jammu-Kashmir-Ladakh): <span>—:—</span></div>
+<div id="tz-pkt" class="chip tiny">🕒 PKT (Gilgit-Baltistan-Azad Kashmir): <span>—:—</span></div>
+</div>
 </section>
 
 <!-- ================= WEATHER ================= -->
-<section class="bar">
-  <div class="row nowrap" id="weather-bar"></div>
+
+<section class="bar weather-line">
+<div class="row nowrap super-tight" id="weather-bar"></div>
 </section>
 
 <!-- ================= TICKER ================= -->
+
 <section class="ticker-wrap">
-  <div class="ticker">
-    <span>:</span>
-    <ul id="ticker-items">
-      <li>Welcome to The Mirror Jammu Kashmir — empowering truth beyond borders.</li>
-      <li>Submit your editorials and vlogs via the contact form below.</li>
-      <li>THE MIRROR JAMMU KASHMIR AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH JUSTICE HUMAN RIGHTS EQUALITY & DIGNITY</li>
-      <li>WE CHALLENGE SILENCE EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES</li>
-      <li>OUR MISSION CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR</li>
-      <li>ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS</li>
-      <li>DEMOCRACY DERIVES LEGITIMACY FROM THE WILL AND PARTICIPATION OF THE PEOPLE</li>
-      <li>WE DO NOT MANUFACTURE NARRATIVES WE REFLECT REALITY</li>
-      <li>FOLLOW OUR YOUTUBE CHANNEL THE MIRROR JAMMU KASHMIR</li>
-    </ul>
-  </div>
+<div class="ticker">
+<ul id="ticker-items">
+<li>WELCOME TO THE MIRROR JAMMU KASHMIR</li>
+<li>CHAMPION JUSTICE AND HUMAN RIGHTS</li>
+<li>AMPLIFYING SUPPRESSED VOICES WORLDWIDE</li>
+<li>INDEPENDENT JOURNALISM WITHOUT FEAR</li>
+</ul>
+</div>
+
+<div class="tools">
+<select id="language-select">
+<option value="en">English</option>
+<option value="de">German</option>
+<option value="ur">Urdu</option>
+</select>
+
+<form class="search">
+<input type="search" placeholder="Search…">
+<button>🔍</button>
+</form>
+</div>
 </section>
 
-<!-- ================= NAVBAR ================= -->
+<!-- ================= NAVIGATION ================= -->
+
 <nav class="navbar">
-  <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
-  <ul class="nav-list" id="nav-list">
+<button id="hamburger" class="hamburger">☰ Menu</button>
 
-    <li class="nav-item has-sub">
-      <button class="nav-btn">🏠 Home</button>
-      <div class="dropdown">
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </li>
+<ul class="nav-list" id="nav-list">
 
-    <li class="nav-item"><a class="nav-btn" href="#blog">📝 Blog</a></li>
-    <li class="nav-item"><a class="nav-btn" href="#vlog">🎥 Vlog</a></li>
+<li class="nav-item has-sub">
+<button class="nav-btn">🏠 Home</button>
+<div class="dropdown">
+<a href="#blog">Latest</a>
+<a href="#chief-editor">Chief Editor</a>
+<a href="#contact">Contact</a>
+</div>
+</li>
 
-    <li class="nav-item has-sub">
-      <button class="nav-btn">📜 Historical Documents</button>
-      <div class="dropdown">
-        <a href="#historical">Archive</a>
-      </div>
-    </li>
+<li class="nav-item"><a class="nav-btn" href="#blog">📝 Blog</a></li>
+<li class="nav-item"><a class="nav-btn" href="#vlog">🎥 Vlog</a></li>
+<li class="nav-item"><a class="nav-btn" href="#epaper">📰 E-Paper</a></li>
 
-    <li class="nav-item has-sub">
-      <button class="nav-btn">🕊 UN & Human Rights</button>
-      <div class="dropdown">
-        <a href="#unreports">UN Reports</a>
-      </div>
-    </li>
+<li class="nav-item has-sub">
+<button class="nav-btn">📜 Historical Documents</button>
+<div class="dropdown">
+<a href="#historical">Upload Documents</a>
+</div>
+</li>
 
-    <li class="nav-item"><a class="nav-btn" href="#epaper">📰 E-Paper</a></li>
+<li class="nav-item has-sub">
+<button class="nav-btn">🕊 UN & Human Rights</button>
+<div class="dropdown">
+<a href="#unreports">UN Reports</a>
+</div>
+</li>
 
-  </ul>
+<li class="nav-item"><a class="nav-btn" href="#international">🌐 International</a></li>
+
+</ul>
 </nav>
 
 <!-- ================= MAIN ================= -->
+
 <main class="main">
 
-<!-- BLOG SECTION -->
-<section id="blog">
-<h2>📝 Latest Articles</h2>
+<!-- BLOG CARDS -->
+
+<section id="blog" class="card-col">
+<h2>Latest Articles</h2>
 <div class="cards three">
 
 <article class="card post">
@@ -106,11 +123,8 @@
 <img src="assets/sample-1.jpg" alt="">
 </div>
 <div class="card-body">
-<h3>Loading…</h3>
-<p>Loading excerpt…</p>
-<div class="meta">
-<span class="author">Special Correspondent</span>
-</div>
+<h3>Editorial Placeholder</h3>
+<p>Sample summary text.</p>
 <a class="read-more" href="#">Read More →</a>
 </div>
 </article>
@@ -120,11 +134,8 @@
 <img src="assets/sample-2.jpg" alt="">
 </div>
 <div class="card-body">
-<h3>Loading…</h3>
-<p>Loading excerpt…</p>
-<div class="meta">
-<span class="author">Special Correspondent</span>
-</div>
+<h3>Opinion Placeholder</h3>
+<p>Sample summary text.</p>
 <a class="read-more" href="#">Read More →</a>
 </div>
 </article>
@@ -134,11 +145,8 @@
 <img src="assets/sample-3.jpg" alt="">
 </div>
 <div class="card-body">
-<h3>Loading…</h3>
-<p>Loading excerpt…</p>
-<div class="meta">
-<span class="author">Special Correspondent</span>
-</div>
+<h3>Update Placeholder</h3>
+<p>Sample summary text.</p>
 <a class="read-more" href="#">Read More →</a>
 </div>
 </article>
@@ -146,97 +154,102 @@
 </div>
 </section>
 
-<!-- VLOG SECTION -->
+<!-- ================= VLOG ================= -->
+
 <section id="vlog" class="vlogs card">
 <h2>Video Reports & Vlogs</h2>
+
 <div class="cards three">
 
 <article class="card video">
-<div class="media"></div>
-<div class="card-body">
-<h3>Video Loading…</h3>
+<div class="media">
+<iframe width="100%" height="220"
+src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+frameborder="0" allowfullscreen></iframe>
 </div>
-</article>
-
-<article class="card video">
-<div class="media"></div>
 <div class="card-body">
-<h3>Video Loading…</h3>
-</div>
-</article>
-
-<article class="card video">
-<div class="media"></div>
-<div class="card-body">
-<h3>Video Loading…</h3>
+<h3>Interview Placeholder</h3>
+<p>Video description.</p>
 </div>
 </article>
 
 </div>
 </section>
 
-<!-- HISTORICAL -->
+<!-- ================= INTERNATIONAL ================= -->
+
+<section id="international" class="section-rail">
+<div class="rail-header"><span>International News</span></div>
+<div class="cards two">
+
+<article class="card rail">
+<div class="media"><img src="assets/sample-2.jpg"></div>
+<div class="card-body">
+<h3>International Headline</h3>
+<p>Global news summary.</p>
+</div>
+</article>
+
+</div>
+</section>
+
+<!-- ================= HISTORICAL PDF ================= -->
+
 <section id="historical" class="section-rail">
-<div class="rail-header"><span>📜 Historical Documents</span></div>
+<div class="rail-header"><span>Historical Documents</span></div>
 <div class="card epaper">
 <form name="historical" method="POST" data-netlify="true" enctype="multipart/form-data">
 <input type="hidden" name="form-name" value="historical">
 <input type="file" name="pdf" accept=".pdf" required>
-<button class="btn" type="submit">Upload PDF</button>
+<button class="btn">Upload PDF</button>
 </form>
 <div class="pdf-list"><p>No documents uploaded yet.</p></div>
 </div>
 </section>
 
-<!-- UN REPORTS -->
+<!-- ================= UN REPORTS PDF ================= -->
+
 <section id="unreports" class="section-rail">
-<div class="rail-header"><span>🕊 UN Reports</span></div>
+<div class="rail-header"><span>UN Reports</span></div>
 <div class="card epaper">
 <form name="unreports" method="POST" data-netlify="true" enctype="multipart/form-data">
 <input type="hidden" name="form-name" value="unreports">
 <input type="file" name="pdf" accept=".pdf" required>
-<button class="btn" type="submit">Upload UN Report</button>
+<button class="btn">Upload UN Report</button>
 </form>
 <div class="pdf-list"><p>No UN reports uploaded yet.</p></div>
 </div>
 </section>
 
-<!-- E-PAPER -->
-<section id="epaper" class="section-rail">
-<div class="rail-header"><span>📰 E-Paper</span></div>
-<div class="card epaper">
+<!-- ================= E PAPER ================= -->
+
+<section id="epaper" class="epaper card">
+<h2>E-Paper Upload</h2>
 <form name="epaper" method="POST" data-netlify="true" enctype="multipart/form-data">
 <input type="hidden" name="form-name" value="epaper">
-<input type="file" name="pdf" accept=".pdf" required>
-<button class="btn" type="submit">Upload PDF</button>
+<input type="file" name="pdf" accept=".pdf">
+<button class="btn">Upload</button>
 </form>
-<div class="pdf-list"><p>No publications uploaded yet.</p></div>
-</div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
-<button class="btn" id="open-contact">Open Contact Form</button>
+<!-- ================= CONTACT ================= -->
+
+<section id="contact" class="contact-wrap">
+<div class="contact card">
+<h2>Contact</h2>
+<p>Email: themirrorjk@gmail.com</p>
+</div>
 </section>
 
 </main>
 
-<!-- FOOTER -->
+<!-- ================= FOOTER ================= -->
+
 <footer class="footer">
 <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR</p>
 </footer>
 
-<dialog id="contact-modal" class="modal">
-<form name="contact" method="POST" data-netlify="true" class="modal-card">
-<h3>Contact Form</h3>
-<label>Name <input type="text" name="name" required></label>
-<label>Email <input type="email" name="email" required></label>
-<label>Message <textarea name="message" rows="4" required></textarea></label>
-<button type="submit" class="btn">Submit</button>
-<button type="button" class="btn outline" id="close-contact">Exit</button>
-</form>
-</dialog>
+<script src="script.js?v=5"></script>
 
-<script src="script.js?v=6"></script>
 </body>
 </html>
