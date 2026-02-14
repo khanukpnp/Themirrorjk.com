@@ -1,21 +1,48 @@
 {
   "items": [
     {
-      "id": "test-article",
-      "title": "Test Article Working",
-      "location": "Rawalakot",
+      "id": "article-001",
+      "slug": "rawalakot-shutter-down-december-2025",
+      "title": "Complete Shutter Down Paralyzes Rawalakot as Thousands Protest Power Cuts and Blackouts",
+      "category": "Breaking News",
+      "excerpt": "A complete shutter down brought life to a standstill in Rawalakot as thousands protested prolonged power outages, low voltage electricity, and communication blackouts across District Poonch.",
+      "author": "The Mirror Jammu Kashmir",
+      "location": "Rawalakot, Poonch, Azad Kashmir",
       "date": "2025-12-16",
-      "readTime": "5 min read",
-      "excerpt": "This is a test article to confirm JSON is loading.",
-      "heroImage": {
-        "src": "assets/logo.png",
-        "caption": "Test image",
-        "credit": "The Mirror Jammu Kashmir"
-      },
+      "readTime": "7 min read",
+
+      "image": "content/rawalakot-01.jpg",
+
       "body": [
         {
           "type": "paragraph",
-          "text": "If you can read this, your JSON is working correctly."
+          "text": "A complete shutter down brought life to a standstill in Rawalakot on Monday as thousands of residents from across District Poonch poured into the streets to protest prolonged power outages, severe load shedding, low voltage electricity, and persistent internet and mobile network disruptions."
+        },
+        {
+          "type": "image",
+          "src": "content/rawalakot-02.jpg",
+          "align": "right"
+        },
+        {
+          "type": "paragraph",
+          "text": "Markets remained closed and traffic was largely halted as protesters marched through the city and gathered near the grid station, demanding an immediate end to what they described as collective punishment of the population."
+        },
+        {
+          "type": "paragraph",
+          "text": "Residents say Azad Kashmir has been subjected to extreme load shedding for several months, with the Poonch region facing between 15 and 20 hours of power cuts daily."
+        },
+        {
+          "type": "image",
+          "src": "content/rawalakot-03.jpg",
+          "align": "left"
+        },
+        {
+          "type": "paragraph",
+          "text": "Public frustration has been building for more than two and a half years. Previous protests forced authorities to enter into agreements promising electricity at production cost and improvements in essential infrastructure."
+        },
+        {
+          "type": "paragraph",
+          "text": "Protesters announced an indefinite sit in in Rawalakot, stressing that all agreements made with the public must be implemented in full."
         }
       ]
     }
