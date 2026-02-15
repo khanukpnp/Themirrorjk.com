@@ -4,16 +4,19 @@ const $$ = (sel, ctx=document) => [...ctx.querySelectorAll(sel)];
 
 document.addEventListener("DOMContentLoaded", function(){
 
-// ================= YEAR =================
+/* =====================================================
+   YEAR
+===================================================== */
 const yearEl = $("#year");
 if(yearEl) yearEl.textContent = new Date().getFullYear();
 
 
-// ================= CLOCKS + CALENDARS =================
+/* =====================================================
+   CLOCKS + CALENDARS
+===================================================== */
 function updateTimes(){
   const now = new Date();
 
-  // CEST
   const cest = $("#clock-cest span");
   if(cest){
     cest.textContent =
@@ -30,7 +33,6 @@ function updateTimes(){
       }).format(now).replace(',', ' —');
   }
 
-  // IST
   const ist = $("#tz-ist span");
   if(ist){
     ist.textContent =
@@ -43,7 +45,6 @@ function updateTimes(){
       }).format(now);
   }
 
-  // PKT
   const pkt = $("#tz-pkt span");
   if(pkt){
     pkt.textContent =
@@ -56,7 +57,6 @@ function updateTimes(){
       }).format(now);
   }
 
-  // Hijri
   const hijri = $("#cal-hijri span");
   if(hijri){
     hijri.textContent =
@@ -67,7 +67,6 @@ function updateTimes(){
       }).format(now);
   }
 
-  // Vikram Samvat
   const vs = $("#cal-hindi span");
   if(vs){
     vs.textContent =
@@ -82,7 +81,9 @@ updateTimes();
 setInterval(updateTimes,1000);
 
 
-// ================= WEATHER =================
+/* =====================================================
+   WEATHER
+===================================================== */
 const cities = [
   {name:"Zurich", lat:47.3769, lon:8.5417},
   {name:"Rawalakot", lat:33.8578, lon:73.7604},
@@ -121,7 +122,9 @@ async function loadWeather(){
 loadWeather();
 
 
-// ================= IMAGE FALLBACK =================
+/* =====================================================
+   IMAGE FALLBACK
+===================================================== */
 function applyImageFallback(context=document){
   const placeholder =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23f2f2f2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='42' fill='%23999'%3EImage unavailable%3C/text%3E%3C/svg%3E";
@@ -133,7 +136,9 @@ function applyImageFallback(context=document){
 applyImageFallback();
 
 
-// ================= NAV DROPDOWN =================
+/* =====================================================
+   NAV DROPDOWN
+===================================================== */
 const navItems = $$(".nav-item.has-sub");
 
 navItems.forEach(item=>{
@@ -157,7 +162,9 @@ document.addEventListener("click", ()=>{
 });
 
 
-// ================= MOBILE MENU =================
+/* =====================================================
+   MOBILE MENU
+===================================================== */
 const hamburger = $("#hamburger");
 const navList = $("#nav-list");
 
@@ -171,7 +178,62 @@ if(hamburger && navList){
   });
 }
 
-// ================= VLOG RENDER =================
+
+/* =====================================================
+   HOMEPAGE ARTICLES (NEWEST FIRST, 3 CARDS)
+===================================================== */
+const homepageContainer = $("#homepage-articles");
+
+if(homepageContainer){
+  fetch("content/articles.json",{cache:"no-store"})
+    .then(res=>res.json())
+    .then(data=>{
+
+      if(!data.items) return;
+
+      const sorted = data.items.sort((a,b)=>
+        new Date(b.date) - new Date(a.date)
+      );
+
+      const topThree = sorted.slice(0,3);
+
+      homepageContainer.innerHTML = "";
+
+      topThree.forEach(item=>{
+
+        const card = document.createElement("article");
+        card.className = "card post";
+
+        card.innerHTML = `
+          <div class="media">
+            <span class="badge cat">${item.category}</span>
+            <span class="badge time">${item.readTime}</span>
+            <img src="${item.heroImage?.src || ''}" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3>${item.title}</h3>
+            <p>${item.excerpt}</p>
+            <div class="meta">
+              <span class="author">${item.author || ''}</span>
+              <span class="date">${item.date}</span>
+            </div>
+            <a class="read-more" href="article.html?id=${item.id}">Read More →</a>
+          </div>
+        `;
+
+        homepageContainer.appendChild(card);
+      });
+
+      applyImageFallback(homepageContainer);
+
+    })
+    .catch(()=>console.warn("Homepage articles failed"));
+}
+
+
+/* =====================================================
+   VLOG RENDER
+===================================================== */
 async function renderVlogs(){
   const vlogSection = $("#vlog");
   if(!vlogSection) return;
@@ -188,7 +250,6 @@ async function renderVlogs(){
       const media = card.querySelector(".media");
       if(!media) return;
 
-      // KEEP placeholder if no youtubeId
       if(v.youtubeId){
         media.innerHTML =
           `<iframe 
@@ -199,14 +260,16 @@ async function renderVlogs(){
           </iframe>`;
       }
     });
-  }catch(e){
+  }catch{
     console.warn("Vlogs failed");
   }
 }
 renderVlogs();
 
 
-// ================= ARTICLE PAGE =================
+/* =====================================================
+   ARTICLE PAGE
+===================================================== */
 if(location.pathname.includes("article.html")){
   renderArticlePage();
 }
@@ -244,7 +307,6 @@ async function renderArticlePage(){
       }
       if(block.type==="image"){
         const fig=document.createElement("figure");
-        fig.className="article-figure";
         fig.innerHTML=
           `<img src="${block.src}">
            <figcaption>${block.caption||""}</figcaption>`;
@@ -254,168 +316,9 @@ async function renderArticlePage(){
 
     applyImageFallback(content);
 
-  }catch(e){
+  }catch{
     console.warn("Article load failed");
   }
-}
-
-});
-
-  /* =========================
-     ABOUT PANEL
-  ========================== */
-
-  const aboutPanel = document.getElementById("about-panel");
-  const aboutClose = document.getElementById("about-close");
-  const aboutBtn = document.querySelector('a[href="#about"]');
-
-  if (aboutBtn && aboutPanel) {
-    aboutBtn.addEventListener("click", function(e){
-      e.preventDefault();
-      aboutPanel.hidden = false;
-      document.body.style.overflow = "hidden";
-    });
-  }
-
-  if (aboutClose && aboutPanel) {
-    aboutClose.addEventListener("click", function(){
-      aboutPanel.hidden = true;
-      document.body.style.overflow = "";
-    });
-  }
-
-  /* =========================
-     ARTICLES SECTION LOGIC
-     Newest First + 3 Featured
-  ========================== */
-
-  const homepageContainer = document.getElementById("homepage-articles");
-  if (!homepageContainer) return; // prevents breaking article page
-
-  fetch("content/articles.json")
-    .then(res => res.json())
-    .then(data => {
-
-      if (!data.items) return;
-
-      // SORT NEWEST FIRST
-      const sorted = data.items.sort((a,b) => 
-        new Date(b.date) - new Date(a.date)
-      );
-
-      // FIRST 3 FEATURED
-      const featured = sorted.slice(0,3);
-
-      // OLDER ITEMS
-      const older = sorted.slice(3);
-
-      let html = "";
-
-      // FEATURED SECTION
-      featured.forEach(item => {
-        html += `
-          <article class="card">
-            <div class="card-body">
-              <div class="meta">
-                <span>${item.location}</span>
-                <span>${item.date}</span>
-                <span>${item.readTime}</span>
-              </div>
-              <h3>${item.title}</h3>
-              <p>${item.excerpt}</p>
-              <a href="article.html?slug=${item.slug}" class="read-more">Read Full Article →</a>
-            </div>
-          </article>
-        `;
-      });
-
-      // ARCHIVE SECTION
-      if (older.length > 0) {
-        html += `<hr style="margin:40px 0;">`;
-        html += `<h3 style="margin-bottom:20px;">Archive</h3>`;
-
-        older.forEach(item => {
-          html += `
-            <article style="margin-bottom:25px;">
-              <div class="meta">
-                <span>${item.date}</span>
-              </div>
-              <h4 style="margin:5px 0;">${item.title}</h4>
-              <a href="article.html?slug=${item.slug}" class="read-more">Read →</a>
-            </article>
-          `;
-        });
-      }
-
-      homepageContainer.innerHTML = html;
-
-    })
-    .catch(err => {
-      console.error("Articles load error:", err);
-    });
-
-});
-
-const aboutPanel = document.getElementById("about-panel");
-const aboutClose = document.getElementById("about-close");
-
-const aboutBtn = document.querySelector('a[href="#about"]');
-
-if (aboutBtn && aboutPanel) {
-aboutBtn.addEventListener("click", function(e){
-e.preventDefault();
-aboutPanel.hidden = false;
-document.body.style.overflow = "hidden";
-});
-}
-
-if (aboutClose && aboutPanel) {
-aboutClose.addEventListener("click", function(){
-aboutPanel.hidden = true;
-document.body.style.overflow = "";
-});
-}
-
-// Like button
-let likes = 0;
-const likeBtn = document.getElementById("about-like");
-const likeCount = document.getElementById("about-like-count");
-
-if(likeBtn){
-likeBtn.addEventListener("click", ()=>{
-likes++;
-likeCount.textContent = likes;
-});
-}
-
-// Subscribe
-const subBtn = document.getElementById("about-subscribe");
-if(subBtn){
-subBtn.addEventListener("click", function(){
-this.textContent = "Subscribed";
-this.disabled = true;
-});
-}
-
-// Share
-const shareBtn = document.getElementById("about-share");
-if(shareBtn){
-shareBtn.addEventListener("click", ()=>{
-if(navigator.share){
-navigator.share({
-title: "About The Mirror Jammu Kashmir",
-url: location.href + "#about"
-});
-}
-});
-}
-
-// Copy
-const copyBtn = document.getElementById("about-copy");
-if(copyBtn){
-copyBtn.addEventListener("click", ()=>{
-navigator.clipboard.writeText(location.href + "#about");
-});
 }
 
 });
