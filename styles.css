@@ -354,3 +354,79 @@ padding: 8px 14px;
 border-radius: 999px;
 cursor: pointer;
 }
+/* ===== CHIEF EDITOR PAGE – MATCH ARTICLE STYLE ===== */
+
+.chief-editor-page{
+display:block;
+width:100%;
+}
+
+.chief-editor-container{
+max-width:820px;
+margin:40px auto;
+padding:0 18px;
+}
+
+.chief-editor-shell{
+background:#ffffff;
+padding:28px 32px;
+border-radius:14px;
+box-shadow:0 8px 30px rgba(0,0,0,.06);
+display:block;
+overflow:visible;
+}
+
+.chief-editor-shell h1{
+font-family: Georgia, "Times New Roman", serif;
+font-size:28px;
+line-height:1.25;
+margin-bottom:4px;
+font-weight:700;
+}
+
+.chief-editor-sub{
+font-size:14px;
+color:#666;
+margin-bottom:20px;
+}
+
+.chief-editor-content{
+font-family: Georgia, "Times New Roman", serif;
+font-size:17px;
+line-height:1.8;
+color:#1a1a1a;
+display:block;
+overflow:visible;
+}
+
+.chief-editor-image{
+width:32%;
+float:right;
+margin:0 0 18px 24px;
+height:auto;
+object-fit:cover;
+border-radius:0;
+}
+
+.chief-editor-actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:26px;
+padding-top:18px;
+border-top:1px solid #eee;
+}
+
+.chief-editor-content::after{
+content:"";
+display:block;
+clear:both;
+}
+
+@media(max-width:768px){
+.chief-editor-image{
+float:none;
+width:100%;
+margin:16px 0;
+}
+}
