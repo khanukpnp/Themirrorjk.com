@@ -152,21 +152,30 @@ color:#666;
 margin-bottom:20px;
 }
 
-/* ===== HERO IMAGE – FIXED (NO CROPPING) ===== */
+/* ===== HERO IMAGE – RESIZE NO CROPPING ===== */
 
 .article-page #heroWrap{
 margin:0 0 18px 0;
+text-align:center;
 }
 
 .article-page #heroWrap img{
 width:100%;
-height:auto;              /* allow full image */
-max-height:420px;          /* remove forced cropping */
-object-fit:contain;       /* do NOT crop image */
-border-radius:10px;
+height:auto;
+max-height:520px;          /* limits vertical dominance */
+object-fit:contain;        /* shows full image, no cropping */
+border-radius:0;
 display:block;
-background:#f3f3f3;
+background:#fff;
 }
+
+.article-page #heroWrap figcaption{
+font-size:13px;
+color:#555;
+margin-top:8px;
+line-height:1.4;
+}
+
 
 /* ===== ARTICLE BODY ===== */
 
