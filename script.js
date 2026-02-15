@@ -171,6 +171,42 @@ if(hamburger && navList){
   });
 }
 
+
+// ================= HOMEPAGE CARDS =================
+async function renderCards(){
+  const cards = document.querySelectorAll("article.card.post");
+  if(!cards.length) return;
+
+  try{
+    const res = await fetch("content/articles.json",{cache:"no-store"});
+    const data = await res.json();
+    if(!data.items) return;
+
+    data.items.slice(0,cards.length).forEach((item,i)=>{
+      const card = cards[i];
+      card.querySelector("h3").textContent = item.title;
+      card.querySelector("p").textContent = item.excerpt;
+
+      const link = card.querySelector(".read-more");
+      if(link) link.href = `article.html?id=${item.id}`;
+
+      const img = card.querySelector("img");
+      if(img && item.heroImage?.src){
+        img.src = item.heroImage.src;
+      }
+
+      const author = card.querySelector(".author");
+      if(author) author.textContent = "Special Correspondent";
+    });
+
+    applyImageFallback();
+  }catch(e){
+    console.warn("Cards failed");
+  }
+}
+renderCards();
+
+
 // ================= VLOG RENDER =================
 async function renderVlogs(){
   const vlogSection = $("#vlog");
