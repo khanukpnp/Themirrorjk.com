@@ -156,7 +156,7 @@ margin:0;
 
 .article-page #heroWrap img{
 width:100%;
-max-height:420px; /* prevents oversized image /
+max-height:380px; /* prevents oversized image /
 object-fit:cover; / crops properly like Reuters */
 border-radius:10px;
 display:block;
@@ -181,7 +181,7 @@ margin-bottom:18px;
 /* Inline images inside article */
 
 .article-page .article-content figure{
-width:36%;
+width:42%;
 margin:8px 0 14px 20px;
 }
 
