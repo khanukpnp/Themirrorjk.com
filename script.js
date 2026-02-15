@@ -260,8 +260,6 @@ async function renderArticlePage(){
 }
 
 });
-document.addEventListener("DOMContentLoaded", () => {
-document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================
      ABOUT PANEL
