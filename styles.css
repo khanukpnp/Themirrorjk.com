@@ -152,21 +152,30 @@ color:#666;
 margin-bottom:20px;
 }
 
-/* ===== HERO IMAGE – RECTANGLE, NO DOMINANCE ===== */
+/* ===== HERO IMAGE – TRUE 16:9 RECTANGLE ===== */
 
 .article-page #heroWrap{
 margin:0 0 18px 0;
-text-align:center;
+width:100%;
 }
 
-.article-page #heroWrap img{
+.article-page #heroWrap .hero-ratio{
+position:relative;
 width:100%;
-height:auto;
-max-height:480px;     /* controls vertical size */
-object-fit:contain;   /* no cropping */
+padding-top:56.25%;      /* 16:9 ratio */
+overflow:hidden;
+background:#000;         /* prevents white gaps */
+}
+
+.article-page #heroWrap .hero-ratio img{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;        /* fills rectangle cleanly */
 display:block;
 border-radius:0;
-background:#fff;
 }
 
 .article-page #heroWrap figcaption{
@@ -175,6 +184,7 @@ color:#555;
 margin-top:8px;
 line-height:1.4;
 }
+
 
 /* ===== ARTICLE BODY ===== */
 
