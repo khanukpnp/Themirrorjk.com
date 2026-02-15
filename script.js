@@ -297,6 +297,102 @@ async function renderArticlePage(){
 
 });
 document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* =========================
+     ABOUT PANEL
+  ========================== */
+
+  const aboutPanel = document.getElementById("about-panel");
+  const aboutClose = document.getElementById("about-close");
+  const aboutBtn = document.querySelector('a[href="#about"]');
+
+  if (aboutBtn && aboutPanel) {
+    aboutBtn.addEventListener("click", function(e){
+      e.preventDefault();
+      aboutPanel.hidden = false;
+      document.body.style.overflow = "hidden";
+    });
+  }
+
+  if (aboutClose && aboutPanel) {
+    aboutClose.addEventListener("click", function(){
+      aboutPanel.hidden = true;
+      document.body.style.overflow = "";
+    });
+  }
+
+  /* =========================
+     ARTICLES SECTION LOGIC
+     Newest First + 3 Featured
+  ========================== */
+
+  const homepageContainer = document.getElementById("homepage-articles");
+  if (!homepageContainer) return; // prevents breaking article page
+
+  fetch("content/articles.json")
+    .then(res => res.json())
+    .then(data => {
+
+      if (!data.items) return;
+
+      // SORT NEWEST FIRST
+      const sorted = data.items.sort((a,b) => 
+        new Date(b.date) - new Date(a.date)
+      );
+
+      // FIRST 3 FEATURED
+      const featured = sorted.slice(0,3);
+
+      // OLDER ITEMS
+      const older = sorted.slice(3);
+
+      let html = "";
+
+      // FEATURED SECTION
+      featured.forEach(item => {
+        html += `
+          <article class="card">
+            <div class="card-body">
+              <div class="meta">
+                <span>${item.location}</span>
+                <span>${item.date}</span>
+                <span>${item.readTime}</span>
+              </div>
+              <h3>${item.title}</h3>
+              <p>${item.excerpt}</p>
+              <a href="article.html?slug=${item.slug}" class="read-more">Read Full Article →</a>
+            </div>
+          </article>
+        `;
+      });
+
+      // ARCHIVE SECTION
+      if (older.length > 0) {
+        html += `<hr style="margin:40px 0;">`;
+        html += `<h3 style="margin-bottom:20px;">Archive</h3>`;
+
+        older.forEach(item => {
+          html += `
+            <article style="margin-bottom:25px;">
+              <div class="meta">
+                <span>${item.date}</span>
+              </div>
+              <h4 style="margin:5px 0;">${item.title}</h4>
+              <a href="article.html?slug=${item.slug}" class="read-more">Read →</a>
+            </article>
+          `;
+        });
+      }
+
+      homepageContainer.innerHTML = html;
+
+    })
+    .catch(err => {
+      console.error("Articles load error:", err);
+    });
+
+});
 
 const aboutPanel = document.getElementById("about-panel");
 const aboutClose = document.getElementById("about-close");
