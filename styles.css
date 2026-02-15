@@ -152,32 +152,30 @@ color:#666;
 margin-bottom:20px;
 }
 
-/* ===== HERO IMAGE – 16:9 INSIDE ARTICLE WIDTH ===== */
+/* ===== HERO IMAGE – RECTANGULAR, CONTROLLED HEIGHT ===== */
 
 .article-page #heroWrap{
 width:100%;
 max-width:100%;
 margin:0 0 18px 0;
-overflow:hidden;          /* prevents horizontal overflow */
-}
-
-.article-page #heroWrap .hero-ratio{
-position:relative;
-width:100%;
-max-width:100%;
-padding-top:56.25%;       /* 16:9 ratio */
 overflow:hidden;
 }
 
-.article-page #heroWrap .hero-ratio img{
-position:absolute;
-top:0;
-left:0;
+.article-page #heroWrap img{
 width:100%;
-height:100%;
-object-fit:cover;         /* fills rectangle cleanly */
+height:auto;
+max-height:360px;     /* controls vertical dominance */
+object-fit:contain;   /* shows full image, no cropping */
 display:block;
 border-radius:0;
+background:#fff;
+}
+
+/* ensures hero never escapes article container */
+.article-page .article-shell img{
+max-width:100%;
+height:auto;
+display:block;
 }
 
 /* ensures it never exceeds article container */
