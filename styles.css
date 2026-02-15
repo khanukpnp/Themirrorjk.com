@@ -152,19 +152,21 @@ color:#666;
 margin-bottom:20px;
 }
 
-/* ===== HERO IMAGE – TRUE 16:9 RECTANGLE ===== */
+/* ===== HERO IMAGE – 16:9 INSIDE ARTICLE WIDTH ===== */
 
 .article-page #heroWrap{
-margin:0 0 18px 0;
 width:100%;
+max-width:100%;
+margin:0 0 18px 0;
+overflow:hidden;          /* prevents horizontal overflow */
 }
 
 .article-page #heroWrap .hero-ratio{
 position:relative;
 width:100%;
-padding-top:56.25%;      /* 16:9 ratio */
+max-width:100%;
+padding-top:56.25%;       /* 16:9 ratio */
 overflow:hidden;
-background:#000;         /* prevents white gaps */
 }
 
 .article-page #heroWrap .hero-ratio img{
@@ -173,17 +175,18 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-object-fit:cover;        /* fills rectangle cleanly */
+object-fit:cover;         /* fills rectangle cleanly */
 display:block;
 border-radius:0;
 }
 
-.article-page #heroWrap figcaption{
-font-size:13px;
-color:#555;
-margin-top:8px;
-line-height:1.4;
+/* ensures it never exceeds article container */
+.article-page .article-shell img{
+max-width:100%;
+height:auto;
+display:block;
 }
+
 
 
 /* ===== ARTICLE BODY ===== */
