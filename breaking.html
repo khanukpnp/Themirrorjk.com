@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Breaking News | The Mirror Jammu Kashmir</title>
-<link rel="stylesheet" href="styles.css?v=5">
+<link rel="stylesheet" href="styles.css?v=6">
 </head>
 
 <body class="article-page theme-maroon">
@@ -23,7 +23,10 @@ Latest developments and urgent updates
 
 <div id="latestPosts"></div>
 
-<h2 style="margin-top:60px;">Archive</h2>
+<h2 style="margin-top:60px;border-top:1px solid #ddd;padding-top:20px;">
+Archive
+</h2>
+
 <div id="archivePosts"></div>
 
 </div>
@@ -36,36 +39,104 @@ Latest developments and urgent updates
 </footer>
 
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
+
+document.getElementById("year").textContent =
+new Date().getFullYear();
 
 async function loadBreaking(){
 
-const res = await fetch("content/breaking.json",{cache:"no-store"});
+const latestContainer =
+document.getElementById("latestPosts");
+
+const archiveContainer =
+document.getElementById("archivePosts");
+
+latestContainer.innerHTML = "";
+archiveContainer.innerHTML = "";
+
+try{
+
+const res = await fetch(
+"content/breaking.json",
+{cache:"no-store"}
+);
+
 const data = await res.json();
+
+if(!data.items || data.items.length === 0){
+
+latestContainer.innerHTML =
+'<p style="font-size:18px;color:#777;margin-top:30px;">No breaking news published yet.</p>';
+
+return;
+}
 
 let items = data.items;
 
-items.sort((a,b)=> new Date(b.date) - new Date(a.date));
-
-const latestContainer = document.getElementById("latestPosts");
-const archiveContainer = document.getElementById("archivePosts");
+items.sort((a,b)=>
+new Date(b.date) - new Date(a.date)
+);
 
 items.forEach(item=>{
 
-const card = document.createElement("div");
-card.className = "article-card";
-card.style.marginBottom = "40px";
+const card =
+document.createElement("div");
+
+card.style.marginBottom = "50px";
+card.style.paddingBottom = "30px";
+card.style.borderBottom = "1px solid #e5e5e5";
 
 card.innerHTML = `
-<div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
-<img src="${item.image}" style="width:35%; min-width:250px; height:auto;">
-<div style="flex:1;">
-<h3 style="margin-top:0;">${item.title}</h3>
-<div style="font-size:14px; color:#666; margin-bottom:8px;">
+<div style="display:flex;gap:30px;align-items:flex-start;flex-wrap:wrap;">
+
+<img src="${item.image}"
+     alt="${item.title}"
+     style="
+     width:35%;
+     min-width:260px;
+     height:auto;
+     object-fit:cover;
+     border-radius:2px;
+     ">
+
+<div style="flex:1;min-width:260px;">
+
+<h3 style="
+margin-top:0;
+margin-bottom:8px;
+font-size:24px;
+line-height:1.3;
+font-weight:600;
+">
+${item.title}
+</h3>
+
+<div style="
+font-size:14px;
+color:#777;
+margin-bottom:12px;
+">
+${item.location ? item.location + " · " : ""}
 ${item.date} · ${item.readTime} · ${item.author}
 </div>
-<p>${item.excerpt}</p>
-<a href="article.html?id=${item.id}" style="color:#a00000; font-weight:600;">Read More →</a>
+
+<p style="
+font-size:17px;
+line-height:1.7;
+margin-bottom:12px;
+">
+${item.excerpt}
+</p>
+
+<a href="article.html?id=${item.id}"
+   style="
+   color:#a00000;
+   font-weight:600;
+   text-decoration:none;
+   ">
+Read More →
+</a>
+
 </div>
 </div>
 `;
@@ -78,9 +149,22 @@ latestContainer.appendChild(card);
 
 });
 
+if(archiveContainer.innerHTML === ""){
+archiveContainer.innerHTML =
+'<p style="color:#777;">No archived breaking news yet.</p>';
+}
+
+}catch(error){
+
+latestContainer.innerHTML =
+'<p style="color:red;">Unable to load breaking news.</p>';
+
+}
+
 }
 
 loadBreaking();
+
 </script>
 
 </body>
