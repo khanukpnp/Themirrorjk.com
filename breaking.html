@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breaking News | The Mirror Jammu Kashmir</title>
+<link rel="stylesheet" href="styles.css?v=4">
+</head>
+
+<body class="article-page theme-maroon">
+
+<main class="main">
+<section class="article-container">
+<div class="article-shell">
+
+<header class="article-header">
+<h1>Breaking News</h1>
+</header>
+
+<div id="filterTags"></div>
+
+<h2>Latest</h2>
+<div id="latestPosts" class="cards three"></div>
+
+<h2>Archive</h2>
+<div id="archivePosts" class="cards three"></div>
+
+<div id="pagination"></div>
+
+</div>
+</section>
+</main>
+
+<script>
+async function loadSection(){
+
+const res = await fetch("content/breaking.json",{cache:"no-store"});
+const data = await res.json();
+let items = data.items;
+
+items.sort((a,b)=> new Date(b.date) - new Date(a.date));
+
+const latest = document.getElementById("latestPosts");
+const archive = document.getElementById("archivePosts");
+
+items.forEach(item => {
+
+const card = document.createElement("article");
+card.className="card post";
+
+card.innerHTML = `
+<div class="media">
+<img src="${item.image}" alt="">
+<span class="badge cat">${item.category}</span>
+</div>
+<div class="card-body">
+<h3>${item.title}</h3>
+<p>${item.excerpt}</p>
+<div class="meta">
+<span>${item.author}</span>
+<span>${item.date}</span>
+</div>
+<a href="article.html?id=${item.id}" class="read-more">Read More →</a>
+</div>
+`;
+
+if(item.archive){
+archive.appendChild(card);
+}else{
+latest.appendChild(card);
+}
+
+});
+
+}
+
+loadSection();
+</script>
+
+</body>
+</html>
