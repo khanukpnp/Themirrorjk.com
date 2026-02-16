@@ -1,19 +1,77 @@
 {
   "items": [
     {
-      "id": "breaking-001",
-      "title": "Complete Shutter Down Paralyzes Rawalakot",
-      "slug": "rawalakot-shutter-down",
+      "id": "breaking-002",
+      "slug": "ukpnp-delegation-meets-baroness-nicholson-london-2025",
+      "title": "High Level UKPNP Delegation Led by Sardar Shaukat Ali Kashmiri Meets Baroness Emma Nicholson in London",
       "category": "Breaking News",
-      "tags": ["Electricity", "Protest", "Rawalakot"],
+      "excerpt": "UKPNP delegation holds high level political briefing in London with Baroness Emma Nicholson on Kashmir developments and international follow up.",
       "author": "Special Correspondent",
-      "location": "Rawalakot, Poonch",
-      "date": "2025-12-16",
-      "readTime": "7 min read",
+      "location": "London, United Kingdom",
+      "date": "2025-11-26",
+      "readTime": "12 min read",
+      "heroImage": {
+        "src": "content/images/london-ukpnp-01.jpg",
+        "caption": "UKPNP delegation meets Baroness Emma Nicholson in London.",
+        "credit": "The Mirror Jammu Kashmir"
+      },
       "archive": false,
-      "image": "content/rawalakot-01.jpg",
-      "excerpt": "Thousands shut down Rawalakot in protest against prolonged outages."
+      "body": [
+        {
+          "type": "paragraph",
+          "text": "A high level delegation of the United Kashmir People’s National Party, UKPNP, led by its Exiled Chairman Sardar Shaukat Ali Kashmiri, held a formal meeting and briefing with Baroness Emma Nicholson, Member of the House of Lords of the United Kingdom."
+        },
+        {
+          "type": "paragraph",
+          "text": "Baroness Nicholson has been a life peer since 1997 and previously served as Member of the European Parliament, Rapporteur on Kashmir, and Former Vice President of the European Parliament’s Committee on Foreign Affairs, Human Rights, Common Defense, and Security Policy."
+        },
+        {
+          "type": "image",
+          "src": "content/images/london-ukpnp-02.jpg",
+          "align": "right",
+          "caption": "Delegation briefing Baroness Nicholson in London.",
+          "credit": "UKPNP"
+        },
+        {
+          "type": "paragraph",
+          "text": "The meeting focused on political conditions in all regions of the historical State of Jammu and Kashmir, human rights challenges, and developments since the 2007 European Parliament Report on Kashmir adopted by 522 votes to 9."
+        },
+        {
+          "type": "paragraph",
+          "text": "The delegation included Sardar Nasir Aziz Khan, Mahmood Kashmiri, Sardar Tikka Khan Tahir, Sardar Amjad Yousaf, Sardar Tariq Khan, Raja Sarfraz, and Sajjad Hussain."
+        },
+        {
+          "type": "image",
+          "src": "content/images/london-ukpnp-03.jpg",
+          "align": "left",
+          "caption": "Discussion on Kashmir political and human rights developments.",
+          "credit": "The Mirror Jammu Kashmir"
+        },
+        {
+          "type": "paragraph",
+          "text": "The delegation compared the 2007 findings with current developments, including the 2019 abrogation of Article 370 and 35A by India and the 2020 declaration of Gilgit Baltistan as a province by Pakistan."
+        },
+        {
+          "type": "paragraph",
+          "text": "The delegation reaffirmed that Jammu, Kashmir, Ladakh, Gilgit Baltistan, and Azad Jammu and Kashmir together form one historical and political entity whose final status remains unresolved."
+        },
+        {
+          "type": "paragraph",
+          "text": "They emphasized that the right to self determination must be respected according to United Nations resolutions and international commitments."
+        },
+        {
+          "type": "paragraph",
+          "text": "The delegation also highlighted concerns regarding governance, representation, military presence, civic restrictions, extremist groups, and the shrinking space for secular democratic voices across all regions."
+        },
+        {
+          "type": "paragraph",
+          "text": "Baroness Nicholson welcomed the briefing and expressed readiness for continued dialogue and high level engagement."
+        },
+        {
+          "type": "paragraph",
+          "text": "The delegation stressed that major changes have taken place since 2007 and called for renewed international follow up based on the recommendations of the European Parliament Report."
+        }
+      ]
     }
   ]
 }
-
