@@ -4,77 +4,83 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Breaking News | The Mirror Jammu Kashmir</title>
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=5">
 </head>
 
 <body class="article-page theme-maroon">
 
 <main class="main">
+
 <section class="article-container">
 <div class="article-shell">
 
 <header class="article-header">
 <h1>Breaking News</h1>
+<div class="article-meta">
+Latest developments and urgent updates
+</div>
 </header>
 
-<div id="filterTags"></div>
+<div id="latestPosts"></div>
 
-<h2>Latest</h2>
-<div id="latestPosts" class="cards three"></div>
-
-<h2>Archive</h2>
-<div id="archivePosts" class="cards three"></div>
-
-<div id="pagination"></div>
+<h2 style="margin-top:60px;">Archive</h2>
+<div id="archivePosts"></div>
 
 </div>
 </section>
+
 </main>
 
+<footer class="footer">
+<p>© <span id="year"></span> The Mirror Jammu Kashmir</p>
+</footer>
+
 <script>
-async function loadSection(){
+document.getElementById("year").textContent = new Date().getFullYear();
+
+async function loadBreaking(){
 
 const res = await fetch("content/breaking.json",{cache:"no-store"});
 const data = await res.json();
+
 let items = data.items;
 
 items.sort((a,b)=> new Date(b.date) - new Date(a.date));
 
-const latest = document.getElementById("latestPosts");
-const archive = document.getElementById("archivePosts");
+const latestContainer = document.getElementById("latestPosts");
+const archiveContainer = document.getElementById("archivePosts");
 
-items.forEach(item => {
+items.forEach(item=>{
 
-const card = document.createElement("article");
-card.className="card post";
+const card = document.createElement("div");
+card.className = "article-card";
+card.style.marginBottom = "40px";
 
 card.innerHTML = `
-<div class="media">
-<img src="${item.image}" alt="">
-<span class="badge cat">${item.category}</span>
+<div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+<img src="${item.image}" style="width:35%; min-width:250px; height:auto;">
+<div style="flex:1;">
+<h3 style="margin-top:0;">${item.title}</h3>
+<div style="font-size:14px; color:#666; margin-bottom:8px;">
+${item.date} · ${item.readTime} · ${item.author}
 </div>
-<div class="card-body">
-<h3>${item.title}</h3>
 <p>${item.excerpt}</p>
-<div class="meta">
-<span>${item.author}</span>
-<span>${item.date}</span>
+<a href="article.html?id=${item.id}" style="color:#a00000; font-weight:600;">Read More →</a>
 </div>
-<a href="article.html?id=${item.id}" class="read-more">Read More →</a>
 </div>
 `;
 
 if(item.archive){
-archive.appendChild(card);
+archiveContainer.appendChild(card);
 }else{
-latest.appendChild(card);
+latestContainer.appendChild(card);
 }
 
 });
 
 }
 
-loadSection();
+loadBreaking();
 </script>
 
 </body>
