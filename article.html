@@ -4,144 +4,148 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Article | The Mirror Jammu Kashmir</title>
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=6">
 </head>
 
 <body class="article-page theme-maroon">
 
 <main class="main">
 
-  <section class="article-container">
-    <div class="article-shell">
+<section class="article-container">
+<div class="article-shell">
 
-      <!-- TITLE FIRST -->
-      <header class="article-header">
-        <h1 id="title"></h1>
-        <div id="meta" class="article-meta"></div>
-      </header>
+<header class="article-header">
+<h1 id="title"></h1>
+<div id="meta" class="article-meta"></div>
+</header>
 
-      <!-- HERO IMAGE BELOW TITLE -->
-      <div id="heroWrap" style="display:none;">
-        <figure class="article-figure hero-figure">
-          <img id="heroImg" src="" alt="">
-          <figcaption id="heroCaption"></figcaption>
-        </figure>
-      </div>
+<!-- HERO IMAGE PLACEHOLDER -->
+<div id="heroWrap" style="display:none;">
+<figure class="article-figure hero-figure">
+<img id="heroImg" src="" alt="">
+<figcaption id="heroCaption"></figcaption>
+</figure>
+</div>
 
-      <!-- ARTICLE CONTENT -->
-      <div id="content" class="article-content"></div>
+<div id="content" class="article-content"></div>
 
-      <!-- ACTION BUTTONS -->
-      <div class="page-actions">
-        <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-        <button id="subBtn">🔔 Subscribe</button>
-        <button id="shareBtn">📣 Share</button>
-        <button id="copyBtn">🔗 Copy Link</button>
-      </div>
+<div class="page-actions">
+<button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+<button id="subBtn">🔔 Subscribe</button>
+<button id="shareBtn">📣 Share</button>
+<button id="copyBtn">🔗 Copy Link</button>
+</div>
 
-    </div>
-  </section>
+</div>
+</section>
 
 </main>
 
 <footer class="footer">
-  <div class="social">
-    <button id="share-btn">Share</button>
-  </div>
-  <p>© <span id="year"></span> The Mirror Jammu Kashmir</p>
+<p>© <span id="year"></span> The Mirror Jammu Kashmir</p>
 </footer>
 
-<script src="script.js?v=4"></script>
+<script src="script.js?v=6"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", async function(){
 
-  const id = new URLSearchParams(location.search).get("id");
-  if(!id) return;
+document.getElementById("year").textContent = new Date().getFullYear();
 
-  let data;
-  try{
-    const res = await fetch("content/articles.json",{cache:"no-store"});
-    data = await res.json();
-  }catch(e){
-    console.warn("Article JSON failed");
-    return;
-  }
+const id = new URLSearchParams(location.search).get("id");
+if(!id) return;
 
-  if(!data.items) return;
+let data;
+try{
+const res = await fetch("content/articles.json",{cache:"no-store"});
+data = await res.json();
+}catch(e){
+console.warn("Article JSON failed");
+return;
+}
 
-  const article = data.items.find(x=>x.id===id);
-  if(!article) return;
+if(!data.items) return;
 
-  document.getElementById("title").textContent = article.title;
-  document.getElementById("meta").textContent =
-    (article.location || "") + " · " +
-    article.date + " · " +
-    article.readTime;
+const article = data.items.find(x=>x.id===id);
+if(!article) return;
 
-  if(article.heroImage && article.heroImage.src){
-    document.getElementById("heroWrap").style.display="block";
-    document.getElementById("heroImg").src = article.heroImage.src;
-    document.getElementById("heroCaption").textContent =
-      (article.heroImage.caption || "") +
-      (article.heroImage.credit ? " © " + article.heroImage.credit : "");
-  }
+document.getElementById("title").textContent = article.title;
 
-  const content = document.getElementById("content");
-  content.innerHTML = "";
+document.getElementById("meta").textContent =
+(article.location || "") + " · " +
+article.date + " · " +
+article.readTime;
 
-  article.body.forEach(block => {
+if(article.heroImage && article.heroImage.src){
+document.getElementById("heroWrap").style.display="block";
+document.getElementById("heroImg").src = article.heroImage.src;
+document.getElementById("heroImg").alt = article.title;
+document.getElementById("heroCaption").textContent =
+(article.heroImage.caption || "") +
+(article.heroImage.credit ? " © " + article.heroImage.credit : "");
+}
 
-    if(block.type === "paragraph"){
-      const p = document.createElement("p");
-      p.textContent = block.text;
-      content.appendChild(p);
-    }
+const content = document.getElementById("content");
+content.innerHTML = "";
 
-    if(block.type === "image"){
-      const figure = document.createElement("figure");
-      figure.className = "article-figure";
+let imageToggle = true;
 
-      figure.style.width = "36%";
-      figure.style.float = block.align === "left" ? "left" : "right";
-      figure.style.margin =
-        block.align === "left"
-          ? "8px 20px 12px 0"
-          : "8px 0 12px 20px";
+article.body.forEach(block => {
 
-      const img = document.createElement("img");
-      img.src = block.src;
-      img.alt = block.caption || "";
+if(block.type === "paragraph"){
+const p = document.createElement("p");
+p.textContent = block.text;
+content.appendChild(p);
+}
 
-      const cap = document.createElement("figcaption");
-      cap.textContent =
-        (block.caption || "") +
-        (block.credit ? " © " + block.credit : "");
+if(block.type === "image"){
 
-      figure.appendChild(img);
-      figure.appendChild(cap);
-      content.appendChild(figure);
-    }
+const figure = document.createElement("figure");
+figure.className = "article-figure";
 
-  });
+figure.style.width = "35%";
+figure.style.float = imageToggle ? "right" : "left";
+figure.style.margin = imageToggle
+? "10px 0 18px 24px"
+: "10px 24px 18px 0";
 
-  let likes = 0;
-  document.getElementById("likeBtn").onclick =
-    () => document.getElementById("likeCount").textContent = ++likes;
+imageToggle = !imageToggle;
 
-  document.getElementById("subBtn").onclick =
-    function(){
-      this.textContent="Subscribed";
-      this.disabled=true;
-    };
+const img = document.createElement("img");
+img.src = block.src;
+img.alt = block.caption || "";
+img.style.width = "100%";
+img.style.height = "auto";
 
-  document.getElementById("shareBtn").onclick =
-    () => navigator.share
-      ? navigator.share({title:article.title,url:location.href})
-      : alert("Share not supported");
+const cap = document.createElement("figcaption");
+cap.textContent =
+(block.caption || "") +
+(block.credit ? " © " + block.credit : "");
 
-  document.getElementById("copyBtn").onclick =
-    () => navigator.clipboard.writeText(location.href);
+figure.appendChild(img);
+figure.appendChild(cap);
+content.appendChild(figure);
+}
+
+});
+
+let likes = 0;
+document.getElementById("likeBtn").onclick =
+() => document.getElementById("likeCount").textContent = ++likes;
+
+document.getElementById("subBtn").onclick =
+function(){
+this.textContent="Subscribed";
+this.disabled=true;
+};
+
+document.getElementById("shareBtn").onclick =
+() => navigator.share
+? navigator.share({title:article.title,url:location.href})
+: alert("Share not supported");
+
+document.getElementById("copyBtn").onclick =
+() => navigator.clipboard.writeText(location.href);
 
 });
 </script>
