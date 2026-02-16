@@ -1,1 +1,19 @@
+{
+  "items": [
+    {
+      "id": "breaking-001",
+      "title": "Complete Shutter Down Paralyzes Rawalakot",
+      "slug": "rawalakot-shutter-down",
+      "category": "Breaking News",
+      "tags": ["Electricity", "Protest", "Rawalakot"],
+      "author": "Special Correspondent",
+      "location": "Rawalakot, Poonch",
+      "date": "2025-12-16",
+      "readTime": "7 min read",
+      "archive": false,
+      "image": "content/rawalakot-01.jpg",
+      "excerpt": "Thousands shut down Rawalakot in protest against prolonged outages."
+    }
+  ]
+}
 
