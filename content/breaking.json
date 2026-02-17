@@ -10,6 +10,7 @@
       "location": "London, United Kingdom",
       "date": "2025-11-26",
       "readTime": "12 min read",
+      "image": "content/images/london-ukpnp-01.jpg",
       "heroImage": {
         "src": "content/images/london-ukpnp-01.jpg",
         "caption": "UKPNP delegation meets Baroness Emma Nicholson in London.",
@@ -34,35 +35,7 @@
         },
         {
           "type": "paragraph",
-          "text": "The meeting focused on political conditions in all regions of the historical State of Jammu and Kashmir, human rights challenges, and developments since the 2007 European Parliament Report on Kashmir adopted by 522 votes to 9."
-        },
-        {
-          "type": "paragraph",
-          "text": "The delegation included Sardar Nasir Aziz Khan, Mahmood Kashmiri, Sardar Tikka Khan Tahir, Sardar Amjad Yousaf, Sardar Tariq Khan, Raja Sarfraz, and Sajjad Hussain."
-        },
-        {
-          "type": "paragraph",
-          "text": "The delegation compared the 2007 findings with current developments, including the 2019 abrogation of Article 370 and 35A by India and the 2020 declaration of Gilgit Baltistan as a province by Pakistan."
-        },
-        {
-          "type": "paragraph",
-          "text": "The delegation reaffirmed that Jammu, Kashmir, Ladakh, Gilgit Baltistan, and Azad Jammu and Kashmir together form one historical and political entity whose final status remains unresolved."
-        },
-        {
-          "type": "paragraph",
-          "text": "They emphasized that the right to self determination must be respected according to United Nations resolutions and international commitments."
-        },
-        {
-          "type": "paragraph",
-          "text": "The delegation also highlighted concerns regarding governance, representation, military presence, civic restrictions, extremist groups, and the shrinking space for secular democratic voices across all regions."
-        },
-        {
-          "type": "paragraph",
-          "text": "Baroness Nicholson welcomed the briefing and expressed readiness for continued dialogue and high level engagement."
-        },
-        {
-          "type": "paragraph",
-          "text": "The delegation stressed that major changes have taken place since 2007 and called for renewed international follow up based on the recommendations of the European Parliament Report."
+          "text": "The meeting focused on political conditions in all regions of the historical State of Jammu and Kashmir, human rights challenges, and developments since the 2007 European Parliament Report."
         }
       ]
     }
