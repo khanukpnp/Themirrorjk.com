@@ -1,88 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<base href="./">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<base href="./" />
 <title>THE MIRROR JAMMU KASHMIR</title>
-<meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
-<link rel="stylesheet" href="styles.css?v=8">
+<meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard." />
+<link rel="stylesheet" href="styles.css?v=8" />
 </head>
 
 <body class="theme-maroon">
 
 <header class="site-header">
-  <div class="header-row">
-    <img src="assets/logo.png" alt="Logo" class="logo">
-    <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-    <img src="assets/logo.png" alt="Logo" class="logo">
-  </div>
-  <div class="subheading">
-    CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYOND BORDERS
-  </div>
+<div class="header-row">
+<img src="assets/logo.png" class="logo" alt="Logo">
+<h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+<img src="assets/logo.png" class="logo" alt="Logo">
+</div>
+<div class="subheading">
+CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYOND BORDERS
+</div>
 </header>
+
+<section class="bar clocks-line">
+<div class="row tight nowrap">
+<div id="clock-cest" class="chip tiny">🕒 <span>Loading…</span></div>
+<div id="cal-hijri" class="chip tiny">📅 <span>Hijri…</span></div>
+<div id="cal-hindi" class="chip tiny">📅 <span>VS…</span></div>
+<div id="tz-ist" class="chip tiny">🕒 IST: <span>—</span></div>
+<div id="tz-pkt" class="chip tiny">🕒 PKT: <span>—</span></div>
+</div>
+</section>
+
+<section class="bar weather-line">
+<div class="row nowrap super-tight" id="weather-bar"></div>
+</section>
+
+<section class="ticker-wrap">
+<div class="ticker">
+<ul id="ticker-items">
+<li>Welcome to The Mirror Jammu Kashmir — empowering truth beyond borders.</li>
+<li>Submit your editorials and vlogs via the contact form below.</li>
+</ul>
+</div>
+</section>
+
+<nav class="navbar">
+<ul class="nav-list">
+<li><a class="nav-btn" href="#breaking">🆕 Breaking News</a></li>
+<li><a class="nav-btn" href="#international">🌐 International</a></li>
+<li><a class="nav-btn" href="#human-rights">🧑‍⚖️ Human Rights</a></li>
+<li><a class="nav-btn" href="#vlog">🎥 Vlog</a></li>
+</ul>
+</nav>
 
 <main class="main">
 
 <section class="card-col">
-<h2>📝 Top Stories / Breaking News / Blogs / Articles / Opinion</h2>
-
+<h2>Top Stories / Breaking News / Blogs / Articles / Opinion</h2>
 <div class="cards three">
 
-<!-- WINDOW 1 LATEST -->
-<article class="card post">
-<div class="media">
-<span class="badge cat">Top Stories</span>
-<span class="badge time" id="latest-time">—</span>
-<img id="latest-image" src="assets/placeholder.svg" alt="Latest">
+<div id="latest-window"></div>
+<div id="breaking-window"></div>
+<div id="blog-window"></div>
+
 </div>
+</section>
+
+<section id="international" class="section-rail">
+<div class="rail-header">🌐 International News / Global Headlines</div>
+<div class="cards two">
+<div id="international-left"></div>
+<div id="international-right"></div>
+</div>
+</section>
+
+<section id="human-rights" class="section-rail">
+<div class="rail-header">🧑‍⚖️ Human Rights / Urgent Appeals / Justice & Law</div>
+<div class="cards two">
+<div id="hr-left"></div>
+<div id="hr-right"></div>
+</div>
+</section>
+
+<section id="vlog" class="vlogs card">
+<h2>Video Reports & Vlogs</h2>
+<div class="cards three">
+<article class="card video">
 <div class="card-body">
-<h3 id="latest-title">Loading...</h3>
-<p id="latest-excerpt"></p>
-<div class="meta">
-<span id="latest-author"></span>
-<span id="latest-date"></span>
-</div>
-<a id="latest-link" class="read-more">Read More →</a>
+<h3>Video section ready</h3>
+<p>You can connect this to vlog.json later.</p>
 </div>
 </article>
+</div>
+</section>
 
-<!-- WINDOW 2 BREAKING -->
-<article class="card post">
-<div class="media">
-<span class="badge cat">Breaking News</span>
-<span class="badge time" id="breaking-time">—</span>
-<img id="breaking-image" src="assets/placeholder.svg" alt="Breaking">
-</div>
-<div class="card-body">
-<h3 id="breaking-title">Loading...</h3>
-<p id="breaking-excerpt"></p>
-<div class="meta">
-<span id="breaking-author"></span>
-<span id="breaking-date"></span>
-</div>
-<a id="breaking-link" class="read-more">Read More →</a>
-</div>
-</article>
+<section id="epaper" class="epaper card">
+<h2>📰 E-Paper Upload</h2>
+<form name="epaper" method="POST" data-netlify="true">
+<input type="file" name="file" accept=".pdf" />
+<button class="btn" type="submit">Upload</button>
+</form>
+</section>
 
-<!-- WINDOW 3 BLOG -->
-<article class="card post">
-<div class="media">
-<span class="badge cat">Blog / Opinion</span>
-<span class="badge time" id="blog-time">—</span>
-<img id="blog-image" src="assets/placeholder.svg" alt="Blog">
-</div>
-<div class="card-body">
-<h3 id="blog-title">Loading...</h3>
-<p id="blog-excerpt"></p>
-<div class="meta">
-<span id="blog-author"></span>
-<span id="blog-date"></span>
-</div>
-<a id="blog-link" class="read-more">Read More →</a>
-</div>
-</article>
-
+<section id="contact" class="contact-wrap">
+<div class="newsletter card">
+<h2>📬 Newsletter</h2>
+<form name="newsletter" method="POST" data-netlify="true">
+<input type="email" name="email" placeholder="your@email.com" required />
+<button class="btn" type="submit">Subscribe</button>
+</form>
 </div>
 </section>
 
@@ -96,60 +123,61 @@
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-async function loadHomepage(){
-
-// LATEST
-try{
-const res = await fetch("content/latest.json",{cache:"no-store"});
-const data = await res.json();
-const item = data.items[0];
-
-document.getElementById("latest-title").textContent = item.title;
-document.getElementById("latest-excerpt").textContent = item.excerpt;
-document.getElementById("latest-author").textContent = item.author;
-document.getElementById("latest-date").textContent = item.date;
-document.getElementById("latest-time").textContent = item.readTime;
-document.getElementById("latest-image").src = item.heroImage?.src || "assets/placeholder.svg";
-document.getElementById("latest-link").href = "article.html?id=" + item.id;
-}catch(e){}
-
-// BREAKING
-try{
-const res = await fetch("content/breaking.json",{cache:"no-store"});
-const data = await res.json();
-const item = data.items[0];
-
-document.getElementById("breaking-title").textContent = item.title;
-document.getElementById("breaking-excerpt").textContent = item.excerpt;
-document.getElementById("breaking-author").textContent = item.author;
-document.getElementById("breaking-date").textContent = item.date;
-document.getElementById("breaking-time").textContent = item.readTime;
-document.getElementById("breaking-image").src = item.heroImage?.src || "assets/placeholder.svg";
-document.getElementById("breaking-link").href = "article.html?id=" + item.id;
-}catch(e){}
-
-// BLOG
-try{
-const res = await fetch("content/blog.json",{cache:"no-store"});
-const data = await res.json();
-const item = data.items[0];
-
-document.getElementById("blog-title").textContent = item.title;
-document.getElementById("blog-excerpt").textContent = item.excerpt;
-document.getElementById("blog-author").textContent = item.author;
-document.getElementById("blog-date").textContent = item.date;
-document.getElementById("blog-time").textContent = item.readTime;
-document.getElementById("blog-image").src = item.heroImage?.src || "assets/placeholder.svg";
-document.getElementById("blog-link").href = "article.html?id=" + item.id;
-}catch(e){}
-
+function createCard(item){
+return `
+<article class="card post">
+<div class="media">
+<span class="badge cat">${item.category || ''}</span>
+<span class="badge time">${item.readTime || ''}</span>
+<img src="${item.heroImage?.src || 'assets/placeholder.svg'}" alt="">
+</div>
+<div class="card-body">
+<h3>${item.title}</h3>
+<p>${item.excerpt || ''}</p>
+<div class="meta">
+<span>${item.author || ''}</span>
+<span>${item.date || ''}</span>
+</div>
+<a class="read-more" href="article.html?id=${item.id}">Read More →</a>
+</div>
+</article>
+`;
 }
 
-loadHomepage();
+async function loadSingle(jsonFile, containerId){
+try{
+const res = await fetch("content/" + jsonFile);
+const data = await res.json();
+if(data.items && data.items.length){
+document.getElementById(containerId).innerHTML = createCard(data.items[0]);
+}
+}catch(e){
+document.getElementById(containerId).innerHTML =
+"<div class='card'><div class='card-body'>Loading...</div></div>";
+}
+}
+
+async function loadDouble(jsonFile, leftId, rightId){
+try{
+const res = await fetch("content/" + jsonFile);
+const data = await res.json();
+if(data.items && data.items.length > 0){
+document.getElementById(leftId).innerHTML = createCard(data.items[0]);
+}
+if(data.items && data.items.length > 1){
+document.getElementById(rightId).innerHTML = createCard(data.items[1]);
+}
+}catch(e){}
+}
+
+loadSingle("latest.json","latest-window");
+loadSingle("breaking.json","breaking-window");
+loadSingle("blog.json","blog-window");
+
+loadDouble("international.json","international-left","international-right");
+loadDouble("humanrights.json","hr-left","hr-right");
 
 </script>
-
-<script src="script.js?v=4"></script>
 
 </body>
 </html>
