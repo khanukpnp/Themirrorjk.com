@@ -9,95 +9,79 @@ const yearEl = $("#year");
 if(yearEl) yearEl.textContent = new Date().getFullYear();
 
 
-// ================= CLOCKS + CALENDARS =================
+// ================= CLOCKS =================
 function updateTimes(){
   const now = new Date();
 
-  // CEST
-  const cest = $("#clock-cest span");
-  if(cest){
-    cest.textContent =
-      new Intl.DateTimeFormat('en-GB',{
-        weekday:'long',
-        year:'numeric',
-        month:'long',
-        day:'numeric',
-        hour:'2-digit',
-        minute:'2-digit',
-        second:'2-digit',
-        hour12:false,
-        timeZone:'Europe/Zurich'
-      }).format(now).replace(',', ' —');
-  }
+  const setTime = (selector, options) => {
+    const el = $(selector);
+    if(!el) return;
+    el.textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
+  };
 
-  // IST
-  const ist = $("#tz-ist span");
-  if(ist){
-    ist.textContent =
-      new Intl.DateTimeFormat('en-GB',{
-        hour:'2-digit',
-        minute:'2-digit',
-        second:'2-digit',
-        hour12:false,
-        timeZone:'Asia/Kolkata'
-      }).format(now);
-  }
+  setTime("#clock-cest span", {
+    weekday:'long',
+    year:'numeric',
+    month:'long',
+    day:'numeric',
+    hour:'2-digit',
+    minute:'2-digit',
+    second:'2-digit',
+    hour12:false,
+    timeZone:'Europe/Zurich'
+  });
 
-  // PKT
-  const pkt = $("#tz-pkt span");
-  if(pkt){
-    pkt.textContent =
-      new Intl.DateTimeFormat('en-GB',{
-        hour:'2-digit',
-        minute:'2-digit',
-        second:'2-digit',
-        hour12:false,
-        timeZone:'Asia/Karachi'
-      }).format(now);
-  }
+  setTime("#tz-ist span", {
+    hour:'2-digit',
+    minute:'2-digit',
+    second:'2-digit',
+    hour12:false,
+    timeZone:'Asia/Kolkata'
+  });
 
-  // Hijri
-  const hijri = $("#cal-hijri span");
-  if(hijri){
-    hijri.textContent =
-      new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
-        day:'numeric',
-        month:'long',
-        year:'numeric'
-      }).format(now);
-  }
+  setTime("#tz-pkt span", {
+    hour:'2-digit',
+    minute:'2-digit',
+    second:'2-digit',
+    hour12:false,
+    timeZone:'Asia/Karachi'
+  });
 
-  // Vikram Samvat
-  const vs = $("#cal-hindi span");
-  if(vs){
-    vs.textContent =
-      new Intl.DateTimeFormat('en-IN-u-ca-indian',{
-        day:'numeric',
-        month:'long',
-        year:'numeric'
-      }).format(now);
-  }
+  setTime("#cal-hijri span", {
+    day:'numeric',
+    month:'long',
+    year:'numeric',
+    calendar:'islamic'
+  });
+
+  setTime("#cal-hindi span", {
+    day:'numeric',
+    month:'long',
+    year:'numeric',
+    calendar:'indian'
+  });
 }
 updateTimes();
 setInterval(updateTimes,1000);
 
 
 // ================= WEATHER =================
-const cities = [
-  {name:"Zurich", lat:47.3769, lon:8.5417},
-  {name:"Rawalakot", lat:33.8578, lon:73.7604},
-  {name:"Jammu", lat:32.7266, lon:74.8570},
-  {name:"Kashmir", lat:34.0837, lon:74.7973},
-  {name:"Ladakh", lat:34.1526, lon:77.5771},
-  {name:"Gilgit", lat:35.9208, lon:74.3080},
-  {name:"Baltistan", lat:35.3025, lon:75.6360},
-  {name:"Muzaffarabad", lat:34.37, lon:73.47}
-];
-
 async function loadWeather(){
-  const weatherBar = $("#weather-bar");
-  if(!weatherBar) return;
-  weatherBar.innerHTML = "";
+  const bar = $("#weather-bar");
+  if(!bar) return;
+
+  const cities = [
+    {name:"Zurich", lat:47.3769, lon:8.5417},
+    {name:"Rawalakot", lat:33.8578, lon:73.7604},
+    {name:"Jammu", lat:32.7266, lon:74.8570},
+    {name:"Kashmir", lat:34.0837, lon:74.7973},
+    {name:"Ladakh", lat:34.1526, lon:77.5771},
+    {name:"Gilgit", lat:35.9208, lon:74.3080},
+    {name:"Baltistan", lat:35.3025, lon:75.6360},
+    {name:"Muzaffarabad", lat:34.37, lon:73.47}
+  ];
+
+  bar.innerHTML = "";
 
   for(const c of cities){
     try{
@@ -106,15 +90,9 @@ async function loadWeather(){
       );
       const data = await res.json();
       const t = data?.current_weather?.temperature ?? "—";
-
-      weatherBar.innerHTML +=
-        `<div class="city">
-          <span class="name">${c.name}:</span>
-          <span class="temp">${t}°C</span>
-        </div>`;
+      bar.innerHTML += `<div class="city">${c.name}: ${t}°C</div>`;
     }catch{
-      weatherBar.innerHTML +=
-        `<div class="city">${c.name}: —°C</div>`;
+      bar.innerHTML += `<div class="city">${c.name}: —°C</div>`;
     }
   }
 }
@@ -122,92 +100,54 @@ loadWeather();
 
 
 // ================= IMAGE FALLBACK =================
-function applyImageFallback(context=document){
+function applyImageFallback(ctx=document){
   const placeholder =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23f2f2f2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='42' fill='%23999'%3EImage unavailable%3C/text%3E%3C/svg%3E";
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23eeeeee'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='36' fill='%23999'%3EImage Placeholder%3C/text%3E%3C/svg%3E";
 
-  $$("img", context).forEach(img=>{
-    img.onerror = () => img.src = placeholder;
+  $$("img", ctx).forEach(img=>{
+    img.onerror = ()=> img.src = placeholder;
   });
 }
 applyImageFallback();
 
 
-// ================= NAV DROPDOWN =================
-const navItems = $$(".nav-item.has-sub");
-
-navItems.forEach(item=>{
-  const btn = item.querySelector(".nav-btn");
-  if(!btn) return;
-
-  btn.addEventListener("click", function(e){
-    e.preventDefault();
-    e.stopPropagation();
-
-    navItems.forEach(other=>{
-      if(other !== item) other.classList.remove("open");
-    });
-
-    item.classList.toggle("open");
-  });
-});
-
-document.addEventListener("click", ()=>{
-  navItems.forEach(item=>item.classList.remove("open"));
-});
-
-
-// ================= MOBILE MENU =================
-const hamburger = $("#hamburger");
-const navList = $("#nav-list");
-
-if(hamburger && navList){
-  hamburger.addEventListener("click", ()=>{
-    const expanded =
-      hamburger.getAttribute("aria-expanded")==="true";
-
-    hamburger.setAttribute("aria-expanded", !expanded);
-    navList.style.display = expanded ? "none" : "flex";
-  });
-}
-
-
-// ================= HOMEPAGE CARDS =================
-async function renderCards(){
-  const cards = document.querySelectorAll("article.card.post");
-  if(!cards.length) return;
+// ================= BREAKING NEWS =================
+async function loadBreaking(){
+  const container = $("#breaking");
+  if(!container) return;
 
   try{
-    const res = await fetch("content/articles.json",{cache:"no-store"});
+    const res = await fetch("content/breaking.json",{cache:"no-store"});
     const data = await res.json();
     if(!data.items) return;
 
-    data.items.slice(0,cards.length).forEach((item,i)=>{
-      const card = cards[i];
-      card.querySelector("h3").textContent = item.title;
-      card.querySelector("p").textContent = item.excerpt;
+    container.innerHTML = "";
 
-      const link = card.querySelector(".read-more");
-      if(link) link.href = `article.html?id=${item.id}`;
-
-      const img = card.querySelector("img");
-      if(img && item.heroImage?.src){
-        img.src = item.heroImage.src;
-      }
-
-      const author = card.querySelector(".author");
-      if(author) author.textContent = "Special Correspondent";
+    data.items.forEach(item=>{
+      container.innerHTML += `
+        <article class="card post">
+          <div class="media">
+            <img src="${item.heroImage?.src || ''}">
+          </div>
+          <div class="card-body">
+            <h3>${item.title}</h3>
+            <p>${item.excerpt}</p>
+            <a class="read-more" href="article.html?id=${item.id}">Read More →</a>
+          </div>
+        </article>
+      `;
     });
 
-    applyImageFallback();
-  }catch(e){
-    console.warn("Cards failed");
+    applyImageFallback(container);
+
+  }catch{
+    console.warn("Breaking failed");
   }
 }
-renderCards();
+loadBreaking();
 
 
-// ================= VLOG RENDER =================
+// ================= VLOG =================
 async function renderVlogs(){
   const vlogSection = $("#vlog");
   if(!vlogSection) return;
@@ -220,34 +160,44 @@ async function renderVlogs(){
     const cards = vlogSection.querySelectorAll("article.card.video");
 
     data.videos.slice(0,cards.length).forEach((v,i)=>{
-      const card = cards[i];
-      const media = card.querySelector(".media");
-      if(!media) return;
+      if(!v.youtubeId) return;
 
-      // KEEP placeholder if no youtubeId
-      if(v.youtubeId){
-        media.innerHTML =
-          `<iframe 
-            src="https://www.youtube.com/embed/${v.youtubeId}" 
-            frameborder="0"
-            allowfullscreen
-            style="width:100%;height:100%;border:0;">
-          </iframe>`;
-      }
+      const media = cards[i].querySelector(".media");
+      media.innerHTML =
+        `<iframe 
+          src="https://www.youtube.com/embed/${v.youtubeId}" 
+          frameborder="0"
+          allowfullscreen
+          style="width:100%;height:100%;border:0;">
+        </iframe>`;
     });
-  }catch(e){
-    console.warn("Vlogs failed");
+
+  }catch{
+    console.warn("Vlog load failed");
   }
 }
 renderVlogs();
 
 
-// ================= ARTICLE PAGE =================
-if(location.pathname.includes("article.html")){
-  renderArticlePage();
+// ================= CONTACT MODAL =================
+const modal = $("#contact-modal");
+const openBtn = $("#open-contact");
+const closeBtn = $("#close-contact");
+
+if(openBtn && modal){
+  openBtn.addEventListener("click", ()=> modal.showModal());
+}
+if(closeBtn && modal){
+  closeBtn.addEventListener("click", ()=> modal.close());
 }
 
-async function renderArticlePage(){
+
+// ================= ARTICLE PAGE =================
+if(location.pathname.includes("article.html")){
+  loadArticle();
+}
+
+async function loadArticle(){
   const id = new URLSearchParams(location.search).get("id");
   if(!id) return;
 
@@ -258,19 +208,17 @@ async function renderArticlePage(){
     if(!article) return;
 
     $("#title").textContent = article.title;
-    $("#meta").textContent =
-      `${article.location||""} · ${article.date} · ${article.readTime}`;
 
-    if(article.heroImage?.src){
-      $("#heroWrap").style.display="block";
-      $("#heroImg").src = article.heroImage.src;
-      $("#heroCaption").textContent =
-        (article.heroImage.caption||"") +
-        (article.heroImage.credit ? " © "+article.heroImage.credit : "");
+    const heroWrap = $("#heroWrap");
+    const heroImg = $("#heroImg");
+
+    if(heroImg){
+      heroImg.src = article.heroImage?.src || "";
+      heroWrap.style.display = "block";
     }
 
     const content = $("#content");
-    content.innerHTML="";
+    content.innerHTML = "";
 
     article.body.forEach(block=>{
       if(block.type==="paragraph"){
@@ -280,84 +228,19 @@ async function renderArticlePage(){
       }
       if(block.type==="image"){
         const fig=document.createElement("figure");
-        fig.className="article-figure";
-        fig.innerHTML=
-          `<img src="${block.src}">
-           <figcaption>${block.caption||""}</figcaption>`;
+        fig.innerHTML = `
+          <img src="${block.src}">
+          <figcaption>${block.caption||""}</figcaption>
+        `;
         content.appendChild(fig);
       }
     });
 
     applyImageFallback(content);
 
-  }catch(e){
-    console.warn("Article load failed");
+  }catch{
+    console.warn("Article failed");
   }
-}
-
-});
-document.addEventListener("DOMContentLoaded", () => {
-
-const aboutPanel = document.getElementById("about-panel");
-const aboutClose = document.getElementById("about-close");
-
-const aboutBtn = document.querySelector('a[href="#about"]');
-
-if (aboutBtn && aboutPanel) {
-aboutBtn.addEventListener("click", function(e){
-e.preventDefault();
-aboutPanel.hidden = false;
-document.body.style.overflow = "hidden";
-});
-}
-
-if (aboutClose && aboutPanel) {
-aboutClose.addEventListener("click", function(){
-aboutPanel.hidden = true;
-document.body.style.overflow = "";
-});
-}
-
-// Like button
-let likes = 0;
-const likeBtn = document.getElementById("about-like");
-const likeCount = document.getElementById("about-like-count");
-
-if(likeBtn){
-likeBtn.addEventListener("click", ()=>{
-likes++;
-likeCount.textContent = likes;
-});
-}
-
-// Subscribe
-const subBtn = document.getElementById("about-subscribe");
-if(subBtn){
-subBtn.addEventListener("click", function(){
-this.textContent = "Subscribed";
-this.disabled = true;
-});
-}
-
-// Share
-const shareBtn = document.getElementById("about-share");
-if(shareBtn){
-shareBtn.addEventListener("click", ()=>{
-if(navigator.share){
-navigator.share({
-title: "About The Mirror Jammu Kashmir",
-url: location.href + "#about"
-});
-}
-});
-}
-
-// Copy
-const copyBtn = document.getElementById("about-copy");
-if(copyBtn){
-copyBtn.addEventListener("click", ()=>{
-navigator.clipboard.writeText(location.href + "#about");
-});
 }
 
 });
