@@ -333,37 +333,107 @@
   </section>
 
   <!-- Human Rights section (unchanged layout, reference for equal windows) -->
-  <section class="section-rail">
-    <div class="rail-header red-label"><span>🧑‍⚕️ Human Rights</span></div>
-    <div class="cards two">
+    <section class="section-rail">
+      <div class="rail-header red-label"><span>🧑‍⚕️ Human Rights</span></div>
 
-      <article class="card rail">
-        <div class="media">
-          <img src="assets/sample-3.jpg"
-               alt="Aid"
-               loading="lazy"
-               decoding="async"
-               onerror="this.onerror=null;this.src='assets/placeholder.svg';" />
-        </div>
-        <div class="card-body">
-          <h3>Humanitarian Organizations Launch Aid Initiative</h3>
-          <p>International relief efforts focus on providing essential services to affected communities.</p>
-          <div class="meta">
-            <span class="author">Human Rights Desk</span>
-            <span class="date">3 hours ago</span>
+      <div class="cards two">
+        <article class="card rail">
+          <div class="media">
+            <img src="assets/sample-3.jpg" alt="Aid" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='assets/placeholder.svg';" />
           </div>
-          <a class="read-more" href="#">Read More →</a>
-        </div>
-      </article>
+          <div class="card-body">
+            <h3>Humanitarian Organizations Launch Aid Initiative</h3>
+            <p>International relief efforts focus on providing essential services to affected communities.</p>
+            <div class="meta">
+              <span class="author">Human Rights Desk</span>
+              <span class="date">3 hours ago</span>
+            </div>
+            <a class="read-more" href="#">Read More →</a>
+          </div>
+        </article>
 
-      <article class="card rail">
-        <div class="media">
-          <img src="assets/sample-2.jpg"
-               alt="Legal"
-               loading="lazy"
-               decoding="async"
-               onerror="this.onerror=null;this.src='assets/placeholder.svg';" />
-        </div>
-        <div class="card-body">
-          <h3>Legal Advocacy Groups File Petition</h3>
-          <p>Human rights lawyers present case for civilian
+        <article class="card rail">
+          <div class="media">
+            <img src="assets/sample-2.jpg" alt="Legal" loading="lazy" decoding="async"
+                 onerror="this.onerror=null;this.src='assets/placeholder.svg';" />
+          </div>
+          <div class="card-body">
+            <h3>Legal Advocacy Groups File Petition</h3>
+            <p>Human rights lawyers present case for civilian protection measures.</p>
+            <div class="meta">
+              <span class="author">Legal Correspondent</span>
+              <span class="date">5 hours ago</span>
+            </div>
+            <a class="read-more" href="#">Read More →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="center">
+        <a class="btn outline" href="#">View All Human Rights</a>
+      </div>
+    </section>
+
+    <section id="epaper" class="epaper card">
+      <h2>📰 E-Paper Upload</h2>
+      <p>Upload your digital publication (PDF). This section is a placeholder; connect to your preferred CMS or cloud later.</p>
+      <form name="epaper" method="POST" data-netlify="true">
+        <input type="file" name="file" accept=".pdf" />
+        <button class="btn" type="submit">Upload</button>
+      </form>
+    </section>
+
+    <section id="contact" class="contact-wrap">
+      <div class="newsletter card">
+        <h2>📬 Newsletter</h2>
+        <form name="newsletter" method="POST" data-netlify="true">
+          <input type="email" name="email" placeholder="your@email.com" required />
+          <button class="btn" type="submit">Subscribe</button>
+        </form>
+      </div>
+
+      <div class="contact card">
+        <h2>✉️ Contact</h2>
+        <p>Email: <a href="mailto:contact@themirrorjk.com">contact@themirrorjk.com</a> • Phone: <a href="tel:+41783131213">+41 783 13 12 13</a></p>
+        <button class="btn" id="open-contact">Open Contact Form</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="social">
+      <a href="#" aria-label="Twitter">𝕏</a>
+      <a href="#" aria-label="Instagram">📸</a>
+      <a href="#" aria-label="YouTube">▶️</a>
+      <a href="#" aria-label="Facebook">📘</a>
+      <button class="btn small outline" id="share-btn">Share</button>
+    </div>
+
+    <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved. <a href="/admin/" class="admin-link">Admin</a></p>
+  </footer>
+
+  <dialog id="contact-modal" class="modal">
+    <form name="contact" method="POST" data-netlify="true" class="modal-card">
+      <h3>Contact Form</h3>
+      <label> Name <input type="text" name="name" required /></label>
+      <label> Email <input type="email" name="email" required /></label>
+      <label> Message <textarea name="message" rows="4" required></textarea></label>
+      <div class="modal-actions">
+        <button type="submit" class="btn">Submit</button>
+        <button type="button" class="btn outline" id="close-contact">Exit</button>
+      </div>
+    </form>
+  </dialog>
+
+  <nav class="mobile-sticky">
+    <a href="#top" aria-label="Home">🏠</a>
+    <button id="sticky-search" aria-label="Search">🔍</button>
+    <button id="sticky-like" aria-label="Like">❤️</button>
+    <button id="sticky-share" aria-label="Share">🔗</button>
+    <button id="sticky-menu" aria-label="Menu">☰</button>
+  </nav>
+
+  <script src="script.js?v=4"></script>
+</body>
+</html>
