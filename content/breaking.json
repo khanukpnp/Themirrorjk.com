@@ -10,13 +10,15 @@
       "location": "London, United Kingdom",
       "date": "2025-11-26",
       "readTime": "12 min read",
-      "image": "content/images/london-ukpnp-01.jpg",
+
       "heroImage": {
         "src": "content/images/london-ukpnp-01.jpg",
         "caption": "UKPNP delegation meets Baroness Emma Nicholson in London.",
         "credit": "The Mirror Jammu Kashmir"
       },
+
       "archive": false,
+
       "body": [
         {
           "type": "paragraph",
