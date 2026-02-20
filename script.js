@@ -17,90 +17,57 @@ function updateTimes(){
         if (!el) return;
         try {
             el.textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
-        } catch (e) {
-            // Safe fallback: plain Gregorian date/time
+        } catch {
             el.textContent = new Intl.DateTimeFormat('en-GB', {
-                day:'numeric',
-                month:'long',
-                year:'numeric',
-                hour:'2-digit',
-                minute:'2-digit',
-                second:'2-digit',
+                day:'numeric', month:'long', year:'numeric',
+                hour:'2-digit', minute:'2-digit', second:'2-digit',
                 hour12:false
             }).format(now);
         }
     };
 
-    // CEST full date/time
     setTime("#clock-cest span", {
-        weekday:'long',
-        year:'numeric',
-        month:'long',
-        day:'numeric',
-        hour:'2-digit',
-        minute:'2-digit',
-        second:'2-digit',
-        hour12:false,
-        timeZone:'Europe/Zurich'
+        weekday:'long', year:'numeric', month:'long', day:'numeric',
+        hour:'2-digit', minute:'2-digit', second:'2-digit',
+        hour12:false, timeZone:'Europe/Zurich'
     });
 
-    // IST time
     setTime("#tz-ist span", {
-        hour:'2-digit',
-        minute:'2-digit',
-        second:'2-digit',
-        hour12:false,
-        timeZone:'Asia/Kolkata'
+        hour:'2-digit', minute:'2-digit', second:'2-digit',
+        hour12:false, timeZone:'Asia/Kolkata'
     });
 
-    // PKT time
     setTime("#tz-pkt span", {
-        hour:'2-digit',
-        minute:'2-digit',
-        second:'2-digit',
-        hour12:false,
-        timeZone:'Asia/Karachi'
+        hour:'2-digit', minute:'2-digit', second:'2-digit',
+        hour12:false, timeZone:'Asia/Karachi'
     });
 
-    // Hijri calendar (with safe fallback)
     const hijriEl = $("#cal-hijri span");
-    if (hijriEl) {
+    if (hijriEl){
         try {
             hijriEl.textContent = new Intl.DateTimeFormat('en-GB', {
-                day:'numeric',
-                month:'long',
-                year:'numeric',
-                calendar:'islamic'
+                day:'numeric', month:'long', year:'numeric', calendar:'islamic'
             }).format(now);
-        } catch (e) {
+        } catch {
             hijriEl.textContent = new Intl.DateTimeFormat('en-GB', {
-                day:'numeric',
-                month:'long',
-                year:'numeric'
+                day:'numeric', month:'long', year:'numeric'
             }).format(now);
         }
     }
 
-    // Hindi/Indian calendar (with safe fallback)
     const hindiEl = $("#cal-hindi span");
-    if (hindiEl) {
+    if (hindiEl){
         try {
             hindiEl.textContent = new Intl.DateTimeFormat('en-GB', {
-                day:'numeric',
-                month:'long',
-                year:'numeric',
-                calendar:'indian'
+                day:'numeric', month:'long', year:'numeric', calendar:'indian'
             }).format(now);
-        } catch (e) {
+        } catch {
             hindiEl.textContent = new Intl.DateTimeFormat('en-GB', {
-                day:'numeric',
-                month:'long',
-                year:'numeric'
+                day:'numeric', month:'long', year:'numeric'
             }).format(now);
         }
     }
 }
-
 updateTimes();
 setInterval(updateTimes, 1000);
 
@@ -130,7 +97,7 @@ async function loadWeather(){
             const data = await res.json();
             const t = data?.current_weather?.temperature ?? "—";
             bar.innerHTML += `<div class="city">${c.name}: ${t}°C</div>`;
-        }catch{
+        } catch {
             bar.innerHTML += `<div class="city">${c.name}: —°C</div>`;
         }
     }
@@ -140,16 +107,15 @@ loadWeather();
 // ================= IMAGE FALLBACK =================
 function applyImageFallback(ctx=document){
     const placeholder =
-      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23eeeeee'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='36' fill='%23999'%3EImage Placeholder%3C/text%3E%3C/svg%3E";
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23eeeeee'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='36' fill='%23999'%3EImage Placeholder%3C/text%3E%3C/svg%3E";
 
     $$("img", ctx).forEach(img=>{
-        // Always attach a safe fallback, even if HTML has onerror
         img.onerror = ()=> { img.src = placeholder; };
     });
 }
 applyImageFallback();
 
-// ================= BREAKING NEWS =================
+// ================= BREAKING NEWS (HOMEPAGE) =================
 async function loadBreaking(){
     const container = $("#breaking");
     if (!container) return;
@@ -163,15 +129,13 @@ async function loadBreaking(){
 
         data.items.forEach(item=>{
             const heroSrc = item.heroImage?.src || "";
-            const hasImage = !!heroSrc;
-
             const article = document.createElement("article");
             article.className = "card post";
 
             const media = document.createElement("div");
             media.className = "media";
 
-            if (hasImage){
+            if (heroSrc){
                 media.innerHTML = `<img src="${heroSrc}" alt="">`;
             } else {
                 media.classList.add("placeholder","maroon");
@@ -192,8 +156,7 @@ async function loadBreaking(){
         });
 
         applyImageFallback(container);
-
-    }catch{
+    } catch {
         console.warn("Breaking failed");
     }
 }
@@ -213,6 +176,7 @@ async function renderVlogs(){
 
         data.videos.slice(0, cards.length).forEach((v,i)=>{
             if (!v.youtubeId) return;
+
             const card = cards[i];
             if (!card) return;
 
@@ -220,14 +184,12 @@ async function renderVlogs(){
             if (!media) return;
 
             const badges = [...media.querySelectorAll(".badge")];
-
             media.innerHTML = "";
             badges.forEach(b => media.appendChild(b));
 
             const iframe = document.createElement("iframe");
             iframe.src = `https://www.youtube.com/embed/${v.youtubeId}`;
             iframe.title = v.title || "";
-            iframe.frameBorder = "0";
             iframe.allowFullscreen = true;
             iframe.loading = "lazy";
             iframe.referrerPolicy = "strict-origin-when-cross-origin";
@@ -237,77 +199,91 @@ async function renderVlogs(){
 
             media.appendChild(iframe);
         });
-
-    }catch{
+    } catch {
         console.warn("Vlog load failed");
     }
 }
 renderVlogs();
 
-// ================= CONTACT MODAL =================
-const modal = $("#contact-modal");
-const openBtn = $("#open-contact");
-const closeBtn = $("#close-contact");
-
-if (openBtn && modal){
-    openBtn.addEventListener("click", ()=> modal.showModal());
+// ================= ABOUT PAGE =================
+if (location.pathname.includes("about.html")){
+    loadAbout();
 }
 
-if (closeBtn && modal){
-    closeBtn.addEventListener("click", ()=> modal.close());
+async function loadAbout(){
+    try{
+        const res = await fetch("content/about.json",{cache:"no-store"});
+        const data = await res.json();
+
+        $("#title").textContent = data.title || "";
+        $("#meta").textContent = data.subtitle || "";
+
+        const content = $("#content");
+        content.innerHTML = "";
+
+        data.body.forEach(block=>{
+            if (block.type === "paragraph"){
+                const p = document.createElement("p");
+                p.textContent = block.text;
+                content.appendChild(p);
+            }
+            if (block.type === "header"){
+                const h = document.createElement("h2");
+                h.textContent = block.text;
+                content.appendChild(h);
+            }
+        });
+
+        applyImageFallback(content);
+    } catch {
+        console.warn("About page failed");
+    }
 }
 
-if (modal){
-    modal.addEventListener("click", e => {
-        if (e.target === modal) modal.close();
-    });
+// ================= CHIEF EDITOR PAGE =================
+if (location.pathname.includes("chief-editor.html")){
+    loadChiefEditor();
 }
 
-// ================= NAVIGATION DROPDOWNS =================
-$$(".nav-item.has-sub").forEach(item => {
-    const btn = item.querySelector(".nav-btn");
-    if (!btn) return;
+async function loadChiefEditor(){
+    try{
+        const res = await fetch("content/chief-editor.json",{cache:"no-store"});
+        const data = await res.json();
 
-    btn.addEventListener("click", () => {
-        const isOpen = item.classList.toggle("open");
+        $("#title").textContent = data.title || "";
+        $("#meta").textContent = data.subtitle || "";
 
-        if (isOpen){
-            $$(".nav-item.has-sub").forEach(other => {
-                if (other !== item) other.classList.remove("open");
-            });
+        const content = $("#content");
+        content.innerHTML = "";
+
+        if (data.heroImage?.src){
+            const fig = document.createElement("figure");
+            fig.style.float = "right";
+            fig.style.width = "35%";
+            fig.style.margin = "8px 0 14px 20px";
+            fig.innerHTML = `
+                <img src="${data.heroImage.src}" alt="">
+                <figcaption>${data.heroImage.caption || ""}</figcaption>
+            `;
+            content.appendChild(fig);
         }
-    });
-});
 
-// ================= MOBILE MENU =================
-const hamburger = $("#hamburger");
-const mobileMenu = $("#mobile-menu");
-const navList = $("#nav-list");
+        data.body.forEach(block=>{
+            if (block.type === "paragraph"){
+                const p = document.createElement("p");
+                p.textContent = block.text;
+                content.appendChild(p);
+            }
+        });
 
-if (hamburger && mobileMenu && navList){
+        const clear = document.createElement("div");
+        clear.style.clear = "both";
+        content.appendChild(clear);
 
-    // Clone desktop nav into mobile menu
-    mobileMenu.innerHTML = `<ul>${navList.innerHTML}</ul>`;
-
-    hamburger.addEventListener("click", () => {
-        const isHidden = mobileMenu.hidden;
-        mobileMenu.hidden = !isHidden;
-        hamburger.setAttribute("aria-expanded", isHidden ? "true" : "false");
-    });
-}
-
-// ================= STICKY BAR BUTTONS =================
-const stickyMenuBtn = $("#sticky-menu");
-if (stickyMenuBtn && hamburger){
-    stickyMenuBtn.addEventListener("click", () => {
-        hamburger.click();
-    });
-}
-
-const stickyShareBtn = $("#sticky-share");
-const shareBtn = $("#share-btn");
-if (stickyShareBtn && shareBtn){
-    stickyShareBtn.addEventListener("click", () => shareBtn.click());
+        applyImageFallback(content);
+    } catch {
+        console.warn("Chief Editor page failed");
+    }
 }
 
 // ================= ARTICLE PAGE =================
@@ -322,11 +298,11 @@ async function loadArticle(){
     try{
         const res = await fetch("content/articles.json",{cache:"no-store"});
         const data = await res.json();
+
         const article = data.items?.find(x=>x.id===id);
         if (!article) return;
 
-        const titleEl = $("#title");
-        if (titleEl) titleEl.textContent = article.title;
+        $("#title").textContent = article.title;
 
         const heroWrap = $("#heroWrap");
         const heroImg = $("#heroImg");
@@ -337,8 +313,6 @@ async function loadArticle(){
         }
 
         const content = $("#content");
-        if (!content) return;
-
         content.innerHTML = "";
 
         article.body.forEach(block=>{
@@ -347,7 +321,6 @@ async function loadArticle(){
                 p.textContent = block.text;
                 content.appendChild(p);
             }
-
             if (block.type === "image"){
                 const fig = document.createElement("figure");
                 fig.innerHTML = `
@@ -359,8 +332,7 @@ async function loadArticle(){
         });
 
         applyImageFallback(content);
-
-    }catch{
+    } catch {
         console.warn("Article failed");
     }
 }
