@@ -7,7 +7,7 @@
 <title>THE MIRROR JAMMU KASHMIR</title>
 <meta name="description" content="The Mirror Jammu Kashmir — Champion justice and amplify the voices of the unheard.">
 <link rel="preconnect" href="https://api.open-meteo.com">
-<link rel="stylesheet" href="styles.css?v=20">
+<link rel="stylesheet" href="styles.css?v=40">
 </head>
 
 <body class="theme-maroon">
@@ -23,6 +23,7 @@
   </div>
 </header>
 
+<!-- CLOCKS -->
 <section class="bar clocks-line">
   <div class="row tight nowrap">
     <div id="clock-cest" class="chip tiny">🕒 <span>Loading CEST…</span></div>
@@ -33,10 +34,12 @@
   </div>
 </section>
 
+<!-- WEATHER -->
 <section class="bar weather-line">
   <div class="row nowrap super-tight" id="weather-bar"></div>
 </section>
 
+<!-- TICKER -->
 <section class="ticker-wrap">
   <div class="ticker">
     <ul id="ticker-items">
@@ -47,9 +50,9 @@
   </div>
 </section>
 
+<!-- NAV -->
 <nav class="navbar">
   <button class="hamburger" id="hamburger">☰ Menu</button>
-
   <ul class="nav-list" id="nav-list">
 
     <li class="nav-item has-sub">
@@ -61,134 +64,122 @@
       </div>
     </li>
 
-    <li class="nav-item">
-      <a class="nav-btn" href="#breaking">🆕 Breaking News</a>
-    </li>
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">📝 Blog</button>
-      <div class="dropdown">
-        <a href="#articles">Latest Articles</a>
-        <a href="#international">International</a>
-      </div>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-btn" href="#vlog">🎥 Vlog</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-btn" href="#epaper">📰 E-Paper</a>
-    </li>
+    <li class="nav-item"><a class="nav-btn" href="#breaking">🆕 Breaking News</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#blog-opinion">📝 Blog / Opinion</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#international">🌍 International</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#vlog">🎥 Vlog</a></li>
+    <li class="nav-item"><a class="nav-btn" href="#epaper">📰 E-Paper</a></li>
 
   </ul>
-
   <div id="mobile-menu" class="mobile-menu" hidden></div>
 </nav>
 
 <main class="main">
 
-<section id="articles" class="card-col">
-  <h2>📝 Latest News/Top Stories/ Breaking /Blogs/Opinion</h2>
-  <div class="cards three" id="articles-container">
-    <article class="card post">
-      <div class="media placeholder maroon">Editorial Placeholder</div>
-      <div class="card-body">
-        <h3>Loading articles…</h3>
-        <p>Content loads from JSON automatically.</p>
+<!-- FIRST WINDOW: MAIN ARTICLE -->
+<section id="main-article-window" class="article-page">
+  <div class="article-shell">
+
+    <article class="article-card">
+
+      <!-- HERO PLACEHOLDER -->
+      <div class="article-hero-placeholder">
+        <div class="media placeholder maroon">
+          Hero Image Placeholder
+        </div>
       </div>
+
+      <!-- HEADLINE -->
+      <header class="article-header">
+        <h1>Main Article Title</h1>
+        <div class="article-meta">
+          <span>By Editorial Desk</span>
+          <span>•</span>
+          <span>Today</span>
+        </div>
+      </header>
+
+      <!-- READ MORE HERO AGAIN -->
+      <section class="read-more-hero">
+        <div class="media placeholder maroon">
+          Hero Image Appears Again Below Heading
+        </div>
+      </section>
+
+      <!-- ARTICLE CONTENT -->
+      <div class="article-content">
+        <p>Main article content appears here. Inline images float left and right as already styled in article.css. This behavior remains unchanged.</p>
+      </div>
+
     </article>
+
   </div>
 </section>
 
+<!-- SECOND WINDOW: BREAKING -->
 <section id="breaking" class="section-rail">
   <div class="rail-header"><span>🆕 Breaking News</span></div>
-  <div class="cards two" id="breaking-container">
-    <article class="card rail">
-      <div class="media placeholder blue">Breaking Placeholder</div>
-      <div class="card-body">
-        <h3>Loading breaking news…</h3>
-        <p>Breaking updates appear here.</p>
-      </div>
-    </article>
-  </div>
+  <div class="cards two" id="breaking-container"></div>
+
+  <!-- BREAKING ARCHIVE -->
+  <div class="archive-block" id="breaking-archive"></div>
 </section>
 
-  <section id="breaking" class="section-rail">
-  <div class="rail-header"><span>🆕 Blog Opinion</span></div>
-  <div class="cards three" id="blog Opinion-container">
-    <article class="card rail">
-      <div class="media placeholder blue">Breaking Placeholder</div>
-      <div class="card-body">
-        <h3>Loading blog Opinion…</h3>
-        <p>blog Opinion appear here.</p>
-      </div>
-    </article>
-  </div>
+<!-- THIRD WINDOW: BLOG OPINION -->
+<section id="blog-opinion" class="section-rail">
+  <div class="rail-header"><span>📝 Blog / Opinion</span></div>
+  <div class="cards three" id="blog-opinion-container"></div>
+
+  <!-- BLOG ARCHIVE -->
+  <div class="archive-block" id="blog-archive"></div>
 </section>
 
+<!-- INTERNATIONAL (50% 50%) -->
 <section id="international" class="section-rail">
   <div class="rail-header"><span>🌍 International News</span></div>
   <div class="cards two">
 
     <article class="card rail">
       <div class="media">
-        <img src="assets/sample-1.jpg" alt="International" loading="lazy"
-        onerror="this.onerror=null;this.src='assets/placeholder.svg';">
+        <img src="assets/sample-1.jpg" loading="lazy">
       </div>
       <div class="card-body">
-        <h3>International Diplomacy Developments</h3>
-        <p>Global developments and diplomatic updates.</p>
+        <h3>International Window 1</h3>
       </div>
     </article>
 
     <article class="card rail">
       <div class="media">
-        <img src="assets/sample-2.jpg" alt="Global Affairs" loading="lazy"
-        onerror="this.onerror=null;this.src='assets/placeholder.svg';">
+        <img src="assets/sample-2.jpg" loading="lazy">
       </div>
       <div class="card-body">
-        <h3>Global Human Rights Discussion</h3>
-        <p>Ongoing international dialogue and resolutions.</p>
+        <h3>International Window 2</h3>
       </div>
     </article>
 
   </div>
 </section>
 
+<!-- VLOG -->
 <section id="vlog" class="vlogs card">
   <h2>🎥 Video Reports & Vlogs</h2>
-
   <div class="cards three media-cards" id="vlog-container">
-
-    <article class="card video">
-      <div class="media">
-        <iframe width="100%" height="220"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-          title="YouTube video"
-          frameborder="0"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="card-body">
-        <h3>Featured Video Report</h3>
-        <p>In-depth interviews and analysis.</p>
-      </div>
-    </article>
-
   </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about" class="card">
   <h2>About</h2>
-  <p>The Mirror Jammu Kashmir is an independent digital media platform dedicated to verified reporting, human dignity, and international law.</p>
+  <p>The Mirror Jammu Kashmir is an independent digital media platform.</p>
 </section>
 
+<!-- CHIEF EDITOR -->
 <section id="chief-editor" class="card">
   <h2>Chief Editor</h2>
-  <p>Editorial leadership and mission of the platform.</p>
+  <p>Editorial leadership and mission.</p>
 </section>
 
+<!-- EPAPER -->
 <section id="epaper" class="epaper card">
   <h2>📰 E-Paper Upload</h2>
   <form name="epaper" method="POST" data-netlify="true">
@@ -197,56 +188,24 @@
   </form>
 </section>
 
+<!-- CONTACT -->
 <section id="contact" class="contact-wrap">
   <div class="newsletter card">
     <h2>📬 Newsletter</h2>
     <form name="newsletter" method="POST" data-netlify="true">
-      <input type="email" name="email" placeholder="your@email.com" required>
-      <button class="btn" type="submit">Subscribe</button>
+      <input type="email" name="email" required>
+      <button class="btn">Subscribe</button>
     </form>
-  </div>
-
-  <div class="contact card">
-    <h2>Contact</h2>
-    <p>Email: contact@themirrorjk.com</p>
-    <button class="btn" id="open-contact">Open Contact Form</button>
   </div>
 </section>
 
 </main>
 
 <footer class="footer">
-  <div class="social">
-    <a href="#">𝕏</a>
-    <a href="#">📸</a>
-    <a href="#">▶️</a>
-    <a href="#">📘</a>
-  </div>
-  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR</p>
 </footer>
 
-<dialog id="contact-modal" class="modal">
-  <form name="contact" method="POST" data-netlify="true" class="modal-card">
-    <h3>Contact Form</h3>
-    <label>Name <input type="text" name="name" required></label>
-    <label>Email <input type="email" name="email" required></label>
-    <label>Message <textarea name="message" rows="4" required></textarea></label>
-    <div class="modal-actions">
-      <button type="submit" class="btn">Submit</button>
-      <button type="button" class="btn outline" id="close-contact">Exit</button>
-    </div>
-  </form>
-</dialog>
-
-<nav class="mobile-sticky">
-  <a href="#top">🏠</a>
-  <button id="sticky-search">🔍</button>
-  <button id="sticky-like">❤️</button>
-  <button id="sticky-share">🔗</button>
-  <button id="sticky-menu">☰</button>
-</nav>
-
-<script src="script.js?v=20"></script>
+<script src="script.js?v=40"></script>
 
 </body>
 </html>
