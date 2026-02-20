@@ -86,64 +86,71 @@
   </div>
 </section>
 
-<nav class="navbar">
-  <button class="hamburger" id="hamburger">☰ Menu</button>
-  <ul class="nav-list">
+  <nav class="navbar" aria-label="Primary Navigation">
+    <button class="hamburger" aria-expanded="false" aria-controls="mobile-menu" id="hamburger">☰ Menu</button>
+    <ul class="nav-list" id="nav-list">
+      <li class="nav-item has-sub">
+        <button class="nav-btn">🏠 Home</button>
+        <div class="dropdown">
+          <a href="#about">About</a>
+          <a href="#chief-editor">Chief Editor</a>
+           <a href="#contact">Contact</a>
+          
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-btn" href="#breaking">🆕 Breaking News</a></li>
+      <li class="nav-item has-sub">
+        <button class="nav-btn">📝 Blog</button>
+        <div class="dropdown wide">
+          <a href="#editorial">Editorial</a>
+          <a href="#opinion">Opinion</a>
+          <a href="#updates">Latest Updates</a>
+        </div>
+      </li>
+      <li class="nav-item has-sub">
+        <button class="nav-btn">🎥 Vlog</button>
+        <div class="dropdown">
+          <a href="#vlog-latest">Latest Vlogs</a>
+          <a href="#vlog-archive">Archive</a>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-btn" href="#epaper">📰 E-Paper</a></li>
+      <li class="nav-item has-sub">
+        <button class="nav-btn">📍 Jammu Kashmir</button>
+        <div class="dropdown wide">
+          <a href="#jk-region">Regions</a>
+          <a href="#jk-history">History</a>
+          <a href="#jk-culture">Culture</a>
+        </div>
+      </li>
+      <li class="nav-item has-sub">
+        <button class="nav-btn">📜 Historical Documents</button>
+        <div class="dropdown wide">
+          <a href="#docs-treaties">Treaties</a>
+          <a href="#docs-archives">Archives</a>
+          <a href="#docs-letters">Letters</a>
+        </div>
+      </li>
+      <li class="nav-item has-sub">
+        <button class="nav-btn">🕊️ UN &amp; Human Rights</button>
+        <div class="dropdown">
+          <a href="#unhrc">UNHRC</a>
+          <a href="#reports">Reports</a>
+          <a href="#advocacy">Advocacy</a>
+        </div>
+      </li>
+      <li class="nav-item has-sub">
+        <button class="nav-btn">🌐 Global Advocacy</button>
+        <div class="dropdown wide">
+          <a href="#campaigns">Campaigns</a>
+          <a href="#partners">Partners</a>
+          <a href="#get-involved">Get Involved</a>
+        </div>
+      </li>
+    </ul>
+    <div id="mobile-menu" class="mobile-menu" hidden></div>
+  </nav>
 
-    <li class="nav-item has-sub">
-      <button class="nav-btn">🏠 Home</button>
-      <div class="dropdown">
-        <a href="about.html">About</a>
-        <a href="chief-editor.html">Chief Editor</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-btn" href="#breaking">🆕 Breaking News</a>
-    </li>
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">📝 Blog</button>
-      <div class="dropdown wide">
-        <a href="#editorial">Editorial</a>
-        <a href="#opinion">Opinion</a>
-        <a href="#updates">Latest Updates</a>
-      </div>
-    </li>
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">🎥 Vlog</button>
-      <div class="dropdown">
-        <a href="#vlog-latest">Latest Vlogs</a>
-        <a href="#vlog-archive">Archive</a>
-      </div>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-btn" href="#epaper">📰 E-Paper</a>
-    </li>
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">🕊 UN &amp; Human Rights</button>
-      <div class="dropdown">
-        <a href="#">UNHRC</a>
-        <a href="#">Reports</a>
-        <a href="#">Advocacy</a>
-      </div>
-    </li>
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">🌐 Global Advocacy</button>
-      <div class="dropdown wide">
-        <a href="#">Campaigns</a>
-        <a href="#">Partners</a>
-        <a href="#">Get Involved</a>
-      </div>
-    </li>
-
-  </ul>
-</nav>
 
 <main class="main">
 
