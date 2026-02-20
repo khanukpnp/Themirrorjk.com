@@ -7,8 +7,6 @@
 <base href="./" />
 <title>THE MIRROR JAMMU KASHMIR</title>
 
-<meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard." />
-
 <link rel="preconnect" href="https://api.open-meteo.com">
 <link rel="stylesheet" href="styles.css?v=9" />
 </head>
@@ -28,7 +26,7 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 </header>
 
 <!-- CLOCKS -->
-<section class="bar clocks-line" aria-label="Clocks and Calendars">
+<section class="bar clocks-line">
 <div class="row tight nowrap">
 <div id="clock-cest" class="chip tiny">🕒 <span>Loading CEST…</span></div>
 <div id="cal-hijri" class="chip tiny">📅 <span>Hijri…</span></div>
@@ -39,12 +37,12 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 </section>
 
 <!-- WEATHER -->
-<section class="bar weather-line" aria-label="Weather">
+<section class="bar weather-line">
 <div class="row nowrap super-tight" id="weather-bar"></div>
 </section>
 
 <!-- TICKER -->
-<section class="ticker-wrap" aria-label="Breaking Ticker">
+<section class="ticker-wrap">
 <div class="ticker">
 <span></span>
 
@@ -97,7 +95,7 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 </section>
 
 <!-- NAVIGATION -->
-<nav class="navbar" aria-label="Primary Navigation">
+<nav class="navbar">
 
 <button class="hamburger" aria-expanded="false" aria-controls="mobile-menu" id="hamburger">☰ Menu</button>
 
@@ -176,14 +174,14 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 
 <main class="main">
 
-<!-- LATEST ARTICLES (LEFT) + BREAKING (MIDDLE) + BLOG (RIGHT) -->
+<!-- LATEST + BREAKING + BLOG -->
 <section class="card-col" id="articles">
 
 <h2 class="rail-header red-label"><span>📝 Latest Articles</span></h2>
 
 <div class="cards three">
 
-<!-- LEFT COLUMN (placeholder stays) -->
+<!-- LEFT COLUMN -->
 <article class="card post">
 <div class="media placeholder maroon">Editorial Placeholder</div>
 <div class="card-body">
@@ -193,13 +191,12 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 </div>
 </article>
 
-<!-- MIDDLE COLUMN (BREAKING inserted INSIDE placeholder) -->
+<!-- MIDDLE COLUMN (BREAKING) -->
 <article class="card post">
-<div id="breaking" class="media placeholder blue"></div>
-<div class="card-body" id="breaking-body"></div>
+<section id="breaking"></section>
 </article>
 
-<!-- RIGHT COLUMN (placeholder stays) -->
+<!-- RIGHT COLUMN -->
 <article class="card post">
 <div class="media placeholder green">Update Placeholder</div>
 <div class="card-body">
@@ -217,7 +214,6 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 <div class="rail-header red-label"><span>🌐 International News</span></div>
 
 <div class="cards two">
-<!-- unchanged placeholders -->
 <article class="card rail">
 <div class="media">
 <img src="assets/sample-2.jpg" alt="UNSC" loading="lazy" decoding="async"
@@ -333,7 +329,6 @@ referrerpolicy="strict-origin-when-cross-origin"></iframe>
 <div class="rail-header red-label"><span>🧑‍⚕️ Human Rights</span></div>
 
 <div class="cards two">
-<!-- unchanged placeholders -->
 <article class="card rail">
 <div class="media">
 <img src="assets/sample-3.jpg" alt="Aid" loading="lazy" decoding="async"
@@ -413,14 +408,4 @@ onerror="this.onerror=null;this.src='assets/placeholder.svg';" />
 <button class="btn small outline" id="share-btn">Share</button>
 </div>
 
-<p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved. <a href="/admin/" class="admin-link">Admin</a></p>
-</footer>
-
-<!-- CONTACT MODAL -->
-<dialog id="contact-modal" class="modal">
-<form name="contact" method="POST" data-netlify="true" class="modal-card">
-<h3>Contact Form</h3>
-
-<label> Name <input type="text" name="name" required /></label>
-<label> Email <input type="email" name="email" required /></label>
-<label> Message <textarea name
+<p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights
