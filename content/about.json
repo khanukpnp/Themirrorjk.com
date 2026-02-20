@@ -1,0 +1,86 @@
+{
+  "title": "About The Mirror Jammu Kashmir",
+  "subtitle": "Independent Digital Media Platform · Truth · Justice · Human Dignity",
+
+  "heroImage": {
+    "src": "assets/logo.png",
+    "caption": "The Mirror Jammu Kashmir Logo"
+  },
+
+  "body": [
+    {
+      "type": "paragraph",
+      "text": "The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity. We exist to challenge silence, expose injustice, and amplify voices that are ignored or deliberately suppressed. Our work is rooted in facts, international law, and lived realities."
+    },
+    {
+      "type": "paragraph",
+      "text": "Our mission is simple and uncompromising. To champion justice. To speak the truth without fear. To bring forward voices from the margins. To document realities others ignore. Hope becomes real through action and principled journalism."
+    },
+    {
+      "type": "paragraph",
+      "text": "We are guided by the belief that all human beings are born free and equal in dignity and rights. These rights are universal and non negotiable. Equality without discrimination is not a privilege. It is a right."
+    },
+    {
+      "type": "paragraph",
+      "text": "Democracy derives its legitimacy from the will of the people. It cannot survive where human rights are violated or where populations are excluded."
+    },
+    {
+      "type": "paragraph",
+      "text": "The Mirror Jammu Kashmir stands against the global erosion of human rights. Forced occupation, forced migration, forced labor, and debt bondage remain present realities."
+    },
+    {
+      "type": "paragraph",
+      "text": "Our work is grounded in the historical and political reality of the State of Jammu and Kashmir. Founded on 16 March 1846 through the Treaty of Amritsar, the state remained independent for 101 years. Maharaja Hari Singh chose independence at partition."
+    },
+    {
+      "type": "paragraph",
+      "text": "Since 1947, the people of the historical State of Jammu and Kashmir have remained forcibly divided. Freedom of movement, expression, press, peaceful assembly, and association are routinely restricted."
+    },
+    {
+      "type": "paragraph",
+      "text": "Independent journalism is increasingly marginalized. An impartial and independent media is a democratic necessity."
+    },
+    {
+      "type": "paragraph",
+      "text": "We present verified historical facts, treaties, and ground realities. We remind states of their responsibilities under international law."
+    },
+    {
+      "type": "paragraph",
+      "text": "We assess policies against promises. Actions against pledges. Conduct against international standards."
+    },
+    {
+      "type": "paragraph",
+      "text": "The Mirror Jammu Kashmir holds up a mirror to power, to policy, to history, and to truth."
+    },
+
+    {
+      "type": "header",
+      "text": "Editorial & Opinion Disclaimer"
+    },
+
+    {
+      "type": "paragraph",
+      "text": "The Mirror Jammu Kashmir is an independent digital media platform committed to factual reporting, responsible journalism, and the protection of freedom of expression."
+    },
+    {
+      "type": "paragraph",
+      "text": "Opinions expressed in editorials, opinion pieces, guest columns, interviews, and contributed articles are solely those of the respective authors. They do not necessarily reflect the official position, editorial policy, or views of The Mirror Jammu Kashmir, its editorial board, management, affiliates, partners, or associated organizations."
+    },
+    {
+      "type": "paragraph",
+      "text": "Guest contributors and external writers bear full responsibility for the accuracy of their statements, interpretations, and claims. While reasonable efforts are made to verify information prior to publication, The Mirror Jammu Kashmir does not assume legal liability for errors, omissions, or representations made by third party contributors."
+    },
+    {
+      "type": "paragraph",
+      "text": "References to governments, institutions, organizations, individuals, or public policies are presented for informational, analytical, or journalistic purposes only and should not be interpreted as formal accusations or legal determinations unless explicitly stated as such."
+    },
+    {
+      "type": "paragraph",
+      "text": "All content is published in good faith and in accordance with international standards of journalistic integrity, freedom of expression, and applicable media laws."
+    },
+    {
+      "type": "paragraph",
+      "text": "Readers are encouraged to independently evaluate information and seek professional advice where necessary."
+    }
+  ]
+}
