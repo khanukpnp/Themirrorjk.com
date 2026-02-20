@@ -1,3 +1,4 @@
+Final live index.html 20th Feb2026
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <base href="./" />
 <title>THE MIRROR JAMMU KASHMIR</title>
+
+<meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard." />
 
 <link rel="preconnect" href="https://api.open-meteo.com">
 <link rel="stylesheet" href="styles.css?v=9" />
@@ -19,13 +22,14 @@
 <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
 <img src="assets/logo.png" alt="Logo" class="logo" />
 </div>
+
 <div class="subheading">
 CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYOND BORDERS
 </div>
 </header>
 
 <!-- CLOCKS -->
-<section class="bar clocks-line">
+<section class="bar clocks-line" aria-label="Clocks and Calendars">
 <div class="row tight nowrap">
 <div id="clock-cest" class="chip tiny">🕒 <span>Loading CEST…</span></div>
 <div id="cal-hijri" class="chip tiny">📅 <span>Hijri…</span></div>
@@ -36,12 +40,12 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 </section>
 
 <!-- WEATHER -->
-<section class="bar weather-line">
+<section class="bar weather-line" aria-label="Weather">
 <div class="row nowrap super-tight" id="weather-bar"></div>
 </section>
 
 <!-- TICKER -->
-<section class="ticker-wrap">
+<section class="ticker-wrap" aria-label="Breaking Ticker">
 <div class="ticker">
 <span></span>
 
@@ -94,7 +98,7 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 </section>
 
 <!-- NAVIGATION -->
-<nav class="navbar">
+<nav class="navbar" aria-label="Primary Navigation">
 
 <button class="hamburger" aria-expanded="false" aria-controls="mobile-menu" id="hamburger">☰ Menu</button>
 
@@ -173,14 +177,14 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 
 <main class="main">
 
-<!-- LATEST + BREAKING + BLOG -->
+<!-- LATEST ARTICLES (LEFT) + BREAKING (MIDDLE) + BLOG (RIGHT) -->
 <section class="card-col" id="articles">
 
 <h2 class="rail-header red-label"><span>📝 Latest Articles</span></h2>
 
 <div class="cards three">
 
-<!-- LEFT COLUMN -->
+<!-- LEFT COLUMN (placeholder stays) -->
 <article class="card post">
 <div class="media placeholder maroon">Editorial Placeholder</div>
 <div class="card-body">
@@ -190,12 +194,13 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 </div>
 </article>
 
-<!-- MIDDLE COLUMN (BREAKING) -->
+<!-- MIDDLE COLUMN (BREAKING inserted INSIDE placeholder) -->
 <article class="card post">
-<section id="breaking"></section>
+<div id="breaking" class="media placeholder blue"></div>
+<div class="card-body" id="breaking-body"></div>
 </article>
 
-<!-- RIGHT COLUMN -->
+<!-- RIGHT COLUMN (placeholder stays) -->
 <article class="card post">
 <div class="media placeholder green">Update Placeholder</div>
 <div class="card-body">
@@ -213,6 +218,7 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 <div class="rail-header red-label"><span>🌐 International News</span></div>
 
 <div class="cards two">
+<!-- unchanged placeholders -->
 <article class="card rail">
 <div class="media">
 <img src="assets/sample-2.jpg" alt="UNSC" loading="lazy" decoding="async"
@@ -271,6 +277,7 @@ onerror="this.onerror=null;this.src='assets/placeholder.svg';" />
 </div>
 
 <div class="cards three media-cards">
+<!-- unchanged static iframes -->
 <article class="card video">
 <div class="media">
 <span class="badge cat">Interview</span>
@@ -327,6 +334,7 @@ referrerpolicy="strict-origin-when-cross-origin"></iframe>
 <div class="rail-header red-label"><span>🧑‍⚕️ Human Rights</span></div>
 
 <div class="cards two">
+<!-- unchanged placeholders -->
 <article class="card rail">
 <div class="media">
 <img src="assets/sample-3.jpg" alt="Aid" loading="lazy" decoding="async"
@@ -389,4 +397,57 @@ onerror="this.onerror=null;this.src='assets/placeholder.svg';" />
 
 <div class="contact card">
 <h2>✉️ Contact</h2>
-<p>Email: <a href="mailto:themirrorjk@gmail.com">themirrorjk@gmail.com</a> • Phone: <a href="tel:+41783131213">+41
+<p>Email: <a href="mailto:themirrorjk@gmail.com">themirrorjk@gmail.com</a> • Phone: <a href="tel:+41783131213">+41 783 13 12 13</a></p>
+<button class="btn" id="open-contact">Open Contact Form</button>
+</div>
+
+</section>
+
+</main>
+
+<footer class="footer">
+<div class="social">
+<a href="#" aria-label="Twitter">𝕏</a>
+<a href="#" aria-label="Instagram">📸</a>
+<a href="#" aria-label="YouTube">▶️</a>
+<a href="#" aria-label="Facebook">📘</a>
+<button class="btn small outline" id="share-btn">Share</button>
+</div>
+
+<p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved. <a href="/admin/" class="admin-link">Admin</a></p>
+</footer>
+
+<!-- CONTACT MODAL -->
+<dialog id="contact-modal" class="modal">
+<form name="contact" method="POST" data-netlify="true" class="modal-card">
+<h3>Contact Form</h3>
+
+<label> Name <input type="text" name="name" required /></label>
+<label> Email <input type="email" name="email" required /></label>
+<label> Message <textarea name
+<label> Message
+  <textarea name="message" rows="4" required></textarea>
+</label>
+
+<div class="modal-actions">
+  <button type="submit" class="btn">Submit</button>
+  <button type="button" class="btn outline" id="close-contact">Exit</button>
+</div>
+
+</form>
+</dialog>
+
+<!-- MOBILE STICKY NAV -->
+<nav class="mobile-sticky">
+  <a href="#top" aria-label="Home">🏠</a>
+  <button id="sticky-search" aria-label="Search">🔍</button>
+  <button id="sticky-like" aria-label="Like">❤️</button>
+  <button id="sticky-share" aria-label="Share">🔗</button>
+  <button id="sticky-menu" aria-label="Menu">☰</button>
+</nav>
+
+<!-- CRITICAL: LOAD SCRIPT -->
+<script src="script.js?v=6"></script>
+
+</body>
+</html>
