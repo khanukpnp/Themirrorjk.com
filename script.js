@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 // ================= YEAR =================
 const yearEl = $("#year");
-if(yearEl) yearEl.textContent = new Date().getFullYear();
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ================= CLOCKS =================
 function updateTimes(){
@@ -14,10 +14,24 @@ function updateTimes(){
 
     const setTime = (selector, options) => {
         const el = $(selector);
-        if(!el) return;
-        el.textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
+        if (!el) return;
+        try {
+            el.textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
+        } catch (e) {
+            // Safe fallback: plain Gregorian date/time
+            el.textContent = new Intl.DateTimeFormat('en-GB', {
+                day:'numeric',
+                month:'long',
+                year:'numeric',
+                hour:'2-digit',
+                minute:'2-digit',
+                second:'2-digit',
+                hour12:false
+            }).format(now);
+        }
     };
 
+    // CEST full date/time
     setTime("#clock-cest span", {
         weekday:'long',
         year:'numeric',
@@ -30,6 +44,7 @@ function updateTimes(){
         timeZone:'Europe/Zurich'
     });
 
+    // IST time
     setTime("#tz-ist span", {
         hour:'2-digit',
         minute:'2-digit',
@@ -38,6 +53,7 @@ function updateTimes(){
         timeZone:'Asia/Kolkata'
     });
 
+    // PKT time
     setTime("#tz-pkt span", {
         hour:'2-digit',
         minute:'2-digit',
@@ -46,28 +62,52 @@ function updateTimes(){
         timeZone:'Asia/Karachi'
     });
 
-    setTime("#cal-hijri span", {
-        day:'numeric',
-        month:'long',
-        year:'numeric',
-        calendar:'islamic'
-    });
+    // Hijri calendar (with safe fallback)
+    const hijriEl = $("#cal-hijri span");
+    if (hijriEl) {
+        try {
+            hijriEl.textContent = new Intl.DateTimeFormat('en-GB', {
+                day:'numeric',
+                month:'long',
+                year:'numeric',
+                calendar:'islamic'
+            }).format(now);
+        } catch (e) {
+            hijriEl.textContent = new Intl.DateTimeFormat('en-GB', {
+                day:'numeric',
+                month:'long',
+                year:'numeric'
+            }).format(now);
+        }
+    }
 
-    setTime("#cal-hindi span", {
-        day:'numeric',
-        month:'long',
-        year:'numeric',
-        calendar:'indian'
-    });
+    // Hindi/Indian calendar (with safe fallback)
+    const hindiEl = $("#cal-hindi span");
+    if (hindiEl) {
+        try {
+            hindiEl.textContent = new Intl.DateTimeFormat('en-GB', {
+                day:'numeric',
+                month:'long',
+                year:'numeric',
+                calendar:'indian'
+            }).format(now);
+        } catch (e) {
+            hindiEl.textContent = new Intl.DateTimeFormat('en-GB', {
+                day:'numeric',
+                month:'long',
+                year:'numeric'
+            }).format(now);
+        }
+    }
 }
 
 updateTimes();
-setInterval(updateTimes,1000);
+setInterval(updateTimes, 1000);
 
 // ================= WEATHER =================
 async function loadWeather(){
     const bar = $("#weather-bar");
-    if(!bar) return;
+    if (!bar) return;
 
     const cities = [
         {name:"Zurich", lat:47.3769, lon:8.5417},
@@ -82,7 +122,7 @@ async function loadWeather(){
 
     bar.innerHTML = "";
 
-    for(const c of cities){
+    for (const c of cities){
         try{
             const res = await fetch(
                 `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`
@@ -103,8 +143,8 @@ function applyImageFallback(ctx=document){
       "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23eeeeee'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='36' fill='%23999'%3EImage Placeholder%3C/text%3E%3C/svg%3E";
 
     $$("img", ctx).forEach(img=>{
-        if (img.hasAttribute("onerror")) return;
-        img.onerror = ()=> img.src = placeholder;
+        // Always attach a safe fallback, even if HTML has onerror
+        img.onerror = ()=> { img.src = placeholder; };
     });
 }
 applyImageFallback();
@@ -112,12 +152,12 @@ applyImageFallback();
 // ================= BREAKING NEWS =================
 async function loadBreaking(){
     const container = $("#breaking");
-    if(!container) return;
+    if (!container) return;
 
     try{
         const res = await fetch("content/breaking.json",{cache:"no-store"});
         const data = await res.json();
-        if(!data.items) return;
+        if (!data.items) return;
 
         container.innerHTML = "";
 
@@ -162,17 +202,17 @@ loadBreaking();
 // ================= VLOG =================
 async function renderVlogs(){
     const vlogSection = $("#vlog");
-    if(!vlogSection) return;
+    if (!vlogSection) return;
 
     try{
         const res = await fetch("content/vlogs.json",{cache:"no-store"});
         const data = await res.json();
-        if(!data.videos) return;
+        if (!data.videos) return;
 
         const cards = vlogSection.querySelectorAll("article.card.video");
 
-        data.videos.slice(0,cards.length).forEach((v,i)=>{
-            if(!v.youtubeId) return;
+        data.videos.slice(0, cards.length).forEach((v,i)=>{
+            if (!v.youtubeId) return;
             const card = cards[i];
             if (!card) return;
 
@@ -203,16 +243,17 @@ async function renderVlogs(){
     }
 }
 renderVlogs();
+
 // ================= CONTACT MODAL =================
 const modal = $("#contact-modal");
 const openBtn = $("#open-contact");
 const closeBtn = $("#close-contact");
 
-if(openBtn && modal){
+if (openBtn && modal){
     openBtn.addEventListener("click", ()=> modal.showModal());
 }
 
-if(closeBtn && modal){
+if (closeBtn && modal){
     closeBtn.addEventListener("click", ()=> modal.close());
 }
 
@@ -270,19 +311,19 @@ if (stickyShareBtn && shareBtn){
 }
 
 // ================= ARTICLE PAGE =================
-if(location.pathname.includes("article.html")){
+if (location.pathname.includes("article.html")){
     loadArticle();
 }
 
 async function loadArticle(){
     const id = new URLSearchParams(location.search).get("id");
-    if(!id) return;
+    if (!id) return;
 
     try{
         const res = await fetch("content/articles.json",{cache:"no-store"});
         const data = await res.json();
         const article = data.items?.find(x=>x.id===id);
-        if(!article) return;
+        if (!article) return;
 
         const titleEl = $("#title");
         if (titleEl) titleEl.textContent = article.title;
@@ -290,7 +331,7 @@ async function loadArticle(){
         const heroWrap = $("#heroWrap");
         const heroImg = $("#heroImg");
 
-        if(heroImg && heroWrap){
+        if (heroImg && heroWrap){
             heroImg.src = article.heroImage?.src || "";
             heroWrap.style.display = article.heroImage?.src ? "block" : "none";
         }
@@ -301,17 +342,17 @@ async function loadArticle(){
         content.innerHTML = "";
 
         article.body.forEach(block=>{
-            if(block.type==="paragraph"){
-                const p=document.createElement("p");
-                p.textContent=block.text;
+            if (block.type === "paragraph"){
+                const p = document.createElement("p");
+                p.textContent = block.text;
                 content.appendChild(p);
             }
 
-            if(block.type==="image"){
-                const fig=document.createElement("figure");
+            if (block.type === "image"){
+                const fig = document.createElement("figure");
                 fig.innerHTML = `
                     <img src="${block.src}" alt="">
-                    <figcaption>${block.caption||""}</figcaption>
+                    <figcaption>${block.caption || ""}</figcaption>
                 `;
                 content.appendChild(fig);
             }
