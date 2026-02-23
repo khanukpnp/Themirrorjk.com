@@ -608,3 +608,22 @@ input[type="file"]{
 .card .media {
   border-radius: 0 !important;
 }
+/* ================= IMPORTANT POINTS BLOCK ================= */
+.important-points {
+  background: #fff7f5;
+  border-left: 4px solid var(--maroon);
+  padding: 12px 16px;
+  margin: 18px 0;
+  border-radius: 8px;
+}
+
+.important-points ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.important-points li {
+  margin-bottom: 6px;
+  font-size: 15px;
+  line-height: 1.5;
+}
