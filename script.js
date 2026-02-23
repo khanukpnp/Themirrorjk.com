@@ -117,12 +117,11 @@ function applyImageFallback(ctx=document){
 applyImageFallback();
 
 // ======================================================
-// =============== BREAKING NEWS (CORRECTED) ============
+// =============== BREAKING NEWS ========================
 // ======================================================
 async function loadBreaking(){
   const mediaBox = $("#breaking");
   const bodyBox = $("#breaking-body");
-
   if (!mediaBox || !bodyBox) return;
 
   try{
@@ -130,9 +129,8 @@ async function loadBreaking(){
     const data = await res.json();
     if (!data.items || data.items.length === 0) return;
 
-    const item = data.items[0]; // newest breaking
+    const item = data.items[0];
 
-    // HERO IMAGE (16:9)
     if (item.heroImage?.src){
       mediaBox.innerHTML = `<img src="${item.heroImage.src}" alt="" style="aspect-ratio:16/9;object-fit:cover;">`;
       mediaBox.classList.remove("placeholder");
@@ -140,7 +138,6 @@ async function loadBreaking(){
       mediaBox.textContent = "No Image";
     }
 
-    // TEXT
     bodyBox.innerHTML = `
       <h3>${item.title}</h3>
       <p>${item.excerpt}</p>
@@ -198,9 +195,8 @@ async function renderVlogs(){
   }
 }
 renderVlogs();
-
 // ================= ABOUT PAGE =================
-if (location.pathname.includes("about.html")){
+if (location.pathname.includes("about")) {
   loadAbout();
 }
 
@@ -235,8 +231,8 @@ async function loadAbout(){
   }
 }
 
-// ================= CHIEF EDITOR PAGE =================
-if (location.pathname.includes("chief-editor.html")){
+// ================= CHIEF EDITOR PAGE (FIXED) =================
+if (location.pathname.includes("chief-editor")) {
   loadChiefEditor();
 }
 
@@ -256,10 +252,12 @@ async function loadChiefEditor(){
       fig.style.float = "right";
       fig.style.width = "35%";
       fig.style.margin = "8px 0 14px 20px";
+
       fig.innerHTML = `
         <img src="${data.heroImage.src}" alt="">
         <figcaption>${data.heroImage.caption || ""}</figcaption>
       `;
+
       content.appendChild(fig);
     }
 
@@ -282,7 +280,7 @@ async function loadChiefEditor(){
   }
 }
 
-// ================= ARTICLE PAGE (MERGED BREAKING + ARTICLES) =================
+// ================= ARTICLE PAGE =================
 if (location.pathname.includes("article.html")){
   loadArticle();
 }
@@ -325,6 +323,7 @@ async function loadArticle(){
         p.textContent = block.text;
         content.appendChild(p);
       }
+
       if (block.type === "image"){
         const fig = document.createElement("figure");
         fig.innerHTML = `
@@ -342,7 +341,7 @@ async function loadArticle(){
   }
 }
 
-// ================= NAVIGATION DROPDOWNS =================
+// ================= NAVIGATION DROPDOWNS (FIXED) =================
 $$(".nav-item.has-sub").forEach(item => {
   const btn = item.querySelector(".nav-btn");
   if (!btn) return;
@@ -350,13 +349,13 @@ $$(".nav-item.has-sub").forEach(item => {
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
 
+    const wasOpen = item.classList.contains("open");
+
     // Close all others
-    $$(".nav-item.has-sub").forEach(i => {
-      if (i !== item) i.classList.remove("open");
-    });
+    $$(".nav-item.has-sub").forEach(i => i.classList.remove("open"));
 
     // Toggle this one
-    item.classList.toggle("open");
+    if (!wasOpen) item.classList.add("open");
   });
 });
 
@@ -365,7 +364,25 @@ document.addEventListener("click", () => {
   $$(".nav-item.has-sub").forEach(i => i.classList.remove("open"));
 });
 
-// ================= CONTACT MODAL OPEN/CLOSE =================
+// ================= MOBILE MENU (NEW) =================
+const hamburger = $("#hamburger");
+const mobileMenu = $("#mobile-menu");
+const navList = $(".nav-list");
+
+if (hamburger && mobileMenu){
+  hamburger.addEventListener("click", () => {
+    const isOpen = mobileMenu.hasAttribute("hidden") === false;
+
+    if (isOpen){
+      mobileMenu.setAttribute("hidden", "");
+    } else {
+      mobileMenu.removeAttribute("hidden");
+      mobileMenu.innerHTML = navList.outerHTML;
+    }
+  });
+}
+
+// ================= CONTACT MODAL =================
 const contactModal = $("#contact-modal");
 const openContactBtn = $("#open-contact");
 const closeContactBtn = $("#close-contact");
@@ -380,6 +397,13 @@ if (closeContactBtn && contactModal) {
   closeContactBtn.addEventListener("click", () => {
     contactModal.close();
   });
+}
+
+// ================= TICKER DUPLICATION (NEW) =================
+const tickerList = $("#ticker-items");
+if (tickerList){
+  const clone = tickerList.cloneNode(true);
+  tickerList.parentElement.appendChild(clone);
 }
 
 });
