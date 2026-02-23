@@ -1,3 +1,4 @@
+/* ================= ROOT VARIABLES ================= */
 :root{
   --maroon:#7a001e;
   --maroon-2:#8a102e;
@@ -9,6 +10,7 @@
   --shadow:0 6px 24px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.06);
 }
 
+/* ================= GLOBAL ================= */
 *{ box-sizing:border-box }
 
 html,body{
@@ -165,6 +167,144 @@ body{
   letter-spacing:.2px;
 }
 
+/* Ticker Animation Fix */
+@keyframes ticker-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ================= TICKER TOOLS ================= */
+.tools{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.lang-select{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  font-size:14px;
+}
+
+.lang-select select{
+  padding:4px 6px;
+  border-radius:6px;
+  border:none;
+  font-size:12px;
+}
+
+.search{
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+.search input{
+  padding:4px 6px;
+  border-radius:6px;
+  border:none;
+  font-size:12px;
+}
+
+.search button{
+  padding:4px 6px;
+  border:none;
+  background:#fff2;
+  color:#fff;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* ================= NAVIGATION ================= */
+.navbar{
+  background:#fff;
+  border-bottom:1px solid #ddd;
+  box-shadow:var(--shadow);
+  padding:6px 10px;
+}
+
+.nav-list{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.nav-item{
+  position:relative;
+}
+
+.nav-btn{
+  background:none;
+  border:none;
+  font-size:14px;
+  padding:8px 10px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.nav-item a.nav-btn{
+  text-decoration:none;
+  color:inherit;
+}
+
+.dropdown{
+  position:absolute;
+  top:100%;
+  left:0;
+  background:#fff;
+  border-radius:8px;
+  box-shadow:var(--shadow);
+  padding:8px 0;
+  display:none;
+  min-width:180px;
+  z-index:50;
+}
+
+.nav-item.open .dropdown{
+  display:block;
+}
+
+.dropdown a{
+  display:block;
+  padding:8px 12px;
+  text-decoration:none;
+  color:#333;
+  font-size:14px;
+}
+
+.dropdown a:hover{
+  background:#f3f5f8;
+}
+
+.dropdown.wide{
+  min-width:240px;
+}
+
+/* ================= MOBILE NAV ================= */
+.hamburger{
+  display:none;
+  background:none;
+  border:none;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.mobile-menu{
+  display:none;
+  background:#fff;
+  padding:10px;
+  box-shadow:var(--shadow);
+}
+
+@media(max-width:780px){
+  .hamburger{ display:block }
+  .nav-list{ display:none }
+  .mobile-menu{ display:block }
+}
 /* ================= MAIN LAYOUT ================= */
 .main{
   max-width:1200px;
@@ -255,7 +395,7 @@ body{
   font-weight:700;
 }
 
-/* ================= BBC-STYLE ARCHIVE LIST ================= */
+/* ================= ARCHIVE LIST ================= */
 .archive-list{
   margin-top:18px;
   display:flex;
@@ -393,7 +533,6 @@ body{
   display:block;
   clear:both;
 }
-
 /* ================= CONTACT & EPAPER ================= */
 .contact-wrap{
   display:grid;
@@ -497,17 +636,13 @@ input[type="file"]{
   font-size:20px;
 }
 
+@media(max-width:780px){
+  .mobile-sticky{ display:flex }
+}
+
 /* ================= RESPONSIVE ================= */
 @media(max-width:1000px){
   .cards.three{ grid-template-columns:repeat(2,1fr) }
-}
-
-@media(max-width:780px){
-  .navbar .hamburger{ display:inline-block }
-  .nav-list{ display:none }
-  .mobile-menu{ display:block }
-  .mobile-sticky{ display:flex }
-  .cards.two{ grid-template-columns:1fr }
 }
 
 @media(max-width:620px){
@@ -515,28 +650,6 @@ input[type="file"]{
   .logo{ width:56px; height:56px }
   .chip.tiny{ font-size:11px; padding:3px 6px }
   #weather-bar .city{ font-size:11px }
-}
-
-/* ================= VERTICAL NAVIGATION DROPDOWN ================= */
-.nav-item.has-sub .dropdown{
-  display:flex !important;
-  flex-direction:column;
-  gap:4px;
-  padding:8px 10px;
-  font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-}
-
-.nav-item.has-sub .dropdown a{
-  display:block;
-  width:100%;
-  text-align:left;
-  padding:8px 10px;
-  border-radius:8px;
-  font-size:13px;
-}
-
-.nav-item.has-sub .dropdown a:hover{
-  background:#f3f5f8;
 }
 
 /* ================= IMPORTANT POINTS BLOCK ================= */
