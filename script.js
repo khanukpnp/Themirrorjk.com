@@ -1,4 +1,3 @@
-Script js 23rd Feb2026
 // ================= GLOBAL SELECTORS =================
 const $ = (sel, ctx=document) => ctx.querySelector(sel);
 const $$ = (sel, ctx=document) => [...ctx.querySelectorAll(sel)];
