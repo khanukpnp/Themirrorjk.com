@@ -594,3 +594,17 @@ input[type="file"]{
 .nav-item.has-sub .dropdown a:hover {
   background: #f3f5f8;
 }
+/* ================= UNIFIED 16:9 PLACEHOLDER SIZE ================= */
+.media.placeholder,
+.media img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto !important;
+  object-fit: cover;
+  border-radius: 0 !important; /* No rounded corners */
+}
+
+/* Remove rounded corners from top cards */
+.card .media {
+  border-radius: 0 !important;
+}
