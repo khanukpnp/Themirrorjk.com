@@ -132,9 +132,9 @@ async function loadBreaking(){
 
     const item = data.items[0]; // newest breaking
 
-    // HERO IMAGE
+    // HERO IMAGE (16:9)
     if (item.heroImage?.src){
-      mediaBox.innerHTML = `<img src="${item.heroImage.src}" alt="">`;
+      mediaBox.innerHTML = `<img src="${item.heroImage.src}" alt="" style="aspect-ratio:16/9;object-fit:cover;">`;
       mediaBox.classList.remove("placeholder");
     } else {
       mediaBox.textContent = "No Image";
@@ -282,7 +282,7 @@ async function loadChiefEditor(){
   }
 }
 
-// ================= ARTICLE PAGE =================
+// ================= ARTICLE PAGE (MERGED BREAKING + ARTICLES) =================
 if (location.pathname.includes("article.html")){
   loadArticle();
 }
@@ -291,11 +291,19 @@ async function loadArticle(){
   const id = new URLSearchParams(location.search).get("id");
   if (!id) return;
 
-  try{
-    const res = await fetch("content/articles.json",{cache:"no-store"});
-    const data = await res.json();
+  try {
+    const [articlesRes, breakingRes] = await Promise.all([
+      fetch("content/articles.json", { cache: "no-store" }),
+      fetch("content/breaking.json", { cache: "no-store" })
+    ]);
 
-    const article = data.items?.find(x=>x.id===id);
+    const articlesData = await articlesRes.json();
+    const breakingData = await breakingRes.json();
+
+    let article =
+      articlesData.items?.find(x => x.id === id) ||
+      breakingData.items?.find(x => x.id === id);
+
     if (!article) return;
 
     $("#title").textContent = article.title;
@@ -329,9 +337,45 @@ async function loadArticle(){
 
     applyImageFallback(content);
 
-  } catch {
-    console.warn("Article failed");
+  } catch (err){
+    console.warn("Article failed", err);
   }
+}
+
+// ================= NAVIGATION DROPDOWNS =================
+$$(".nav-item.has-sub").forEach(item => {
+  const btn = item.querySelector(".nav-btn");
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    $$(".nav-item.has-sub").forEach(i => {
+      if (i !== item) i.classList.remove("open");
+    });
+    item.classList.toggle("open");
+  });
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".nav-item.has-sub")) {
+    $$(".nav-item.has-sub").forEach(i => i.classList.remove("open"));
+  }
+});
+
+// ================= CONTACT MODAL OPEN/CLOSE =================
+const contactModal = $("#contact-modal");
+const openContactBtn = $("#open-contact");
+const closeContactBtn = $("#close-contact");
+
+if (openContactBtn && contactModal) {
+  openContactBtn.addEventListener("click", () => {
+    contactModal.showModal();
+  });
+}
+
+if (closeContactBtn && contactModal) {
+  closeContactBtn.addEventListener("click", () => {
+    contactModal.close();
+  });
 }
 
 });
