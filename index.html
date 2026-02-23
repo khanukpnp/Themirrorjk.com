@@ -416,28 +416,42 @@
   </footer>
 
   <!-- CONTACT MODAL -->
-  <dialog id="contact-modal" class="modal">
-    <form name="contact" method="POST" data-netlify="true" class="modal-card">
-      <h3>Contact Form</h3>
+<dialog id="contact-modal" class="modal">
+  <form name="contact" method="POST" data-netlify="true" enctype="multipart/form-data" class="modal-card">
+    
+    <!-- REQUIRED FOR NETLIFY TO WORK -->
+    <input type="hidden" name="form-name" value="contact">
 
-      <label> Name
-        <input type="text" name="name" required />
-      </label>
+    <h3>Contact Form</h3>
 
-      <label> Email
-        <input type="email" name="email" required />
-      </label>
+    <label>
+      Name
+      <input type="text" name="name" required />
+    </label>
 
-      <label> Message
-        <textarea name="message" rows="4" required></textarea>
-      </label>
+    <label>
+      Email
+      <input type="email" name="email" value="themirrorjk@gmail.com" required />
+    </label>
 
-      <div class="modal-actions">
-        <button type="submit" class="btn">Submit</button>
-        <button type="button" class="btn outline" id="close-contact">Exit</button>
-      </div>
-    </form>
-  </dialog>
+    <label>
+      Message
+      <textarea name="message" rows="4" required></textarea>
+    </label>
+
+    <!-- ⭐ NEW: FILE UPLOAD SUPPORT -->
+    <label>
+      Attach File (PDF / JPG / PNG)
+      <input type="file" name="attachment" accept=".pdf,.jpg,.jpeg,.png" />
+    </label>
+
+    <div class="modal-actions">
+      <button type="submit" class="btn">Submit</button>
+      <button type="button" class="btn outline" id="close-contact">Exit</button>
+    </div>
+
+  </form>
+</dialog>
 
   <!-- MOBILE STICKY NAV -->
   <nav class="mobile-sticky">
