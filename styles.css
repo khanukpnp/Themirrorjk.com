@@ -128,7 +128,8 @@ body{
   padding:2px 8px;
   font-size:12px;
   font-weight:600;
-  line-height:1.2;
+  line-height:28px;
+  height:28px;
   position:relative;
   z-index:40;
 }
@@ -162,9 +163,9 @@ body{
 }
 
 .ticker ul li{
-  font-size:11px;
-  font-weight:500;
-  letter-spacing:.2px;
+  font-size:12px;
+  font-weight:600;
+  color:#fff;
 }
 
 /* Ticker Animation Fix */
@@ -184,7 +185,7 @@ body{
   display:flex;
   align-items:center;
   gap:4px;
-  font-size:14px;
+  font-size:12px;
 }
 
 .lang-select select{
@@ -216,18 +217,18 @@ body{
   cursor:pointer;
 }
 
-/* ================= NAVIGATION ================= */
+/* ================= NAVIGATION (RESTORED ORIGINAL STYLE) ================= */
 .navbar{
   background:#fff;
   border-bottom:1px solid #ddd;
   box-shadow:var(--shadow);
-  padding:6px 10px;
+  padding:4px 8px;
 }
 
 .nav-list{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:8px;
   list-style:none;
   padding:0;
   margin:0;
@@ -240,10 +241,13 @@ body{
 .nav-btn{
   background:none;
   border:none;
-  font-size:14px;
-  padding:8px 10px;
+  font-size:12px;
+  padding:4px 6px;
   cursor:pointer;
-  font-weight:600;
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  gap:4px;
 }
 
 .nav-item a.nav-btn{
@@ -256,11 +260,11 @@ body{
   top:100%;
   left:0;
   background:#fff;
-  border-radius:8px;
+  border-radius:6px;
   box-shadow:var(--shadow);
-  padding:8px 0;
+  padding:4px 0;
   display:none;
-  min-width:180px;
+  min-width:160px;
   z-index:50;
 }
 
@@ -270,10 +274,10 @@ body{
 
 .dropdown a{
   display:block;
-  padding:8px 12px;
+  padding:6px 10px;
   text-decoration:none;
   color:#333;
-  font-size:14px;
+  font-size:12px;
 }
 
 .dropdown a:hover{
@@ -281,7 +285,7 @@ body{
 }
 
 .dropdown.wide{
-  min-width:240px;
+  min-width:220px;
 }
 
 /* ================= MOBILE NAV ================= */
@@ -532,6 +536,25 @@ body{
   content:"";
   display:block;
   clear:both;
+}
+
+/* ================= ABOUT PAGE FIXES ================= */
+#content {
+  max-width:900px;
+  margin:0 auto;
+  padding:0 16px;
+}
+
+#content figure {
+  float:right;
+  max-width:40%;
+  margin:6px 0 12px 20px;
+}
+
+#content figure img {
+  width:100%;
+  height:auto;
+  border-radius:6px;
 }
 /* ================= CONTACT & EPAPER ================= */
 .contact-wrap{
