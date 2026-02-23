@@ -28,6 +28,16 @@
           "type": "paragraph",
           "text": "Baroness Nicholson has been a life peer since 1997 and previously served as Member of the European Parliament, Rapporteur on Kashmir, and Former Vice President of the European Parliament’s Committee on Foreign Affairs, Human Rights, Common Defense, and Security Policy."
         },
+
+        {
+          "type": "points",
+          "items": [
+            "Human rights are non-negotiable",
+            "Access to essential services is a state obligation",
+            "Emergency powers must not violate freedoms"
+          ]
+        },
+
         {
           "type": "image",
           "src": "content/images/london-ukpnp-02.jpg",
