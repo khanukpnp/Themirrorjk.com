@@ -118,15 +118,15 @@ body{
   margin-right:6px;
 }
 
-/* ================= TICKER (SLIMMER) ================= */
+/* ================= SLIM TICKER ================= */
 .ticker-wrap{
   background: linear-gradient(90deg, #7a001e, #8a102e);
   color:#fff;
   display:flex;
   align-items:center;
   gap:6px;
-  padding:2px 8px;          /* was 4px 8px */
-  font-size:12px;           /* was 14px */
+  padding:2px 8px;          /* slimmer height */
+  font-size:12px;           /* smaller than before */
   font-weight:600;
   line-height:1.2;
   position:relative;
@@ -136,7 +136,7 @@ body{
 .ticker{
   display:flex;
   align-items:center;
-  gap:8px;                  /* was 10px */
+  gap:8px;                  /* slightly tighter */
   overflow:hidden;
   flex:1;
 }
@@ -150,7 +150,7 @@ body{
 .ticker ul{
   display:flex;
   align-items:center;
-  gap:28px;                 /* slightly tighter */
+  gap:28px;                 /* distance between items */
   list-style:none;
   padding:0;
   margin:0;
@@ -162,9 +162,9 @@ body{
 }
 
 .ticker ul li{
-  font-size:12px;           /* was 14px */
+  font-size:11px;           /* smaller text */
   font-weight:500;
-  letter-spacing:.25px;
+  letter-spacing:.2px;
 }
 
 
