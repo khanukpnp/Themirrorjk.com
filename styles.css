@@ -23,6 +23,7 @@ body{
   color:var(--text);
 }
 
+/* ================= HEADER ================= */
 .theme-maroon .site-header{ background:var(--maroon) }
 
 .site-header{
@@ -65,8 +66,7 @@ body{
   text-transform: uppercase;
 }
 
-/* ===== TOP BARS ===== */
-
+/* ================= TOP BARS ================= */
 .bar{
   background:#fff;
   border-bottom:1px solid #e7e7ea;
@@ -96,14 +96,12 @@ body{
 
 .chip.tiny{ padding:4px 8px; font-size:12px }
 
-/* WEATHER BAR FIX */
-
+/* ================= WEATHER BAR ================= */
 #weather-bar{
   white-space:nowrap;
   overflow-x:auto;
   scrollbar-width:none;
 }
-
 #weather-bar::-webkit-scrollbar{ display:none }
 
 #weather-bar .city{
@@ -125,8 +123,8 @@ body{
   display:flex;
   align-items:center;
   gap:6px;
-  padding:2px 8px;          /* slimmer height */
-  font-size:12px;           /* smaller than before */
+  padding:2px 8px;
+  font-size:12px;
   font-weight:600;
   line-height:1.2;
   position:relative;
@@ -136,7 +134,7 @@ body{
 .ticker{
   display:flex;
   align-items:center;
-  gap:8px;                  /* slightly tighter */
+  gap:8px;
   overflow:hidden;
   flex:1;
 }
@@ -150,7 +148,7 @@ body{
 .ticker ul{
   display:flex;
   align-items:center;
-  gap:28px;                 /* distance between items */
+  gap:28px;
   list-style:none;
   padding:0;
   margin:0;
@@ -162,20 +160,26 @@ body{
 }
 
 .ticker ul li{
-  font-size:11px;           /* smaller text */
+  font-size:11px;
   font-weight:500;
   letter-spacing:.2px;
 }
 
-
-/* ===== MAIN LAYOUT ===== */
-
+/* ================= MAIN LAYOUT ================= */
 .main{
   max-width:1200px;
   margin:18px auto;
   padding:0 12px;
 }
 
+/* Reuters-style article width */
+.article-main{
+  max-width:900px;
+  margin:0 auto;
+  padding:0 16px;
+}
+
+/* ================= CARDS ================= */
 .cards{
   display:grid;
   gap:12px;
@@ -196,10 +200,11 @@ body{
   overflow:hidden;
 }
 
-/* HERO IMAGES FIT PERFECTLY */
-.media img{
+/* 16:9 ONLY FOR CARD MEDIA */
+.card .media img{
   width:100%;
-  height:100%;
+  aspect-ratio:16/9;
+  height:auto;
   object-fit:cover;
   object-position:center;
   display:block;
@@ -223,7 +228,13 @@ body{
 .media.placeholder.blue{ color:#1f6feb; border-color:#1f6feb }
 .media.placeholder.green{ color:#1f7a4d; border-color:#1f7a4d }
 
-/* CARD BODY */
+/* ================= BREAKING CARD FIX ================= */
+#breaking img{
+  max-height:180px;
+  object-fit:cover;
+}
+
+/* ================= CARD BODY ================= */
 .card .card-body{
   padding:14px;
 }
@@ -244,8 +255,7 @@ body{
   font-weight:700;
 }
 
-/* ===== BBC-STYLE ARCHIVE LIST ===== */
-
+/* ================= BBC-STYLE ARCHIVE LIST ================= */
 .archive-list{
   margin-top:18px;
   display:flex;
@@ -300,8 +310,7 @@ body{
   text-decoration:none;
 }
 
-/* ===== INTERNATIONAL & HUMAN RIGHTS ===== */
-
+/* ================= INTERNATIONAL & HUMAN RIGHTS ================= */
 .section-rail{
   margin-top:18px;
 }
@@ -319,8 +328,7 @@ body{
   color:#fff !important;
 }
 
-/* ===== VLOGS ===== */
-
+/* ================= VLOGS ================= */
 .vlogs{ padding:12px }
 
 .vlogs-header{
@@ -355,8 +363,38 @@ body{
   color:#fff;
 }
 
-/* ===== CONTACT & EPAPER ===== */
+/* ================= ARTICLE INLINE IMAGES ================= */
+.article-content figure{
+  margin:16px 0;
+}
 
+.article-content figure img{
+  width:100%;
+  height:auto;
+}
+
+.article-content figure.image-left,
+.article-content figure.image-right{
+  max-width:42%;
+}
+
+.article-content figure.image-left{
+  float:left;
+  margin:6px 20px 10px 0;
+}
+
+.article-content figure.image-right{
+  float:right;
+  margin:6px 0 10px 20px;
+}
+
+.article-content::after{
+  content:"";
+  display:block;
+  clear:both;
+}
+
+/* ================= CONTACT & EPAPER ================= */
 .contact-wrap{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -364,20 +402,25 @@ body{
   margin-top:16px;
 }
 
+.contact-wrap label{
+  display:block;
+  margin-bottom:10px;
+}
+
 input[type="email"],
 input[type="text"],
+input[type="tel"],
 textarea,
 input[type="file"]{
   width:100%;
-  max-width:320px;
+  max-width:100%;
   padding:8px 10px;
   border:1px solid #dfe3eb;
   border-radius:10px;
   font-size:14px;
 }
 
-/* ===== FOOTER ===== */
-
+/* ================= FOOTER ================= */
 .footer{
   background:var(--maroon);
   color:#fff;
@@ -412,8 +455,7 @@ input[type="file"]{
 
 .admin-link:hover{ opacity:1 }
 
-/* ===== MODAL ===== */
-
+/* ================= MODAL ================= */
 .modal{
   border:none;
   border-radius:16px;
@@ -434,8 +476,7 @@ input[type="file"]{
   margin-top:10px;
 }
 
-/* ===== MOBILE STICKY NAV ===== */
-
+/* ================= MOBILE STICKY NAV ================= */
 .mobile-sticky{
   position:fixed;
   bottom:0;
@@ -456,8 +497,7 @@ input[type="file"]{
   font-size:20px;
 }
 
-/* ===== RESPONSIVE ===== */
-
+/* ================= RESPONSIVE ================= */
 @media(max-width:1000px){
   .cards.three{ grid-template-columns:repeat(2,1fr) }
 }
@@ -476,60 +516,45 @@ input[type="file"]{
   .chip.tiny{ font-size:11px; padding:3px 6px }
   #weather-bar .city{ font-size:11px }
 }
+
 /* ================= VERTICAL NAVIGATION DROPDOWN ================= */
-.nav-item.has-sub .dropdown {
-  display: flex !important;
-  flex-direction: column;
-  gap: 4px;
-  padding: 8px 10px;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+.nav-item.has-sub .dropdown{
+  display:flex !important;
+  flex-direction:column;
+  gap:4px;
+  padding:8px 10px;
+  font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-/* Make dropdown links full-width and vertical */
-.nav-item.has-sub .dropdown a {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 8px 10px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-family: inherit;
+.nav-item.has-sub .dropdown a{
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:8px 10px;
+  border-radius:8px;
+  font-size:13px;
 }
 
-/* Hover effect */
-.nav-item.has-sub .dropdown a:hover {
-  background: #f3f5f8;
-}
-/* ================= UNIFIED 16:9 PLACEHOLDER SIZE ================= */
-.media.placeholder,
-.media img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  height: auto !important;
-  object-fit: cover;
-  border-radius: 0 !important; /* No rounded corners */
+.nav-item.has-sub .dropdown a:hover{
+  background:#f3f5f8;
 }
 
-/* Remove rounded corners from top cards */
-.card .media {
-  border-radius: 0 !important;
-}
 /* ================= IMPORTANT POINTS BLOCK ================= */
-.important-points {
-  background: #fff7f5;
-  border-left: 4px solid var(--maroon);
-  padding: 12px 16px;
-  margin: 18px 0;
-  border-radius: 8px;
+.important-points{
+  background:#fff7f5;
+  border-left:4px solid var(--maroon);
+  padding:12px 16px;
+  margin:18px 0;
+  border-radius:8px;
 }
 
-.important-points ul {
-  margin: 0;
-  padding-left: 18px;
+.important-points ul{
+  margin:0;
+  padding-left:18px;
 }
 
-.important-points li {
-  margin-bottom: 6px;
-  font-size: 15px;
-  line-height: 1.5;
+.important-points li{
+  margin-bottom:6px;
+  font-size:15px;
+  line-height:1.5;
 }
