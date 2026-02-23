@@ -347,18 +347,22 @@ $$(".nav-item.has-sub").forEach(item => {
   const btn = item.querySelector(".nav-btn");
   if (!btn) return;
 
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    // Close all others
     $$(".nav-item.has-sub").forEach(i => {
       if (i !== item) i.classList.remove("open");
     });
+
+    // Toggle this one
     item.classList.toggle("open");
   });
 });
 
-document.addEventListener("click", (e) => {
-  if (!e.target.closest(".nav-item.has-sub")) {
-    $$(".nav-item.has-sub").forEach(i => i.classList.remove("open"));
-  }
+// Close dropdowns when clicking outside
+document.addEventListener("click", () => {
+  $$(".nav-item.has-sub").forEach(i => i.classList.remove("open"));
 });
 
 // ================= CONTACT MODAL OPEN/CLOSE =================
