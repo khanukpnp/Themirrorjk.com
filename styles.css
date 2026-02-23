@@ -570,3 +570,27 @@ input[type="file"]{
   .chip.tiny{ font-size:11px; padding:3px 6px }
   #weather-bar .city{ font-size:11px }
 }
+/* ================= VERTICAL NAVIGATION DROPDOWN ================= */
+.nav-item.has-sub .dropdown {
+  display: flex !important;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Make dropdown links full-width and vertical */
+.nav-item.has-sub .dropdown a {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+/* Hover effect */
+.nav-item.has-sub .dropdown a:hover {
+  background: #f3f5f8;
+}
