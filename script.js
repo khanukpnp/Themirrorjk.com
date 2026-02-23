@@ -39,7 +39,6 @@ function updateTimes() {
         }
     };
 
-    // CEST / Zurich
     setTime("#clock-cest span", {
         weekday: "long",
         year: "numeric",
@@ -52,7 +51,6 @@ function updateTimes() {
         timeZone: "Europe/Zurich"
     });
 
-    // IST
     setTime("#tz-ist span", {
         hour: "2-digit",
         minute: "2-digit",
@@ -61,7 +59,6 @@ function updateTimes() {
         timeZone: "Asia/Kolkata"
     });
 
-    // PKT
     setTime("#tz-pkt span", {
         hour: "2-digit",
         minute: "2-digit",
@@ -70,7 +67,6 @@ function updateTimes() {
         timeZone: "Asia/Karachi"
     });
 
-    // Hijri
     const hijriEl = $("#cal-hijri span");
     if (hijriEl) {
         try {
@@ -89,7 +85,6 @@ function updateTimes() {
         }
     }
 
-    // Hindi Calendar
     const hindiEl = $("#cal-hindi span");
     if (hindiEl) {
         try {
@@ -182,7 +177,6 @@ async function loadBreaking() {
 
         const item = data.items[0];
 
-        // HERO IMAGE
         if (item.heroImage?.src) {
             mediaBox.innerHTML = `<img src="${item.heroImage.src}" alt="" style="aspect-ratio:16/9;object-fit:cover;">`;
             mediaBox.classList.remove("placeholder");
@@ -190,7 +184,6 @@ async function loadBreaking() {
             mediaBox.textContent = "No Image";
         }
 
-        // TEXT
         bodyBox.innerHTML = `
             <h3>${item.title}</h3>
             <p>${item.excerpt}</p>
@@ -254,10 +247,18 @@ async function renderVlogs() {
 renderVlogs();
 
 /* ============================================================
-   ABOUT PAGE
+   PAGE DETECTION (PRETTY URL SUPPORT)
 ============================================================ */
 
-if (location.pathname.includes("about.html")) loadAbout();
+const path = location.pathname;
+
+if (path.includes("/about")) loadAbout();
+if (path.includes("/chief-editor")) loadChiefEditor();
+if (path.includes("/article")) loadArticle();
+
+/* ============================================================
+   ABOUT PAGE
+============================================================ */
 
 async function loadAbout() {
     try {
@@ -293,8 +294,6 @@ async function loadAbout() {
 /* ============================================================
    CHIEF EDITOR PAGE
 ============================================================ */
-
-if (location.pathname.includes("chief-editor.html")) loadChiefEditor();
 
 async function loadChiefEditor() {
     try {
@@ -340,13 +339,18 @@ async function loadChiefEditor() {
 }
 
 /* ============================================================
-   ARTICLE PAGE
+   ARTICLE PAGE (SLUG + ID SUPPORT)
 ============================================================ */
 
-if (location.pathname.includes("article.html")) loadArticle();
-
 async function loadArticle() {
-    const id = new URLSearchParams(location.search).get("id");
+    let id = new URLSearchParams(location.search).get("id");
+
+    // Support pretty URLs like /breaking-002
+    if (!id) {
+        const parts = location.pathname.split("/");
+        id = parts.pop() || parts.pop();
+    }
+
     if (!id) return;
 
     try {
@@ -377,6 +381,8 @@ async function loadArticle() {
         const content = $("#content");
         content.innerHTML = "";
 
+        let imageIndex = 0;
+
         article.body.forEach(block => {
             if (block.type === "paragraph") {
                 const p = document.createElement("p");
@@ -386,11 +392,16 @@ async function loadArticle() {
 
             if (block.type === "image") {
                 const fig = document.createElement("figure");
+                const side = imageIndex % 2 === 0 ? "image-right" : "image-left";
+                fig.classList.add(side);
+
                 fig.innerHTML = `
                     <img src="${block.src}" alt="">
                     <figcaption>${block.caption || ""}</figcaption>
                 `;
+
                 content.appendChild(fig);
+                imageIndex++;
             }
         });
 
@@ -401,7 +412,7 @@ async function loadArticle() {
 }
 
 /* ============================================================
-   NAVIGATION DROPDOWNS (CLICK ONLY)
+   NAVIGATION DROPDOWNS (FIXED)
 ============================================================ */
 
 $$(".nav-item.has-sub").forEach(item => {
@@ -411,19 +422,22 @@ $$(".nav-item.has-sub").forEach(item => {
     btn.addEventListener("click", e => {
         e.stopPropagation();
 
-        // Close all others
-        $$(".nav-item.has-sub").forEach(i => {
-            if (i !== item) i.classList.remove("open");
-        });
+        const wasOpen = item.classList.contains("open");
 
-        // Toggle this one
-        item.classList.toggle("open");
+        $$(".nav-item.has-sub").forEach(i => i.classList.remove("open"));
+
+        if (!wasOpen) item.classList.add("open");
     });
 });
 
-// Close dropdowns when clicking outside
 document.addEventListener("click", () => {
     $$(".nav-item.has-sub").forEach(i => i.classList.remove("open"));
+});
+
+document.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+        $$(".nav-item.has-sub").forEach(i => i.classList.remove("open"));
+    }
 });
 
 /* ============================================================
