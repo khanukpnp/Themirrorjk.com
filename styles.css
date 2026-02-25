@@ -8,6 +8,7 @@
   --card:#fff;
   --accent:#e53935;
   --shadow:0 6px 24px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.06);
+  --ticker-speed:120s;
 }
 
 /* ================= GLOBAL ================= */
@@ -27,6 +28,21 @@ body{
 
 .hidden{
   display:none !important;
+}
+
+/* ================= PAGE SHELL ================= */
+.page-shell{
+  max-width:1200px;
+  margin:24px auto;
+  padding:18px 16px;
+  background:#fff;
+  border:1px solid #ddd;
+  box-shadow:var(--shadow);
+  border-radius:6px;
+}
+
+.home-shell{
+  max-width:1200px;
 }
 
 /* ================= HEADER ================= */
@@ -123,7 +139,7 @@ body{
   margin-right:6px;
 }
 
-/* ================= SLIM TICKER ================= */
+/* ================= TICKER ================= */
 .ticker-wrap{
   background: linear-gradient(90deg, #7a001e, #8a102e);
   color:#fff;
@@ -164,7 +180,7 @@ body{
   white-space:nowrap;
   width:max-content;
   will-change:transform;
-  animation: ticker-scroll var(--ticker-speed, 250s) linear infinite;
+  animation: ticker-scroll var(--ticker-speed) linear infinite;
 }
 
 .ticker ul li{
@@ -179,7 +195,7 @@ body{
 }
 
 /* ================= TICKER TOOLS ================= */
-.tools{
+.ticker-tools{
   display:flex;
   align-items:center;
   gap:10px;
@@ -306,21 +322,50 @@ body{
   .mobile-menu{ display:block }
 }
 
+/* ================= LANGUAGE + SEARCH BAR BELOW NAV ================= */
+.tools-bar{
+  background:#fff;
+  border-bottom:1px solid #e7e7ea;
+  box-shadow:var(--shadow);
+  padding:6px 12px;
+  margin-bottom:16px;
+}
+
+.tools{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+}
+
+.tools .lang-select select{
+  padding:6px 8px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:13px;
+}
+
+.tools .search input{
+  padding:6px 8px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:13px;
+}
+
+.tools .search button{
+  padding:6px 8px;
+  border:none;
+  background:var(--maroon);
+  color:#fff;
+  border-radius:6px;
+  cursor:pointer;
+}
+
 /* ================= MAIN LAYOUT ================= */
 .main{
   max-width:1200px;
   margin:18px auto;
   padding:0 12px;
-}
-
-/* Article / About / Chief Editor page shell */
-.page-shell{
-  max-width:900px;
-  margin:18px auto;
-  padding:18px 16px;
-  background:#fff;
-  border:1px solid #ddd;
-  box-shadow:var(--shadow);
 }
 
 /* ================= CARDS ================= */
@@ -372,8 +417,6 @@ body{
 .media.placeholder.blue{ color:#1f6feb; border-color:#1f6feb }
 .media.placeholder.green{ color:#1f7a4d; border-color:#1f7a4d }
 
-.red-label{ background:#e53935 !important; color:#fff !important }
-
 /* ================= CARD BODY ================= */
 .card .card-body{
   padding:14px;
@@ -393,6 +436,38 @@ body{
   color:#e53935;
   text-decoration:none;
   font-weight:700;
+}
+
+/* ================= VLOGS ================= */
+.vlogs{ padding:12px }
+
+.vlogs-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.vlogs-sub{
+  margin:4px 0 8px;
+  color:#444;
+  font-size:14px;
+}
+
+.card.video iframe{
+  width:100%;
+  height:240px;
+  border:0;
+}
+
+/* ================= INTERNATIONAL & HUMAN RIGHTS ================= */
+.section-rail{ margin-top:18px }
+
+.rail-header{
+  background:#e53935;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:0;
+  font-weight:800;
 }
 
 /* ================= ARCHIVE LIST ================= */
@@ -447,99 +522,15 @@ body{
   text-decoration:none;
 }
 
-/* ================= INTERNATIONAL & HUMAN RIGHTS ================= */
-.section-rail{ margin-top:18px }
-
-.rail-header{
-  padding:10px 14px;
-  border-radius:0;
-  font-weight:800;
-  color:#fff;
-}
-
-.blue-header{
-  background:#1f6feb;
-}
-
-.maroon-header{
-  background:#e53935;
-}
-
-/* ================= VLOGS ================= */
-.vlogs{ padding:12px }
-
-.vlogs-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.vlogs-sub{
-  margin:4px 0 8px;
-  color:#444;
-  font-size:14px;
-}
-
-/* ================= ARTICLE INLINE IMAGES ================= */
-.article-content figure{
-  margin:16px 0;
-}
-
-.article-content figure img{
-  width:100%;
-  height:auto;
-}
-
-.article-content figure.image-left,
-.article-content figure.image-right{
-  max-width:42%;
-}
-
-.article-content figure.image-left{
-  float:left;
-  margin:6px 20px 10px 0;
-}
-
-.article-content figure.image-right{
-  float:right;
-  margin:6px 0 10px 20px;
-}
-
-.article-content::after{
-  content:"";
-  display:block;
-  clear:both;
-}
-
-/* ================= ARTICLE HERO ================= */
-#heroWrap{
-  margin:16px 0;
-}
-
-#heroImg{
-  width:100%;
-  height:auto;
-  aspect-ratio:16/9;
-  object-fit:cover;
-  border-radius:4px;
-}
-
-/* ================= METADATA ================= */
-.meta-line{
-  font-size:14px;
-  color:#555;
-  margin-bottom:12px;
-}
-
-/* ================= E-PAPER / NEWSLETTER / CONTACT ================= */
+/* ================= E-PAPER ================= */
 .epaper-grid{
-  margin-top:24px;
+  margin-top:18px;
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:16px;
 }
 
-.ep-card{
+.epaper-card{
   background:#fff;
   border-radius:0;
   padding:14px;
@@ -547,19 +538,19 @@ body{
   border:1px solid #e0e0e0;
 }
 
-.ep-card h3{
+.epaper-card h3{
   margin-top:0;
   margin-bottom:8px;
 }
 
-.ep-card p{
+.epaper-card p{
   margin:0 0 10px;
   font-size:14px;
   color:#444;
 }
 
-.ep-card input[type="email"],
-.ep-card input[type="file"]{
+.epaper-card input[type="email"],
+.epaper-card input[type="file"]{
   width:100%;
   padding:8px 10px;
   border:1px solid #dfe3eb;
@@ -568,25 +559,37 @@ body{
   margin-bottom:8px;
 }
 
-.btn-primary{
-  background:var(--maroon);
-  color:#fff;
-  border:none;
-  padding:8px 12px;
-  border-radius:999px;
-  font-size:13px;
+.epaper-label{
+  display:inline-block;
+  padding:6px 10px;
+  background:#eee;
+  border-radius:6px;
   cursor:pointer;
+  margin-bottom:8px;
 }
 
-/* ================= CONTACT (MODAL FIELDS) ================= */
-.modal-card label{
+.epaper-label input{
+  display:none;
+}
+
+/* ================= CONTACT ================= */
+.contact-wrap{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:16px;
+}
+
+.contact-wrap label{
   display:block;
   margin-bottom:10px;
 }
 
-.modal-card input[type="email"],
-.modal-card input[type="text"],
-.modal-card textarea{
+input[type="email"],
+input[type="text"],
+input[type="tel"],
+textarea,
+input[type="file"]{
   width:100%;
   max-width:100%;
   padding:8px 10px;
