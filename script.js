@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       timeZone: "Europe/Zurich"
     });
 
-    // IST (Jammu–Kashmir–Ladakh)
+    // IST (Jammu–Kashmir–Ladbi)
     setTime("#tz-ist span", {
       hour: "2-digit",
       minute: "2-digit",
@@ -187,6 +187,51 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   loadBreaking();
+
+  // ================= LATEST ARTICLES =================
+  async function loadLatestArticles() {
+    const ids = [
+      ["#la1-media", "#la1-body"],
+      ["#la2-media", "#la2-body"],
+      ["#la3-media", "#la3-body"]
+    ];
+
+    try {
+      const res = await fetch("content/articles.json", { cache: "no-store" });
+      const data = await res.json();
+      if (!data.items) return;
+
+      const items = data.items
+        .slice()
+        .sort((a,b) => new Date(b.date) - new Date(a.date))
+        .slice(0,3);
+
+      items.forEach((item, i) => {
+        const media = document.querySelector(ids[i][0]);
+        const body  = document.querySelector(ids[i][1]);
+
+        if (item.heroImage?.src) {
+          media.innerHTML = `
+            <img src="${item.heroImage.src}" alt="${item.title}" 
+                 style="aspect-ratio:16/9;object-fit:cover;">
+          `;
+          media.classList.remove("placeholder");
+        }
+
+        body.innerHTML = `
+          <h3>${item.title}</h3>
+          <p>${item.excerpt || ""}</p>
+          <a class="read-more" href="article.html?id=${item.id}">Read More →</a>
+        `;
+      });
+
+      applyImageFallback();
+    } catch (err) {
+      console.warn("Latest articles failed:", err);
+    }
+  }
+
+  loadLatestArticles();
 
   // ================= TICKER DUPLICATION =================
   const tickerList = $("#ticker-items");
