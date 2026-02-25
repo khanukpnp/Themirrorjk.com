@@ -5,106 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="./">
   <title>About | THE MIRROR JAMMU KASHMIR</title>
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=14">
 </head>
 
 <body class="article-page theme-maroon">
 
-<!-- PAGE SHELL (matches article layout) -->
 <main class="page-shell about-page">
 
   <section class="article-container">
     <div class="article-shell">
 
-      <!-- HEADER -->
+      <!-- HEADER (dynamic) -->
       <header class="article-header">
-        <h1>About The Mirror Jammu Kashmir</h1>
-        <div class="article-meta">
-          Independent Digital Media Platform · Truth · Justice · Human Dignity
-        </div>
+        <h1 id="about-title">Loading…</h1>
+        <div class="article-meta" id="about-subtitle"></div>
       </header>
 
-      <!-- FLOATING LOGO (fixed, no cropping) -->
-      <figure class="about-figure">
-        <img src="assets/logo.png" alt="The Mirror Jammu Kashmir Logo">
-        <figcaption>The Mirror Jammu Kashmir — Independent Digital Media Platform</figcaption>
-      </figure>
+      <!-- HERO IMAGE (dynamic) -->
+      <figure class="about-figure" id="about-hero"></figure>
 
-      <!-- CONTENT -->
-      <div class="article-content">
-
-        <p>
-          The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity. We exist to challenge silence, expose injustice, and amplify voices that are ignored or deliberately suppressed. Our work is rooted in facts, international law, and lived realities.
-        </p>
-
-        <p>
-          Our mission is simple and uncompromising. To champion justice. To speak the truth without fear. To bring forward voices from the margins. To document realities others ignore. Hope becomes real through action and principled journalism.
-        </p>
-
-        <p>
-          We are guided by the belief that all human beings are born free and equal in dignity and rights. These rights are universal and non negotiable. Equality without discrimination is not a privilege. It is a right.
-        </p>
-
-        <p>
-          Democracy derives its legitimacy from the will of the people. It cannot survive where human rights are violated or where populations are excluded.
-        </p>
-
-        <p>
-          The Mirror Jammu Kashmir stands against the global erosion of human rights. Forced occupation, forced migration, forced labor, and debt bondage remain present realities.
-        </p>
-
-        <p>
-          Our work is grounded in the historical and political reality of the State of Jammu and Kashmir. Founded on 16 March 1846 through the Treaty of Amritsar, the state remained independent for 101 years. Maharaja Hari Singh chose independence at partition.
-        </p>
-
-        <p>
-          Since 1947, the people of the historical State of Jammu and Kashmir have remained forcibly divided. Freedom of movement, expression, press, peaceful assembly, and association are routinely restricted.
-        </p>
-
-        <p>
-          Independent journalism is increasingly marginalized. An impartial and independent media is a democratic necessity.
-        </p>
-
-        <p>
-          We present verified historical facts, treaties, and ground realities. We remind states of their responsibilities under international law.
-        </p>
-
-        <p>
-          We assess policies against promises. Actions against pledges. Conduct against international standards.
-        </p>
-
-        <p><strong>
-          The Mirror Jammu Kashmir holds up a mirror to power, to policy, to history, and to truth.
-        </strong></p>
-
-        <!-- DISCLAIMER SECTION -->
-        <h2 style="margin-top:50px;">Editorial & Opinion Disclaimer</h2>
-
-        <p>
-          The Mirror Jammu Kashmir is an independent digital media platform committed to factual reporting, responsible journalism, and the protection of freedom of expression.
-        </p>
-
-        <p>
-          Opinions expressed in editorials, opinion pieces, guest columns, interviews, and contributed articles are solely those of the respective authors. They do not necessarily reflect the official position, editorial policy, or views of The Mirror Jammu Kashmir, its editorial board, management, affiliates, partners, or associated organizations.
-        </p>
-
-        <p>
-          Guest contributors and external writers bear full responsibility for the accuracy of their statements, interpretations, and claims. While reasonable efforts are made to verify information prior to publication, The Mirror Jammu Kashmir does not assume legal liability for errors, omissions, or representations made by third party contributors.
-        </p>
-
-        <p>
-          References to governments, institutions, organizations, individuals, or public policies are presented for informational, analytical, or journalistic purposes only and should not be interpreted as formal accusations or legal determinations unless explicitly stated as such.
-        </p>
-
-        <p>
-          All content is published in good faith and in accordance with international standards of journalistic integrity, freedom of expression, and applicable media laws.
-        </p>
-
-        <p>
-          Readers are encouraged to independently evaluate information and seek professional advice where necessary.
-        </p>
-
-      </div>
+      <!-- CONTENT (dynamic) -->
+      <div class="article-content" id="about-content"></div>
 
       <!-- ACTION BUTTONS -->
       <div class="page-actions">
@@ -124,25 +45,79 @@
 </footer>
 
 <script>
+// ================= YEAR =================
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// ================= LIKE BUTTON =================
 let likes = 0;
 document.getElementById("likeBtn").onclick =
   () => document.getElementById("likeCount").textContent = ++likes;
 
-document.getElementById("subBtn").onclick =
-  function(){
-    this.textContent="Subscribed";
-    this.disabled=true;
-  };
+// ================= SUBSCRIBE BUTTON =================
+document.getElementById("subBtn").onclick = function(){
+  this.textContent="Subscribed";
+  this.disabled=true;
+};
 
-document.getElementById("shareBtn").onclick =
-  () => navigator.share
+// ================= SHARE BUTTON =================
+document.getElementById("shareBtn").onclick = () =>
+  navigator.share
     ? navigator.share({title:document.title,url:location.href})
     : alert("Share not supported");
 
+// ================= COPY LINK =================
 document.getElementById("copyBtn").onclick =
   () => navigator.clipboard.writeText(location.href);
+
+// ================= LOAD ABOUT.JSON =================
+async function loadAbout() {
+  try {
+    const res = await fetch("content/about.json", { cache: "no-store" });
+    const data = await res.json();
+
+    // TITLE + SUBTITLE
+    document.getElementById("about-title").textContent = data.title;
+    document.getElementById("about-subtitle").textContent = data.subtitle;
+
+    // HERO IMAGE
+    const hero = document.getElementById("about-hero");
+    if (data.heroImage?.src) {
+      hero.innerHTML = `
+        <img src="${data.heroImage.src}" alt="${data.heroImage.caption}">
+        <figcaption>${data.heroImage.caption}</figcaption>
+      `;
+    }
+
+    // BODY CONTENT
+    const container = document.getElementById("about-content");
+    container.innerHTML = "";
+
+    data.body.forEach(block => {
+      if (block.type === "paragraph") {
+        container.innerHTML += `<p>${block.text}</p>`;
+      }
+
+      if (block.type === "header") {
+        container.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
+      }
+
+      if (block.type === "points") {
+        const items = block.items.map(i => `<li>${i}</li>`).join("");
+        container.innerHTML += `
+          <div class="important-points">
+            <ul>${items}</ul>
+          </div>
+        `;
+      }
+    });
+
+  } catch (err) {
+    console.error("Failed to load about.json", err);
+    document.getElementById("about-title").textContent = "Error loading content";
+  }
+}
+
+loadAbout();
 </script>
 
 </body>
