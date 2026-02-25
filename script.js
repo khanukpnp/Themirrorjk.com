@@ -2,7 +2,6 @@
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
-// Simple image fallback
 function applyImageFallback(ctx = document) {
   const placeholder =
     "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23eeeeee'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='36' fill='%23999'%3EImage Placeholder%3C/text%3E%3C/svg%3E";
@@ -165,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const item = data.items[0];
 
-      // HERO IMAGE
       if (item.heroImage?.src) {
         mediaBox.innerHTML = `
           <img src="${item.heroImage.src}" alt="" style="aspect-ratio:16/9; object-fit:cover;">
@@ -175,7 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
         mediaBox.textContent = "No Image";
       }
 
-      // TEXT CONTENT
       bodyBox.innerHTML = `
         <h3>${item.title}</h3>
         <p>${item.excerpt}</p>
@@ -200,7 +197,12 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const res = await fetch("content/vlogs.json", { cache: "no-store" });
       const data = await res.json();
-      if (!data.videos) return;
+      if (!data.videos || data.videos.length === 0) {
+        $$(".card.video .card-body", vlogSection).forEach(b => {
+          b.innerHTML = "<p>Video reports will appear here soon.</p>";
+        });
+        return;
+      }
 
       const cards = vlogSection.querySelectorAll("article.card.video");
       data.videos.slice(0, cards.length).forEach((v, i) => {
@@ -209,7 +211,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!card) return;
 
         const media = card.querySelector(".media");
-        if (!media) return;
+        const body = card.querySelector(".card-body");
+        if (!media || !body) return;
 
         const badges = [...media.querySelectorAll(".badge")];
         media.innerHTML = "";
@@ -226,9 +229,18 @@ document.addEventListener("DOMContentLoaded", () => {
         iframe.style.border = "0";
 
         media.appendChild(iframe);
+
+        body.innerHTML = `
+          <h3>${v.title || "Video Report"}</h3>
+          <p>${v.description || ""}</p>
+        `;
       });
     } catch (err) {
       console.warn("Vlog load failed:", err);
+      const bodies = $$(".card.video .card-body", vlogSection);
+      bodies.forEach(b => {
+        b.innerHTML = "<p>Video reports will appear here soon.</p>";
+      });
     }
   }
 
@@ -291,14 +303,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ======================================================
-  // ===================== CONTACT TOGGLE ==================
+  // ===================== CONTACT MODAL ===================
   // ======================================================
+  const contactModal = $("#contact-modal");
   const openContactBtn = $("#open-contact");
-  const contactWrap = $(".contact-wrap");
+  const closeContactBtn = $("#close-contact");
+  const sendContactBtn = $("#send-contact");
 
-  if (openContactBtn && contactWrap) {
+  if (openContactBtn && contactModal) {
     openContactBtn.addEventListener("click", () => {
-      contactWrap.classList.toggle("hidden");
+      contactModal.showModal();
+    });
+  }
+
+  if (closeContactBtn && contactModal) {
+    closeContactBtn.addEventListener("click", () => {
+      contactModal.close();
+    });
+  }
+
+  if (sendContactBtn && contactModal) {
+    sendContactBtn.addEventListener("click", () => {
+      // Placeholder: you can hook this to a backend later
+      alert("Your message has been noted.");
+      contactModal.close();
     });
   }
 
@@ -332,7 +360,9 @@ async function loadAbout() {
     const titleEl = $("#title");
     const metaEl = $("#meta");
     const content = $("#content");
+    const main = document.querySelector("main");
 
+    if (main) main.classList.add("page-shell");
     if (!content) return;
 
     content.classList.add("article-content");
@@ -372,7 +402,9 @@ async function loadChiefEditor() {
     const titleEl = $("#title");
     const metaEl = $("#meta");
     const content = $("#content");
+    const main = document.querySelector("main");
 
+    if (main) main.classList.add("page-shell");
     if (!content) return;
 
     content.classList.add("article-content");
@@ -439,7 +471,9 @@ async function loadArticle() {
     const heroImg = $("#heroImg");
     const metaBox = $("#meta");
     const content = $("#content");
+    const main = document.querySelector("main");
 
+    if (main) main.classList.add("page-shell");
     if (titleEl) titleEl.textContent = article.title || "";
     if (content) content.classList.add("article-content");
 
