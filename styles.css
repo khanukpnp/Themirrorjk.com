@@ -104,6 +104,7 @@ body{
   overflow-x:auto;
   scrollbar-width:none;
 }
+
 #weather-bar::-webkit-scrollbar{ display:none }
 
 #weather-bar .city{
@@ -168,7 +169,6 @@ body{
   color:#fff;
 }
 
-/* Ticker Animation Fix */
 @keyframes ticker-scroll {
   0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
@@ -217,7 +217,7 @@ body{
   cursor:pointer;
 }
 
-/* ================= NAVIGATION (RESTORED ORIGINAL STYLE) ================= */
+/* ================= NAVIGATION ================= */
 .navbar{
   background:#fff;
   border-bottom:1px solid #ddd;
@@ -228,15 +228,14 @@ body{
 .nav-list{
   display:flex;
   align-items:center;
+  justify-content:center; /* CENTERED NAVIGATION */
   gap:8px;
   list-style:none;
   padding:0;
   margin:0;
 }
 
-.nav-item{
-  position:relative;
-}
+.nav-item{ position:relative }
 
 .nav-btn{
   background:none;
@@ -268,9 +267,7 @@ body{
   z-index:50;
 }
 
-.nav-item.open .dropdown{
-  display:block;
-}
+.nav-item.open .dropdown{ display:block }
 
 .dropdown a{
   display:block;
@@ -280,13 +277,9 @@ body{
   font-size:12px;
 }
 
-.dropdown a:hover{
-  background:#f3f5f8;
-}
+.dropdown a:hover{ background:#f3f5f8 }
 
-.dropdown.wide{
-  min-width:220px;
-}
+.dropdown.wide{ min-width:220px }
 
 /* ================= MOBILE NAV ================= */
 .hamburger{
@@ -309,18 +302,12 @@ body{
   .nav-list{ display:none }
   .mobile-menu{ display:block }
 }
+
 /* ================= MAIN LAYOUT ================= */
 .main{
   max-width:1200px;
   margin:18px auto;
   padding:0 12px;
-}
-
-/* Reuters-style article width */
-.article-main{
-  max-width:900px;
-  margin:0 auto;
-  padding:0 16px;
 }
 
 /* ================= CARDS ================= */
@@ -334,7 +321,7 @@ body{
 
 .card{
   background:var(--card);
-  border-radius:18px;
+  border-radius:0; /* SHARP EDGES */
   overflow:hidden;
   box-shadow:var(--shadow);
 }
@@ -342,9 +329,9 @@ body{
 .card .media{
   position:relative;
   overflow:hidden;
+  max-height:240px; /* Prevent hero overflow */
 }
 
-/* 16:9 ONLY FOR CARD MEDIA */
 .card .media img{
   width:100%;
   aspect-ratio:16/9;
@@ -363,7 +350,7 @@ body{
   font-family:Georgia, "Times New Roman", serif;
   font-size:22px;
   font-weight:700;
-  border-radius:18px 18px 0 0;
+  border-radius:0;
   background:#f2f2f2;
   border:3px solid;
 }
@@ -371,6 +358,7 @@ body{
 .media.placeholder.maroon{ color:#7a0d22; border-color:#7a0d22 }
 .media.placeholder.blue{ color:#1f6feb; border-color:#1f6feb }
 .media.placeholder.green{ color:#1f7a4d; border-color:#1f7a4d }
+.red-label{ background:#e53935 !important; color:#fff !important }
 
 /* ================= BREAKING CARD FIX ================= */
 #breaking img{
@@ -411,7 +399,7 @@ body{
   display:flex;
   gap:12px;
   background:#fff;
-  border-radius:14px;
+  border-radius:0;
   padding:10px;
   box-shadow:var(--shadow);
   align-items:flex-start;
@@ -420,7 +408,6 @@ body{
 .archive-item .thumb{
   width:120px;
   height:80px;
-  border-radius:10px;
   overflow:hidden;
   flex-shrink:0;
 }
@@ -431,9 +418,7 @@ body{
   object-fit:cover;
 }
 
-.archive-item .info{
-  flex:1;
-}
+.archive-item .info{ flex:1 }
 
 .archive-item .info h4{
   margin:0 0 6px;
@@ -455,21 +440,14 @@ body{
 }
 
 /* ================= INTERNATIONAL & HUMAN RIGHTS ================= */
-.section-rail{
-  margin-top:18px;
-}
+.section-rail{ margin-top:18px }
 
 .rail-header{
   background:#e53935;
   color:#fff;
   padding:10px 14px;
-  border-radius:16px 16px 0 0;
+  border-radius:0;
   font-weight:800;
-}
-
-.red-label{
-  background:#e53935 !important;
-  color:#fff !important;
 }
 
 /* ================= VLOGS ================= */
@@ -485,26 +463,6 @@ body{
   margin:4px 0 8px;
   color:#444;
   font-size:14px;
-}
-
-.filter-pills{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:10px;
-}
-
-.pill{
-  border:none;
-  background:#eef1f5;
-  padding:8px 14px;
-  border-radius:999px;
-  cursor:pointer;
-}
-
-.pill.active{
-  background:#e74c3c;
-  color:#fff;
 }
 
 /* ================= ARTICLE INLINE IMAGES ================= */
@@ -538,25 +496,14 @@ body{
   clear:both;
 }
 
-/* ================= ABOUT PAGE FIXES ================= */
-#content {
-  max-width:900px;
-  margin:0 auto;
-  padding:0 16px;
+/* ================= METADATA ================= */
+.meta-line{
+  font-size:14px;
+  color:#555;
+  margin-bottom:12px;
 }
 
-#content figure {
-  float:right;
-  max-width:40%;
-  margin:6px 0 12px 20px;
-}
-
-#content figure img {
-  width:100%;
-  height:auto;
-  border-radius:6px;
-}
-/* ================= CONTACT & EPAPER ================= */
+/* ================= CONTACT ================= */
 .contact-wrap{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -598,8 +545,7 @@ input[type="file"]{
   margin-bottom:6px;
 }
 
-.footer .social a,
-.footer .social button{
+.footer .social a{
   background:#ffffff18;
   border:1px solid #ffffff30;
   color:#fff;
@@ -652,7 +598,6 @@ input[type="file"]{
   z-index:50;
 }
 
-.mobile-sticky a,
 .mobile-sticky button{
   background:none;
   border:none;
@@ -673,24 +618,4 @@ input[type="file"]{
   .logo{ width:56px; height:56px }
   .chip.tiny{ font-size:11px; padding:3px 6px }
   #weather-bar .city{ font-size:11px }
-}
-
-/* ================= IMPORTANT POINTS BLOCK ================= */
-.important-points{
-  background:#fff7f5;
-  border-left:4px solid var(--maroon);
-  padding:12px 16px;
-  margin:18px 0;
-  border-radius:8px;
-}
-
-.important-points ul{
-  margin:0;
-  padding-left:18px;
-}
-
-.important-points li{
-  margin-bottom:6px;
-  font-size:15px;
-  line-height:1.5;
 }
