@@ -2,9 +2,11 @@
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
+// ================= IMAGE FALLBACK =================
 function applyImageFallback(ctx = document) {
   const placeholder =
     "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23eeeeee'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='36' fill='%23999'%3EImage Placeholder%3C/text%3E%3C/svg%3E";
+
   $$("img", ctx).forEach(img => {
     img.onerror = () => {
       img.src = placeholder;
@@ -12,7 +14,9 @@ function applyImageFallback(ctx = document) {
   });
 }
 
+// ================= ON PAGE LOAD =================
 document.addEventListener("DOMContentLoaded", () => {
+
   // ================= YEAR =================
   const yearEl = $("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -146,15 +150,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadWeather();
 
-  // Initial fallback for any images present
-  applyImageFallback();
-
-  // ======================================================
-  // =============== BREAKING NEWS (MIDDLE WINDOW) =========
-  // ======================================================
+  // ================= BREAKING NEWS =================
   async function loadBreaking() {
-    const mediaBox = $(".latest-breaking-window .media");
-    const bodyBox = $(".latest-breaking-window .card-body");
+    const mediaBox = $("#breaking .media");
+    const bodyBox = $("#breaking-body");
     if (!mediaBox || !bodyBox) return;
 
     try {
@@ -164,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const item = data.items[0];
 
+      // HERO IMAGE
       if (item.heroImage?.src) {
         mediaBox.innerHTML = `
           <img src="${item.heroImage.src}" alt="" style="aspect-ratio:16/9; object-fit:cover;">
@@ -173,6 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mediaBox.textContent = "No Image";
       }
 
+      // TEXT CONTENT
       bodyBox.innerHTML = `
         <h3>${item.title}</h3>
         <p>${item.excerpt}</p>
@@ -187,77 +188,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadBreaking();
 
-  // ======================================================
-  // ===================== VLOG SECTION ====================
-  // ======================================================
-  async function renderVlogs() {
-    const vlogSection = $("#vlog");
-    if (!vlogSection) return;
-
-    try {
-      const res = await fetch("content/vlogs.json", { cache: "no-store" });
-      const data = await res.json();
-      if (!data.videos || data.videos.length === 0) {
-        $$(".card.video .card-body", vlogSection).forEach(b => {
-          b.innerHTML = "<p>Video reports will appear here soon.</p>";
-        });
-        return;
-      }
-
-      const cards = vlogSection.querySelectorAll("article.card.video");
-      data.videos.slice(0, cards.length).forEach((v, i) => {
-        if (!v.youtubeId) return;
-        const card = cards[i];
-        if (!card) return;
-
-        const media = card.querySelector(".media");
-        const body = card.querySelector(".card-body");
-        if (!media || !body) return;
-
-        const badges = [...media.querySelectorAll(".badge")];
-        media.innerHTML = "";
-        badges.forEach(b => media.appendChild(b));
-
-        const iframe = document.createElement("iframe");
-        iframe.src = `https://www.youtube.com/embed/${v.youtubeId}`;
-        iframe.title = v.title || "";
-        iframe.allowFullscreen = true;
-        iframe.loading = "lazy";
-        iframe.referrerPolicy = "strict-origin-when-cross-origin";
-        iframe.style.width = "100%";
-        iframe.style.height = "100%";
-        iframe.style.border = "0";
-
-        media.appendChild(iframe);
-
-        body.innerHTML = `
-          <h3>${v.title || "Video Report"}</h3>
-          <p>${v.description || ""}</p>
-        `;
-      });
-    } catch (err) {
-      console.warn("Vlog load failed:", err);
-      const bodies = $$(".card.video .card-body", vlogSection);
-      bodies.forEach(b => {
-        b.innerHTML = "<p>Video reports will appear here soon.</p>";
-      });
-    }
-  }
-
-  renderVlogs();
-
-  // ======================================================
-  // ===================== TICKER DUPLICATION ==============
-  // ======================================================
+  // ================= TICKER DUPLICATION =================
   const tickerList = $("#ticker-items");
   if (tickerList && tickerList.parentElement) {
     const clone = tickerList.cloneNode(true);
     tickerList.parentElement.appendChild(clone);
   }
 
-  // ======================================================
-  // ================= NAVIGATION DROPDOWNS ================
-  // ======================================================
+  // ================= NAVIGATION DROPDOWNS =================
   $$(".nav-item.has-sub").forEach(item => {
     const btn = item.querySelector(".nav-btn");
     if (!btn) return;
@@ -274,9 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $$(".nav-item.has-sub").forEach(i => i.classList.remove("open"));
   });
 
-  // ======================================================
-  // ===================== MOBILE MENU =====================
-  // ======================================================
+  // ================= MOBILE MENU =================
   const hamburger = $("#hamburger");
   const mobileMenu = $("#mobile-menu");
   const navList = $(".nav-list");
@@ -302,16 +238,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ======================================================
-  // ===================== CONTACT MODAL ===================
-  // ======================================================
+  // ================= CONTACT MODAL =================
   const contactModal = $("#contact-modal");
   const openContactBtn = $("#open-contact");
+  const openContactEpaperBtn = $("#open-contact-epaper");
   const closeContactBtn = $("#close-contact");
-  const sendContactBtn = $("#send-contact");
 
   if (openContactBtn && contactModal) {
     openContactBtn.addEventListener("click", () => {
+      contactModal.showModal();
+    });
+  }
+
+  if (openContactEpaperBtn && contactModal) {
+    openContactEpaperBtn.addEventListener("click", () => {
       contactModal.showModal();
     });
   }
@@ -322,203 +262,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (sendContactBtn && contactModal) {
-    sendContactBtn.addEventListener("click", () => {
-      // Placeholder: you can hook this to a backend later
-      alert("Your message has been noted.");
-      contactModal.close();
-    });
-  }
-
-  // ======================================================
-  // ================= ABOUT / CHIEF / ARTICLE =============
-  // ======================================================
-  if (location.pathname.includes("about")) {
-    loadAbout();
-  }
-
-  if (location.pathname.includes("chief-editor")) {
-    loadChiefEditor();
-  }
-
-  if (location.pathname.includes("article.html")) {
-    loadArticle();
-  }
-
-  // Final fallback pass
+  // ================= FINAL IMAGE FALLBACK =================
   applyImageFallback();
 });
-
-// ======================================================
-// ===================== ABOUT PAGE ======================
-// ======================================================
-async function loadAbout() {
-  try {
-    const res = await fetch("content/about.json", { cache: "no-store" });
-    const data = await res.json();
-
-    const titleEl = $("#title");
-    const metaEl = $("#meta");
-    const content = $("#content");
-    const main = document.querySelector("main");
-
-    if (main) main.classList.add("page-shell");
-    if (!content) return;
-
-    content.classList.add("article-content");
-
-    if (titleEl) titleEl.textContent = data.title || "";
-    if (metaEl) metaEl.textContent = data.subtitle || "";
-
-    content.innerHTML = "";
-
-    data.body.forEach(block => {
-      if (block.type === "paragraph") {
-        const p = document.createElement("p");
-        p.textContent = block.text;
-        content.appendChild(p);
-      }
-      if (block.type === "header") {
-        const h = document.createElement("h2");
-        h.textContent = block.text;
-        content.appendChild(h);
-      }
-    });
-
-    applyImageFallback(content);
-  } catch (err) {
-    console.warn("About page failed:", err);
-  }
-}
-
-// ======================================================
-// ================= CHIEF EDITOR PAGE ==================
-// ======================================================
-async function loadChiefEditor() {
-  try {
-    const res = await fetch("content/chief-editor.json", { cache: "no-store" });
-    const data = await res.json();
-
-    const titleEl = $("#title");
-    const metaEl = $("#meta");
-    const content = $("#content");
-    const main = document.querySelector("main");
-
-    if (main) main.classList.add("page-shell");
-    if (!content) return;
-
-    content.classList.add("article-content");
-
-    if (titleEl) titleEl.textContent = data.title || "";
-    if (metaEl) metaEl.textContent = data.subtitle || "";
-
-    content.innerHTML = "";
-
-    if (data.heroImage?.src) {
-      const fig = document.createElement("figure");
-      fig.style.float = "right";
-      fig.style.width = "35%";
-      fig.style.margin = "8px 0 14px 20px";
-      fig.innerHTML = `
-        <img src="${data.heroImage.src}" alt="">
-        <figcaption>${data.heroImage.caption || ""}</figcaption>
-      `;
-      content.appendChild(fig);
-    }
-
-    data.body.forEach(block => {
-      if (block.type === "paragraph") {
-        const p = document.createElement("p");
-        p.textContent = block.text;
-        content.appendChild(p);
-      }
-    });
-
-    const clear = document.createElement("div");
-    clear.style.clear = "both";
-    content.appendChild(clear);
-
-    applyImageFallback(content);
-  } catch (err) {
-    console.warn("Chief Editor page failed:", err);
-  }
-}
-
-// ======================================================
-// ===================== ARTICLE PAGE ====================
-// ======================================================
-async function loadArticle() {
-  const id = new URLSearchParams(location.search).get("id");
-  if (!id) return;
-
-  try {
-    const [articlesRes, breakingRes] = await Promise.all([
-      fetch("content/articles.json", { cache: "no-store" }),
-      fetch("content/breaking.json", { cache: "no-store" })
-    ]);
-
-    const articlesData = await articlesRes.json();
-    const breakingData = await breakingRes.json();
-
-    let article =
-      articlesData.items?.find(x => x.id === id) ||
-      breakingData.items?.find(x => x.id === id);
-
-    if (!article) return;
-
-    const titleEl = $("#title");
-    const heroWrap = $("#heroWrap");
-    const heroImg = $("#heroImg");
-    const metaBox = $("#meta");
-    const content = $("#content");
-    const main = document.querySelector("main");
-
-    if (main) main.classList.add("page-shell");
-    if (titleEl) titleEl.textContent = article.title || "";
-    if (content) content.classList.add("article-content");
-
-    if (heroImg && heroWrap) {
-      heroImg.src = article.heroImage?.src || "";
-      heroWrap.style.display = article.heroImage?.src ? "block" : "none";
-    }
-
-    if (metaBox) {
-      metaBox.innerHTML = `
-        <div class="meta-line">
-          <strong>Date:</strong> ${article.date || ""}
-          &nbsp; | &nbsp;
-          <strong>Updated:</strong> ${article.updated || ""}
-          &nbsp; | &nbsp;
-          <strong>By:</strong> ${article.author || "Special Correspondent"}
-        </div>
-      `;
-    }
-
-    if (!content) return;
-
-    content.innerHTML = "";
-
-    article.body.forEach(block => {
-      if (block.type === "paragraph") {
-        const p = document.createElement("p");
-        p.textContent = block.text;
-        content.appendChild(p);
-      }
-      if (block.type === "image") {
-        const fig = document.createElement("figure");
-        fig.classList.add(
-          block.align === "left" ? "image-left" : "image-right"
-        );
-        fig.innerHTML = `
-          <img src="${block.src}" alt="">
-          <figcaption>${block.caption || ""}</figcaption>
-        `;
-        content.appendChild(fig);
-      }
-    });
-
-    applyImageFallback(content);
-  } catch (err) {
-    console.warn("Article page failed:", err);
-  }
-}
