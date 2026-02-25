@@ -13,9 +13,8 @@
   <!-- Preconnect for Weather API -->
   <link rel="preconnect" href="https://api.open-meteo.com" />
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=11" />
+  <link rel="stylesheet" href="styles.css?v=12" />
 </head>
-
 <body id="top" class="theme-maroon">
   <!-- ================= HEADER ================= -->
   <header class="site-header">
@@ -74,7 +73,6 @@
         <li>GOT NEWS FEEDBACK OR URGENT UPDATES CONTACT THE MIRROR JAMMU KASHMIR NOW</li>
         <li>FOLLOW OUR YOUTUBE CHANNEL THE MIRROR JAMMU KASHMIR FOR LATEST VLOGS EVENTS NEWS AND TALK SHOWS PLEASE SUBSCRIBE LIKE AND SHARE</li>
       </ul>
-
       <div class="tools">
         <label class="lang-select">
           🌍
@@ -87,7 +85,6 @@
             <option value="ar">Arabic</option>
           </select>
         </label>
-
         <form class="search" onsubmit="event.preventDefault();">
           <input id="search-input" type="search" placeholder="Search…" />
           <button type="submit">🔍</button>
@@ -101,7 +98,6 @@
     <button class="hamburger" aria-expanded="false" aria-controls="mobile-menu" id="hamburger">
       ☰
     </button>
-
     <ul class="nav-list" id="nav-list">
       <li class="nav-item has-sub">
         <button class="nav-btn">🏠 Home</button>
@@ -111,11 +107,10 @@
           <a href="#contact">Contact</a>
         </div>
       </li>
-
       <li class="nav-item">
-        <a class="nav-btn" href="#breaking">🆕 Breaking News</a>
+        <!-- Now points to the Latest Articles block (middle breaking window) -->
+        <a class="nav-btn" href="#latest-articles">🆕 Breaking News</a>
       </li>
-
       <li class="nav-item has-sub">
         <button class="nav-btn">📝 Blog</button>
         <div class="dropdown wide">
@@ -124,19 +119,16 @@
           <a href="#updates">Latest Updates</a>
         </div>
       </li>
-
       <li class="nav-item has-sub">
         <button class="nav-btn">🎥 Vlog</button>
         <div class="dropdown">
-          <a href="#vlog-latest">Latest Vlogs</a>
+          <a href="#vlog">Latest Vlogs</a>
           <a href="#vlog-archive">Archive</a>
         </div>
       </li>
-
       <li class="nav-item">
         <a class="nav-btn" href="#epaper">📰 E-Paper</a>
       </li>
-
       <li class="nav-item has-sub">
         <button class="nav-btn">📍 Jammu Kashmir</button>
         <div class="dropdown wide">
@@ -145,7 +137,6 @@
           <a href="#jk-culture">Culture</a>
         </div>
       </li>
-
       <li class="nav-item has-sub">
         <button class="nav-btn">📜 Historical Documents</button>
         <div class="dropdown wide">
@@ -154,7 +145,6 @@
           <a href="#docs-letters">Letters</a>
         </div>
       </li>
-
       <li class="nav-item has-sub">
         <button class="nav-btn">🕊️ UN & Human Rights</button>
         <div class="dropdown">
@@ -163,7 +153,6 @@
           <a href="#advocacy">Advocacy</a>
         </div>
       </li>
-
       <li class="nav-item has-sub">
         <button class="nav-btn">🌐 Global Advocacy</button>
         <div class="dropdown wide">
@@ -173,25 +162,14 @@
         </div>
       </li>
     </ul>
-
     <div id="mobile-menu" class="mobile-menu" hidden></div>
   </nav>
 
   <!-- ================= MAIN CONTENT ================= -->
   <main class="main">
-    <!-- ================= BREAKING NEWS ================= -->
-    <section id="breaking" class="card" style="margin-bottom:18px;">
-      <div class="media placeholder maroon">BREAKING NEWS</div>
-      <div class="card-body" id="breaking-body">
-        <h3>Loading breaking news…</h3>
-        <p>Please wait.</p>
-      </div>
-    </section>
-
     <!-- ================= LATEST ARTICLES (3 WINDOWS) ================= -->
     <section id="latest-articles">
       <h2 style="margin-bottom:12px;">Latest Articles</h2>
-
       <div class="cards three">
         <!-- LEFT WINDOW: ARTICLES -->
         <article class="card latest-articles-window">
@@ -203,13 +181,12 @@
           </div>
         </article>
 
-        <!-- MIDDLE WINDOW: BREAKING -->
+        <!-- MIDDLE WINDOW: BREAKING (DYNAMIC) -->
         <article class="card latest-breaking-window">
           <div class="media placeholder maroon">Breaking News</div>
           <div class="card-body">
-            <h3>Real-time Developments</h3>
-            <p>Live updates on urgent events and critical developments.</p>
-            <a href="#breaking" class="read-more">View Breaking →</a>
+            <h3>Loading breaking news…</h3>
+            <p>Please wait.</p>
           </div>
         </article>
 
@@ -225,14 +202,36 @@
       </div>
     </section>
 
+    <!-- ================= INTERNATIONAL SECTION ================= -->
+    <section id="international" class="section-rail">
+      <div class="rail-header blue-header">🌍 International News</div>
+      <div class="cards two" style="margin-top:12px;">
+        <article class="card">
+          <div class="media placeholder blue">International</div>
+          <div class="card-body">
+            <h3>UN Security Council Addresses Regional Conflicts</h3>
+            <p>Emergency session focuses on peaceful resolution mechanisms for disputed territories worldwide.</p>
+            <a href="#" class="read-more">Read More →</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media placeholder blue">International</div>
+          <div class="card-body">
+            <h3>European Parliament Calls for Press Freedom</h3>
+            <p>Resolution supports independent journalism and protection of reporters in conflict zones.</p>
+            <a href="#" class="read-more">Read More →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <!-- ================= VLOG SECTION ================= -->
     <section id="vlog" class="vlogs">
       <div class="vlogs-header">
-        <h2>Latest Vlogs</h2>
-        <a href="#" class="read-more">View All →</a>
+        <h2>Video Reports & Vlogs</h2>
+        <a href="#" class="read-more">Visit Channel →</a>
       </div>
-      <p class="vlogs-sub">Latest video reports, interviews, and field updates.</p>
-
+      <p class="vlogs-sub">In-depth reports, exclusive interviews, and documentary-style coverage.</p>
       <div class="cards two">
         <article class="card video">
           <div class="media">
@@ -242,7 +241,6 @@
             <h3>Loading vlog…</h3>
           </div>
         </article>
-
         <article class="card video">
           <div class="media">
             <span class="badge">YouTube</span>
@@ -254,25 +252,23 @@
       </div>
     </section>
 
-    <!-- ================= INTERNATIONAL & HUMAN RIGHTS ================= -->
-    <section class="section-rail">
-      <div class="rail-header">🌍 International & Human Rights</div>
-
+    <!-- ================= HUMAN RIGHTS SECTION ================= -->
+    <section id="human-rights" class="section-rail">
+      <div class="rail-header maroon-header">👨‍⚖️ Human Rights</div>
       <div class="cards two" style="margin-top:12px;">
-        <article class="card">
-          <div class="media placeholder blue">International</div>
-          <div class="card-body">
-            <h3>International Placeholder</h3>
-            <p>Global updates and reports.</p>
-            <a href="#" class="read-more">Read More →</a>
-          </div>
-        </article>
-
         <article class="card">
           <div class="media placeholder maroon">Human Rights</div>
           <div class="card-body">
-            <h3>Human Rights Placeholder</h3>
-            <p>Reports, violations, and advocacy.</p>
+            <h3>Humanitarian Organizations Launch Aid Initiative</h3>
+            <p>International relief efforts focus on providing essential services to affected communities.</p>
+            <a href="#" class="read-more">Read More →</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media placeholder maroon">Human Rights</div>
+          <div class="card-body">
+            <h3>Legal Advocacy Groups File Petition</h3>
+            <p>Human rights lawyers present case for civilian protection measures.</p>
             <a href="#" class="read-more">Read More →</a>
           </div>
         </article>
@@ -291,7 +287,6 @@
           <a href="#">Read More →</a>
         </div>
       </article>
-
       <article class="archive-item">
         <div class="thumb">
           <img src="assets/placeholder.jpg" alt="" />
@@ -314,41 +309,37 @@
     <section id="contact" style="margin-top:24px;">
       <h2>Contact Us</h2>
 
-      <div class="contact-wrap">
+      <!-- Collapsed by default; opens on click -->
+      <button id="open-contact" class="read-more" style="margin-top:8px; margin-bottom:12px;">
+        Open Contact Form ↓
+      </button>
+
+      <div class="contact-wrap hidden">
         <label>
           Your Name
           <input type="text" placeholder="Enter your name" />
         </label>
-
         <label>
           Your Email
           <input type="email" placeholder="Enter your email" />
         </label>
-
         <label>
           Subject
           <input type="text" placeholder="Subject" />
         </label>
-
         <label>
           Phone (optional)
           <input type="tel" placeholder="Phone number" />
         </label>
-
         <label style="grid-column:1 / -1;">
           Message
           <textarea rows="5" placeholder="Write your message…"></textarea>
         </label>
-
         <label style="grid-column:1 / -1;">
           Attach File (optional)
           <input type="file" />
         </label>
       </div>
-
-      <button id="open-contact" class="read-more" style="margin-top:12px;">
-        Open Contact Form →
-      </button>
     </section>
   </main>
 
@@ -365,44 +356,16 @@
     </div>
   </footer>
 
-  <!-- ================= CONTACT MODAL ================= -->
-  <dialog id="contact-modal" class="modal">
-    <div class="modal-card">
-      <h3>Contact The Mirror Jammu Kashmir</h3>
-      <p>Please fill out the form below and we will respond as soon as possible.</p>
-
-      <label>
-        Your Name
-        <input type="text" placeholder="Enter your name" />
-      </label>
-
-      <label>
-        Your Email
-        <input type="email" placeholder="Enter your email" />
-      </label>
-
-      <label>
-        Message
-        <textarea rows="5" placeholder="Write your message…"></textarea>
-      </label>
-
-      <div class="modal-actions">
-        <button id="close-contact">Close</button>
-        <button class="read-more">Send</button>
-      </div>
-    </div>
-  </dialog>
-
   <!-- ================= MOBILE STICKY NAV ================= -->
   <nav class="mobile-sticky">
     <button onclick="location.href='#top'">⬆️</button>
-    <button onclick="location.href='#breaking'">🆕</button>
-    <button onclick="location.href='#latest-articles'">📰</button>
+    <button onclick="location.href='#latest-articles'">🆕</button>
+    <button onclick="location.href='#international'">🌍</button>
     <button onclick="location.href='#vlog'">🎥</button>
     <button onclick="location.href='#contact'">✉️</button>
   </nav>
 
   <!-- ================= SCRIPTS ================= -->
-  <script src="script.js?v=11"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>
