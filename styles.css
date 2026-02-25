@@ -25,6 +25,11 @@ body{
   color:var(--text);
 }
 
+/* Utility */
+.hidden{
+  display:none !important;
+}
+
 /* ================= HEADER ================= */
 .theme-maroon .site-header{ background:var(--maroon) }
 
@@ -228,7 +233,7 @@ body{
 .nav-list{
   display:flex;
   align-items:center;
-  justify-content:center; /* CENTERED NAVIGATION */
+  justify-content:center;
   gap:8px;
   list-style:none;
   padding:0;
@@ -278,7 +283,6 @@ body{
 }
 
 .dropdown a:hover{ background:#f3f5f8 }
-
 .dropdown.wide{ min-width:220px }
 
 /* ================= MOBILE NAV ================= */
@@ -310,6 +314,15 @@ body{
   padding:0 12px;
 }
 
+/* Narrow article-style pages (About, Chief Editor, Article) */
+.page-main,
+.article-page,
+.about-page{
+  max-width:900px;
+  margin:18px auto;
+  padding:0 12px;
+}
+
 /* ================= CARDS ================= */
 .cards{
   display:grid;
@@ -321,7 +334,7 @@ body{
 
 .card{
   background:var(--card);
-  border-radius:0; /* SHARP EDGES */
+  border-radius:0;
   overflow:hidden;
   box-shadow:var(--shadow);
 }
@@ -329,7 +342,7 @@ body{
 .card .media{
   position:relative;
   overflow:hidden;
-  max-height:240px; /* Prevent hero overflow */
+  max-height:240px;
 }
 
 .card .media img{
@@ -358,13 +371,8 @@ body{
 .media.placeholder.maroon{ color:#7a0d22; border-color:#7a0d22 }
 .media.placeholder.blue{ color:#1f6feb; border-color:#1f6feb }
 .media.placeholder.green{ color:#1f7a4d; border-color:#1f7a4d }
-.red-label{ background:#e53935 !important; color:#fff !important }
 
-/* ================= BREAKING CARD FIX ================= */
-#breaking img{
-  max-height:180px;
-  object-fit:cover;
-}
+.red-label{ background:#e53935 !important; color:#fff !important }
 
 /* ================= CARD BODY ================= */
 .card .card-body{
@@ -443,11 +451,18 @@ body{
 .section-rail{ margin-top:18px }
 
 .rail-header{
-  background:#e53935;
-  color:#fff;
   padding:10px 14px;
   border-radius:0;
   font-weight:800;
+  color:#fff;
+}
+
+.blue-header{
+  background:#1f6feb;
+}
+
+.maroon-header{
+  background:#e53935;
 }
 
 /* ================= VLOGS ================= */
@@ -508,7 +523,7 @@ body{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
-  margin-top:16px;
+  margin-top:8px;
 }
 
 .contact-wrap label{
@@ -563,27 +578,6 @@ input[type="file"]{
 
 .admin-link:hover{ opacity:1 }
 
-/* ================= MODAL ================= */
-.modal{
-  border:none;
-  border-radius:16px;
-  padding:0;
-}
-
-.modal-card{
-  padding:16px 16px 12px;
-  background:#fff;
-  border-radius:16px;
-  min-width:min(90vw,520px);
-}
-
-.modal-actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:8px;
-  margin-top:10px;
-}
-
 /* ================= MOBILE STICKY NAV ================= */
 .mobile-sticky{
   position:fixed;
@@ -615,6 +609,7 @@ input[type="file"]{
 
 @media(max-width:620px){
   .cards.three{ grid-template-columns:1fr }
+  .cards.two{ grid-template-columns:1fr }
   .logo{ width:56px; height:56px }
   .chip.tiny{ font-size:11px; padding:3px 6px }
   #weather-bar .city{ font-size:11px }
