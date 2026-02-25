@@ -25,7 +25,6 @@ body{
   color:var(--text);
 }
 
-/* Utility */
 .hidden{
   display:none !important;
 }
@@ -314,13 +313,14 @@ body{
   padding:0 12px;
 }
 
-/* Narrow article-style pages (About, Chief Editor, Article) */
-.page-main,
-.article-page,
-.about-page{
+/* Article / About / Chief Editor page shell */
+.page-shell{
   max-width:900px;
   margin:18px auto;
-  padding:0 12px;
+  padding:18px 16px;
+  background:#fff;
+  border:1px solid #ddd;
+  box-shadow:var(--shadow);
 }
 
 /* ================= CARDS ================= */
@@ -511,6 +511,19 @@ body{
   clear:both;
 }
 
+/* ================= ARTICLE HERO ================= */
+#heroWrap{
+  margin:16px 0;
+}
+
+#heroImg{
+  width:100%;
+  height:auto;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  border-radius:4px;
+}
+
 /* ================= METADATA ================= */
 .meta-line{
   font-size:14px;
@@ -518,24 +531,62 @@ body{
   margin-bottom:12px;
 }
 
-/* ================= CONTACT ================= */
-.contact-wrap{
+/* ================= E-PAPER / NEWSLETTER / CONTACT ================= */
+.epaper-grid{
+  margin-top:24px;
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:8px;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
 }
 
-.contact-wrap label{
+.ep-card{
+  background:#fff;
+  border-radius:0;
+  padding:14px;
+  box-shadow:var(--shadow);
+  border:1px solid #e0e0e0;
+}
+
+.ep-card h3{
+  margin-top:0;
+  margin-bottom:8px;
+}
+
+.ep-card p{
+  margin:0 0 10px;
+  font-size:14px;
+  color:#444;
+}
+
+.ep-card input[type="email"],
+.ep-card input[type="file"]{
+  width:100%;
+  padding:8px 10px;
+  border:1px solid #dfe3eb;
+  border-radius:8px;
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+.btn-primary{
+  background:var(--maroon);
+  color:#fff;
+  border:none;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+/* ================= CONTACT (MODAL FIELDS) ================= */
+.modal-card label{
   display:block;
   margin-bottom:10px;
 }
 
-input[type="email"],
-input[type="text"],
-input[type="tel"],
-textarea,
-input[type="file"]{
+.modal-card input[type="email"],
+.modal-card input[type="text"],
+.modal-card textarea{
   width:100%;
   max-width:100%;
   padding:8px 10px;
@@ -578,6 +629,27 @@ input[type="file"]{
 
 .admin-link:hover{ opacity:1 }
 
+/* ================= MODAL ================= */
+.modal{
+  border:none;
+  border-radius:16px;
+  padding:0;
+}
+
+.modal-card{
+  padding:16px 16px 12px;
+  background:#fff;
+  border-radius:16px;
+  min-width:min(90vw,520px);
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:10px;
+}
+
 /* ================= MOBILE STICKY NAV ================= */
 .mobile-sticky{
   position:fixed;
@@ -605,11 +677,13 @@ input[type="file"]{
 /* ================= RESPONSIVE ================= */
 @media(max-width:1000px){
   .cards.three{ grid-template-columns:repeat(2,1fr) }
+  .epaper-grid{ grid-template-columns:repeat(2,1fr) }
 }
 
 @media(max-width:620px){
   .cards.three{ grid-template-columns:1fr }
   .cards.two{ grid-template-columns:1fr }
+  .epaper-grid{ grid-template-columns:1fr }
   .logo{ width:56px; height:56px }
   .chip.tiny{ font-size:11px; padding:3px 6px }
   #weather-bar .city{ font-size:11px }
