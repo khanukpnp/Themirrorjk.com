@@ -1,175 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Breaking News | The Mirror Jammu Kashmir</title>
-<link rel="stylesheet" href="styles.css?v=7">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="./">
+  <title>Breaking News | The Mirror Jammu Kashmir</title>
+  <link rel="stylesheet" href="styles.css?v=14">
 </head>
 
 <body class="article-page theme-maroon">
 
-<main class="main">
+<main class="page-shell article-main">
 
-<section class="article-container">
-<div class="article-shell">
+  <section class="article-container">
+    <div class="article-shell">
 
-<header class="article-header">
-<h1>Breaking News</h1>
-<div class="article-meta">
-Latest developments and urgent updates
-</div>
-</header>
+      <!-- HEADER -->
+      <header class="article-header">
+        <h1 id="b-title">Loading…</h1>
+        <div id="b-meta" class="article-meta"></div>
+      </header>
 
-<div id="latestPosts"></div>
+      <!-- HERO IMAGE -->
+      <figure id="b-hero" class="article-hero"></figure>
 
-<h2 style="margin-top:60px;border-top:1px solid #ddd;padding-top:20px;">
-Archive
-</h2>
+      <!-- CONTENT -->
+      <div id="b-content" class="article-content"></div>
 
-<div id="archivePosts"></div>
-
-</div>
-</section>
+    </div>
+  </section>
 
 </main>
 
 <footer class="footer">
-<p>© <span id="year"></span> The Mirror Jammu Kashmir</p>
+  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
 <script>
+// ================= YEAR =================
+document.getElementById("year").textContent = new Date().getFullYear();
 
-document.getElementById("year").textContent =
-new Date().getFullYear();
-
-async function loadBreaking(){
-
-const latestContainer =
-document.getElementById("latestPosts");
-
-const archiveContainer =
-document.getElementById("archivePosts");
-
-latestContainer.innerHTML = "";
-archiveContainer.innerHTML = "";
-
-try{
-
-const res = await fetch(
-"content/breaking.json",
-{cache:"no-store"}
-);
-
-if(!res.ok){
-throw new Error("JSON not found");
+// ================= GET BREAKING ID =================
+function getBreakingId() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("id");
 }
 
-const data = await res.json();
+// ================= LOAD BREAKING NEWS =================
+async function loadBreaking() {
+  const id = getBreakingId();
+  if (!id) return;
 
-if(!data.items || data.items.length === 0){
+  try {
+    const res = await fetch("content/breaking.json", { cache: "no-store" });
+    const data = await res.json();
 
-latestContainer.innerHTML =
-'<p style="font-size:18px;color:#777;margin-top:30px;">No breaking news published yet.</p>';
+    const item = data.items.find(a => a.id === id);
+    if (!item) {
+      document.getElementById("b-title").textContent = "Breaking news not found";
+      return;
+    }
 
-return;
-}
+    // TITLE
+    document.getElementById("b-title").textContent = item.title;
 
-let items = data.items;
+    // META
+    document.getElementById("b-meta").innerHTML = `
+      <strong>${item.category}</strong> · 
+      ${item.author} · 
+      ${item.location} · 
+      ${item.date} · 
+      ${item.readTime}
+    `;
 
-items.sort((a,b)=>
-new Date(b.date) - new Date(a.date)
-);
+    // HERO IMAGE
+    const hero = document.getElementById("b-hero");
+    if (item.heroImage?.src) {
+      hero.innerHTML = `
+        <img src="${item.heroImage.src}" alt="${item.heroImage.caption}">
+        <figcaption>${item.heroImage.caption} — <em>${item.heroImage.credit}</em></figcaption>
+      `;
+    }
 
-items.forEach(item=>{
+    // BODY CONTENT
+    const container = document.getElementById("b-content");
+    container.innerHTML = "";
 
-const card =
-document.createElement("div");
+    item.body.forEach(block => {
 
-card.style.marginBottom = "60px";
-card.style.paddingBottom = "40px";
-card.style.borderBottom = "1px solid #e5e5e5";
+      if (block.type === "paragraph") {
+        container.innerHTML += `<p>${block.text}</p>`;
+      }
 
-card.innerHTML = `
-<div style="display:flex;gap:30px;align-items:flex-start;flex-wrap:wrap;">
+      if (block.type === "header") {
+        container.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
+      }
 
-<img src="${item.heroImage?.src || ''}"
-     alt="${item.title}"
-     style="
-     width:35%;
-     min-width:260px;
-     height:auto;
-     object-fit:cover;
-     ">
+      if (block.type === "points") {
+        const items = block.items.map(i => `<li>${i}</li>`).join("");
+        container.innerHTML += `
+          <div class="important-points">
+            <ul>${items}</ul>
+          </div>
+        `;
+      }
 
-<div style="flex:1;min-width:260px;">
+      if (block.type === "image") {
+        container.innerHTML += `
+          <figure class="image-${block.align}">
+            <img src="${block.src}" alt="${block.caption}">
+            <figcaption>${block.caption} — <em>${block.credit}</em></figcaption>
+          </figure>
+        `;
+      }
 
-<h3 style="
-margin-top:0;
-margin-bottom:8px;
-font-size:24px;
-line-height:1.3;
-font-weight:600;
-">
-${item.title}
-</h3>
+    });
 
-<div style="
-font-size:14px;
-color:#777;
-margin-bottom:12px;
-">
-${item.location ? item.location + " · " : ""}
-${item.date} · ${item.readTime} · ${item.author}
-</div>
-
-<p style="
-font-size:17px;
-line-height:1.7;
-margin-bottom:12px;
-">
-${item.excerpt}
-</p>
-
-<a href="article.html?id=${item.id}"
-   style="
-   color:#a00000;
-   font-weight:600;
-   text-decoration:none;
-   ">
-Read More →
-</a>
-
-</div>
-</div>
-`;
-
-if(item.archive){
-archiveContainer.appendChild(card);
-}else{
-latestContainer.appendChild(card);
-}
-
-});
-
-if(archiveContainer.innerHTML === ""){
-archiveContainer.innerHTML =
-'<p style="color:#777;">No archived breaking news yet.</p>';
-}
-
-}catch(error){
-
-latestContainer.innerHTML =
-'<p style="color:red;">Unable to load breaking news.</p>';
-
-console.error(error);
-
-}
-
+  } catch (err) {
+    console.error("Failed to load breaking.json", err);
+    document.getElementById("b-title").textContent = "Error loading breaking news";
+  }
 }
 
 loadBreaking();
-
 </script>
 
 </body>
