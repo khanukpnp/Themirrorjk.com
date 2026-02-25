@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const setTime = (selector, options) => {
             const el = $(selector);
             if (!el) return;
-
             try {
                 el.textContent = new Intl.DateTimeFormat("en-GB", options).format(now);
             } catch {
@@ -129,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
                 const data = await res.json();
                 const t = data?.current_weather?.temperature ?? "—";
-
                 bar.innerHTML += `<div class="city">${c.name}: ${t}°C</div>`;
             } catch {
                 bar.innerHTML += `<div class="city">${c.name}: —°C</div>`;
@@ -152,12 +150,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     applyImageFallback();
-
 });
+
 // ======================================================
 // =============== BREAKING NEWS SECTION =================
 // ======================================================
-
 async function loadBreaking() {
     const mediaBox = $("#breaking .media");
     const bodyBox = $("#breaking-body");
@@ -175,9 +172,7 @@ async function loadBreaking() {
         // HERO IMAGE
         if (item.heroImage?.src) {
             mediaBox.innerHTML = `
-                <img src="${item.heroImage.src}" 
-                     alt="" 
-                     style="aspect-ratio:16/9; object-fit:cover;">
+                <img src="${item.heroImage.src}" alt="" style="aspect-ratio:16/9; object-fit:cover;">
             `;
             mediaBox.classList.remove("placeholder");
         } else {
@@ -200,23 +195,9 @@ async function loadBreaking() {
 
 loadBreaking();
 
-
-// ======================================================
-// =============== LATEST ARTICLES (STATIC) ==============
-// ======================================================
-//
-// Your HTML already contains placeholders for:
-// Editorial • Opinion • Update
-//
-// If later you want dynamic loading from JSON,
-// I can add it as Part 5.
-// For now, Part 2 keeps them static as in your HTML.
-
-
 // ======================================================
 // ===================== VLOG SECTION ====================
 // ======================================================
-
 async function renderVlogs() {
     const vlogSection = $("#vlog");
     if (!vlogSection) return;
@@ -224,7 +205,6 @@ async function renderVlogs() {
     try {
         const res = await fetch("content/vlogs.json", { cache: "no-store" });
         const data = await res.json();
-
         if (!data.videos) return;
 
         const cards = vlogSection.querySelectorAll("article.card.video");
@@ -238,13 +218,10 @@ async function renderVlogs() {
             const media = card.querySelector(".media");
             if (!media) return;
 
-            // Preserve the YouTube badge
             const badges = [...media.querySelectorAll(".badge")];
-
             media.innerHTML = "";
             badges.forEach(b => media.appendChild(b));
 
-            // Embed YouTube iframe
             const iframe = document.createElement("iframe");
             iframe.src = `https://www.youtube.com/embed/${v.youtubeId}`;
             iframe.title = v.title || "";
@@ -265,23 +242,18 @@ async function renderVlogs() {
 
 renderVlogs();
 
-
 // ======================================================
 // ===================== TICKER DUPLICATION ==============
 // ======================================================
-//
-// This ensures the ticker scrolls smoothly by duplicating
-// the <ul> list inside the ticker container.
-
 const tickerList = $("#ticker-items");
 if (tickerList) {
     const clone = tickerList.cloneNode(true);
     tickerList.parentElement.appendChild(clone);
 }
+
 // ======================================================
 // ===================== ABOUT PAGE ======================
 // ======================================================
-
 if (location.pathname.includes("about")) {
     loadAbout();
 }
@@ -291,15 +263,12 @@ async function loadAbout() {
         const res = await fetch("content/about.json", { cache: "no-store" });
         const data = await res.json();
 
-        // Title + Subtitle
         $("#title").textContent = data.title || "";
         $("#meta").textContent = data.subtitle || "";
 
-        // Content container
         const content = $("#content");
         content.innerHTML = "";
 
-        // Render blocks
         data.body.forEach(block => {
             if (block.type === "paragraph") {
                 const p = document.createElement("p");
@@ -321,12 +290,9 @@ async function loadAbout() {
     }
 }
 
-
-
 // ======================================================
 // ================= CHIEF EDITOR PAGE ==================
 // ======================================================
-
 if (location.pathname.includes("chief-editor")) {
     loadChiefEditor();
 }
@@ -336,29 +302,24 @@ async function loadChiefEditor() {
         const res = await fetch("content/chief-editor.json", { cache: "no-store" });
         const data = await res.json();
 
-        // Title + Subtitle
         $("#title").textContent = data.title || "";
         $("#meta").textContent = data.subtitle || "";
 
         const content = $("#content");
         content.innerHTML = "";
 
-        // Hero Image (Right-aligned)
         if (data.heroImage?.src) {
             const fig = document.createElement("figure");
             fig.style.float = "right";
             fig.style.width = "35%";
             fig.style.margin = "8px 0 14px 20px";
-
             fig.innerHTML = `
                 <img src="${data.heroImage.src}" alt="">
                 <figcaption>${data.heroImage.caption || ""}</figcaption>
             `;
-
             content.appendChild(fig);
         }
 
-        // Body text
         data.body.forEach(block => {
             if (block.type === "paragraph") {
                 const p = document.createElement("p");
@@ -367,7 +328,6 @@ async function loadChiefEditor() {
             }
         });
 
-        // Clear floats
         const clear = document.createElement("div");
         clear.style.clear = "both";
         content.appendChild(clear);
@@ -379,12 +339,9 @@ async function loadChiefEditor() {
     }
 }
 
-
-
 // ======================================================
 // ===================== ARTICLE PAGE ====================
 // ======================================================
-
 if (location.pathname.includes("article.html")) {
     loadArticle();
 }
@@ -394,7 +351,6 @@ async function loadArticle() {
     if (!id) return;
 
     try {
-        // Load both article sources
         const [articlesRes, breakingRes] = await Promise.all([
             fetch("content/articles.json", { cache: "no-store" }),
             fetch("content/breaking.json", { cache: "no-store" })
@@ -403,17 +359,14 @@ async function loadArticle() {
         const articlesData = await articlesRes.json();
         const breakingData = await breakingRes.json();
 
-        // Find article by ID
         let article =
             articlesData.items?.find(x => x.id === id) ||
             breakingData.items?.find(x => x.id === id);
 
         if (!article) return;
 
-        // Title
         $("#title").textContent = article.title;
 
-        // Hero image
         const heroWrap = $("#heroWrap");
         const heroImg = $("#heroImg");
 
@@ -422,7 +375,19 @@ async function loadArticle() {
             heroWrap.style.display = article.heroImage?.src ? "block" : "none";
         }
 
-        // Body content
+        const metaBox = $("#meta");
+        if (metaBox) {
+            metaBox.innerHTML = `
+                <div class="meta-line">
+                    <strong>Date:</strong> ${article.date || ""}
+                    &nbsp; | &nbsp;
+                    <strong>Updated:</strong> ${article.updated || ""}
+                    &nbsp; | &nbsp;
+                    <strong>By:</strong> ${article.author || "Special Correspondent"}
+                </div>
+            `;
+        }
+
         const content = $("#content");
         content.innerHTML = "";
 
@@ -435,6 +400,9 @@ async function loadArticle() {
 
             if (block.type === "image") {
                 const fig = document.createElement("figure");
+                fig.classList.add(
+                    block.align === "left" ? "image-left" : "image-right"
+                );
                 fig.innerHTML = `
                     <img src="${block.src}" alt="">
                     <figcaption>${block.caption || ""}</figcaption>
@@ -449,37 +417,31 @@ async function loadArticle() {
         console.warn("Article page failed:", err);
     }
 }
+
 // ======================================================
 // ================= NAVIGATION DROPDOWNS ================
 // ======================================================
-
 $$(".nav-item.has-sub").forEach(item => {
     const btn = item.querySelector(".nav-btn");
     if (!btn) return;
 
     btn.addEventListener("click", (e) => {
         e.stopPropagation();
-
         const wasOpen = item.classList.contains("open");
 
-        // Close all dropdowns
         $$(".nav-item.has-sub").forEach(i => i.classList.remove("open"));
 
-        // Toggle this one
         if (!wasOpen) item.classList.add("open");
     });
 });
 
-// Close dropdowns when clicking outside
 document.addEventListener("click", () => {
     $$(".nav-item.has-sub").forEach(i => i.classList.remove("open"));
 });
 
-
 // ======================================================
 // ===================== MOBILE MENU =====================
 // ======================================================
-
 const hamburger = $("#hamburger");
 const mobileMenu = $("#mobile-menu");
 const navList = $(".nav-list");
@@ -492,11 +454,8 @@ if (hamburger && mobileMenu) {
             mobileMenu.setAttribute("hidden", "");
         } else {
             mobileMenu.removeAttribute("hidden");
-
-            // Clone desktop nav into mobile menu
             mobileMenu.innerHTML = navList.outerHTML;
 
-            // Re-bind dropdown behavior inside mobile menu
             $$(".nav-item.has-sub", mobileMenu).forEach(item => {
                 const btn = item.querySelector(".nav-btn");
                 if (!btn) return;
@@ -510,11 +469,9 @@ if (hamburger && mobileMenu) {
     });
 }
 
-
 // ======================================================
 // ===================== CONTACT MODAL ===================
 // ======================================================
-
 const contactModal = $("#contact-modal");
 const openContactBtn = $("#open-contact");
 const closeContactBtn = $("#close-contact");
@@ -531,10 +488,7 @@ if (closeContactBtn && contactModal) {
     });
 }
 
-
 // ======================================================
 // ===================== FINAL TOUCHES ===================
 // ======================================================
-
-// Smooth fallback for any images that fail to load
 applyImageFallback();
