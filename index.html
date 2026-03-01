@@ -7,14 +7,45 @@
   <base href="./" />
   <title>THE MIRROR JAMMU KASHMIR</title>
   <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard." />
-
   <!-- Preconnect for Weather API -->
   <link rel="preconnect" href="https://api.open-meteo.com" />
-
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=15" />
+  <link rel="stylesheet" href="styles.css?v=16" />
 </head>
+
 <body id="top" class="theme-maroon">
+
+  <!-- ================= CONTACT MODAL (KEPT CLOSED) ================= -->
+  <dialog id="contact-modal" class="modal">
+    <div class="modal-card">
+      <h3>Contact The Mirror Jammu Kashmir</h3>
+      <p>
+        This quick contact form is for urgent editorial, human rights, or advocacy matters.
+      </p>
+      <div class="contact-wrap">
+        <div>
+          <label>
+            Full Name
+            <input type="text" placeholder="Your full name" />
+          </label>
+          <label>
+            Email
+            <input type="email" placeholder="you@example.com" />
+          </label>
+        </div>
+        <div>
+          <label>
+            Message
+            <textarea rows="5" placeholder="Your message"></textarea>
+          </label>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button id="close-contact" type="button">Close</button>
+        <button type="button" class="read-more">Send (placeholder)</button>
+      </div>
+    </div>
+  </dialog>
 
   <!-- ================= HEADER ================= -->
   <header class="site-header">
@@ -73,7 +104,6 @@
         <li>GOT NEWS FEEDBACK OR URGENT UPDATES CONTACT THE MIRROR JAMMU KASHMIR NOW</li>
         <li>FOLLOW OUR YOUTUBE CHANNEL THE MIRROR JAMMU KASHMIR FOR LATEST VLOGS EVENTS NEWS AND TALK SHOWS PLEASE SUBSCRIBE LIKE AND SHARE</li>
       </ul>
-
       <div class="tools ticker-tools">
         <label class="lang-select">
           🌍
@@ -91,7 +121,6 @@
             <option value="nl">Dutch</option>
           </select>
         </label>
-
         <form class="search" role="search" onsubmit="event.preventDefault();">
           <input id="search-input" type="search" placeholder="Search…" aria-label="Search" />
           <button type="submit">🔍</button>
@@ -116,7 +145,7 @@
         <button class="nav-btn">📝 Blog</button>
         <div class="dropdown wide">
           <a href="#blog-opinion">Blog &amp; Opinion</a>
-          <a href="#editorial">Editorial</a>
+          <a href="#latest-editorial">Editorial</a>
           <a href="#updates">Latest Updates</a>
         </div>
       </li>
@@ -184,7 +213,6 @@
           <option value="nl">Dutch</option>
         </select>
       </label>
-
       <form class="search" role="search" onsubmit="event.preventDefault();">
         <input id="search-input-secondary" type="search" placeholder="Search…" aria-label="Search" />
         <button type="submit">🔍</button>
@@ -195,10 +223,11 @@
   <!-- ================= MAIN CONTENT ================= -->
   <main class="main page-shell home-shell">
 
-    <!-- ========== THREE-WINDOW HERO ROW ========== -->
-    <section id="hero-row">
+    <!-- ========== TOP STORIES HERO ROW (THREE WINDOWS) ========== -->
+    <section id="top-stories">
+      <h2 class="section-title red-bar">Top Stories</h2>
       <div class="cards three hero-cards">
-        <!-- LEFT: LATEST ARTICLE -->
+        <!-- LEFT: LATEST / LEAD ARTICLE -->
         <article class="card" id="lead-article">
           <div class="media placeholder maroon" id="lead-media">Latest Article</div>
           <div class="card-body" id="lead-body">
@@ -250,6 +279,31 @@
       </div>
     </section>
 
+    <!-- ============ LATEST EDITORIAL / HISTORICAL FACTS / JAMMU KASHMIR ============= -->
+    <section id="latest-editorial">
+      <h2 class="section-title red-bar">Latest Editorial</h2>
+      <div class="cards three">
+        <article class="card">
+          <div class="media placeholder maroon" id="ed1-media">Latest Editorial</div>
+          <div class="card-body" id="ed1-body">
+            <h3>Loading…</h3>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media placeholder maroon" id="hf1-media">Historical Facts</div>
+          <div class="card-body" id="hf1-body">
+            <h3>Loading…</h3>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media placeholder maroon" id="jk1-media">Jammu Kashmir</div>
+          <div class="card-body" id="jk1-body">
+            <h3>Loading…</h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <!-- ================= INTERNATIONAL (ABOVE VLOG) ================= -->
     <section id="international">
       <h2 class="section-title red-bar">International</h2>
@@ -263,7 +317,7 @@
           </div>
         </article>
         <article class="card">
-          <div class="media placeholder maroon">International Placeholder</div>
+          <div class="media placeholder maroon">International Top Stories</div>
           <div class="card-body">
             <h3>International Placeholder</h3>
             <p>Global updates and reports.</p>
@@ -282,7 +336,6 @@
         </a>
       </div>
       <p class="vlogs-sub">In-depth reports, exclusive interviews, and documentary-style content.</p>
-
       <div class="cards three">
         <article class="card video">
           <div class="media">
@@ -296,7 +349,6 @@
             <p>Automatically showing the latest uploads from our YouTube channel.</p>
           </div>
         </article>
-
         <article class="card video">
           <div class="media">
             <span class="badge">YouTube</span>
@@ -309,7 +361,6 @@
             <p>Parallel view of the latest video playlist for quick access.</p>
           </div>
         </article>
-
         <article class="card video">
           <div class="media">
             <span class="badge">YouTube</span>
@@ -348,29 +399,12 @@
       </div>
     </section>
 
-    <!-- ================= ARCHIVE LIST ================= -->
-    <section class="archive-list">
-      <article class="archive-item">
-        <div class="thumb">
-          <img src="assets/placeholder.jpg" alt="" />
-        </div>
-        <div class="info">
-          <h4>Archive Placeholder Title</h4>
-          <p>Short description of the archived article or report.</p>
-          <a href="#">Read More →</a>
-        </div>
-      </article>
-
-      <article class="archive-item">
-        <div class="thumb">
-          <img src="assets/placeholder.jpg" alt="" />
-        </div>
-        <div class="info">
-          <h4>Archive Placeholder Title</h4>
-          <p>Short description of the archived article or report.</p>
-          <a href="#">Read More →</a>
-        </div>
-      </article>
+    <!-- ================= ARCHIVE (AUTO FROM OLD CONTENT) ================= -->
+    <section id="archive">
+      <h2 class="section-title red-bar">Archive</h2>
+      <div id="archive-list" class="archive-list">
+        <!-- Filled automatically from older articles -->
+      </div>
     </section>
 
     <!-- ================= E-PAPER SECTION ================= -->
@@ -387,13 +421,11 @@
           <input type="email" placeholder="Your email for updates" />
           <button id="open-contact-epaper" type="button" class="read-more">Contact Editorial Team →</button>
         </article>
-
         <article class="card epaper-card">
           <h3>Digital Editions</h3>
           <p>Archive of previous digital editions and special issues.</p>
           <p>Coming soon.</p>
         </article>
-
         <article class="card epaper-card">
           <h3>Distribution & Partnerships</h3>
           <p>For syndication, institutional access, and partnerships, reach out to our editorial office.</p>
@@ -444,38 +476,6 @@
 
   </main>
 
-  <!-- ================= CONTACT MODAL ================= -->
-  <dialog id="contact-modal" class="modal">
-    <div class="modal-card">
-      <h3>Contact The Mirror Jammu Kashmir</h3>
-      <p>
-        This quick contact form is for urgent editorial, human rights, or advocacy matters.
-      </p>
-      <div class="contact-wrap">
-        <div>
-          <label>
-            Full Name
-            <input type="text" placeholder="Your full name" />
-          </label>
-          <label>
-            Email
-            <input type="email" placeholder="you@example.com" />
-          </label>
-        </div>
-        <div>
-          <label>
-            Message
-            <textarea rows="5" placeholder="Your message"></textarea>
-          </label>
-        </div>
-      </div>
-      <div class="modal-actions">
-        <button id="close-contact" type="button">Close</button>
-        <button type="button" class="read-more">Send (placeholder)</button>
-      </div>
-    </div>
-  </dialog>
-
   <!-- ================= FOOTER ================= -->
   <footer class="footer">
     <div class="social">
@@ -499,6 +499,6 @@
   </div>
 
   <!-- ================= MAIN SCRIPT ================= -->
-  <script src="script.js?v=15"></script>
+  <script src="script.js?v=16"></script>
 </body>
 </html>
