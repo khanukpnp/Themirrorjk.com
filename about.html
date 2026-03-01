@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <base href="./">
-  <title>About | THE MIRROR JAMMU KASHMIR</title>
-  <link rel="stylesheet" href="styles.css?v=14">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="./">
+<title>About | THE MIRROR JAMMU KASHMIR</title>
+<link rel="stylesheet" href="styles.css?v=16">
 </head>
 
 <body class="article-page theme-maroon">
 
 <main class="page-shell about-page">
 
-  <section class="article-container">
-    <div class="article-shell">
+<section class="article-container">
+<div class="article-shell">
 
-      <!-- HEADER (dynamic) -->
-      <header class="article-header">
-        <h1 id="about-title">Loading…</h1>
-        <div class="article-meta" id="about-subtitle"></div>
-      </header>
+<!-- SECTION LABEL -->
+<div class="section-title red-bar">About The Mirror Jammu Kashmir</div>
 
-      <!-- HERO IMAGE (dynamic) -->
-      <figure class="about-figure" id="about-hero"></figure>
+<!-- HEADER -->
+<header class="article-header">
+<h1 id="about-title">Loading…</h1>
+<div class="article-meta" id="about-subtitle"></div>
+</header>
 
-      <!-- CONTENT (dynamic) -->
-      <div class="article-content" id="about-content"></div>
+<!-- HERO IMAGE FLOAT RIGHT -->
+<figure class="about-hero image-right" id="about-hero"></figure>
 
-      <!-- ACTION BUTTONS -->
-      <div class="page-actions">
-        <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-        <button id="subBtn">🔔 Subscribe</button>
-        <button id="shareBtn">📣 Share</button>
-        <button id="copyBtn">🔗 Copy Link</button>
-      </div>
+<!-- CONTENT -->
+<div class="article-content" id="about-content"></div>
 
-    </div>
-  </section>
+<!-- ACTION BUTTONS -->
+<div class="page-actions">
+<button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+<button id="subBtn">🔔 Subscribe</button>
+<button id="shareBtn">📣 Share</button>
+<button id="copyBtn">🔗 Copy Link</button>
+</div>
+
+</div>
+</section>
 
 </main>
 
 <footer class="footer">
-  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+<p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
 <script>
@@ -51,7 +54,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
 // ================= LIKE BUTTON =================
 let likes = 0;
 document.getElementById("likeBtn").onclick =
-  () => document.getElementById("likeCount").textContent = ++likes;
+() => document.getElementById("likeCount").textContent = ++likes;
 
 // ================= SUBSCRIBE BUTTON =================
 document.getElementById("subBtn").onclick = function(){
@@ -67,7 +70,7 @@ document.getElementById("shareBtn").onclick = () =>
 
 // ================= COPY LINK =================
 document.getElementById("copyBtn").onclick =
-  () => navigator.clipboard.writeText(location.href);
+() => navigator.clipboard.writeText(location.href);
 
 // ================= LOAD ABOUT.JSON =================
 async function loadAbout() {
@@ -79,7 +82,7 @@ async function loadAbout() {
     document.getElementById("about-title").textContent = data.title;
     document.getElementById("about-subtitle").textContent = data.subtitle;
 
-    // HERO IMAGE
+    // HERO IMAGE FLOAT RIGHT
     const hero = document.getElementById("about-hero");
     if (data.heroImage?.src) {
       hero.innerHTML = `
