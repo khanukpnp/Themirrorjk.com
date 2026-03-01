@@ -6,7 +6,7 @@
       "title": "Complete Shutter Down Paralyzes Rawalakot Poonch as Thousands Protest Against Punitive Measures, Power Cuts and Communication Blackouts",
       "category": "Breaking News",
       "excerpt": "Thousands shut down Rawalakot in protest against prolonged electricity outages, low voltage supply, and communication blackouts across District Poonch.",
-      "author": "Special Correspondent",
+      "author": "Special Correspondent, Rawalakot AK",
       "location": "Rawalakot, Poonch, Azad Kashmir",
       "date": "2025-12-16",
       "readTime": "7 min read",
@@ -17,6 +17,8 @@
         "credit": "The Mirror Jammu Kashmir"
       },
 
+      "archive": false,
+
       "body": [
         {
           "type": "paragraph",
@@ -26,7 +28,6 @@
           "type": "paragraph",
           "text": "Markets remained closed and traffic was largely halted as protesters marched through the city and gathered near the grid station, demanding an immediate end to what they described as collective punishment of the population. The protest reflected growing public anger over months of worsening electricity shortages and communication blackouts."
         },
-
         {
           "type": "points",
           "items": [
@@ -35,7 +36,6 @@
             "Emergency powers must not violate freedoms"
           ]
         },
-
         {
           "type": "image",
           "src": "content/rawalakot-02.jpg",
@@ -51,7 +51,6 @@
           "type": "paragraph",
           "text": "The impact has been widespread. Small businesses dependent on electricity and digital connectivity are struggling. Hospitals, clinics, schools, and universities report serious disruptions. Printing services, legal offices, students, teachers, and research workers have all been affected."
         },
-
         {
           "type": "image",
           "src": "content/rawalakot-03.jpg",
