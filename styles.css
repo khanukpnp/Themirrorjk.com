@@ -298,6 +298,7 @@ body{
 }
 
 .dropdown a:hover{ background:#f3f5f8 }
+
 .dropdown.wide{ min-width:220px }
 
 /* ================= MOBILE NAV ================= */
@@ -450,6 +451,11 @@ body{
   color:#e53935;
   text-decoration:none;
   font-weight:700;
+}
+
+/* ================= HERO ROW ================= */
+.hero-cards .card{
+  min-height:100%;
 }
 
 /* ================= VLOGS ================= */
