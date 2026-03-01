@@ -16,7 +16,6 @@ function applyImageFallback(ctx = document) {
 
 // ================= ON PAGE LOAD =================
 document.addEventListener("DOMContentLoaded", () => {
-
   // ================= YEAR =================
   const yearEl = $("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -56,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       timeZone: "Europe/Zurich"
     });
 
-    // IST (Jammu–Kashmir–Ladbi)
+    // IST (Jammu–Kashmir–Ladakh)
     setTime("#tz-ist span", {
       hour: "2-digit",
       minute: "2-digit",
@@ -152,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ================= BREAKING NEWS =================
   async function loadBreaking() {
-    const mediaBox = $("#breaking .media");
+    const mediaBox = $("#breaking-media");
     const bodyBox = $("#breaking-body");
     if (!mediaBox || !bodyBox) return;
 
@@ -165,9 +164,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // HERO IMAGE
       if (item.heroImage?.src) {
-        mediaBox.innerHTML = `
-          <img src="${item.heroImage.src}" alt="" style="aspect-ratio:16/9; object-fit:cover;">
-        `;
+        mediaBox.innerHTML =
+          `<img src="${item.heroImage.src}" alt="" style="aspect-ratio:16/9; object-fit:cover;">`;
         mediaBox.classList.remove("placeholder");
       } else {
         mediaBox.textContent = "No Image";
@@ -188,14 +186,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadBreaking();
 
-  // ================= LATEST ARTICLES =================
-  async function loadLatestArticles() {
-    const ids = [
-      ["#la1-media", "#la1-body"],
-      ["#la2-media", "#la2-body"],
-      ["#la3-media", "#la3-body"]
-    ];
-
+  // ================= ARTICLES (LEAD, BLOG & OPINION, LATEST) =================
+  async function loadArticles() {
     try {
       const res = await fetch("content/articles.json", { cache: "no-store" });
       const data = await res.json();
@@ -203,21 +195,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const items = data.items
         .slice()
-        .sort((a,b) => new Date(b.date) - new Date(a.date))
-        .slice(0,3);
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-      items.forEach((item, i) => {
-        const media = document.querySelector(ids[i][0]);
-        const body  = document.querySelector(ids[i][1]);
+      if (!items.length) return;
+
+      // ----- LEAD ARTICLE (LEFT WINDOW) -----
+      const lead = items[0];
+      const leadMedia = $("#lead-media");
+      const leadBody = $("#lead-body");
+
+      if (leadMedia && leadBody) {
+        if (lead.heroImage?.src) {
+          leadMedia.innerHTML =
+            `<img src="${lead.heroImage.src}" alt="${lead.title}" style="aspect-ratio:16/9;object-fit:cover;">`;
+          leadMedia.classList.remove("placeholder");
+        }
+        leadBody.innerHTML = `
+          <h3>${lead.title}</h3>
+          <p>${lead.excerpt || ""}</p>
+          <a class="read-more" href="article.html?id=${lead.id}">Read More →</a>
+        `;
+      }
+
+      // ----- BLOG & OPINION (RIGHT WINDOW) -----
+      const opinion = items.find(a => {
+        const cat = (a.category || a.section || "").toLowerCase();
+        return cat.includes("opinion") || cat.includes("blog");
+      }) || items[1] || items[0];
+
+      const opMedia = $("#opinion-media");
+      const opBody = $("#opinion-body");
+
+      if (opMedia && opBody && opinion) {
+        if (opinion.heroImage?.src) {
+          opMedia.innerHTML =
+            `<img src="${opinion.heroImage.src}" alt="${opinion.title}" style="aspect-ratio:16/9;object-fit:cover;">`;
+          opMedia.classList.remove("placeholder");
+        }
+        opBody.innerHTML = `
+          <h3>${opinion.title}</h3>
+          <p>${opinion.excerpt || ""}</p>
+          <a class="read-more" href="article.html?id=${opinion.id}">Read More →</a>
+        `;
+      }
+
+      // ----- LATEST ARTICLES SECTION (BELOW HERO) -----
+      const remaining = items.filter(a => a !== lead && a !== opinion).slice(0, 3);
+      const slots = [
+        ["#la1-media", "#la1-body"],
+        ["#la2-media", "#la2-body"],
+        ["#la3-media", "#la3-body"]
+      ];
+
+      remaining.forEach((item, i) => {
+        const [mSel, bSel] = slots[i];
+        const media = $(mSel);
+        const body = $(bSel);
+        if (!media || !body) return;
 
         if (item.heroImage?.src) {
-          media.innerHTML = `
-            <img src="${item.heroImage.src}" alt="${item.title}" 
-                 style="aspect-ratio:16/9;object-fit:cover;">
-          `;
+          media.innerHTML =
+            `<img src="${item.heroImage.src}" alt="${item.title}" style="aspect-ratio:16/9;object-fit:cover;">`;
           media.classList.remove("placeholder");
         }
-
         body.innerHTML = `
           <h3>${item.title}</h3>
           <p>${item.excerpt || ""}</p>
@@ -227,11 +267,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       applyImageFallback();
     } catch (err) {
-      console.warn("Latest articles failed:", err);
+      console.warn("Articles load failed:", err);
     }
   }
 
-  loadLatestArticles();
+  loadArticles();
 
   // ================= TICKER DUPLICATION =================
   const tickerList = $("#ticker-items");
