@@ -1,48 +1,90 @@
 {
-  "items": [
+  "title": "About The Mirror Jammu Kashmir",
+  "subtitle": "Independent Digital Media Platform · Truth · Justice · Human Dignity",
+  "heroImage": {
+    "src": "assets/logo.png",
+    "caption": "The Mirror Jammu Kashmir Logo"
+  },
+  "body": [
     {
-      "id": "blog-001",
-      "slug": "ukpnp-briefs-british-mps-london-2025",
-      "title": "UKPNP High Level Delegation Briefs British MPs on Kashmir Crisis and Current Situation in the State of Jammu Kashmir in London House of Parliament",
-      "category": "Blog & Opinion",
-      "excerpt": "A high level UKPNP delegation led by Sardar Shaukat Ali Kashmiri briefed British MPs in the House of Parliament on the Kashmir crisis, historical context, and current developments.",
-      "author": "Special Correspondent, London UK",
-      "location": "London, United Kingdom",
-      "date": "2025-11-25",
-      "readTime": "14 min read",
-      "heroImage": {
-        "src": "content/images/blog-ukpnp-mps-01.jpg",
-        "caption": "UKPNP delegation briefing British MPs at the House of Parliament.",
-        "credit": "The Mirror Jammu Kashmir"
-      },
-      "archive": false,
-      "body": [
-        { "type": "paragraph", "text": "A high level delegation of the United Kashmir People’s National Party, led by Sardar Shaukat Ali Kashmiri, met and briefed British Parliament Members Fabian Hamilton MP, Richard Burgon MP, Imran Hussain MP, and others at the House of Parliament in London." },
-        { "type": "paragraph", "text": "The UKPNP delegation included Sardar Nasir Aziz Khan, Central Spokesperson UKPNP, Mahmood Kashmiri, Senior Leader UKPNP and Chairman JKNIA, Sardar Tariq Khan, President UK Chapter, and Sardar Tikka Khan Tahir, Central Secretary Information. The delegation briefed MPs on the current situation in Jammu and Kashmir." },
-        { "type": "paragraph", "text": "Sardar Shaukat Ali Kashmiri thanked Fabian Hamilton for the opportunity and said the UKPNP appreciates his unwavering support to the party and the people of Jammu and Kashmir. He said the postponement was understandable due to industrial action by staff." },
-        { "type": "paragraph", "text": "He explained the historical foundation of the State of Jammu and Kashmir, the root cause of the forced division, and the current situation in the region. He said Jammu and Kashmir is a multi religious, multi cultural, multi lingual, and multi ethnic state." },
-        { "type": "paragraph", "text": "He reaffirmed that the Kashmir conflict is not a religious, territorial, or bilateral dispute and is not an unfinished agenda of partition." },
-        { "type": "paragraph", "text": "He explained that in 1947 British India was divided into two dominions, India and Pakistan. More than 580 princely states were given the option to join either dominion or remain independent." },
-        { "type": "paragraph", "text": "Maharaja Hari Singh, the last legitimate ruler of Jammu and Kashmir, chose to remain independent and signed a standstill agreement with Pakistan. Pakistan violated this agreement and invaded Jammu and Kashmir on 22 October 1947, leading to mass killings and displacement." },
-        { "type": "paragraph", "text": "The Pakistani invasion forced Maharaja Hari Singh to seek military help from India. India required a treaty before intervention. Due to the invasion and killings, the Maharaja signed a provisional treaty of accession. India entered Jammu and Kashmir on 27 October 1947 with pledges to push back invaders, protect people, and reunite the State." },
-        { "type": "paragraph", "text": "The Kashmir conflict has been on the UN agenda since 1948. UN Security Council Resolutions of 13 August 1948 and the Truce Agreement asked Pakistan to withdraw its troops and citizens. Pakistan did not comply." },
-        { "type": "paragraph", "text": "The delegation explained Pakistan’s actions in Gilgit Baltistan and Azad Kashmir. Pakistan delinked Gilgit Baltistan from Azad Kashmir in 1949 and took direct control. Pakistan launched several military operations in Jammu and Kashmir, including Operation Gulmarg in 1947, Operation Gibraltar in 1965, and Operation Tupac in 1988." },
-        { "type": "paragraph", "text": "There were no elections in Azad Kashmir until 1970, and people of Gilgit Baltistan received voting rights only in 2009. Azad Kashmir is ruled through the AJK Interim Act 1974. Four Pakistani lent officers hold real power. Kashmiris face discrimination based on ethnicity." },
-        { "type": "paragraph", "text": "Pro independence political parties, including UKPNP, cannot contest elections unless they submit an oath of allegiance to Pakistan. Article 7 of the AJK Interim Constitution Act 1974 blocks nationalist parties from participation." },
-        { "type": "paragraph", "text": "The delegation expressed deep concern that Azad Kashmir and Gilgit Baltistan governments remain powerless and dependent on Islamabad. People of both regions have no representation in the Pakistani National Assembly or Senate." },
-        { "type": "paragraph", "text": "In May 2024, Pakistani Rangers killed three peaceful protesters in Muzaffarabad. One police officer was killed by an unknown bullet. From 28 September 2025 to 4 October 2025, Pakistan imposed a blackout in Azad Kashmir, cutting all internet and mobile services." },
-        { "type": "paragraph", "text": "Three million Kashmiris were placed under siege and two million Kashmiris abroad were left without communication. Twelve peaceful protesters were killed by Rangers. The blackout was lifted after diaspora protests." },
-        { "type": "paragraph", "text": "UKPNP held demonstrations in front of the United Nations, in the United Kingdom, Canada, North America, and Europe. UKPNP submitted memoranda and oral statements at the United Nations." },
-        { "type": "paragraph", "text": "Answering a question from MP Imran Hussain, Sardar Shaukat Ali Kashmiri said Pakistan has no locus standi on Kashmir. He said Pakistan invaded the State of Jammu and Kashmir and is an aggressor." },
-        { "type": "paragraph", "text": "He said that from 1947 to the late 1980s, hardly anyone was killed by security forces. When Pakistan launched a proxy war in 1988, more than 150000 people were killed. Pakistan’s military ruler General Musharraf admitted that after the Soviet withdrawal from Afghanistan, they gathered Mujahideen and sent them to Kashmir." },
-        { "type": "paragraph", "text": "Several militant groups were created under different names. They killed secular Kashmiris and displaced the Kashmiri Pandit community. Some of these groups are listed as terrorist organisations by the United Nations, the United States, and Europe." },
-        { "type": "paragraph", "text": "He said Azad Kashmir and Gilgit Baltistan lack basic infrastructure and facilities and that people have no basic rights. UKPNP has always examined the roles of Pakistan and India on the basis of historical documents, treaties, and UN resolutions." },
-        { "type": "paragraph", "text": "He said Indian administered Jammu and Kashmir is more developed, with better infrastructure and more political rights. People have representation in Lok Sabha and Rajya Sabha and enjoy greater freedom of expression." },
-        { "type": "paragraph", "text": "Fabian Hamilton MP said the State of Jammu and Kashmir conflict is not a bilateral or territorial dispute between India and Pakistan. It concerns the lives of millions of Kashmiris and the right to self determination must be supported." },
-        { "type": "paragraph", "text": "The delegation thanked Fabian Hamilton and Richard Burgon for their unwavering support. They said their efforts and statements during the blackout helped pressure Pakistan to lift restrictions and stop bloodshed." },
-        { "type": "paragraph", "text": "They reaffirmed there is no military solution to the conflict. They said the right to free movement, freedom of expression, and fundamental human rights must be respected. People of Jammu and Kashmir deserve their right to self determination." },
-        { "type": "paragraph", "text": "Kashmir remains a nuclear flashpoint. The danger will remain until the conflict is resolved. The leaders agreed to continue meetings, conferences and diplomatic efforts to find a solution acceptable to all people of Jammu and Kashmir." }
+      "type": "paragraph",
+      "text": "The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity. We exist to challenge silence, expose injustice, and amplify voices that are ignored or deliberately suppressed. Our work is rooted in facts, international law, and lived realities."
+    },
+    {
+      "type": "paragraph",
+      "text": "Our mission is simple and uncompromising. To champion justice. To speak the truth without fear. To bring forward voices from the margins. To document realities others ignore. Hope becomes real through action and principled journalism."
+    },
+    {
+      "type": "points",
+      "items": [
+        "Human rights are non-negotiable",
+        "Access to essential services is a state obligation",
+        "Emergency powers must not violate freedoms"
       ]
+    },
+    {
+      "type": "paragraph",
+      "text": "We are guided by the belief that all human beings are born free and equal in dignity and rights. These rights are universal and non-negotiable. Equality without discrimination is not a privilege. It is a right."
+    },
+    {
+      "type": "paragraph",
+      "text": "Democracy derives its legitimacy from the will of the people. It cannot survive where human rights are violated or where populations are excluded."
+    },
+    {
+      "type": "paragraph",
+      "text": "The Mirror Jammu Kashmir stands against the global erosion of human rights. Forced occupation, forced migration, forced labor, and debt bondage remain present realities."
+    },
+    {
+      "type": "paragraph",
+      "text": "Our work is grounded in the historical and political reality of the State of Jammu and Kashmir. Founded on 16 March 1846 through the Treaty of Amritsar, the state remained independent for 101 years. Maharaja Hari Singh chose independence at partition."
+    },
+    {
+      "type": "paragraph",
+      "text": "Since 1947, the people of the historical State of Jammu and Kashmir have remained forcibly divided. Freedom of movement, expression, press, peaceful assembly, and association are routinely restricted."
+    },
+    {
+      "type": "paragraph",
+      "text": "Independent journalism is increasingly marginalized. An impartial and independent media is a democratic necessity."
+    },
+    {
+      "type": "paragraph",
+      "text": "We present verified historical facts, treaties, and ground realities. We remind states of their responsibilities under international law."
+    },
+    {
+      "type": "paragraph",
+      "text": "We assess policies against promises. Actions against pledges. Conduct against international standards."
+    },
+    {
+      "type": "paragraph",
+      "text": "The Mirror Jammu Kashmir holds up a mirror to power, to policy, to history, and to truth."
+    },
+    {
+      "type": "header",
+      "text": "Editorial & Opinion Disclaimer"
+    },
+    {
+      "type": "paragraph",
+      "text": "The Mirror Jammu Kashmir is an independent digital media platform committed to factual reporting, responsible journalism, and the protection of freedom of expression."
+    },
+    {
+      "type": "paragraph",
+      "text": "Opinions expressed in editorials, opinion pieces, guest columns, interviews, and contributed articles are solely those of the respective authors. They do not necessarily reflect the official position, editorial policy, or views of The Mirror Jammu Kashmir, its editorial board, management, affiliates, partners, or associated organizations."
+    },
+    {
+      "type": "paragraph",
+      "text": "Guest contributors and external writers bear full responsibility for the accuracy of their statements, interpretations, and claims. While reasonable efforts are made to verify information prior to publication, The Mirror Jammu Kashmir does not assume legal liability for errors, omissions, or representations made by third party contributors."
+    },
+    {
+      "type": "paragraph",
+      "text": "References to governments, institutions, organizations, individuals, or public policies are presented for informational, analytical, or journalistic purposes only and should not be interpreted as formal accusations or legal determinations unless explicitly stated as such."
+    },
+    {
+      "type": "paragraph",
+      "text": "All content is published in good faith and in accordance with international standards of journalistic integrity, freedom of expression, and applicable media laws."
+    },
+    {
+      "type": "paragraph",
+      "text": "Readers are encouraged to independently evaluate information and seek professional advice where necessary."
     }
   ]
 }
