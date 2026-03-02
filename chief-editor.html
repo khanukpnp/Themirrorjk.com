@@ -1,38 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chief Editor | The Mirror Jammu Kashmir</title>
-<link rel="stylesheet" href="styles.css?v=14">
+<base href="./">
+<title>Chief Editor | THE MIRROR JAMMU KASHMIR</title>
+<link rel="stylesheet" href="styles.css?v=17">
 </head>
 
 <body class="article-page theme-maroon">
 
 <main class="page-shell chief-editor-page">
 
-  <section class="article-container">
-    <div class="article-shell">
+<section class="article-container">
+<div class="article-shell">
 
-      <!-- HEADER (dynamic) -->
-      <header class="article-header">
-        <h1 id="ce-title">Loading…</h1>
-        <div id="ce-subtitle" class="article-meta"></div>
-      </header>
+<!-- SECTION LABEL -->
+<div class="section-title red-bar">Chief Editor</div>
 
-      <!-- HERO IMAGE (dynamic) -->
-      <figure class="chief-figure" id="ce-hero"></figure>
+<!-- HEADER -->
+<header class="article-header">
+<h1 id="ce-title">Loading…</h1>
+<div id="ce-subtitle" class="article-meta"></div>
+</header>
 
-      <!-- CONTENT (dynamic) -->
-      <div id="ce-content" class="article-content"></div>
+<!-- HERO IMAGE FLOAT RIGHT -->
+<figure class="chief-hero image-right" id="ce-hero"></figure>
 
-    </div>
-  </section>
+<!-- CONTENT -->
+<div id="ce-content" class="article-content"></div>
+
+</div>
+</section>
 
 </main>
 
 <footer class="footer">
-  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+<p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
 <script>
@@ -49,7 +53,7 @@ async function loadChiefEditor() {
     document.getElementById("ce-title").textContent = data.title;
     document.getElementById("ce-subtitle").textContent = data.subtitle;
 
-    // HERO IMAGE
+    // HERO IMAGE FLOAT RIGHT
     const hero = document.getElementById("ce-hero");
     if (data.heroImage?.src) {
       hero.innerHTML = `
