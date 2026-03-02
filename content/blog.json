@@ -10,15 +10,12 @@
       "location": "London, United Kingdom",
       "date": "2025-11-25",
       "readTime": "14 min read",
-
       "heroImage": {
         "src": "content/images/blog-ukpnp-mps-01.jpg",
         "caption": "UKPNP delegation briefing British MPs at the House of Parliament.",
         "credit": "The Mirror Jammu Kashmir"
       },
-
       "archive": false,
-
       "body": [
         {
           "type": "paragraph",
