@@ -1,12 +1,10 @@
 {
   "title": "Chief Editor",
   "subtitle": "The Mirror Jammu Kashmir",
-
   "heroImage": {
     "src": "content/images/chief-editor.jpg",
     "caption": "Chief Editor — The Mirror Jammu Kashmir"
   },
-
   "body": [
     {
       "type": "paragraph",
