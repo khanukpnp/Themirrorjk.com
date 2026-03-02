@@ -1,12 +1,10 @@
 {
   "title": "About The Mirror Jammu Kashmir",
   "subtitle": "Independent Digital Media Platform · Truth · Justice · Human Dignity",
-
   "heroImage": {
     "src": "assets/logo.png",
     "caption": "The Mirror Jammu Kashmir Logo"
   },
-
   "body": [
     {
       "type": "paragraph",
