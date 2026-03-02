@@ -10,6 +10,7 @@ const navList = document.getElementById("nav-list");
 if (hamburger && mobileMenu && navList) {
   hamburger.addEventListener("click", () => {
     const isOpen = mobileMenu.style.display === "flex";
+
     if (isOpen) {
       mobileMenu.style.display = "none";
       hamburger.setAttribute("aria-expanded", "false");
@@ -49,25 +50,39 @@ const OPENWEATHER_KEY = "YOUR_OPENWEATHER_API_KEY";
 
 /* ---------------- LIVE CLOCKS ---------------- */
 function updateClocks() {
-  // Zurich
+  const now = new Date();
+
+  // Zurich — Europe/Zurich
   const cestEl = document.querySelector("#clock-cest span");
   if (cestEl) {
-    const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Zurich" }));
-    cestEl.textContent = `${d.getHours().toString().padStart(2,"0")}:${d.getMinutes().toString().padStart(2,"0")}:${d.getSeconds().toString().padStart(2,"0")}`;
+    const zurich = new Date().toLocaleString("en-US", { timeZone: "Europe/Zurich" });
+    const d = new Date(zurich);
+    cestEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
   }
 
-  // IST
+  // IST — Asia/Kolkata
   const istEl = document.querySelector("#tz-ist span");
   if (istEl) {
-    const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
-    istEl.textContent = `${d.getHours().toString().padStart(2,"0")}:${d.getMinutes().toString().padStart(2,"0")}:${d.getSeconds().toString().padStart(2,"0")}`;
+    const ist = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+    const d = new Date(ist);
+    istEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
   }
 
-  // PKT
+  // PKT — Asia/Karachi
   const pktEl = document.querySelector("#tz-pkt span");
   if (pktEl) {
-    const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Karachi" }));
-    pktEl.textContent = `${d.getHours().toString().padStart(2,"0")}:${d.getMinutes().toString().padStart(2,"0")}:${d.getSeconds().toString().padStart(2,"0")}`;
+    const pkt = new Date().toLocaleString("en-US", { timeZone: "Asia/Karachi" });
+    const d = new Date(pkt);
+    pktEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
   }
 }
 
@@ -82,7 +97,8 @@ async function updateHijri() {
   try {
     const today = new Date();
     const gDate = today.toISOString().split("T")[0];
-    const res = await fetch(`https://api.aladhan.com/v1/gToH/${gDate}`);
+    const url = `https://api.aladhan.com/v1/gToH/${gDate}`;
+    const res = await fetch(url);
     const data = await res.json();
     const h = data.data.hijri;
     hijriEl.textContent = `${h.day} ${h.month.en} ${h.year}`;
@@ -98,9 +114,11 @@ setInterval(updateHijri, 3600000);
 function updateVikramSamvat() {
   const hindiEl = document.querySelector("#cal-hindi span");
   if (!hindiEl) return;
+
   const now = new Date();
   hindiEl.textContent = `VS ${now.getFullYear() + 57}`;
 }
+
 updateVikramSamvat();
 
 /* ---------------- LIVE WEATHER ---------------- */
@@ -123,14 +141,18 @@ async function updateWeather() {
 
   for (const c of cities) {
     try {
-      const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?id=${c.id}&appid=${OPENWEATHER_KEY}&units=metric`
-      );
+      const url = `https://api.openweathermap.org/data/2.5/weather?id=${c.id}&appid=${OPENWEATHER_KEY}&units=metric`;
+      const res = await fetch(url);
       const data = await res.json();
+
+      if (!data.main || !data.weather) continue;
+
+      const temp = Math.round(data.main.temp);
+      const cond = data.weather[0].main;
 
       const chip = document.createElement("div");
       chip.className = "chip tiny";
-      chip.textContent = `${c.name}: ${Math.round(data.main.temp)}°C | ${data.weather[0].main}`;
+      chip.textContent = `${c.name}: ${temp}°C | ${cond}`;
       weatherBar.appendChild(chip);
     } catch (err) {
       console.error("Weather error:", c.name, err);
@@ -188,7 +210,10 @@ async function loadHomepage() {
       if (!media || !body) return;
 
       if (!item) {
-        body.innerHTML = `<h3>${fallbackTitle}</h3><p>${fallbackText}</p>`;
+        body.innerHTML = `
+<h3>${fallbackTitle}</h3>
+<p>${fallbackText}</p>
+`;
         return;
       }
 
@@ -205,15 +230,36 @@ async function loadHomepage() {
           : "#";
 
       body.innerHTML = `
-        <h3>${item.title}</h3>
-        <p>${item.excerpt || ""}</p>
-        <a class="read-more" href="${href}">Read More →</a>
-      `;
+<h3>${item.title}</h3>
+<p>${item.excerpt || ""}</p>
+<a class="read-more" href="${href}">Read More →</a>
+`;
     }
 
-    fillCard(articles[0], "#lead-media", "#lead-body", "Coming Soon", "Lead story will appear here.", "article");
-    fillCard(breaking[0], "#breaking-media", "#breaking-body", "Coming Soon", "Breaking news will appear here.", "article");
-    fillCard(blogs[0], "#opinion-media", "#opinion-body", "Coming Soon", "Opinion and blog will appear here.", "blog");
+    fillCard(
+      articles[0],
+      "#lead-media",
+      "#lead-body",
+      "Coming Soon",
+      "Lead story will appear here.",
+      "article"
+    );
+    fillCard(
+      breaking[0],
+      "#breaking-media",
+      "#breaking-body",
+      "Coming Soon",
+      "Breaking news will appear here.",
+      "article"
+    );
+    fillCard(
+      blogs[0],
+      "#opinion-media",
+      "#opinion-body",
+      "Coming Soon",
+      "Opinion and blog will appear here.",
+      "blog"
+    );
 
     function fillUnifiedCard(item, mediaSel, bodySel) {
       const media = document.querySelector(mediaSel);
@@ -221,7 +267,10 @@ async function loadHomepage() {
       if (!media || !body) return;
 
       if (!item) {
-        body.innerHTML = `<h3>Coming Soon</h3><p>Content will be added shortly.</p>`;
+        body.innerHTML = `
+<h3>Coming Soon</h3>
+<p>Content will be added shortly.</p>
+`;
         return;
       }
 
@@ -231,26 +280,68 @@ async function loadHomepage() {
       }
 
       const href = `article.html?id=${item.id}`;
+
       body.innerHTML = `
-        <h3>${item.title}</h3>
-        <p>${item.excerpt || ""}</p>
-        <a class="read-more" href="${href}">Read More →</a>
-      `;
+<h3>${item.title}</h3>
+<p>${item.excerpt || ""}</p>
+<a class="read-more" href="${href}">Read More →</a>
+`;
     }
 
     fillUnifiedCard(articles[0], "#leh1-media", "#leh1-body");
     fillUnifiedCard(editorial[0], "#leh2-media", "#leh2-body");
     fillUnifiedCard(historical[0], "#leh3-media", "#leh3-body");
 
-    fillCard(jk[0], "#jk1-media", "#jk1-body", "Coming Soon", "Reporting from Jammu & Kashmir will appear here.", "article");
-    fillCard(jk[1], "#jk2-media", "#jk2-body", "Coming Soon", "Additional coverage will be added.", "article");
+    fillCard(
+      jk[0],
+      "#jk1-media",
+      "#jk1-body",
+      "Coming Soon",
+      "Reporting from Jammu & Kashmir will appear here.",
+      "article"
+    );
+    fillCard(
+      jk[1],
+      "#jk2-media",
+      "#jk2-body",
+      "Coming Soon",
+      "Additional coverage will be added.",
+      "article"
+    );
 
-    fillCard(intl[0], "#intl1-media", "#intl1-body", "Coming Soon", "International coverage will appear here.", "article");
-    fillCard(intl[1], "#intl2-media", "#intl2-body", "Coming Soon", "Additional international reports will be added.", "article");
+    fillCard(
+      intl[0],
+      "#intl1-media",
+      "#intl1-body",
+      "Coming Soon",
+      "International coverage will appear here.",
+      "article"
+    );
+    fillCard(
+      intl[1],
+      "#intl2-media",
+      "#intl2-body",
+      "Coming Soon",
+      "Additional international reports will be added.",
+      "article"
+    );
 
-    fillCard(hr[0], "#hr1-media", "#hr1-body", "Coming Soon", "Human rights documentation will appear here.", "article");
-    fillCard(hr[1], "#hr2-media", "#hr2-body", "Coming Soon", "Further human rights reports will be added.", "article");
-
+    fillCard(
+      hr[0],
+      "#hr1-media",
+      "#hr1-body",
+      "Coming Soon",
+      "Human rights documentation will appear here.",
+      "article"
+    );
+    fillCard(
+      hr[1],
+      "#hr2-media",
+      "#hr2-body",
+      "Coming Soon",
+      "Further human rights reports will be added.",
+      "article"
+    );
   } catch (err) {
     console.error("Homepage load error:", err);
   }
@@ -285,7 +376,7 @@ async function loadArticlePage() {
   try {
     const data = await fetchJSON(path);
     const items = data.items || [];
-    const item = items.find(a => a.id === id);
+    const item = items.find((a) => a.id === id);
 
     if (!item) {
       document.getElementById("title").textContent = "Article not found";
@@ -324,12 +415,12 @@ async function loadArticlePage() {
         : "";
 
       metaEl.innerHTML = `
-        <strong>${item.category || ""}</strong> ·
-        ${item.location || ""} ·
-        ${formattedDate} ·
-        ${item.readTime || ""} ·
-        ${item.author || ""}
-      `;
+<strong>${item.category || ""}</strong> ·
+${item.location || ""} ·
+${formattedDate} ·
+${item.readTime || ""} ·
+${item.author || ""}
+`;
     }
 
     const heroWrap = document.getElementById("heroWrap");
@@ -339,7 +430,6 @@ async function loadArticlePage() {
     if (item.heroImage?.src && heroImg && heroCaption) {
       heroImg.src = item.heroImage.src;
       heroImg.alt = item.heroImage.caption || item.title;
-
       const credit = item.heroImage.credit ? ` — <em>${item.heroImage.credit}</em>` : "";
       heroCaption.innerHTML = `${item.heroImage.caption || ""}${credit}`;
     } else if (heroWrap) {
@@ -349,7 +439,7 @@ async function loadArticlePage() {
     const container = document.getElementById("content");
     container.innerHTML = "";
 
-    (item.body || []).forEach(block => {
+    (item.body || []).forEach((block) => {
       if (block.type === "paragraph") {
         const p = document.createElement("p");
         p.textContent = block.text;
@@ -357,7 +447,7 @@ async function loadArticlePage() {
       }
 
       if (block.type === "header") {
-        const h2 = document.createElement("h2");  // FIXED
+        const h2 = document.createElement("h2");
         h2.textContent = block.text;
         container.appendChild(h2);
       }
@@ -365,9 +455,9 @@ async function loadArticlePage() {
       if (block.type === "points") {
         const wrap = document.createElement("div");
         wrap.className = "important-points";
-        const ul = document.createElement("ul");
 
-        (block.items || []).forEach(i => {
+        const ul = document.createElement("ul");
+        (block.items || []).forEach((i) => {
           const li = document.createElement("li");
           li.textContent = i;
           ul.appendChild(li);
@@ -395,7 +485,6 @@ async function loadArticlePage() {
         container.appendChild(fig);
       }
     });
-
   } catch (err) {
     console.error("Article load error:", err);
     document.getElementById("title").textContent = "Error loading content";
