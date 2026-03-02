@@ -45,6 +45,29 @@ body.theme-maroon {
   padding: 10px 16px;
 }
 
+/* modern centered header */
+.modern-header {
+  text-align: center;
+}
+
+.header-center {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+}
+
+.subheading {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 4px;
+}
+
+/* legacy logo layout (not used now, kept for safety) */
 .header-row {
   display: flex;
   align-items: center;
@@ -64,18 +87,6 @@ body.theme-maroon {
 .header-text {
   flex: 1;
   text-align: center;
-}
-
-.site-title {
-  margin: 0;
-  font-size: 1.8rem;
-  letter-spacing: 0.08em;
-}
-
-.subheading {
-  font-size: 0.9rem;
-  color: #555;
-  margin-top: 4px;
 }
 
 /* =============== BARS (CLOCKS, WEATHER, TICKER) =============== */
@@ -104,6 +115,11 @@ body.theme-maroon {
   overflow-x: auto;
 }
 
+/* center helper */
+.row.center {
+  justify-content: center;
+}
+
 .chip {
   display: inline-flex;
   align-items: center;
@@ -119,23 +135,25 @@ body.theme-maroon {
 
 /* Ticker */
 .ticker-wrap {
-  display: flex;
-  align-items: center;
   background: #800000;
   color: #fff;
   padding: 4px 16px;
-  gap: 8px;
   overflow: hidden;
-}
-
-.ticker-wrap > span {
-  font-weight: 600;
-  font-size: 0.85rem;
 }
 
 .ticker {
-  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
   overflow: hidden;
+}
+
+/* label inside ticker */
+.ticker-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .ticker ul {
@@ -157,6 +175,36 @@ body.theme-maroon {
   100% { transform: translateX(-100%); }
 }
 
+/* tools (language + search) */
+.tools {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-select select {
+  font-size: 0.8rem;
+  padding: 2px 4px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.search input {
+  font-size: 0.8rem;
+  padding: 2px 6px;
+}
+
+.search button {
+  font-size: 0.8rem;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
 /* =============== NAVBAR =============== */
 .navbar {
   background: #111;
@@ -164,10 +212,16 @@ body.theme-maroon {
   padding: 6px 16px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 16px;
   position: sticky;
   top: 0;
   z-index: 50;
+}
+
+/* explicit modern-nav hook (same as navbar, but named) */
+.modern-nav {
+  justify-content: center;
 }
 
 .nav-list {
@@ -613,12 +667,8 @@ body.theme-maroon {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .header-text {
-    text-align: left;
-  }
-
-  .logo-right {
-    display: none;
+  .header-center {
+    padding: 0 8px;
   }
 }
 
@@ -630,6 +680,7 @@ body.theme-maroon {
 
   .navbar {
     flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   .nav-list {
@@ -640,12 +691,12 @@ body.theme-maroon {
     display: inline-block;
   }
 
-  .logo-right {
-    display: none;
-  }
-
   .vlog-header-row {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .tools {
+    flex-wrap: wrap;
   }
 }
