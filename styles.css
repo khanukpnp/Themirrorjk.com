@@ -45,7 +45,6 @@ body.theme-maroon {
   padding: 10px 16px;
 }
 
-/* modern centered header */
 .modern-header {
   text-align: center;
 }
@@ -65,28 +64,6 @@ body.theme-maroon {
   font-size: 0.9rem;
   color: #555;
   margin-top: 4px;
-}
-
-/* legacy logo layout (not used now, kept for safety) */
-.header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.logo {
-  height: 60px;
-  width: auto;
-}
-
-.logo-right {
-  display: none;
-}
-
-.header-text {
-  flex: 1;
-  text-align: center;
 }
 
 /* =============== BARS (CLOCKS, WEATHER, TICKER) =============== */
@@ -115,7 +92,6 @@ body.theme-maroon {
   overflow-x: auto;
 }
 
-/* center helper */
 .row.center {
   justify-content: center;
 }
@@ -148,11 +124,9 @@ body.theme-maroon {
   overflow: hidden;
 }
 
-/* label inside ticker */
 .ticker-label {
   font-weight: 700;
   font-size: 0.85rem;
-  text-transform: uppercase;
   white-space: nowrap;
 }
 
@@ -175,7 +149,7 @@ body.theme-maroon {
   100% { transform: translateX(-100%); }
 }
 
-/* tools (language + search) */
+/* Tools (language + search) */
 .tools {
   margin-left: auto;
   display: flex;
@@ -219,7 +193,6 @@ body.theme-maroon {
   z-index: 50;
 }
 
-/* explicit modern-nav hook (same as navbar, but named) */
 .modern-nav {
   justify-content: center;
 }
@@ -251,10 +224,6 @@ body.theme-maroon {
 
 .nav-btn:hover {
   background: #333;
-}
-
-.nav-icon {
-  font-size: 0.7rem;
 }
 
 /* Dropdown */
@@ -555,7 +524,7 @@ body.theme-maroon {
   margin-top: 4px;
 }
 
-/* =============== PAGE ACTIONS =============== */
+/* =============== PAGE ACTIONS (LIKE, SUBSCRIBE, SHARE, COPY) =============== */
 .page-actions {
   margin-top: 16px;
   display: flex;
@@ -566,9 +535,10 @@ body.theme-maroon {
 .page-actions button {
   border: 1px solid #ccc;
   background: #fff;
-  padding: 4px 10px;
-  font-size: 0.85rem;
+  padding: 6px 12px;
+  font-size: 0.9rem;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .page-actions button:hover {
