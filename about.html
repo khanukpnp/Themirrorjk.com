@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<base href="./">
+
+<!-- FIXED BASE PATH -->
+<base href="/">
+
 <title>About | THE MIRROR JAMMU KASHMIR</title>
 <link rel="stylesheet" href="styles.css?v=17">
 </head>
@@ -11,7 +15,6 @@
 <body class="article-page theme-maroon">
 
 <main class="page-shell about-page">
-
 <section class="article-container">
 <div class="article-shell">
 
@@ -40,39 +43,41 @@
 
 </div>
 </section>
-
 </main>
 
 <footer class="footer">
 <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
+<!-- Load global script -->
+<script src="script.js?v=19"></script>
+
 <script>
-// ================= YEAR =================
+// YEAR
 document.getElementById("year").textContent = new Date().getFullYear();
 
-// ================= LIKE BUTTON =================
+// LIKE
 let likes = 0;
 document.getElementById("likeBtn").onclick =
 () => document.getElementById("likeCount").textContent = ++likes;
 
-// ================= SUBSCRIBE BUTTON =================
+// SUBSCRIBE
 document.getElementById("subBtn").onclick = function(){
   this.textContent="Subscribed";
   this.disabled=true;
 };
 
-// ================= SHARE BUTTON =================
+// SHARE
 document.getElementById("shareBtn").onclick = () =>
   navigator.share
     ? navigator.share({title:document.title,url:location.href})
     : alert("Share not supported");
 
-// ================= COPY LINK =================
+// COPY LINK
 document.getElementById("copyBtn").onclick =
-() => navigator.clipboard.writeText(location.href);
+  () => navigator.clipboard.writeText(location.href);
 
-// ================= LOAD ABOUT.JSON =================
+// LOAD ABOUT.JSON
 async function loadAbout() {
   try {
     const res = await fetch("content/about.json", { cache: "no-store" });
@@ -82,7 +87,7 @@ async function loadAbout() {
     document.getElementById("about-title").textContent = data.title;
     document.getElementById("about-subtitle").textContent = data.subtitle;
 
-    // HERO IMAGE FLOAT RIGHT
+    // HERO IMAGE
     const hero = document.getElementById("about-hero");
     if (data.heroImage?.src) {
       hero.innerHTML = `
