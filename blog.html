@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base href="./">
 <title>Blog | THE MIRROR JAMMU KASHMIR</title>
-<link rel="stylesheet" href="styles.css?v=16">
+<link rel="stylesheet" href="styles.css?v=17">
 </head>
 
 <body class="article-page theme-maroon">
@@ -86,8 +86,8 @@ async function loadBlog() {
   try {
     const res = await fetch("content/blog.json", { cache: "no-store" });
     const data = await res.json();
-    const item = data.items.find(a => a.id === id);
 
+    const item = data.items.find(a => a.id === id);
     if (!item) {
       document.getElementById("blog-title").textContent = "Blog not found";
       return;
@@ -126,6 +126,7 @@ async function loadBlog() {
     container.innerHTML = "";
 
     item.body.forEach(block => {
+
       if (block.type === "paragraph") {
         container.innerHTML += `<p>${block.text}</p>`;
       }
@@ -152,6 +153,7 @@ async function loadBlog() {
           </figure>
         `;
       }
+
     });
 
   } catch (err) {
