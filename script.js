@@ -1,453 +1,436 @@
-/* ============================================================
-   GLOBAL UTILITIES
-============================================================ */
+// ================= YEAR =================
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-const $ = (sel, ctx = document) => ctx.querySelector(sel);
-const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+// ================= MOBILE NAV =================
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobile-menu");
 
-/* Image fallback */
-function applyImageFallback(ctx = document) {
-  const placeholder =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='100%25' height='100%25' fill='%23eeeeee'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='36' fill='%23999'%3EImage Placeholder%3C/text%3E%3C/svg%3E";
-
-  $$("img", ctx).forEach(img => {
-    img.onerror = () => {
-      img.src = placeholder;
-    };
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener("click", () => {
+    const isOpen = mobileMenu.style.display === "flex";
+    mobileMenu.style.display = isOpen ? "none" : "flex";
   });
 }
 
-/* ============================================================
-   ON PAGE LOAD
-============================================================ */
+// ================= CONTACT MODAL =================
+const contactBtn = document.getElementById("contactBtn");
+const contactModal = document.getElementById("contactModal");
+const closeContact = document.getElementById("closeContact");
 
-document.addEventListener("DOMContentLoaded", () => {
-  const yearEl = $("#year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+if (contactBtn && contactModal && closeContact) {
+  contactBtn.addEventListener("click", () => {
+    contactModal.classList.remove("hidden");
+  });
+  closeContact.addEventListener("click", () => {
+    contactModal.classList.add("hidden");
+  });
+  contactModal.addEventListener("click", (e) => {
+    if (e.target === contactModal) contactModal.classList.add("hidden");
+  });
+}
 
-  updateTimes();
-  setInterval(updateTimes, 1000);
+// ================= CLOCKS & CALENDARS =================
+function pad2(n) {
+  return n.toString().padStart(2, "0");
+}
 
-  loadWeather();
-  loadHomepageBreaking();
-  loadHomepageArticles();
-
-  duplicateTicker();
-  setupNavigation();
-  setupMobileMenu();
-  setupContactModal();
-
-  if (location.pathname.includes("article.html")) {
-    loadUniversalArticle();
-  }
-});
-
-/* ============================================================
-   CLOCKS & CALENDARS
-============================================================ */
-
-function updateTimes() {
+function updateClocks() {
   const now = new Date();
 
-  const setTime = (selector, options) => {
-    const el = $(selector);
-    if (!el) return;
-    try {
-      el.textContent = new Intl.DateTimeFormat("en-GB", options).format(now);
-    } catch {
-      el.textContent = now.toLocaleString("en-GB");
-    }
-  };
-
-  setTime("#clock-cest span", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-    timeZone: "Europe/Zurich"
-  });
-
-  setTime("#tz-ist span", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-    timeZone: "Asia/Kolkata"
-  });
-
-  setTime("#tz-pkt span", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-    timeZone: "Asia/Karachi"
-  });
-
-  const hijriEl = $("#cal-hijri span");
-  if (hijriEl) {
-    try {
-      hijriEl.textContent = new Intl.DateTimeFormat("en-GB", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        calendar: "islamic"
-      }).format(now);
-    } catch {
-      hijriEl.textContent = now.toLocaleDateString("en-GB");
-    }
+  // Zurich (CEST)
+  const cestEl = document.querySelector("#clock-cest span");
+  if (cestEl) {
+    const h = pad2(now.getHours());
+    const m = pad2(now.getMinutes());
+    const s = pad2(now.getSeconds());
+    cestEl.textContent = `${h}:${m}:${s}`;
   }
 
-  const hindiEl = $("#cal-hindi span");
-  if (hindiEl) {
-    try {
-      hindiEl.textContent = new Intl.DateTimeFormat("en-GB", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        calendar: "indian"
-      }).format(now);
-    } catch {
-      hindiEl.textContent = now.toLocaleDateString("en-GB");
-    }
+  // IST (UTC+5:30)
+  const istEl = document.querySelector("#tz-ist span");
+  if (istEl) {
+    const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+    istEl.textContent = `${pad2(ist.getHours())}:${pad2(ist.getMinutes())}:${pad2(ist.getSeconds())}`;
   }
+
+  // PKT (UTC+5)
+  const pktEl = document.querySelector("#tz-pkt span");
+  if (pktEl) {
+    const pkt = new Date(now.getTime() + (5 * 60 * 60 * 1000));
+    pktEl.textContent = `${pad2(pkt.getHours())}:${pad2(pkt.getMinutes())}:${pad2(pkt.getSeconds())}`;
+  }
+
+  // Simple placeholders for Hijri & Vikram Samvat (non‑precise, display only)
+  const hijriEl = document.querySelector("#cal-hijri span");
+  const hindiEl = document.querySelector("#cal-hindi span");
+  if (hijriEl) hijriEl.textContent = "3 Ramadan 1447 (approx.)";
+  if (hindiEl) hindiEl.textContent = "Phalguna 1947 (approx.)";
 }
 
-/* ============================================================
-   WEATHER BAR
-============================================================ */
+setInterval(updateClocks, 1000);
+updateClocks();
 
-async function loadWeather() {
-  const bar = $("#weather-bar");
-  if (!bar) return;
-
+// ================= WEATHER (PLACEHOLDER STATIC) =================
+const weatherBar = document.getElementById("weather-bar");
+if (weatherBar) {
+  weatherBar.textContent = "";
   const cities = [
-    { name: "Zurich", lat: 47.3769, lon: 8.5417 },
-    { name: "Rawalakot", lat: 33.8578, lon: 73.7604 },
-    { name: "Jammu", lat: 32.7266, lon: 74.8570 },
-    { name: "Kashmir", lat: 34.0837, lon: 74.7973 },
-    { name: "Ladakh", lat: 34.1526, lon: 77.5771 },
-    { name: "Gilgit", lat: 35.9208, lon: 74.3080 },
-    { name: "Baltistan", lat: 35.3025, lon: 75.6360 },
-    { name: "Muzaffarabad", lat: 34.37, lon: 73.47 }
+    { name: "Zurich", temp: "6.5°C" },
+    { name: "Rawalakot", temp: "13.8°C" },
+    { name: "Jammu", temp: "16.8°C" },
+    { name: "Kashmir", temp: "2.4°C" },
+    { name: "Ladakh", temp: "-3.2°C" },
+    { name: "Gilgit", temp: "3.0°C" },
+    { name: "Baltistan", temp: "3.9°C" },
+    { name: "Muzaffarabad", temp: "12.2°C" }
   ];
-
-  bar.innerHTML = "";
-
-  for (const c of cities) {
-    try {
-      const res = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`
-      );
-      const data = await res.json();
-      const t = data?.current_weather?.temperature ?? "—";
-      bar.innerHTML += `<div class="city">${c.name}: ${t}°C</div>`;
-    } catch {
-      bar.innerHTML += `<div class="city">${c.name}: —°C</div>`;
-    }
-  }
+  cities.forEach(c => {
+    const chip = document.createElement("div");
+    chip.className = "chip tiny";
+    chip.textContent = `${c.name}: ${c.temp}`;
+    weatherBar.appendChild(chip);
+  });
 }
 
-/* ============================================================
-   HOMEPAGE — BREAKING NEWS
-============================================================ */
-
-async function loadHomepageBreaking() {
-  const mediaBox = $("#breaking-media");
-  const bodyBox = $("#breaking-body");
-  if (!mediaBox || !bodyBox) return;
-
-  try {
-    const res = await fetch("content/breaking.json", { cache: "no-store" });
-    const data = await res.json();
-    const item = data.items?.[0];
-    if (!item) return;
-
-    if (item.heroImage?.src) {
-      mediaBox.innerHTML = `<img src="${item.heroImage.src}" alt="" style="aspect-ratio:16/9;object-fit:cover;">`;
-      mediaBox.classList.remove("placeholder");
-    }
-
-    bodyBox.innerHTML = `
-      <h3>${item.title}</h3>
-      <p>${item.excerpt}</p>
-      <a class="read-more" href="article.html?id=${item.id}">Read More →</a>
-    `;
-
-    applyImageFallback(mediaBox);
-  } catch (err) {
-    console.warn("Breaking load failed:", err);
-  }
+// ================= UNIVERSAL FETCH HELPER =================
+async function fetchJSON(path) {
+  const res = await fetch(path, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to load ${path}`);
+  return res.json();
 }
 
-/* ============================================================
-   HOMEPAGE — ARTICLES + ALL OTHER DESKS
-============================================================ */
+// ================= HOMEPAGE LOADERS =================
+async function loadHomepage() {
+  if (!document.querySelector("#top-stories")) return;
 
-async function loadHomepageArticles() {
   try {
-    const desks = [
-      { file: "articles.json", key: "articles" },
-      { file: "blog.json", key: "blog" },
-      { file: "editorial.json", key: "editorial" },
-      { file: "historical.json", key: "historical" },
-      { file: "jammu-kashmir.json", key: "jk" },
-      { file: "international.json", key: "intl" },
-      { file: "human-rights.json", key: "hr" }
-    ];
+    const [
+      breakingData,
+      articlesData,
+      blogData,
+      editorialData,
+      historicalData,
+      jkData,
+      intlData,
+      hrData
+    ] = await Promise.all([
+      fetchJSON("content/breaking.json").catch(() => ({ items: [] })),
+      fetchJSON("content/articles.json").catch(() => ({ items: [] })),
+      fetchJSON("content/blog.json").catch(() => ({ items: [] })),
+      fetchJSON("content/editorial.json").catch(() => ({ items: [] })),
+      fetchJSON("content/historical.json").catch(() => ({ items: [] })),
+      fetchJSON("content/jammu-kashmir.json").catch(() => ({ items: [] })),
+      fetchJSON("content/international.json").catch(() => ({ items: [] })),
+      fetchJSON("content/human-rights.json").catch(() => ({ items: [] }))
+    ]);
 
-    const deskData = {};
+    const breaking = breakingData.items || [];
+    const articles = articlesData.items || [];
+    const blogs = blogData.items || [];
+    const editorial = editorialData.items || [];
+    const historical = historicalData.items || [];
+    const jk = jkData.items || [];
+    const intl = intlData.items || [];
+    const hr = hrData.items || [];
 
-    for (const d of desks) {
-      const res = await fetch(`content/${d.file}`, { cache: "no-store" });
-      deskData[d.key] = (await res.json()).items || [];
-    }
-
-    const articles = deskData.articles.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const blog = deskData.blog.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const editorial = deskData.editorial.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const historical = deskData.historical.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const jk = deskData.jk.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const intl = deskData.intl.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const hr = deskData.hr.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    /* Lead Article */
-    const lead = articles[0];
-    if (lead) {
-      const media = $("#lead-media");
-      const body = $("#lead-body");
-      if (lead.heroImage?.src) {
-        media.innerHTML = `<img src="${lead.heroImage.src}" alt="${lead.title}" style="aspect-ratio:16/9;object-fit:cover;">`;
-        media.classList.remove("placeholder");
-      }
-      body.innerHTML = `
-        <h3>${lead.title}</h3>
-        <p>${lead.excerpt}</p>
-        <a class="read-more" href="article.html?id=${lead.id}">Read More →</a>
-      `;
-    }
-
-    /* Blog & Opinion */
-    const op = blog[0];
-    if (op) {
-      const media = $("#opinion-media");
-      const body = $("#opinion-body");
-      if (op.heroImage?.src) {
-        media.innerHTML = `<img src="${op.heroImage.src}" alt="${op.title}" style="aspect-ratio:16/9;object-fit:cover;">`;
-        media.classList.remove("placeholder");
-      }
-      body.innerHTML = `
-        <h3>${op.title}</h3>
-        <p>${op.excerpt}</p>
-        <a class="read-more" href="article.html?id=${op.id}">Read More →</a>
-      `;
-    }
-
-    /* Latest Articles (3) */
-    const latest = articles.slice(1, 4);
-    const slots = [
-      ["#la1-media", "#la1-body"],
-      ["#la2-media", "#la2-body"],
-      ["#la3-media", "#la3-body"]
-    ];
-
-    latest.forEach((item, i) => {
-      const [mSel, bSel] = slots[i];
-      const media = $(mSel);
-      const body = $(bSel);
+    // ---------- Helper for cards ----------
+    function fillCard(item, mediaSel, bodySel, fallbackTitle, fallbackText, linkType) {
+      const media = document.querySelector(mediaSel);
+      const body = document.querySelector(bodySel);
       if (!media || !body) return;
 
-      if (item.heroImage?.src) {
-        media.innerHTML = `<img src="${item.heroImage.src}" alt="${item.title}" style="aspect-ratio:16/9;object-fit:cover;">`;
-        media.classList.remove("placeholder");
-      }
-
-      body.innerHTML = `
-        <h3>${item.title}</h3>
-        <p>${item.excerpt}</p>
-        <a class="read-more" href="article.html?id=${item.id}">Read More →</a>
-      `;
-    });
-
-    /* Editorial / Historical / JK */
-    const edSlots = [
-      { item: editorial[0], mediaSel: "#ed1-media", bodySel: "#ed1-body" },
-      { item: historical[0], mediaSel: "#hf1-media", bodySel: "#hf1-body" },
-      { item: jk[0], mediaSel: "#jk1-media", bodySel: "#jk1-body" }
-    ];
-
-    edSlots.forEach(({ item, mediaSel, bodySel }) => {
-      if (!item) return;
-      const media = $(mediaSel);
-      const body = $(bodySel);
-
-      if (item.heroImage?.src) {
-        media.innerHTML = `<img src="${item.heroImage.src}" alt="${item.title}" style="aspect-ratio:16/9;object-fit:cover;">`;
-        media.classList.remove("placeholder");
-      }
-
-      body.innerHTML = `
-        <h3>${item.title}</h3>
-        <p>${item.excerpt}</p>
-        <a class="read-more" href="article.html?id=${item.id}">Read More →</a>
-      `;
-    });
-
-    /* International (2) */
-    const intlSlots = [
-      ["#international .cards.two article:nth-child(1) .media", "#international .cards.two article:nth-child(1) .card-body"],
-      ["#international .cards.two article:nth-child(2) .media", "#international .cards.two article:nth-child(2) .card-body"]
-    ];
-
-    intl.slice(0, 2).forEach((item, i) => {
-      const [mSel, bSel] = intlSlots[i];
-      const media = $(mSel);
-      const body = $(bSel);
-
-      if (item.heroImage?.src) {
-        media.innerHTML = `<img src="${item.heroImage.src}" alt="${item.title}" style="aspect-ratio:16/9;object-fit:cover;">`;
-        media.classList.remove("placeholder");
-      }
-
-      body.innerHTML = `
-        <h3>${item.title}</h3>
-        <p>${item.excerpt}</p>
-        <a class="read-more" href="article.html?id=${item.id}">Read More →</a>
-      `;
-    });
-
-    /* Human Rights (2) */
-    const hrSlots = [
-      ["#human-rights .cards.two article:nth-child(1) .media", "#human-rights .cards.two article:nth-child(1) .card-body"],
-      ["#human-rights .cards.two article:nth-child(2) .media", "#human-rights .cards.two article:nth-child(2) .card-body"]
-    ];
-
-    hr.slice(0, 2).forEach((item, i) => {
-      const [mSel, bSel] = hrSlots[i];
-      const media = $(mSel);
-      const body = $(bSel);
-
-      if (item.heroImage?.src) {
-        media.innerHTML = `<img src="${item.heroImage.src}" alt="${item.title}" style="aspect-ratio:16/9;object-fit:cover;">`;
-        media.classList.remove("placeholder");
-      }
-
-      body.innerHTML = `
-        <h3>${item.title}</h3>
-        <p>${item.excerpt}</p>
-        <a class="read-more" href="article.html?id=${item.id}">Read More →</a>
-      `;
-    });
-
-    /* Archive */
-    const archiveList = $("#archive-list");
-    if (archiveList) {
-      archiveList.innerHTML = "";
-
-      const all = [
-        ...articles,
-        ...blog,
-        ...editorial,
-        ...historical,
-        ...jk,
-        ...intl,
-        ...hr
-      ].sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      all.slice(10).forEach(a => {
-        const thumb = a.heroImage?.src || "assets/placeholder.jpg";
-        archiveList.innerHTML += `
-          <article class="archive-item">
-            <div class="thumb"><img src="${thumb}" alt="${a.title}"></div>
-            <div class="info">
-              <h4>${a.title}</h4>
-              <p>${a.excerpt}</p>
-              <a href="article.html?id=${a.id}">Read More →</a>
-            </div>
-          </article>
+      if (!item) {
+        body.innerHTML = `
+          <h3>${fallbackTitle}</h3>
+          <p>${fallbackText}</p>
         `;
-      });
+        return;
+      }
+
+      if (item.heroImage?.src) {
+        media.innerHTML = `<img src="${item.heroImage.src}" alt="${item.title}" style="aspect-ratio:16/9;object-fit:cover;">`;
+        media.classList.remove("placeholder");
+      }
+
+      const href =
+        linkType === "article"
+          ? `article.html?id=${item.id}`
+          : linkType === "blog"
+          ? `blog.html?id=${item.id}`
+          : "#";
+
+      body.innerHTML = `
+        <h3>${item.title}</h3>
+        <p>${item.excerpt || ""}</p>
+        <a class="read-more" href="${href}">Read More →</a>
+      `;
     }
 
-    applyImageFallback();
+    // ---------- TOP STORIES ----------
+    fillCard(
+      articles[0],
+      "#lead-media",
+      "#lead-body",
+      "Coming Soon",
+      "Lead story will appear here.",
+      "article"
+    );
+
+    fillCard(
+      breaking[0],
+      "#breaking-media",
+      "#breaking-body",
+      "Coming Soon",
+      "Breaking news will appear here.",
+      "article"
+    );
+
+    fillCard(
+      blogs[0],
+      "#opinion-media",
+      "#opinion-body",
+      "Coming Soon",
+      "Opinion and blog will appear here.",
+      "blog"
+    );
+
+    // ---------- LATEST · EDITORIAL · HISTORICAL ----------
+    const latest = articles[0];
+    const editorialItem = editorial[0];
+    const historicalItem = historical[0];
+
+    function fillUnifiedCard(item, mediaSel, bodySel, fallbackTitle) {
+      const media = document.querySelector(mediaSel);
+      const body = document.querySelector(bodySel);
+      if (!media || !body) return;
+
+      if (!item) {
+        body.innerHTML = `
+          <h3>Coming Soon</h3>
+          <p>Content will be added shortly.</p>
+        `;
+        return;
+      }
+
+      if (item.heroImage?.src) {
+        media.innerHTML = `<img src="${item.heroImage.src}" alt="${item.title}" style="aspect-ratio:16/9;object-fit:cover;">`;
+        media.classList.remove("placeholder");
+      }
+
+      const href = `article.html?id=${item.id}`;
+
+      body.innerHTML = `
+        <h3>${item.title}</h3>
+        <p>${item.excerpt || ""}</p>
+        <a class="read-more" href="${href}">Read More →</a>
+      `;
+    }
+
+    fillUnifiedCard(latest, "#leh1-media", "#leh1-body", "Latest");
+    fillUnifiedCard(editorialItem, "#leh2-media", "#leh2-body", "Editorial");
+    fillUnifiedCard(historicalItem, "#leh3-media", "#leh3-body", "Historical");
+
+    // ---------- JAMMU KASHMIR ----------
+    fillCard(
+      jk[0],
+      "#jk1-media",
+      "#jk1-body",
+      "Coming Soon",
+      "Reporting from Jammu & Kashmir will appear here.",
+      "article"
+    );
+    fillCard(
+      jk[1],
+      "#jk2-media",
+      "#jk2-body",
+      "Coming Soon",
+      "Additional coverage will be added.",
+      "article"
+    );
+
+    // ---------- INTERNATIONAL ----------
+    fillCard(
+      intl[0],
+      "#intl1-media",
+      "#intl1-body",
+      "Coming Soon",
+      "International coverage will appear here.",
+      "article"
+    );
+    fillCard(
+      intl[1],
+      "#intl2-media",
+      "#intl2-body",
+      "Coming Soon",
+      "Additional international reports will be added.",
+      "article"
+    );
+
+    // ---------- HUMAN RIGHTS ----------
+    fillCard(
+      hr[0],
+      "#hr1-media",
+      "#hr1-body",
+      "Coming Soon",
+      "Human rights documentation will appear here.",
+      "article"
+    );
+    fillCard(
+      hr[1],
+      "#hr2-media",
+      "#hr2-body",
+      "Coming Soon",
+      "Further human rights reports will be added.",
+      "article"
+    );
   } catch (err) {
-    console.warn("Homepage articles failed:", err);
+    console.error("Homepage load error:", err);
   }
 }
 
-/* ============================================================
-   UNIVERSAL ARTICLE LOADER
-============================================================ */
+loadHomepage();
 
-async function loadUniversalArticle() {
-  const id = new URLSearchParams(location.search).get("id");
+// ================= ARTICLE PAGE LOADER =================
+async function loadArticlePage() {
+  if (!document.querySelector("body.article-page") || !document.getElementById("content")) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
   if (!id) return;
 
-  const prefixMap = {
-    "breaking-": "breaking.json",
-    "article-": "articles.json",
-    "blog-": "blog.json",
-    "editorial-": "editorial.json",
-    "historical-": "historical.json",
-    "jk-": "jammu-kashmir.json",
-    "intl-": "international.json",
-    "hr-": "human-rights.json"
+  const prefix = id.split("-")[0];
+
+  const map = {
+    breaking: "content/breaking.json",
+    article: "content/articles.json",
+    blog: "content/blog.json",
+    editorial: "content/editorial.json",
+    historical: "content/historical.json",
+    jk: "content/jammu-kashmir.json",
+    intl: "content/international.json",
+    hr: "content/human-rights.json"
   };
 
-  const sectionLabels = {
-    "breaking-": "Breaking News",
-    "article-": "News Report",
-    "blog-": "Blog & Opinion",
-    "editorial-": "Editorial",
-    "historical-": "Historical Facts",
-    "jk-": "Jammu Kashmir",
-    "intl-": "International",
-    "hr-": "Human Rights"
-  };
-
-  let file = null;
-  let label = "News Report";
-
-  for (const p in prefixMap) {
-    if (id.startsWith(p)) {
-      file = prefixMap[p];
-      label = sectionLabels[p];
-      break;
-    }
-  }
-
-  if (!file) return;
+  const path = map[prefix];
+  if (!path) return;
 
   try {
-    const res = await fetch(`content/${file}`, { cache: "no-store" });
-    const data = await res.json();
-    const article = data.items?.find(x => x.id === id);
-    if (!article) return;
+    const data = await fetchJSON(path);
+    const items = data.items || [];
+    const item = items.find(a => a.id === id);
+    if (!item) {
+      document.getElementById("title").textContent = "Article not found";
+      return;
+    }
 
-    $("#section-label").textContent = label;
-    $("#title").textContent = article.title || "";
-    $("#page-title").textContent = `${article.title} | THE MIRROR JAMMU KASHMIR`;
+    // Page title
+    const pageTitle = document.getElementById("page-title");
+    if (pageTitle) pageTitle.textContent = `${item.title} | THE MIRROR JAMMU KASHMIR`;
 
-    const dateStr = article.date
-      ? new Date(article.date).toLocaleDateString("en-GB", {
-          day: "numeric",
-          month: "long",
-          year: "numeric"
-        })
-      : "";
+    // Section label
+    const sectionLabel = document.getElementById("section-label");
+    if (sectionLabel) {
+      const labelMap = {
+        breaking: "Breaking News",
+        article: "Latest Articles",
+        blog: "Blog & Opinion",
+        editorial: "Editorial",
+        historical: "Historical Facts",
+        jk: "Jammu Kashmir",
+        intl: "International",
+        hr: "Human Rights"
+      };
+      sectionLabel.textContent = labelMap[prefix] || "Article";
+    }
 
-    const timeStr = article.time || "";
-    const locationStr = article.location || "";
-    const roleStr = article.authorRole || "";
-    const deskStr = article.desk || "";
+    // Title
+    document.getElementById("title").textContent = item.title;
 
-    const metaEl = $("#meta");
-    metaEl.innerHTML = `
-      <div><strong>News:</strong> ${locationStr} · ${dateStr}${timeStr ? " · " + timeStr : ""}</div>
-      ${roleStr || deskStr ? `<div>${roleStr}${deskStr ? " · " + deskStr : ""}</div>` : ""}
-    `;
+    // Meta
+    const metaEl = document.getElementById("meta");
+    if (metaEl) {
+      const dateObj = item.date ? new Date(item.date) : null;
+      const formattedDate = dateObj
+        ? dateObj.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+          })
+        : "";
+      metaEl.innerHTML = `
+        <strong>${item.category || ""}</strong> ·
+        ${item.location || ""} ·
+        ${formattedDate} ·
+        ${item.readTime || ""} ·
+        ${item.author || ""}
+      `;
+    }
 
-    /* HERO IMAGE */
+    // Hero
+    const heroWrap = document.getElementById("heroWrap");
+    const heroImg = document.getElementById("heroImg");
+    const heroCaption = document.getElementById("heroCaption");
+
+    if (item.heroImage?.src && heroImg && heroCaption) {
+      heroImg.src = item.heroImage.src;
+      heroImg.alt = item.heroImage.caption || item.title;
+      const credit = item.heroImage.credit ? ` — <em>${item.heroImage.credit}</em>` : "";
+      heroCaption.innerHTML = `${item.heroImage.caption || ""}${credit}`;
+    } else if (heroWrap) {
+      heroWrap.style.display = "none";
+    }
+
+    // Body
+    const container = document.getElementById("content");
+    container.innerHTML = "";
+
+    (item.body || []).forEach(block => {
+      if (block.type === "paragraph") {
+        const p = document.createElement("p");
+        p.textContent = block.text;
+        container.appendChild(p);
+      }
+
+      if (block.type === "header") {
+        const h2 = document.createElement("h2");
+        h2.textContent = block.text;
+        container.appendChild(h2);
+      }
+
+      if (block.type === "points") {
+        const wrap = document.createElement("div");
+        wrap.className = "important-points";
+        const ul = document.createElement("ul");
+        (block.items || []).forEach(i => {
+          const li = document.createElement("li");
+          li.textContent = i;
+          ul.appendChild(li);
+        });
+        wrap.appendChild(ul);
+        container.appendChild(wrap);
+      }
+
+      if (block.type === "image") {
+        const fig = document.createElement("figure");
+        const align = block.align === "right" ? "image-right" : "image-left";
+        fig.className = align;
+        const img = document.createElement("img");
+        img.src = block.src;
+        img.alt = block.caption || "";
+        const cap = document.createElement("figcaption");
+        const credit = block.credit ? ` — ${block.credit}` : "";
+        cap.textContent = `${block.caption || ""}${credit}`;
+        fig.appendChild(img);
+        fig.appendChild(cap);
+        container.appendChild(fig);
+      }
+    });
+
+  } catch (err) {
+    console.error("Article load error:", err);
+    document.getElementById("title").textContent = "Error loading content";
+  }
+}
+
+loadArticlePage();
