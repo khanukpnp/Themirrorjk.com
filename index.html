@@ -15,20 +15,23 @@
 ============================================================ -->
 <header class="site-header">
   <div class="header-row">
-    <img src="assets/logo.png" alt="Logo" class="logo">
-    <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+    <img src="assets/logo.png" alt="The Mirror Jammu Kashmir Logo" class="logo">
+    <div class="header-text">
+      <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+      <div class="subheading">TRUTH · JUSTICE · HUMAN RIGHTS</div>
+    </div>
+    <img src="assets/logo.png" alt="The Mirror Jammu Kashmir Logo" class="logo logo-right">
   </div>
-  <div class="subheading">Truth · Justice · Human Rights</div>
 </header>
 
 <!-- ============================================================
-     CLOCKS BAR
+     CLOCKS & CALENDARS BAR
 ============================================================ -->
 <div class="bar">
   <div class="row tight">
-    <div class="chip tiny" id="clock-cest">CEST: <span>—</span></div>
-    <div class="chip tiny" id="tz-ist">IST: <span>—</span></div>
-    <div class="chip tiny" id="tz-pkt">PKT: <span>—</span></div>
+    <div class="chip tiny" id="clock-cest">Zurich (CEST): <span>—</span></div>
+    <div class="chip tiny" id="tz-ist">IST (JKL): <span>—</span></div>
+    <div class="chip tiny" id="tz-pkt">PKT (GB & AK): <span>—</span></div>
     <div class="chip tiny" id="cal-hijri">Hijri: <span>—</span></div>
     <div class="chip tiny" id="cal-hindi">Vikram Samvat: <span>—</span></div>
   </div>
@@ -61,17 +64,21 @@
      NAVIGATION
 ============================================================ -->
 <nav class="navbar">
-  <button class="hamburger" id="hamburger">☰</button>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+    ☰
+  </button>
 
   <ul class="nav-list">
     <li class="nav-item"><a class="nav-btn" href="index.html">Home</a></li>
 
     <li class="nav-item">
-      <button class="nav-btn">News ▾</button>
+      <button class="nav-btn nav-dropdown-toggle">
+        News
+        <span class="nav-icon">▾</span>
+      </button>
       <div class="dropdown wide">
-        <a href="#latest-articles">Latest Articles</a>
-        <a href="#editorial">Editorial</a>
-        <a href="#historical">Historical Facts</a>
+        <a href="#top-stories">Top Stories</a>
+        <a href="#latest-editorial-historical">Latest · Editorial · Historical</a>
         <a href="#jammu-kashmir">Jammu Kashmir</a>
         <a href="#international">International</a>
         <a href="#human-rights">Human Rights</a>
@@ -85,9 +92,8 @@
 
   <div class="mobile-menu" id="mobile-menu">
     <a href="index.html">Home</a>
-    <a href="#latest-articles">Latest Articles</a>
-    <a href="#editorial">Editorial</a>
-    <a href="#historical">Historical Facts</a>
+    <a href="#top-stories">Top Stories</a>
+    <a href="#latest-editorial-historical">Latest · Editorial · Historical</a>
     <a href="#jammu-kashmir">Jammu Kashmir</a>
     <a href="#international">International</a>
     <a href="#human-rights">Human Rights</a>
@@ -114,8 +120,8 @@
     <article class="card">
       <div class="media placeholder maroon" id="lead-media">Lead</div>
       <div class="card-body" id="lead-body">
-        <h3>Loading…</h3>
-        <p>Please wait.</p>
+        <h3>Coming Soon</h3>
+        <p>Lead story will appear here.</p>
       </div>
     </article>
 
@@ -123,17 +129,17 @@
     <article class="card">
       <div class="media placeholder maroon" id="breaking-media">Breaking</div>
       <div class="card-body" id="breaking-body">
-        <h3>Loading…</h3>
-        <p>Please wait.</p>
+        <h3>Coming Soon</h3>
+        <p>Breaking news will appear here.</p>
       </div>
     </article>
 
-    <!-- Blog -->
+    <!-- Opinion / Blog -->
     <article class="card">
       <div class="media placeholder maroon" id="opinion-media">Opinion</div>
       <div class="card-body" id="opinion-body">
-        <h3>Loading…</h3>
-        <p>Please wait.</p>
+        <h3>Coming Soon</h3>
+        <p>Opinion and blog will appear here.</p>
       </div>
     </article>
 
@@ -141,89 +147,176 @@
 </section>
 
 <!-- ============================================================
-     LATEST ARTICLES (3)
+     LATEST · EDITORIAL · HISTORICAL (3 WINDOWS)
 ============================================================ -->
-<section id="latest-articles">
-  <div class="section-title red-bar">Latest Articles</div>
-
-  <div class="cards three">
-    <article class="card">
-      <div class="media placeholder maroon" id="la1-media">Article</div>
-      <div class="card-body" id="la1-body"></div>
-    </article>
-
-    <article class="card">
-      <div class="media placeholder maroon" id="la2-media">Article</div>
-      <div class="card-body" id="la2-body"></div>
-    </article>
-
-    <article class="card">
-      <div class="media placeholder maroon" id="la3-media">Article</div>
-      <div class="card-body" id="la3-body"></div>
-    </article>
-  </div>
-</section>
-
-<!-- ============================================================
-     EDITORIAL / HISTORICAL / JK
-============================================================ -->
-<section id="editorial">
-  <div class="section-title red-bar">Editorial · Historical · JK</div>
+<section id="latest-editorial-historical">
+  <div class="section-title red-bar">Latest · Editorial · Historical</div>
 
   <div class="cards three">
 
+    <!-- Latest Article -->
     <article class="card">
-      <div class="media placeholder maroon" id="ed1-media">Editorial</div>
-      <div class="card-body" id="ed1-body"></div>
+      <div class="media placeholder maroon" id="leh1-media">Latest</div>
+      <div class="card-body" id="leh1-body">
+        <h3>Coming Soon</h3>
+        <p>Content will be added shortly.</p>
+      </div>
     </article>
 
+    <!-- Editorial -->
     <article class="card">
-      <div class="media placeholder maroon" id="hf1-media">Historical</div>
-      <div class="card-body" id="hf1-body"></div>
+      <div class="media placeholder maroon" id="leh2-media">Editorial</div>
+      <div class="card-body" id="leh2-body">
+        <h3>Coming Soon</h3>
+        <p>Content will be added shortly.</p>
+      </div>
     </article>
 
+    <!-- Historical -->
     <article class="card">
-      <div class="media placeholder maroon" id="jk1-media">JK</div>
-      <div class="card-body" id="jk1-body"></div>
+      <div class="media placeholder maroon" id="leh3-media">Historical</div>
+      <div class="card-body" id="leh3-body">
+        <h3>Coming Soon</h3>
+        <p>Content will be added shortly.</p>
+      </div>
     </article>
 
   </div>
 </section>
 
 <!-- ============================================================
-     INTERNATIONAL (2)
+     JAMMU KASHMIR (2 WINDOWS)
 ============================================================ -->
-<section id="international">
-  <div class="section-title red-bar">International</div>
+<section id="jammu-kashmir">
+  <div class="section-title red-bar">Jammu Kashmir</div>
 
   <div class="cards two">
     <article class="card">
-      <div class="media placeholder maroon"></div>
-      <div class="card-body"></div>
+      <div class="media placeholder maroon" id="jk1-media">JK</div>
+      <div class="card-body" id="jk1-body">
+        <h3>Coming Soon</h3>
+        <p>Reporting from Jammu & Kashmir will appear here.</p>
+      </div>
     </article>
 
     <article class="card">
-      <div class="media placeholder maroon"></div>
-      <div class="card-body"></div>
+      <div class="media placeholder maroon" id="jk2-media">JK</div>
+      <div class="card-body" id="jk2-body">
+        <h3>Coming Soon</h3>
+        <p>Additional coverage will be added.</p>
+      </div>
     </article>
   </div>
 </section>
 
 <!-- ============================================================
-     HUMAN RIGHTS (2)
+     VLOGS (ABOVE INTERNATIONAL)
+============================================================ -->
+<section id="vlogs">
+  <div class="section-title red-bar">Video Reports & Vlogs</div>
+
+  <div class="vlog-header-row">
+    <div class="vlog-subtitle">
+      In‑depth reports, exclusive interviews, and documentary‑style content.
+    </div>
+    <div class="vlog-actions">
+      <a href="#" class="btn-outline">View All Vlogs</a>
+      <a href="#" class="btn-red">Visit Channel</a>
+    </div>
+  </div>
+
+  <div class="vlog-tabs">
+    <button class="chip small active">All</button>
+    <button class="chip small">Interview</button>
+    <button class="chip small">Current Affairs</button>
+    <button class="chip small">Analysis</button>
+    <button class="chip small">Culture</button>
+    <button class="chip small">Forum</button>
+    <button class="chip small">Feature</button>
+  </div>
+
+  <div class="cards three vlogs-grid">
+    <article class="card vlog-card">
+      <div class="media vlog-thumb">
+        <div class="play-icon">▶</div>
+      </div>
+      <div class="card-body">
+        <div class="vlog-label">Interview · 15:32</div>
+        <h3>Exclusive Interview: Peace Process Developments</h3>
+        <p>In‑depth conversation with diplomatic sources about ongoing negotiations and next steps.</p>
+      </div>
+    </article>
+
+    <article class="card vlog-card">
+      <div class="media vlog-thumb">
+        <div class="play-icon">▶</div>
+      </div>
+      <div class="card-body">
+        <div class="vlog-label">Current Affairs · 12:45</div>
+        <h3>Ground Report: Community Resilience Stories</h3>
+        <p>Documenting how local communities are adapting and supporting each other.</p>
+      </div>
+    </article>
+
+    <article class="card vlog-card">
+      <div class="media vlog-thumb">
+        <div class="play-icon">▶</div>
+      </div>
+      <div class="card-body">
+        <div class="vlog-label">Analysis · 18:20</div>
+        <h3>Analysis: Human Rights Legal Framework</h3>
+        <p>Expert breakdown of key legal mechanisms and obligations.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     INTERNATIONAL (2 WINDOWS)
+============================================================ -->
+<section id="international">
+  <div class="section-title red-bar">International News</div>
+
+  <div class="cards two">
+    <article class="card">
+      <div class="media placeholder maroon" id="intl1-media">Intl</div>
+      <div class="card-body" id="intl1-body">
+        <h3>Coming Soon</h3>
+        <p>International coverage will appear here.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="media placeholder maroon" id="intl2-media">Intl</div>
+      <div class="card-body" id="intl2-body">
+        <h3>Coming Soon</h3>
+        <p>Additional international reports will be added.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     HUMAN RIGHTS (2 WINDOWS)
 ============================================================ -->
 <section id="human-rights">
   <div class="section-title red-bar">Human Rights</div>
 
   <div class="cards two">
     <article class="card">
-      <div class="media placeholder maroon"></div>
-      <div class="card-body"></div>
+      <div class="media placeholder maroon" id="hr1-media">HR</div>
+      <div class="card-body" id="hr1-body">
+        <h3>Coming Soon</h3>
+        <p>Human rights documentation will appear here.</p>
+      </div>
     </article>
 
     <article class="card">
-      <div class="media placeholder maroon"></div>
-      <div class="card-body"></div>
+      <div class="media placeholder maroon" id="hr2-media">HR</div>
+      <div class="card-body" id="hr2-body">
+        <h3>Coming Soon</h3>
+        <p>Further human rights reports will be added.</p>
+      </div>
     </article>
   </div>
 </section>
@@ -233,45 +326,57 @@
 ============================================================ -->
 <section id="archive">
   <div class="section-title red-bar">Archive</div>
-  <div id="archive-list"></div>
+  <div id="archive-list">
+    <p>Coming Soon — curated archive of articles, reports, and documents.</p>
+  </div>
 </section>
 
 <!-- ============================================================
-     VLOGS
+     E-PAPER (RESTORED)
 ============================================================ -->
-<section id="vlogs">
-  <div class="section-title red-bar">Vlogs</div>
-  <p>Coming soon — integrated YouTube playlist.</p>
+<section id="epaper">
+  <div class="section-title red-bar">E‑Paper Upload</div>
+
+  <p>Upload your digital publication (PDF). This section is a placeholder; connect to your preferred CMS or cloud later.</p>
+
+  <form class="epaper-form" onsubmit="return false;">
+    <input type="file" accept="application/pdf">
+    <button type="submit" class="btn-red">Upload</button>
+  </form>
 </section>
 
 <!-- ============================================================
-     CONTACT
+     NEWSLETTER
+============================================================ -->
+<section id="newsletter">
+  <div class="section-title red-bar">Newsletter</div>
+  <form class="newsletter-form" onsubmit="return false;">
+    <input type="email" placeholder="your@email.com">
+    <button type="submit" class="btn-red">Subscribe</button>
+  </form>
+</section>
+
+<!-- ============================================================
+     CONTACT (RESTORED)
 ============================================================ -->
 <section id="contact">
   <div class="section-title red-bar">Contact</div>
 
-  <p>Email: editor@themirrorjk.com</p>
-  <p>WhatsApp: +41 79 000 00 00</p>
+  <p>Email: contact@themirrorjk.com • Phone: +41 783 13 12 13</p>
 
-  <button id="contactBtn">Open Contact Form</button>
+  <button id="contactBtn" class="btn-red">Open Contact Form</button>
 
   <div id="contactModal" class="modal hidden">
     <div class="modal-content">
       <span id="closeContact" class="close">&times;</span>
       <h3>Contact Us</h3>
       <p>Send your message to the editorial team.</p>
+      <input type="text" placeholder="Your name">
+      <input type="email" placeholder="Your email">
       <textarea placeholder="Your message…"></textarea>
-      <button>Send</button>
+      <button class="btn-red">Send</button>
     </div>
   </div>
-</section>
-
-<!-- ============================================================
-     E-PAPER
-============================================================ -->
-<section id="epaper">
-  <div class="section-title red-bar">E‑Paper</div>
-  <p>Digital edition coming soon.</p>
 </section>
 
 </main>
