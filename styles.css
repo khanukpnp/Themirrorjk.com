@@ -670,3 +670,9 @@ body.theme-maroon {
     flex-wrap: wrap;
   }
 }
+
+/* FIX: Missing maroon placeholder class */
+.media.maroon {
+    background: #800000;
+    color: #fff;
+}
