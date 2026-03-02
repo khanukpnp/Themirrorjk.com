@@ -1,33 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <base href="./" />
+  <title>THE MIRROR JAMMU KASHMIR</title>
+  <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard." />
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="stylesheet" href="styles.css?v=17" />
+</head>
+
+<body class="theme-maroon" id="top">
+
+<!-- ============================================================
+     HEADER (MODERN, CENTERED, NO LOGOS)
+============================================================ -->
 <header class="site-header modern-header">
   <div class="header-center">
     <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-
     <div class="subheading">
       CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYOND BORDERS
     </div>
   </div>
 </header>
 
-<!-- CLOCKS + CALENDARS -->
+<!-- ============================================================
+     CLOCKS + CALENDARS
+============================================================ -->
 <section class="bar clocks-line" aria-label="Clocks and Calendars">
-  <div class="row tight nowrap">
+  <div class="row tight nowrap center">
     <div id="clock-cest" class="chip tiny">🕒 <span>Loading CEST…</span></div>
-    <div id="cal-hijri" class="chip tiny">📅 <span>Hijri…</span></div>
-    <div id="cal-hindi" class="chip tiny">📅 <span>VS…</span></div>
+    <div id="cal-hijri" class="chip tiny">🗓️ <span>Hijri…</span></div>
+    <div id="cal-hindi" class="chip tiny">🗓️ <span>VS…</span></div>
     <div id="tz-ist" class="chip tiny">🕒 IST (Jammu-Kashmir-Ladakh): <span>—:—</span></div>
     <div id="tz-pkt" class="chip tiny">🕒 PKT (Gilgit-Baltistan & Azad Kashmir): <span>—:—</span></div>
   </div>
 </section>
 
-<!-- WEATHER -->
+<!-- ============================================================
+     WEATHER
+============================================================ -->
 <section class="bar weather-line" aria-label="Weather">
-  <div class="row nowrap super-tight" id="weather-bar"></div>
+  <div class="row nowrap super-tight center" id="weather-bar"></div>
 </section>
 
-<!-- TICKER -->
+<!-- ============================================================
+     TICKER
+============================================================ -->
 <section class="ticker-wrap" aria-label="Breaking Ticker">
   <div class="ticker">
-    <span></span>
+    <span class="ticker-label">BREAKING</span>
+
     <ul id="ticker-items">
       <li>WELCOME TO THE MIRROR JAMMU KASHMIR — EMPOWERING TRUTH BEYOND BORDERS.</li>
       <li>SUBMIT YOUR ISSUES, NEWS, FEEDBACK, URGENT MATTERS, VIA EMAIL OR THE CONTACT FORM BELOW.</li>
@@ -76,8 +99,10 @@
   </div>
 </section>
 
-<!-- NAVIGATION -->
-<nav class="navbar" aria-label="Primary Navigation">
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<nav class="navbar modern-nav" aria-label="Primary Navigation">
   <button class="hamburger" aria-expanded="false" aria-controls="mobile-menu" id="hamburger">☰ Menu</button>
 
   <ul class="nav-list" id="nav-list">
@@ -154,19 +179,15 @@
 </nav>
 
 <!-- ============================================================
-     MAIN CONTENT
+     MAIN CONTENT (UNCHANGED)
 ============================================================ -->
 <main class="page-shell home-shell">
 
-<!-- ============================================================
-     TOP STORIES (3 WINDOWS)
-============================================================ -->
+<!-- TOP STORIES -->
 <section id="top-stories">
   <div class="section-title red-bar">Top Stories</div>
-
   <div class="cards three">
 
-    <!-- Lead Article -->
     <article class="card">
       <div class="media placeholder maroon" id="lead-media">Lead</div>
       <div class="card-body" id="lead-body">
@@ -175,7 +196,6 @@
       </div>
     </article>
 
-    <!-- Breaking -->
     <article class="card">
       <div class="media placeholder maroon" id="breaking-media">Breaking</div>
       <div class="card-body" id="breaking-body">
@@ -184,7 +204,6 @@
       </div>
     </article>
 
-    <!-- Opinion / Blog -->
     <article class="card">
       <div class="media placeholder maroon" id="opinion-media">Opinion</div>
       <div class="card-body" id="opinion-body">
@@ -196,15 +215,11 @@
   </div>
 </section>
 
-<!-- ============================================================
-     LATEST · EDITORIAL · HISTORICAL (3 WINDOWS)
-============================================================ -->
+<!-- LATEST · EDITORIAL · HISTORICAL -->
 <section id="latest-editorial-historical">
   <div class="section-title red-bar">Latest · Editorial · Historical</div>
 
   <div class="cards three">
-
-    <!-- Latest Article -->
     <article class="card">
       <div class="media placeholder maroon" id="leh1-media">Latest</div>
       <div class="card-body" id="leh1-body">
@@ -213,7 +228,6 @@
       </div>
     </article>
 
-    <!-- Editorial -->
     <article class="card">
       <div class="media placeholder maroon" id="leh2-media">Editorial</div>
       <div class="card-body" id="leh2-body">
@@ -222,7 +236,6 @@
       </div>
     </article>
 
-    <!-- Historical -->
     <article class="card">
       <div class="media placeholder maroon" id="leh3-media">Historical</div>
       <div class="card-body" id="leh3-body">
@@ -230,13 +243,10 @@
         <p>Content will be added shortly.</p>
       </div>
     </article>
-
   </div>
 </section>
 
-<!-- ============================================================
-     JAMMU KASHMIR (2 WINDOWS)
-============================================================ -->
+<!-- JAMMU KASHMIR -->
 <section id="jammu-kashmir">
   <div class="section-title red-bar">Jammu Kashmir</div>
 
@@ -259,9 +269,7 @@
   </div>
 </section>
 
-<!-- ============================================================
-     VLOGS (ABOVE INTERNATIONAL)
-============================================================ -->
+<!-- VLOGS -->
 <section id="vlogs">
   <div class="section-title red-bar">Video Reports & Vlogs</div>
 
@@ -321,9 +329,7 @@
   </div>
 </section>
 
-<!-- ============================================================
-     INTERNATIONAL (2 WINDOWS)
-============================================================ -->
+<!-- INTERNATIONAL -->
 <section id="international">
   <div class="section-title red-bar">International News</div>
 
@@ -346,9 +352,7 @@
   </div>
 </section>
 
-<!-- ============================================================
-     HUMAN RIGHTS (2 WINDOWS)
-============================================================ -->
+<!-- HUMAN RIGHTS -->
 <section id="human-rights">
   <div class="section-title red-bar">Human Rights</div>
 
@@ -371,9 +375,7 @@
   </div>
 </section>
 
-<!-- ============================================================
-     ARCHIVE
-============================================================ -->
+<!-- ARCHIVE -->
 <section id="archive">
   <div class="section-title red-bar">Archive</div>
   <div id="archive-list">
@@ -381,69 +383,10 @@
   </div>
 </section>
 
-<!-- ============================================================
-     E-PAPER (RESTORED)
-============================================================ -->
+<!-- E-PAPER -->
 <section id="epaper">
   <div class="section-title red-bar">E‑Paper Upload</div>
-
   <p>Upload your digital publication (PDF). This section is a placeholder; connect to your preferred CMS or cloud later.</p>
 
   <form class="epaper-form" onsubmit="return false;">
-    <input type="file" accept="application/pdf">
-    <button type="submit" class="btn-red">Upload</button>
-  </form>
-</section>
-
-<!-- ============================================================
-     NEWSLETTER
-============================================================ -->
-<section id="newsletter">
-  <div class="section-title red-bar">Newsletter</div>
-  <form class="newsletter-form" onsubmit="return false;">
-    <input type="email" placeholder="your@email.com">
-    <button type="submit" class="btn-red">Subscribe</button>
-  </form>
-</section>
-
-<!-- ============================================================
-     CONTACT (RESTORED)
-============================================================ -->
-<section id="contact">
-  <div class="section-title red-bar">Contact</div>
-
-  <p>Email: contact@themirrorjk.com • Phone: +41 783 13 12 13</p>
-
-  <button id="contactBtn" class="btn-red">Open Contact Form</button>
-
-  <div id="contactModal" class="modal hidden">
-    <div class="modal-content">
-      <span id="closeContact" class="close">&times;</span>
-      <h3>Contact Us</h3>
-      <p>Send your message to the editorial team.</p>
-      <input type="text" placeholder="Your name">
-      <input type="email" placeholder="Your email">
-      <textarea placeholder="Your message…"></textarea>
-      <button class="btn-red">Send</button>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<!-- ============================================================
-     FOOTER
-============================================================ -->
-<footer class="footer">
-  <div class="social">
-    <a href="#">Facebook</a>
-    <a href="#">YouTube</a>
-    <a href="#">Twitter</a>
-  </div>
-  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-</footer>
-
-<script src="script.js?v=17"></script>
-
-</body>
-</html>
+    <input type="file
