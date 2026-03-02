@@ -1,156 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Article | The Mirror Jammu Kashmir</title>
 <base href="./">
-<link rel="stylesheet" href="styles.css?v=8">
+<title id="page-title">Loading… | THE MIRROR JAMMU KASHMIR</title>
+<link rel="stylesheet" href="styles.css?v=17">
 </head>
 
 <body class="article-page theme-maroon">
 
-<!-- PAGE SHELL (same as About & Chief Editor) -->
 <main class="page-shell article-shell">
 
-<section class="article-container">
-<div class="article-shell">
+<!-- SECTION LABEL -->
+<div id="section-label" class="section-title red-bar">Loading…</div>
 
 <!-- HEADER -->
 <header class="article-header">
-  <h1 id="title"></h1>
-  <div id="meta" class="article-meta"></div>
+<h1 id="title">Loading…</h1>
+<div id="meta" class="article-meta"></div>
 </header>
 
 <!-- HERO IMAGE -->
-<div id="heroWrap" class="hero-wrapper" style="display:none;">
-  <figure class="hero-figure">
-    <img id="heroImg" src="" alt="">
-    <figcaption id="heroCaption"></figcaption>
-  </figure>
-</div>
+<figure id="heroWrap" class="article-hero">
+<img id="heroImg" src="" alt="">
+<figcaption id="heroCaption"></figcaption>
+</figure>
 
-<!-- ARTICLE CONTENT -->
+<!-- CONTENT -->
 <div id="content" class="article-content"></div>
 
 <!-- ACTION BUTTONS -->
 <div class="page-actions">
-  <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-  <button id="subBtn">🔔 Subscribe</button>
-  <button id="shareBtn">📣 Share</button>
-  <button id="copyBtn">🔗 Copy Link</button>
+<button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+<button id="subBtn">🔔 Subscribe</button>
+<button id="shareBtn">📣 Share</button>
+<button id="copyBtn">🔗 Copy Link</button>
 </div>
-
-</div>
-</section>
 
 </main>
 
 <footer class="footer">
-<p>© <span id="year"></span> The Mirror Jammu Kashmir</p>
+<p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
-<script src="script.js?v=8"></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", async function(){
-
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  const id = new URLSearchParams(location.search).get("id");
-  if(!id) return;
-
-  let data;
-  try{
-    const res = await fetch("content/articles.json",{cache:"no-store"});
-    data = await res.json();
-  }catch(e){
-    console.warn("Article JSON failed");
-    return;
-  }
-
-  if(!data.items) return;
-
-  const article = data.items.find(x=>x.id===id);
-  if(!article) return;
-
-  // TITLE + META
-  document.getElementById("title").textContent = article.title;
-  document.getElementById("meta").textContent =
-    (article.location || "") + " · " +
-    article.date + " · " +
-    article.readTime;
-
-  // HERO IMAGE
-  if(article.heroImage && article.heroImage.src){
-    document.getElementById("heroWrap").style.display="block";
-    document.getElementById("heroImg").src = article.heroImage.src;
-    document.getElementById("heroImg").alt = article.title;
-    document.getElementById("heroCaption").textContent =
-      (article.heroImage.caption || "") +
-      (article.heroImage.credit ? " © " + article.heroImage.credit : "");
-  }
-
-  // BODY CONTENT
-  const content = document.getElementById("content");
-  content.innerHTML = "";
-
-  let imageToggle = true;
-
-  article.body.forEach(block => {
-
-    if(block.type === "paragraph"){
-      const p = document.createElement("p");
-      p.textContent = block.text;
-      content.appendChild(p);
-    }
-
-    if(block.type === "image"){
-      const figure = document.createElement("figure");
-      figure.className = imageToggle ? "image-right" : "image-left";
-
-      const img = document.createElement("img");
-      img.src = block.src;
-      img.alt = block.caption || "";
-
-      const cap = document.createElement("figcaption");
-      cap.textContent =
-        (block.caption || "") +
-        (block.credit ? " © " + block.credit : "");
-
-      figure.appendChild(img);
-      figure.appendChild(cap);
-      content.appendChild(figure);
-
-      imageToggle = !imageToggle;
-    }
-
-  });
-
-  // LIKE BUTTON
-  let likes = 0;
-  document.getElementById("likeBtn").onclick =
-    () => document.getElementById("likeCount").textContent = ++likes;
-
-  // SUBSCRIBE BUTTON
-  document.getElementById("subBtn").onclick =
-    function(){
-      this.textContent="Subscribed";
-      this.disabled=true;
-    };
-
-  // SHARE BUTTON
-  document.getElementById("shareBtn").onclick =
-    () => navigator.share
-      ? navigator.share({title:article.title,url:location.href})
-      : alert("Share not supported");
-
-  // COPY LINK
-  document.getElementById("copyBtn").onclick =
-    () => navigator.clipboard.writeText(location.href);
-
-});
-</script>
+<script src="script.js?v=17"></script>
 
 </body>
 </html>
