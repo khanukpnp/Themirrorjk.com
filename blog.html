@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<base href="./">
+
+<!-- FIXED: Ensure all paths resolve from site root -->
+<base href="/">
+
 <title>Blog | THE MIRROR JAMMU KASHMIR</title>
 <link rel="stylesheet" href="styles.css?v=17">
 </head>
@@ -11,7 +15,6 @@
 <body class="article-page theme-maroon">
 
 <main class="page-shell article-main">
-
 <section class="article-container">
 <div class="article-shell">
 
@@ -40,13 +43,16 @@
 
 </div>
 </section>
-
 </main>
 
 <footer class="footer">
 <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
+<!-- FIXED: Load global script (clocks, weather, hijri, VS, UI) -->
+<script src="script.js?v=19"></script>
+
+<!-- BLOG LOADER -->
 <script>
 // YEAR
 document.getElementById("year").textContent = new Date().getFullYear();
@@ -70,7 +76,7 @@ document.getElementById("shareBtn").onclick = () =>
 
 // COPY LINK
 document.getElementById("copyBtn").onclick =
-() => navigator.clipboard.writeText(location.href);
+  () => navigator.clipboard.writeText(location.href);
 
 // GET BLOG ID
 function getBlogId() {
@@ -86,8 +92,8 @@ async function loadBlog() {
   try {
     const res = await fetch("content/blog.json", { cache: "no-store" });
     const data = await res.json();
-
     const item = data.items.find(a => a.id === id);
+
     if (!item) {
       document.getElementById("blog-title").textContent = "Blog not found";
       return;
@@ -126,7 +132,6 @@ async function loadBlog() {
     container.innerHTML = "";
 
     item.body.forEach(block => {
-
       if (block.type === "paragraph") {
         container.innerHTML += `<p>${block.text}</p>`;
       }
@@ -153,7 +158,6 @@ async function loadBlog() {
           </figure>
         `;
       }
-
     });
 
   } catch (err) {
