@@ -1,11 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <base href="./">
+
 <title>Chief Editor | THE MIRROR JAMMU KASHMIR</title>
-<link rel="stylesheet" href="styles.css?v=17">
+
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="article-page theme-maroon">
@@ -18,16 +22,16 @@
 <!-- SECTION LABEL -->
 <div class="section-title red-bar">Chief Editor</div>
 
-<!-- HEADER -->
+<!-- HEADER (dynamic) -->
 <header class="article-header">
 <h1 id="ce-title">Loading…</h1>
 <div id="ce-subtitle" class="article-meta"></div>
 </header>
 
-<!-- HERO IMAGE FLOAT RIGHT -->
+<!-- HERO IMAGE (dynamic) -->
 <figure class="chief-hero image-right" id="ce-hero"></figure>
 
-<!-- CONTENT -->
+<!-- CONTENT (dynamic) -->
 <div id="ce-content" class="article-content"></div>
 
 </div>
@@ -39,60 +43,7 @@
 <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
-<script>
-// ================= YEAR =================
-document.getElementById("year").textContent = new Date().getFullYear();
-
-// ================= LOAD CHIEF EDITOR JSON =================
-async function loadChiefEditor() {
-  try {
-    const res = await fetch("content/chief-editor.json", { cache: "no-store" });
-    const data = await res.json();
-
-    // TITLE + SUBTITLE
-    document.getElementById("ce-title").textContent = data.title;
-    document.getElementById("ce-subtitle").textContent = data.subtitle;
-
-    // HERO IMAGE FLOAT RIGHT
-    const hero = document.getElementById("ce-hero");
-    if (data.heroImage?.src) {
-      hero.innerHTML = `
-        <img src="${data.heroImage.src}" alt="${data.heroImage.caption}">
-        <figcaption>${data.heroImage.caption}</figcaption>
-      `;
-    }
-
-    // BODY CONTENT
-    const container = document.getElementById("ce-content");
-    container.innerHTML = "";
-
-    data.body.forEach(block => {
-      if (block.type === "paragraph") {
-        container.innerHTML += `<p>${block.text}</p>`;
-      }
-
-      if (block.type === "header") {
-        container.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
-      }
-
-      if (block.type === "points") {
-        const items = block.items.map(i => `<li>${i}</li>`).join("");
-        container.innerHTML += `
-          <div class="important-points">
-            <ul>${items}</ul>
-          </div>
-        `;
-      }
-    });
-
-  } catch (err) {
-    console.error("Failed to load chief-editor.json", err);
-    document.getElementById("ce-title").textContent = "Error loading content";
-  }
-}
-
-loadChiefEditor();
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
