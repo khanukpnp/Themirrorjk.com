@@ -10,7 +10,6 @@ const navList = document.getElementById("nav-list");
 if (hamburger && mobileMenu && navList) {
   hamburger.addEventListener("click", () => {
     const isOpen = mobileMenu.style.display === "flex";
-
     if (isOpen) {
       mobileMenu.style.display = "none";
       hamburger.setAttribute("aria-expanded", "false");
@@ -52,33 +51,30 @@ const OPENWEATHER_KEY = "YOUR_OPENWEATHER_API_KEY";
 function updateClocks() {
   const now = new Date();
 
-  // Zurich — Europe/Zurich
+  // Zurich
   const cestEl = document.querySelector("#clock-cest span");
   if (cestEl) {
-    const zurich = new Date().toLocaleString("en-US", { timeZone: "Europe/Zurich" });
-    const d = new Date(zurich);
+    const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Zurich" }));
     cestEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d
       .getMinutes()
       .toString()
       .padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
   }
 
-  // IST — Asia/Kolkata
+  // IST
   const istEl = document.querySelector("#tz-ist span");
   if (istEl) {
-    const ist = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
-    const d = new Date(ist);
+    const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
     istEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d
       .getMinutes()
       .toString()
       .padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
   }
 
-  // PKT — Asia/Karachi
+  // PKT
   const pktEl = document.querySelector("#tz-pkt span");
   if (pktEl) {
-    const pkt = new Date().toLocaleString("en-US", { timeZone: "Asia/Karachi" });
-    const d = new Date(pkt);
+    const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Karachi" }));
     pktEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d
       .getMinutes()
       .toString()
@@ -97,8 +93,7 @@ async function updateHijri() {
   try {
     const today = new Date();
     const gDate = today.toISOString().split("T")[0];
-    const url = `https://api.aladhan.com/v1/gToH/${gDate}`;
-    const res = await fetch(url);
+    const res = await fetch(`https://api.aladhan.com/v1/gToH/${gDate}`);
     const data = await res.json();
     const h = data.data.hijri;
     hijriEl.textContent = `${h.day} ${h.month.en} ${h.year}`;
@@ -114,7 +109,6 @@ setInterval(updateHijri, 3600000);
 function updateVikramSamvat() {
   const hindiEl = document.querySelector("#cal-hindi span");
   if (!hindiEl) return;
-
   const now = new Date();
   hindiEl.textContent = `VS ${now.getFullYear() + 57}`;
 }
@@ -141,10 +135,10 @@ async function updateWeather() {
 
   for (const c of cities) {
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?id=${c.id}&appid=${OPENWEATHER_KEY}&units=metric`;
-      const res = await fetch(url);
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?id=${c.id}&appid=${OPENWEATHER_KEY}&units=metric`
+      );
       const data = await res.json();
-
       if (!data.main || !data.weather) continue;
 
       const temp = Math.round(data.main.temp);
@@ -236,30 +230,9 @@ async function loadHomepage() {
 `;
     }
 
-    fillCard(
-      articles[0],
-      "#lead-media",
-      "#lead-body",
-      "Coming Soon",
-      "Lead story will appear here.",
-      "article"
-    );
-    fillCard(
-      breaking[0],
-      "#breaking-media",
-      "#breaking-body",
-      "Coming Soon",
-      "Breaking news will appear here.",
-      "article"
-    );
-    fillCard(
-      blogs[0],
-      "#opinion-media",
-      "#opinion-body",
-      "Coming Soon",
-      "Opinion and blog will appear here.",
-      "blog"
-    );
+    fillCard(articles[0], "#lead-media", "#lead-body", "Coming Soon", "Lead story will appear here.", "article");
+    fillCard(breaking[0], "#breaking-media", "#breaking-body", "Coming Soon", "Breaking news will appear here.", "article");
+    fillCard(blogs[0], "#opinion-media", "#opinion-body", "Coming Soon", "Opinion and blog will appear here.", "blog");
 
     function fillUnifiedCard(item, mediaSel, bodySel) {
       const media = document.querySelector(mediaSel);
@@ -292,56 +265,14 @@ async function loadHomepage() {
     fillUnifiedCard(editorial[0], "#leh2-media", "#leh2-body");
     fillUnifiedCard(historical[0], "#leh3-media", "#leh3-body");
 
-    fillCard(
-      jk[0],
-      "#jk1-media",
-      "#jk1-body",
-      "Coming Soon",
-      "Reporting from Jammu & Kashmir will appear here.",
-      "article"
-    );
-    fillCard(
-      jk[1],
-      "#jk2-media",
-      "#jk2-body",
-      "Coming Soon",
-      "Additional coverage will be added.",
-      "article"
-    );
+    fillCard(jk[0], "#jk1-media", "#jk1-body", "Coming Soon", "Reporting from Jammu & Kashmir will appear here.", "article");
+    fillCard(jk[1], "#jk2-media", "#jk2-body", "Coming Soon", "Additional coverage will be added.", "article");
 
-    fillCard(
-      intl[0],
-      "#intl1-media",
-      "#intl1-body",
-      "Coming Soon",
-      "International coverage will appear here.",
-      "article"
-    );
-    fillCard(
-      intl[1],
-      "#intl2-media",
-      "#intl2-body",
-      "Coming Soon",
-      "Additional international reports will be added.",
-      "article"
-    );
+    fillCard(intl[0], "#intl1-media", "#intl1-body", "Coming Soon", "International coverage will appear here.", "article");
+    fillCard(intl[1], "#intl2-media", "#intl2-body", "Coming Soon", "Additional international reports will be added.", "article");
 
-    fillCard(
-      hr[0],
-      "#hr1-media",
-      "#hr1-body",
-      "Coming Soon",
-      "Human rights documentation will appear here.",
-      "article"
-    );
-    fillCard(
-      hr[1],
-      "#hr2-media",
-      "#hr2-body",
-      "Coming Soon",
-      "Further human rights reports will be added.",
-      "article"
-    );
+    fillCard(hr[0], "#hr1-media", "#hr1-body", "Coming Soon", "Human rights documentation will appear here.", "article");
+    fillCard(hr[1], "#hr2-media", "#hr2-body", "Coming Soon", "Further human rights reports will be added.", "article");
   } catch (err) {
     console.error("Homepage load error:", err);
   }
