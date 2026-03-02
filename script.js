@@ -5,11 +5,20 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 // ================= MOBILE NAV =================
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobile-menu");
+const navList = document.getElementById("nav-list");
 
-if (hamburger && mobileMenu) {
+if (hamburger && mobileMenu && navList) {
   hamburger.addEventListener("click", () => {
     const isOpen = mobileMenu.style.display === "flex";
-    mobileMenu.style.display = isOpen ? "none" : "flex";
+    if (isOpen) {
+      mobileMenu.style.display = "none";
+      hamburger.setAttribute("aria-expanded", "false");
+      mobileMenu.innerHTML = "";
+    } else {
+      mobileMenu.style.display = "flex";
+      hamburger.setAttribute("aria-expanded", "true");
+      mobileMenu.innerHTML = navList.innerHTML;
+    }
   });
 }
 
@@ -22,9 +31,11 @@ if (contactBtn && contactModal && closeContact) {
   contactBtn.addEventListener("click", () => {
     contactModal.classList.remove("hidden");
   });
+
   closeContact.addEventListener("click", () => {
     contactModal.classList.add("hidden");
   });
+
   contactModal.addEventListener("click", (e) => {
     if (e.target === contactModal) contactModal.classList.add("hidden");
   });
@@ -61,7 +72,7 @@ function updateClocks() {
     pktEl.textContent = `${pad2(pkt.getHours())}:${pad2(pkt.getMinutes())}:${pad2(pkt.getSeconds())}`;
   }
 
-  // Simple placeholders for Hijri & Vikram Samvat (non‑precise, display only)
+  // Simple placeholders for Hijri & Vikram Samvat (display only)
   const hijriEl = document.querySelector("#cal-hijri span");
   const hindiEl = document.querySelector("#cal-hindi span");
   if (hijriEl) hijriEl.textContent = "3 Ramadan 1447 (approx.)";
@@ -71,20 +82,21 @@ function updateClocks() {
 setInterval(updateClocks, 1000);
 updateClocks();
 
-// ================= WEATHER (PLACEHOLDER STATIC) =================
+// ================= WEATHER (STATIC PLACEHOLDER) =================
 const weatherBar = document.getElementById("weather-bar");
 if (weatherBar) {
   weatherBar.textContent = "";
   const cities = [
-    { name: "Zurich", temp: "6.5°C" },
-    { name: "Rawalakot", temp: "13.8°C" },
-    { name: "Jammu", temp: "16.8°C" },
-    { name: "Kashmir", temp: "2.4°C" },
-    { name: "Ladakh", temp: "-3.2°C" },
-    { name: "Gilgit", temp: "3.0°C" },
-    { name: "Baltistan", temp: "3.9°C" },
+    { name: "Zurich",       temp: "6.5°C" },
+    { name: "Rawalakot",    temp: "13.8°C" },
+    { name: "Jammu",        temp: "16.8°C" },
+    { name: "Kashmir",      temp: "2.4°C" },
+    { name: "Ladakh",       temp: "-3.2°C" },
+    { name: "Gilgit",       temp: "3.0°C" },
+    { name: "Baltistan",    temp: "3.9°C" },
     { name: "Muzaffarabad", temp: "12.2°C" }
   ];
+
   cities.forEach(c => {
     const chip = document.createElement("div");
     chip.className = "chip tiny";
@@ -125,19 +137,19 @@ async function loadHomepage() {
       fetchJSON("content/human-rights.json").catch(() => ({ items: [] }))
     ]);
 
-    const breaking = breakingData.items || [];
-    const articles = articlesData.items || [];
-    const blogs = blogData.items || [];
-    const editorial = editorialData.items || [];
+    const breaking   = breakingData.items   || [];
+    const articles   = articlesData.items   || [];
+    const blogs      = blogData.items       || [];
+    const editorial  = editorialData.items  || [];
     const historical = historicalData.items || [];
-    const jk = jkData.items || [];
-    const intl = intlData.items || [];
-    const hr = hrData.items || [];
+    const jk         = jkData.items         || [];
+    const intl       = intlData.items       || [];
+    const hr         = hrData.items         || [];
 
-    // ---------- Helper for cards ----------
+    // Helper for cards
     function fillCard(item, mediaSel, bodySel, fallbackTitle, fallbackText, linkType) {
       const media = document.querySelector(mediaSel);
-      const body = document.querySelector(bodySel);
+      const body  = document.querySelector(bodySel);
       if (!media || !body) return;
 
       if (!item) {
@@ -167,7 +179,7 @@ async function loadHomepage() {
       `;
     }
 
-    // ---------- TOP STORIES ----------
+    // TOP STORIES
     fillCard(
       articles[0],
       "#lead-media",
@@ -195,14 +207,14 @@ async function loadHomepage() {
       "blog"
     );
 
-    // ---------- LATEST · EDITORIAL · HISTORICAL ----------
-    const latest = articles[0];
+    // LATEST · EDITORIAL · HISTORICAL
+    const latest        = articles[0];
     const editorialItem = editorial[0];
-    const historicalItem = historical[0];
+    const historicalItem= historical[0];
 
-    function fillUnifiedCard(item, mediaSel, bodySel, fallbackTitle) {
+    function fillUnifiedCard(item, mediaSel, bodySel) {
       const media = document.querySelector(mediaSel);
-      const body = document.querySelector(bodySel);
+      const body  = document.querySelector(bodySel);
       if (!media || !body) return;
 
       if (!item) {
@@ -219,7 +231,6 @@ async function loadHomepage() {
       }
 
       const href = `article.html?id=${item.id}`;
-
       body.innerHTML = `
         <h3>${item.title}</h3>
         <p>${item.excerpt || ""}</p>
@@ -227,11 +238,11 @@ async function loadHomepage() {
       `;
     }
 
-    fillUnifiedCard(latest, "#leh1-media", "#leh1-body", "Latest");
-    fillUnifiedCard(editorialItem, "#leh2-media", "#leh2-body", "Editorial");
-    fillUnifiedCard(historicalItem, "#leh3-media", "#leh3-body", "Historical");
+    fillUnifiedCard(latest,        "#leh1-media", "#leh1-body");
+    fillUnifiedCard(editorialItem, "#leh2-media", "#leh2-body");
+    fillUnifiedCard(historicalItem,"#leh3-media", "#leh3-body");
 
-    // ---------- JAMMU KASHMIR ----------
+    // JAMMU KASHMIR
     fillCard(
       jk[0],
       "#jk1-media",
@@ -240,6 +251,7 @@ async function loadHomepage() {
       "Reporting from Jammu & Kashmir will appear here.",
       "article"
     );
+
     fillCard(
       jk[1],
       "#jk2-media",
@@ -249,7 +261,7 @@ async function loadHomepage() {
       "article"
     );
 
-    // ---------- INTERNATIONAL ----------
+    // INTERNATIONAL
     fillCard(
       intl[0],
       "#intl1-media",
@@ -258,6 +270,7 @@ async function loadHomepage() {
       "International coverage will appear here.",
       "article"
     );
+
     fillCard(
       intl[1],
       "#intl2-media",
@@ -267,7 +280,7 @@ async function loadHomepage() {
       "article"
     );
 
-    // ---------- HUMAN RIGHTS ----------
+    // HUMAN RIGHTS
     fillCard(
       hr[0],
       "#hr1-media",
@@ -276,6 +289,7 @@ async function loadHomepage() {
       "Human rights documentation will appear here.",
       "article"
     );
+
     fillCard(
       hr[1],
       "#hr2-media",
@@ -284,6 +298,7 @@ async function loadHomepage() {
       "Further human rights reports will be added.",
       "article"
     );
+
   } catch (err) {
     console.error("Homepage load error:", err);
   }
@@ -300,25 +315,25 @@ async function loadArticlePage() {
   if (!id) return;
 
   const prefix = id.split("-")[0];
-
   const map = {
-    breaking: "content/breaking.json",
-    article: "content/articles.json",
-    blog: "content/blog.json",
+    breaking:  "content/breaking.json",
+    article:   "content/articles.json",
+    blog:      "content/blog.json",
     editorial: "content/editorial.json",
-    historical: "content/historical.json",
-    jk: "content/jammu-kashmir.json",
-    intl: "content/international.json",
-    hr: "content/human-rights.json"
+    historical:"content/historical.json",
+    jk:        "content/jammu-kashmir.json",
+    intl:      "content/international.json",
+    hr:        "content/human-rights.json"
   };
 
   const path = map[prefix];
   if (!path) return;
 
   try {
-    const data = await fetchJSON(path);
+    const data  = await fetchJSON(path);
     const items = data.items || [];
-    const item = items.find(a => a.id === id);
+    const item  = items.find(a => a.id === id);
+
     if (!item) {
       document.getElementById("title").textContent = "Article not found";
       return;
@@ -332,14 +347,14 @@ async function loadArticlePage() {
     const sectionLabel = document.getElementById("section-label");
     if (sectionLabel) {
       const labelMap = {
-        breaking: "Breaking News",
-        article: "Latest Articles",
-        blog: "Blog & Opinion",
+        breaking:  "Breaking News",
+        article:   "Latest Articles",
+        blog:      "Blog & Opinion",
         editorial: "Editorial",
-        historical: "Historical Facts",
-        jk: "Jammu Kashmir",
-        intl: "International",
-        hr: "Human Rights"
+        historical:"Historical Facts",
+        jk:        "Jammu Kashmir",
+        intl:      "International",
+        hr:        "Human Rights"
       };
       sectionLabel.textContent = labelMap[prefix] || "Article";
     }
@@ -358,6 +373,7 @@ async function loadArticlePage() {
             year: "numeric"
           })
         : "";
+
       metaEl.innerHTML = `
         <strong>${item.category || ""}</strong> ·
         ${item.location || ""} ·
@@ -368,8 +384,8 @@ async function loadArticlePage() {
     }
 
     // Hero
-    const heroWrap = document.getElementById("heroWrap");
-    const heroImg = document.getElementById("heroImg");
+    const heroWrap    = document.getElementById("heroWrap");
+    const heroImg     = document.getElementById("heroImg");
     const heroCaption = document.getElementById("heroCaption");
 
     if (item.heroImage?.src && heroImg && heroCaption) {
@@ -412,15 +428,18 @@ async function loadArticlePage() {
       }
 
       if (block.type === "image") {
-        const fig = document.createElement("figure");
+        const fig   = document.createElement("figure");
         const align = block.align === "right" ? "image-right" : "image-left";
         fig.className = align;
+
         const img = document.createElement("img");
         img.src = block.src;
         img.alt = block.caption || "";
+
         const cap = document.createElement("figcaption");
         const credit = block.credit ? ` — ${block.credit}` : "";
         cap.textContent = `${block.caption || ""}${credit}`;
+
         fig.appendChild(img);
         fig.appendChild(cap);
         container.appendChild(fig);
