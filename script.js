@@ -43,38 +43,34 @@ if (contactBtn && contactModal && closeContact) {
 
 /* ============================================================
    LIVE CLOCKS + LIVE WEATHER + CORRECT HIJRI DATE
-   ============================================================ */
+============================================================ */
 
 const OPENWEATHER_KEY = "YOUR_OPENWEATHER_API_KEY";
 
 /* ---------------- LIVE CLOCKS ---------------- */
 function updateClocks() {
-  const now = new Date();
-
-  // Zurich — Europe/Zurich
+  // Zurich
   const cestEl = document.querySelector("#clock-cest span");
   if (cestEl) {
-    const zurich = new Date().toLocaleString("en-US", { timeZone: "Europe/Zurich" });
-    const d = new Date(zurich);
-    cestEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
+    const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Zurich" }));
+    cestEl.textContent = `${d.getHours().toString().padStart(2,"0")}:${d.getMinutes().toString().padStart(2,"0")}:${d.getSeconds().toString().padStart(2,"0")}`;
   }
 
-  // IST — Asia/Kolkata
+  // IST
   const istEl = document.querySelector("#tz-ist span");
   if (istEl) {
-    const ist = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
-    const d = new Date(ist);
-    istEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
+    const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+    istEl.textContent = `${d.getHours().toString().padStart(2,"0")}:${d.getMinutes().toString().padStart(2,"0")}:${d.getSeconds().toString().padStart(2,"0")}`;
   }
 
-  // PKT — Asia/Karachi
+  // PKT
   const pktEl = document.querySelector("#tz-pkt span");
   if (pktEl) {
-    const pkt = new Date().toLocaleString("en-US", { timeZone: "Asia/Karachi" });
-    const d = new Date(pkt);
-    pktEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
+    const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Karachi" }));
+    pktEl.textContent = `${d.getHours().toString().padStart(2,"0")}:${d.getMinutes().toString().padStart(2,"0")}:${d.getSeconds().toString().padStart(2,"0")}`;
   }
 }
+
 setInterval(updateClocks, 1000);
 updateClocks();
 
@@ -86,16 +82,15 @@ async function updateHijri() {
   try {
     const today = new Date();
     const gDate = today.toISOString().split("T")[0];
-    const url = `https://api.aladhan.com/v1/gToH/${gDate}`;
-    const res = await fetch(url);
+    const res = await fetch(`https://api.aladhan.com/v1/gToH/${gDate}`);
     const data = await res.json();
-
     const h = data.data.hijri;
     hijriEl.textContent = `${h.day} ${h.month.en} ${h.year}`;
   } catch (err) {
     console.error("Hijri error:", err);
   }
 }
+
 updateHijri();
 setInterval(updateHijri, 3600000);
 
@@ -103,7 +98,6 @@ setInterval(updateHijri, 3600000);
 function updateVikramSamvat() {
   const hindiEl = document.querySelector("#cal-hindi span");
   if (!hindiEl) return;
-
   const now = new Date();
   hindiEl.textContent = `VS ${now.getFullYear() + 57}`;
 }
@@ -129,22 +123,21 @@ async function updateWeather() {
 
   for (const c of cities) {
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?id=${c.id}&appid=${OPENWEATHER_KEY}&units=metric`;
-      const res = await fetch(url);
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?id=${c.id}&appid=${OPENWEATHER_KEY}&units=metric`
+      );
       const data = await res.json();
-
-      const temp = Math.round(data.main.temp);
-      const cond = data.weather[0].main;
 
       const chip = document.createElement("div");
       chip.className = "chip tiny";
-      chip.textContent = `${c.name}: ${temp}°C | ${cond}`;
+      chip.textContent = `${c.name}: ${Math.round(data.main.temp)}°C | ${data.weather[0].main}`;
       weatherBar.appendChild(chip);
     } catch (err) {
       console.error("Weather error:", c.name, err);
     }
   }
 }
+
 updateWeather();
 setInterval(updateWeather, 600000);
 
@@ -195,10 +188,7 @@ async function loadHomepage() {
       if (!media || !body) return;
 
       if (!item) {
-        body.innerHTML = `
-          <h3>${fallbackTitle}</h3>
-          <p>${fallbackText}</p>
-        `;
+        body.innerHTML = `<h3>${fallbackTitle}</h3><p>${fallbackText}</p>`;
         return;
       }
 
@@ -231,10 +221,7 @@ async function loadHomepage() {
       if (!media || !body) return;
 
       if (!item) {
-        body.innerHTML = `
-          <h3>Coming Soon</h3>
-          <p>Content will be added shortly.</p>
-        `;
+        body.innerHTML = `<h3>Coming Soon</h3><p>Content will be added shortly.</p>`;
         return;
       }
 
@@ -370,7 +357,7 @@ async function loadArticlePage() {
       }
 
       if (block.type === "header") {
-        const h2 = document.createcreateElement("h2");
+        const h2 = document.createElement("h2");  // FIXED
         h2.textContent = block.text;
         container.appendChild(h2);
       }
