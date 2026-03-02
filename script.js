@@ -1,8 +1,8 @@
-// ================= YEAR =================
+/* ================= YEAR ================= */
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// ================= MOBILE NAV =================
+/* ================= MOBILE NAV ================= */
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobile-menu");
 const navList = document.getElementById("nav-list");
@@ -22,7 +22,7 @@ if (hamburger && mobileMenu && navList) {
   });
 }
 
-// ================= CONTACT MODAL =================
+/* ================= CONTACT MODAL ================= */
 const contactBtn = document.getElementById("contactBtn");
 const contactModal = document.getElementById("contactModal");
 const closeContact = document.getElementById("closeContact");
@@ -41,59 +41,85 @@ if (contactBtn && contactModal && closeContact) {
   });
 }
 
-// ================= CLOCKS & CALENDARS =================
+/* ================= CLOCKS & CALENDARS ================= */
 function pad2(n) {
   return n.toString().padStart(2, "0");
+}
+
+function gregorianToHijri(date) {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  const jd = Math.floor((1461 * (year + 4800 + Math.floor((month - 14) / 12))) / 4)
+    + Math.floor((367 * (month - 2 - 12 * Math.floor((month - 14) / 12))) / 12)
+    - Math.floor((3 * Math.floor((year + 4900 + Math.floor((month - 14) / 12)) / 100)) / 4)
+    + day - 32075;
+
+  const l = jd - 1948440 + 10632;
+  const n = Math.floor((l - 1) / 10631);
+  const r = l - 10631 * n;
+  const j = Math.floor((r - 1) / 354.36667);
+  const hijriYear = 30 * n + j;
+  const hijriMonth = Math.floor((r - 29 - Math.floor(j * 354.36667)) / 29.5) + 1;
+  const hijriDay = r - Math.floor(j * 354.36667) - Math.floor((hijriMonth - 1) * 29.5);
+
+  return { day: hijriDay, month: hijriMonth, year: hijriYear };
 }
 
 function updateClocks() {
   const now = new Date();
 
-  // Zurich (CEST)
+  /* Zurich (CEST) */
   const cestEl = document.querySelector("#clock-cest span");
   if (cestEl) {
-    const h = pad2(now.getHours());
-    const m = pad2(now.getMinutes());
-    const s = pad2(now.getSeconds());
-    cestEl.textContent = `${h}:${m}:${s}`;
+    cestEl.textContent = `${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())}`;
   }
 
-  // IST (UTC+5:30)
+  /* IST (Jammu-Kashmir-Ladakh) — UTC+4:30 */
   const istEl = document.querySelector("#tz-ist span");
   if (istEl) {
-    const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+    const ist = new Date(now.getTime() + (4.5 * 60 * 60 * 1000));
     istEl.textContent = `${pad2(ist.getHours())}:${pad2(ist.getMinutes())}:${pad2(ist.getSeconds())}`;
   }
 
-  // PKT (UTC+5)
+  /* PKT (Gilgit-Baltistan & Azad Kashmir) — UTC+4:00 */
   const pktEl = document.querySelector("#tz-pkt span");
   if (pktEl) {
-    const pkt = new Date(now.getTime() + (5 * 60 * 60 * 1000));
+    const pkt = new Date(now.getTime() + (4 * 60 * 60 * 1000));
     pktEl.textContent = `${pad2(pkt.getHours())}:${pad2(pkt.getMinutes())}:${pad2(pkt.getSeconds())}`;
   }
 
-  // Simple placeholders for Hijri & Vikram Samvat (display only)
+  /* Hijri */
   const hijriEl = document.querySelector("#cal-hijri span");
+  if (hijriEl) {
+    const h = gregorianToHijri(now);
+    hijriEl.textContent = `${h.day} Ramadan ${h.year}`;
+  }
+
+  /* Vikram Samvat */
   const hindiEl = document.querySelector("#cal-hindi span");
-  if (hijriEl) hijriEl.textContent = "3 Ramadan 1447 (approx.)";
-  if (hindiEl) hindiEl.textContent = "Phalguna 1947 (approx.)";
+  if (hindiEl) {
+    const vsYear = now.getFullYear() + 57;
+    hindiEl.textContent = `VS ${vsYear}`;
+  }
 }
 
 setInterval(updateClocks, 1000);
 updateClocks();
 
-// ================= WEATHER (STATIC PLACEHOLDER) =================
+/* ================= WEATHER ================= */
 const weatherBar = document.getElementById("weather-bar");
 if (weatherBar) {
   weatherBar.textContent = "";
   const cities = [
-    { name: "Zurich",       temp: "6.5°C" },
-    { name: "Rawalakot",    temp: "13.8°C" },
-    { name: "Jammu",        temp: "16.8°C" },
-    { name: "Kashmir",      temp: "2.4°C" },
-    { name: "Ladakh",       temp: "-3.2°C" },
-    { name: "Gilgit",       temp: "3.0°C" },
-    { name: "Baltistan",    temp: "3.9°C" },
+    { name: "Zurich", temp: "6.5°C" },
+    { name: "Rawalakot", temp: "13.8°C" },
+    { name: "Jammu", temp: "16.8°C" },
+    { name: "Kashmir", temp: "2.4°C" },
+    { name: "Ladakh", temp: "-3.2°C" },
+    { name: "Gilgit", temp: "3.0°C" },
+    { name: "Baltistan", temp: "3.9°C" },
     { name: "Muzaffarabad", temp: "12.2°C" }
   ];
 
@@ -105,14 +131,50 @@ if (weatherBar) {
   });
 }
 
-// ================= UNIVERSAL FETCH HELPER =================
+/* ================= UNIVERSAL FETCH HELPER ================= */
 async function fetchJSON(path) {
   const res = await fetch(path, { cache: "no-store" });
   if (!res.ok) throw new Error(`Failed to load ${path}`);
   return res.json();
 }
 
-// ================= HOMEPAGE LOADERS =================
+/* ================= ACTION BAR (LIKE, SUBSCRIBE, SHARE, COPY) ================= */
+function injectActionBar(container) {
+  const bar = document.createElement("div");
+  bar.className = "page-actions";
+
+  bar.innerHTML = `
+    <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+    <button id="subBtn">🔔 Subscribe</button>
+    <button id="shareBtn">📣 Share</button>
+    <button id="copyBtn">🔗 Copy Link</button>
+  `;
+
+  container.appendChild(bar);
+
+  /* Like */
+  let likes = 0;
+  document.getElementById("likeBtn").onclick =
+    () => document.getElementById("likeCount").textContent = ++likes;
+
+  /* Subscribe */
+  document.getElementById("subBtn").onclick = function () {
+    this.textContent = "Subscribed";
+    this.disabled = true;
+  };
+
+  /* Share */
+  document.getElementById("shareBtn").onclick = () =>
+    navigator.share
+      ? navigator.share({ title: document.title, url: location.href })
+      : alert("Share not supported");
+
+  /* Copy Link */
+  document.getElementById("copyBtn").onclick =
+    () => navigator.clipboard.writeText(location.href);
+}
+
+/* ================= HOMEPAGE LOADER ================= */
 async function loadHomepage() {
   if (!document.querySelector("#top-stories")) return;
 
@@ -137,19 +199,18 @@ async function loadHomepage() {
       fetchJSON("content/human-rights.json").catch(() => ({ items: [] }))
     ]);
 
-    const breaking   = breakingData.items   || [];
-    const articles   = articlesData.items   || [];
-    const blogs      = blogData.items       || [];
-    const editorial  = editorialData.items  || [];
+    const breaking = breakingData.items || [];
+    const articles = articlesData.items || [];
+    const blogs = blogData.items || [];
+    const editorial = editorialData.items || [];
     const historical = historicalData.items || [];
-    const jk         = jkData.items         || [];
-    const intl       = intlData.items       || [];
-    const hr         = hrData.items         || [];
+    const jk = jkData.items || [];
+    const intl = intlData.items || [];
+    const hr = hrData.items || [];
 
-    // Helper for cards
     function fillCard(item, mediaSel, bodySel, fallbackTitle, fallbackText, linkType) {
       const media = document.querySelector(mediaSel);
-      const body  = document.querySelector(bodySel);
+      const body = document.querySelector(bodySel);
       if (!media || !body) return;
 
       if (!item) {
@@ -179,42 +240,15 @@ async function loadHomepage() {
       `;
     }
 
-    // TOP STORIES
-    fillCard(
-      articles[0],
-      "#lead-media",
-      "#lead-body",
-      "Coming Soon",
-      "Lead story will appear here.",
-      "article"
-    );
+    /* TOP STORIES */
+    fillCard(articles[0], "#lead-media", "#lead-body", "Coming Soon", "Lead story will appear here.", "article");
+    fillCard(breaking[0], "#breaking-media", "#breaking-body", "Coming Soon", "Breaking news will appear here.", "article");
+    fillCard(blogs[0], "#opinion-media", "#opinion-body", "Coming Soon", "Opinion and blog will appear here.", "blog");
 
-    fillCard(
-      breaking[0],
-      "#breaking-media",
-      "#breaking-body",
-      "Coming Soon",
-      "Breaking news will appear here.",
-      "article"
-    );
-
-    fillCard(
-      blogs[0],
-      "#opinion-media",
-      "#opinion-body",
-      "Coming Soon",
-      "Opinion and blog will appear here.",
-      "blog"
-    );
-
-    // LATEST · EDITORIAL · HISTORICAL
-    const latest        = articles[0];
-    const editorialItem = editorial[0];
-    const historicalItem= historical[0];
-
+    /* LATEST · EDITORIAL · HISTORICAL */
     function fillUnifiedCard(item, mediaSel, bodySel) {
       const media = document.querySelector(mediaSel);
-      const body  = document.querySelector(bodySel);
+      const body = document.querySelector(bodySel);
       if (!media || !body) return;
 
       if (!item) {
@@ -238,66 +272,21 @@ async function loadHomepage() {
       `;
     }
 
-    fillUnifiedCard(latest,        "#leh1-media", "#leh1-body");
-    fillUnifiedCard(editorialItem, "#leh2-media", "#leh2-body");
-    fillUnifiedCard(historicalItem,"#leh3-media", "#leh3-body");
+    fillUnifiedCard(articles[0], "#leh1-media", "#leh1-body");
+    fillUnifiedCard(editorial[0], "#leh2-media", "#leh2-body");
+    fillUnifiedCard(historical[0], "#leh3-media", "#leh3-body");
 
-    // JAMMU KASHMIR
-    fillCard(
-      jk[0],
-      "#jk1-media",
-      "#jk1-body",
-      "Coming Soon",
-      "Reporting from Jammu & Kashmir will appear here.",
-      "article"
-    );
+    /* JAMMU KASHMIR */
+    fillCard(jk[0], "#jk1-media", "#jk1-body", "Coming Soon", "Reporting from Jammu & Kashmir will appear here.", "article");
+    fillCard(jk[1], "#jk2-media", "#jk2-body", "Coming Soon", "Additional coverage will be added.", "article");
 
-    fillCard(
-      jk[1],
-      "#jk2-media",
-      "#jk2-body",
-      "Coming Soon",
-      "Additional coverage will be added.",
-      "article"
-    );
+    /* INTERNATIONAL */
+    fillCard(intl[0], "#intl1-media", "#intl1-body", "Coming Soon", "International coverage will appear here.", "article");
+    fillCard(intl[1], "#intl2-media", "#intl2-body", "Coming Soon", "Additional international reports will be added.", "article");
 
-    // INTERNATIONAL
-    fillCard(
-      intl[0],
-      "#intl1-media",
-      "#intl1-body",
-      "Coming Soon",
-      "International coverage will appear here.",
-      "article"
-    );
-
-    fillCard(
-      intl[1],
-      "#intl2-media",
-      "#intl2-body",
-      "Coming Soon",
-      "Additional international reports will be added.",
-      "article"
-    );
-
-    // HUMAN RIGHTS
-    fillCard(
-      hr[0],
-      "#hr1-media",
-      "#hr1-body",
-      "Coming Soon",
-      "Human rights documentation will appear here.",
-      "article"
-    );
-
-    fillCard(
-      hr[1],
-      "#hr2-media",
-      "#hr2-body",
-      "Coming Soon",
-      "Further human rights reports will be added.",
-      "article"
-    );
+    /* HUMAN RIGHTS */
+    fillCard(hr[0], "#hr1-media", "#hr1-body", "Coming Soon", "Human rights documentation will appear here.", "article");
+    fillCard(hr[1], "#hr2-media", "#hr2-body", "Coming Soon", "Further human rights reports will be added.", "article");
 
   } catch (err) {
     console.error("Homepage load error:", err);
@@ -306,7 +295,7 @@ async function loadHomepage() {
 
 loadHomepage();
 
-// ================= ARTICLE PAGE LOADER =================
+/* ================= ARTICLE PAGE LOADER ================= */
 async function loadArticlePage() {
   if (!document.querySelector("body.article-page") || !document.getElementById("content")) return;
 
@@ -316,53 +305,53 @@ async function loadArticlePage() {
 
   const prefix = id.split("-")[0];
   const map = {
-    breaking:  "content/breaking.json",
-    article:   "content/articles.json",
-    blog:      "content/blog.json",
+    breaking: "content/breaking.json",
+    article: "content/articles.json",
+    blog: "content/blog.json",
     editorial: "content/editorial.json",
-    historical:"content/historical.json",
-    jk:        "content/jammu-kashmir.json",
-    intl:      "content/international.json",
-    hr:        "content/human-rights.json"
+    historical: "content/historical.json",
+    jk: "content/jammu-kashmir.json",
+    intl: "content/international.json",
+    hr: "content/human-rights.json"
   };
 
   const path = map[prefix];
   if (!path) return;
 
   try {
-    const data  = await fetchJSON(path);
+    const data = await fetchJSON(path);
     const items = data.items || [];
-    const item  = items.find(a => a.id === id);
+    const item = items.find(a => a.id === id);
 
     if (!item) {
       document.getElementById("title").textContent = "Article not found";
       return;
     }
 
-    // Page title
+    /* Page title */
     const pageTitle = document.getElementById("page-title");
     if (pageTitle) pageTitle.textContent = `${item.title} | THE MIRROR JAMMU KASHMIR`;
 
-    // Section label
+    /* Section label */
     const sectionLabel = document.getElementById("section-label");
     if (sectionLabel) {
       const labelMap = {
-        breaking:  "Breaking News",
-        article:   "Latest Articles",
-        blog:      "Blog & Opinion",
+        breaking: "Breaking News",
+        article: "Latest Articles",
+        blog: "Blog & Opinion",
         editorial: "Editorial",
-        historical:"Historical Facts",
-        jk:        "Jammu Kashmir",
-        intl:      "International",
-        hr:        "Human Rights"
+        historical: "Historical Facts",
+        jk: "Jammu Kashmir",
+        intl: "International",
+        hr: "Human Rights"
       };
       sectionLabel.textContent = labelMap[prefix] || "Article";
     }
 
-    // Title
+    /* Title */
     document.getElementById("title").textContent = item.title;
 
-    // Meta
+    /* Meta */
     const metaEl = document.getElementById("meta");
     if (metaEl) {
       const dateObj = item.date ? new Date(item.date) : null;
@@ -383,9 +372,9 @@ async function loadArticlePage() {
       `;
     }
 
-    // Hero
-    const heroWrap    = document.getElementById("heroWrap");
-    const heroImg     = document.getElementById("heroImg");
+    /* Hero */
+    const heroWrap = document.getElementById("heroWrap");
+    const heroImg = document.getElementById("heroImg");
     const heroCaption = document.getElementById("heroCaption");
 
     if (item.heroImage?.src && heroImg && heroCaption) {
@@ -397,7 +386,7 @@ async function loadArticlePage() {
       heroWrap.style.display = "none";
     }
 
-    // Body
+    /* Body */
     const container = document.getElementById("content");
     container.innerHTML = "";
 
@@ -428,7 +417,7 @@ async function loadArticlePage() {
       }
 
       if (block.type === "image") {
-        const fig   = document.createElement("figure");
+        const fig = document.createElement("figure");
         const align = block.align === "right" ? "image-right" : "image-left";
         fig.className = align;
 
@@ -445,6 +434,9 @@ async function loadArticlePage() {
         container.appendChild(fig);
       }
     });
+
+    /* Inject action bar at bottom */
+    injectActionBar(container);
 
   } catch (err) {
     console.error("Article load error:", err);
