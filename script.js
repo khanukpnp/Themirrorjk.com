@@ -41,95 +41,112 @@ if (contactBtn && contactModal && closeContact) {
   });
 }
 
-/* ================= CLOCKS & CALENDARS ================= */
-function pad2(n) {
-  return n.toString().padStart(2, "0");
-}
+/* ============================================================
+   LIVE CLOCKS + LIVE WEATHER + CORRECT HIJRI DATE
+   ============================================================ */
 
-function gregorianToHijri(date) {
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
+const OPENWEATHER_KEY = "YOUR_OPENWEATHER_API_KEY";
 
-  const jd = Math.floor((1461 * (year + 4800 + Math.floor((month - 14) / 12))) / 4)
-    + Math.floor((367 * (month - 2 - 12 * Math.floor((month - 14) / 12))) / 12)
-    - Math.floor((3 * Math.floor((year + 4900 + Math.floor((month - 14) / 12)) / 100)) / 4)
-    + day - 32075;
-
-  const l = jd - 1948440 + 10632;
-  const n = Math.floor((l - 1) / 10631);
-  const r = l - 10631 * n;
-  const j = Math.floor((r - 1) / 354.36667);
-  const hijriYear = 30 * n + j;
-  const hijriMonth = Math.floor((r - 29 - Math.floor(j * 354.36667)) / 29.5) + 1;
-  const hijriDay = r - Math.floor(j * 354.36667) - Math.floor((hijriMonth - 1) * 29.5);
-
-  return { day: hijriDay, month: hijriMonth, year: hijriYear };
-}
-
+/* ---------------- LIVE CLOCKS ---------------- */
 function updateClocks() {
   const now = new Date();
 
-  /* Zurich (CEST) */
+  // Zurich — Europe/Zurich
   const cestEl = document.querySelector("#clock-cest span");
   if (cestEl) {
-    cestEl.textContent = `${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())}`;
+    const zurich = new Date().toLocaleString("en-US", { timeZone: "Europe/Zurich" });
+    const d = new Date(zurich);
+    cestEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
   }
 
-  /* IST (Jammu-Kashmir-Ladakh) — UTC+4:30 */
+  // IST — Asia/Kolkata
   const istEl = document.querySelector("#tz-ist span");
   if (istEl) {
-    const ist = new Date(now.getTime() + (4.5 * 60 * 60 * 1000));
-    istEl.textContent = `${pad2(ist.getHours())}:${pad2(ist.getMinutes())}:${pad2(ist.getSeconds())}`;
+    const ist = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+    const d = new Date(ist);
+    istEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
   }
 
-  /* PKT (Gilgit-Baltistan & Azad Kashmir) — UTC+4:00 */
+  // PKT — Asia/Karachi
   const pktEl = document.querySelector("#tz-pkt span");
   if (pktEl) {
-    const pkt = new Date(now.getTime() + (4 * 60 * 60 * 1000));
-    pktEl.textContent = `${pad2(pkt.getHours())}:${pad2(pkt.getMinutes())}:${pad2(pkt.getSeconds())}`;
-  }
-
-  /* Hijri */
-  const hijriEl = document.querySelector("#cal-hijri span");
-  if (hijriEl) {
-    const h = gregorianToHijri(now);
-    hijriEl.textContent = `${h.day} Ramadan ${h.year}`;
-  }
-
-  /* Vikram Samvat */
-  const hindiEl = document.querySelector("#cal-hindi span");
-  if (hindiEl) {
-    const vsYear = now.getFullYear() + 57;
-    hindiEl.textContent = `VS ${vsYear}`;
+    const pkt = new Date().toLocaleString("en-US", { timeZone: "Asia/Karachi" });
+    const d = new Date(pkt);
+    pktEl.textContent = `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
   }
 }
-
 setInterval(updateClocks, 1000);
 updateClocks();
 
-/* ================= WEATHER ================= */
-const weatherBar = document.getElementById("weather-bar");
-if (weatherBar) {
-  weatherBar.textContent = "";
+/* ---------------- HIJRI DATE ---------------- */
+async function updateHijri() {
+  const hijriEl = document.querySelector("#cal-hijri span");
+  if (!hijriEl) return;
+
+  try {
+    const today = new Date();
+    const gDate = today.toISOString().split("T")[0];
+    const url = `https://api.aladhan.com/v1/gToH/${gDate}`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const h = data.data.hijri;
+    hijriEl.textContent = `${h.day} ${h.month.en} ${h.year}`;
+  } catch (err) {
+    console.error("Hijri error:", err);
+  }
+}
+updateHijri();
+setInterval(updateHijri, 3600000);
+
+/* ---------------- VIKRAM SAMVAT ---------------- */
+function updateVikramSamvat() {
+  const hindiEl = document.querySelector("#cal-hindi span");
+  if (!hindiEl) return;
+
+  const now = new Date();
+  hindiEl.textContent = `VS ${now.getFullYear() + 57}`;
+}
+updateVikramSamvat();
+
+/* ---------------- LIVE WEATHER ---------------- */
+async function updateWeather() {
+  const weatherBar = document.getElementById("weather-bar");
+  if (!weatherBar) return;
+
+  weatherBar.innerHTML = "";
+
   const cities = [
-    { name: "Zurich", temp: "6.5°C" },
-    { name: "Rawalakot", temp: "13.8°C" },
-    { name: "Jammu", temp: "16.8°C" },
-    { name: "Kashmir", temp: "2.4°C" },
-    { name: "Ladakh", temp: "-3.2°C" },
-    { name: "Gilgit", temp: "3.0°C" },
-    { name: "Baltistan", temp: "3.9°C" },
-    { name: "Muzaffarabad", temp: "12.2°C" }
+    { name: "Zurich", id: 2657896 },
+    { name: "Rawalakot", id: 1166993 },
+    { name: "Jammu", id: 1269321 },
+    { name: "Kashmir", id: 1255634 },
+    { name: "Ladakh", id: 1264976 },
+    { name: "Gilgit", id: 1178337 },
+    { name: "Baltistan", id: 1180289 },
+    { name: "Muzaffarabad", id: 1176615 }
   ];
 
-  cities.forEach(c => {
-    const chip = document.createElement("div");
-    chip.className = "chip tiny";
-    chip.textContent = `${c.name}: ${c.temp}`;
-    weatherBar.appendChild(chip);
-  });
+  for (const c of cities) {
+    try {
+      const url = `https://api.openweathermap.org/data/2.5/weather?id=${c.id}&appid=${OPENWEATHER_KEY}&units=metric`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      const temp = Math.round(data.main.temp);
+      const cond = data.weather[0].main;
+
+      const chip = document.createElement("div");
+      chip.className = "chip tiny";
+      chip.textContent = `${c.name}: ${temp}°C | ${cond}`;
+      weatherBar.appendChild(chip);
+    } catch (err) {
+      console.error("Weather error:", c.name, err);
+    }
+  }
 }
+updateWeather();
+setInterval(updateWeather, 600000);
 
 /* ================= UNIVERSAL FETCH HELPER ================= */
 async function fetchJSON(path) {
@@ -138,43 +155,7 @@ async function fetchJSON(path) {
   return res.json();
 }
 
-/* ================= ACTION BAR (LIKE, SUBSCRIBE, SHARE, COPY) ================= */
-function injectActionBar(container) {
-  const bar = document.createElement("div");
-  bar.className = "page-actions";
-
-  bar.innerHTML = `
-    <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-    <button id="subBtn">🔔 Subscribe</button>
-    <button id="shareBtn">📣 Share</button>
-    <button id="copyBtn">🔗 Copy Link</button>
-  `;
-
-  container.appendChild(bar);
-
-  /* Like */
-  let likes = 0;
-  document.getElementById("likeBtn").onclick =
-    () => document.getElementById("likeCount").textContent = ++likes;
-
-  /* Subscribe */
-  document.getElementById("subBtn").onclick = function () {
-    this.textContent = "Subscribed";
-    this.disabled = true;
-  };
-
-  /* Share */
-  document.getElementById("shareBtn").onclick = () =>
-    navigator.share
-      ? navigator.share({ title: document.title, url: location.href })
-      : alert("Share not supported");
-
-  /* Copy Link */
-  document.getElementById("copyBtn").onclick =
-    () => navigator.clipboard.writeText(location.href);
-}
-
-/* ================= HOMEPAGE LOADER ================= */
+/* ================= HOMEPAGE LOADERS ================= */
 async function loadHomepage() {
   if (!document.querySelector("#top-stories")) return;
 
@@ -240,12 +221,10 @@ async function loadHomepage() {
       `;
     }
 
-    /* TOP STORIES */
     fillCard(articles[0], "#lead-media", "#lead-body", "Coming Soon", "Lead story will appear here.", "article");
     fillCard(breaking[0], "#breaking-media", "#breaking-body", "Coming Soon", "Breaking news will appear here.", "article");
     fillCard(blogs[0], "#opinion-media", "#opinion-body", "Coming Soon", "Opinion and blog will appear here.", "blog");
 
-    /* LATEST · EDITORIAL · HISTORICAL */
     function fillUnifiedCard(item, mediaSel, bodySel) {
       const media = document.querySelector(mediaSel);
       const body = document.querySelector(bodySel);
@@ -276,15 +255,12 @@ async function loadHomepage() {
     fillUnifiedCard(editorial[0], "#leh2-media", "#leh2-body");
     fillUnifiedCard(historical[0], "#leh3-media", "#leh3-body");
 
-    /* JAMMU KASHMIR */
     fillCard(jk[0], "#jk1-media", "#jk1-body", "Coming Soon", "Reporting from Jammu & Kashmir will appear here.", "article");
     fillCard(jk[1], "#jk2-media", "#jk2-body", "Coming Soon", "Additional coverage will be added.", "article");
 
-    /* INTERNATIONAL */
     fillCard(intl[0], "#intl1-media", "#intl1-body", "Coming Soon", "International coverage will appear here.", "article");
     fillCard(intl[1], "#intl2-media", "#intl2-body", "Coming Soon", "Additional international reports will be added.", "article");
 
-    /* HUMAN RIGHTS */
     fillCard(hr[0], "#hr1-media", "#hr1-body", "Coming Soon", "Human rights documentation will appear here.", "article");
     fillCard(hr[1], "#hr2-media", "#hr2-body", "Coming Soon", "Further human rights reports will be added.", "article");
 
@@ -304,6 +280,7 @@ async function loadArticlePage() {
   if (!id) return;
 
   const prefix = id.split("-")[0];
+
   const map = {
     breaking: "content/breaking.json",
     article: "content/articles.json",
@@ -328,11 +305,9 @@ async function loadArticlePage() {
       return;
     }
 
-    /* Page title */
     const pageTitle = document.getElementById("page-title");
     if (pageTitle) pageTitle.textContent = `${item.title} | THE MIRROR JAMMU KASHMIR`;
 
-    /* Section label */
     const sectionLabel = document.getElementById("section-label");
     if (sectionLabel) {
       const labelMap = {
@@ -348,10 +323,8 @@ async function loadArticlePage() {
       sectionLabel.textContent = labelMap[prefix] || "Article";
     }
 
-    /* Title */
     document.getElementById("title").textContent = item.title;
 
-    /* Meta */
     const metaEl = document.getElementById("meta");
     if (metaEl) {
       const dateObj = item.date ? new Date(item.date) : null;
@@ -372,7 +345,6 @@ async function loadArticlePage() {
       `;
     }
 
-    /* Hero */
     const heroWrap = document.getElementById("heroWrap");
     const heroImg = document.getElementById("heroImg");
     const heroCaption = document.getElementById("heroCaption");
@@ -380,13 +352,13 @@ async function loadArticlePage() {
     if (item.heroImage?.src && heroImg && heroCaption) {
       heroImg.src = item.heroImage.src;
       heroImg.alt = item.heroImage.caption || item.title;
+
       const credit = item.heroImage.credit ? ` — <em>${item.heroImage.credit}</em>` : "";
       heroCaption.innerHTML = `${item.heroImage.caption || ""}${credit}`;
     } else if (heroWrap) {
       heroWrap.style.display = "none";
     }
 
-    /* Body */
     const container = document.getElementById("content");
     container.innerHTML = "";
 
@@ -398,7 +370,7 @@ async function loadArticlePage() {
       }
 
       if (block.type === "header") {
-        const h2 = document.createElement("h2");
+        const h2 = document.createcreateElement("h2");
         h2.textContent = block.text;
         container.appendChild(h2);
       }
@@ -407,11 +379,13 @@ async function loadArticlePage() {
         const wrap = document.createElement("div");
         wrap.className = "important-points";
         const ul = document.createElement("ul");
+
         (block.items || []).forEach(i => {
           const li = document.createElement("li");
           li.textContent = i;
           ul.appendChild(li);
         });
+
         wrap.appendChild(ul);
         container.appendChild(wrap);
       }
@@ -434,9 +408,6 @@ async function loadArticlePage() {
         container.appendChild(fig);
       }
     });
-
-    /* Inject action bar at bottom */
-    injectActionBar(container);
 
   } catch (err) {
     console.error("Article load error:", err);
