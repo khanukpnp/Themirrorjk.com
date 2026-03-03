@@ -47,7 +47,7 @@
         {
           "type": "image",
           "src": "content/images/brief-history-jk-02.png",
-          "caption": ""Flag Historcal State of Jammu Kashmir 1936-1947",
+          "caption": "Flag Historcal State of Jammu Kashmir 1936-1947",
           "credit": "The Mirror Jammu Kashmir",
           "align": "center"
         },
@@ -165,6 +165,7 @@
           "type": "paragraph",
           "text": "The United Nations became involved in 1948. Its resolutions and the UNCIP truce agreement called for Pakistan to withdraw forthwith from the territory of the State of Jammu and Kashmir. That requirement was never fully complied with."
         },
+
         {
           "type": "image",
           "src": "content/images/brief-history-jk-06.png",
@@ -172,6 +173,7 @@
           "credit": "The Mirror Jammu Kashmir",
           "align": "center"
         },
+
         {
           "type": "paragraph",
           "text": "The entire State of Jammu and Kashmir remains a disputed territory. Its future status is yet to be decided. It is not merely a bilateral or territorial dispute between India and Pakistan. It concerns the lives of millions of Kashmiris who are forcibly divided."
