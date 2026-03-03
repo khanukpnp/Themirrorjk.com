@@ -294,7 +294,7 @@ async function loadHomepage() {
         );
 
         // Latest · Editorial · Historical
-        fillUnifiedCard(articles[0], "#leh1-media", "#leh1-body");
+        fillUnifiedCard(null, "#leh1-media", "#leh1-body");
         fillUnifiedCard(editorial[0], "#leh2-media", "#leh2-body");
         fillUnifiedCard(historical[0], "#leh3-media", "#leh3-body");
 
