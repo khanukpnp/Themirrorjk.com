@@ -28,7 +28,7 @@
 
         {
           "type": "image",
-          "src": "content/images/brief-history-jk-02.png",
+          "src": "content/images/brief-history-jk-01.png",
           "caption": "Early political developments in Kashmir",
           "credit": "The Mirror Jammu Kashmir",
           "align": "center"
@@ -46,7 +46,7 @@
 
         {
           "type": "image",
-          "src": "content/images/brief-history-jk-03.png",
+          "src": "content/images/brief-history-jk-02.png",
           "caption": "Treaty of Lahore and political transition",
           "credit": "The Mirror Jammu Kashmir",
           "align": "center"
@@ -74,7 +74,7 @@
 
         {
           "type": "image",
-          "src": "content/images/brief-history-jk-04.png",
+          "src": "content/images/brief-history-jk-03.png",
           "caption": "Maharajas of the State of Jammu and Kashmir",
           "credit": "The Mirror Jammu Kashmir",
           "align": "center"
@@ -92,7 +92,7 @@
 
         {
           "type": "image",
-          "src": "content/images/brief-history-jk-05.png",
+          "src": "content/images/brief-history-jk-04.png",
           "caption": "Administrative and judicial reforms",
           "credit": "The Mirror Jammu Kashmir",
           "align": "center"
@@ -110,7 +110,7 @@
 
         {
           "type": "image",
-          "src": "content/images/brief-history-jk-06.png",
+          "src": "content/images/brief-history-jk-05.png",
           "caption": "Environmental and forest management policies",
           "credit": "The Mirror Jammu Kashmir",
           "align": "center"
@@ -165,7 +165,13 @@
           "type": "paragraph",
           "text": "The United Nations became involved in 1948. Its resolutions and the UNCIP truce agreement called for Pakistan to withdraw forthwith from the territory of the State of Jammu and Kashmir. That requirement was never fully complied with."
         },
-
+        {
+          "type": "image",
+          "src": "content/images/brief-history-jk-04.png",
+          "caption": "Administrative and judicial reforms",
+          "credit": "The Mirror Jammu Kashmir",
+          "align": "center"
+        },
         {
           "type": "paragraph",
           "text": "The entire State of Jammu and Kashmir remains a disputed territory. Its future status is yet to be decided. It is not merely a bilateral or territorial dispute between India and Pakistan. It concerns the lives of millions of Kashmiris who are forcibly divided."
