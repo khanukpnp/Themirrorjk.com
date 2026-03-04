@@ -4,50 +4,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <base href="./">
-
-<title>Editorial | THE MIRROR JAMMU KASHMIR</title>
-
+<title id="page-title">Loading… | THE MIRROR JAMMU KASHMIR</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="article-page theme-maroon">
 
 <main class="page-shell article-main">
-
 <section class="article-container">
 <div class="article-shell">
 
-<!-- SECTION LABEL -->
-<div class="section-title red-bar">Editorial</div>
+    <!-- SECTION LABEL -->
+    <div id="section-label" class="section-title red-bar">Loading…</div>
 
-<!-- HEADER -->
-<header class="article-header">
-<h1 id="title">Loading…</h1>
-<div id="meta" class="article-meta"></div>
-</header>
+    <!-- HEADER -->
+    <header class="article-header">
+        <h1 id="title">Loading…</h1>
+        <div id="meta" class="article-meta"></div>
+    </header>
 
-<!-- HERO IMAGE -->
-<figure id="heroWrap" class="article-hero">
-<img id="heroImg" src="" alt="">
-<figcaption id="heroCaption"></figcaption>
-</figure>
+    <!-- HERO IMAGE -->
+    <figure id="heroWrap" class="article-hero">
+        <img id="heroImg" src="" alt="">
+        <figcaption id="heroCaption"></figcaption>
+    </figure>
 
-<!-- CONTENT -->
-<div id="content" class="article-content"></div>
+    <!-- CONTENT -->
+    <div id="content" class="article-content"></div>
 
-<!-- ACTION BUTTONS -->
-<div class="page-actions">
-<button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-<button id="subBtn">🔔 Subscribe</button>
-<button id="shareBtn">📣 Share</button>
-<button id="copyBtn">🔗 Copy Link</button>
-</div>
+    <!-- ACTION BUTTONS -->
+    <div class="page-actions">
+        <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+
+        <input id="subscribeEmail" type="email" placeholder="Your email…" class="subscribe-input">
+        <button id="subscribeBtn">🔔 Subscribe</button>
+
+        <button data-share class="share-btn">📣 Share</button>
+        <button data-copy-link class="copy-btn">🔗 Copy Link</button>
+    </div>
 
 </div>
 </section>
-
 </main>
 
 <footer class="footer">
@@ -55,6 +53,5 @@
 </footer>
 
 <script src="script.js"></script>
-
 </body>
 </html>
