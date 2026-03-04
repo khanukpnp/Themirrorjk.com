@@ -1,7 +1,6 @@
 /* ============================================================
-   GLOBAL SCRIPT.JS — THE MIRROR JAMMU KASHMIR (Final Version)
-   Fully compatible with universal article layout + all JSONs
-   ============================================================ */
+GLOBAL SCRIPT.JS — THE MIRROR JAMMU KASHMIR (RESTORED VERSION)
+============================================================ */
 
 /* ---------------- YEAR ---------------- */
 const yearEl = document.getElementById("year");
@@ -35,8 +34,8 @@ if (contactBtn && contactModal && closeContact) {
 }
 
 /* ============================================================
-   CLOCKS + CALENDARS + WEATHER
-   ============================================================ */
+CLOCKS + CALENDARS + WEATHER
+============================================================ */
 
 const OPENWEATHER_KEY = "YOUR_OPENWEATHER_API_KEY";
 
@@ -133,8 +132,8 @@ updateWeather();
 setInterval(updateWeather, 600000);
 
 /* ============================================================
-   UNIVERSAL JSON FETCH
-   ============================================================ */
+UNIVERSAL JSON FETCH
+============================================================ */
 async function fetchJSON(path) {
     const res = await fetch(path, { cache: "no-store" });
     if (!res.ok) throw new Error(`Failed to load ${path}`);
@@ -142,8 +141,8 @@ async function fetchJSON(path) {
 }
 
 /* ============================================================
-   HOMEPAGE LOADER
-   ============================================================ */
+HOMEPAGE LOADER (RESTORED)
+============================================================ */
 async function loadHomepage() {
     if (!document.querySelector("#top-stories")) return;
 
@@ -153,26 +152,26 @@ async function loadHomepage() {
             articlesData,
             blogData,
             editorialData,
-            latestData,
+            historicalData,
             jkData,
             intlData,
             hrData
         ] = await Promise.all([
-            fetchJSON("content/breaking.json").catch(() => ({ items: [] })),
-            fetchJSON("content/articles.json").catch(() => ({ items: [] })),
-            fetchJSON("content/blog.json").catch(() => ({ items: [] })),
-            fetchJSON("content/editorial.json").catch(() => ({ items: [] })),
-            fetchJSON("content/latest.json").catch(() => ({ items: [] })),
-            fetchJSON("content/jk.json").catch(() => ({ items: [] })),
-            fetchJSON("content/international.json").catch(() => ({ items: [] })),
-            fetchJSON("content/humanrights.json").catch(() => ({ items: [] }))
+            fetchJSON("content/breaking.json"),
+            fetchJSON("content/articles.json"),
+            fetchJSON("content/blog.json"),
+            fetchJSON("content/editorial.json"),
+            fetchJSON("content/historical.json"),
+            fetchJSON("content/jk.json"),
+            fetchJSON("content/international.json"),
+            fetchJSON("content/humanrights.json")
         ]);
 
         const breaking = breakingData.items || [];
         const articles = articlesData.items || [];
         const blogs = blogData.items || [];
         const editorial = editorialData.items || [];
-        const latest = latestData.items || [];
+        const historical = historicalData.items || [];
         const jk = jkData.items || [];
         const intl = intlData.items || [];
         const hr = hrData.items || [];
@@ -205,11 +204,11 @@ async function loadHomepage() {
         fillCard(breaking[0], "#breaking-media", "#breaking-body", "Coming Soon", "Breaking news will appear here.");
         fillCard(blogs[0], "#opinion-media", "#opinion-body", "Coming Soon", "Opinion will appear here.");
 
-        fillCard(latest[0], "#leh1-media", "#leh1-body", "Coming Soon", "Latest content will appear here.");
+        fillCard(historical[0], "#leh1-media", "#leh1-body", "Coming Soon", "Historical content will appear here.");
         fillCard(editorial[0], "#leh2-media", "#leh2-body", "Coming Soon", "Editorial content will appear here.");
-        fillCard(articles[1], "#leh3-media", "#leh3-body", "Coming Soon", "Historical content will appear here.");
+        fillCard(articles[1], "#leh3-media", "#leh3-body", "Coming Soon", "More content will appear here.");
 
-        fillCard(jk[0], "#jk1-media", "#jk1-body", "Coming Soon", "Jammu & Kashmir content will appear here.");
+        fillCard(jk[0], "#jk1-media", "#jk1-body", "Coming Soon", "JK content will appear here.");
         fillCard(jk[1], "#jk2-media", "#jk2-body", "Coming Soon", "More JK content will appear here.");
 
         fillCard(intl[0], "#intl1-media", "#intl1-body", "Coming Soon", "International content will appear here.");
@@ -225,8 +224,8 @@ async function loadHomepage() {
 loadHomepage();
 
 /* ============================================================
-   ARTICLE PAGE LOADER
-   ============================================================ */
+ARTICLE PAGE LOADER (RESTORED)
+============================================================ */
 async function loadArticlePage() {
     if (!document.body.classList.contains("article-page")) return;
 
@@ -237,14 +236,15 @@ async function loadArticlePage() {
     const prefix = id.split("-")[0];
 
     const map = {
-        article: "content/articles.json",
         breaking: "content/breaking.json",
+        article: "content/articles.json",
         blog: "content/blog.json",
         editorial: "content/editorial.json",
-        latest: "content/latest-001.json",
+        historical: "content/historical.json",
         jk: "content/jk.json",
         intl: "content/international.json",
-        hr: "content/humanrights.json"
+        hr: "content/humanrights.json",
+        latest: "content/latest-001.json"
     };
 
     const path = map[prefix];
@@ -261,35 +261,27 @@ async function loadArticlePage() {
         }
 
         document.getElementById("page-title").textContent = `${item.title} | THE MIRROR JAMMU KASHMIR`;
-
-        const sectionLabel = document.getElementById("section-label");
-        const labelMap = {
-            article: "Latest Articles",
-            breaking: "Breaking News",
-            blog: "Blog & Opinion",
-            editorial: "Editorial",
-            latest: "Latest Updates",
-            jk: "Jammu & Kashmir",
-            intl: "International",
-            hr: "Human Rights"
-        };
-        sectionLabel.textContent = labelMap[prefix] || "Article";
-
         document.getElementById("title").textContent = item.title;
 
         const metaEl = document.getElementById("meta");
-        const dateObj = item.date ? new Date(item.date) : null;
-        const formattedDate = dateObj
-            ? dateObj.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })
-            : "";
+        if (metaEl) {
+            const dateObj = item.date ? new Date(item.date) : null;
+            const formattedDate = dateObj
+                ? dateObj.toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric"
+                  })
+                : "";
 
-        metaEl.innerHTML = `
-            <strong>${item.category || ""}</strong> ·
-            ${item.location || ""} ·
-            ${formattedDate} ·
-            ${item.readTime || ""} ·
-            ${item.author || ""}
-        `;
+            metaEl.innerHTML = `
+                <strong>${item.category || ""}</strong> ·
+                ${item.location || ""} ·
+                ${formattedDate} ·
+                ${item.readTime || ""} ·
+                ${item.author || ""}
+            `;
+        }
 
         const heroImg = document.getElementById("heroImg");
         const heroCaption = document.getElementById("heroCaption");
@@ -336,8 +328,7 @@ async function loadArticlePage() {
 
             if (block.type === "image") {
                 const fig = document.createElement("figure");
-                const align = block.align === "right" ? "image-right" :
-                              block.align === "left" ? "image-left" : "";
+                const align = block.align === "right" ? "image-right" : "image-left";
                 fig.className = align;
 
                 const img = document.createElement("img");
@@ -352,17 +343,65 @@ async function loadArticlePage() {
                 container.appendChild(fig);
             }
         });
-
     } catch (err) {
         console.error("Article load error:", err);
-        document.getElementById("title").textContent = "Error loading content";
     }
 }
 loadArticlePage();
 
 /* ============================================================
-   ABOUT PAGE LOADER
-   ============================================================ */
+CHIEF EDITOR PAGE LOADER (RESTORED)
+============================================================ */
+async function loadChiefEditorPage() {
+    const ceTitleEl = document.getElementById("ce-title");
+    const ceSubtitleEl = document.getElementById("ce-subtitle");
+    const ceHeroEl = document.getElementById("ce-hero");
+    const ceContentEl = document.getElementById("ce-content");
+
+    if (!ceTitleEl || !ceSubtitleEl || !ceHeroEl || !ceContentEl) return;
+
+    try {
+        const data = await fetchJSON("content/chief-editor.json");
+
+        ceTitleEl.textContent = data.title || "";
+        ceSubtitleEl.textContent = data.subtitle || "";
+
+        if (data.heroImage?.src) {
+            ceHeroEl.innerHTML = `
+                <img src="${data.heroImage.src}" alt="${data.heroImage.caption || ""}">
+                <figcaption>${data.heroImage.caption || ""}</figcaption>
+            `;
+        }
+
+        ceContentEl.innerHTML = "";
+
+        (data.body || []).forEach((block) => {
+            if (block.type === "paragraph") {
+                ceContentEl.innerHTML += `<p>${block.text}</p>`;
+            }
+
+            if (block.type === "header") {
+                ceContentEl.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
+            }
+
+            if (block.type === "points") {
+                const items = (block.items || []).map((i) => `<li>${i}</li>`).join("");
+                ceContentEl.innerHTML += `
+                    <div class="important-points">
+                        <ul>${items}</ul>
+                    </div>
+                `;
+            }
+        });
+    } catch (err) {
+        console.error("Chief Editor load error:", err);
+    }
+}
+loadChiefEditorPage();
+
+/* ============================================================
+ABOUT PAGE LOADER (RESTORED)
+============================================================ */
 async function loadAboutPage() {
     const titleEl = document.getElementById("about-title");
     const subtitleEl = document.getElementById("about-subtitle");
@@ -385,13 +424,16 @@ async function loadAboutPage() {
         }
 
         contentEl.innerHTML = "";
+
         (data.body || []).forEach((block) => {
             if (block.type === "paragraph") {
                 contentEl.innerHTML += `<p>${block.text}</p>`;
             }
+
             if (block.type === "header") {
                 contentEl.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
             }
+
             if (block.type === "points") {
                 const items = (block.items || []).map((i) => `<li>${i}</li>`).join("");
                 contentEl.innerHTML += `
@@ -401,59 +443,8 @@ async function loadAboutPage() {
                 `;
             }
         });
-
     } catch (err) {
         console.error("About load error:", err);
-        titleEl.textContent = "Error loading content";
     }
 }
 loadAboutPage();
-
-/* ============================================================
-   CHIEF EDITOR PAGE LOADER
-   ============================================================ */
-async function loadChiefEditorPage() {
-    const titleEl = document.getElementById("ce-title");
-    const subtitleEl = document.getElementById("ce-subtitle");
-    const heroEl = document.getElementById("ce-hero");
-    const contentEl = document.getElementById("ce-content");
-
-    if (!titleEl || !subtitleEl || !heroEl || !contentEl) return;
-
-    try {
-        const data = await fetchJSON("content/chief-editor.json");
-
-        titleEl.textContent = data.title || "";
-        subtitleEl.textContent = data.subtitle || "";
-
-        if (data.heroImage?.src) {
-            heroEl.innerHTML = `
-                <img src="${data.heroImage.src}" alt="${data.heroImage.caption || ""}">
-                <figcaption>${data.heroImage.caption || ""}</figcaption>
-            `;
-        }
-
-        contentEl.innerHTML = "";
-        (data.body || []).forEach((block) => {
-            if (block.type === "paragraph") {
-                contentEl.innerHTML += `<p>${block.text}</p>`;
-            }
-            if (block.type === "header") {
-                contentEl.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
-            }
-            if (block.type === "points") {
-                const items = (block.items || []).map((i) => `<li>${i}</li>`).join("");
-                contentEl.innerHTML += `
-                    <div class="important-points">
-                        <ul>${items}</ul>
-                    </div>
-                `;
-            }
-        });
-
-    } catch (err) {
-        console.error("Chief Editor load error:", err);
-        titleEl.textContent = "Error loading content";
-    }
-}
-loadChiefEditorPage();
