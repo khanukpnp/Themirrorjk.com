@@ -1,7 +1,7 @@
 /* ============================================================
-   GLOBAL SCRIPT.JS — THE MIRROR JAMMU KASHMIR (v20)
-   Fully unified loader for: Homepage, Article, About,
-   Chief Editor, Weather, Clocks, Calendars, Navigation, Modal
+   GLOBAL SCRIPT.JS — THE MIRROR JAMMU KASHMIR
+   Homepage, Article, About, Chief Editor, Clocks, Calendars,
+   Weather, Navigation, Modals, Archives
    ============================================================ */
 
 /* ---------------- YEAR ---------------- */
@@ -55,7 +55,7 @@ if (contactBtn && contactModal && closeContact) {
    CLOCKS + CALENDARS + WEATHER
    ============================================================ */
 
-const OPENWEATHER_KEY = "YOUR_OPENWEATHER_API_KEY";
+const OPENWEATHER_KEY = "YOUR_OPENWEATHER_API_KEY"; // <-- put your real key here
 
 /* ---------------- LIVE CLOCKS ---------------- */
 function updateClocks() {
@@ -72,15 +72,12 @@ function updateClocks() {
         const d = new Date(
             new Date().toLocaleString("en-US", { timeZone: z.tz })
         );
-
         const hh = String(d.getHours()).padStart(2, "0");
         const mm = String(d.getMinutes()).padStart(2, "0");
         const ss = String(d.getSeconds()).padStart(2, "0");
-
         el.textContent = `${hh}:${mm}:${ss}`;
     });
 }
-
 updateClocks();
 setInterval(updateClocks, 1000);
 
@@ -99,7 +96,6 @@ async function updateHijri() {
         console.error("Hijri error:", err);
     }
 }
-
 updateHijri();
 setInterval(updateHijri, 3600000);
 
@@ -112,7 +108,6 @@ function updateVikramSamvat() {
     const vsYear = now.getFullYear() + 57;
     hindiEl.textContent = `VS ${vsYear}`;
 }
-
 updateVikramSamvat();
 
 /* ---------------- LIVE WEATHER ---------------- */
@@ -153,7 +148,6 @@ async function updateWeather() {
         }
     }
 }
-
 updateWeather();
 setInterval(updateWeather, 600000);
 
@@ -171,6 +165,7 @@ async function fetchJSON(path) {
 /* ============================================================
    HOMEPAGE LOADER
    ============================================================ */
+
 async function loadHomepage() {
     if (!document.querySelector("#top-stories")) return;
 
@@ -180,6 +175,7 @@ async function loadHomepage() {
             articlesData,
             blogData,
             editorialData,
+            latestData,
             historicalData,
             jkData,
             intlData,
@@ -189,7 +185,8 @@ async function loadHomepage() {
             fetchJSON("content/articles.json").catch(() => ({ items: [] })),
             fetchJSON("content/blog.json").catch(() => ({ items: [] })),
             fetchJSON("content/editorial.json").catch(() => ({ items: [] })),
-            fetchJSON("content/latest/latest-001.json").catch(() => ({ items: [] })),
+            // master Latest index (contains all latest items)
+            fetchJSON("content/latest.json").catch(() => ({ items: [] })),
             fetchJSON("content/historical.json").catch(() => ({ items: [] })),
             fetchJSON("content/jammu-kashmir.json").catch(() => ({ items: [] })),
             fetchJSON("content/international.json").catch(() => ({ items: [] })),
@@ -200,11 +197,13 @@ async function loadHomepage() {
         const articles = articlesData.items || [];
         const blogs = blogData.items || [];
         const editorial = editorialData.items || [];
+        const latest = latestData.items || [];
         const historical = historicalData.items || [];
         const jk = jkData.items || [];
         const intl = intlData.items || [];
         const hr = hrData.items || [];
 
+        // Helper: generic card filler
         function fillCard(item, mediaSel, bodySel, fallbackTitle, fallbackText, linkType) {
             const media = document.querySelector(mediaSel);
             const body = document.querySelector(bodySel);
@@ -239,6 +238,7 @@ async function loadHomepage() {
             `;
         }
 
+        // Helper: unified card (article-style link)
         function fillUnifiedCard(item, mediaSel, bodySel) {
             const media = document.querySelector(mediaSel);
             const body = document.querySelector(bodySel);
@@ -266,9 +266,23 @@ async function loadHomepage() {
             `;
         }
 
-        // Lead, Breaking, Opinion
+        // Assume arrays are already sorted newest → oldest in JSON.
+        const newestArticle = articles[0] || null;
+        const newestBreaking = breaking[0] || null;
+        const newestBlog = blogs[0] || null;
+        const newestLatest = latest[0] || null;
+        const newestEditorial = editorial[0] || null;
+        const newestHistorical = historical[0] || null;
+        const newestJK1 = jk[0] || null;
+        const newestJK2 = jk[1] || null;
+        const newestIntl1 = intl[0] || null;
+        const newestIntl2 = intl[1] || null;
+        const newestHR1 = hr[0] || null;
+        const newestHR2 = hr[1] || null;
+
+        // TOP STORIES: Lead, Breaking, Opinion
         fillCard(
-            articles[0],
+            newestArticle,
             "#lead-media",
             "#lead-body",
             "Coming Soon",
@@ -277,7 +291,7 @@ async function loadHomepage() {
         );
 
         fillCard(
-            breaking[0],
+            newestBreaking,
             "#breaking-media",
             "#breaking-body",
             "Coming Soon",
@@ -286,7 +300,7 @@ async function loadHomepage() {
         );
 
         fillCard(
-            blogs[0],
+            newestBlog,
             "#opinion-media",
             "#opinion-body",
             "Coming Soon",
@@ -294,23 +308,24 @@ async function loadHomepage() {
             "blog"
         );
 
-        // Latest · Editorial · Historical
-        fillUnifiedCard(null, "#leh1-media", "#leh1-body");
-        fillUnifiedCard(editorial[0], "#leh2-media", "#leh2-body");
-        fillUnifiedCard(historical[0], "#leh3-media", "#leh3-body");
+        // LEFT WINDOW: Latest (only newest item)
+        fillUnifiedCard(newestLatest, "#leh1-media", "#leh1-body");
 
-        // Jammu Kashmir
+        // Editorial & Historical (newest only)
+        fillUnifiedCard(newestEditorial, "#leh2-media", "#leh2-body");
+        fillUnifiedCard(newestHistorical, "#leh3-media", "#leh3-body");
+
+        // Jammu Kashmir (two windows)
         fillCard(
-            jk[0],
+            newestJK1,
             "#jk1-media",
             "#jk1-body",
             "Coming Soon",
             "Reporting from Jammu & Kashmir will appear here.",
             "article"
         );
-
         fillCard(
-            jk[1],
+            newestJK2,
             "#jk2-media",
             "#jk2-body",
             "Coming Soon",
@@ -318,18 +333,17 @@ async function loadHomepage() {
             "article"
         );
 
-        // International
+        // International (two windows)
         fillCard(
-            intl[0],
+            newestIntl1,
             "#intl1-media",
             "#intl1-body",
             "Coming Soon",
             "International coverage will appear here.",
             "article"
         );
-
         fillCard(
-            intl[1],
+            newestIntl2,
             "#intl2-media",
             "#intl2-body",
             "Coming Soon",
@@ -337,34 +351,34 @@ async function loadHomepage() {
             "article"
         );
 
-        // Human Rights
+        // Human Rights (two windows)
         fillCard(
-            hr[0],
+            newestHR1,
             "#hr1-media",
             "#hr1-body",
             "Coming Soon",
             "Human rights documentation will appear here.",
             "article"
         );
-
         fillCard(
-            hr[1],
+            newestHR2,
             "#hr2-media",
             "#hr2-body",
             "Coming Soon",
             "Further human rights reports will be added.",
             "article"
         );
+
     } catch (err) {
         console.error("Homepage load error:", err);
     }
 }
-
 loadHomepage();
 
 /* ============================================================
    ARTICLE PAGE LOADER
    ============================================================ */
+
 async function loadArticlePage() {
     // Only run on pages that have a main article content container with id="content"
     if (!document.querySelector("body.article-page") || !document.getElementById("content")) return;
@@ -383,7 +397,8 @@ async function loadArticlePage() {
         historical: "content/historical.json",
         jk: "content/jammu-kashmir.json",
         intl: "content/international.json",
-        hr: "content/human-rights.json"
+        hr: "content/human-rights.json",
+        latest: "content/latest.json"
     };
 
     const path = map[prefix];
@@ -415,7 +430,8 @@ async function loadArticlePage() {
                 historical: "Historical Facts",
                 jk: "Jammu Kashmir",
                 intl: "International",
-                hr: "Human Rights"
+                hr: "Human Rights",
+                latest: "Latest"
             };
             sectionLabel.textContent = labelMap[prefix] || "Article";
         }
@@ -452,11 +468,9 @@ async function loadArticlePage() {
         if (item.heroImage && item.heroImage.src && heroImg && heroCaption) {
             heroImg.src = item.heroImage.src;
             heroImg.alt = item.heroImage.caption || item.title;
-
             const credit = item.heroImage.credit
                 ? ` — <em>${item.heroImage.credit}</em>`
                 : "";
-
             heroCaption.innerHTML = `${item.heroImage.caption || ""}${credit}`;
         } else if (heroWrap) {
             heroWrap.style.display = "none";
@@ -483,14 +497,12 @@ async function loadArticlePage() {
             if (block.type === "points") {
                 const wrap = document.createElement("div");
                 wrap.className = "important-points";
-
                 const ul = document.createElement("ul");
                 (block.items || []).forEach((i) => {
                     const li = document.createElement("li");
                     li.textContent = i;
                     ul.appendChild(li);
                 });
-
                 wrap.appendChild(ul);
                 container.appendChild(wrap);
             }
@@ -519,12 +531,165 @@ async function loadArticlePage() {
         if (titleEl) titleEl.textContent = "Error loading content";
     }
 }
-
 loadArticlePage();
+
+/* ============================================================
+   ARCHIVE PAGE LOADER (ALL SECTIONS)
+   ============================================================ */
+
+async function loadArchivePage() {
+    const archiveContainer = document.getElementById("archive-list");
+    if (!archiveContainer) return;
+
+    const section = archiveContainer.getAttribute("data-section");
+    if (!section) return;
+
+    const map = {
+        latest: "content/latest.json",
+        jk: "content/jammu-kashmir.json",
+        intl: "content/international.json",
+        hr: "content/human-rights.json",
+        editorial: "content/editorial.json",
+        historical: "content/historical.json",
+        blog: "content/blog.json",
+        breaking: "content/breaking.json"
+    };
+
+    const path = map[section];
+    if (!path) return;
+
+    const ITEMS_PER_PAGE = 9;
+
+    try {
+        const data = await fetchJSON(path);
+        let items = data.items || [];
+
+        // Sort newest → oldest by date
+        items = items.slice().sort((a, b) => {
+            const da = a.date ? new Date(a.date).getTime() : 0;
+            const db = b.date ? new Date(b.date).getTime() : 0;
+            return db - da;
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        const page = parseInt(params.get("page") || "1", 10);
+        const totalItems = items.length;
+        const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+        const currentPage = Math.min(Math.max(page, 1), totalPages);
+
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        const pageItems = items.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+        archiveContainer.innerHTML = "";
+
+        if (pageItems.length === 0) {
+            archiveContainer.innerHTML = `
+                <p>No items available in this archive yet.</p>
+            `;
+            return;
+        }
+
+        pageItems.forEach((item) => {
+            const card = document.createElement("article");
+            card.className = "archive-card";
+
+            const dateObj = item.date ? new Date(item.date) : null;
+            const formattedDate = dateObj
+                ? dateObj.toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric"
+                  })
+                : "";
+
+            const imgSrc = item.heroImage && item.heroImage.src ? item.heroImage.src : "";
+            const imgAlt = item.heroImage && item.heroImage.caption ? item.heroImage.caption : item.title || "";
+
+            const href = item.id ? `article.html?id=${item.id}` : "#";
+
+            card.innerHTML = `
+                <div class="archive-card-media">
+                    ${imgSrc ? `<img src="${imgSrc}" alt="${imgAlt}">` : ""}
+                </div>
+                <div class="archive-card-body">
+                    <h3>${item.title || ""}</h3>
+                    <p class="archive-meta">
+                        ${formattedDate}
+                        ${item.readTime ? ` · ${item.readTime}` : ""}
+                        ${item.author ? ` · ${item.author}` : ""}
+                    </p>
+                    <p>${item.excerpt || ""}</p>
+                    <a class="read-more" href="${href}">Read More →</a>
+                </div>
+            `;
+
+            archiveContainer.appendChild(card);
+        });
+
+        // Pagination
+        const paginationEl = document.getElementById("archive-pagination");
+        if (paginationEl) {
+            paginationEl.innerHTML = "";
+
+            if (totalPages > 1) {
+                const createPageLink = (p, label, isActive = false, isDisabled = false) => {
+                    const a = document.createElement("a");
+                    a.textContent = label;
+                    if (isActive) a.classList.add("active");
+                    if (isDisabled) {
+                        a.classList.add("disabled");
+                        a.href = "javascript:void(0)";
+                    } else {
+                        const url = new URL(window.location.href);
+                        url.searchParams.set("page", p);
+                        a.href = url.toString();
+                    }
+                    return a;
+                };
+
+                // Previous
+                const prev = createPageLink(
+                    currentPage - 1,
+                    "←",
+                    false,
+                    currentPage === 1
+                );
+                paginationEl.appendChild(prev);
+
+                // Numbered pages
+                for (let p = 1; p <= totalPages; p++) {
+                    const link = createPageLink(
+                        p,
+                        String(p),
+                        p === currentPage,
+                        false
+                    );
+                    paginationEl.appendChild(link);
+                }
+
+                // Next
+                const next = createPageLink(
+                    currentPage + 1,
+                    "→",
+                    false,
+                    currentPage === totalPages
+                );
+                paginationEl.appendChild(next);
+            }
+        }
+    } catch (err) {
+        console.error("Archive load error:", err);
+        archiveContainer.innerHTML = `
+            <p>Error loading archive content.</p>
+        `;
+    }
+}
+loadArchivePage();
 
 /* ============================================================
    ABOUT PAGE LOADER
    ============================================================ */
+
 async function loadAboutPage() {
     const aboutTitleEl = document.getElementById("about-title");
     const aboutSubtitleEl = document.getElementById("about-subtitle");
@@ -554,11 +719,9 @@ async function loadAboutPage() {
             if (block.type === "paragraph") {
                 aboutContentEl.innerHTML += `<p>${block.text}</p>`;
             }
-
             if (block.type === "header") {
                 aboutContentEl.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
             }
-
             if (block.type === "points") {
                 const items = (block.items || [])
                     .map((i) => `<li>${i}</li>`)
@@ -575,12 +738,12 @@ async function loadAboutPage() {
         aboutTitleEl.textContent = "Error loading content";
     }
 }
-
 loadAboutPage();
 
 /* ============================================================
    CHIEF EDITOR PAGE LOADER
    ============================================================ */
+
 async function loadChiefEditorPage() {
     const ceTitleEl = document.getElementById("ce-title");
     const ceSubtitleEl = document.getElementById("ce-subtitle");
@@ -610,11 +773,9 @@ async function loadChiefEditorPage() {
             if (block.type === "paragraph") {
                 ceContentEl.innerHTML += `<p>${block.text}</p>`;
             }
-
             if (block.type === "header") {
                 ceContentEl.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
             }
-
             if (block.type === "points") {
                 const items = (block.items || [])
                     .map((i) => `<li>${i}</li>`)
@@ -631,5 +792,4 @@ async function loadChiefEditorPage() {
         ceTitleEl.textContent = "Error loading content";
     }
 }
-
 loadChiefEditorPage();
