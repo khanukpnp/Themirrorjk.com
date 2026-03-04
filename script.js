@@ -1,5 +1,5 @@
 /* ============================================================
-GLOBAL SCRIPT.JS — THE MIRROR JAMMU KASHMIR (RESTORED VERSION)
+GLOBAL SCRIPT.JS — THE MIRROR JAMMU KASHMIR (FINAL COMPATIBLE VERSION)
 ============================================================ */
 
 /* ---------------- YEAR ---------------- */
@@ -141,7 +141,7 @@ async function fetchJSON(path) {
 }
 
 /* ============================================================
-HOMEPAGE LOADER (RESTORED)
+HOMEPAGE LOADER (FULLY COMPATIBLE)
 ============================================================ */
 async function loadHomepage() {
     if (!document.querySelector("#top-stories")) return;
@@ -152,6 +152,7 @@ async function loadHomepage() {
             articlesData,
             blogData,
             editorialData,
+            latestData,
             historicalData,
             jkData,
             intlData,
@@ -161,6 +162,7 @@ async function loadHomepage() {
             fetchJSON("content/articles.json"),
             fetchJSON("content/blog.json"),
             fetchJSON("content/editorial.json"),
+            fetchJSON("content/latest-001.json"),
             fetchJSON("content/historical.json"),
             fetchJSON("content/jk.json"),
             fetchJSON("content/international.json"),
@@ -171,12 +173,13 @@ async function loadHomepage() {
         const articles = articlesData.items || [];
         const blogs = blogData.items || [];
         const editorial = editorialData.items || [];
+        const latest = latestData.items || [];
         const historical = historicalData.items || [];
         const jk = jkData.items || [];
         const intl = intlData.items || [];
         const hr = hrData.items || [];
 
-        function fillCard(item, mediaSel, bodySel, fallbackTitle, fallbackText, type) {
+        function fillCard(item, mediaSel, bodySel, fallbackTitle, fallbackText) {
             const media = document.querySelector(mediaSel);
             const body = document.querySelector(bodySel);
             if (!media || !body) return;
@@ -204,9 +207,9 @@ async function loadHomepage() {
         fillCard(breaking[0], "#breaking-media", "#breaking-body", "Coming Soon", "Breaking news will appear here.");
         fillCard(blogs[0], "#opinion-media", "#opinion-body", "Coming Soon", "Opinion will appear here.");
 
-        fillCard(historical[0], "#leh1-media", "#leh1-body", "Coming Soon", "Historical content will appear here.");
+        fillCard(latest[0], "#leh1-media", "#leh1-body", "Coming Soon", "Latest content will appear here.");
         fillCard(editorial[0], "#leh2-media", "#leh2-body", "Coming Soon", "Editorial content will appear here.");
-        fillCard(articles[1], "#leh3-media", "#leh3-body", "Coming Soon", "More content will appear here.");
+        fillCard(historical[0], "#leh3-media", "#leh3-body", "Coming Soon", "Historical content will appear here.");
 
         fillCard(jk[0], "#jk1-media", "#jk1-body", "Coming Soon", "JK content will appear here.");
         fillCard(jk[1], "#jk2-media", "#jk2-body", "Coming Soon", "More JK content will appear here.");
@@ -224,7 +227,7 @@ async function loadHomepage() {
 loadHomepage();
 
 /* ============================================================
-ARTICLE PAGE LOADER (RESTORED)
+ARTICLE PAGE LOADER (FULLY COMPATIBLE)
 ============================================================ */
 async function loadArticlePage() {
     if (!document.body.classList.contains("article-page")) return;
@@ -350,7 +353,7 @@ async function loadArticlePage() {
 loadArticlePage();
 
 /* ============================================================
-CHIEF EDITOR PAGE LOADER (RESTORED)
+CHIEF EDITOR PAGE LOADER (FULLY COMPATIBLE)
 ============================================================ */
 async function loadChiefEditorPage() {
     const ceTitleEl = document.getElementById("ce-title");
@@ -400,7 +403,7 @@ async function loadChiefEditorPage() {
 loadChiefEditorPage();
 
 /* ============================================================
-ABOUT PAGE LOADER (RESTORED)
+ABOUT PAGE LOADER (FULLY COMPATIBLE)
 ============================================================ */
 async function loadAboutPage() {
     const titleEl = document.getElementById("about-title");
