@@ -189,6 +189,7 @@ async function loadHomepage() {
             fetchJSON("content/articles.json").catch(() => ({ items: [] })),
             fetchJSON("content/blog.json").catch(() => ({ items: [] })),
             fetchJSON("content/editorial.json").catch(() => ({ items: [] })),
+            fetchJSON("content/latest/latest-001.json").catch(() => ({ items: [] })),
             fetchJSON("content/historical.json").catch(() => ({ items: [] })),
             fetchJSON("content/jammu-kashmir.json").catch(() => ({ items: [] })),
             fetchJSON("content/international.json").catch(() => ({ items: [] })),
