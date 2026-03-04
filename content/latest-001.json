@@ -1,20 +1,57 @@
-{
-  "items": [
-    {
-      "id": "latest-001",
-      "title": "Dangerous Escalation: US–Israel Strikes on Iran and Iran’s Retaliation Raise Fears of Wider War",
-      "category": "Latest",
-      "excerpt": "Sardar Nasir Aziz Khan warns that the escalating confrontation between the United States, Israel, and Iran risks triggering a wider regional conflict with global consequences.",
-      "author": "Sardar Nasir Aziz Khan",
-      "location": "Switzerland",
-      "date": "2026-03-01",
-      "readTime": "6 min read",
-      "heroImage": {
-        "src": "content/images/latest-001-hero.jpg",
-        "caption": "Escalating tensions in the Middle East following US–Israel strikes and Iran’s retaliation.",
-        "credit": "The Mirror Jammu Kashmir"
-      },
-      "articleUrl": "content/latest/latest-001.html"
-    }
-  ]
-}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="./">
+<title id="page-title">Loading… | THE MIRROR JAMMU KASHMIR</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="article-page theme-maroon">
+
+<main class="page-shell article-main">
+<section class="article-container">
+<div class="article-shell">
+
+    <!-- SECTION LABEL -->
+    <div id="section-label" class="section-title red-bar">Latest</div>
+
+    <!-- HEADER -->
+    <header class="article-header">
+        <h1 id="title">Loading…</h1>
+        <div id="meta" class="article-meta"></div>
+    </header>
+
+    <!-- HERO IMAGE -->
+    <figure id="heroWrap" class="article-hero">
+        <img id="heroImg" src="" alt="">
+        <figcaption id="heroCaption"></figcaption>
+    </figure>
+
+    <!-- CONTENT -->
+    <div id="content" class="article-content"></div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="page-actions">
+        <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+
+        <input id="subscribeEmail" type="email" placeholder="Your email…" class="subscribe-input">
+        <button id="subscribeBtn">🔔 Subscribe</button>
+
+        <button data-share class="share-btn">📣 Share</button>
+        <button data-copy-link class="copy-btn">🔗 Copy Link</button>
+    </div>
+
+</div>
+</section>
+</main>
+
+<footer class="footer">
+<p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
