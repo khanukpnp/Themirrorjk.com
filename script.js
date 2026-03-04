@@ -1,7 +1,5 @@
 /* ============================================================
-   GLOBAL SCRIPT.JS — THE MIRROR JAMMU KASHMIR
-   Homepage, Article, About, Chief Editor, Clocks, Calendars,
-   Weather, Navigation, Modals, Archives
+   GLOBAL SCRIPT.JS — CORE UTILITIES
    ============================================================ */
 
 /* ---------------- YEAR ---------------- */
@@ -55,7 +53,7 @@ if (contactBtn && contactModal && closeContact) {
    CLOCKS + CALENDARS + WEATHER
    ============================================================ */
 
-const OPENWEATHER_KEY = "YOUR_OPENWEATHER_API_KEY"; // <-- put your real key here
+const OPENWEATHER_KEY = "YOUR_OPENWEATHER_API_KEY"; // Replace with real key
 
 /* ---------------- LIVE CLOCKS ---------------- */
 function updateClocks() {
@@ -75,6 +73,7 @@ function updateClocks() {
         const hh = String(d.getHours()).padStart(2, "0");
         const mm = String(d.getMinutes()).padStart(2, "0");
         const ss = String(d.getSeconds()).padStart(2, "0");
+
         el.textContent = `${hh}:${mm}:${ss}`;
     });
 }
@@ -161,15 +160,18 @@ async function fetchJSON(path) {
     }
     return res.json();
 }
-
 /* ============================================================
-   HOMEPAGE LOADER
+   HOMEPAGE LOADER — FIXED & STABLE
    ============================================================ */
 
 async function loadHomepage() {
     if (!document.querySelector("#top-stories")) return;
 
     try {
+        /* ------------------------------------------------------------
+           LOAD ALL SECTIONS
+           (Latest now loads latest-001.json directly)
+        ------------------------------------------------------------ */
         const [
             breakingData,
             articlesData,
@@ -185,14 +187,19 @@ async function loadHomepage() {
             fetchJSON("content/articles.json").catch(() => ({ items: [] })),
             fetchJSON("content/blog.json").catch(() => ({ items: [] })),
             fetchJSON("content/editorial.json").catch(() => ({ items: [] })),
-            // master Latest index (contains all latest items)
-            fetchJSON("content/latest.json").catch(() => ({ items: [] })),
+
+            // FIXED: Latest now loads latest-001.json
+            fetchJSON("content/latest/latest-001.json").catch(() => ({ items: [] })),
+
             fetchJSON("content/historical.json").catch(() => ({ items: [] })),
             fetchJSON("content/jammu-kashmir.json").catch(() => ({ items: [] })),
             fetchJSON("content/international.json").catch(() => ({ items: [] })),
             fetchJSON("content/human-rights.json").catch(() => ({ items: [] }))
         ]);
 
+        /* ------------------------------------------------------------
+           NORMALIZED ARRAYS
+        ------------------------------------------------------------ */
         const breaking = breakingData.items || [];
         const articles = articlesData.items || [];
         const blogs = blogData.items || [];
@@ -203,7 +210,10 @@ async function loadHomepage() {
         const intl = intlData.items || [];
         const hr = hrData.items || [];
 
-        // Helper: generic card filler
+        /* ------------------------------------------------------------
+           CARD HELPERS
+        ------------------------------------------------------------ */
+
         function fillCard(item, mediaSel, bodySel, fallbackTitle, fallbackText, linkType) {
             const media = document.querySelector(mediaSel);
             const body = document.querySelector(bodySel);
@@ -225,11 +235,8 @@ async function loadHomepage() {
             }
 
             let href = "#";
-            if (linkType === "article") {
-                href = `article.html?id=${item.id}`;
-            } else if (linkType === "blog") {
-                href = `blog.html?id=${item.id}`;
-            }
+            if (linkType === "article") href = `article.html?id=${item.id}`;
+            if (linkType === "blog") href = `blog.html?id=${item.id}`;
 
             body.innerHTML = `
                 <h3>${item.title}</h3>
@@ -238,7 +245,6 @@ async function loadHomepage() {
             `;
         }
 
-        // Helper: unified card (article-style link)
         function fillUnifiedCard(item, mediaSel, bodySel) {
             const media = document.querySelector(mediaSel);
             const body = document.querySelector(bodySel);
@@ -266,7 +272,9 @@ async function loadHomepage() {
             `;
         }
 
-        // Assume arrays are already sorted newest → oldest in JSON.
+        /* ------------------------------------------------------------
+           NEWEST ITEMS (first item in each array)
+        ------------------------------------------------------------ */
         const newestArticle = articles[0] || null;
         const newestBreaking = breaking[0] || null;
         const newestBlog = blogs[0] || null;
@@ -280,115 +288,242 @@ async function loadHomepage() {
         const newestHR1 = hr[0] || null;
         const newestHR2 = hr[1] || null;
 
-        // TOP STORIES: Lead, Breaking, Opinion
-        fillCard(
-            newestArticle,
-            "#lead-media",
-            "#lead-body",
-            "Coming Soon",
-            "Lead story will appear here.",
-            "article"
-        );
+        /* ------------------------------------------------------------
+           TOP STORIES
+        ------------------------------------------------------------ */
+        fillCard(newestArticle, "#lead-media", "#lead-body",
+            "Coming Soon", "Lead story will appear here.", "article");
 
-        fillCard(
-            newestBreaking,
-            "#breaking-media",
-            "#breaking-body",
-            "Coming Soon",
-            "Breaking news will appear here.",
-            "article"
-        );
+        fillCard(newestBreaking, "#breaking-media", "#breaking-body",
+            "Coming Soon", "Breaking news will appear here.", "article");
 
-        fillCard(
-            newestBlog,
-            "#opinion-media",
-            "#opinion-body",
-            "Coming Soon",
-            "Opinion and blog will appear here.",
-            "blog"
-        );
+        fillCard(newestBlog, "#opinion-media", "#opinion-body",
+            "Coming Soon", "Opinion and blog will appear here.", "blog");
 
-        // LEFT WINDOW: Latest (only newest item)
+        /* ------------------------------------------------------------
+           LEFT WINDOW — LATEST (only newest)
+        ------------------------------------------------------------ */
         fillUnifiedCard(newestLatest, "#leh1-media", "#leh1-body");
 
-        // Editorial & Historical (newest only)
+        /* ------------------------------------------------------------
+           EDITORIAL + HISTORICAL
+        ------------------------------------------------------------ */
         fillUnifiedCard(newestEditorial, "#leh2-media", "#leh2-body");
         fillUnifiedCard(newestHistorical, "#leh3-media", "#leh3-body");
 
-        // Jammu Kashmir (two windows)
-        fillCard(
-            newestJK1,
-            "#jk1-media",
-            "#jk1-body",
-            "Coming Soon",
-            "Reporting from Jammu & Kashmir will appear here.",
-            "article"
-        );
-        fillCard(
-            newestJK2,
-            "#jk2-media",
-            "#jk2-body",
-            "Coming Soon",
-            "Additional coverage will be added.",
-            "article"
-        );
+        /* ------------------------------------------------------------
+           JAMMU KASHMIR
+        ------------------------------------------------------------ */
+        fillCard(newestJK1, "#jk1-media", "#jk1-body",
+            "Coming Soon", "Reporting from Jammu & Kashmir will appear here.", "article");
 
-        // International (two windows)
-        fillCard(
-            newestIntl1,
-            "#intl1-media",
-            "#intl1-body",
-            "Coming Soon",
-            "International coverage will appear here.",
-            "article"
-        );
-        fillCard(
-            newestIntl2,
-            "#intl2-media",
-            "#intl2-body",
-            "Coming Soon",
-            "Additional international reports will be added.",
-            "article"
-        );
+        fillCard(newestJK2, "#jk2-media", "#jk2-body",
+            "Coming Soon", "Additional coverage will be added.", "article");
 
-        // Human Rights (two windows)
-        fillCard(
-            newestHR1,
-            "#hr1-media",
-            "#hr1-body",
-            "Coming Soon",
-            "Human rights documentation will appear here.",
-            "article"
-        );
-        fillCard(
-            newestHR2,
-            "#hr2-media",
-            "#hr2-body",
-            "Coming Soon",
-            "Further human rights reports will be added.",
-            "article"
-        );
+        /* ------------------------------------------------------------
+           INTERNATIONAL
+        ------------------------------------------------------------ */
+        fillCard(newestIntl1, "#intl1-media", "#intl1-body",
+            "Coming Soon", "International coverage will appear here.", "article");
+
+        fillCard(newestIntl2, "#intl2-media", "#intl2-body",
+            "Coming Soon", "Additional international reports will be added.", "article");
+
+        /* ------------------------------------------------------------
+           HUMAN RIGHTS
+        ------------------------------------------------------------ */
+        fillCard(newestHR1, "#hr1-media", "#hr1-body",
+            "Coming Soon", "Human rights documentation will appear here.", "article");
+
+        fillCard(newestHR2, "#hr2-media", "#hr2-body",
+            "Coming Soon", "Further human rights reports will be added.", "article");
 
     } catch (err) {
         console.error("Homepage load error:", err);
     }
 }
-loadHomepage();
 
+loadHomepage();
 /* ============================================================
-   ARTICLE PAGE LOADER
+   ARCHIVE PAGE LOADER — FIXED & STABLE
+   ============================================================ */
+
+async function loadArchivePage() {
+    const archiveContainer = document.getElementById("archive-list");
+    if (!archiveContainer) return;
+
+    const section = archiveContainer.getAttribute("data-section");
+    if (!section) return;
+
+    /* ------------------------------------------------------------
+       FIXED: Correct paths (Latest now loads latest-001.json)
+    ------------------------------------------------------------ */
+    const map = {
+        latest: "content/latest/latest-001.json",
+        jk: "content/jammu-kashmir.json",
+        intl: "content/international.json",
+        hr: "content/human-rights.json",
+        editorial: "content/editorial.json",
+        historical: "content/historical.json",
+        blog: "content/blog.json",
+        breaking: "content/breaking.json"
+    };
+
+    const path = map[section];
+    if (!path) return;
+
+    const ITEMS_PER_PAGE = 9;
+
+    try {
+        const data = await fetchJSON(path);
+        let items = data.items || [];
+
+        /* ------------------------------------------------------------
+           Sort newest → oldest
+        ------------------------------------------------------------ */
+        items = items.slice().sort((a, b) => {
+            const da = a.date ? new Date(a.date).getTime() : 0;
+            const db = b.date ? new Date(b.date).getTime() : 0;
+            return db - da;
+        });
+
+        /* ------------------------------------------------------------
+           Pagination logic
+        ------------------------------------------------------------ */
+        const params = new URLSearchParams(window.location.search);
+        const page = parseInt(params.get("page") || "1", 10);
+
+        const totalItems = items.length;
+        const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+        const currentPage = Math.min(Math.max(page, 1), totalPages);
+
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        const pageItems = items.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+        archiveContainer.innerHTML = "";
+
+        if (pageItems.length === 0) {
+            archiveContainer.innerHTML = `<p>No items available in this archive yet.</p>`;
+            return;
+        }
+
+        /* ------------------------------------------------------------
+           FIXED: Archive card template (no nested template literals)
+        ------------------------------------------------------------ */
+        pageItems.forEach((item) => {
+            const card = document.createElement("article");
+            card.className = "archive-card";
+
+            const dateObj = item.date ? new Date(item.date) : null;
+            const formattedDate = dateObj
+                ? dateObj.toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric"
+                  })
+                : "";
+
+            const imgSrc = item.heroImage?.src || "";
+            const imgAlt = item.heroImage?.caption || item.title || "";
+
+            const href = item.id ? `article.html?id=${item.id}` : "#";
+
+            card.innerHTML = `
+                <div class="archive-card-media">
+                    ${imgSrc ? `<img src="${imgSrc}" alt="${imgAlt}">` : ""}
+                </div>
+
+                <div class="archive-card-body">
+                    <h3>${item.title || ""}</h3>
+
+                    <p class="archive-meta">
+                        ${formattedDate}
+                        ${item.readTime ? ` · ${item.readTime}` : ""}
+                        ${item.author ? ` · ${item.author}` : ""}
+                    </p>
+
+                    <p>${item.excerpt || ""}</p>
+
+                    <a class="read-more" href="${href}">Read More →</a>
+                </div>
+            `;
+
+            archiveContainer.appendChild(card);
+        });
+
+        /* ------------------------------------------------------------
+           FIXED: Numbered pagination (← 1 2 3 →)
+        ------------------------------------------------------------ */
+        const paginationEl = document.getElementById("archive-pagination");
+        if (paginationEl) {
+            paginationEl.innerHTML = "";
+
+            if (totalPages > 1) {
+                const createPageLink = (p, label, isActive = false, isDisabled = false) => {
+                    const a = document.createElement("a");
+                    a.textContent = label;
+
+                    if (isActive) a.classList.add("active");
+                    if (isDisabled) {
+                        a.classList.add("disabled");
+                        a.href = "javascript:void(0)";
+                    } else {
+                        const url = new URL(window.location.href);
+                        url.searchParams.set("page", p);
+                        a.href = url.toString();
+                    }
+                    return a;
+                };
+
+                // Previous
+                paginationEl.appendChild(
+                    createPageLink(currentPage - 1, "←", false, currentPage === 1)
+                );
+
+                // Numbered pages
+                for (let p = 1; p <= totalPages; p++) {
+                    paginationEl.appendChild(
+                        createPageLink(p, String(p), p === currentPage)
+                    );
+                }
+
+                // Next
+                paginationEl.appendChild(
+                    createPageLink(currentPage + 1, "→", false, currentPage === totalPages)
+                );
+            }
+        }
+    } catch (err) {
+        console.error("Archive load error:", err);
+        archiveContainer.innerHTML = `<p>Error loading archive content.</p>`;
+    }
+}
+
+loadArchivePage();
+/* ============================================================
+   ARTICLE PAGE LOADER — FIXED & STABLE
    ============================================================ */
 
 async function loadArticlePage() {
-    // Only run on pages that have a main article content container with id="content"
-    if (!document.querySelector("body.article-page") || !document.getElementById("content")) return;
+    /* ------------------------------------------------------------
+       FIXED: Run on ANY page that has #content
+       (Blog, Latest, Editorial, JK, HR, International, etc.)
+    ------------------------------------------------------------ */
+    if (!document.getElementById("content")) return;
 
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
     if (!id) return;
 
+    /* ------------------------------------------------------------
+       Identify section from ID prefix
+       e.g. blog-001 → "blog"
+    ------------------------------------------------------------ */
     const prefix = id.split("-")[0];
 
+    /* ------------------------------------------------------------
+       FIXED: Latest now loads latest-001.json
+    ------------------------------------------------------------ */
     const map = {
         breaking: "content/breaking.json",
         article: "content/articles.json",
@@ -398,7 +533,7 @@ async function loadArticlePage() {
         jk: "content/jammu-kashmir.json",
         intl: "content/international.json",
         hr: "content/human-rights.json",
-        latest: "content/latest.json"
+        latest: "content/latest/latest-001.json"
     };
 
     const path = map[prefix];
@@ -415,11 +550,17 @@ async function loadArticlePage() {
             return;
         }
 
+        /* ------------------------------------------------------------
+           PAGE TITLE (Browser tab)
+        ------------------------------------------------------------ */
         const pageTitle = document.getElementById("page-title");
         if (pageTitle) {
             pageTitle.textContent = `${item.title} | THE MIRROR JAMMU KASHMIR`;
         }
 
+        /* ------------------------------------------------------------
+           SECTION LABEL
+        ------------------------------------------------------------ */
         const sectionLabel = document.getElementById("section-label");
         if (sectionLabel) {
             const labelMap = {
@@ -436,11 +577,15 @@ async function loadArticlePage() {
             sectionLabel.textContent = labelMap[prefix] || "Article";
         }
 
+        /* ------------------------------------------------------------
+           TITLE
+        ------------------------------------------------------------ */
         const titleEl = document.getElementById("title");
-        if (titleEl) {
-            titleEl.textContent = item.title;
-        }
+        if (titleEl) titleEl.textContent = item.title;
 
+        /* ------------------------------------------------------------
+           META INFORMATION
+        ------------------------------------------------------------ */
         const metaEl = document.getElementById("meta");
         if (metaEl) {
             const dateObj = item.date ? new Date(item.date) : null;
@@ -461,6 +606,9 @@ async function loadArticlePage() {
             `;
         }
 
+        /* ------------------------------------------------------------
+           HERO IMAGE
+        ------------------------------------------------------------ */
         const heroWrap = document.getElementById("heroWrap");
         const heroImg = document.getElementById("heroImg");
         const heroCaption = document.getElementById("heroCaption");
@@ -468,45 +616,56 @@ async function loadArticlePage() {
         if (item.heroImage && item.heroImage.src && heroImg && heroCaption) {
             heroImg.src = item.heroImage.src;
             heroImg.alt = item.heroImage.caption || item.title;
+
             const credit = item.heroImage.credit
                 ? ` — <em>${item.heroImage.credit}</em>`
                 : "";
+
             heroCaption.innerHTML = `${item.heroImage.caption || ""}${credit}`;
         } else if (heroWrap) {
             heroWrap.style.display = "none";
         }
 
+        /* ------------------------------------------------------------
+           BODY CONTENT
+        ------------------------------------------------------------ */
         const container = document.getElementById("content");
         if (!container) return;
 
         container.innerHTML = "";
 
         (item.body || []).forEach((block) => {
+            /* ---------------- PARAGRAPH ---------------- */
             if (block.type === "paragraph") {
                 const p = document.createElement("p");
                 p.textContent = block.text;
                 container.appendChild(p);
             }
 
+            /* ---------------- HEADER ---------------- */
             if (block.type === "header") {
                 const h2 = document.createElement("h2");
                 h2.textContent = block.text;
                 container.appendChild(h2);
             }
 
+            /* ---------------- BULLET POINTS ---------------- */
             if (block.type === "points") {
                 const wrap = document.createElement("div");
                 wrap.className = "important-points";
+
                 const ul = document.createElement("ul");
                 (block.items || []).forEach((i) => {
                     const li = document.createElement("li");
                     li.textContent = i;
                     ul.appendChild(li);
                 });
+
                 wrap.appendChild(ul);
                 container.appendChild(wrap);
             }
 
+            /* ---------------- INLINE IMAGE ---------------- */
             if (block.type === "image") {
                 const fig = document.createElement("figure");
                 const align = block.align === "right" ? "image-right" : "image-left";
@@ -525,271 +684,101 @@ async function loadArticlePage() {
                 container.appendChild(fig);
             }
         });
+
     } catch (err) {
         console.error("Article load error:", err);
         const titleEl = document.getElementById("title");
         if (titleEl) titleEl.textContent = "Error loading content";
     }
 }
-loadArticlePage();
 
+loadArticlePage();
 /* ============================================================
-   ARCHIVE PAGE LOADER (ALL SECTIONS)
+   SHARE BUTTONS • COPY LINK • SUBSCRIBE — FINAL GLUE
    ============================================================ */
 
-async function loadArchivePage() {
-    const archiveContainer = document.getElementById("archive-list");
-    if (!archiveContainer) return;
+/* ---------------- COPY LINK BUTTONS ---------------- */
+function initCopyLinkButtons() {
+    const buttons = document.querySelectorAll("[data-copy-link]");
 
-    const section = archiveContainer.getAttribute("data-section");
-    if (!section) return;
+    if (!buttons.length) return;
 
-    const map = {
-        latest: "content/latest.json",
-        jk: "content/jammu-kashmir.json",
-        intl: "content/international.json",
-        hr: "content/human-rights.json",
-        editorial: "content/editorial.json",
-        historical: "content/historical.json",
-        blog: "content/blog.json",
-        breaking: "content/breaking.json"
-    };
+    buttons.forEach((btn) => {
+        btn.addEventListener("click", async () => {
+            const url = btn.getAttribute("data-copy-link") || window.location.href;
 
-    const path = map[section];
-    if (!path) return;
+            try {
+                await navigator.clipboard.writeText(url);
 
-    const ITEMS_PER_PAGE = 9;
-
-    try {
-        const data = await fetchJSON(path);
-        let items = data.items || [];
-
-        // Sort newest → oldest by date
-        items = items.slice().sort((a, b) => {
-            const da = a.date ? new Date(a.date).getTime() : 0;
-            const db = b.date ? new Date(b.date).getTime() : 0;
-            return db - da;
+                // Visual feedback
+                btn.classList.add("copied");
+                setTimeout(() => btn.classList.remove("copied"), 1500);
+            } catch (err) {
+                console.error("Copy failed:", err);
+            }
         });
+    });
+}
+initCopyLinkButtons();
 
-        const params = new URLSearchParams(window.location.search);
-        const page = parseInt(params.get("page") || "1", 10);
-        const totalItems = items.length;
-        const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
-        const currentPage = Math.min(Math.max(page, 1), totalPages);
+/* ---------------- SHARE BUTTONS ---------------- */
+function initShareButtons() {
+    const shareButtons = document.querySelectorAll("[data-share]");
 
-        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-        const pageItems = items.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    if (!shareButtons.length) return;
 
-        archiveContainer.innerHTML = "";
+    shareButtons.forEach((btn) => {
+        btn.addEventListener("click", async () => {
+            const shareUrl = btn.getAttribute("data-share") || window.location.href;
+            const shareTitle = document.title;
 
-        if (pageItems.length === 0) {
-            archiveContainer.innerHTML = `
-                <p>No items available in this archive yet.</p>
-            `;
+            // If browser supports native share
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: shareTitle,
+                        url: shareUrl
+                    });
+                } catch (err) {
+                    console.error("Share failed:", err);
+                }
+            } else {
+                // Fallback: copy link
+                try {
+                    await navigator.clipboard.writeText(shareUrl);
+                    btn.classList.add("copied");
+                    setTimeout(() => btn.classList.remove("copied"), 1500);
+                } catch (err) {
+                    console.error("Share fallback failed:", err);
+                }
+            }
+        });
+    });
+}
+initShareButtons();
+
+/* ---------------- SUBSCRIBE BUTTON ---------------- */
+function initSubscribe() {
+    const subscribeBtn = document.getElementById("subscribeBtn");
+    const subscribeInput = document.getElementById("subscribeEmail");
+
+    if (!subscribeBtn || !subscribeInput) return;
+
+    subscribeBtn.addEventListener("click", () => {
+        const email = subscribeInput.value.trim();
+
+        if (!email || !email.includes("@")) {
+            alert("Please enter a valid email address.");
             return;
         }
 
-        pageItems.forEach((item) => {
-            const card = document.createElement("article");
-            card.className = "archive-card";
-
-            const dateObj = item.date ? new Date(item.date) : null;
-            const formattedDate = dateObj
-                ? dateObj.toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric"
-                  })
-                : "";
-
-            const imgSrc = item.heroImage && item.heroImage.src ? item.heroImage.src : "";
-            const imgAlt = item.heroImage && item.heroImage.caption ? item.heroImage.caption : item.title || "";
-
-            const href = item.id ? `article.html?id=${item.id}` : "#";
-
-            card.innerHTML = `
-                <div class="archive-card-media">
-                    ${imgSrc ? `<img src="${imgSrc}" alt="${imgAlt}">` : ""}
-                </div>
-                <div class="archive-card-body">
-                    <h3>${item.title || ""}</h3>
-                    <p class="archive-meta">
-                        ${formattedDate}
-                        ${item.readTime ? ` · ${item.readTime}` : ""}
-                        ${item.author ? ` · ${item.author}` : ""}
-                    </p>
-                    <p>${item.excerpt || ""}</p>
-                    <a class="read-more" href="${href}">Read More →</a>
-                </div>
-            `;
-
-            archiveContainer.appendChild(card);
-        });
-
-        // Pagination
-        const paginationEl = document.getElementById("archive-pagination");
-        if (paginationEl) {
-            paginationEl.innerHTML = "";
-
-            if (totalPages > 1) {
-                const createPageLink = (p, label, isActive = false, isDisabled = false) => {
-                    const a = document.createElement("a");
-                    a.textContent = label;
-                    if (isActive) a.classList.add("active");
-                    if (isDisabled) {
-                        a.classList.add("disabled");
-                        a.href = "javascript:void(0)";
-                    } else {
-                        const url = new URL(window.location.href);
-                        url.searchParams.set("page", p);
-                        a.href = url.toString();
-                    }
-                    return a;
-                };
-
-                // Previous
-                const prev = createPageLink(
-                    currentPage - 1,
-                    "←",
-                    false,
-                    currentPage === 1
-                );
-                paginationEl.appendChild(prev);
-
-                // Numbered pages
-                for (let p = 1; p <= totalPages; p++) {
-                    const link = createPageLink(
-                        p,
-                        String(p),
-                        p === currentPage,
-                        false
-                    );
-                    paginationEl.appendChild(link);
-                }
-
-                // Next
-                const next = createPageLink(
-                    currentPage + 1,
-                    "→",
-                    false,
-                    currentPage === totalPages
-                );
-                paginationEl.appendChild(next);
-            }
-        }
-    } catch (err) {
-        console.error("Archive load error:", err);
-        archiveContainer.innerHTML = `
-            <p>Error loading archive content.</p>
-        `;
-    }
+        // You can replace this with backend integration later
+        alert("Thank you for subscribing!");
+        subscribeInput.value = "";
+    });
 }
-loadArchivePage();
+initSubscribe();
 
 /* ============================================================
-   ABOUT PAGE LOADER
+   END OF SCRIPT.JS
    ============================================================ */
-
-async function loadAboutPage() {
-    const aboutTitleEl = document.getElementById("about-title");
-    const aboutSubtitleEl = document.getElementById("about-subtitle");
-    const aboutHeroEl = document.getElementById("about-hero");
-    const aboutContentEl = document.getElementById("about-content");
-
-    if (!aboutTitleEl || !aboutSubtitleEl || !aboutHeroEl || !aboutContentEl) return;
-
-    try {
-        const data = await fetchJSON("content/about.json");
-
-        aboutTitleEl.textContent = data.title || "";
-        aboutSubtitleEl.textContent = data.subtitle || "";
-
-        if (data.heroImage && data.heroImage.src) {
-            aboutHeroEl.innerHTML = `
-                <img src="${data.heroImage.src}" alt="${data.heroImage.caption || ""}">
-                <figcaption>${data.heroImage.caption || ""}</figcaption>
-            `;
-        } else {
-            aboutHeroEl.innerHTML = "";
-        }
-
-        aboutContentEl.innerHTML = "";
-
-        (data.body || []).forEach((block) => {
-            if (block.type === "paragraph") {
-                aboutContentEl.innerHTML += `<p>${block.text}</p>`;
-            }
-            if (block.type === "header") {
-                aboutContentEl.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
-            }
-            if (block.type === "points") {
-                const items = (block.items || [])
-                    .map((i) => `<li>${i}</li>`)
-                    .join("");
-                aboutContentEl.innerHTML += `
-                    <div class="important-points">
-                        <ul>${items}</ul>
-                    </div>
-                `;
-            }
-        });
-    } catch (err) {
-        console.error("About load error:", err);
-        aboutTitleEl.textContent = "Error loading content";
-    }
-}
-loadAboutPage();
-
-/* ============================================================
-   CHIEF EDITOR PAGE LOADER
-   ============================================================ */
-
-async function loadChiefEditorPage() {
-    const ceTitleEl = document.getElementById("ce-title");
-    const ceSubtitleEl = document.getElementById("ce-subtitle");
-    const ceHeroEl = document.getElementById("ce-hero");
-    const ceContentEl = document.getElementById("ce-content");
-
-    if (!ceTitleEl || !ceSubtitleEl || !ceHeroEl || !ceContentEl) return;
-
-    try {
-        const data = await fetchJSON("content/chief-editor.json");
-
-        ceTitleEl.textContent = data.title || "";
-        ceSubtitleEl.textContent = data.subtitle || "";
-
-        if (data.heroImage && data.heroImage.src) {
-            ceHeroEl.innerHTML = `
-                <img src="${data.heroImage.src}" alt="${data.heroImage.caption || ""}">
-                <figcaption>${data.heroImage.caption || ""}</figcaption>
-            `;
-        } else {
-            ceHeroEl.innerHTML = "";
-        }
-
-        ceContentEl.innerHTML = "";
-
-        (data.body || []).forEach((block) => {
-            if (block.type === "paragraph") {
-                ceContentEl.innerHTML += `<p>${block.text}</p>`;
-            }
-            if (block.type === "header") {
-                ceContentEl.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
-            }
-            if (block.type === "points") {
-                const items = (block.items || [])
-                    .map((i) => `<li>${i}</li>`)
-                    .join("");
-                ceContentEl.innerHTML += `
-                    <div class="important-points">
-                        <ul>${items}</ul>
-                    </div>
-                `;
-            }
-        });
-    } catch (err) {
-        console.error("Chief Editor load error:", err);
-        ceTitleEl.textContent = "Error loading content";
-    }
-}
-loadChiefEditorPage();
