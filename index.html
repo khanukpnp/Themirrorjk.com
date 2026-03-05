@@ -11,15 +11,42 @@
 <title>THE MIRROR JAMMU KASHMIR</title>
 
 <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
-<meta http-equiv="Cache-Control" content="no-store">
 
-<link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://api.open-meteo.com">
+
+<link rel="stylesheet" href="styles.css?v=19">
 
 </head>
 
 
 <body class="theme-maroon" id="top">
 
+
+<!-- ============================================================
+SITE LOADER
+============================================================ -->
+
+<div id="site-loader">
+<div class="loader-inner">
+
+<div class="loader-title">
+THE MIRROR JAMMU KASHMIR
+</div>
+
+<div class="loader-bar">
+<div class="loader-progress"></div>
+</div>
+
+<p>Loading newsroom…</p>
+
+</div>
+</div>
+
+
+
+<!-- ============================================================
+HEADER
+============================================================ -->
 
 <header class="site-header modern-header">
 
@@ -37,25 +64,43 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 
 
 
+<!-- ============================================================
+CLOCKS
+============================================================ -->
+
 <section class="bar clocks-line">
 
 <div class="row tight nowrap center">
 
-<div id="clock-cest" class="chip tiny">🕒 <span>Loading CEST…</span></div>
+<div id="clock-cest" class="chip tiny">
+🕒 <span>Loading CEST…</span>
+</div>
 
-<div id="cal-hijri" class="chip tiny">🗓️ <span>Hijri…</span></div>
+<div id="cal-hijri" class="chip tiny">
+🗓️ <span>Hijri…</span>
+</div>
 
-<div id="cal-hindi" class="chip tiny">🗓️ <span>VS…</span></div>
+<div id="cal-hindi" class="chip tiny">
+🗓️ <span>VS…</span>
+</div>
 
-<div id="tz-ist" class="chip tiny">🕒 IST (Jammu-Kashmir-Ladakh): <span>—:—</span></div>
+<div id="tz-ist" class="chip tiny">
+🕒 IST (Jammu-Kashmir-Ladakh): <span>—:—</span>
+</div>
 
-<div id="tz-pkt" class="chip tiny">🕒 PKT (Gilgit-Baltistan & Azad Kashmir): <span>—:—</span></div>
+<div id="tz-pkt" class="chip tiny">
+🕒 PKT (Gilgit-Baltistan & Azad Kashmir): <span>—:—</span>
+</div>
 
 </div>
 
 </section>
 
 
+
+<!-- ============================================================
+WEATHER
+============================================================ -->
 
 <section class="bar weather-line">
 
@@ -65,6 +110,10 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 
 
 
+<!-- ============================================================
+TICKER
+============================================================ -->
+
 <section class="ticker-wrap">
 
 <div class="ticker">
@@ -73,16 +122,10 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 
 <ul id="ticker-items">
 
-<li>WELCOME TO THE MIRROR JAMMU KASHMIR — EMPOWERING TRUTH BEYOND BORDERS.</li>
-<li>SUBMIT YOUR ISSUES NEWS FEEDBACK OR URGENT MATTERS VIA EMAIL OR CONTACT FORM.</li>
-<li>THE MIRROR JAMMU KASHMIR IS AN INDEPENDENT DIGITAL MEDIA PLATFORM.</li>
-<li>WE CHALLENGE SILENCE EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES.</li>
-<li>OUR MISSION IS TO SPEAK TRUTH WITHOUT FEAR.</li>
-<li>ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS.</li>
-<li>EQUALITY WITHOUT DISCRIMINATION IS A RIGHT NOT A PRIVILEGE.</li>
-<li>DEMOCRACY DERIVES LEGITIMACY FROM THE WILL OF THE PEOPLE.</li>
-<li>FREEDOM OF MOVEMENT AND EXPRESSION MUST BE PROTECTED.</li>
-<li>INDEPENDENT JOURNALISM IS ESSENTIAL FOR DEMOCRACY.</li>
+<li>WELCOME TO THE MIRROR JAMMU KASHMIR — EMPOWERING TRUTH BEYOND BORDERS</li>
+<li>WE DO NOT MANUFACTURE NARRATIVES WE REFLECT REALITY</li>
+<li>THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER POLICY HISTORY AND TRUTH</li>
+<li>ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS</li>
 
 </ul>
 
@@ -92,20 +135,22 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 <label class="lang-select">
 🌍
 <select id="language-select">
+
 <option value="en">English</option>
 <option value="de">German</option>
 <option value="fr">French</option>
 <option value="ur">Urdu</option>
 <option value="hi">Hindi</option>
-<option value="ar">Arabic</option>
+
 </select>
 </label>
 
-<form class="search" onsubmit="event.preventDefault();">
 
-<input id="search-input" type="search" placeholder="Search">
+<form class="search">
 
-<button type="submit">🔍</button>
+<input id="search-input" type="search" placeholder="Search…">
+
+<button>🔍</button>
 
 </form>
 
@@ -117,156 +162,110 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 
 
 
+<!-- ============================================================
+NAVIGATION
+============================================================ -->
+
 <nav class="navbar modern-nav">
 
-<button class="hamburger" id="hamburger">☰ Menu</button>
+<button class="hamburger" id="hamburger">
+☰ Menu
+</button>
 
 <ul class="nav-list" id="nav-list">
 
-<li class="nav-item has-sub">
+<li><a class="nav-btn" href="#top">🏠 Home</a></li>
 
-<button class="nav-btn">🏠 Home</button>
+<li><a class="nav-btn" href="#breaking">🆕 Breaking News</a></li>
 
-<div class="dropdown">
-<a href="about.html">About</a>
-<a href="chief-editor.html">Chief Editor</a>
-<a href="#contact">Contact</a>
-</div>
+<li><a class="nav-btn" href="#blog">📝 Blog</a></li>
 
-</li>
+<li><a class="nav-btn" href="#vlogs">🎥 Vlog</a></li>
 
-<li class="nav-item">
-<a class="nav-btn" href="breaking.html">🆕 Breaking News</a>
-</li>
+<li><a class="nav-btn" href="#epaper">📰 E-Paper</a></li>
 
+<li><a class="nav-btn" href="#jammu-kashmir">📍 Jammu Kashmir</a></li>
 
-<li class="nav-item has-sub">
+<li><a class="nav-btn" href="#docs">📜 Historical Documents</a></li>
 
-<button class="nav-btn">📝 Blog</button>
+<li><a class="nav-btn" href="#human-rights">🕊️ UN & Human Rights</a></li>
 
-<div class="dropdown">
-
-<a href="editorial.html">Editorial</a>
-<a href="blog.html">Opinion</a>
-<a href="updates.html">Latest Updates</a>
-
-</div>
-
-</li>
-
-
-<li class="nav-item has-sub">
-
-<button class="nav-btn">🎥 Vlog</button>
-
-<div class="dropdown">
-
-<a href="#vlogs">Latest Vlogs</a>
-
-</div>
-
-</li>
-
-
-<li class="nav-item">
-<a class="nav-btn" href="#epaper">📰 E-Paper</a>
-</li>
-
-
-<li class="nav-item has-sub">
-
-<button class="nav-btn">📍 Jammu Kashmir</button>
-
-<div class="dropdown">
-
-<a href="#jammu-kashmir">Regions</a>
-<a href="#jk-history">History</a>
-<a href="#jk-culture">Culture</a>
-
-</div>
-
-</li>
-
-
-<li class="nav-item has-sub">
-
-<button class="nav-btn">📜 Historical Documents</button>
-
-<div class="dropdown">
-
-<a href="#archive">Archives</a>
-
-</div>
-
-</li>
-
-
-<li class="nav-item has-sub">
-
-<button class="nav-btn">🕊️ UN & Human Rights</button>
-
-<div class="dropdown">
-
-<a href="#human-rights">Reports</a>
-
-</div>
-
-</li>
-
-
-<li class="nav-item has-sub">
-
-<button class="nav-btn">🌐 Global Advocacy</button>
-
-<div class="dropdown">
-
-<a href="#campaigns">Campaigns</a>
-
-</div>
-
-</li>
+<li><a class="nav-btn" href="#advocacy">🌐 Global Advocacy</a></li>
 
 </ul>
 
-<div id="mobile-menu" class="mobile-menu" hidden></div>
+<div id="mobile-menu" class="mobile-menu"></div>
 
 </nav>
 
 
 
+<!-- ============================================================
+MAIN CONTENT
+============================================================ -->
+
 <main class="page-shell home-shell">
 
 
+<!-- TOP STORIES -->
+
 <section id="top-stories">
 
-<div class="section-title red-bar">Top Stories</div>
+<div class="section-title red-bar">
+Top Stories
+</div>
 
 <div class="cards three">
 
+
 <article class="card">
-<div class="media placeholder maroon" id="lead-media">Lead</div>
+
+<div class="media placeholder maroon" id="lead-media">
+Lead
+</div>
+
 <div class="card-body" id="lead-body">
+
 <h3>Coming Soon</h3>
+
 <p>Lead story will appear here.</p>
+
 </div>
+
 </article>
 
 
 <article class="card">
-<div class="media placeholder maroon" id="breaking-media">Breaking</div>
+
+<div class="media placeholder maroon" id="breaking-media">
+Breaking
+</div>
+
 <div class="card-body" id="breaking-body">
+
 <h3>Coming Soon</h3>
+
 <p>Breaking news will appear here.</p>
+
 </div>
+
 </article>
 
 
 <article class="card">
-<div class="media placeholder maroon" id="opinion-media">Opinion</div>
-<div class="card-body" id="opinion-body">
-<h3>Coming Soon</h3>
-<p>Opinion and blog will appear here.</p>
+
+<div class="media placeholder maroon" id="opinion-media">
+Opinion
 </div>
+
+<div class="card-body" id="opinion-body">
+
+<h3>Coming Soon</h3>
+
+<p>Opinion and blog will appear here.</p>
+
+</div>
+
 </article>
 
 </div>
@@ -274,64 +273,117 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 </section>
 
 
+
+<!-- LATEST EDITORIAL HISTORICAL -->
 
 <section id="latest-editorial-historical">
 
-<div class="section-title red-bar">Latest · Editorial · Historical</div>
+<div class="section-title red-bar">
+Latest · Editorial · Historical
+</div>
 
 <div class="cards three">
 
+
 <article class="card">
-<div class="media placeholder maroon" id="leh1-media">Latest</div>
+
+<div class="media placeholder maroon" id="leh1-media">
+Latest
+</div>
+
 <div class="card-body" id="leh1-body">
+
 <h3>Coming Soon</h3>
+
 <p>Content will be added shortly.</p>
+
 </div>
+
 </article>
 
+
 <article class="card">
-<div class="media placeholder maroon" id="leh2-media">Editorial</div>
+
+<div class="media placeholder maroon" id="leh2-media">
+Editorial
+</div>
+
 <div class="card-body" id="leh2-body">
+
 <h3>Coming Soon</h3>
+
 <p>Content will be added shortly.</p>
+
 </div>
+
 </article>
 
+
 <article class="card">
-<div class="media placeholder maroon" id="leh3-media">Historical</div>
-<div class="card-body" id="leh3-body">
-<h3>Coming Soon</h3>
-<p>Content will be added shortly.</p>
+
+<div class="media placeholder maroon" id="leh3-media">
+Historical
 </div>
+
+<div class="card-body" id="leh3-body">
+
+<h3>Coming Soon</h3>
+
+<p>Content will be added shortly.</p>
+
+</div>
+
 </article>
+
 
 </div>
 
 </section>
 
 
+
+<!-- JAMMU KASHMIR -->
 
 <section id="jammu-kashmir">
 
-<div class="section-title red-bar">Jammu Kashmir</div>
+<div class="section-title red-bar">
+Jammu Kashmir
+</div>
 
 <div class="cards two">
 
+
 <article class="card">
-<div class="media placeholder maroon" id="jk1-media">JK</div>
-<div class="card-body" id="jk1-body">
-<h3>Coming Soon</h3>
-<p>Reporting from Jammu Kashmir will appear here.</p>
+
+<div class="media placeholder maroon" id="jk1-media">
+JK
 </div>
+
+<div class="card-body" id="jk1-body">
+
+<h3>Coming Soon</h3>
+
+<p>Reporting from Jammu & Kashmir will appear here.</p>
+
+</div>
+
 </article>
 
 
 <article class="card">
-<div class="media placeholder maroon" id="jk2-media">JK</div>
-<div class="card-body" id="jk2-body">
-<h3>Coming Soon</h3>
-<p>Additional coverage will be added.</p>
+
+<div class="media placeholder maroon" id="jk2-media">
+JK
 </div>
+
+<div class="card-body" id="jk2-body">
+
+<h3>Coming Soon</h3>
+
+<p>Additional coverage will be added.</p>
+
+</div>
+
 </article>
 
 </div>
@@ -339,89 +391,64 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 </section>
 
 
+
+<!-- VLOGS -->
 
 <section id="vlogs">
 
-<div class="section-title red-bar">Video Reports & Vlogs</div>
+<div class="section-title red-bar">
+Video Reports & Vlogs
+</div>
 
 <div class="cards three vlogs-grid">
 
-<article class="card vlog-card">
-
-<div class="media vlog-thumb">
-<div class="play-icon">▶</div>
-</div>
-
-<div class="card-body">
-
-<h3>Exclusive Interview</h3>
-
-<p>Documentary style video reports and interviews.</p>
-
-</div>
-
-</article>
-
-
-<article class="card vlog-card">
-
-<div class="media vlog-thumb">
-<div class="play-icon">▶</div>
-</div>
-
-<div class="card-body">
-
-<h3>Current Affairs</h3>
-
-<p>Ground reports and updates.</p>
-
-</div>
-
-</article>
-
-
-<article class="card vlog-card">
-
-<div class="media vlog-thumb">
-<div class="play-icon">▶</div>
-</div>
-
-<div class="card-body">
-
-<h3>Analysis</h3>
-
-<p>Expert breakdown and analysis.</p>
-
-</div>
-
-</article>
+<div class="vlog-thumb"><div class="play-icon">▶</div></div>
+<div class="vlog-thumb"><div class="play-icon">▶</div></div>
+<div class="vlog-thumb"><div class="play-icon">▶</div></div>
 
 </div>
 
 </section>
 
 
+
+<!-- INTERNATIONAL -->
 
 <section id="international">
 
-<div class="section-title red-bar">International News</div>
+<div class="section-title red-bar">
+International News
+</div>
 
 <div class="cards two">
 
 <article class="card">
+
 <div class="media placeholder maroon" id="intl1-media">Intl</div>
+
 <div class="card-body" id="intl1-body">
+
 <h3>Coming Soon</h3>
+
 <p>International coverage will appear here.</p>
+
 </div>
+
 </article>
 
+
 <article class="card">
+
 <div class="media placeholder maroon" id="intl2-media">Intl</div>
+
 <div class="card-body" id="intl2-body">
+
 <h3>Coming Soon</h3>
+
 <p>Additional international reports will be added.</p>
+
 </div>
+
 </article>
 
 </div>
@@ -429,27 +456,44 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 </section>
 
 
+
+<!-- HUMAN RIGHTS -->
 
 <section id="human-rights">
 
-<div class="section-title red-bar">Human Rights</div>
+<div class="section-title red-bar">
+Human Rights
+</div>
 
 <div class="cards two">
 
 <article class="card">
+
 <div class="media placeholder maroon" id="hr1-media">HR</div>
+
 <div class="card-body" id="hr1-body">
+
 <h3>Coming Soon</h3>
+
 <p>Human rights documentation will appear here.</p>
+
 </div>
+
 </article>
 
+
 <article class="card">
+
 <div class="media placeholder maroon" id="hr2-media">HR</div>
+
 <div class="card-body" id="hr2-body">
+
 <h3>Coming Soon</h3>
+
 <p>Further human rights reports will be added.</p>
+
 </div>
+
 </article>
 
 </div>
@@ -457,20 +501,28 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 </section>
 
 
+
+<!-- ARCHIVE -->
 
 <section id="archive">
 
-<div class="section-title red-bar">Archive</div>
+<div class="section-title red-bar">
+Archive
+</div>
 
-<p>Coming Soon — curated archive of articles reports and documents.</p>
+<p>Coming Soon — curated archive of articles, reports, and documents.</p>
 
 </section>
 
 
 
+<!-- E-PAPER -->
+
 <section id="epaper">
 
-<div class="section-title red-bar">E-Paper Upload</div>
+<div class="section-title red-bar">
+E-Paper Upload
+</div>
 
 <form class="epaper-form">
 
@@ -484,47 +536,33 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 
 
 
+<!-- NEWSLETTER -->
+
 <section id="newsletter">
 
-<div class="section-title red-bar">Newsletter</div>
-
-<form class="newsletter-form">
+<div class="section-title red-bar">
+Newsletter
+</div>
 
 <input type="email" placeholder="your@email.com">
 
 <button class="btn-red">Subscribe</button>
 
-</form>
-
 </section>
 
 
 
+<!-- CONTACT -->
+
 <section id="contact">
 
-<div class="section-title red-bar">Contact</div>
+<div class="section-title red-bar">
+Contact
+</div>
 
 <p>Email: contact@themirrorjk.com • Phone: +41 783 13 12 13</p>
 
-<button id="contactBtn" class="btn-red">Open Contact Form</button>
-
-<div id="contactModal" class="modal hidden">
-
-<div class="modal-content">
-
-<span id="closeContact" class="close">&times;</span>
-
-<h3>Contact Us</h3>
-
-<input type="text" placeholder="Your name">
-<input type="email" placeholder="Your email">
-<textarea placeholder="Your message"></textarea>
-
-<button class="btn-red">Send</button>
-
-</div>
-
-</div>
+<button class="btn-red">Open Contact Form</button>
 
 </section>
 
@@ -550,7 +588,7 @@ CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYO
 
 
 
-<script src="script.js"></script>
+<script src="script.js?v=19"></script>
 
 </body>
 </html>
