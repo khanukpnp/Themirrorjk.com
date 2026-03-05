@@ -1,82 +1,37 @@
 // script.js
-// The Mirror Jammu Kashmir – unified frontend logic
-// - Vlog 3-window horizontal layout (main page)
-// - Vlog archive with 9-per-page grid + pagination
-// - Archives for all sections with 9-per-page grid + pagination
-// - Unified article renderer (all sections)
-// - Inline image float engine (35–40% Reuters style via CSS classes)
-// - Important-points block rendering
-// - Routing by ID prefix
-// - Action buttons wiring (Like, Subscribe, Share, Copy Link)
-// -----------------------------------------------------------------------------
-// Assumptions (aligned with your repo):
-// JSON files live in /content/:
-//   latest-001.json, latest-archive.json
-//   editorial.json, editorial-archive.json
-//   breaking.json, breaking-archive.json
-//   blog.json, blog-archive.json
-//   humanrights.json, humanrights-archive.json
-//   international.json, international-archive.json
-//   jk.json, jk-archive.json
-//   historical.json, historical-archive.json
-//   chief-editor.json
-//   youtube.json, youtube-archive.json
-//   articles.json (for generic article listing if needed)
-//   index.json (for homepage blocks if needed)
-//
-// HTML expectations (you can adapt IDs/classes in your templates):
-//   - Vlog main grid container:        #vlog-grid
-//   - Vlog "Visit Channel" button:     #vlog-visit-channel
-//   - Vlog archive grid container:     #vlog-archive-grid
-//   - Vlog archive pagination:         #vlog-archive-pagination
-//
-//   - Archive grids (per section):     #latest-archive-grid, #editorial-archive-grid, etc.
-//   - Archive paginations:             #latest-archive-pagination, #editorial-archive-pagination, etc.
-//
-//   - Article page containers:
-//       #article-title
-//       #article-meta
-//       #article-body
-//       #article-hero
-//
-//   - Action buttons (optional):
-//       .btn-like
-//       .btn-subscribe
-//       .btn-share
-//       .btn-copy-link
-//
-// You can adjust selectors to match your actual HTML.
-// -----------------------------------------------------------------------------
+// THE MIRROR JAMMU KASHMIR
+// - Homepage loader (Top Stories, Latest/Editorial/Historical)
+// - Vlog 3-window layout on homepage
+// - Article renderer (Reuters/BBC style, hero + inline images 35–40%)
+// - Action buttons (Like, Subscribe, Share, Copy Link)
+// - Loader + footer year
+// ---------------------------------------------------------------------
 
 (function () {
   "use strict";
 
-  // ---------------------------------------------------------------------------
-  // Utility helpers
-  // ---------------------------------------------------------------------------
-
   const CONTENT_BASE = "content/";
 
+  // ------------------------------------------------------------
+  // Helpers
+  // ------------------------------------------------------------
   function fetchJSON(path) {
     return fetch(path, { cache: "no-cache" })
       .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to load " + path + " (" + res.status + ")");
-        }
+        if (!res.ok) throw new Error("Failed to load " + path);
         return res.json();
       })
       .catch((err) => {
         console.error("JSON load error:", path, err);
-        return [];
+        return null;
       });
   }
 
-  function byDateDesc(a, b) {
-    // We respect whatever date string you put in JSON.
-    // For sorting, we try Date parsing; if it fails, we keep original order.
-    const da = Date.parse(a.date || "") || 0;
-    const db = Date.parse(b.date || "") || 0;
-    return db - da;
+  function normalizeItems(data) {
+    if (!data) return [];
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data.items)) return data.items;
+    return [];
   }
 
   function getQueryParam(name) {
@@ -92,105 +47,192 @@
   }
 
   function clearEl(el) {
-    while (el && el.firstChild) {
-      el.removeChild(el.firstChild);
+    if (!el) return;
+    while (el.firstChild) el.removeChild(el.firstChild);
+  }
+
+  // ------------------------------------------------------------
+  // HOMEPAGE LOADER
+  // ------------------------------------------------------------
+
+  // Mapping (as you defined)
+  const HOMEPAGE_SOURCES = {
+    lead: CONTENT_BASE + "articles.json",
+    breaking: CONTENT_BASE + "breaking.json",
+    opinion: CONTENT_BASE + "blog.json",
+    latestLeft: CONTENT_BASE + "latest-001.json",
+    editorialMiddle: CONTENT_BASE + "editorial.json",
+    historicalRight: CONTENT_BASE + "latest-002.json", // make sure to upload this
+  };
+
+  function pickTopItem(items) {
+    if (!items || !items.length) return null;
+    return items[0]; // topmost appears on homepage
+  }
+
+  function resolveHeroImage(item) {
+    if (!item) return null;
+    if (item.heroImage && typeof item.heroImage === "object") {
+      return {
+        src: item.heroImage.src || "",
+        caption: item.heroImage.caption || "",
+        credit: item.heroImage.credit || "",
+      };
+    }
+    if (typeof item.heroImage === "string") {
+      return { src: item.heroImage, caption: "", credit: "" };
+    }
+    if (item.image) {
+      return { src: item.image, caption: "", credit: "" };
+    }
+    if (item.thumbnail) {
+      return { src: item.thumbnail, caption: "", credit: "" };
+    }
+    return null;
+  }
+
+  function fillCard(mediaId, bodyId, item, fallbackTitle, fallbackText) {
+    const mediaEl = document.getElementById(mediaId);
+    const bodyEl = document.getElementById(bodyId);
+    if (!mediaEl || !bodyEl) return;
+
+    clearEl(mediaEl);
+    clearEl(bodyEl);
+
+    const hero = resolveHeroImage(item);
+
+    if (hero && hero.src) {
+      const img = createEl("img");
+      img.src = hero.src;
+      img.alt = item && item.title ? item.title : fallbackTitle || "";
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.objectFit = "cover";
+      mediaEl.classList.remove("placeholder", "maroon");
+      mediaEl.appendChild(img);
+    } else {
+      mediaEl.textContent = fallbackTitle || "Coming Soon";
+    }
+
+    const title = createEl("h3", null, item && item.title ? item.title : fallbackTitle || "Coming Soon");
+    const p = createEl(
+      "p",
+      null,
+      item && item.excerpt
+        ? item.excerpt
+        : fallbackText || "Content will be added shortly."
+    );
+
+    bodyEl.appendChild(title);
+    bodyEl.appendChild(p);
+
+    if (item && item.id) {
+      const link = createEl("a", null, "Read More →");
+      link.href = "editorial.html?id=" + encodeURIComponent(item.id);
+      link.style.display = "inline-block";
+      link.style.marginTop = "6px";
+      bodyEl.appendChild(link);
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // Config for sections and archives
-  // ---------------------------------------------------------------------------
+  function initHomepage() {
+    const topStoriesSection = document.getElementById("top-stories");
+    if (!topStoriesSection) return; // not on homepage
 
-  const SECTION_CONFIG = {
-    latest: {
-      key: "latest",
-      mainJson: CONTENT_BASE + "latest-001.json",
-      archiveJson: CONTENT_BASE + "latest-archive.json",
-      archiveGridId: "latest-archive-grid",
-      archivePaginationId: "latest-archive-pagination",
-    },
-    editorial: {
-      key: "editorial",
-      mainJson: CONTENT_BASE + "editorial.json",
-      archiveJson: CONTENT_BASE + "editorial-archive.json",
-      archiveGridId: "editorial-archive-grid",
-      archivePaginationId: "editorial-archive-pagination",
-    },
-    breaking: {
-      key: "breaking",
-      mainJson: CONTENT_BASE + "breaking.json",
-      archiveJson: CONTENT_BASE + "breaking-archive.json",
-      archiveGridId: "breaking-archive-grid",
-      archivePaginationId: "breaking-archive-pagination",
-    },
-    blog: {
-      key: "blog",
-      mainJson: CONTENT_BASE + "blog.json",
-      archiveJson: CONTENT_BASE + "blog-archive.json",
-      archiveGridId: "blog-archive-grid",
-      archivePaginationId: "blog-archive-pagination",
-    },
-    humanrights: {
-      key: "humanrights",
-      mainJson: CONTENT_BASE + "humanrights.json",
-      archiveJson: CONTENT_BASE + "humanrights-archive.json",
-      archiveGridId: "humanrights-archive-grid",
-      archivePaginationId: "humanrights-archive-pagination",
-    },
-    international: {
-      key: "international",
-      mainJson: CONTENT_BASE + "international.json",
-      archiveJson: CONTENT_BASE + "international-archive.json",
-      archiveGridId: "international-archive-grid",
-      archivePaginationId: "international-archive-pagination",
-    },
-    jk: {
-      key: "jk",
-      mainJson: CONTENT_BASE + "jk.json",
-      archiveJson: CONTENT_BASE + "jk-archive.json",
-      archiveGridId: "jk-archive-grid",
-      archivePaginationId: "jk-archive-pagination",
-    },
-    historical: {
-      key: "historical",
-      mainJson: CONTENT_BASE + "historical.json",
-      archiveJson: CONTENT_BASE + "historical-archive.json",
-      archiveGridId: "historical-archive-grid",
-      archivePaginationId: "historical-archive-pagination",
-    },
-    chiefEditor: {
-      key: "chief-editor",
-      mainJson: CONTENT_BASE + "chief-editor.json",
-      archiveJson: null,
-      archiveGridId: null,
-      archivePaginationId: null,
-    },
-  };
+    // Lead
+    fetchJSON(HOMEPAGE_SOURCES.lead).then((data) => {
+      const items = normalizeItems(data);
+      const item = pickTopItem(items);
+      fillCard(
+        "lead-media",
+        "lead-body",
+        item,
+        "Lead Story",
+        "Lead story will appear here."
+      );
+    });
 
-  // Vlog / YouTube config
+    // Breaking
+    fetchJSON(HOMEPAGE_SOURCES.breaking).then((data) => {
+      const items = normalizeItems(data);
+      const item = pickTopItem(items);
+      fillCard(
+        "breaking-media",
+        "breaking-body",
+        item,
+        "Breaking News",
+        "Breaking news will appear here."
+      );
+    });
+
+    // Opinion
+    fetchJSON(HOMEPAGE_SOURCES.opinion).then((data) => {
+      const items = normalizeItems(data);
+      const item = pickTopItem(items);
+      fillCard(
+        "opinion-media",
+        "opinion-body",
+        item,
+        "Opinion",
+        "Opinion and blog will appear here."
+      );
+    });
+
+    // Latest (left)
+    fetchJSON(HOMEPAGE_SOURCES.latestLeft).then((data) => {
+      const items = normalizeItems(data);
+      const item = pickTopItem(items);
+      fillCard(
+        "leh1-media",
+        "leh1-body",
+        item,
+        "Latest",
+        "Latest content will be added shortly."
+      );
+    });
+
+    // Editorial (middle)
+    fetchJSON(HOMEPAGE_SOURCES.editorialMiddle).then((data) => {
+      const items = normalizeItems(data);
+      const item = pickTopItem(items);
+      fillCard(
+        "leh2-media",
+        "leh2-body",
+        item,
+        "Editorial",
+        "Editorial content will be added shortly."
+      );
+    });
+
+    // Historical (right) – from latest-002.json
+    fetchJSON(HOMEPAGE_SOURCES.historicalRight).then((data) => {
+      const items = normalizeItems(data);
+      const item = pickTopItem(items);
+      fillCard(
+        "leh3-media",
+        "leh3-body",
+        item,
+        "Historical",
+        "Historical content will be added shortly."
+      );
+    });
+
+    // JK, International, HR remain “Coming Soon” as you requested
+  }
+
+  // ------------------------------------------------------------
+  // VLOG – HOMEPAGE 3-WINDOW LAYOUT
+  // ------------------------------------------------------------
+
   const VLOG_CONFIG = {
     mainJson: CONTENT_BASE + "youtube.json",
-    archiveJson: CONTENT_BASE + "youtube-archive.json",
     mainGridId: "vlog-grid",
     visitChannelId: "vlog-visit-channel",
-    archiveGridId: "vlog-archive-grid",
-    archivePaginationId: "vlog-archive-pagination",
-    // You can change this to your real channel URL:
     channelUrl: "https://www.youtube.com/",
   };
 
-  const ITEMS_PER_PAGE = 9;
-
-  // ---------------------------------------------------------------------------
-  // Vlog main page – 3 horizontal windows
-  // ---------------------------------------------------------------------------
-
-  function buildYouTubeThumbnail(video) {
-    // We use YouTube's own thumbnails (your choice A).
-    // Expecting video.videoId in JSON.
-    if (video.thumbnail && video.thumbnail.indexOf("http") === 0) {
-      return video.thumbnail;
-    }
+  function buildYouTubeThumb(video) {
+    if (video.thumbnail && video.thumbnail.startsWith("http")) return video.thumbnail;
     if (video.videoId) {
       return "https://img.youtube.com/vi/" + video.videoId + "/hqdefault.jpg";
     }
@@ -200,48 +242,37 @@
   function renderVlogMain(videos) {
     const container = document.getElementById(VLOG_CONFIG.mainGridId);
     if (!container) return;
-
     clearEl(container);
 
-    // Sort newest → oldest
-    videos.sort(byDateDesc);
-
-    const topThree = videos.slice(0, 3);
+    const topThree = (videos || []).slice(0, 3);
 
     topThree.forEach((video) => {
-      const card = createEl("article", "vlog-card");
+      const card = createEl("article", "card");
+      const media = createEl("div", "media");
+      const thumb = buildYouTubeThumb(video);
 
-      const thumbUrl = buildYouTubeThumbnail(video);
-      if (thumbUrl) {
-        const img = createEl("img", "vlog-thumb");
-        img.src = thumbUrl;
+      if (thumb) {
+        const img = createEl("img");
+        img.src = thumb;
         img.alt = video.title || "Video";
-        card.appendChild(img);
+        media.appendChild(img);
+      } else {
+        media.textContent = "Video";
       }
 
-      const body = createEl("div", "vlog-card-body");
+      const body = createEl("div", "card-body");
+      const title = createEl("h3", null, video.title || "Untitled video");
+      const p = createEl(
+        "p",
+        null,
+        video.excerpt || video.description || "Video report."
+      );
 
-      if (video.title) {
-        const titleEl = createEl("h3", "vlog-title", video.title);
-        body.appendChild(titleEl);
-      }
+      body.appendChild(title);
+      body.appendChild(p);
 
-      const meta = createEl("div", "vlog-meta");
-      if (video.category) {
-        const cat = createEl("span", "vlog-category", video.category);
-        meta.appendChild(cat);
-      }
-      if (video.date) {
-        const date = createEl("span", "vlog-date", video.date);
-        meta.appendChild(date);
-      }
-      if (meta.childNodes.length > 0) {
-        body.appendChild(meta);
-      }
-
-      const actions = createEl("div", "vlog-actions");
-      const playBtn = createEl("button", "btn btn-play", "Play");
-      playBtn.addEventListener("click", () => {
+      const btn = createEl("button", "btn-red", "Play");
+      btn.addEventListener("click", () => {
         if (video.url) {
           window.open(video.url, "_blank", "noopener");
         } else if (video.videoId) {
@@ -252,14 +283,13 @@
           );
         }
       });
-      actions.appendChild(playBtn);
-      body.appendChild(actions);
+      body.appendChild(btn);
 
+      card.appendChild(media);
       card.appendChild(body);
       container.appendChild(card);
     });
 
-    // Visit Channel button
     const visitBtn = document.getElementById(VLOG_CONFIG.visitChannelId);
     if (visitBtn) {
       visitBtn.addEventListener("click", () => {
@@ -268,68 +298,282 @@
     }
   }
 
-  function initVlogMain() {
+  function initVlogHomepage() {
     const container = document.getElementById(VLOG_CONFIG.mainGridId);
-    if (!container) return; // Not on vlog main page
-
-    fetchJSON(VLOG_CONFIG.mainJson).then((videos) => {
-      if (!Array.isArray(videos)) videos = [];
-      renderVlogMain(videos);
+    if (!container) return;
+    fetchJSON(VLOG_CONFIG.mainJson).then((data) => {
+      const items = normalizeItems(data);
+      renderVlogMain(items);
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // Vlog archive – 9 per page + pagination
-  // ---------------------------------------------------------------------------
+  // ------------------------------------------------------------
+  // ARTICLE RENDERER (EDITORIAL STYLE)
+  // ------------------------------------------------------------
 
-  function renderPagination(container, currentPage, totalPages, onPageChange) {
-    if (!container) return;
-    clearEl(container);
+  // Decide which JSON to use based on URL
+  function detectArticleSource() {
+    const path = window.location.pathname.toLowerCase();
 
-    if (totalPages <= 1) return;
+    if (path.includes("editorial")) {
+      return { json: CONTENT_BASE + "editorial.json", defaultId: "editorial-001" };
+    }
+    if (path.includes("blog")) {
+      return { json: CONTENT_BASE + "blog.json", defaultId: null };
+    }
+    if (path.includes("breaking")) {
+      return { json: CONTENT_BASE + "breaking.json", defaultId: null };
+    }
+    if (path.includes("article")) {
+      return { json: CONTENT_BASE + "articles.json", defaultId: null };
+    }
+    return null;
+  }
 
-    const prev = createEl("button", "pagination-prev", "<");
-    prev.disabled = currentPage === 1;
-    prev.addEventListener("click", () => {
-      if (currentPage > 1) onPageChange(currentPage - 1);
-    });
-    container.appendChild(prev);
+  function renderArticleMeta(metaEl, item) {
+    clearEl(metaEl);
+    if (!item) return;
 
-    for (let p = 1; p <= totalPages; p++) {
-      const btn = createEl("button", "pagination-page", String(p));
-      if (p === currentPage) {
-        btn.classList.add("is-active");
+    const bits = [];
+
+    if (item.category) bits.push(item.category);
+    if (item.author) bits.push(item.author);
+    if (item.location) bits.push(item.location);
+    if (item.date) bits.push(item.date);
+    if (item.readTime) bits.push(item.readTime);
+
+    metaEl.textContent = bits.join(" • ");
+  }
+
+  function renderArticleBody(contentEl, bodyBlocks) {
+    clearEl(contentEl);
+    if (!Array.isArray(bodyBlocks)) return;
+
+    bodyBlocks.forEach((block) => {
+      if (!block || !block.type) return;
+
+      let el = null;
+
+      if (block.type === "header") {
+        el = createEl("h2", null, block.text || "");
+      } else if (block.type === "paragraph") {
+        el = createEl("p", null, block.text || "");
+      } else if (block.type === "points") {
+        el = createEl("div", "important-points");
+        const ul = createEl("ul");
+        (block.items || []).forEach((pt) => {
+          const li = createEl("li", null, pt);
+          ul.appendChild(li);
+        });
+        el.appendChild(ul);
+      } else if (block.type === "image") {
+        const figure = document.createElement("figure");
+        const align = (block.align || "").toLowerCase();
+
+        if (align === "left") {
+          figure.className = "image-left";
+        } else if (align === "right") {
+          figure.className = "image-right";
+        } else {
+          // center / default full width
+          figure.style.margin = "20px 0";
+        }
+
+        const img = createEl("img");
+        img.src = block.src;
+        img.alt = block.caption || "";
+        figure.appendChild(img);
+
+        if (block.caption || block.credit) {
+          const cap = createEl(
+            "figcaption",
+            null,
+            (block.caption || "") +
+              (block.credit ? " — " + block.credit : "")
+          );
+          figure.appendChild(cap);
+        }
+
+        el = figure;
       }
-      btn.addEventListener("click", () => {
-        if (p !== currentPage) onPageChange(p);
-      });
-      container.appendChild(btn);
+
+      if (el) contentEl.appendChild(el);
+    });
+  }
+
+  function initArticlePage() {
+    const titleEl = document.getElementById("title");
+    const metaEl = document.getElementById("meta");
+    const heroWrap = document.getElementById("heroWrap");
+    const heroImg = document.getElementById("heroImg");
+    const heroCaption = document.getElementById("heroCaption");
+    const contentEl = document.getElementById("content");
+
+    if (!titleEl || !metaEl || !heroWrap || !heroImg || !heroCaption || !contentEl) {
+      return; // not on article page
     }
 
-    const next = createEl("button", "pagination-next", "Next >");
-    next.disabled = currentPage === totalPages;
-    next.addEventListener("click", () => {
-      if (currentPage < totalPages) onPageChange(currentPage + 1);
+    const srcInfo = detectArticleSource();
+    if (!srcInfo) return;
+
+    const requestedId = getQueryParam("id");
+    fetchJSON(srcInfo.json).then((data) => {
+      const items = normalizeItems(data);
+      if (!items.length) return;
+
+      let article = null;
+      if (requestedId) {
+        article = items.find((it) => it.id === requestedId);
+      }
+      if (!article && srcInfo.defaultId) {
+        article = items.find((it) => it.id === srcInfo.defaultId);
+      }
+      if (!article) {
+        article = items[0];
+      }
+      if (!article) return;
+
+      // Title
+      titleEl.textContent = article.title || "Untitled";
+
+      // Meta
+      renderArticleMeta(metaEl, article);
+
+      // Hero
+      const hero = resolveHeroImage(article);
+      if (hero && hero.src) {
+        heroImg.src = hero.src;
+        heroImg.alt = article.title || "";
+        heroCaption.textContent =
+          (hero.caption || "") +
+          (hero.credit ? " — " + hero.credit : "");
+        heroWrap.style.display = "";
+      } else {
+        heroWrap.style.display = "none";
+      }
+
+      // Body
+      renderArticleBody(contentEl, article.body || article.blocks || []);
     });
-    container.appendChild(next);
   }
 
-  function renderVlogArchivePage(videos, page) {
-    const grid = document.getElementById(VLOG_CONFIG.archiveGridId);
-    const pagination = document.getElementById(VLOG_CONFIG.archivePaginationId);
-    if (!grid) return;
+  // ------------------------------------------------------------
+  // ACTION BUTTONS
+  // ------------------------------------------------------------
 
-    clearEl(grid);
+  function initActions() {
+    const likeBtn = document.getElementById("likeBtn");
+    const likeCount = document.getElementById("likeCount");
+    const subBtn = document.getElementById("subBtn");
+    const shareBtn = document.getElementById("shareBtn");
+    const copyBtn = document.getElementById("copyBtn");
 
-    videos.sort(byDateDesc);
+    if (likeBtn && likeCount) {
+      let count = 0;
+      likeBtn.addEventListener("click", () => {
+        count += 1;
+        likeCount.textContent = String(count);
+      });
+    }
 
-    const totalItems = videos.length;
-    const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
-    const currentPage = Math.min(Math.max(1, page), totalPages);
+    if (subBtn) {
+      subBtn.addEventListener("click", () => {
+        subBtn.textContent =
+          subBtn.textContent.indexOf("Subscribed") === -1
+            ? "✅ Subscribed"
+            : "🔔 Subscribe";
+      });
+    }
 
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    const pageItems = videos.slice(start, end);
+    if (shareBtn) {
+      shareBtn.addEventListener("click", () => {
+        if (navigator.share) {
+          navigator
+            .share({
+              title: document.title,
+              url: window.location.href,
+            })
+            .catch(() => {});
+        } else {
+          alert("Sharing is not supported in this browser.");
+        }
+      });
+    }
 
-    pageItems.forEach((video) => {
-      const card = createEl("article", "archive-card vlog-archive
+    if (copyBtn) {
+      copyBtn.addEventListener("click", () => {
+        const url = window.location.href;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).catch(() => {});
+        } else {
+          const tmp = document.createElement("input");
+          tmp.value = url;
+          document.body.appendChild(tmp);
+          tmp.select();
+          try {
+            document.execCommand("copy");
+          } catch (e) {}
+          document.body.removeChild(tmp);
+        }
+      });
+    }
+  }
+
+  // ------------------------------------------------------------
+  // CONTACT MODAL + FOOTER YEAR + LOADER
+  // ------------------------------------------------------------
+
+  function initContactModal() {
+    const openBtn = document.getElementById("contact-open");
+    const closeBtn = document.getElementById("contact-close");
+    const modal = document.getElementById("contact-modal");
+
+    if (!modal) return;
+
+    if (openBtn) {
+      openBtn.addEventListener("click", () => {
+        modal.classList.remove("hidden");
+      });
+    }
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => {
+        modal.classList.add("hidden");
+      });
+    }
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.classList.add("hidden");
+    });
+  }
+
+  function initFooterYear() {
+    const yearEl = document.getElementById("year");
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+  }
+
+  function initLoader() {
+    const loader = document.getElementById("site-loader");
+    if (!loader) return;
+    window.addEventListener("load", () => {
+      loader.style.opacity = "0";
+      setTimeout(() => {
+        loader.style.display = "none";
+      }, 400);
+    });
+  }
+
+  // ------------------------------------------------------------
+  // INIT
+  // ------------------------------------------------------------
+
+  document.addEventListener("DOMContentLoaded", () => {
+    initHomepage();
+    initVlogHomepage();
+    initArticlePage();
+    initActions();
+    initContactModal();
+    initFooterYear();
+    initLoader();
+  });
+})();
