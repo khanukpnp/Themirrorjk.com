@@ -1,7 +1,12 @@
-// ================== HELPERS ==================
-const $ = (s, c = document) => c.querySelector(s);
-const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+/* ============================================================
+   SHORTCUTS
+============================================================ */
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
+/* ============================================================
+   SAFE JSON LOADER (NO CRASH IF FILE MISSING OR INVALID)
+============================================================ */
 async function safeJSON(path) {
   try {
     const res = await fetch(path + "?v=" + Date.now(), { cache: "no-store" });
@@ -14,7 +19,9 @@ async function safeJSON(path) {
   }
 }
 
-// ================== BOOTSTRAP ==================
+/* ============================================================
+   BOOTSTRAP
+============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
   updateYear();
   updateTimes();
@@ -39,13 +46,17 @@ window.addEventListener("load", () => {
   }
 });
 
-// ================== YEAR ==================
+/* ============================================================
+   YEAR
+============================================================ */
 function updateYear() {
   const y = $("#year");
   if (y) y.textContent = new Date().getFullYear();
 }
 
-// ================== CLOCKS ==================
+/* ============================================================
+   CLOCKS
+============================================================ */
 function updateTimes() {
   const now = new Date();
 
@@ -87,7 +98,9 @@ function updateTimes() {
   }
 }
 
-// ================== CALENDARS ==================
+/* ============================================================
+   CALENDARS
+============================================================ */
 function updateCalendars() {
   const now = new Date();
 
@@ -118,7 +131,9 @@ function updateCalendars() {
   }
 }
 
-// ================== WEATHER ==================
+/* ============================================================
+   WEATHER BAR
+============================================================ */
 async function loadWeather() {
   const bar = $("#weather-bar");
   if (!bar) return;
@@ -154,7 +169,9 @@ async function loadWeather() {
   }
 }
 
-// ================== TICKER ==================
+/* ============================================================
+   TICKER
+============================================================ */
 async function loadTicker() {
   const list = $("#ticker-items");
   if (!list) return;
@@ -178,7 +195,9 @@ async function loadTicker() {
   });
 }
 
-// ================== HOMEPAGE ==================
+/* ============================================================
+   HOMEPAGE CONTENT
+============================================================ */
 async function loadHomepage() {
   if (!$("#top-stories")) return;
 
@@ -193,7 +212,6 @@ async function loadHomepage() {
   const hr = await safeJSON("content/humanrights.json");
   const jk = await safeJSON("content/jk.json");
   const historical = await safeJSON("content/historical.json");
-  const latest = await safeJSON("content/latest.json");
   const latest001 = await safeJSON("content/latest-001.json");
 
   const all = [
@@ -205,57 +223,44 @@ async function loadHomepage() {
     ...(hr.items || []),
     ...(jk.items || []),
     ...(historical.items || []),
-    ...(latest.items || []),
     ...(latest001.items || [])
   ];
 
   const find = id => all.find(a => a.id === id);
 
-  // Top Stories
-  if (index.homepage.topStories) {
-    const ts = index.homepage.topStories;
-    fillCard(find(ts.lead), "#lead-media", "#lead-body");
-    fillCard(find(ts.breaking), "#breaking-media", "#breaking-body");
-    fillCard(find(ts.opinion), "#opinion-media", "#opinion-body");
-  }
+  const ts = index.homepage.topStories;
+  fillCard(find(ts.lead), "#lead-media", "#lead-body");
+  fillCard(find(ts.breaking), "#breaking-media", "#breaking-body");
+  fillCard(find(ts.opinion), "#opinion-media", "#opinion-body");
 
-  // Latest / Editorial / Historical
-  if (index.homepage.latestEditorialHistorical) {
-    const leh = index.homepage.latestEditorialHistorical;
-    fillCard(find(leh.latest), "#leh1-media", "#leh1-body");
-    fillCard(find(leh.editorial), "#leh2-media", "#leh2-body");
-    fillCard(find(leh.historical), "#leh3-media", "#leh3-body");
-  }
+  const leh = index.homepage.latestEditorialHistorical;
+  fillCard(find(leh.latest), "#leh1-media", "#leh1-body");
+  fillCard(find(leh.editorial), "#leh2-media", "#leh2-body");
+  fillCard(find(leh.historical), "#leh3-media", "#leh3-body");
 
-  // Jammu Kashmir
-  if (Array.isArray(index.homepage.jammuKashmir)) {
-    fillCard(find(index.homepage.jammuKashmir[0]), "#jk1-media", "#jk1-body");
-    fillCard(find(index.homepage.jammuKashmir[1]), "#jk2-media", "#jk2-body");
-  }
+  fillCard(find(index.homepage.jammuKashmir?.[0]), "#jk1-media", "#jk1-body");
+  fillCard(find(index.homepage.jammuKashmir?.[1]), "#jk2-media", "#jk2-body");
 
-  // International
-  if (Array.isArray(index.homepage.international)) {
-    fillCard(find(index.homepage.international[0]), "#intl1-media", "#intl1-body");
-    fillCard(find(index.homepage.international[1]), "#intl2-media", "#intl2-body");
-  }
+  fillCard(find(index.homepage.international?.[0]), "#intl1-media", "#intl1-body");
+  fillCard(find(index.homepage.international?.[1]), "#intl2-media", "#intl2-body");
 
-  // Human Rights
-  if (Array.isArray(index.homepage.humanRights)) {
-    fillCard(find(index.homepage.humanRights[0]), "#hr1-media", "#hr1-body");
-    fillCard(find(index.homepage.humanRights[1]), "#hr2-media", "#hr2-body");
-  }
+  fillCard(find(index.homepage.humanRights?.[0]), "#hr1-media", "#hr1-body");
+  fillCard(find(index.homepage.humanRights?.[1]), "#hr2-media", "#hr2-body");
 }
 
-// ================== CARD RENDERER ==================
+/* ============================================================
+   CARD RENDERER
+============================================================ */
 function getArticleUrl(item) {
   if (!item || !item.id) return "#";
+
   const id = item.id;
 
   if (id.startsWith("article-")) return `article.html?id=${id}`;
   if (id.startsWith("breaking-")) return `breaking.html?id=${id}`;
   if (id.startsWith("blog-")) return `blog.html?id=${id}`;
   if (id.startsWith("editorial-")) return `editorial.html?id=${id}`;
-  if (id.startsWith("latest-")) return `article.html?id=${id}`; // latest-001 via article.html
+  if (id.startsWith("latest-")) return `latest-001.html?id=${id}`;
   if (id.startsWith("chief-")) return `chief-editor.html?id=${id}`;
 
   return `article.html?id=${id}`;
@@ -286,7 +291,9 @@ function fillCard(item, mediaSel, bodySel) {
   `;
 }
 
-// ================== NAVIGATION ==================
+/* ============================================================
+   NAVIGATION + MOBILE MENU
+============================================================ */
 function setupNav() {
   const hamburger = $("#hamburger");
   const navList = $("#nav-list");
@@ -316,7 +323,9 @@ function setupNav() {
   });
 }
 
-// ================== CONTACT MODAL ==================
+/* ============================================================
+   CONTACT MODAL
+============================================================ */
 function setupContactModal() {
   const openBtn = $("#contact-open");
   const closeBtn = $("#contact-close");
@@ -337,35 +346,27 @@ function setupContactModal() {
   });
 }
 
-// ================== ARTICLE PAGES ==================
+/* ============================================================
+   ARTICLE PAGES (ID‑BASED ROUTING)
+============================================================ */
 function getQueryId() {
   const params = new URLSearchParams(window.location.search);
   return params.get("id");
 }
 
 async function initArticlePage() {
-  const path = window.location.pathname;
   const id = getQueryId();
+  if (!id) return;
 
   let jsonPath = null;
   let mode = "list";
 
-  const p = path.toLowerCase();
-
-  if (p.includes("article.html") || p.endsWith("/article")) {
-    // articles + latest-001 via id prefix
-    if (id && id.startsWith("latest-")) {
-      jsonPath = "content/latest-001.json";
-    } else {
-      jsonPath = "content/articles.json";
-    }
-  } else if (p.includes("blog.html") || p.endsWith("/blog")) {
-    jsonPath = "content/blog.json";
-  } else if (p.includes("editorial.html") || p.endsWith("/editorial")) {
-    jsonPath = "content/editorial.json";
-  } else if (p.includes("breaking.html") || p.endsWith("/breaking")) {
-    jsonPath = "content/breaking.json";
-  } else if (p.includes("chief-editor.html") || p.endsWith("/chief-editor")) {
+  if (id.startsWith("article-")) jsonPath = "content/articles.json";
+  else if (id.startsWith("breaking-")) jsonPath = "content/breaking.json";
+  else if (id.startsWith("blog-")) jsonPath = "content/blog.json";
+  else if (id.startsWith("editorial-")) jsonPath = "content/editorial.json";
+  else if (id.startsWith("latest-")) jsonPath = "content/latest-001.json";
+  else if (id.startsWith("chief-")) {
     jsonPath = "content/chief-editor.json";
     mode = "single";
   } else {
@@ -377,11 +378,7 @@ async function initArticlePage() {
 
   if (mode === "list") {
     const items = data.items || [];
-    if (id) {
-      item = items.find(a => a.id === id) || items[0];
-    } else {
-      item = items[0];
-    }
+    item = items.find(a => a.id === id) || items[0];
   } else {
     item = data;
   }
@@ -392,6 +389,9 @@ async function initArticlePage() {
   initArticleActions();
 }
 
+/* ============================================================
+   ARTICLE RENDERER
+============================================================ */
 function renderArticleItem(item) {
   const sectionLabel = $("#section-label");
   const titleEl = $("#title");
@@ -506,7 +506,9 @@ function renderArticleItem(item) {
   }
 }
 
-// ================== ARTICLE ACTIONS ==================
+/* ============================================================
+   ARTICLE ACTION BUTTONS
+============================================================ */
 function initArticleActions() {
   const likeBtn = $("#likeBtn");
   const likeCount = $("#likeCount");
