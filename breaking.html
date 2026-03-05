@@ -1,54 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title id="page-title">Loading… | THE MIRROR JAMMU KASHMIR</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <base href="./" />
+  <title>Breaking News | THE MIRROR JAMMU KASHMIR</title>
+  <link rel="stylesheet" href="styles.css?v=15" />
 </head>
 
 <body class="article-page theme-maroon">
+  <main class="page-shell article-main">
+    <section class="article-container">
+      <div class="article-shell">
 
-<main class="page-shell article-main">
-<section class="article-container">
-<div class="article-shell">
+        <!-- ARTICLE LABEL -->
+        <div class="section-title red-bar">Breaking News</div>
 
-    <!-- SECTION LABEL -->
-    <div id="section-label" class="section-title red-bar">Loading…</div>
+        <!-- HEADER -->
+        <header class="article-header">
+          <h1 id="b-title">Loading…</h1>
+          <div id="b-meta" class="article-meta"></div>
+        </header>
 
-    <!-- HEADER -->
-    <header class="article-header">
-        <h1 id="title">Loading…</h1>
-        <div id="meta" class="article-meta"></div>
-    </header>
+        <!-- HERO IMAGE (MODEL 1: MAIN IMAGE ONLY) -->
+        <figure id="b-hero" class="article-hero"></figure>
 
-    <!-- HERO IMAGE -->
-    <figure id="heroWrap" class="article-hero">
-        <img id="heroImg" src="" alt="">
-        <figcaption id="heroCaption"></figcaption>
-    </figure>
+        <!-- CONTENT -->
+        <div id="b-content" class="article-content"></div>
+      </div>
+    </section>
+  </main>
 
-    <!-- CONTENT -->
-    <div id="content" class="article-content"></div>
+  <footer class="footer">
+    <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR — All rights reserved.</p>
+  </footer>
 
-    <!-- ACTION BUTTONS -->
-    <div class="page-actions">
-        <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-        <input id="subscribeEmail" type="email" placeholder="Your email…" class="subscribe-input">
-        <button id="subscribeBtn">🔔 Subscribe</button>
-        <button data-share class="share-btn">📣 Share</button>
-        <button data-copy-link class="copy-btn">🔗 Copy Link</button>
-    </div>
+  <script>
+    // ================= YEAR =================
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-</div>
-</section>
-</main>
+    // ================= GET BREAKING ID =================
+    function getBreakingId() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("id");
+    }
 
-<footer class="footer">
-<p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-</footer>
+    // ================= LOAD BREAKING NEWS =================
+    async function loadBreaking() {
+      const id = getBreakingId();
+      if (!id) return;
 
-<script src="script.js"></script>
+      try {
+        const res = await fetch("content/breaking.json", { cache: "no-store" });
+        const data = await res.json();
+        const item = data.items.find(a => a.id === id);
+
+        if (!item) {
+          document.getElementById("b-title").textContent = "Breaking news not found";
+          return;
+        }
+
+        // TITLE
+        document.getElementById("b-title").textContent = item.title;
+
+        // META LINE: AREA · DATE · READ TIME · AUTHOR/DESK
+        // (e.g. London, United Kingdom · 26 Nov 2025 · 12 min read · Special Correspondent)
+        const dateObj = new Date(item.date);
+        const formattedDate = isNaN(dateObj.getTime())
+          ? item.date
+          : dateObj.toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric"
+            });
+
+        document.getElementById("b-meta").innerHTML = `
+          <strong>${item.category}</strong> ·
+          ${item.location} ·
+          ${formattedDate} ·
+          ${item.readTime} ·
+          ${item.author}
+        `;
+
+        // HERO IMAGE (MAIN IMAGE ONLY)
+        const hero = document.getElementById("b-hero");
+        hero.innerHTML = "";
+        if (item.heroImage && item.heroImage.src) {
+          hero.innerHTML = `
+            <img src="${item.heroImage.src}" alt="${item.heroImage.caption || ""}">
+            ${
+              item.heroImage.caption
+                ? `<figcaption>${item.heroImage.caption}${
+                    item.heroImage.credit
+                      ? ` — <em>${item.heroImage.credit}</em>`
+                      : ""
+                  }</figcaption>`
+                : ""
+            }
+          `;
+        }
+
+        // BODY CONTENT
+        const container = document.getElementById("b-content");
+        container.innerHTML = "";
+
+        item.body.forEach(block => {
+          if (block.type === "paragraph") {
+            container.innerHTML += `<p>${block.text}</p>`;
+          }
+
+          if (block.type === "header") {
+            container.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
+          }
+
+          if (block.type === "points") {
+            const items = block.items.map(i => `<li>${i}</li>`).join("");
+            container.innerHTML += `
+              <div class="important-points">
+                <ul>${items}</ul>
+              </div>
+            `;
+          }
+
+          // INLINE IMAGES (MODEL 1: FLOAT LEFT/RIGHT, 35–40% WIDTH)
+          if (block.type === "image") {
+            const align = block.align === "right" ? "right" : "left";
+            container.innerHTML += `
+              <figure class="image-${align}">
+                <img src="${block.src}" alt="${block.caption || ""}">
+                ${
+                  block.caption
+                    ? `<figcaption>${block.caption}${
+                        block.credit ? ` — <em>${block.credit}</em>` : ""
+                      }</figcaption>`
+                    : ""
+                }
+              </figure>
+            `;
+          }
+        });
+      } catch (err) {
+        console.error("Failed to load breaking.json", err);
+        document.getElementById("b-title").textContent = "Error loading breaking news";
+      }
+    }
+
+    loadBreaking();
+  </script>
 </body>
 </html>
