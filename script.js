@@ -2,21 +2,34 @@
    SHORTCUTS
 ============================================================ */
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
-const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
 /* ============================================================
-   INITIAL LOAD
+   SAFE JSON LOADER (NO CRASH IF FILE MISSING OR INVALID)
+============================================================ */
+async function safeJSON(path) {
+  try {
+    const res = await fetch(path + "?v=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) throw new Error("Missing JSON: " + path);
+    const data = await res.json();
+    return data || {};
+  } catch (err) {
+    console.warn("safeJSON fallback for", path, err);
+    return { items: [] };
+  }
+}
+
+/* ============================================================
+   BOOTSTRAP
 ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
   updateYear();
   updateTimes();
   setInterval(updateTimes, 1000);
-
   updateCalendars();
   loadWeather();
   loadTicker();
   loadHomepage();
-
   setupNav();
   setupContactModal();
 
@@ -25,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/* Loader fade-out */
 window.addEventListener("load", () => {
   const loader = $("#site-loader");
   if (loader) {
@@ -87,7 +99,7 @@ function updateTimes() {
 }
 
 /* ============================================================
-   CALENDARS (HIJRI + INDIAN)
+   CALENDARS
 ============================================================ */
 function updateCalendars() {
   const now = new Date();
@@ -120,9 +132,12 @@ function updateCalendars() {
 }
 
 /* ============================================================
-   WEATHER
+   WEATHER BAR
 ============================================================ */
 async function loadWeather() {
+  const bar = $("#weather-bar");
+  if (!bar) return;
+
   const cities = [
     ["Zurich", 47.37, 8.54],
     ["Rawalakot", 33.85, 73.75],
@@ -134,9 +149,6 @@ async function loadWeather() {
     ["Muzaffarabad", 34.37, 73.47]
   ];
 
-  const bar = $("#weather-bar");
-  if (!bar) return;
-
   bar.innerHTML = "";
 
   for (const [name, lat, lon] of cities) {
@@ -144,25 +156,17 @@ async function loadWeather() {
       const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
       const res = await fetch(url);
       const data = await res.json();
-      const temp = data.current_weather.temperature;
-
-      const chip = document.createElement("div");
-      chip.className = "chip tiny";
-      chip.textContent = `${name}: ${temp}°C`;
-      bar.appendChild(chip);
+      const temp = data?.current_weather?.temperature;
+      if (typeof temp === "number") {
+        const chip = document.createElement("div");
+        chip.className = "chip tiny";
+        chip.textContent = `${name}: ${temp}°C`;
+        bar.appendChild(chip);
+      }
     } catch (err) {
-      console.log("Weather error", err);
+      console.warn("Weather error", name, err);
     }
   }
-}
-
-/* ============================================================
-   FETCH JSON
-============================================================ */
-async function fetchJSON(path) {
-  const res = await fetch(path + "?v=" + Date.now(), { cache: "no-store" });
-  if (!res.ok) throw new Error("JSON load error: " + path);
-  return res.json();
 }
 
 /* ============================================================
@@ -172,75 +176,96 @@ async function loadTicker() {
   const list = $("#ticker-items");
   if (!list) return;
 
-  try {
-    const index = await fetchJSON("content/index.json");
-    list.innerHTML = "";
-    (index.ticker || []).forEach(text => {
-      const li = document.createElement("li");
-      li.textContent = text;
-      list.appendChild(li);
-    });
-  } catch (err) {
-    console.log("Ticker error", err);
+  const index = await safeJSON("content/index.json");
+  const items = index.ticker || [];
+
+  list.innerHTML = "";
+
+  if (!items.length) {
+    const li = document.createElement("li");
+    li.textContent = "Latest updates will appear here.";
+    list.appendChild(li);
+    return;
   }
+
+  items.forEach(text => {
+    const li = document.createElement("li");
+    li.textContent = text;
+    list.appendChild(li);
+  });
 }
 
 /* ============================================================
    HOMEPAGE CONTENT
 ============================================================ */
 async function loadHomepage() {
-  try {
-    const index = await fetchJSON("content/index.json");
-    const articles = await fetchJSON("content/articles.json");
-    const editorial = await fetchJSON("content/editorial.json");
-    const blog = await fetchJSON("content/blog.json");
-    const breaking = await fetchJSON("content/breaking.json");
-    const international = await fetchJSON("content/international.json");
-    const hr = await fetchJSON("content/humanrights.json");
-    const jk = await fetchJSON("content/jammu-kashmir.json");
+  // Only run on homepage (where #top-stories exists)
+  if (!$("#top-stories")) return;
 
-    const all = [
-      ...(articles.items || []),
-      ...(editorial.items || []),
-      ...(blog.items || []),
-      ...(breaking.items || []),
-      ...(international.items || []),
-      ...(hr.items || []),
-      ...(jk.items || [])
-    ];
+  const index = await safeJSON("content/index.json");
+  if (!index || !index.homepage) return;
 
-    const find = id => all.find(a => a.id === id);
+  const articles = await safeJSON("content/articles.json");
+  const editorial = await safeJSON("content/editorial.json");
+  const blog = await safeJSON("content/blog.json");
+  const breaking = await safeJSON("content/breaking.json");
+  const international = await safeJSON("content/international.json");
+  const hr = await safeJSON("content/humanrights.json");
+  const jk = await safeJSON("content/jk.json");
+  const historical = await safeJSON("content/historical.json");
+  const latest = await safeJSON("content/latest.json");
 
-    /* TOP STORIES */
-    fillCard(find(index.homepage.topStories.lead), "#lead-media", "#lead-body");
-    fillCard(find(index.homepage.topStories.breaking), "#breaking-media", "#breaking-body");
-    fillCard(find(index.homepage.topStories.opinion), "#opinion-media", "#opinion-body");
+  const all = [
+    ...(articles.items || []),
+    ...(editorial.items || []),
+    ...(blog.items || []),
+    ...(breaking.items || []),
+    ...(international.items || []),
+    ...(hr.items || []),
+    ...(jk.items || []),
+    ...(historical.items || []),
+    ...(latest.items || [])
+  ];
 
-    /* LATEST / EDITORIAL / HISTORICAL */
+  const find = id => all.find(a => a.id === id);
+
+  /* TOP STORIES */
+  if (index.homepage.topStories) {
+    const ts = index.homepage.topStories;
+    fillCard(find(ts.lead), "#lead-media", "#lead-body");
+    fillCard(find(ts.breaking), "#breaking-media", "#breaking-body");
+    fillCard(find(ts.opinion), "#opinion-media", "#opinion-body");
+  }
+
+  /* LATEST / EDITORIAL / HISTORICAL */
+  if (index.homepage.latestEditorialHistorical) {
     const leh = index.homepage.latestEditorialHistorical;
     fillCard(find(leh.latest), "#leh1-media", "#leh1-body");
     fillCard(find(leh.editorial), "#leh2-media", "#leh2-body");
     fillCard(find(leh.historical), "#leh3-media", "#leh3-body");
+  }
 
-    /* JAMMU KASHMIR */
+  /* JAMMU KASHMIR */
+  if (Array.isArray(index.homepage.jammuKashmir)) {
     fillCard(find(index.homepage.jammuKashmir[0]), "#jk1-media", "#jk1-body");
     fillCard(find(index.homepage.jammuKashmir[1]), "#jk2-media", "#jk2-body");
+  }
 
-    /* INTERNATIONAL */
+  /* INTERNATIONAL */
+  if (Array.isArray(index.homepage.international)) {
     fillCard(find(index.homepage.international[0]), "#intl1-media", "#intl1-body");
     fillCard(find(index.homepage.international[1]), "#intl2-media", "#intl2-body");
+  }
 
-    /* HUMAN RIGHTS */
+  /* HUMAN RIGHTS */
+  if (Array.isArray(index.homepage.humanRights)) {
     fillCard(find(index.homepage.humanRights[0]), "#hr1-media", "#hr1-body");
     fillCard(find(index.homepage.humanRights[1]), "#hr2-media", "#hr2-body");
-
-  } catch (err) {
-    console.log("Homepage error", err);
   }
 }
 
 /* ============================================================
-   CARD RENDERER
+   CARD RENDERER (HOMEPAGE)
 ============================================================ */
 function fillCard(item, mediaSel, bodySel) {
   const media = $(mediaSel);
@@ -249,23 +274,26 @@ function fillCard(item, mediaSel, bodySel) {
 
   if (!item) {
     body.innerHTML = "<h3>Coming Soon</h3><p>Content will be added shortly.</p>";
+    media.classList.add("placeholder");
     return;
   }
 
   if (item.heroImage && item.heroImage.src) {
-    media.innerHTML = `<img src="${item.heroImage.src}" alt="${item.title}">`;
+    media.innerHTML = `<img src="${item.heroImage.src}" alt="${item.heroImage.caption || item.title || ""}">`;
     media.classList.remove("placeholder");
+  } else {
+    media.classList.add("placeholder");
   }
 
   body.innerHTML = `
-    <h3>${item.title}</h3>
+    <h3>${item.title || ""}</h3>
     <p>${item.excerpt || ""}</p>
     <a class="read-more" href="article.html?id=${item.id}">Read More →</a>
   `;
 }
 
 /* ============================================================
-   NAVIGATION + DROPDOWNS + MOBILE MENU
+   NAVIGATION + MOBILE MENU
 ============================================================ */
 function setupNav() {
   const hamburger = $("#hamburger");
@@ -274,20 +302,17 @@ function setupNav() {
 
   if (!hamburger || !navList || !mobileMenu) return;
 
-  /* Clone nav for mobile */
   mobileMenu.innerHTML = "";
   const clone = navList.cloneNode(true);
   clone.id = "nav-list-mobile";
   mobileMenu.appendChild(clone);
 
-  /* Hamburger toggle */
   hamburger.addEventListener("click", () => {
     const expanded = hamburger.getAttribute("aria-expanded") === "true";
     hamburger.setAttribute("aria-expanded", String(!expanded));
     mobileMenu.hidden = expanded;
   });
 
-  /* Mobile dropdowns */
   $$("#nav-list-mobile .has-sub > button").forEach(btn => {
     btn.addEventListener("click", e => {
       e.preventDefault();
@@ -323,7 +348,7 @@ function setupContactModal() {
 }
 
 /* ============================================================
-   ARTICLE PAGES (article.html, blog.html, editorial.html, breaking.html, chief-editor.html)
+   ARTICLE PAGES
 ============================================================ */
 function getQueryId() {
   const params = new URLSearchParams(window.location.search);
@@ -344,27 +369,23 @@ async function initArticlePage() {
     jsonPath = "content/chief-editor.json";
     mode = "single";
   } else if (path.endsWith("latest-001.html")) jsonPath = "content/latest-001.json";
-  else jsonPath = "content/articles.json";
+  else return; // unknown article page
 
-  try {
-    const data = await fetchJSON(jsonPath);
-    let item = null;
+  const data = await safeJSON(jsonPath);
+  let item = null;
 
-    if (mode === "list") {
-      const id = getQueryId();
-      const items = data.items || [];
-      item = items.find(a => a.id === id) || items[0];
-    } else {
-      item = data;
-    }
-
-    if (!item) return;
-
-    renderArticleItem(item);
-    initArticleActions();
-  } catch (err) {
-    console.log("Article page error", err);
+  if (mode === "list") {
+    const id = getQueryId();
+    const items = data.items || [];
+    item = items.find(a => a.id === id) || items[0];
+  } else {
+    item = data;
   }
+
+  if (!item) return;
+
+  renderArticleItem(item);
+  initArticleActions();
 }
 
 function renderArticleItem(item) {
@@ -413,15 +434,27 @@ function renderArticleItem(item) {
     `;
   }
 
-  if (content && Array.isArray(item.body)) {
-    content.innerHTML = "";
+  if (!content) return;
+
+  content.innerHTML = "";
+
+  // BODY CAN BE ARRAY OF BLOCKS OR ARRAY OF STRINGS
+  if (Array.isArray(item.body)) {
     item.body.forEach(block => {
+      // plain string paragraph
+      if (typeof block === "string") {
+        content.innerHTML += `<p>${block}</p>`;
+        return;
+      }
+
       if (block.type === "paragraph") {
         content.innerHTML += `<p>${block.text}</p>`;
       }
+
       if (block.type === "header") {
         content.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
       }
+
       if (block.type === "points") {
         const items = (block.items || []).map(i => `<li>${i}</li>`).join("");
         content.innerHTML += `
@@ -430,8 +463,15 @@ function renderArticleItem(item) {
           </div>
         `;
       }
+
       if (block.type === "image") {
-        const align = block.align === "right" ? "right" : block.align === "center" ? "center" : "left";
+        const align =
+          block.align === "right"
+            ? "right"
+            : block.align === "center"
+            ? "center"
+            : "left";
+
         if (align === "center") {
           content.innerHTML += `
             <figure style="text-align:center;margin:20px 0;">
@@ -465,14 +505,13 @@ function renderArticleItem(item) {
 }
 
 /* ============================================================
-   ARTICLE ACTIONS
+   ARTICLE ACTION BUTTONS
 ============================================================ */
 function initArticleActions() {
   const likeBtn = $("#likeBtn");
   const likeCount = $("#likeCount");
-  const subscribeBtn = $("#subscribeBtn");
-  const subscribeEmail = $("#subscribeEmail");
-  const shareBtn = $("[data-share]");
+  const subscribeBtn = $("#subscribeBtn") || $("#subBtn");
+  const shareBtn = $("[data-share]") || $("#shareBtn");
   const copyBtn = $("[data-copy-link]") || $("#copyBtn");
 
   if (likeBtn && likeCount) {
