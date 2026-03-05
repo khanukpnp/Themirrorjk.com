@@ -12,7 +12,6 @@
 
 <link rel="preconnect" href="https://api.open-meteo.com">
 <link rel="stylesheet" href="styles.css?v=22">
-
 </head>
 
 <body class="theme-maroon" id="top">
@@ -39,6 +38,7 @@
     </div>
   </div>
 </header>
+
 <!-- ============================
      CLOCKS + CALENDARS
 ============================= -->
@@ -82,7 +82,6 @@
   <div class="ticker">
 
     <span class="ticker-label">BREAKING</span>
-
     <ul id="ticker-items"></ul>
 
     <div class="tools">
@@ -146,7 +145,7 @@
       <button class="nav-btn">🎥 Vlog</button>
       <div class="dropdown">
         <a href="#vlogs">Latest Vlogs</a>
-        <a href="#vlogs">Archive</a>
+        <a href="vlog-archive.html">Archive</a>
       </div>
     </li>
 
@@ -309,8 +308,15 @@
 <section id="vlogs">
   <div class="section-title red-bar">Video Reports & Vlogs</div>
 
+  <!-- IMPORTANT: Correct ID for script.js -->
   <div class="cards three vlogs-grid" id="vlogs-grid">
     <!-- Filled dynamically by script.js -->
+  </div>
+
+  <div style="margin-top:12px; text-align:center;">
+    <a href="https://www.youtube.com" target="_blank" rel="noopener">
+      <button id="vlog-visit-channel" class="btn-red">Visit Channel</button>
+    </a>
   </div>
 </section>
 
@@ -434,6 +440,7 @@
     <button class="btn-red">Send</button>
   </div>
 </div>
+
 <!-- ============================
      FOOTER
 ============================= -->
