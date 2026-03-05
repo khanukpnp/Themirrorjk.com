@@ -1,12 +1,7 @@
-/* ============================================================
-   SHORTCUTS
-============================================================ */
-const $ = (sel, ctx = document) => ctx.querySelector(sel);
-const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+// ================== HELPERS ==================
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-/* ============================================================
-   SAFE JSON LOADER (NO CRASH IF FILE MISSING OR INVALID)
-============================================================ */
 async function safeJSON(path) {
   try {
     const res = await fetch(path + "?v=" + Date.now(), { cache: "no-store" });
@@ -19,9 +14,7 @@ async function safeJSON(path) {
   }
 }
 
-/* ============================================================
-   BOOTSTRAP
-============================================================ */
+// ================== BOOTSTRAP ==================
 document.addEventListener("DOMContentLoaded", () => {
   updateYear();
   updateTimes();
@@ -46,17 +39,13 @@ window.addEventListener("load", () => {
   }
 });
 
-/* ============================================================
-   YEAR
-============================================================ */
+// ================== YEAR ==================
 function updateYear() {
   const y = $("#year");
   if (y) y.textContent = new Date().getFullYear();
 }
 
-/* ============================================================
-   CLOCKS
-============================================================ */
+// ================== CLOCKS ==================
 function updateTimes() {
   const now = new Date();
 
@@ -98,9 +87,7 @@ function updateTimes() {
   }
 }
 
-/* ============================================================
-   CALENDARS
-============================================================ */
+// ================== CALENDARS ==================
 function updateCalendars() {
   const now = new Date();
 
@@ -131,9 +118,7 @@ function updateCalendars() {
   }
 }
 
-/* ============================================================
-   WEATHER BAR
-============================================================ */
+// ================== WEATHER ==================
 async function loadWeather() {
   const bar = $("#weather-bar");
   if (!bar) return;
@@ -169,9 +154,7 @@ async function loadWeather() {
   }
 }
 
-/* ============================================================
-   TICKER
-============================================================ */
+// ================== TICKER ==================
 async function loadTicker() {
   const list = $("#ticker-items");
   if (!list) return;
@@ -183,7 +166,7 @@ async function loadTicker() {
 
   if (!items.length) {
     const li = document.createElement("li");
-    li.textContent = "Latest updates will appear here.";
+    li.textContent = "Breaking updates will appear here.";
     list.appendChild(li);
     return;
   }
@@ -195,11 +178,8 @@ async function loadTicker() {
   });
 }
 
-/* ============================================================
-   HOMEPAGE CONTENT
-============================================================ */
+// ================== HOMEPAGE ==================
 async function loadHomepage() {
-  // Only run on homepage (where #top-stories exists)
   if (!$("#top-stories")) return;
 
   const index = await safeJSON("content/index.json");
@@ -214,6 +194,7 @@ async function loadHomepage() {
   const jk = await safeJSON("content/jk.json");
   const historical = await safeJSON("content/historical.json");
   const latest = await safeJSON("content/latest.json");
+  const latest001 = await safeJSON("content/latest-001.json");
 
   const all = [
     ...(articles.items || []),
@@ -224,12 +205,13 @@ async function loadHomepage() {
     ...(hr.items || []),
     ...(jk.items || []),
     ...(historical.items || []),
-    ...(latest.items || [])
+    ...(latest.items || []),
+    ...(latest001.items || [])
   ];
 
   const find = id => all.find(a => a.id === id);
 
-  /* TOP STORIES */
+  // Top Stories
   if (index.homepage.topStories) {
     const ts = index.homepage.topStories;
     fillCard(find(ts.lead), "#lead-media", "#lead-body");
@@ -237,7 +219,7 @@ async function loadHomepage() {
     fillCard(find(ts.opinion), "#opinion-media", "#opinion-body");
   }
 
-  /* LATEST / EDITORIAL / HISTORICAL */
+  // Latest / Editorial / Historical
   if (index.homepage.latestEditorialHistorical) {
     const leh = index.homepage.latestEditorialHistorical;
     fillCard(find(leh.latest), "#leh1-media", "#leh1-body");
@@ -245,28 +227,40 @@ async function loadHomepage() {
     fillCard(find(leh.historical), "#leh3-media", "#leh3-body");
   }
 
-  /* JAMMU KASHMIR */
+  // Jammu Kashmir
   if (Array.isArray(index.homepage.jammuKashmir)) {
     fillCard(find(index.homepage.jammuKashmir[0]), "#jk1-media", "#jk1-body");
     fillCard(find(index.homepage.jammuKashmir[1]), "#jk2-media", "#jk2-body");
   }
 
-  /* INTERNATIONAL */
+  // International
   if (Array.isArray(index.homepage.international)) {
     fillCard(find(index.homepage.international[0]), "#intl1-media", "#intl1-body");
     fillCard(find(index.homepage.international[1]), "#intl2-media", "#intl2-body");
   }
 
-  /* HUMAN RIGHTS */
+  // Human Rights
   if (Array.isArray(index.homepage.humanRights)) {
     fillCard(find(index.homepage.humanRights[0]), "#hr1-media", "#hr1-body");
     fillCard(find(index.homepage.humanRights[1]), "#hr2-media", "#hr2-body");
   }
 }
 
-/* ============================================================
-   CARD RENDERER (HOMEPAGE)
-============================================================ */
+// ================== CARD RENDERER ==================
+function getArticleUrl(item) {
+  if (!item || !item.id) return "#";
+  const id = item.id;
+
+  if (id.startsWith("article-")) return `article.html?id=${id}`;
+  if (id.startsWith("breaking-")) return `breaking.html?id=${id}`;
+  if (id.startsWith("blog-")) return `blog.html?id=${id}`;
+  if (id.startsWith("editorial-")) return `editorial.html?id=${id}`;
+  if (id.startsWith("latest-")) return `article.html?id=${id}`; // latest-001 via article.html
+  if (id.startsWith("chief-")) return `chief-editor.html?id=${id}`;
+
+  return `article.html?id=${id}`;
+}
+
 function fillCard(item, mediaSel, bodySel) {
   const media = $(mediaSel);
   const body = $(bodySel);
@@ -288,13 +282,11 @@ function fillCard(item, mediaSel, bodySel) {
   body.innerHTML = `
     <h3>${item.title || ""}</h3>
     <p>${item.excerpt || ""}</p>
-    <a class="read-more" href="article.html?id=${item.id}">Read More →</a>
+    <a class="read-more" href="${getArticleUrl(item)}">Read More →</a>
   `;
 }
 
-/* ============================================================
-   NAVIGATION + MOBILE MENU
-============================================================ */
+// ================== NAVIGATION ==================
 function setupNav() {
   const hamburger = $("#hamburger");
   const navList = $("#nav-list");
@@ -324,9 +316,7 @@ function setupNav() {
   });
 }
 
-/* ============================================================
-   CONTACT MODAL
-============================================================ */
+// ================== CONTACT MODAL ==================
 function setupContactModal() {
   const openBtn = $("#contact-open");
   const closeBtn = $("#contact-close");
@@ -347,9 +337,7 @@ function setupContactModal() {
   });
 }
 
-/* ============================================================
-   ARTICLE PAGES
-============================================================ */
+// ================== ARTICLE PAGES ==================
 function getQueryId() {
   const params = new URLSearchParams(window.location.search);
   return params.get("id");
@@ -357,27 +345,43 @@ function getQueryId() {
 
 async function initArticlePage() {
   const path = window.location.pathname;
+  const id = getQueryId();
 
   let jsonPath = null;
   let mode = "list";
 
-  if (path.endsWith("article.html")) jsonPath = "content/articles.json";
-  else if (path.endsWith("blog.html")) jsonPath = "content/blog.json";
-  else if (path.endsWith("editorial.html")) jsonPath = "content/editorial.json";
-  else if (path.endsWith("breaking.html")) jsonPath = "content/breaking.json";
-  else if (path.endsWith("chief-editor.html")) {
+  const p = path.toLowerCase();
+
+  if (p.includes("article.html") || p.endsWith("/article")) {
+    // articles + latest-001 via id prefix
+    if (id && id.startsWith("latest-")) {
+      jsonPath = "content/latest-001.json";
+    } else {
+      jsonPath = "content/articles.json";
+    }
+  } else if (p.includes("blog.html") || p.endsWith("/blog")) {
+    jsonPath = "content/blog.json";
+  } else if (p.includes("editorial.html") || p.endsWith("/editorial")) {
+    jsonPath = "content/editorial.json";
+  } else if (p.includes("breaking.html") || p.endsWith("/breaking")) {
+    jsonPath = "content/breaking.json";
+  } else if (p.includes("chief-editor.html") || p.endsWith("/chief-editor")) {
     jsonPath = "content/chief-editor.json";
     mode = "single";
-  } else if (path.endsWith("latest-001.html")) jsonPath = "content/latest-001.json";
-  else return; // unknown article page
+  } else {
+    return;
+  }
 
   const data = await safeJSON(jsonPath);
   let item = null;
 
   if (mode === "list") {
-    const id = getQueryId();
     const items = data.items || [];
-    item = items.find(a => a.id === id) || items[0];
+    if (id) {
+      item = items.find(a => a.id === id) || items[0];
+    } else {
+      item = items[0];
+    }
   } else {
     item = data;
   }
@@ -438,10 +442,8 @@ function renderArticleItem(item) {
 
   content.innerHTML = "";
 
-  // BODY CAN BE ARRAY OF BLOCKS OR ARRAY OF STRINGS
   if (Array.isArray(item.body)) {
     item.body.forEach(block => {
-      // plain string paragraph
       if (typeof block === "string") {
         content.innerHTML += `<p>${block}</p>`;
         return;
@@ -504,9 +506,7 @@ function renderArticleItem(item) {
   }
 }
 
-/* ============================================================
-   ARTICLE ACTION BUTTONS
-============================================================ */
+// ================== ARTICLE ACTIONS ==================
 function initArticleActions() {
   const likeBtn = $("#likeBtn");
   const likeCount = $("#likeCount");
