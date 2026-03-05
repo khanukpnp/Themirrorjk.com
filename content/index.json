@@ -1,0 +1,75 @@
+{
+  "homepage": {
+
+    "topStories": {
+      "lead": "article-001",
+      "breaking": "breaking-001",
+      "opinion": "blog-001"
+    },
+
+    "latestEditorialHistorical": {
+      "latest": "article-002",
+      "editorial": "editorial-001",
+      "historical": "historical-001"
+    },
+
+    "jammuKashmir": [
+      "jk-001",
+      "jk-002"
+    ],
+
+    "international": [
+      "intl-001",
+      "intl-002"
+    ],
+
+    "humanRights": [
+      "hr-001",
+      "hr-002"
+    ]
+
+  },
+
+  "vlogs": [
+    {
+      "id": "vlog-001",
+      "title": "Exclusive Interview: Peace Process Developments",
+      "category": "Interview",
+      "duration": "15:32",
+      "youtubeId": "VIDEO_ID_1",
+      "excerpt": "In-depth conversation with diplomatic sources about ongoing negotiations and next steps.",
+      "thumbnail": "content/images/vlog-001.jpg"
+    },
+
+    {
+      "id": "vlog-002",
+      "title": "Ground Report: Community Resilience Stories",
+      "category": "Current Affairs",
+      "duration": "12:45",
+      "youtubeId": "VIDEO_ID_2",
+      "excerpt": "Documenting how local communities are adapting and supporting each other.",
+      "thumbnail": "content/images/vlog-002.jpg"
+    },
+
+    {
+      "id": "vlog-003",
+      "title": "Analysis: Human Rights Legal Framework",
+      "category": "Analysis",
+      "duration": "18:20",
+      "youtubeId": "VIDEO_ID_3",
+      "excerpt": "Expert breakdown of key legal mechanisms and obligations.",
+      "thumbnail": "content/images/vlog-003.jpg"
+    }
+  },
+
+  "ticker": [
+    "WELCOME TO THE MIRROR JAMMU KASHMIR — EMPOWERING TRUTH BEYOND BORDERS.",
+    "SUBMIT YOUR NEWS AND REPORTS TO THE MIRROR JAMMU KASHMIR.",
+    "THE MIRROR JAMMU KASHMIR IS AN INDEPENDENT DIGITAL MEDIA PLATFORM.",
+    "WE CHALLENGE SILENCE AND AMPLIFY SUPPRESSED VOICES.",
+    "HUMAN RIGHTS AND DEMOCRACY MUST BE DEFENDED EVERYWHERE.",
+    "FREEDOM OF PRESS IS ESSENTIAL FOR A JUST SOCIETY.",
+    "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS."
+  }
+
+}
