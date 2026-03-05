@@ -2,53 +2,111 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title id="page-title">Loading… | THE MIRROR JAMMU KASHMIR</title>
-<link rel="stylesheet" href="styles.css">
+
+<title>The Mirror Jammu Kashmir</title>
+
+<link rel="stylesheet" href="../../styles.css">
+
 </head>
 
-<body class="article-page theme-maroon">
+<body class="article-page">
 
-<main class="page-shell article-main">
-<section class="article-container">
-<div class="article-shell">
+<main class="article-shell">
 
-    <!-- SECTION LABEL -->
-    <div id="section-label" class="section-title red-bar">Loading…</div>
+<header class="article-header">
 
-    <!-- HEADER -->
-    <header class="article-header">
-        <h1 id="title">Loading…</h1>
-        <div id="meta" class="article-meta"></div>
-    </header>
+<h1 id="article-title"></h1>
 
-    <!-- HERO IMAGE -->
-    <figure id="heroWrap" class="article-hero">
-        <img id="heroImg" src="" alt="">
-        <figcaption id="heroCaption"></figcaption>
-    </figure>
+<div class="article-meta">
 
-    <!-- CONTENT -->
-    <div id="content" class="article-content"></div>
+<span id="article-author"></span>
 
-    <!-- ACTION BUTTONS -->
-    <div class="page-actions">
-        <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-        <input id="subscribeEmail" type="email" placeholder="Your email…" class="subscribe-input">
-        <button id="subscribeBtn">🔔 Subscribe</button>
-        <button data-share class="share-btn">📣 Share</button>
-        <button data-copy-link class="copy-btn">🔗 Copy Link</button>
-    </div>
+<span id="article-location"></span>
+
+<span id="article-date"></span>
+
+<span id="article-read"></span>
 
 </div>
+
+</header>
+
+
+
+<figure class="article-hero">
+
+<img id="hero-image" src="" alt="">
+
+<figcaption id="hero-caption"></figcaption>
+
+</figure>
+
+
+
+<section class="article-body" id="article-body">
+
 </section>
+
 </main>
 
-<footer class="footer">
-<p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-</footer>
 
-<script src="script.js"></script>
+
+<script>
+
+async function loadArticle(){
+
+const response = await fetch("latest-001.json")
+
+const data = await response.json()
+
+const article = data.items[0]
+
+document.getElementById("article-title").textContent = article.title
+
+document.getElementById("article-author").textContent = "By " + article.author
+
+document.getElementById("article-location").textContent = article.location
+
+document.getElementById("article-date").textContent = article.date
+
+document.getElementById("article-read").textContent = article.readTime
+
+
+
+const hero = document.getElementById("hero-image")
+
+hero.src = "../images/" + article.heroImage.src
+
+hero.alt = article.title
+
+
+
+document.getElementById("hero-caption").innerHTML =
+article.heroImage.caption +
+" <span class='credit'>" + article.heroImage.credit + "</span>"
+
+
+const bodyContainer = document.getElementById("article-body")
+
+article.body.forEach(function(paragraph){
+
+const p = document.createElement("p")
+
+p.textContent = paragraph
+
+bodyContainer.appendChild(p)
+
+})
+
+}
+
+loadArticle()
+
+</script>
+
 </body>
+
 </html>
