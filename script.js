@@ -5,30 +5,30 @@ GLOBAL HELPERS
 const CONTENT_BASE = "content/";
 
 const $ = (s,c=document)=>c.querySelector(s);
-const $$=(s,c=document)=>[...c.querySelectorAll(s)];
 
 async function fetchJSON(url){
- const r=await fetch(url,{cache:"no-store"});
- if(!r.ok)return null;
+ const r = await fetch(url,{cache:"no-store"});
+ if(!r.ok) return null;
  return r.json();
 }
 
 function createEl(tag,cls,text){
  const e=document.createElement(tag);
- if(cls)e.className=cls;
- if(text)e.textContent=text;
+ if(cls) e.className=cls;
+ if(text) e.textContent=text;
  return e;
 }
 
 function clearEl(el){
- while(el.firstChild)el.removeChild(el.firstChild);
+ if(!el) return;
+ while(el.firstChild) el.removeChild(el.firstChild);
 }
 
 function resolveHeroImage(item){
- if(!item)return null;
- if(item.heroImage?.src)return item.heroImage.src;
- if(item.heroImage)return item.heroImage;
- if(item.image)return item.image;
+ if(!item) return null;
+ if(item.heroImage?.src) return item.heroImage.src;
+ if(item.heroImage) return item.heroImage;
+ if(item.image) return item.image;
  return null;
 }
 
@@ -37,6 +37,8 @@ CLOCKS
 ====================================================== */
 
 function initClocksCalendars(){
+
+ if(!document.querySelector("#clock-cest")) return;
 
  function update(){
 
@@ -60,16 +62,22 @@ function initClocksCalendars(){
   const ist=$("#tz-ist span");
   if(ist){
    ist.textContent=new Intl.DateTimeFormat("en-GB",{
-    hour:"2-digit",minute:"2-digit",second:"2-digit",
-    hour12:false,timeZone:"Asia/Kolkata"
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hour12:false,
+    timeZone:"Asia/Kolkata"
    }).format(now);
   }
 
   const pkt=$("#tz-pkt span");
   if(pkt){
    pkt.textContent=new Intl.DateTimeFormat("en-GB",{
-    hour:"2-digit",minute:"2-digit",second:"2-digit",
-    hour12:false,timeZone:"Asia/Karachi"
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hour12:false,
+    timeZone:"Asia/Karachi"
    }).format(now);
   }
 
@@ -77,6 +85,7 @@ function initClocksCalendars(){
 
  update();
  setInterval(update,1000);
+
 }
 
 /* ======================================================
@@ -86,7 +95,7 @@ WEATHER
 async function initWeather(){
 
  const bar=$("#weather-bar");
- if(!bar)return;
+ if(!bar) return;
 
  const cities=[
   {n:"Zurich",lat:47.37,lon:8.54},
@@ -109,7 +118,7 @@ async function initWeather(){
 
    const data=await fetchJSON(url);
 
-   const t=data?.current_weather?.temperature??"--";
+   const t=data?.current_weather?.temperature ?? "--";
 
    const chip=createEl("div","chip tiny",`${c.n}: ${t}°C`);
 
@@ -122,6 +131,7 @@ async function initWeather(){
   }
 
  }
+
 }
 
 /* ======================================================
@@ -131,11 +141,10 @@ TICKER
 async function initTicker(){
 
  const ul=$("#ticker-items");
- if(!ul)return;
+ if(!ul) return;
 
  const data=await fetchJSON(CONTENT_BASE+"index.json");
-
- if(!data?.ticker)return;
+ if(!data?.ticker) return;
 
  clearEl(ul);
 
@@ -163,11 +172,10 @@ async function loadArticleById(id){
  for(const f of files){
 
   const data=await fetchJSON(CONTENT_BASE+f);
-  if(!data?.items)continue;
+  if(!data?.items) continue;
 
-  const a=data.items.find(x=>x.id===id);
-
-  if(a)return a;
+  const found=data.items.find(x=>x.id===id);
+  if(found) return found;
 
  }
 
@@ -176,17 +184,34 @@ async function loadArticleById(id){
 }
 
 /* ======================================================
-HOMEPAGE CARDS
+HOMEPAGE
 ====================================================== */
+
+async function initHomepage(){
+
+ if(!document.querySelector("#lead-media")) return;
+
+ const data=await fetchJSON(CONTENT_BASE+"index.json");
+ if(!data) return;
+
+ const top=data.homepage.topStories;
+
+ const lead=await loadArticleById(top.lead);
+ const breaking=await loadArticleById(top.breaking);
+ const opinion=await loadArticleById(top.opinion);
+
+ fillCard("lead-media","lead-body",lead);
+ fillCard("breaking-media","breaking-body",breaking);
+ fillCard("opinion-media","opinion-body",opinion);
+
+}
 
 function fillCard(mediaId,bodyId,item){
 
  const media=$("#"+mediaId);
  const body=$("#"+bodyId);
 
- if(!media||!body)return;
-
- if(!item)return;
+ if(!media||!body||!item) return;
 
  media.textContent="";
 
@@ -211,43 +236,39 @@ function fillCard(mediaId,bodyId,item){
 }
 
 /* ======================================================
-HOMEPAGE
+ARTICLE PAGE
 ====================================================== */
 
-async function initHomepage(){
+async function loadArticlePage(){
 
- const data=await fetchJSON(CONTENT_BASE+"index.json");
- if(!data)return;
+ if(!document.querySelector("#content")) return;
 
- const top=data.homepage.topStories;
+ const params=new URLSearchParams(location.search);
+ const id=params.get("id");
 
- const lead=await loadArticleById(top.lead);
- const breaking=await loadArticleById(top.breaking);
- const opinion=await loadArticleById(top.opinion);
+ if(!id) return;
 
- fillCard("lead-media","lead-body",lead);
- fillCard("breaking-media","breaking-body",breaking);
- fillCard("opinion-media","opinion-body",opinion);
+ const article=await loadArticleById(id);
+ if(!article) return;
+
+ renderArticle(article);
 
 }
-
-/* ======================================================
-ARTICLE PAGE RENDER
-====================================================== */
 
 function renderArticle(article){
 
  $("#title").textContent=article.title;
 
- $("#meta").textContent=
+ $("#meta").textContent =
  `${article.author} • ${article.location} • ${article.date} • ${article.readTime}`;
 
  if(article.heroImage){
 
   $("#heroImg").src=article.heroImage.src;
 
-  $("#heroCaption").textContent=
+  $("#heroCaption").textContent =
    `${article.heroImage.caption} — ${article.heroImage.credit}`;
+
  }
 
  const container=$("#content");
@@ -266,7 +287,6 @@ function renderArticle(article){
   if(b.type==="points"){
 
    const box=createEl("div","pull-points");
-
    const ul=document.createElement("ul");
 
    b.items.forEach(i=>{
@@ -291,30 +311,14 @@ function renderArticle(article){
 
    fig.append(img,cap);
 
-   if(b.align==="left")fig.className="img-left";
-   if(b.align==="right")fig.className="img-right";
+   if(b.align==="left") fig.className="img-left";
+   if(b.align==="right") fig.className="img-right";
 
    container.appendChild(fig);
+
   }
 
  });
-
-}
-
-/* ======================================================
-LOAD ARTICLE PAGE
-====================================================== */
-
-async function loadArticlePage(){
-
- const params=new URLSearchParams(location.search);
- const id=params.get("id");
-
- if(!id)return;
-
- const article=await loadArticleById(id);
-
- if(article)renderArticle(article);
 
 }
 
@@ -324,22 +328,19 @@ ARTICLE ACTIONS
 
 function initArticleActions(){
 
+ if(!document.querySelector("#likeBtn")) return;
+
  const like=$("#likeBtn");
  const likeCount=$("#likeCount");
 
- if(like){
+ let n=0;
 
-  let n=0;
-
-  like.onclick=()=>{
-   n++;
-   likeCount.textContent=n;
-  };
-
- }
+ like.onclick=()=>{
+  n++;
+  likeCount.textContent=n;
+ };
 
  const sub=$("#subBtn");
-
  if(sub){
   sub.onclick=()=>{
    sub.textContent="Subscribed";
@@ -348,34 +349,17 @@ function initArticleActions(){
  }
 
  const share=$("#shareBtn");
-
  if(share){
-
   share.onclick=()=>{
-
    if(navigator.share){
-
-    navigator.share({
-     title:document.title,
-     url:location.href
-    });
-
-   }else{
-
-    alert("Share not supported");
-
+    navigator.share({title:document.title,url:location.href});
    }
-
   };
-
  }
 
  const copy=$("#copyBtn");
-
  if(copy){
-
   copy.onclick=()=>navigator.clipboard.writeText(location.href);
-
  }
 
 }
@@ -387,10 +371,10 @@ VLOGS
 async function initVlogs(){
 
  const grid=$("#vlogs-grid");
- if(!grid)return;
+ if(!grid) return;
 
  const data=await fetchJSON(CONTENT_BASE+"youtube.json");
- if(!data?.videos)return;
+ if(!data?.videos) return;
 
  clearEl(grid);
 
@@ -418,18 +402,17 @@ async function initVlogs(){
 }
 
 /* ======================================================
-INIT
+SAFE INITIALIZATION
 ====================================================== */
 
 document.addEventListener("DOMContentLoaded",()=>{
 
- initClocksCalendars();
- initWeather();
- initTicker();
- initHomepage();
- initVlogs();
-
- loadArticlePage();
- initArticleActions();
+ try{ initClocksCalendars(); }catch(e){}
+ try{ initWeather(); }catch(e){}
+ try{ initTicker(); }catch(e){}
+ try{ initHomepage(); }catch(e){}
+ try{ initVlogs(); }catch(e){}
+ try{ loadArticlePage(); }catch(e){}
+ try{ initArticleActions(); }catch(e){}
 
 });
