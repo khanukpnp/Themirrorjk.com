@@ -595,3 +595,22 @@ body {
     margin: 10px 0;
   }
 }
+
+.img-left{
+ float:left;
+ width:38%;
+ margin:10px 20px 10px 0;
+}
+
+.img-right{
+ float:right;
+ width:38%;
+ margin:10px 0 10px 20px;
+}
+
+.pull-points{
+ background:#f6f6f6;
+ border-left:4px solid #900;
+ padding:15px;
+ margin:20px 0;
+}
