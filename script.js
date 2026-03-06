@@ -1,653 +1,347 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+/* ======================================================
+GLOBAL HELPERS
+====================================================== */
 
-<base href="/">
+const CONTENT_BASE = "content/";
 
-<title>Chief Editor | THE MIRROR JAMMU KASHMIR</title>
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
-<link rel="stylesheet" href="styles.css?v=22">
-</head>
-
-<body class="article-page theme-maroon">
-
-<main class="page-shell article-main">
-
-<section class="article-container">
-<div class="article-shell">
-
-<!-- SECTION LABEL -->
-<div class="section-title red-bar">Chief Editor</div>
-
-<!-- HEADER -->
-<header class="article-header">
-<h1 id="ce-title">Loading…</h1>
-<div id="ce-meta" class="article-meta"></div>
-</header>
-
-<!-- HERO IMAGE FLOAT RIGHT -->
-<figure id="ce-hero" class="image-right"></figure>
-
-<!-- CONTENT -->
-<div id="ce-content" class="article-content"></div>
-
-<!-- ACTION BUTTONS -->
-<div class="page-actions">
-<button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-<button id="subBtn">🔔 Subscribe</button>
-<button id="shareBtn">📣 Share</button>
-<button id="copyBtn">🔗 Copy Link</button>
-</div>
-
-</div>
-</section>
-
-</main>
-
-<footer class="footer">
-<p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-</footer>
-
-<script src="script.js?v=22"></script>
-
-<script>
-// YEAR
-document.getElementById("year").textContent = new Date().getFullYear();
-
-// LIKE
-let likes = 0;
-document.getElementById("likeBtn").onclick =
-() => document.getElementById("likeCount").textContent = ++likes;
-
-// SUBSCRIBE
-document.getElementById("subBtn").onclick = function(){
-this.textContent="Subscribed";
-this.disabled=true;
-};
-
-// SHARE
-document.getElementById("shareBtn").onclick = () =>
-navigator.share
-? navigator.share({title:document.title,url:location.href})
-: alert("Share not supported");
-
-// COPY LINK
-document.getElementById("copyBtn").onclick =
-() => navigator.clipboard.writeText(location.href);
-
-// LOAD chief-editor.json
-async function loadChiefEditor() {
-try {
-const res = await fetch("content/chief-editor.json", { cache: "no-store" });
-const data = await res.json();
-
-// TITLE + META
-document.getElementById("ce-title").textContent = data.title;
-document.getElementById("ce-meta").textContent = data.subtitle || "";
-
-// HERO IMAGE
-const hero = document.getElementById("ce-hero");
-if (data.heroImage?.src) {
-hero.innerHTML = `
-<img src="${data.heroImage.src}" alt="${data.heroImage.caption}">
-<figcaption>${data.heroImage.caption}</figcaption>
-`;
+function createEl(tag, className, text) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (text) el.textContent = text;
+  return el;
 }
 
-// BODY CONTENT
-const container = document.getElementById("ce-content");
-container.innerHTML = "";
-
-data.body.forEach(block => {
-if (block.type === "paragraph") {
-container.innerHTML += `<p>${block.text}</p>`;
-}
-if (block.type === "header") {
-container.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
-}
-if (block.type === "points") {
-const items = block.items.map(i => `<li>${i}</li>`).join("");
-container.innerHTML += `
-<div class="important-points">
-<ul>${items}</ul>
-</div>
-`;
-}
-if (block.type === "image") {
-const align = block.align === "left" ? "image-left" :
-              block.align === "right" ? "image-right" : "";
-container.innerHTML += `
-<figure class="${align}">
-<img src="${block.src}" alt="${block.caption}">
-<figcaption>${block.caption}</figcaption>
-</figure>
-`;
-}
-});
-
-} catch (err) {
-console.error("Failed to load chief-editor.json", err);
-document.getElementById("ce-title").textContent = "Error loading content";
-}
+function clearEl(el) {
+  while (el.firstChild) el.removeChild(el.firstChild);
 }
 
-loadChiefEditor();
-</script>
+async function fetchJSON(url) {
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) return null;
+  return res.json();
+}
 
-</body>
-</html>
-  // ------------------------------------------------------------
-  // HOMEPAGE CONTENT LOADER
-  // ------------------------------------------------------------
-  const HOMEPAGE_SOURCES = {
-    lead:            CONTENT_BASE + "articles.json",
-    breaking:        CONTENT_BASE + "breaking.json",
-    opinion:         CONTENT_BASE + "blog.json",
-    latestLeft:      CONTENT_BASE + "latest-001.json",
-    editorialMiddle: CONTENT_BASE + "editorial.json",
-    historicalRight: CONTENT_BASE + "latest-002.json" // ensure this exists
-  };
+function resolveHeroImage(item) {
+  if (!item) return null;
 
-  function resolveHeroImage(item) {
-    if (!item) return null;
-    if (item.heroImage && typeof item.heroImage === "object") {
-      return {
-        src:     item.heroImage.src || "",
-        caption: item.heroImage.caption || "",
-        credit:  item.heroImage.credit || ""
-      };
-    }
-    if (typeof item.heroImage === "string") {
-      return { src: item.heroImage, caption: "", credit: "" };
-    }
-    if (item.image)     return { src: item.image,     caption: "", credit: "" };
-    if (item.thumbnail) return { src: item.thumbnail, caption: "", credit: "" };
-    return null;
-  }
+  if (item.heroImage && item.heroImage.src) return item.heroImage.src;
+  if (item.heroImage) return item.heroImage;
+  if (item.image) return item.image;
+  if (item.thumbnail) return item.thumbnail;
 
-  function pickTopItem(items) {
-    if (!items || !items.length) return null;
-    return items[0];
-  }
+  return null;
+}
 
-  function fillCard(mediaId, bodyId, item, fallbackTitle, fallbackText, defaultHref) {
-    const mediaEl = document.getElementById(mediaId);
-    const bodyEl  = document.getElementById(bodyId);
-    if (!mediaEl || !bodyEl) return;
+/* ======================================================
+CLOCKS AND CALENDARS
+====================================================== */
 
-    clearEl(mediaEl);
-    clearEl(bodyEl);
+function initClocksCalendars() {
+  function update() {
+    const now = new Date();
 
-    const hero = resolveHeroImage(item);
-
-    if (hero && hero.src) {
-      const img = createEl("img");
-      img.src = hero.src;
-      img.alt = item && item.title ? item.title : fallbackTitle || "";
-      mediaEl.classList.remove("placeholder", "maroon");
-      mediaEl.appendChild(img);
-    } else {
-      mediaEl.textContent = fallbackTitle || "Coming Soon";
+    const cest = $("#clock-cest span");
+    if (cest) {
+      cest.textContent = new Intl.DateTimeFormat("en-GB", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+        timeZone: "Europe/Zurich"
+      }).format(now);
     }
 
-    const title = createEl(
-      "h3",
-      null,
-      item && item.title ? item.title : fallbackTitle || "Coming Soon"
-    );
-    const p = createEl(
-      "p",
-      null,
-      item && item.excerpt
-        ? item.excerpt
-        : fallbackText || "Content will be added shortly."
-    );
+    const ist = $("#tz-ist span");
+    if (ist) {
+      ist.textContent = new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+        timeZone: "Asia/Kolkata"
+      }).format(now);
+    }
 
-    bodyEl.appendChild(title);
-    bodyEl.appendChild(p);
+    const pkt = $("#tz-pkt span");
+    if (pkt) {
+      pkt.textContent = new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+        timeZone: "Asia/Karachi"
+      }).format(now);
+    }
 
-    const hrefBase = defaultHref || "editorial.html";
-    if (item && item.id) {
-      const link = createEl("a", null, "Read More →");
-      link.href = hrefBase + "?id=" + encodeURIComponent(item.id);
-      link.style.display = "inline-block";
-      link.style.marginTop = "6px";
-      bodyEl.appendChild(link);
+    const hijri = $("#cal-hijri span");
+    if (hijri) {
+      hijri.textContent = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }).format(now);
+    }
+
+    const hindu = $("#cal-hindi span");
+    if (hindu) {
+      hindu.textContent = new Intl.DateTimeFormat("en-IN-u-ca-indian", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }).format(now);
     }
   }
 
-  function initHomepage() {
-    const topStoriesSection = document.getElementById("top-stories");
-    if (!topStoriesSection) return;
+  update();
+  setInterval(update, 1000);
+}
 
-    // Lead
-    fetchJSON(HOMEPAGE_SOURCES.lead).then((data) => {
-      const items = normalizeItems(data);
-      const item  = pickTopItem(items);
-      fillCard(
-        "lead-media",
-        "lead-body",
-        item,
-        "Lead Story",
-        "Lead story will appear here.",
-        "article.html"
-      );
-    });
+/* ======================================================
+WEATHER BAR
+====================================================== */
 
-    // Breaking
-    fetchJSON(HOMEPAGE_SOURCES.breaking).then((data) => {
-      const items = normalizeItems(data);
-      const item  = pickTopItem(items);
-      fillCard(
-        "breaking-media",
-        "breaking-body",
-        item,
-        "Breaking News",
-        "Breaking news will appear here.",
-        "breaking.html"
-      );
-    });
+async function initWeather() {
+  const bar = $("#weather-bar");
+  if (!bar) return;
 
-    // Opinion
-    fetchJSON(HOMEPAGE_SOURCES.opinion).then((data) => {
-      const items = normalizeItems(data);
-      const item  = pickTopItem(items);
-      fillCard(
-        "opinion-media",
-        "opinion-body",
-        item,
-        "Opinion",
-        "Opinion and blog will appear here.",
-        "blog.html"
-      );
-    });
+  const cities = [
+    { name: "Zurich", lat: 47.37, lon: 8.54 },
+    { name: "Rawalakot", lat: 33.85, lon: 73.76 },
+    { name: "Jammu", lat: 32.73, lon: 74.86 },
+    { name: "Kashmir", lat: 34.08, lon: 74.79 },
+    { name: "Ladakh", lat: 34.15, lon: 77.58 },
+    { name: "Gilgit", lat: 35.92, lon: 74.30 },
+    { name: "Baltistan", lat: 35.30, lon: 75.63 },
+    { name: "Muzaffarabad", lat: 34.37, lon: 73.47 }
+  ];
 
-    // Latest (left)
-    fetchJSON(HOMEPAGE_SOURCES.latestLeft).then((data) => {
-      const items = normalizeItems(data);
-      const item  = pickTopItem(items);
-      fillCard(
-        "leh1-media",
-        "leh1-body",
-        item,
-        "Latest",
-        "Latest content will be added shortly.",
-        "latest.html"
-      );
-    });
+  clearEl(bar);
 
-    // Editorial (middle)
-    fetchJSON(HOMEPAGE_SOURCES.editorialMiddle).then((data) => {
-      const items = normalizeItems(data);
-      const item  = pickTopItem(items);
-      fillCard(
-        "leh2-media",
-        "leh2-body",
-        item,
-        "Editorial",
-        "Editorial content will be added shortly.",
-        "editorial.html"
-      );
-    });
+  for (const c of cities) {
+    try {
+      const url =
+        "https://api.open-meteo.com/v1/forecast?latitude=" +
+        c.lat +
+        "&longitude=" +
+        c.lon +
+        "&current_weather=true";
 
-    // Historical (right)
-    fetchJSON(HOMEPAGE_SOURCES.historicalRight).then((data) => {
-      const items = normalizeItems(data);
-      const item  = pickTopItem(items);
-      fillCard(
-        "leh3-media",
-        "leh3-body",
-        item,
-        "Historical",
-        "Historical content will be added shortly.",
-        "historical.html"
-      );
-    });
-  }
+      const data = await fetchJSON(url);
 
-  // ------------------------------------------------------------
-  // VLOG – HOMEPAGE 3-WINDOW LAYOUT
-  // ------------------------------------------------------------
-  const VLOG_CONFIG = {
-    mainJson:   CONTENT_BASE + "youtube.json",
-    mainGridId: "vlogs-grid"
-  };
+      const t = data?.current_weather?.temperature ?? "--";
 
-  function buildYouTubeThumb(video) {
-    if (video.thumbnail && video.thumbnail.startsWith("http")) return video.thumbnail;
-    if (video.videoId) {
-      return "https://img.youtube.com/vi/" + video.videoId + "/hqdefault.jpg";
-    }
-    return "";
-  }
+      const chip = createEl("div", "chip tiny", c.name + ": " + t + "°C");
 
-  function renderVlogMain(videos) {
-    const container = document.getElementById(VLOG_CONFIG.mainGridId);
-    if (!container) return;
-    clearEl(container);
-
-    const topThree = (videos || []).slice(0, 3);
-
-    topThree.forEach((video) => {
-      const card  = createEl("article", "card");
-      const media = createEl("div", "media");
-      const thumb = buildYouTubeThumb(video);
-
-      if (thumb) {
-        const img = createEl("img");
-        img.src = thumb;
-        img.alt = video.title || "Video";
-        media.appendChild(img);
-      } else {
-        media.textContent = "Video";
-      }
-
-      const body  = createEl("div", "card-body");
-      const title = createEl("h3", null, video.title || "Untitled video");
-      const p     = createEl(
-        "p",
-        null,
-        video.excerpt || video.description || "Video report."
-      );
-
-      body.appendChild(title);
-      body.appendChild(p);
-
-      const btn = createEl("button", "btn-red", "Play");
-      btn.addEventListener("click", () => {
-        if (video.url) {
-          window.open(video.url, "_blank", "noopener");
-        } else if (video.videoId) {
-          window.open(
-            "https://www.youtube.com/watch?v=" + video.videoId,
-            "_blank",
-            "noopener"
-          );
-        }
-      });
-      body.appendChild(btn);
-
-      card.appendChild(media);
-      card.appendChild(body);
-      container.appendChild(card);
-    });
-  }
-
-  function initVlogHomepage() {
-    const container = document.getElementById(VLOG_CONFIG.mainGridId);
-    if (!container) return;
-    fetchJSON(VLOG_CONFIG.mainJson).then((data) => {
-      const items = normalizeItems(data);
-      renderVlogMain(items);
-    });
-  }
-
-  // ------------------------------------------------------------
-  // ARTICLE RENDERER (EDITORIAL / BLOG / BREAKING / LATEST / HISTORICAL / ARTICLE)
-  // ------------------------------------------------------------
-  function detectArticleSource() {
-    const path = window.location.pathname.toLowerCase();
-
-    if (path.includes("editorial")) {
-      return { json: CONTENT_BASE + "editorial.json",   defaultId: "editorial-001" };
-    }
-    if (path.includes("blog")) {
-      return { json: CONTENT_BASE + "blog.json",        defaultId: null };
-    }
-    if (path.includes("breaking")) {
-      return { json: CONTENT_BASE + "breaking.json",    defaultId: null };
-    }
-    if (path.includes("latest")) {
-      return { json: CONTENT_BASE + "latest-001.json",  defaultId: null };
-    }
-    if (path.includes("historical")) {
-      return { json: CONTENT_BASE + "historical.json",  defaultId: null };
-    }
-    if (path.includes("article")) {
-      return { json: CONTENT_BASE + "articles.json",    defaultId: null };
-    }
-    return null;
-  }
-
-  function renderArticleMeta(metaEl, item) {
-    clearEl(metaEl);
-    if (!item) return;
-
-    const bits = [];
-    if (item.category) bits.push(item.category);
-    if (item.author)   bits.push(item.author);
-    if (item.location) bits.push(item.location);
-    if (item.date)     bits.push(item.date);
-    if (item.readTime) bits.push(item.readTime);
-
-    metaEl.textContent = bits.join(" • ");
-  }
-
-  function renderArticleBody(contentEl, bodyBlocks) {
-    clearEl(contentEl);
-    if (!Array.isArray(bodyBlocks)) return;
-
-    bodyBlocks.forEach((block) => {
-      if (!block || !block.type) return;
-
-      let el = null;
-
-      if (block.type === "header") {
-        el = createEl("h2", null, block.text || "");
-      } else if (block.type === "paragraph") {
-        el = createEl("p", null, block.text || "");
-      } else if (block.type === "points") {
-        el = createEl("div", "important-points");
-        const ul = createEl("ul");
-        (block.items || []).forEach((pt) => {
-          const li = createEl("li", null, pt);
-          ul.appendChild(li);
-        });
-        el.appendChild(ul);
-      } else if (block.type === "image") {
-        const figure = document.createElement("figure");
-        const align  = (block.align || "").toLowerCase();
-
-        if (align === "left") {
-          figure.className = "image-left";
-        } else if (align === "right") {
-          figure.className = "image-right";
-        } else {
-          figure.style.margin = "20px 0";
-        }
-
-        const img = createEl("img");
-        img.src = block.src;
-        img.alt = block.caption || "";
-        figure.appendChild(img);
-
-        if (block.caption || block.credit) {
-          const cap = createEl(
-            "figcaption",
-            null,
-            (block.caption || "") +
-              (block.credit ? " — " + block.credit : "")
-          );
-          figure.appendChild(cap);
-        }
-
-        el = figure;
-      }
-
-      if (el) contentEl.appendChild(el);
-    });
-  }
-
-  function initArticlePage() {
-    const titleEl      = document.getElementById("title");
-    const metaEl       = document.getElementById("meta");
-    const heroWrap     = document.getElementById("heroWrap");
-    const heroImg      = document.getElementById("heroImg");
-    const heroCaption  = document.getElementById("heroCaption");
-    const contentEl    = document.getElementById("content");
-
-    if (!titleEl || !metaEl || !heroWrap || !heroImg || !heroCaption || !contentEl) {
-      return; // not on article page
-    }
-
-    const srcInfo = detectArticleSource();
-    if (!srcInfo) return;
-
-    const requestedId = getQueryParam("id");
-
-    fetchJSON(srcInfo.json).then((data) => {
-      const items = normalizeItems(data);
-      if (!items.length) return;
-
-      let article = null;
-      if (requestedId) {
-        article = items.find((it) => it.id === requestedId);
-      }
-      if (!article && srcInfo.defaultId) {
-        article = items.find((it) => it.id === srcInfo.defaultId);
-      }
-      if (!article) {
-        article = items[0];
-      }
-      if (!article) return;
-
-      titleEl.textContent = article.title || "Untitled";
-      renderArticleMeta(metaEl, article);
-
-      const hero = resolveHeroImage(article);
-      if (hero && hero.src) {
-        heroImg.src = hero.src;
-        heroImg.alt = article.title || "";
-        heroCaption.textContent =
-          (hero.caption || "") +
-          (hero.credit ? " — " + hero.credit : "");
-        heroWrap.style.display = "";
-      } else {
-        heroWrap.style.display = "none";
-      }
-
-      renderArticleBody(contentEl, article.body || article.blocks || []);
-    });
-  }
-  // ------------------------------------------------------------
-  // ACTION BUTTONS (for article pages that use them)
-  // ------------------------------------------------------------
-  function initActions() {
-    const likeBtn   = document.getElementById("likeBtn");
-    const likeCount = document.getElementById("likeCount");
-    const subBtn    = document.getElementById("subBtn");
-    const shareBtn  = document.getElementById("shareBtn");
-    const copyBtn   = document.getElementById("copyBtn");
-
-    if (likeBtn && likeCount) {
-      let count = 0;
-      likeBtn.addEventListener("click", () => {
-        count += 1;
-        likeCount.textContent = String(count);
-      });
-    }
-
-    if (subBtn) {
-      subBtn.addEventListener("click", () => {
-        subBtn.textContent =
-          subBtn.textContent.indexOf("Subscribed") === -1
-            ? "✅ Subscribed"
-            : "🔔 Subscribe";
-      });
-    }
-
-    if (shareBtn) {
-      shareBtn.addEventListener("click", () => {
-        if (navigator.share) {
-          navigator
-            .share({
-              title: document.title,
-              url: window.location.href,
-            })
-            .catch(() => {});
-        } else {
-          alert("Sharing is not supported in this browser.");
-        }
-      });
-    }
-
-    if (copyBtn) {
-      copyBtn.addEventListener("click", () => {
-        const url = window.location.href;
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(url).catch(() => {});
-        } else {
-          const tmp = document.createElement("input");
-          tmp.value = url;
-          document.body.appendChild(tmp);
-          tmp.select();
-          try {
-            document.execCommand("copy");
-          } catch (e) {}
-          document.body.removeChild(tmp);
-        }
-      });
+      bar.appendChild(chip);
+    } catch {
+      const chip = createEl("div", "chip tiny", c.name + ": --°C");
+      bar.appendChild(chip);
     }
   }
+}
 
-  // ------------------------------------------------------------
-  // CONTACT MODAL, FOOTER YEAR, LOADER
-  // ------------------------------------------------------------
-  function initContactModal() {
-    const openBtn = document.getElementById("contact-open");
-    const closeBtn = document.getElementById("contact-close");
-    const modal = document.getElementById("contact-modal");
+/* ======================================================
+TICKER
+====================================================== */
 
-    if (!modal) return;
+async function initTicker() {
+  const ul = $("#ticker-items");
+  if (!ul) return;
 
-    if (openBtn) {
-      openBtn.addEventListener("click", () => {
-        modal.classList.remove("hidden");
-      });
-    }
-    if (closeBtn) {
-      closeBtn.addEventListener("click", () => {
-        modal.classList.add("hidden");
-      });
-    }
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) modal.classList.add("hidden");
-    });
-  }
+  const data = await fetchJSON(CONTENT_BASE + "index.json");
 
-  function initFooterYear() {
-    const yearEl = document.getElementById("year");
-    if (yearEl) {
-      yearEl.textContent = new Date().getFullYear();
-    }
-  }
+  if (!data || !data.ticker) return;
 
-  function initLoader() {
-    const loader = document.getElementById("site-loader");
-    if (!loader) return;
-    window.addEventListener("load", () => {
-      loader.style.opacity = "0";
-      setTimeout(() => {
-        loader.style.display = "none";
-      }, 400);
-    });
-  }
+  clearEl(ul);
 
-  // ------------------------------------------------------------
-  // INIT
-  // ------------------------------------------------------------
-  document.addEventListener("DOMContentLoaded", () => {
-    initClocksCalendars();
-    initWeather();
-    initTicker();
-    initHomepage();
-    initVlogHomepage();
-    initArticlePage();
-    initActions();
-    initContactModal();
-    initFooterYear();
-    initLoader();
+  data.ticker.forEach(text => {
+    const li = createEl("li");
+    li.textContent = text;
+    ul.appendChild(li);
   });
-})();
+}
+
+/* ======================================================
+ARTICLE LOADER
+====================================================== */
+
+async function loadArticleById(id) {
+  const files = [
+    "articles.json",
+    "breaking.json",
+    "blog.json",
+    "editorial.json"
+  ];
+
+  for (const file of files) {
+    const data = await fetchJSON(CONTENT_BASE + file);
+
+    if (!data || !data.items) continue;
+
+    const item = data.items.find(x => x.id === id);
+
+    if (item) return item;
+  }
+
+  return null;
+}
+
+/* ======================================================
+HOMEPAGE
+====================================================== */
+
+async function initHomepage() {
+  const data = await fetchJSON(CONTENT_BASE + "index.json");
+  if (!data) return;
+
+  const top = data.homepage.topStories;
+
+  const lead = await loadArticleById(top.lead);
+  const breaking = await loadArticleById(top.breaking);
+  const opinion = await loadArticleById(top.opinion);
+
+  fillCard("lead-media", "lead-body", lead);
+  fillCard("breaking-media", "breaking-body", breaking);
+  fillCard("opinion-media", "opinion-body", opinion);
+
+  const leh = data.homepage.latestEditorialHistorical;
+
+  const latest = await loadArticleById(leh.latest);
+  const editorial = await loadArticleById(leh.editorial);
+  const historical = await loadArticleById(leh.historical);
+
+  fillCard("leh1-media", "leh1-body", latest);
+  fillCard("leh2-media", "leh2-body", editorial);
+  fillCard("leh3-media", "leh3-body", historical);
+}
+
+function fillCard(mediaId, bodyId, item) {
+  const media = $("#" + mediaId);
+  const body = $("#" + bodyId);
+
+  if (!media || !body || !item) return;
+
+  const img = resolveHeroImage(item);
+
+  if (img) {
+    media.style.backgroundImage = "url(" + img + ")";
+    media.style.backgroundSize = "cover";
+    media.style.backgroundPosition = "center";
+  }
+
+  clearEl(body);
+
+  const h = createEl("h3", null, item.title);
+  const p = createEl("p", null, item.excerpt);
+
+  const a = createEl("a", "read-more", "Read More");
+  a.href = "article.html?id=" + item.id;
+
+  body.appendChild(h);
+  body.appendChild(p);
+  body.appendChild(a);
+}
+
+/* ======================================================
+VLOGS
+====================================================== */
+
+async function initVlogs() {
+  const grid = $("#vlogs-grid");
+  if (!grid) return;
+
+  const data = await fetchJSON(CONTENT_BASE + "youtube.json");
+  if (!data) return;
+
+  clearEl(grid);
+
+  data.videos.slice(0, 3).forEach(v => {
+    const card = createEl("div", "card");
+
+    const iframe = document.createElement("iframe");
+    iframe.src = "https://www.youtube.com/embed/" + v.youtubeId;
+    iframe.allowFullscreen = true;
+
+    const body = createEl("div", "card-body");
+
+    const h = createEl("h3", null, v.title);
+    const p = createEl("p", null, v.description);
+
+    body.appendChild(h);
+    body.appendChild(p);
+
+    card.appendChild(iframe);
+    card.appendChild(body);
+
+    grid.appendChild(card);
+  });
+}
+
+/* ======================================================
+CONTACT MODAL
+====================================================== */
+
+function initContactModal() {
+  const modal = $("#contact-modal");
+  const open = $("#contact-open");
+  const close = $("#contact-close");
+
+  if (!modal) return;
+
+  if (open) open.onclick = () => modal.classList.remove("hidden");
+
+  if (close) close.onclick = () => modal.classList.add("hidden");
+
+  window.onclick = e => {
+    if (e.target === modal) modal.classList.add("hidden");
+  };
+}
+
+/* ======================================================
+FOOTER YEAR
+====================================================== */
+
+function initFooterYear() {
+  const y = $("#year");
+  if (y) y.textContent = new Date().getFullYear();
+}
+
+/* ======================================================
+LOADER
+====================================================== */
+
+function initLoader() {
+  const loader = $("#site-loader");
+
+  window.addEventListener("load", () => {
+    if (!loader) return;
+
+    loader.style.opacity = "0";
+
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 600);
+  });
+}
+
+/* ======================================================
+INITIALIZE
+====================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+  initClocksCalendars();
+  initWeather();
+  initTicker();
+  initHomepage();
+  initVlogs();
+  initContactModal();
+  initFooterYear();
+  initLoader();
+});
