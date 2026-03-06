@@ -4,344 +4,432 @@ GLOBAL HELPERS
 
 const CONTENT_BASE = "content/";
 
-const $ = (sel, ctx = document) => ctx.querySelector(sel);
-const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+const $ = (s,c=document)=>c.querySelector(s);
+const $$=(s,c=document)=>[...c.querySelectorAll(s)];
 
-function createEl(tag, className, text) {
-  const el = document.createElement(tag);
-  if (className) el.className = className;
-  if (text) el.textContent = text;
-  return el;
+async function fetchJSON(url){
+ const r=await fetch(url,{cache:"no-store"});
+ if(!r.ok)return null;
+ return r.json();
 }
 
-function clearEl(el) {
-  while (el.firstChild) el.removeChild(el.firstChild);
+function createEl(tag,cls,text){
+ const e=document.createElement(tag);
+ if(cls)e.className=cls;
+ if(text)e.textContent=text;
+ return e;
 }
 
-async function fetchJSON(url) {
-  const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) return null;
-  return res.json();
+function clearEl(el){
+ while(el.firstChild)el.removeChild(el.firstChild);
 }
 
-function resolveHeroImage(item) {
-  if (!item) return null;
-
-  if (item.heroImage && item.heroImage.src) return item.heroImage.src;
-  if (item.heroImage) return item.heroImage;
-  if (item.image) return item.image;
-  if (item.thumbnail) return item.thumbnail;
-
-  return null;
+function resolveHeroImage(item){
+ if(!item)return null;
+ if(item.heroImage?.src)return item.heroImage.src;
+ if(item.heroImage)return item.heroImage;
+ if(item.image)return item.image;
+ return null;
 }
 
 /* ======================================================
-CLOCKS AND CALENDARS
+CLOCKS
 ====================================================== */
 
-function initClocksCalendars() {
-  function update() {
-    const now = new Date();
+function initClocksCalendars(){
 
-    const cest = $("#clock-cest span");
-    if (cest) {
-      cest.textContent = new Intl.DateTimeFormat("en-GB", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-        timeZone: "Europe/Zurich"
-      }).format(now);
-    }
+ function update(){
 
-    const ist = $("#tz-ist span");
-    if (ist) {
-      ist.textContent = new Intl.DateTimeFormat("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-        timeZone: "Asia/Kolkata"
-      }).format(now);
-    }
+  const now=new Date();
 
-    const pkt = $("#tz-pkt span");
-    if (pkt) {
-      pkt.textContent = new Intl.DateTimeFormat("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-        timeZone: "Asia/Karachi"
-      }).format(now);
-    }
-
-    const hijri = $("#cal-hijri span");
-    if (hijri) {
-      hijri.textContent = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      }).format(now);
-    }
-
-    const hindu = $("#cal-hindi span");
-    if (hindu) {
-      hindu.textContent = new Intl.DateTimeFormat("en-IN-u-ca-indian", {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      }).format(now);
-    }
+  const cest=$("#clock-cest span");
+  if(cest){
+   cest.textContent=new Intl.DateTimeFormat("en-GB",{
+    weekday:"long",
+    year:"numeric",
+    month:"long",
+    day:"numeric",
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hour12:false,
+    timeZone:"Europe/Zurich"
+   }).format(now);
   }
 
-  update();
-  setInterval(update, 1000);
+  const ist=$("#tz-ist span");
+  if(ist){
+   ist.textContent=new Intl.DateTimeFormat("en-GB",{
+    hour:"2-digit",minute:"2-digit",second:"2-digit",
+    hour12:false,timeZone:"Asia/Kolkata"
+   }).format(now);
+  }
+
+  const pkt=$("#tz-pkt span");
+  if(pkt){
+   pkt.textContent=new Intl.DateTimeFormat("en-GB",{
+    hour:"2-digit",minute:"2-digit",second:"2-digit",
+    hour12:false,timeZone:"Asia/Karachi"
+   }).format(now);
+  }
+
+ }
+
+ update();
+ setInterval(update,1000);
 }
 
 /* ======================================================
-WEATHER BAR
+WEATHER
 ====================================================== */
 
-async function initWeather() {
-  const bar = $("#weather-bar");
-  if (!bar) return;
+async function initWeather(){
 
-  const cities = [
-    { name: "Zurich", lat: 47.37, lon: 8.54 },
-    { name: "Rawalakot", lat: 33.85, lon: 73.76 },
-    { name: "Jammu", lat: 32.73, lon: 74.86 },
-    { name: "Kashmir", lat: 34.08, lon: 74.79 },
-    { name: "Ladakh", lat: 34.15, lon: 77.58 },
-    { name: "Gilgit", lat: 35.92, lon: 74.30 },
-    { name: "Baltistan", lat: 35.30, lon: 75.63 },
-    { name: "Muzaffarabad", lat: 34.37, lon: 73.47 }
-  ];
+ const bar=$("#weather-bar");
+ if(!bar)return;
 
-  clearEl(bar);
+ const cities=[
+  {n:"Zurich",lat:47.37,lon:8.54},
+  {n:"Rawalakot",lat:33.85,lon:73.76},
+  {n:"Jammu",lat:32.73,lon:74.86},
+  {n:"Kashmir",lat:34.08,lon:74.79},
+  {n:"Ladakh",lat:34.15,lon:77.58},
+  {n:"Gilgit",lat:35.92,lon:74.30},
+  {n:"Baltistan",lat:35.30,lon:75.63},
+  {n:"Muzaffarabad",lat:34.37,lon:73.47}
+ ];
 
-  for (const c of cities) {
-    try {
-      const url =
-        "https://api.open-meteo.com/v1/forecast?latitude=" +
-        c.lat +
-        "&longitude=" +
-        c.lon +
-        "&current_weather=true";
+ clearEl(bar);
 
-      const data = await fetchJSON(url);
+ for(const c of cities){
 
-      const t = data?.current_weather?.temperature ?? "--";
+  try{
 
-      const chip = createEl("div", "chip tiny", c.name + ": " + t + "°C");
+   const url=`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`;
 
-      bar.appendChild(chip);
-    } catch {
-      const chip = createEl("div", "chip tiny", c.name + ": --°C");
-      bar.appendChild(chip);
-    }
+   const data=await fetchJSON(url);
+
+   const t=data?.current_weather?.temperature??"--";
+
+   const chip=createEl("div","chip tiny",`${c.n}: ${t}°C`);
+
+   bar.appendChild(chip);
+
+  }catch{
+
+   bar.appendChild(createEl("div","chip tiny",`${c.n}: --°C`));
+
   }
+
+ }
 }
 
 /* ======================================================
 TICKER
 ====================================================== */
 
-async function initTicker() {
-  const ul = $("#ticker-items");
-  if (!ul) return;
+async function initTicker(){
 
-  const data = await fetchJSON(CONTENT_BASE + "index.json");
+ const ul=$("#ticker-items");
+ if(!ul)return;
 
-  if (!data || !data.ticker) return;
+ const data=await fetchJSON(CONTENT_BASE+"index.json");
 
-  clearEl(ul);
+ if(!data?.ticker)return;
 
-  data.ticker.forEach(text => {
-    const li = createEl("li");
-    li.textContent = text;
-    ul.appendChild(li);
-  });
+ clearEl(ul);
+
+ data.ticker.forEach(t=>{
+  const li=document.createElement("li");
+  li.textContent=t;
+  ul.appendChild(li);
+ });
+
 }
 
 /* ======================================================
-ARTICLE LOADER
+ARTICLE SEARCH
 ====================================================== */
 
-async function loadArticleById(id) {
-  const files = [
-    "articles.json",
-    "breaking.json",
-    "blog.json",
-    "editorial.json"
-  ];
+async function loadArticleById(id){
 
-  for (const file of files) {
-    const data = await fetchJSON(CONTENT_BASE + file);
+ const files=[
+  "articles.json",
+  "breaking.json",
+  "blog.json",
+  "editorial.json"
+ ];
 
-    if (!data || !data.items) continue;
+ for(const f of files){
 
-    const item = data.items.find(x => x.id === id);
+  const data=await fetchJSON(CONTENT_BASE+f);
+  if(!data?.items)continue;
 
-    if (item) return item;
-  }
+  const a=data.items.find(x=>x.id===id);
 
-  return null;
+  if(a)return a;
+
+ }
+
+ return null;
+
+}
+
+/* ======================================================
+HOMEPAGE CARDS
+====================================================== */
+
+function fillCard(mediaId,bodyId,item){
+
+ const media=$("#"+mediaId);
+ const body=$("#"+bodyId);
+
+ if(!media||!body)return;
+
+ if(!item)return;
+
+ media.textContent="";
+
+ const img=resolveHeroImage(item);
+
+ if(img){
+  media.style.backgroundImage=`url(${img})`;
+  media.style.backgroundSize="cover";
+  media.style.backgroundPosition="center";
+ }
+
+ clearEl(body);
+
+ const h=createEl("h3",null,item.title);
+ const p=createEl("p",null,item.excerpt);
+
+ const a=createEl("a","read-more","Read More");
+ a.href=`editorial.html?id=${item.id}`;
+
+ body.append(h,p,a);
+
 }
 
 /* ======================================================
 HOMEPAGE
 ====================================================== */
 
-async function initHomepage() {
-  const data = await fetchJSON(CONTENT_BASE + "index.json");
-  if (!data) return;
+async function initHomepage(){
 
-  const top = data.homepage.topStories;
+ const data=await fetchJSON(CONTENT_BASE+"index.json");
+ if(!data)return;
 
-  const lead = await loadArticleById(top.lead);
-  const breaking = await loadArticleById(top.breaking);
-  const opinion = await loadArticleById(top.opinion);
+ const top=data.homepage.topStories;
 
-  fillCard("lead-media", "lead-body", lead);
-  fillCard("breaking-media", "breaking-body", breaking);
-  fillCard("opinion-media", "opinion-body", opinion);
+ const lead=await loadArticleById(top.lead);
+ const breaking=await loadArticleById(top.breaking);
+ const opinion=await loadArticleById(top.opinion);
 
-  const leh = data.homepage.latestEditorialHistorical;
+ fillCard("lead-media","lead-body",lead);
+ fillCard("breaking-media","breaking-body",breaking);
+ fillCard("opinion-media","opinion-body",opinion);
 
-  const latest = await loadArticleById(leh.latest);
-  const editorial = await loadArticleById(leh.editorial);
-  const historical = await loadArticleById(leh.historical);
-
-  fillCard("leh1-media", "leh1-body", latest);
-  fillCard("leh2-media", "leh2-body", editorial);
-  fillCard("leh3-media", "leh3-body", historical);
 }
 
-function fillCard(mediaId, bodyId, item) {
-  const media = $("#" + mediaId);
-  const body = $("#" + bodyId);
+/* ======================================================
+ARTICLE PAGE RENDER
+====================================================== */
 
-  if (!media || !body || !item) return;
+function renderArticle(article){
 
-  const img = resolveHeroImage(item);
+ $("#title").textContent=article.title;
 
-  if (img) {
-    media.style.backgroundImage = "url(" + img + ")";
-    media.style.backgroundSize = "cover";
-    media.style.backgroundPosition = "center";
+ $("#meta").textContent=
+ `${article.author} • ${article.location} • ${article.date} • ${article.readTime}`;
+
+ if(article.heroImage){
+
+  $("#heroImg").src=article.heroImage.src;
+
+  $("#heroCaption").textContent=
+   `${article.heroImage.caption} — ${article.heroImage.credit}`;
+ }
+
+ const container=$("#content");
+ clearEl(container);
+
+ article.body.forEach(b=>{
+
+  if(b.type==="header"){
+   container.appendChild(createEl("h2",null,b.text));
   }
 
-  clearEl(body);
+  if(b.type==="paragraph"){
+   container.appendChild(createEl("p",null,b.text));
+  }
 
-  const h = createEl("h3", null, item.title);
-  const p = createEl("p", null, item.excerpt);
+  if(b.type==="points"){
 
-  const a = createEl("a", "read-more", "Read More");
-  a.href = "article.html?id=" + item.id;
+   const box=createEl("div","pull-points");
 
-  body.appendChild(h);
-  body.appendChild(p);
-  body.appendChild(a);
+   const ul=document.createElement("ul");
+
+   b.items.forEach(i=>{
+    const li=document.createElement("li");
+    li.textContent=i;
+    ul.appendChild(li);
+   });
+
+   box.appendChild(ul);
+   container.appendChild(box);
+  }
+
+  if(b.type==="image"){
+
+   const fig=document.createElement("figure");
+
+   const img=document.createElement("img");
+   img.src=b.src;
+
+   const cap=document.createElement("figcaption");
+   cap.textContent=`${b.caption} — ${b.credit}`;
+
+   fig.append(img,cap);
+
+   if(b.align==="left")fig.className="img-left";
+   if(b.align==="right")fig.className="img-right";
+
+   container.appendChild(fig);
+  }
+
+ });
+
+}
+
+/* ======================================================
+LOAD ARTICLE PAGE
+====================================================== */
+
+async function loadArticlePage(){
+
+ const params=new URLSearchParams(location.search);
+ const id=params.get("id");
+
+ if(!id)return;
+
+ const article=await loadArticleById(id);
+
+ if(article)renderArticle(article);
+
+}
+
+/* ======================================================
+ARTICLE ACTIONS
+====================================================== */
+
+function initArticleActions(){
+
+ const like=$("#likeBtn");
+ const likeCount=$("#likeCount");
+
+ if(like){
+
+  let n=0;
+
+  like.onclick=()=>{
+   n++;
+   likeCount.textContent=n;
+  };
+
+ }
+
+ const sub=$("#subBtn");
+
+ if(sub){
+  sub.onclick=()=>{
+   sub.textContent="Subscribed";
+   sub.disabled=true;
+  };
+ }
+
+ const share=$("#shareBtn");
+
+ if(share){
+
+  share.onclick=()=>{
+
+   if(navigator.share){
+
+    navigator.share({
+     title:document.title,
+     url:location.href
+    });
+
+   }else{
+
+    alert("Share not supported");
+
+   }
+
+  };
+
+ }
+
+ const copy=$("#copyBtn");
+
+ if(copy){
+
+  copy.onclick=()=>navigator.clipboard.writeText(location.href);
+
+ }
+
 }
 
 /* ======================================================
 VLOGS
 ====================================================== */
 
-async function initVlogs() {
-  const grid = $("#vlogs-grid");
-  if (!grid) return;
+async function initVlogs(){
 
-  const data = await fetchJSON(CONTENT_BASE + "youtube.json");
-  if (!data) return;
+ const grid=$("#vlogs-grid");
+ if(!grid)return;
 
-  clearEl(grid);
+ const data=await fetchJSON(CONTENT_BASE+"youtube.json");
+ if(!data?.videos)return;
 
-  data.videos.slice(0, 3).forEach(v => {
-    const card = createEl("div", "card");
+ clearEl(grid);
 
-    const iframe = document.createElement("iframe");
-    iframe.src = "https://www.youtube.com/embed/" + v.youtubeId;
-    iframe.allowFullscreen = true;
+ data.videos.slice(0,3).forEach(v=>{
 
-    const body = createEl("div", "card-body");
+  const card=createEl("div","card");
 
-    const h = createEl("h3", null, v.title);
-    const p = createEl("p", null, v.description);
+  const iframe=document.createElement("iframe");
+  iframe.src=`https://www.youtube.com/embed/${v.youtubeId}`;
+  iframe.allowFullscreen=true;
 
-    body.appendChild(h);
-    body.appendChild(p);
+  const body=createEl("div","card-body");
 
-    card.appendChild(iframe);
-    card.appendChild(body);
+  body.append(
+   createEl("h3",null,v.title),
+   createEl("p",null,v.description)
+  );
 
-    grid.appendChild(card);
-  });
+  card.append(iframe,body);
+
+  grid.appendChild(card);
+
+ });
+
 }
 
 /* ======================================================
-CONTACT MODAL
+INIT
 ====================================================== */
 
-function initContactModal() {
-  const modal = $("#contact-modal");
-  const open = $("#contact-open");
-  const close = $("#contact-close");
+document.addEventListener("DOMContentLoaded",()=>{
 
-  if (!modal) return;
+ initClocksCalendars();
+ initWeather();
+ initTicker();
+ initHomepage();
+ initVlogs();
 
-  if (open) open.onclick = () => modal.classList.remove("hidden");
+ loadArticlePage();
+ initArticleActions();
 
-  if (close) close.onclick = () => modal.classList.add("hidden");
-
-  window.onclick = e => {
-    if (e.target === modal) modal.classList.add("hidden");
-  };
-}
-
-/* ======================================================
-FOOTER YEAR
-====================================================== */
-
-function initFooterYear() {
-  const y = $("#year");
-  if (y) y.textContent = new Date().getFullYear();
-}
-
-/* ======================================================
-LOADER
-====================================================== */
-
-function initLoader() {
-  const loader = $("#site-loader");
-
-  window.addEventListener("load", () => {
-    if (!loader) return;
-
-    loader.style.opacity = "0";
-
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 600);
-  });
-}
-
-/* ======================================================
-INITIALIZE
-====================================================== */
-
-document.addEventListener("DOMContentLoaded", () => {
-  initClocksCalendars();
-  initWeather();
-  initTicker();
-  initHomepage();
-  initVlogs();
-  initContactModal();
-  initFooterYear();
-  initLoader();
 });
