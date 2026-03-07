@@ -5,11 +5,17 @@ GLOBAL HELPERS
 const CONTENT_BASE = "content/";
 
 const $ = (s,c=document)=>c.querySelector(s);
+const $$=(s,c=document)=>[...c.querySelectorAll(s)];
 
 async function fetchJSON(url){
- const r = await fetch(url,{cache:"no-store"});
- if(!r.ok) return null;
- return r.json();
+ try{
+  const r=await fetch(url,{cache:"no-store"});
+  if(!r.ok) return null;
+  return await r.json();
+ }catch(e){
+  console.error("JSON load failed:",url,e);
+  return null;
+ }
 }
 
 function createEl(tag,cls,text){
@@ -85,7 +91,6 @@ function initClocksCalendars(){
 
  update();
  setInterval(update,1000);
-
 }
 
 /* ======================================================
@@ -131,7 +136,6 @@ async function initWeather(){
   }
 
  }
-
 }
 
 /* ======================================================
@@ -144,7 +148,8 @@ async function initTicker(){
  if(!ul) return;
 
  const data=await fetchJSON(CONTENT_BASE+"index.json");
- if(!data?.ticker) return;
+
+ if(!data || !data.ticker) return;
 
  clearEl(ul);
 
@@ -153,7 +158,6 @@ async function initTicker(){
   li.textContent=t;
   ul.appendChild(li);
  });
-
 }
 
 /* ======================================================
@@ -172,46 +176,26 @@ async function loadArticleById(id){
  for(const f of files){
 
   const data=await fetchJSON(CONTENT_BASE+f);
-  if(!data?.items) continue;
+  if(!data || !data.items) continue;
 
-  const found=data.items.find(x=>x.id===id);
-  if(found) return found;
+  const a=data.items.find(x=>x.id===id);
 
+  if(a) return a;
  }
 
  return null;
-
 }
 
 /* ======================================================
-HOMEPAGE
+HOMEPAGE CARDS
 ====================================================== */
-
-async function initHomepage(){
-
- if(!document.querySelector("#lead-media")) return;
-
- const data=await fetchJSON(CONTENT_BASE+"index.json");
- if(!data) return;
-
- const top=data.homepage.topStories;
-
- const lead=await loadArticleById(top.lead);
- const breaking=await loadArticleById(top.breaking);
- const opinion=await loadArticleById(top.opinion);
-
- fillCard("lead-media","lead-body",lead);
- fillCard("breaking-media","breaking-body",breaking);
- fillCard("opinion-media","opinion-body",opinion);
-
-}
 
 function fillCard(mediaId,bodyId,item){
 
  const media=$("#"+mediaId);
  const body=$("#"+bodyId);
 
- if(!media||!body||!item) return;
+ if(!media || !body || !item) return;
 
  media.textContent="";
 
@@ -232,46 +216,57 @@ function fillCard(mediaId,bodyId,item){
  a.href=`editorial.html?id=${item.id}`;
 
  body.append(h,p,a);
-
 }
 
 /* ======================================================
-ARTICLE PAGE
+HOMEPAGE
 ====================================================== */
 
-async function loadArticlePage(){
+async function initHomepage(){
 
- if(!document.querySelector("#content")) return;
+ if(!document.querySelector("#lead-media")) return;
 
- const params=new URLSearchParams(location.search);
- const id=params.get("id");
+ const data=await fetchJSON(CONTENT_BASE+"index.json");
+ if(!data || !data.homepage || !data.homepage.topStories) return;
 
- if(!id) return;
+ const top=data.homepage.topStories;
 
- const article=await loadArticleById(id);
- if(!article) return;
+ const lead=await loadArticleById(top.lead);
+ const breaking=await loadArticleById(top.breaking);
+ const opinion=await loadArticleById(top.opinion);
 
- renderArticle(article);
-
+ fillCard("lead-media","lead-body",lead);
+ fillCard("breaking-media","breaking-body",breaking);
+ fillCard("opinion-media","opinion-body",opinion);
 }
+
+/* ======================================================
+ARTICLE PAGE RENDER
+====================================================== */
 
 function renderArticle(article){
 
+ if(!$("#title")) return;
+
  $("#title").textContent=article.title;
 
- $("#meta").textContent =
- `${article.author} • ${article.location} • ${article.date} • ${article.readTime}`;
+ if($("#meta")){
+  $("#meta").textContent=
+   `${article.author} • ${article.location} • ${article.date} • ${article.readTime}`;
+ }
 
- if(article.heroImage){
-
+ if(article.heroImage && $("#heroImg")){
   $("#heroImg").src=article.heroImage.src;
+ }
 
-  $("#heroCaption").textContent =
+ if(article.heroImage && $("#heroCaption")){
+  $("#heroCaption").textContent=
    `${article.heroImage.caption} — ${article.heroImage.credit}`;
-
  }
 
  const container=$("#content");
+ if(!container) return;
+
  clearEl(container);
 
  article.body.forEach(b=>{
@@ -287,6 +282,7 @@ function renderArticle(article){
   if(b.type==="points"){
 
    const box=createEl("div","pull-points");
+
    const ul=document.createElement("ul");
 
    b.items.forEach(i=>{
@@ -315,11 +311,26 @@ function renderArticle(article){
    if(b.align==="right") fig.className="img-right";
 
    container.appendChild(fig);
-
   }
-
  });
+}
 
+/* ======================================================
+LOAD ARTICLE PAGE
+====================================================== */
+
+async function loadArticlePage(){
+
+ if(!document.querySelector("#content")) return;
+
+ const params=new URLSearchParams(location.search);
+ const id=params.get("id");
+
+ if(!id) return;
+
+ const article=await loadArticleById(id);
+
+ if(article) renderArticle(article);
 }
 
 /* ======================================================
@@ -328,19 +339,21 @@ ARTICLE ACTIONS
 
 function initArticleActions(){
 
- if(!document.querySelector("#likeBtn")) return;
-
  const like=$("#likeBtn");
  const likeCount=$("#likeCount");
 
- let n=0;
+ if(like){
 
- like.onclick=()=>{
-  n++;
-  likeCount.textContent=n;
- };
+  let n=0;
+
+  like.onclick=()=>{
+   n++;
+   if(likeCount) likeCount.textContent=n;
+  };
+ }
 
  const sub=$("#subBtn");
+
  if(sub){
   sub.onclick=()=>{
    sub.textContent="Subscribed";
@@ -349,19 +362,23 @@ function initArticleActions(){
  }
 
  const share=$("#shareBtn");
+
  if(share){
   share.onclick=()=>{
    if(navigator.share){
-    navigator.share({title:document.title,url:location.href});
+    navigator.share({
+     title:document.title,
+     url:location.href
+    });
    }
   };
  }
 
  const copy=$("#copyBtn");
+
  if(copy){
   copy.onclick=()=>navigator.clipboard.writeText(location.href);
  }
-
 }
 
 /* ======================================================
@@ -374,7 +391,7 @@ async function initVlogs(){
  if(!grid) return;
 
  const data=await fetchJSON(CONTENT_BASE+"youtube.json");
- if(!data?.videos) return;
+ if(!data || !data.videos) return;
 
  clearEl(grid);
 
@@ -396,9 +413,7 @@ async function initVlogs(){
   card.append(iframe,body);
 
   grid.appendChild(card);
-
  });
-
 }
 
 /* ======================================================
@@ -407,12 +422,12 @@ SAFE INITIALIZATION
 
 document.addEventListener("DOMContentLoaded",()=>{
 
- try{ initClocksCalendars(); }catch(e){}
- try{ initWeather(); }catch(e){}
- try{ initTicker(); }catch(e){}
- try{ initHomepage(); }catch(e){}
- try{ initVlogs(); }catch(e){}
- try{ loadArticlePage(); }catch(e){}
- try{ initArticleActions(); }catch(e){}
+ try{ initClocksCalendars(); }catch(e){console.error(e)}
+ try{ initWeather(); }catch(e){console.error(e)}
+ try{ initTicker(); }catch(e){console.error(e)}
+ try{ initHomepage(); }catch(e){console.error(e)}
+ try{ initVlogs(); }catch(e){console.error(e)}
+ try{ loadArticlePage(); }catch(e){console.error(e)}
+ try{ initArticleActions(); }catch(e){console.error(e)}
 
 });
