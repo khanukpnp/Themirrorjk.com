@@ -44,54 +44,92 @@ loader.style.display = "none";
 }
 
 /* ======================================================
-CLOCKS
+CLOCKS + HIJRI + VIKRAM SAMVAT
 ====================================================== */
 function initClocksCalendars() {
-if (!$("#clock-cest")) return;
+  if (!$("#clock-cest")) return;
 
-function update() {
-const now = new Date();
+  function update() {
+    const now = new Date();
 
-const cest = $("#clock-cest span");
-if (cest) {
-cest.textContent = new Intl.DateTimeFormat("en-GB", {
-weekday: "long",
-year: "numeric",
-month: "long",
-day: "numeric",
-hour: "2-digit",
-minute: "2-digit",
-second: "2-digit",
-hour12: false,
-timeZone: "Europe/Zurich"
-}).format(now);
-}
+    /* -------------------------
+       CEST (Zurich)
+    ------------------------- */
+    const cest = $("#clock-cest span");
+    if (cest) {
+      cest.textContent = new Intl.DateTimeFormat("en-GB", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+        timeZone: "Europe/Zurich"
+      }).format(now);
+    }
 
-const ist = $("#tz-ist span");
-if (ist) {
-ist.textContent = new Intl.DateTimeFormat("en-GB", {
-hour: "2-digit",
-minute: "2-digit",
-second: "2-digit",
-hour12: false,
-timeZone: "Asia/Kolkata"
-}).format(now);
-}
+    /* -------------------------
+       IST (Jammu-Kashmir-Ladakh)
+    ------------------------- */
+    const ist = $("#tz-ist span");
+    if (ist) {
+      ist.textContent = new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+        timeZone: "Asia/Kolkata"
+      }).format(now);
+    }
 
-const pkt = $("#tz-pkt span");
-if (pkt) {
-pkt.textContent = new Intl.DateTimeFormat("en-GB", {
-hour: "2-digit",
-minute: "2-digit",
-second: "2-digit",
-hour12: false,
-timeZone: "Asia/Karachi"
-}).format(now);
-}
-}
+    /* -------------------------
+       PKT (Gilgit-Baltistan & AJK)
+    ------------------------- */
+    const pkt = $("#tz-pkt span");
+    if (pkt) {
+      pkt.textContent = new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+        timeZone: "Asia/Karachi"
+      }).format(now);
+    }
 
-update();
-setInterval(update, 1000);
+    /* -------------------------
+       HIJRI CALENDAR (FULL DATE)
+    ------------------------- */
+    const hijriEl = $("#cal-hijri span");
+    if (hijriEl) {
+      const hijri = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }).format(now);
+      hijriEl.textContent = hijri;
+    }
+
+    /* -------------------------
+       VIKRAM SAMVAT (FULL DATE)
+    ------------------------- */
+    const vsEl = $("#cal-hindi span");
+    if (vsEl) {
+      const vsYear = now.getFullYear() + 57; // VS = AD + 57
+      const vsMonths = [
+        "Chaitra", "Vaishakha", "Jyeshtha", "Ashadha",
+        "Shravana", "Bhadrapada", "Ashwin", "Kartika",
+        "Margashirsha", "Pausha", "Magha", "Phalguna"
+      ];
+      const vsMonth = vsMonths[now.getMonth()];
+      const vsDay = now.getDate();
+      vsEl.textContent = `${vsDay} ${vsMonth} ${vsYear}`;
+    }
+  }
+
+  update();
+  setInterval(update, 1000);
 }
 
 /* ======================================================
