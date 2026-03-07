@@ -5,17 +5,12 @@ GLOBAL HELPERS
 const CONTENT_BASE = "content/";
 
 const $ = (s,c=document)=>c.querySelector(s);
-const $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const $$ = (s,c=document)=>[...c.querySelectorAll(s)];
 
 async function fetchJSON(url){
- try{
-  const r = await fetch(url,{cache:"no-store"});
-  if(!r.ok) return null;
-  return await r.json();
- }catch(e){
-  console.error("JSON load error:",url);
-  return null;
- }
+ const r = await fetch(url,{cache:"no-store"});
+ if(!r.ok) return null;
+ return r.json();
 }
 
 function createEl(tag,cls,text){
@@ -44,16 +39,15 @@ LOADER CONTROL
 
 function hideLoader(){
 
- const loader=document.querySelector(".site-loader");
-
+ const loader = $("#site-loader");
  if(!loader) return;
 
- loader.style.transition="opacity .5s ease";
  loader.style.opacity="0";
 
  setTimeout(()=>{
   loader.style.display="none";
- },600);
+ },400);
+
 }
 
 /* ======================================================
@@ -62,7 +56,7 @@ CLOCKS
 
 function initClocksCalendars(){
 
- if(!document.querySelector("#clock-cest")) return;
+ if(!$("#clock-cest")) return;
 
  function update(){
 
@@ -109,6 +103,7 @@ function initClocksCalendars(){
 
  update();
  setInterval(update,1000);
+
 }
 
 /* ======================================================
@@ -138,13 +133,10 @@ async function initWeather(){
   try{
 
    const url=`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`;
-
    const data=await fetchJSON(url);
-
    const t=data?.current_weather?.temperature ?? "--";
 
    const chip=createEl("div","chip tiny",`${c.n}: ${t}°C`);
-
    bar.appendChild(chip);
 
   }catch{
@@ -152,6 +144,7 @@ async function initWeather(){
   }
 
  }
+
 }
 
 /* ======================================================
@@ -164,7 +157,7 @@ async function initTicker(){
  if(!ul) return;
 
  const data=await fetchJSON(CONTENT_BASE+"index.json");
- if(!data || !data.ticker) return;
+ if(!data?.ticker) return;
 
  clearEl(ul);
 
@@ -173,6 +166,7 @@ async function initTicker(){
   li.textContent=t;
   ul.appendChild(li);
  });
+
 }
 
 /* ======================================================
@@ -191,13 +185,15 @@ async function loadArticleById(id){
  for(const f of files){
 
   const data=await fetchJSON(CONTENT_BASE+f);
-  if(!data || !data.items) continue;
+  if(!data?.items) continue;
 
-  const a=data.items.find(x=>x.id===id);
-  if(a) return a;
+  const found=data.items.find(x=>x.id===id);
+  if(found) return found;
+
  }
 
  return null;
+
 }
 
 /* ======================================================
@@ -209,7 +205,7 @@ function fillCard(mediaId,bodyId,item){
  const media=$("#"+mediaId);
  const body=$("#"+bodyId);
 
- if(!media || !body || !item) return;
+ if(!media||!body||!item) return;
 
  media.textContent="";
 
@@ -230,6 +226,7 @@ function fillCard(mediaId,bodyId,item){
  a.href=`editorial.html?id=${item.id}`;
 
  body.append(h,p,a);
+
 }
 
 /* ======================================================
@@ -238,11 +235,10 @@ HOMEPAGE
 
 async function initHomepage(){
 
- if(!document.querySelector("#lead-media")) return;
+ if(!$("#lead-media")) return;
 
  const data=await fetchJSON(CONTENT_BASE+"index.json");
-
- if(!data || !data.homepage || !data.homepage.topStories) return;
+ if(!data?.homepage?.topStories) return;
 
  const top=data.homepage.topStories;
 
@@ -253,35 +249,46 @@ async function initHomepage(){
  fillCard("lead-media","lead-body",lead);
  fillCard("breaking-media","breaking-body",breaking);
  fillCard("opinion-media","opinion-body",opinion);
+
 }
 
 /* ======================================================
-ARTICLE PAGE RENDER
+ARTICLE PAGE
 ====================================================== */
+
+async function loadArticlePage(){
+
+ if(!$("#content")) return;
+
+ const params=new URLSearchParams(location.search);
+ const id=params.get("id");
+
+ if(!id) return;
+
+ const article=await loadArticleById(id);
+ if(!article) return;
+
+ renderArticle(article);
+
+}
 
 function renderArticle(article){
 
- if(!$("#title")) return;
-
  $("#title").textContent=article.title;
 
- if($("#meta")){
-  $("#meta").textContent=
-  `${article.author} • ${article.location} • ${article.date} • ${article.readTime}`;
- }
+ $("#meta").textContent=
+ `${article.author} • ${article.location} • ${article.date} • ${article.readTime}`;
 
- if(article.heroImage && $("#heroImg")){
+ if(article.heroImage){
+
   $("#heroImg").src=article.heroImage.src;
- }
 
- if(article.heroImage && $("#heroCaption")){
   $("#heroCaption").textContent=
   `${article.heroImage.caption} — ${article.heroImage.credit}`;
+
  }
 
  const container=$("#content");
- if(!container) return;
-
  clearEl(container);
 
  article.body.forEach(b=>{
@@ -325,27 +332,11 @@ function renderArticle(article){
    if(b.align==="right") fig.className="img-right";
 
    container.appendChild(fig);
+
   }
 
  });
-}
 
-/* ======================================================
-LOAD ARTICLE PAGE
-====================================================== */
-
-async function loadArticlePage(){
-
- if(!document.querySelector("#content")) return;
-
- const params=new URLSearchParams(location.search);
- const id=params.get("id");
-
- if(!id) return;
-
- const article=await loadArticleById(id);
-
- if(article) renderArticle(article);
 }
 
 /* ======================================================
@@ -355,20 +346,17 @@ ARTICLE ACTIONS
 function initArticleActions(){
 
  const like=$("#likeBtn");
+ if(!like) return;
+
  const likeCount=$("#likeCount");
+ let n=0;
 
- if(like){
-
-  let n=0;
-
-  like.onclick=()=>{
-   n++;
-   if(likeCount) likeCount.textContent=n;
-  };
- }
+ like.onclick=()=>{
+  n++;
+  likeCount.textContent=n;
+ };
 
  const sub=$("#subBtn");
-
  if(sub){
   sub.onclick=()=>{
    sub.textContent="Subscribed";
@@ -377,23 +365,19 @@ function initArticleActions(){
  }
 
  const share=$("#shareBtn");
-
  if(share){
   share.onclick=()=>{
    if(navigator.share){
-    navigator.share({
-     title:document.title,
-     url:location.href
-    });
+    navigator.share({title:document.title,url:location.href});
    }
   };
  }
 
  const copy=$("#copyBtn");
-
  if(copy){
   copy.onclick=()=>navigator.clipboard.writeText(location.href);
  }
+
 }
 
 /* ======================================================
@@ -406,8 +390,7 @@ async function initVlogs(){
  if(!grid) return;
 
  const data=await fetchJSON(CONTENT_BASE+"youtube.json");
-
- if(!data || !data.videos) return;
+ if(!data?.videos) return;
 
  clearEl(grid);
 
@@ -429,7 +412,85 @@ async function initVlogs(){
   card.append(iframe,body);
 
   grid.appendChild(card);
+
  });
+
+}
+
+/* ======================================================
+NAVIGATION MOBILE
+====================================================== */
+
+function initMobileMenu(){
+
+ const btn=$("#hamburger");
+ const mobile=$("#mobile-menu");
+ const list=$("#nav-list");
+
+ if(!btn||!mobile||!list) return;
+
+ mobile.innerHTML=list.innerHTML;
+
+ btn.onclick=()=>{
+  const open=mobile.hidden;
+  mobile.hidden=!open;
+  btn.setAttribute("aria-expanded",open);
+ };
+
+}
+
+/* ======================================================
+CONTACT MODAL
+====================================================== */
+
+function initContactModal(){
+
+ const open=$("#contact-open");
+ const modal=$("#contact-modal");
+ const close=$("#contact-close");
+
+ if(!open||!modal) return;
+
+ open.onclick=()=>modal.classList.remove("hidden");
+
+ if(close){
+  close.onclick=()=>modal.classList.add("hidden");
+ }
+
+ window.onclick=e=>{
+  if(e.target===modal){
+   modal.classList.add("hidden");
+  }
+ };
+
+}
+
+/* ======================================================
+SEARCH
+====================================================== */
+
+function initSearch(){
+
+ const input=$("#search-input");
+ if(!input) return;
+
+ input.addEventListener("keypress",e=>{
+  if(e.key==="Enter"){
+   alert("Search feature will connect to CMS later.");
+  }
+ });
+
+}
+
+/* ======================================================
+YEAR
+====================================================== */
+
+function initYear(){
+
+ const y=$("#year");
+ if(y) y.textContent=new Date().getFullYear();
+
 }
 
 /* ======================================================
@@ -438,13 +499,17 @@ SAFE INITIALIZATION
 
 document.addEventListener("DOMContentLoaded", async ()=>{
 
- try{ initClocksCalendars(); }catch(e){console.error(e)}
- try{ await initWeather(); }catch(e){console.error(e)}
- try{ await initTicker(); }catch(e){console.error(e)}
- try{ await initHomepage(); }catch(e){console.error(e)}
- try{ await initVlogs(); }catch(e){console.error(e)}
- try{ await loadArticlePage(); }catch(e){console.error(e)}
- try{ initArticleActions(); }catch(e){console.error(e)}
+ try{ initYear(); }catch(e){}
+ try{ initClocksCalendars(); }catch(e){}
+ try{ await initWeather(); }catch(e){}
+ try{ await initTicker(); }catch(e){}
+ try{ await initHomepage(); }catch(e){}
+ try{ await initVlogs(); }catch(e){}
+ try{ await loadArticlePage(); }catch(e){}
+ try{ initArticleActions(); }catch(e){}
+ try{ initMobileMenu(); }catch(e){}
+ try{ initContactModal(); }catch(e){}
+ try{ initSearch(); }catch(e){}
 
  hideLoader();
 
