@@ -377,44 +377,34 @@ body {
   padding-left: 18px;
 }
 
-/* Inline images */
+/* ===== ARTICLE INLINE IMAGE FIX ===== */
 
-.image-left,
-.image-right {
-  max-width: 40%;
-  margin: 10px 0 10px;
+.article-content figure{
+ max-width:100%;
 }
 
-.image-left {
-  float: left;
-  margin-right: 16px;
+.article-content img{
+ max-width:100%;
+ height:auto;
+ display:block;
 }
 
-.image-right {
-  float: right;
-  margin-left: 16px;
+.img-left{
+ float:left;
+ width:38%;
+ margin:12px 20px 12px 0;
 }
 
-.image-left img,
-.image-right img {
-  width: 100%;
-  height: auto;
-  display: block;
+.img-right{
+ float:right;
+ width:38%;
+ margin:12px 0 12px 20px;
 }
 
-.image-left figcaption,
-.image-right figcaption {
-  font-size: 0.8rem;
-  color: #555;
-  margin-top: 4px;
-}
-
-/* Clear floats */
-
-.article-content::after {
-  content: "";
-  display: block;
-  clear: both;
+.article-content::after{
+ content:"";
+ display:block;
+ clear:both;
 }
 
 /* Page actions */
