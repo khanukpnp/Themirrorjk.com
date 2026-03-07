@@ -9,11 +9,11 @@ const $$=(s,c=document)=>[...c.querySelectorAll(s)];
 
 async function fetchJSON(url){
  try{
-  const r=await fetch(url,{cache:"no-store"});
+  const r = await fetch(url,{cache:"no-store"});
   if(!r.ok) return null;
   return await r.json();
  }catch(e){
-  console.error("JSON load failed:",url,e);
+  console.error("JSON load error:",url);
   return null;
  }
 }
@@ -36,6 +36,24 @@ function resolveHeroImage(item){
  if(item.heroImage) return item.heroImage;
  if(item.image) return item.image;
  return null;
+}
+
+/* ======================================================
+LOADER CONTROL
+====================================================== */
+
+function hideLoader(){
+
+ const loader=document.querySelector(".site-loader");
+
+ if(!loader) return;
+
+ loader.style.transition="opacity .5s ease";
+ loader.style.opacity="0";
+
+ setTimeout(()=>{
+  loader.style.display="none";
+ },600);
 }
 
 /* ======================================================
@@ -130,9 +148,7 @@ async function initWeather(){
    bar.appendChild(chip);
 
   }catch{
-
    bar.appendChild(createEl("div","chip tiny",`${c.n}: --°C`));
-
   }
 
  }
@@ -148,7 +164,6 @@ async function initTicker(){
  if(!ul) return;
 
  const data=await fetchJSON(CONTENT_BASE+"index.json");
-
  if(!data || !data.ticker) return;
 
  clearEl(ul);
@@ -179,7 +194,6 @@ async function loadArticleById(id){
   if(!data || !data.items) continue;
 
   const a=data.items.find(x=>x.id===id);
-
   if(a) return a;
  }
 
@@ -227,6 +241,7 @@ async function initHomepage(){
  if(!document.querySelector("#lead-media")) return;
 
  const data=await fetchJSON(CONTENT_BASE+"index.json");
+
  if(!data || !data.homepage || !data.homepage.topStories) return;
 
  const top=data.homepage.topStories;
@@ -252,7 +267,7 @@ function renderArticle(article){
 
  if($("#meta")){
   $("#meta").textContent=
-   `${article.author} • ${article.location} • ${article.date} • ${article.readTime}`;
+  `${article.author} • ${article.location} • ${article.date} • ${article.readTime}`;
  }
 
  if(article.heroImage && $("#heroImg")){
@@ -261,7 +276,7 @@ function renderArticle(article){
 
  if(article.heroImage && $("#heroCaption")){
   $("#heroCaption").textContent=
-   `${article.heroImage.caption} — ${article.heroImage.credit}`;
+  `${article.heroImage.caption} — ${article.heroImage.credit}`;
  }
 
  const container=$("#content");
@@ -282,7 +297,6 @@ function renderArticle(article){
   if(b.type==="points"){
 
    const box=createEl("div","pull-points");
-
    const ul=document.createElement("ul");
 
    b.items.forEach(i=>{
@@ -312,6 +326,7 @@ function renderArticle(article){
 
    container.appendChild(fig);
   }
+
  });
 }
 
@@ -391,6 +406,7 @@ async function initVlogs(){
  if(!grid) return;
 
  const data=await fetchJSON(CONTENT_BASE+"youtube.json");
+
  if(!data || !data.videos) return;
 
  clearEl(grid);
@@ -420,14 +436,16 @@ async function initVlogs(){
 SAFE INITIALIZATION
 ====================================================== */
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", async ()=>{
 
  try{ initClocksCalendars(); }catch(e){console.error(e)}
- try{ initWeather(); }catch(e){console.error(e)}
- try{ initTicker(); }catch(e){console.error(e)}
- try{ initHomepage(); }catch(e){console.error(e)}
- try{ initVlogs(); }catch(e){console.error(e)}
- try{ loadArticlePage(); }catch(e){console.error(e)}
+ try{ await initWeather(); }catch(e){console.error(e)}
+ try{ await initTicker(); }catch(e){console.error(e)}
+ try{ await initHomepage(); }catch(e){console.error(e)}
+ try{ await initVlogs(); }catch(e){console.error(e)}
+ try{ await loadArticlePage(); }catch(e){console.error(e)}
  try{ initArticleActions(); }catch(e){console.error(e)}
+
+ hideLoader();
 
 });
