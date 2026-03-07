@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- FIXED: Ensure all paths resolve from site root -->
 <base href="/">
-
-<title>Blog | THE MIRROR JAMMU KASHMIR</title>
-<link rel="stylesheet" href="styles.css?v=17">
+<title>Chief Editor | THE MIRROR JAMMU KASHMIR</title>
+<link rel="stylesheet" href="styles.css?v=40">
 </head>
 
 <body class="article-page theme-maroon">
@@ -19,19 +15,16 @@
 <div class="article-shell">
 
 <!-- SECTION LABEL -->
-<div class="section-title red-bar">Blog & Opinion</div>
+<div class="section-title red-bar">Chief Editor</div>
 
 <!-- HEADER -->
 <header class="article-header">
-<h1 id="blog-title">Loading…</h1>
-<div id="blog-meta" class="article-meta"></div>
+<h1 id="ce-title">Loading…</h1>
+<div id="ce-meta" class="article-meta"></div>
 </header>
 
-<!-- HERO IMAGE -->
-<figure id="blog-hero" class="article-hero"></figure>
-
-<!-- CONTENT -->
-<div id="blog-content" class="article-content"></div>
+<!-- CONTENT (image will be inserted inline) -->
+<div id="ce-content" class="article-content"></div>
 
 <!-- ACTION BUTTONS -->
 <div class="page-actions">
@@ -49,10 +42,6 @@
 <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
-<!-- FIXED: Load global script (clocks, weather, hijri, VS, UI) -->
-<script src="script.js?v=19"></script>
-
-<!-- BLOG LOADER -->
 <script>
 // YEAR
 document.getElementById("year").textContent = new Date().getFullYear();
@@ -64,111 +53,73 @@ document.getElementById("likeBtn").onclick =
 
 // SUBSCRIBE
 document.getElementById("subBtn").onclick = function(){
-  this.textContent="Subscribed";
-  this.disabled=true;
+this.textContent="Subscribed";
+this.disabled=true;
 };
 
 // SHARE
 document.getElementById("shareBtn").onclick = () =>
-  navigator.share
-    ? navigator.share({title:document.title,url:location.href})
-    : alert("Share not supported");
+navigator.share
+? navigator.share({title:document.title,url:location.href})
+: alert("Share not supported");
 
 // COPY LINK
 document.getElementById("copyBtn").onclick =
-  () => navigator.clipboard.writeText(location.href);
+() => navigator.clipboard.writeText(location.href);
 
-// GET BLOG ID
-function getBlogId() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("id");
+// LOAD chief-editor.json
+async function loadChiefEditor() {
+try {
+const res = await fetch("content/chief-editor.json", { cache: "no-store" });
+const data = await res.json();
+
+// TITLE + META
+document.getElementById("ce-title").textContent = data.title;
+document.getElementById("ce-meta").textContent = data.subtitle || "";
+
+// CONTENT CONTAINER
+const container = document.getElementById("ce-content");
+container.innerHTML = "";
+
+// INSERT FIRST PARAGRAPH WITH INLINE FLOATING IMAGE
+if (data.body.length > 0 && data.heroImage?.src) {
+const first = data.body[0].text;
+container.innerHTML += `
+<p>
+  <figure class="float-right" style="width:${data.heroImage.width || '38%'}">
+    <img src="${data.heroImage.src}" alt="${data.heroImage.caption}">
+    <figcaption>${data.heroImage.caption}</figcaption>
+  </figure>
+  ${first}
+</p>
+`;
 }
 
-// LOAD BLOG
-async function loadBlog() {
-  const id = getBlogId();
-  if (!id) return;
+// INSERT REMAINING CONTENT
+data.body.slice(1).forEach(block => {
+if (block.type === "paragraph") {
+container.innerHTML += `<p>${block.text}</p>`;
+}
+if (block.type === "header") {
+container.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
+}
+if (block.type === "points") {
+const items = block.items.map(i => `<li>${i}</li>`).join("");
+container.innerHTML += `
+<div class="important-points">
+<ul>${items}</ul>
+</div>`;
+}
+});
 
-  try {
-    const res = await fetch("content/blog.json", { cache: "no-store" });
-    const data = await res.json();
-    const item = data.items.find(a => a.id === id);
-
-    if (!item) {
-      document.getElementById("blog-title").textContent = "Blog not found";
-      return;
-    }
-
-    // TITLE
-    document.getElementById("blog-title").textContent = item.title;
-
-    // META
-    const dateObj = new Date(item.date);
-    const formattedDate = dateObj.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric"
-    });
-
-    document.getElementById("blog-meta").innerHTML = `
-      <strong>${item.category}</strong> ·
-      ${item.location} ·
-      ${formattedDate} ·
-      ${item.readTime} ·
-      ${item.author}
-    `;
-
-    // HERO IMAGE
-    const hero = document.getElementById("blog-hero");
-    if (item.heroImage?.src) {
-      hero.innerHTML = `
-        <img src="${item.heroImage.src}" alt="${item.heroImage.caption}">
-        <figcaption>${item.heroImage.caption} — <em>${item.heroImage.credit}</em></figcaption>
-      `;
-    }
-
-    // BODY
-    const container = document.getElementById("blog-content");
-    container.innerHTML = "";
-
-    item.body.forEach(block => {
-      if (block.type === "paragraph") {
-        container.innerHTML += `<p>${block.text}</p>`;
-      }
-
-      if (block.type === "header") {
-        container.innerHTML += `<h2 style="margin-top:40px;">${block.text}</h2>`;
-      }
-
-      if (block.type === "points") {
-        const items = block.items.map(i => `<li>${i}</li>`).join("");
-        container.innerHTML += `
-          <div class="important-points">
-            <ul>${items}</ul>
-          </div>
-        `;
-      }
-
-      if (block.type === "image") {
-        const align = block.align === "right" ? "right" : "left";
-        container.innerHTML += `
-          <figure class="image-${align}">
-            <img src="${block.src}" alt="${block.caption}">
-            <figcaption>${block.caption} — <em>${block.credit}</em></figcaption>
-          </figure>
-        `;
-      }
-    });
-
-  } catch (err) {
-    console.error("Failed to load blog.json", err);
-    document.getElementById("blog-title").textContent = "Error loading blog";
-  }
+} catch (err) {
+console.error("Failed to load chief-editor.json", err);
+document.getElementById("ce-title").textContent = "Error loading content";
+}
 }
 
-loadBlog();
+loadChiefEditor();
 </script>
 
 </body>
 </html>
-
