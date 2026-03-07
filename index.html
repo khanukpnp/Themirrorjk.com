@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <base href="./">
-
 <title>THE MIRROR JAMMU KASHMIR</title>
 <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
-
 <link rel="preconnect" href="https://api.open-meteo.com">
 <link rel="stylesheet" href="styles.css?v=22">
 </head>
-
 <body class="theme-maroon" id="top">
 
 <!-- ============================
-     LOADER
+LOADER
 ============================= -->
 <div id="site-loader">
   <div class="loader-inner">
@@ -28,7 +23,7 @@
 </div>
 
 <!-- ============================
-     HEADER
+HEADER
 ============================= -->
 <header class="site-header modern-header">
   <div class="header-center">
@@ -40,54 +35,43 @@
 </header>
 
 <!-- ============================
-     CLOCKS + CALENDARS
+CLOCKS + CALENDARS
 ============================= -->
 <section class="bar clocks-line" aria-label="Clocks and Calendars">
   <div class="row tight nowrap center">
-
     <div id="clock-cest" class="chip tiny">
       🕒 <span>Loading CEST…</span>
     </div>
-
     <div id="cal-hijri" class="chip tiny">
       🗓️ <span>Hijri…</span>
     </div>
-
     <div id="cal-hindi" class="chip tiny">
       🗓️ <span>VS…</span>
     </div>
-
     <div id="tz-ist" class="chip tiny">
       🕒 IST (Jammu-Kashmir-Ladakh): <span>—:—</span>
     </div>
-
     <div id="tz-pkt" class="chip tiny">
       🕒 PKT (Gilgit-Baltistan & Azad Kashmir): <span>—:—</span>
     </div>
-
   </div>
 </section>
 
 <!-- ============================
-     WEATHER BAR
+WEATHER BAR
 ============================= -->
 <section class="bar weather-line" aria-label="Weather">
   <div class="row nowrap super-tight center" id="weather-bar"></div>
 </section>
 
 <!-- ============================
-     BREAKING TICKER
+BREAKING TICKER
 ============================= -->
-<div class="ticker-wrapper">
-    <div class="ticker-label">Breaking</div>
-
-    <div class="ticker-container">
-        <div class="ticker-move">
-            <!-- scrolling items injected here -->
-        </div>
-
+<section class="ticker-wrap" aria-label="Breaking Ticker">
+  <div class="ticker">
+    <span class="ticker-label">🆕 BREAKING</span>
+    <ul id="ticker-items"></ul>
     <div class="tools">
-
       <label class="lang-select">
         🌍
         <select id="language-select">
@@ -99,28 +83,23 @@
           <option value="ar">Arabic</option>
         </select>
       </label>
-
       <form class="search" onsubmit="event.preventDefault();">
         <input id="search-input" type="search" placeholder="Search…">
         <button type="submit">🔍</button>
       </form>
-
     </div>
-
   </div>
 </section>
 
 <!-- ============================
-     NAVIGATION MENU
+NAVIGATION MENU
 ============================= -->
 <nav class="navbar modern-nav" aria-label="Primary Navigation">
-
   <button class="hamburger" aria-expanded="false" aria-controls="mobile-menu" id="hamburger">
     ☰ Menu
   </button>
 
   <ul class="nav-list" id="nav-list">
-
     <li class="nav-item has-sub">
       <button class="nav-btn">🏠 Home</button>
       <div class="dropdown">
@@ -190,270 +169,255 @@
         <a href="#advocacy">Get Involved</a>
       </div>
     </li>
-
   </ul>
 
   <div id="mobile-menu" class="mobile-menu" hidden></div>
-
 </nav>
+
 <!-- ============================
-     MAIN CONTENT WRAPPER
+MAIN CONTENT WRAPPER
 ============================= -->
 <main class="page-shell home-shell">
 
-<!-- ============================
-     TOP STORIES
-============================= -->
-<section id="top-stories">
-  <div class="section-title red-bar">Top Stories</div>
+  <!-- ============================
+  TOP STORIES
+  ============================= -->
+  <section id="top-stories">
+    <div class="section-title red-bar">⭐ Top Stories</div>
+    <div class="cards three">
 
-  <div class="cards three">
+      <!-- LEAD -->
+      <article class="card">
+        <div class="media placeholder maroon" id="lead-media">Lead</div>
+        <div class="card-body" id="lead-body">
+          <h3>Coming Soon</h3>
+          <p>Lead story will appear here.</p>
+        </div>
+      </article>
 
-    <!-- LEAD -->
-    <article class="card">
-      <div class="media placeholder maroon" id="lead-media">Lead</div>
-      <div class="card-body" id="lead-body">
-        <h3>Coming Soon</h3>
-        <p>Lead story will appear here.</p>
-      </div>
-    </article>
+      <!-- BREAKING -->
+      <article class="card">
+        <div class="media placeholder maroon" id="breaking-media">Breaking</div>
+        <div class="card-body" id="breaking-body">
+          <h3>Coming Soon</h3>
+          <p>Breaking news will appear here.</p>
+        </div>
+      </article>
 
-    <!-- BREAKING -->
-    <article class="card">
-      <div class="media placeholder maroon" id="breaking-media">Breaking</div>
-      <div class="card-body" id="breaking-body">
-        <h3>Coming Soon</h3>
-        <p>Breaking news will appear here.</p>
-      </div>
-    </article>
+      <!-- OPINION -->
+      <article class="card">
+        <div class="media placeholder maroon" id="opinion-media">Opinion</div>
+        <div class="card-body" id="opinion-body">
+          <h3>Coming Soon</h3>
+          <p>Opinion and blog will appear here.</p>
+        </div>
+      </article>
 
-    <!-- OPINION -->
-    <article class="card">
-      <div class="media placeholder maroon" id="opinion-media">Opinion</div>
-      <div class="card-body" id="opinion-body">
-        <h3>Coming Soon</h3>
-        <p>Opinion and blog will appear here.</p>
-      </div>
-    </article>
+    </div>
+  </section>
 
-  </div>
-</section>
+  <!-- ============================
+  LATEST / EDITORIAL / HISTORICAL
+  ============================= -->
+  <section id="latest-editorial-historical">
+    <div class="section-title red-bar">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</div>
+    <div class="cards three">
 
-<!-- ============================
-     LATEST / EDITORIAL / HISTORICAL
-============================= -->
-<section id="latest-editorial-historical">
-  <div class="section-title red-bar">Latest · Editorial · Historical</div>
+      <!-- LATEST -->
+      <article class="card">
+        <div class="media placeholder maroon" id="leh1-media">Latest</div>
+        <div class="card-body" id="leh1-body">
+          <h3>Coming Soon</h3>
+          <p>Content will be added shortly.</p>
+        </div>
+      </article>
 
-  <div class="cards three">
+      <!-- EDITORIAL -->
+      <article class="card">
+        <div class="media placeholder maroon" id="leh2-media">Editorial</div>
+        <div class="card-body" id="leh2-body">
+          <h3>Coming Soon</h3>
+          <p>Content will be added shortly.</p>
+        </div>
+      </article>
 
-    <!-- LATEST -->
-    <article class="card">
-      <div class="media placeholder maroon" id="leh1-media">Latest</div>
-      <div class="card-body" id="leh1-body">
-        <h3>Coming Soon</h3>
-        <p>Content will be added shortly.</p>
-      </div>
-    </article>
+      <!-- HISTORICAL -->
+      <article class="card">
+        <div class="media placeholder maroon" id="leh3-media">Historical</div>
+        <div class="card-body" id="leh3-body">
+          <h3>Coming Soon</h3>
+          <p>Content will be added shortly.</p>
+        </div>
+      </article>
 
-    <!-- EDITORIAL -->
-    <article class="card">
-      <div class="media placeholder maroon" id="leh2-media">Editorial</div>
-      <div class="card-body" id="leh2-body">
-        <h3>Coming Soon</h3>
-        <p>Content will be added shortly.</p>
-      </div>
-    </article>
+    </div>
+  </section>
 
-    <!-- HISTORICAL -->
-    <article class="card">
-      <div class="media placeholder maroon" id="leh3-media">Historical</div>
-      <div class="card-body" id="leh3-body">
-        <h3>Coming Soon</h3>
-        <p>Content will be added shortly.</p>
-      </div>
-    </article>
+  <!-- ============================
+  JAMMU KASHMIR SECTION
+  ============================= -->
+  <section id="jammu-kashmir">
+    <div class="section-title red-bar">📍 Jammu Kashmir</div>
+    <div class="cards two">
 
-  </div>
-</section>
+      <article class="card">
+        <div class="media placeholder maroon" id="jk1-media">JK</div>
+        <div class="card-body" id="jk1-body">
+          <h3>Coming Soon</h3>
+          <p>Reporting from Jammu & Kashmir will appear here.</p>
+        </div>
+      </article>
 
-<!-- ============================
-     JAMMU KASHMIR SECTION
-============================= -->
-<section id="jammu-kashmir">
-  <div class="section-title red-bar">Jammu Kashmir</div>
+      <article class="card">
+        <div class="media placeholder maroon" id="jk2-media">JK</div>
+        <div class="card-body" id="jk2-body">
+          <h3>Coming Soon</h3>
+          <p>Additional coverage will be added.</p>
+        </div>
+      </article>
 
-  <div class="cards two">
+    </div>
+  </section>
 
-    <article class="card">
-      <div class="media placeholder maroon" id="jk1-media">JK</div>
-      <div class="card-body" id="jk1-body">
-        <h3>Coming Soon</h3>
-        <p>Reporting from Jammu & Kashmir will appear here.</p>
-      </div>
-    </article>
+  <!-- ============================
+  VLOGS SECTION
+  ============================= -->
+  <section id="vlogs">
+    <div class="section-title red-bar">🎥 Video Reports & Vlogs</div>
 
-    <article class="card">
-      <div class="media placeholder maroon" id="jk2-media">JK</div>
-      <div class="card-body" id="jk2-body">
-        <h3>Coming Soon</h3>
-        <p>Additional coverage will be added.</p>
-      </div>
-    </article>
+    <!-- IMPORTANT: Correct ID for script.js -->
+    <div class="cards three vlogs-grid" id="vlogs-grid">
+      <!-- Filled dynamically by script.js -->
+    </div>
 
-  </div>
-</section>
+    <div style="margin-top:12px; text-align:center;">
+      <a href="https://www.youtube.com" target="_blank" rel="noopener">
+        <button id="vlog-visit-channel" class="btn-red">🎥 Visit Channel</button>
+      </a>
+    </div>
+  </section>
 
-<!-- ============================
-     VLOGS SECTION
-============================= -->
-<section id="vlogs">
-  <div class="section-title red-bar">Video Reports & Vlogs</div>
+  <!-- ============================
+  INTERNATIONAL SECTION
+  ============================= -->
+  <section id="international">
+    <div class="section-title red-bar">🌍 International News</div>
+    <div class="cards two">
 
-  <!-- IMPORTANT: Correct ID for script.js -->
-  <div class="cards three vlogs-grid" id="vlogs-grid">
-    <!-- Filled dynamically by script.js -->
-  </div>
+      <article class="card">
+        <div class="media placeholder maroon" id="intl1-media">Intl</div>
+        <div class="card-body" id="intl1-body">
+          <h3>Coming Soon</h3>
+          <p>International coverage will appear here.</p>
+        </div>
+      </article>
 
-  <div style="margin-top:12px; text-align:center;">
-    <a href="https://www.youtube.com" target="_blank" rel="noopener">
-      <button id="vlog-visit-channel" class="btn-red">Visit Channel</button>
-    </a>
-  </div>
-</section>
+      <article class="card">
+        <div class="media placeholder maroon" id="intl2-media">Intl</div>
+        <div class="card-body" id="intl2-body">
+          <h3>Coming Soon</h3>
+          <p>Additional international reports will be added.</p>
+        </div>
+      </article>
 
-<!-- ============================
-     INTERNATIONAL SECTION
-============================= -->
-<section id="international">
-  <div class="section-title red-bar">International News</div>
+    </div>
+  </section>
 
-  <div class="cards two">
+  <!-- ============================
+  HUMAN RIGHTS SECTION
+  ============================= -->
+  <section id="human-rights">
+    <div class="section-title red-bar">❤️ Human Rights</div>
+    <div class="cards two">
 
-    <article class="card">
-      <div class="media placeholder maroon" id="intl1-media">Intl</div>
-      <div class="card-body" id="intl1-body">
-        <h3>Coming Soon</h3>
-        <p>International coverage will appear here.</p>
-      </div>
-    </article>
+      <article class="card">
+        <div class="media placeholder maroon" id="hr1-media">HR</div>
+        <div class="card-body" id="hr1-body">
+          <h3>Coming Soon</h3>
+          <p>Human rights documentation will appear here.</p>
+        </div>
+      </article>
 
-    <article class="card">
-      <div class="media placeholder maroon" id="intl2-media">Intl</div>
-      <div class="card-body" id="intl2-body">
-        <h3>Coming Soon</h3>
-        <p>Additional international reports will be added.</p>
-      </div>
-    </article>
+      <article class="card">
+        <div class="media placeholder maroon" id="hr2-media">HR</div>
+        <div class="card-body" id="hr2-body">
+          <h3>Coming Soon</h3>
+          <p>Further human rights reports will be added.</p>
+        </div>
+      </article>
 
-  </div>
-</section>
+    </div>
+  </section>
 
-<!-- ============================
-     HUMAN RIGHTS SECTION
-============================= -->
-<section id="human-rights">
-  <div class="section-title red-bar">Human Rights</div>
+  <!-- ============================
+  ARCHIVE SECTION
+  ============================= -->
+  <section id="archive">
+    <div class="section-title red-bar">📁 Archive</div>
+    <div id="archive-list">
+      <p>Coming Soon — curated archive of articles, reports, and documents.</p>
+    </div>
+  </section>
 
-  <div class="cards two">
+  <!-- ============================
+  E-PAPER UPLOAD
+  ============================= -->
+  <section id="epaper">
+    <div class="section-title red-bar">📰 E‑Paper Upload</div>
+    <p>Upload your digital publication (PDF). This section is a placeholder; connect to your preferred CMS or cloud later.</p>
+    <form class="epaper-form" onsubmit="return false;">
+      <input type="file" accept="application/pdf">
+      <button type="submit" class="btn-red">⬆️ Upload</button>
+    </form>
+  </section>
 
-    <article class="card">
-      <div class="media placeholder maroon" id="hr1-media">HR</div>
-      <div class="card-body" id="hr1-body">
-        <h3>Coming Soon</h3>
-        <p>Human rights documentation will appear here.</p>
-      </div>
-    </article>
+  <!-- ============================
+  NEWSLETTER
+  ============================= -->
+  <section id="newsletter">
+    <div class="section-title red-bar">✉️ Newsletter</div>
+    <form class="newsletter-form" onsubmit="return false;">
+      <input id="subscribeEmail" type="email" placeholder="your@email.com">
+      <button id="subscribeBtn" type="submit" class="btn-red">✉️ Subscribe</button>
+    </form>
+  </section>
 
-    <article class="card">
-      <div class="media placeholder maroon" id="hr2-media">HR</div>
-      <div class="card-body" id="hr2-body">
-        <h3>Coming Soon</h3>
-        <p>Further human rights reports will be added.</p>
-      </div>
-    </article>
-
-  </div>
-</section>
-<!-- ============================
-     ARCHIVE SECTION
-============================= -->
-<section id="archive">
-  <div class="section-title red-bar">Archive</div>
-
-  <div id="archive-list">
-    <p>Coming Soon — curated archive of articles, reports, and documents.</p>
-  </div>
-</section>
-
-<!-- ============================
-     E-PAPER UPLOAD
-============================= -->
-<section id="epaper">
-  <div class="section-title red-bar">E‑Paper Upload</div>
-
-  <p>Upload your digital publication (PDF). This section is a placeholder; connect to your preferred CMS or cloud later.</p>
-
-  <form class="epaper-form" onsubmit="return false;">
-    <input type="file" accept="application/pdf">
-    <button type="submit" class="btn-red">Upload</button>
-  </form>
-</section>
-
-<!-- ============================
-     NEWSLETTER
-============================= -->
-<section id="newsletter">
-  <div class="section-title red-bar">Newsletter</div>
-
-  <form class="newsletter-form" onsubmit="return false;">
-    <input id="subscribeEmail" type="email" placeholder="your@email.com">
-    <button id="subscribeBtn" type="submit" class="btn-red">Subscribe</button>
-  </form>
-</section>
-
-<!-- ============================
-     CONTACT SECTION
-============================= -->
-<section id="contact">
-  <div class="section-title red-bar">Contact</div>
-
-  <p>Email: themirrorjk@gmail.com • Phone: +41 783 13 12 13</p>
-
-  <button id="contact-open" class="btn-red">Open Contact Form</button>
-</section>
+  <!-- ============================
+  CONTACT SECTION
+  ============================= -->
+  <section id="contact">
+    <div class="section-title red-bar">📞 Contact</div>
+    <p>Email: themirrorjk@gmail.com • Phone: +41 783 13 12 13</p>
+    <button id="contact-open" class="btn-red">📞 Open Contact Form</button>
+  </section>
 
 </main> <!-- END OF MAIN CONTENT WRAPPER -->
 
 <!-- ============================
-     CONTACT MODAL
+CONTACT MODAL
 ============================= -->
 <div id="contact-modal" class="modal hidden">
   <div class="modal-content">
     <span id="contact-close" class="close">&times;</span>
-
-    <h3>Contact Us</h3>
+    <h3>📞 Contact Us</h3>
     <p>Send your message to the editorial team.</p>
-
     <input type="text" placeholder="Your name">
     <input type="email" placeholder="Your email">
     <textarea placeholder="Your message…"></textarea>
-
     <button class="btn-red">Send</button>
   </div>
 </div>
 
 <!-- ============================
-     FOOTER
+FOOTER
 ============================= -->
 <footer class="footer">
   <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
 <!-- ============================
-     SCRIPTS
+SCRIPTS
 ============================= -->
 <script src="script.js?v=22"></script>
-
 </body>
 </html>
