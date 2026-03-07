@@ -1,457 +1,451 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<base href="./">
-
-<title>THE MIRROR JAMMU KASHMIR</title>
-<meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
-
-<link rel="preconnect" href="https://api.open-meteo.com">
-<link rel="stylesheet" href="styles.css?v=22">
-</head>
-
-<body class="theme-maroon" id="top">
-
-<!-- ============================
-     LOADER
-============================= -->
-<div id="site-loader">
-  <div class="loader-inner">
-    <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
-    <div class="loader-bar"><div class="loader-progress"></div></div>
-    <p>Loading newsroom…</p>
-  </div>
-</div>
-
-<!-- ============================
-     HEADER
-============================= -->
-<header class="site-header modern-header">
-  <div class="header-center">
-    <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-    <div class="subheading">
-      CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYOND BORDERS
-    </div>
-  </div>
-</header>
-
-<!-- ============================
-     CLOCKS + CALENDARS
-============================= -->
-<section class="bar clocks-line" aria-label="Clocks and Calendars">
-  <div class="row tight nowrap center">
-
-    <div id="clock-cest" class="chip tiny">
-      🕒 <span>Loading CEST…</span>
-    </div>
-
-    <div id="cal-hijri" class="chip tiny">
-      🗓️ <span>Hijri…</span>
-    </div>
-
-    <div id="cal-hindi" class="chip tiny">
-      🗓️ <span>VS…</span>
-    </div>
-
-    <div id="tz-ist" class="chip tiny">
-      🕒 IST (Jammu-Kashmir-Ladakh): <span>—:—</span>
-    </div>
-
-    <div id="tz-pkt" class="chip tiny">
-      🕒 PKT (Gilgit-Baltistan & Azad Kashmir): <span>—:—</span>
-    </div>
-
-  </div>
-</section>
-
-<!-- ============================
-     WEATHER BAR
-============================= -->
-<section class="bar weather-line" aria-label="Weather">
-  <div class="row nowrap super-tight center" id="weather-bar"></div>
-</section>
-
-<!-- ============================
-     BREAKING TICKER
-============================= -->
-<section class="ticker-wrap" aria-label="Breaking Ticker">
-  <div class="ticker">
-
-    <span class="ticker-label">BREAKING</span>
-    <ul id="ticker-items"></ul>
-
-    <div class="tools">
-
-      <label class="lang-select">
-        🌍
-        <select id="language-select">
-          <option value="en" selected>English</option>
-          <option value="de">German</option>
-          <option value="fr">French</option>
-          <option value="ur">Urdu</option>
-          <option value="hi">Hindi</option>
-          <option value="ar">Arabic</option>
-        </select>
-      </label>
-
-      <form class="search" onsubmit="event.preventDefault();">
-        <input id="search-input" type="search" placeholder="Search…">
-        <button type="submit">🔍</button>
-      </form>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- ============================
-     NAVIGATION MENU
-============================= -->
-<nav class="navbar modern-nav" aria-label="Primary Navigation">
-
-  <button class="hamburger" aria-expanded="false" aria-controls="mobile-menu" id="hamburger">
-    ☰ Menu
-  </button>
-
-  <ul class="nav-list" id="nav-list">
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">🏠 Home</button>
-      <div class="dropdown">
-        <a href="about.html">About</a>
-        <a href="chief-editor.html">Chief Editor</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-btn" href="breaking.html">🆕 Breaking News</a>
-    </li>
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">📝 Blog</button>
-      <div class="dropdown wide">
-        <a href="editorial.html">Editorial</a>
-        <a href="blog.html">Opinion</a>
-        <a href="#latest-editorial-historical">Latest Updates</a>
-      </div>
-    </li>
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">🎥 Vlog</button>
-      <div class="dropdown">
-        <a href="#vlogs">Latest Vlogs</a>
-        <a href="vlog-archive.html">Archive</a>
-      </div>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-btn" href="#epaper">📰 E-Paper</a>
-    </li>
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">📍 Jammu Kashmir</button>
-      <div class="dropdown wide">
-        <a href="#jammu-kashmir">Regions</a>
-        <a href="#jammu-kashmir">History</a>
-        <a href="#jammu-kashmir">Culture</a>
-      </div>
-    </li>
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">📜 Historical Documents</button>
-      <div class="dropdown wide">
-        <a href="#archive">Treaties</a>
-        <a href="#archive">Archives</a>
-        <a href="#archive">Letters</a>
-      </div>
-    </li>
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">🕊️ UN & Human Rights</button>
-      <div class="dropdown">
-        <a href="#human-rights">UNHRC</a>
-        <a href="#human-rights">Reports</a>
-        <a href="#human-rights">Advocacy</a>
-      </div>
-    </li>
-
-    <li class="nav-item has-sub">
-      <button class="nav-btn">🌐 Global Advocacy</button>
-      <div class="dropdown wide">
-        <a href="#advocacy">Campaigns</a>
-        <a href="#advocacy">Partners</a>
-        <a href="#advocacy">Get Involved</a>
-      </div>
-    </li>
-
-  </ul>
-
-  <div id="mobile-menu" class="mobile-menu" hidden></div>
-
-</nav>
-<!-- ============================
-     MAIN CONTENT WRAPPER
-============================= -->
-<main class="page-shell home-shell">
-
-<!-- ============================
-     TOP STORIES
-============================= -->
-<section id="top-stories">
-  <div class="section-title red-bar">Top Stories</div>
-
-  <div class="cards three">
-
-    <!-- LEAD -->
-    <article class="card">
-      <div class="media placeholder maroon" id="lead-media">Lead</div>
-      <div class="card-body" id="lead-body">
-        <h3>Coming Soon</h3>
-        <p>Lead story will appear here.</p>
-      </div>
-    </article>
-
-    <!-- BREAKING -->
-    <article class="card">
-      <div class="media placeholder maroon" id="breaking-media">Breaking</div>
-      <div class="card-body" id="breaking-body">
-        <h3>Coming Soon</h3>
-        <p>Breaking news will appear here.</p>
-      </div>
-    </article>
-
-    <!-- OPINION -->
-    <article class="card">
-      <div class="media placeholder maroon" id="opinion-media">Opinion</div>
-      <div class="card-body" id="opinion-body">
-        <h3>Coming Soon</h3>
-        <p>Opinion and blog will appear here.</p>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-<!-- ============================
-     LATEST / EDITORIAL / HISTORICAL
-============================= -->
-<section id="latest-editorial-historical">
-  <div class="section-title red-bar">Latest · Editorial · Historical</div>
-
-  <div class="cards three">
-
-    <!-- LATEST -->
-    <article class="card">
-      <div class="media placeholder maroon" id="leh1-media">Latest</div>
-      <div class="card-body" id="leh1-body">
-        <h3>Coming Soon</h3>
-        <p>Content will be added shortly.</p>
-      </div>
-    </article>
-
-    <!-- EDITORIAL -->
-    <article class="card">
-      <div class="media placeholder maroon" id="leh2-media">Editorial</div>
-      <div class="card-body" id="leh2-body">
-        <h3>Coming Soon</h3>
-        <p>Content will be added shortly.</p>
-      </div>
-    </article>
-
-    <!-- HISTORICAL -->
-    <article class="card">
-      <div class="media placeholder maroon" id="leh3-media">Historical</div>
-      <div class="card-body" id="leh3-body">
-        <h3>Coming Soon</h3>
-        <p>Content will be added shortly.</p>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-<!-- ============================
-     JAMMU KASHMIR SECTION
-============================= -->
-<section id="jammu-kashmir">
-  <div class="section-title red-bar">Jammu Kashmir</div>
-
-  <div class="cards two">
-
-    <article class="card">
-      <div class="media placeholder maroon" id="jk1-media">JK</div>
-      <div class="card-body" id="jk1-body">
-        <h3>Coming Soon</h3>
-        <p>Reporting from Jammu & Kashmir will appear here.</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="media placeholder maroon" id="jk2-media">JK</div>
-      <div class="card-body" id="jk2-body">
-        <h3>Coming Soon</h3>
-        <p>Additional coverage will be added.</p>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-<!-- ============================
-     VLOGS SECTION
-============================= -->
-<section id="vlogs">
-  <div class="section-title red-bar">Video Reports & Vlogs</div>
-
-  <!-- IMPORTANT: Correct ID for script.js -->
-  <div class="cards three vlogs-grid" id="vlogs-grid">
-    <!-- Filled dynamically by script.js -->
-  </div>
-
-  <div style="margin-top:12px; text-align:center;">
-    <a href="https://www.youtube.com" target="_blank" rel="noopener">
-      <button id="vlog-visit-channel" class="btn-red">Visit Channel</button>
-    </a>
-  </div>
-</section>
-
-<!-- ============================
-     INTERNATIONAL SECTION
-============================= -->
-<section id="international">
-  <div class="section-title red-bar">International News</div>
-
-  <div class="cards two">
-
-    <article class="card">
-      <div class="media placeholder maroon" id="intl1-media">Intl</div>
-      <div class="card-body" id="intl1-body">
-        <h3>Coming Soon</h3>
-        <p>International coverage will appear here.</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="media placeholder maroon" id="intl2-media">Intl</div>
-      <div class="card-body" id="intl2-body">
-        <h3>Coming Soon</h3>
-        <p>Additional international reports will be added.</p>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-<!-- ============================
-     HUMAN RIGHTS SECTION
-============================= -->
-<section id="human-rights">
-  <div class="section-title red-bar">Human Rights</div>
-
-  <div class="cards two">
-
-    <article class="card">
-      <div class="media placeholder maroon" id="hr1-media">HR</div>
-      <div class="card-body" id="hr1-body">
-        <h3>Coming Soon</h3>
-        <p>Human rights documentation will appear here.</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="media placeholder maroon" id="hr2-media">HR</div>
-      <div class="card-body" id="hr2-body">
-        <h3>Coming Soon</h3>
-        <p>Further human rights reports will be added.</p>
-      </div>
-    </article>
-
-  </div>
-</section>
-<!-- ============================
-     ARCHIVE SECTION
-============================= -->
-<section id="archive">
-  <div class="section-title red-bar">Archive</div>
-
-  <div id="archive-list">
-    <p>Coming Soon — curated archive of articles, reports, and documents.</p>
-  </div>
-</section>
-
-<!-- ============================
-     E-PAPER UPLOAD
-============================= -->
-<section id="epaper">
-  <div class="section-title red-bar">E‑Paper Upload</div>
-
-  <p>Upload your digital publication (PDF). This section is a placeholder; connect to your preferred CMS or cloud later.</p>
-
-  <form class="epaper-form" onsubmit="return false;">
-    <input type="file" accept="application/pdf">
-    <button type="submit" class="btn-red">Upload</button>
-  </form>
-</section>
-
-<!-- ============================
-     NEWSLETTER
-============================= -->
-<section id="newsletter">
-  <div class="section-title red-bar">Newsletter</div>
-
-  <form class="newsletter-form" onsubmit="return false;">
-    <input id="subscribeEmail" type="email" placeholder="your@email.com">
-    <button id="subscribeBtn" type="submit" class="btn-red">Subscribe</button>
-  </form>
-</section>
-
-<!-- ============================
-     CONTACT SECTION
-============================= -->
-<section id="contact">
-  <div class="section-title red-bar">Contact</div>
-
-  <p>Email: themirrorjk@gmail.com • Phone: +41 783 13 12 13</p>
-
-  <button id="contact-open" class="btn-red">Open Contact Form</button>
-</section>
-
-</main> <!-- END OF MAIN CONTENT WRAPPER -->
-
-<!-- ============================
-     CONTACT MODAL
-============================= -->
-<div id="contact-modal" class="modal hidden">
-  <div class="modal-content">
-    <span id="contact-close" class="close">&times;</span>
-
-    <h3>Contact Us</h3>
-    <p>Send your message to the editorial team.</p>
-
-    <input type="text" placeholder="Your name">
-    <input type="email" placeholder="Your email">
-    <textarea placeholder="Your message…"></textarea>
-
-    <button class="btn-red">Send</button>
-  </div>
-</div>
-
-<!-- ============================
-     FOOTER
-============================= -->
-<footer class="footer">
-  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-</footer>
-
-<!-- ============================
-     SCRIPTS
-============================= -->
-<script src="script.js?v=22"></script>
-
-</body>
-</html>
+/* ======================================================
+GLOBAL HELPERS
+====================================================== */
+
+const CONTENT_BASE = "content/";
+
+const $ = (s,c=document)=>c.querySelector(s);
+const $$=(s,c=document)=>[...c.querySelectorAll(s)];
+
+async function fetchJSON(url){
+ try{
+  const r = await fetch(url,{cache:"no-store"});
+  if(!r.ok) return null;
+  return await r.json();
+ }catch(e){
+  console.error("JSON load error:",url);
+  return null;
+ }
+}
+
+function createEl(tag,cls,text){
+ const e=document.createElement(tag);
+ if(cls) e.className=cls;
+ if(text) e.textContent=text;
+ return e;
+}
+
+function clearEl(el){
+ if(!el) return;
+ while(el.firstChild) el.removeChild(el.firstChild);
+}
+
+function resolveHeroImage(item){
+ if(!item) return null;
+ if(item.heroImage?.src) return item.heroImage.src;
+ if(item.heroImage) return item.heroImage;
+ if(item.image) return item.image;
+ return null;
+}
+
+/* ======================================================
+LOADER CONTROL
+====================================================== */
+
+function hideLoader(){
+
+ const loader=document.querySelector(".site-loader");
+
+ if(!loader) return;
+
+ loader.style.transition="opacity .5s ease";
+ loader.style.opacity="0";
+
+ setTimeout(()=>{
+  loader.style.display="none";
+ },600);
+}
+
+/* ======================================================
+CLOCKS
+====================================================== */
+
+function initClocksCalendars(){
+
+ if(!document.querySelector("#clock-cest")) return;
+
+ function update(){
+
+  const now=new Date();
+
+  const cest=$("#clock-cest span");
+  if(cest){
+   cest.textContent=new Intl.DateTimeFormat("en-GB",{
+    weekday:"long",
+    year:"numeric",
+    month:"long",
+    day:"numeric",
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hour12:false,
+    timeZone:"Europe/Zurich"
+   }).format(now);
+  }
+
+  const ist=$("#tz-ist span");
+  if(ist){
+   ist.textContent=new Intl.DateTimeFormat("en-GB",{
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hour12:false,
+    timeZone:"Asia/Kolkata"
+   }).format(now);
+  }
+
+  const pkt=$("#tz-pkt span");
+  if(pkt){
+   pkt.textContent=new Intl.DateTimeFormat("en-GB",{
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hour12:false,
+    timeZone:"Asia/Karachi"
+   }).format(now);
+  }
+
+ }
+
+ update();
+ setInterval(update,1000);
+}
+
+/* ======================================================
+WEATHER
+====================================================== */
+
+async function initWeather(){
+
+ const bar=$("#weather-bar");
+ if(!bar) return;
+
+ const cities=[
+  {n:"Zurich",lat:47.37,lon:8.54},
+  {n:"Rawalakot",lat:33.85,lon:73.76},
+  {n:"Jammu",lat:32.73,lon:74.86},
+  {n:"Kashmir",lat:34.08,lon:74.79},
+  {n:"Ladakh",lat:34.15,lon:77.58},
+  {n:"Gilgit",lat:35.92,lon:74.30},
+  {n:"Baltistan",lat:35.30,lon:75.63},
+  {n:"Muzaffarabad",lat:34.37,lon:73.47}
+ ];
+
+ clearEl(bar);
+
+ for(const c of cities){
+
+  try{
+
+   const url=`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`;
+
+   const data=await fetchJSON(url);
+
+   const t=data?.current_weather?.temperature ?? "--";
+
+   const chip=createEl("div","chip tiny",`${c.n}: ${t}°C`);
+
+   bar.appendChild(chip);
+
+  }catch{
+   bar.appendChild(createEl("div","chip tiny",`${c.n}: --°C`));
+  }
+
+ }
+}
+
+/* ======================================================
+TICKER
+====================================================== */
+
+async function initTicker(){
+
+ const ul=$("#ticker-items");
+ if(!ul) return;
+
+ const data=await fetchJSON(CONTENT_BASE+"index.json");
+ if(!data || !data.ticker) return;
+
+ clearEl(ul);
+
+ data.ticker.forEach(t=>{
+  const li=document.createElement("li");
+  li.textContent=t;
+  ul.appendChild(li);
+ });
+}
+
+/* ======================================================
+ARTICLE SEARCH
+====================================================== */
+
+async function loadArticleById(id){
+
+ const files=[
+  "articles.json",
+  "breaking.json",
+  "blog.json",
+  "editorial.json"
+ ];
+
+ for(const f of files){
+
+  const data=await fetchJSON(CONTENT_BASE+f);
+  if(!data || !data.items) continue;
+
+  const a=data.items.find(x=>x.id===id);
+  if(a) return a;
+ }
+
+ return null;
+}
+
+/* ======================================================
+HOMEPAGE CARDS
+====================================================== */
+
+function fillCard(mediaId,bodyId,item){
+
+ const media=$("#"+mediaId);
+ const body=$("#"+bodyId);
+
+ if(!media || !body || !item) return;
+
+ media.textContent="";
+
+ const img=resolveHeroImage(item);
+
+ if(img){
+  media.style.backgroundImage=`url(${img})`;
+  media.style.backgroundSize="cover";
+  media.style.backgroundPosition="center";
+ }
+
+ clearEl(body);
+
+ const h=createEl("h3",null,item.title);
+ const p=createEl("p",null,item.excerpt);
+
+ const a=createEl("a","read-more","Read More");
+ a.href=`editorial.html?id=${item.id}`;
+
+ body.append(h,p,a);
+}
+
+/* ======================================================
+HOMEPAGE
+====================================================== */
+
+async function initHomepage(){
+
+ if(!document.querySelector("#lead-media")) return;
+
+ const data=await fetchJSON(CONTENT_BASE+"index.json");
+
+ if(!data || !data.homepage || !data.homepage.topStories) return;
+
+ const top=data.homepage.topStories;
+
+ const lead=await loadArticleById(top.lead);
+ const breaking=await loadArticleById(top.breaking);
+ const opinion=await loadArticleById(top.opinion);
+
+ fillCard("lead-media","lead-body",lead);
+ fillCard("breaking-media","breaking-body",breaking);
+ fillCard("opinion-media","opinion-body",opinion);
+}
+
+/* ======================================================
+ARTICLE PAGE RENDER
+====================================================== */
+
+function renderArticle(article){
+
+ if(!$("#title")) return;
+
+ $("#title").textContent=article.title;
+
+ if($("#meta")){
+  $("#meta").textContent=
+  `${article.author} • ${article.location} • ${article.date} • ${article.readTime}`;
+ }
+
+ if(article.heroImage && $("#heroImg")){
+  $("#heroImg").src=article.heroImage.src;
+ }
+
+ if(article.heroImage && $("#heroCaption")){
+  $("#heroCaption").textContent=
+  `${article.heroImage.caption} — ${article.heroImage.credit}`;
+ }
+
+ const container=$("#content");
+ if(!container) return;
+
+ clearEl(container);
+
+ article.body.forEach(b=>{
+
+  if(b.type==="header"){
+   container.appendChild(createEl("h2",null,b.text));
+  }
+
+  if(b.type==="paragraph"){
+   container.appendChild(createEl("p",null,b.text));
+  }
+
+  if(b.type==="points"){
+
+   const box=createEl("div","pull-points");
+   const ul=document.createElement("ul");
+
+   b.items.forEach(i=>{
+    const li=document.createElement("li");
+    li.textContent=i;
+    ul.appendChild(li);
+   });
+
+   box.appendChild(ul);
+   container.appendChild(box);
+  }
+
+  if(b.type==="image"){
+
+   const fig=document.createElement("figure");
+
+   const img=document.createElement("img");
+   img.src=b.src;
+
+   const cap=document.createElement("figcaption");
+   cap.textContent=`${b.caption} — ${b.credit}`;
+
+   fig.append(img,cap);
+
+   if(b.align==="left") fig.className="img-left";
+   if(b.align==="right") fig.className="img-right";
+
+   container.appendChild(fig);
+  }
+
+ });
+}
+
+/* ======================================================
+LOAD ARTICLE PAGE
+====================================================== */
+
+async function loadArticlePage(){
+
+ if(!document.querySelector("#content")) return;
+
+ const params=new URLSearchParams(location.search);
+ const id=params.get("id");
+
+ if(!id) return;
+
+ const article=await loadArticleById(id);
+
+ if(article) renderArticle(article);
+}
+
+/* ======================================================
+ARTICLE ACTIONS
+====================================================== */
+
+function initArticleActions(){
+
+ const like=$("#likeBtn");
+ const likeCount=$("#likeCount");
+
+ if(like){
+
+  let n=0;
+
+  like.onclick=()=>{
+   n++;
+   if(likeCount) likeCount.textContent=n;
+  };
+ }
+
+ const sub=$("#subBtn");
+
+ if(sub){
+  sub.onclick=()=>{
+   sub.textContent="Subscribed";
+   sub.disabled=true;
+  };
+ }
+
+ const share=$("#shareBtn");
+
+ if(share){
+  share.onclick=()=>{
+   if(navigator.share){
+    navigator.share({
+     title:document.title,
+     url:location.href
+    });
+   }
+  };
+ }
+
+ const copy=$("#copyBtn");
+
+ if(copy){
+  copy.onclick=()=>navigator.clipboard.writeText(location.href);
+ }
+}
+
+/* ======================================================
+VLOGS
+====================================================== */
+
+async function initVlogs(){
+
+ const grid=$("#vlogs-grid");
+ if(!grid) return;
+
+ const data=await fetchJSON(CONTENT_BASE+"youtube.json");
+
+ if(!data || !data.videos) return;
+
+ clearEl(grid);
+
+ data.videos.slice(0,3).forEach(v=>{
+
+  const card=createEl("div","card");
+
+  const iframe=document.createElement("iframe");
+  iframe.src=`https://www.youtube.com/embed/${v.youtubeId}`;
+  iframe.allowFullscreen=true;
+
+  const body=createEl("div","card-body");
+
+  body.append(
+   createEl("h3",null,v.title),
+   createEl("p",null,v.description)
+  );
+
+  card.append(iframe,body);
+
+  grid.appendChild(card);
+ });
+}
+
+/* ======================================================
+SAFE INITIALIZATION
+====================================================== */
+
+document.addEventListener("DOMContentLoaded", async ()=>{
+
+ try{ initClocksCalendars(); }catch(e){console.error(e)}
+ try{ await initWeather(); }catch(e){console.error(e)}
+ try{ await initTicker(); }catch(e){console.error(e)}
+ try{ await initHomepage(); }catch(e){console.error(e)}
+ try{ await initVlogs(); }catch(e){console.error(e)}
+ try{ await loadArticlePage(); }catch(e){console.error(e)}
+ try{ initArticleActions(); }catch(e){console.error(e)}
+
+ hideLoader();
+
+});
