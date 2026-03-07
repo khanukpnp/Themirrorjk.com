@@ -1,112 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
+<article class="article-container">
 
-<head>
+<h1 id="article-title">Loading…</h1>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<p class="article-meta" id="article-meta"></p>
 
-<title>The Mirror Jammu Kashmir</title>
+<!-- HERO IMAGE -->
+<figure id="article-hero" class="article-hero"></figure>
 
-<link rel="stylesheet" href="../../styles.css">
+<!-- MAIN CONTENT -->
+<div id="article-body"></div>
 
-</head>
-
-<body class="article-page">
-
-<main class="article-shell">
-
-<header class="article-header">
-
-<h1 id="article-title"></h1>
-
-<div class="article-meta">
-
-<span id="article-author"></span>
-
-<span id="article-location"></span>
-
-<span id="article-date"></span>
-
-<span id="article-read"></span>
-
-</div>
-
-</header>
-
-
-
-<figure class="article-hero">
-
-<img id="hero-image" src="" alt="">
-
-<figcaption id="hero-caption"></figcaption>
-
-</figure>
-
-
-
-<section class="article-body" id="article-body">
-
-</section>
-
-</main>
-
-
+</article>
 
 <script>
+async function loadArticle() {
+  try {
+    const res = await fetch("content/latest/latest-001.json", { cache: "no-store" });
+    const data = await res.json();
 
-async function loadArticle(){
+    // TITLE
+    document.getElementById("article-title").textContent = data.title;
 
-const response = await fetch("latest-001.json")
+    // META
+    document.getElementById("article-meta").innerHTML =
+      `<span>${data.author}</span> | <span>${data.date}</span> | <span>${data.location}</span>`;
 
-const data = await response.json()
+    // HERO IMAGE
+    const hero = document.getElementById("article-hero");
+    hero.innerHTML = `
+      <img src="${data.heroImage.src}" alt="${data.heroImage.caption}">
+      <figcaption>${data.heroImage.caption} — ${data.heroImage.credit}</figcaption>
+    `;
 
-const article = data.items[0]
+    // BODY
+    const body = document.getElementById("article-body");
+    body.innerHTML = "";
 
-document.getElementById("article-title").textContent = article.title
+    // FIRST PARAGRAPH WITH INLINE IMAGE
+    const first = data.body[0].text;
+    const inline = data.inlineImage;
 
-document.getElementById("article-author").textContent = "By " + article.author
+    body.innerHTML += `
+      <p>
+        <figure class="float-right" style="width:${inline.width}">
+          <img src="${inline.src}" alt="${inline.caption}">
+          <figcaption>${inline.caption}</figcaption>
+        </figure>
+        ${first}
+      </p>
+    `;
 
-document.getElementById("article-location").textContent = article.location
+    // REMAINING PARAGRAPHS
+    data.body.slice(1).forEach(block => {
+      body.innerHTML += `<p>${block.text}</p>`;
+    });
 
-document.getElementById("article-date").textContent = article.date
-
-document.getElementById("article-read").textContent = article.readTime
-
-
-
-const hero = document.getElementById("hero-image")
-
-hero.src = "../images/" + article.heroImage.src
-
-hero.alt = article.title
-
-
-
-document.getElementById("hero-caption").innerHTML =
-article.heroImage.caption +
-" <span class='credit'>" + article.heroImage.credit + "</span>"
-
-
-const bodyContainer = document.getElementById("article-body")
-
-article.body.forEach(function(paragraph){
-
-const p = document.createElement("p")
-
-p.textContent = paragraph
-
-bodyContainer.appendChild(p)
-
-})
-
+  } catch (err) {
+    console.error("Failed to load article", err);
+  }
 }
 
-loadArticle()
-
+loadArticle();
 </script>
-
-</body>
-
-</html>
