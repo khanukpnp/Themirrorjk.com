@@ -624,3 +624,22 @@ animation:ticker-scroll 90s linear infinite;
 font-size:12px;
 line-height:1;
 }
+
+/* ===== ABOUT PAGE HERO FLOAT RIGHT ===== */
+.about-hero {
+  float: right;
+  width: 38%;
+  margin: 12px 0 12px 20px;
+}
+
+.about-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.about-hero figcaption {
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 4px;
+}
