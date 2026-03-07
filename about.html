@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base href="/">
 <title>About | THE MIRROR JAMMU KASHMIR</title>
-<link rel="stylesheet" href="styles.css?v=30">
+<link rel="stylesheet" href="styles.css?v=40">
 </head>
 
 <body class="article-page theme-maroon">
@@ -21,7 +21,7 @@
 <div class="article-meta" id="about-subtitle"></div>
 </header>
 
-<!-- CONTENT + IMAGE INLINE -->
+<!-- CONTENT (image will be inserted inline) -->
 <div class="article-content" id="about-content"></div>
 
 <!-- ACTION BUTTONS -->
@@ -79,18 +79,22 @@ document.getElementById("about-subtitle").textContent = data.subtitle;
 const container = document.getElementById("about-content");
 container.innerHTML = "";
 
-// INSERT FLOATING IMAGE FIRST INSIDE CONTENT
-if (data.heroImage?.src) {
+// INSERT FIRST PARAGRAPH WITH INLINE IMAGE
+if (data.body.length > 0 && data.heroImage?.src) {
+const first = data.body[0].text;
 container.innerHTML += `
-<figure class="float-right" style="width:${data.heroImage.width || '38%'}">
-  <img src="${data.heroImage.src}" alt="${data.heroImage.caption}">
-  <figcaption>${data.heroImage.caption}</figcaption>
-</figure>
+<p>
+  <figure class="float-right" style="width:${data.heroImage.width || '38%'}">
+    <img src="${data.heroImage.src}" alt="${data.heroImage.caption}">
+    <figcaption>${data.heroImage.caption}</figcaption>
+  </figure>
+  ${first}
+</p>
 `;
 }
 
-// INSERT BODY CONTENT
-data.body.forEach(block => {
+// INSERT REMAINING CONTENT
+data.body.slice(1).forEach(block => {
 if (block.type === "paragraph") {
 container.innerHTML += `<p>${block.text}</p>`;
 }
