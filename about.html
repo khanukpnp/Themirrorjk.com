@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base href="/">
 <title>About | THE MIRROR JAMMU KASHMIR</title>
-<link rel="stylesheet" href="styles.css?v=20">
+<link rel="stylesheet" href="styles.css?v=30">
 </head>
 
 <body class="article-page theme-maroon">
@@ -21,10 +21,7 @@
 <div class="article-meta" id="about-subtitle"></div>
 </header>
 
-<!-- HERO IMAGE (dynamic from JSON) -->
-<figure id="about-hero"></figure>
-
-<!-- CONTENT -->
+<!-- CONTENT + IMAGE INLINE -->
 <div class="article-content" id="about-content"></div>
 
 <!-- ACTION BUTTONS -->
@@ -42,8 +39,6 @@
 <footer class="footer">
 <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
-
-<script src="script.js?v=20"></script>
 
 <script>
 // YEAR
@@ -80,21 +75,21 @@ const data = await res.json();
 document.getElementById("about-title").textContent = data.title;
 document.getElementById("about-subtitle").textContent = data.subtitle;
 
-// HERO IMAGE (fully dynamic)
-const hero = document.getElementById("about-hero");
-if (data.heroImage?.src) {
-hero.className = data.heroImage.align || "float-right";
-hero.style.width = data.heroImage.width || "38%";
-hero.innerHTML = `
-<img src="${data.heroImage.src}" alt="${data.heroImage.caption}">
-<figcaption>${data.heroImage.caption}</figcaption>
-`;
-}
-
-// BODY CONTENT
+// CONTENT CONTAINER
 const container = document.getElementById("about-content");
 container.innerHTML = "";
 
+// INSERT FLOATING IMAGE FIRST INSIDE CONTENT
+if (data.heroImage?.src) {
+container.innerHTML += `
+<figure class="float-right" style="width:${data.heroImage.width || '38%'}">
+  <img src="${data.heroImage.src}" alt="${data.heroImage.caption}">
+  <figcaption>${data.heroImage.caption}</figcaption>
+</figure>
+`;
+}
+
+// INSERT BODY CONTENT
 data.body.forEach(block => {
 if (block.type === "paragraph") {
 container.innerHTML += `<p>${block.text}</p>`;
