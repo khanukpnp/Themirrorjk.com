@@ -1,1 +1,17 @@
-
+{
+  "items": [
+    {
+      "id": "opinion-coming-001",
+      "title": "Opinion & Commentary Coming Soon",
+      "excerpt": "Thought-provoking analysis and opinion pieces will be added shortly.",
+      "heroImage": {
+        "src": "/content/images/blog-ukpnp-mps-01.jpg",
+        "caption": "Opinion",
+        "credit": "The Mirror Jammu Kashmir"
+      },
+      "body": [
+        { "type": "paragraph", "text": "Opinion articles will be published soon." }
+      ]
+    }
+  ]
+}
