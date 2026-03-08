@@ -5,13 +5,14 @@
   "body": [
     {
       "type": "paragraph",
-      "text": "Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional insight, political clarity, and a firm commitment to principled and rights based journalism."
-    },
-    {
-      "type": "image-inline",
-      "src": "/content/images/chief-editor.jpg",
-      "caption": "Chief Editor — The Mirror Jammu Kashmir",
-      "width": "38%"
+      "text": "Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional insight, political clarity, and a firm commitment to principled and rights based journalism.",
+      "image": {
+        "src": "/content/images/chief-editor.jpg",
+        "caption": "Chief Editor — The Mirror Jammu Kashmir",
+        "width": "38%",
+        "align": "left",
+        "float": true
+      }
     },
     {
       "type": "paragraph",
