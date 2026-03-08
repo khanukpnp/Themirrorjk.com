@@ -1,178 +1,171 @@
 {
-  "items": [
+  "slug": "brief-history-state-of-jammu-kashmir-1819-1953",
+  "title": "Brief History of the State of Jammu and Kashmir, 1819–1953",
+  "hero_image": "brief-history-jk.png",
+  "hero_alt": "Sardar Nasir Aziz Khan with Kashmir mountain backdrop",
+  "category": "History",
+  "published_on": "2026-03-08",
+  "language": "en",
+  "author": {
+    "name": "Sardar Nasir Aziz Khan",
+    "role": "Chief Editor",
+    "profile_image": "author-nasir.png"
+  },
+  "summary": "A comprehensive historical account of the State of Jammu and Kashmir from the Sikh conquest of 1819 to the political upheavals of 1953, tracing its formation, governance, diversity, legal structures, and the origins of the modern dispute.",
+  "body": [
     {
-      "id": "editorial-001",
-      "title": "Brief History of the State of Jammu and Kashmir, 1819–1953",
-      "category": "Editorial",
-      "excerpt": "A comprehensive historical analysis of the formation, governance, legal evolution, and political transformation of the State of Jammu and Kashmir from 1819 to 1953.",
-      "author": "Sardar Nasir Aziz Khan",
-      "location": "Switzerland",
-      "date": "2026-03-03",
-      "readTime": "22 min read",
+      "type": "heading",
+      "text": "Early Political Shifts Before 1846"
+    },
+    {
+      "type": "paragraph",
+      "text": "In 1819, the Sikh Empire under Maharaja Ranjit Singh defeated the Afghan Durrani rulers and took control of Kashmir. From 1819 to 1846, the Kashmir Valley remained under Sikh rule. During this period, Gulab Singh emerged as a key Dogra military leader and expanded his authority over Jammu and surrounding hill regions."
+    },
+    {
+      "type": "paragraph",
+      "text": "Throughout the 1820s and 1830s, forces under Gulab Singh extended control into Ladakh and Baltistan, laying the territorial foundations of a future mountain state encompassing Jammu, Kashmir Valley, Ladakh, and the northern frontier."
+    },
 
-      "heroImage": {
-        "src": "/content/images/brief-history-jk.png",
-        "caption": "Historical evolution of the State of Jammu and Kashmir",
-        "credit": "The Mirror Jammu Kashmir"
-      },
+    {
+      "type": "heading",
+      "text": "Treaty of Lahore and Treaty of Amritsar, 1846"
+    },
+    {
+      "type": "paragraph",
+      "text": "The First Anglo‑Sikh War (1845–1846) resulted in the defeat of the Sikh Empire. Under the Treaty of Lahore (9 March 1846), the Sikh government ceded territories to the British and was required to pay 15 million Nanakshahi rupees as war indemnity. Unable to pay the full amount, the Lahore Darbar accepted Gulab Singh’s offer to pay seventy‑five lakh Nanakshahi rupees."
+    },
+    {
+      "type": "paragraph",
+      "text": "On 16 March 1846, the Treaty of Amritsar was signed. The British transferred to Maharaja Gulab Singh all hilly and mountainous territories between the Indus and Ravi rivers, including Chamba. This treaty formally created the State of Jammu and Kashmir, with Gulab Singh as its founding ruler."
+    },
 
-      "body": [
-        {
-          "type": "header",
-          "text": "BRIEF HISTORY OF THE STATE OF JAMMU AND KASHMIR, 1819 TO 1953"
-        },
-        {
-          "type": "paragraph",
-          "text": "Before the establishment of the State of Jammu and Kashmir in 1846, Kashmir Valley had already experienced major political change. In 1819, the Sikh Empire under Maharaja Ranjit Singh defeated the Afghan Durrani rulers and took control of Kashmir. From 1819 until 1846, Srinagar and the Kashmir Valley remained under Sikh rule. During this period, Gulab Singh served as a prominent Dogra military officer within the Sikh Empire and gradually expanded his authority over Jammu and adjoining hill territories."
-        },
-        {
-          "type": "image",
-          "src": "/content/images/brief-history-jk-01.png",
-          "caption": "Flag Historcal State of Jammu Kashmir 1846-1936",
-          "credit": "The Mirror Jammu Kashmir",
-          "align": "center"
-        },
-        {
-          "type": "paragraph",
-          "text": "Throughout the 1820s and 1830s, forces under Gulab Singh and his generals extended control into Ladakh and Baltistan. These campaigns laid the territorial foundations of a larger mountain state that would later include Jammu, Kashmir Valley, Ladakh, and the northern frontier regions."
-        },
-        {
-          "type": "paragraph",
-          "text": "The First Anglo Sikh War of 1845 to 1846 marked a decisive turning point. The Sikh Empire was defeated by the East India Company resulting in partial subjugation of the Sikh kingdom. Under the Treaty of Lahore dated 9 March 1846, the Sikh government ceded territories to the British as part of war indemnity arrangements. The British demanded payment of 15 million Nanakshahi rupees as reparations for the cost of the war. The Lahore Darbar was unable to pay the full amount. Raja of Jammu Gulab Singh agreed to pay seventy five lakh Nanakshahi rupees to the British government. Fifty lakh Nanakshahi were to be paid on ratification of the Treaty and twenty five lakh Nanakshahi before 1 October 1846."
-        },
-        {
-          "type": "image",
-          "src": "/content/images/brief-history-jk-02.png",
-          "caption": "Flag Historcal State of Jammu Kashmir 1936-1947",
-          "credit": "The Mirror Jammu Kashmir",
-          "align": "center"
-        },
-        {
-          "type": "paragraph",
-          "text": "One week later, on 16 March 1846, the Treaty of Amritsar was signed between the British Government and Maharaja Gulab Singh. Through this Treaty, the British transferred to Maharaja Gulab Singh all the hilly or mountainous country with its dependencies situated to the eastward of the River Indus and westward of the River Ravi including Chamba. Gulab Singh became the legitimate ruler and founding father of the State of Jammu and Kashmir. This Treaty formally created the State of Jammu and Kashmir."
-        },
-        {
-          "type": "header",
-          "text": "Rulers of the State"
-        },
-        {
-          "type": "points",
-          "items": [
-            "Maharaja Gulab Singh, 1846 to 1857",
-            "Maharaja Ranbir Singh, 1857 to 1885",
-            "Maharaja Pratap Singh, 1885 to 1925",
-            "Maharaja Hari Singh, 1925 to 1953"
-          ]
-        },
-        {
-          "type": "image",
-          "src": "/content/images/brief-history-jk-03.png",
-          "caption": "Flag Jammu-Kashmir-Ladakh After Forced Division in 1947 ",
-          "credit": "The Mirror Jammu Kashmir",
-          "align": "center"
-        },
-        {
-          "type": "paragraph",
-          "text": "Under Maharaja Ranbir Singh, the administration was consolidated and codified. The Ranbir Penal Code became the foundation of criminal law in the State. District courts were established and judicial procedures formalized. A functioning judiciary operated across the State. A professional Bar developed in Jammu and Srinagar. In 1928, during the reign of Maharaja Hari Singh, the High Court of Jammu and Kashmir was formally established, strengthening judicial authority and appellate review."
-        },
-        {
-          "type": "paragraph",
-          "text": "Under Maharaja Pratap Singh, infrastructure expanded. Roads, public buildings, and communication systems improved. State departments were modernized, including revenue and forest administration."
-        },
-        {
-          "type": "image",
-          "src": "/content/images/brief-history-jk-04.png",
-          "caption": "Flag Azad Kashmir After Forced Division in 1947",
-          "credit": "The Mirror Jammu Kashmir",
-          "align": "center"
-        },
-        {
-          "type": "paragraph",
-          "text": "Forest conservation was a key feature of governance. Large tracts of land were declared reserved or protected forests. Historically, more than 40 percent of the territory in various regions remained under forest cover, particularly in Kashmir Valley and the mountainous belts of Jammu and Ladakh. Compared to many regions today, forest cover has declined due to population growth, conflict, and environmental pressures."
-        },
-        {
-          "type": "paragraph",
-          "text": "During the period of the State of Jammu and Kashmir under hereditary rule, cutting of maple, pine, deodar, and other valuable trees required prior permission from state authorities. Unauthorized felling was punishable by law."
-        },
-        {
-          "type": "image",
-          "src": "/content/images/brief-history-jk-05.png",
-          "caption": "Flag Gilgit Baltistan After Forced Division in 1947",
-          "credit": "The Mirror Jammu Kashmir",
-          "align": "center"
-        },
-        {
-          "type": "paragraph",
-          "text": "Drinking water systems were developed and maintained. Springs, canals, and irrigation channels were supervised to ensure supply to villages and towns. Grazing lands were allocated for local communities. Specific pasture areas were designated for cattle, sheep, and goats. Seasonal migration routes for herders were officially recognized to prevent disputes between villages."
-        },
-        {
-          "type": "paragraph",
-          "text": "Maharaja Hari Singh, who ascended the throne in 1925, introduced major reforms. In 1927, the State Subject Rule was enacted. It defined hereditary state subjects and granted them first class citizen status. It restricted land ownership, government employment, and settlement rights to natives of the State."
-        },
-        {
-          "type": "paragraph",
-          "text": "In 1934, the Praja Sabha was established as the legislative assembly of Jammu and Kashmir. Members were partly elected and partly nominated. The right to vote was introduced under a limited franchise system based on property, taxation, and educational qualifications."
-        },
-        {
-          "type": "paragraph",
-          "text": "The State of Jammu and Kashmir was marked by religious and regional diversity. Overall, it had a Muslim majority population. Jammu region had a Hindu majority. Ladakh was Buddhist majority. Muslims, Hindus, Buddhists, and Sikhs lived across the State with long traditions of coexistence, peace, and shared economic and social life."
-        },
-        {
-          "type": "header",
-          "text": "Events of 1947 and Aftermath"
-        },
-        {
-          "type": "paragraph",
-          "text": "In 1947, at the time of partition of British India into India and Pakistan, more than 580 princely states were given the option to join either dominion or remain independent. Given the State’s complex demography and geography, Maharaja Hari Singh chose independence."
-        },
-        {
-          "type": "paragraph",
-          "text": "On 22 October 1947, Pakistani backed tribal forces entered the State from the northwest. The invasion advanced toward Srinagar. The Maharaja first sought military assistance from Britain, but no help was provided. He then approached India. India required accession before providing military support."
-        },
-        {
-          "type": "paragraph",
-          "text": "Maharaja Hari Singh signed the Instrument of Provisional Accession limited to defense, foreign affairs, and communications. Indian troops were airlifted into Srinagar with assurances to protect life, liberty, and property of the people of Jammu and Kashmir, repel the invaders, and reunite the entire State."
-        },
-        {
-          "type": "paragraph",
-          "text": "The invasion forced the Maharaja to leave Srinagar for Jammu. He remained there until 1949, hoping that the situation would improve and that he would return to Srinagar. Instead, the situation worsened and the State was divided by a ceasefire line."
-        },
-        {
-          "type": "paragraph",
-          "text": "The United Nations became involved in 1948. Its resolutions and the UNCIP truce agreement called for Pakistan to withdraw forthwith from the territory of the State of Jammu and Kashmir. That requirement was never fully complied with."
-        },
-        {
-          "type": "image",
-          "src": "/content/images/brief-history-jk-06.png",
-          "caption": "Flags of The Historical State of Jammu Kashmir Before & After Partition",
-          "credit": "The Mirror Jammu Kashmir",
-          "align": "center"
-        },
-        {
-          "type": "paragraph",
-          "text": "The entire State of Jammu and Kashmir remains a disputed territory. Its future status is yet to be decided. It is not merely a bilateral or territorial dispute between India and Pakistan. It concerns the lives of millions of Kashmiris who are forcibly divided."
-        },
-        {
-          "type": "paragraph",
-          "text": "Such restrictions raise serious concerns under the Universal Declaration of Human Rights. Article 1 affirms equality in dignity and rights. Article 3 guarantees the right to life, liberty, and security. Article 9 prohibits arbitrary exile. Article 13 guarantees freedom of movement. Article 17 protects the right to own property. Article 21 affirms the right of people to participate in governance."
-        },
-        {
-          "type": "paragraph",
-          "text": "The State Subject Rule of 1927 did not allow outsiders to buy land, property, or permanently settle in the State of Jammu and Kashmir. This crucial protection has been altered or violated in different regions of the divided State, raising deep legal and political concerns."
-        },
-        {
-          "type": "paragraph",
-          "text": "Those who argue that United Nations resolutions are no longer valid are distorting history and misleading common people. The continued presence of United Nations Military Observers on both sides of the ceasefire line demonstrates that the dispute remains internationally recognized."
-        },
-        {
-          "type": "paragraph",
-          "text": "From 16 March 1846 until the upheavals of October 1947, the State of Jammu and Kashmir existed as a defined political entity with borders, citizenship laws, courts, a High Court, a Bar, a legislative assembly known as the Praja Sabha, protected forests, regulated grazing systems, water management, and structured governance. That historical State remains central to understanding the present and future of Jammu and Kashmir."
-        },
-        {
-          "type": "paragraph",
-          "text": "Sardar Nasir Aziz Khan can be reached at themirrorjk@gmail.com or by phone at +41 783 13 12 13. On X, he can be followed at @NasirKhanUKPNP."
-        }
+    {
+      "type": "heading",
+      "text": "Rulers of the State (1846–1953)"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Maharaja Gulab Singh (1846–1857)",
+        "Maharaja Ranbir Singh (1857–1885)",
+        "Maharaja Pratap Singh (1885–1925)",
+        "Maharaja Hari Singh (1925–1953)"
       ]
+    },
+
+    {
+      "type": "heading",
+      "text": "Governance and Legal Reforms"
+    },
+    {
+      "type": "paragraph",
+      "text": "Under Maharaja Ranbir Singh, administration was consolidated. The Ranbir Penal Code became the foundation of criminal law. District courts were established, judicial procedures formalized, and a professional Bar developed in Jammu and Srinagar. In 1928, the High Court of Jammu and Kashmir was formally established."
+    },
+
+    {
+      "type": "heading",
+      "text": "Infrastructure, Forests, and Ecological Management"
+    },
+    {
+      "type": "paragraph",
+      "text": "Under Maharaja Pratap Singh, roads, public buildings, and communication systems expanded. Forest conservation was a major governance priority. More than 40% of the territory historically remained under forest cover. Cutting of valuable trees such as maple, pine, and deodar required state permission, and unauthorized felling was punishable."
+    },
+    {
+      "type": "paragraph",
+      "text": "Water systems—springs, canals, and irrigation channels—were maintained. Grazing lands were allocated, migration routes for herders recognized, and special pathways marked to prevent disputes and preserve ecological balance."
+    },
+
+    {
+      "type": "heading",
+      "text": "State Subject Rule of 1927"
+    },
+    {
+      "type": "paragraph",
+      "text": "Maharaja Hari Singh introduced the State Subject Rule in 1927, defining hereditary state subjects and granting them exclusive rights to land ownership, government employment, and settlement. This safeguarded the State’s land, culture, identity, and economic rights from outside acquisition."
+    },
+
+    {
+      "type": "heading",
+      "text": "Praja Sabha and Constitutional Developments"
+    },
+    {
+      "type": "paragraph",
+      "text": "In 1934, the Praja Sabha was established as the legislative assembly. It combined elected and nominated members, introducing limited franchise based on property, taxation, and education. In 1939, the assembly was expanded, strengthening legislative representation."
+    },
+    {
+      "type": "paragraph",
+      "text": "Education in state schools became free. Legal reforms prohibited marriage of minor girls below sixteen. Revenue and public service administration improved. Compared to many princely states, Jammu and Kashmir had advanced governance structures, codified laws, and defined citizenship."
+    },
+
+    {
+      "type": "heading",
+      "text": "Religious and Regional Diversity"
+    },
+    {
+      "type": "paragraph",
+      "text": "The State was marked by diversity: a Muslim‑majority population overall, Hindu‑majority Jammu, and Buddhist‑majority Ladakh. Muslims, Hindus, Buddhists, and Sikhs lived with long traditions of coexistence and shared social and economic life."
+    },
+
+    {
+      "type": "heading",
+      "text": "Partition of 1947 and the Tribal Invasion"
+    },
+    {
+      "type": "paragraph",
+      "text": "At partition, princely states could join India or Pakistan or remain independent. Maharaja Hari Singh chose independence. On 22 October 1947, Pakistani‑backed tribal forces invaded from the northwest. After Britain declined assistance, the Maharaja sought help from India, which required accession. He signed the Instrument of Provisional Accession limited to defense, foreign affairs, and communications."
+    },
+    {
+      "type": "paragraph",
+      "text": "Indian troops were airlifted to Srinagar with assurances to protect life, liberty, and property and to reunite the State. The invasion forced the Maharaja to leave Srinagar for Jammu. He never returned to rule from Srinagar and later went into exile."
+    },
+
+    {
+      "type": "heading",
+      "text": "United Nations Involvement"
+    },
+    {
+      "type": "paragraph",
+      "text": "In 1948, the United Nations intervened. UNCIP resolutions required Pakistan to withdraw from the State’s territory—a requirement never fully met. India’s pledges to protect rights and allow the people to determine their future were also not fully realized."
+    },
+
+    {
+      "type": "heading",
+      "text": "Human Rights and the Divided State"
+    },
+    {
+      "type": "paragraph",
+      "text": "The State remains disputed. Millions of Kashmiris are divided by the Line of Control, with restricted movement and separated families. These conditions raise concerns under the Universal Declaration of Human Rights, including Articles 1, 3, 9, 13, 17, and 21."
+    },
+
+    {
+      "type": "heading",
+      "text": "International Recognition of the Dispute"
+    },
+    {
+      "type": "paragraph",
+      "text": "UN Military Observers remain on both sides of the ceasefire line. The European Parliament Resolution of 24 May 2007 and the OHCHR reports of 2018 and 2019 reaffirm that the Kashmir issue remains on the global agenda."
+    },
+
+    {
+      "type": "heading",
+      "text": "Historical Continuity and Contemporary Claims"
+    },
+    {
+      "type": "paragraph",
+      "text": "India, Pakistan, and political parties across all regions of the divided State claim the same historical entity created on 16 March 1846. Without the Treaty of Amritsar, there would be no unified legal or historical basis linking the regions now administered separately."
+    },
+    {
+      "type": "paragraph",
+      "text": "From 1846 until the upheavals of 1947, the State existed with defined borders, citizenship laws, courts, a High Court, a Bar, a legislative assembly, protected forests, regulated grazing, water management, and structured governance. This historical State remains central to understanding the present and future of Jammu and Kashmir."
     }
+  ],
+  "tags": [
+    "Jammu & Kashmir",
+    "History",
+    "South Asia",
+    "Geopolitics",
+    "Human Rights",
+    "Treaty of Amritsar",
+    "State Subject Rule"
   ]
 }
