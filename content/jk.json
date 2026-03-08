@@ -1,1 +1,30 @@
-
+{
+  "items": [
+    {
+      "id": "jk-coming-001",
+      "title": "Jammu & Kashmir — Coverage Coming Soon",
+      "excerpt": "In-depth reporting from across Jammu & Kashmir will be added shortly.",
+      "heroImage": {
+        "src": "/content/images/rawalakot-00.jpg",
+        "caption": "Jammu & Kashmir",
+        "credit": "The Mirror Jammu Kashmir"
+      },
+      "body": [
+        { "type": "paragraph", "text": "Full coverage of Jammu & Kashmir will be published soon." }
+      ]
+    },
+    {
+      "id": "jk-coming-002",
+      "title": "More Reports Coming Soon",
+      "excerpt": "Additional updates from the region will appear here.",
+      "heroImage": {
+        "src": "/content/images/rawalakot-01.jpg",
+        "caption": "Jammu & Kashmir",
+        "credit": "The Mirror Jammu Kashmir"
+      },
+      "body": [
+        { "type": "paragraph", "text": "More detailed reporting will be added shortly." }
+      ]
+    }
+  ]
+}
