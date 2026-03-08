@@ -2,16 +2,20 @@
   "title": "The Chief Editor",
   "subtitle": "The Mirror Jammu Kashmir",
 
-  "heroImage": {
-    "src": "content/images/chief-editor.jpg",
-    "caption": "Chief Editor — The Mirror Jammu Kashmir",
-    "width": "38%"
-  },
-
   "body": [
     {
       "type": "paragraph",
-      "text": "Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional insight, political clarity, and a firm commitment to principled and rights based journalism. A Kashmiri human rights defender, political analyst, and columnist, he is originally from Rawalakot in the Poonch region of the historical State of Jammu and Kashmir and is currently based in Switzerland."
+      "text": "Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional insight, political clarity, and a firm commitment to principled and rights based journalism."
+    },
+    {
+      "type": "image-inline",
+      "src": "/content/images/chief-editor.jpg",
+      "caption": "Chief Editor — The Mirror Jammu Kashmir",
+      "width": "38%"
+    },
+    {
+      "type": "paragraph",
+      "text": "A Kashmiri human rights defender, political analyst, and columnist, he is originally from Rawalakot in the Poonch region of the historical State of Jammu and Kashmir and is currently based in Switzerland."
     },
     {
       "type": "paragraph",
