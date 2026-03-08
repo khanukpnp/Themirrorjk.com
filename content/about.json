@@ -3,9 +3,9 @@
   "subtitle": "Independent Digital Media Platform · Truth · Justice · Human Dignity",
 
   "heroImage": {
-    "src": "assets/logo.png",
+    "src": "/content/images/logo.png",
     "caption": "The Mirror Jammu Kashmir Logo",
-    "width": "38%"
+    "credit": "The Mirror Jammu Kashmir"
   },
 
   "body": [
