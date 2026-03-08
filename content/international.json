@@ -1,1 +1,30 @@
-
+{
+  "items": [
+    {
+      "id": "intl-coming-001",
+      "title": "International News Coming Soon",
+      "excerpt": "Global coverage and international reports will be added shortly.",
+      "heroImage": {
+        "src": "/content/images/london-ukpnp-01.jpg",
+        "caption": "International Affairs",
+        "credit": "The Mirror Jammu Kashmir"
+      },
+      "body": [
+        { "type": "paragraph", "text": "International news and analysis will be published soon." }
+      ]
+    },
+    {
+      "id": "intl-coming-002",
+      "title": "More International Reports Coming Soon",
+      "excerpt": "Additional global updates will appear here.",
+      "heroImage": {
+        "src": "/content/images/london-ukpnp-02.jpg",
+        "caption": "International Affairs",
+        "credit": "The Mirror Jammu Kashmir"
+      },
+      "body": [
+        { "type": "paragraph", "text": "More international coverage will be added shortly." }
+      ]
+    }
+  ]
+}
