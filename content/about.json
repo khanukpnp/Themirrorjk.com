@@ -1,14 +1,15 @@
 {
   "title": "About The Mirror Jammu Kashmir",
   "subtitle": "Independent Digital Media Platform · Truth · Justice · Human Dignity",
-
-  "heroImage": {
-    "src": "/content/images/logo.png",
-    "caption": "The Mirror Jammu Kashmir Logo",
-    "credit": "The Mirror Jammu Kashmir"
-  },
-
+  "archive": false,
   "body": [
+    {
+      "type": "image",
+      "src": "/content/images/logo.png",
+      "align": "left",
+      "caption": "The Mirror Jammu Kashmir Logo",
+      "credit": "The Mirror Jammu Kashmir"
+    },
     {
       "type": "paragraph",
       "text": "The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity. We exist to challenge silence, expose injustice, and amplify voices that are ignored or deliberately suppressed. Our work is rooted in facts, international law, and lived realities, not in narratives shaped by power or propaganda."
