@@ -1,404 +1,631 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="./">
-    <title>THE MIRROR JAMMU KASHMIR</title>
-    <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
-    <link rel="preconnect" href="https://api.open-meteo.com">
-    <link rel="stylesheet" href="styles.css?v=23">
-</head>
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
-<body class="theme-maroon" id="top">
+/* ========== BASE ========== */
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f5f5f5;
+    color: #222;
+}
 
-<!-- ============================
-LOADER
-============================= -->
-<div id="site-loader">
-    <div class="loader-inner">
-        <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
-        <div class="loader-bar"><div class="loader-progress"></div></div>
-        <p>Loading newsroom…</p>
-    </div>
-</div>
+.theme-maroon {
+    background: #f5f5f5;
+    color: #222;
+}
 
-<!-- ============================
-HEADER
-============================= -->
-<header class="site-header modern-header">
-    <div class="header-center">
-        <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-        <div class="subheading">
-            CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD… REVEALING THE TRUTH BEYOND BORDERS
-        </div>
-    </div>
-</header>
+.page-shell {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
-<!-- ============================
-CLOCKS + CALENDARS
-============================= -->
-<section class="bar clocks-line" aria-label="Clocks and Calendars">
-    <div class="row tight nowrap center">
-        <div id="clock-cest" class="chip tiny">
-            🕒 <span>Loading CEST…</span>
-        </div>
-        <div id="cal-hijri" class="chip tiny">
-            🗓️ <span>Hijri…</span>
-        </div>
-        <div id="cal-hindi" class="chip tiny">
-            🗓️ <span>VS…</span>
-        </div>
-        <div id="tz-ist" class="chip tiny">
-            🕒 IST (Jammu-Kashmir-Ladakh): <span>—:—</span>
-        </div>
-        <div id="tz-pkt" class="chip tiny">
-            🕒 PKT (Gilgit-Baltistan & Azad Kashmir): <span>—:—</span>
-        </div>
-    </div>
-</section>
+/* ========== HEADER ========== */
+.site-header {
+    text-align: center;
+    background: #ffffff;
+    border-bottom: 3px solid #800000;
+    padding: 10px;
+}
 
-<!-- ============================
-WEATHER BAR
-============================= -->
-<section class="bar weather-line" aria-label="Weather">
-    <div class="row nowrap super-tight center" id="weather-bar"></div>
-</section>
+.site-title {
+    margin: 0;
+    font-size: 2rem;
+}
 
-<!-- ============================
-BREAKING TICKER
-============================= -->
-<section class="ticker-wrap" aria-label="Breaking Ticker">
-    <div class="ticker">
-        <span class="ticker-label">🆕 BREAKING</span>
-        <ul id="ticker-items"></ul>
-        <div class="tools">
-            <label class="lang-select">
-                🌍
-                <select id="language-select">
-                    <option value="en" selected>English</option>
-                    <option value="de">German</option>
-                    <option value="fr">French</option>
-                    <option value="ur">Urdu</option>
-                    <option value="hi">Hindi</option>
-                    <option value="ar">Arabic</option>
-                </select>
-            </label>
-            <form class="search" onsubmit="event.preventDefault();">
-                <input id="search-input" type="search" placeholder="Search…">
-                <button type="submit">🔍</button>
-            </form>
-        </div>
-    </div>
-</section>
+.subheading {
+    font-size: 0.9rem;
+    color: #555;
+}
 
-<!-- ============================
-NAVIGATION MENU
-============================= -->
-<nav class="navbar modern-nav" aria-label="Primary Navigation">
-    <button class="hamburger" aria-expanded="false" aria-controls="mobile-menu" id="hamburger">
-        ☰ Menu
-    </button>
-    <ul class="nav-list" id="nav-list">
-        <li class="nav-item has-sub">
-            <button class="nav-btn">🏠 Home</button>
-            <div class="dropdown">
-                <a href="about.html">About</a>
-                <a href="chief-editor.html">Chief Editor</a>
-                <a href="#contact">Contact</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-btn" href="breaking.html">🆕 Breaking News</a>
-        </li>
-        <li class="nav-item has-sub">
-            <button class="nav-btn">📝 Blog</button>
-            <div class="dropdown wide">
-                <a href="editorial.html">Editorial</a>
-                <a href="blog.html">Opinion</a>
-                <a href="#latest-editorial-historical">Latest Updates</a>
-            </div>
-        </li>
-        <li class="nav-item has-sub">
-            <button class="nav-btn">🎥 Vlog</button>
-            <div class="dropdown">
-                <a href="#vlogs">Latest Vlogs</a>
-                <a href="vlog-archive.html">Archive</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-btn" href="#epaper">📰 E-Paper</a>
-        </li>
-        <li class="nav-item has-sub">
-            <button class="nav-btn">📍 Jammu Kashmir</button>
-            <div class="dropdown wide">
-                <a href="#jammu-kashmir">Regions</a>
-                <a href="#jammu-kashmir">History</a>
-                <a href="#jammu-kashmir">Culture</a>
-            </div>
-        </li>
-        <li class="nav-item has-sub">
-            <button class="nav-btn">📜 Historical Documents</button>
-            <div class="dropdown wide">
-                <a href="#archive">Treaties</a>
-                <a href="#archive">Archives</a>
-                <a href="#archive">Letters</a>
-            </div>
-        </li>
-        <li class="nav-item has-sub">
-            <button class="nav-btn">🕊️ UN & Human Rights</button>
-            <div class="dropdown">
-                <a href="#human-rights">UNHRC</a>
-                <a href="#human-rights">Reports</a>
-                <a href="#human-rights">Advocacy</a>
-            </div>
-        </li>
-        <li class="nav-item has-sub">
-            <button class="nav-btn">🌐 Global Advocacy</button>
-            <div class="dropdown wide">
-                <a href="#advocacy">Campaigns</a>
-                <a href="#advocacy">Partners</a>
-                <a href="#advocacy">Get Involved</a>
-            </div>
-        </li>
-    </ul>
-    <div id="mobile-menu" class="mobile-menu" hidden></div>
-</nav>
+/* ========== BARS (CLOCKS / WEATHER / TICKER) ========== */
+.bar {
+    background: #ffffff;
+    padding: 6px 10px;
+    border-bottom: 1px solid #ddd;
+}
 
-<!-- ============================
-MAIN CONTENT WRAPPER
-============================= -->
-<main class="page-shell home-shell">
+.row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
-    <!-- ============================
-    TOP STORIES
-    ============================= -->
-    <section id="top-stories">
-        <div class="section-title red-bar">⭐ Top Stories</div>
-        <div class="cards three">
+.chip {
+    background: #eee;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+}
 
-            <!-- LEAD -->
-            <article class="card">
-                <div class="media placeholder maroon" id="lead-media">Lead</div>
-                <div class="card-body" id="lead-body">
-                    <h3>Coming Soon</h3>
-                    <p>Lead story will appear here.</p>
-                </div>
-            </article>
+.chip.tiny {
+    font-size: 0.7rem;
+}
 
-            <!-- BREAKING -->
-            <article class="card">
-                <div class="media placeholder maroon" id="breaking-media">Breaking</div>
-                <div class="card-body" id="breaking-body">
-                    <h3>Coming Soon</h3>
-                    <p>Breaking news will appear here.</p>
-                </div>
-            </article>
+/* ===== Ticker base ===== */
+.ticker-wrap {
+    background: #800000;
+    color: #fff;
+    overflow: hidden;
+    border-top: 1px solid #600;
+    border-bottom: 1px solid #600;
+}
 
-            <!-- OPINION -->
-            <article class="card">
-                <div class="media placeholder maroon" id="opinion-media">Opinion</div>
-                <div class="card-body" id="opinion-body">
-                    <h3>Coming Soon</h3>
-                    <p>Opinion and blog will appear here.</p>
-                </div>
-            </article>
+.ticker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 2px 8px;
+    min-height: 24px;
+    font-size: 12px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
 
-        </div>
-    </section>
+.ticker-label {
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .05em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
 
-    <!-- ============================
-    LATEST / EDITORIAL / HISTORICAL
-    ============================= -->
-    <section id="latest-editorial-historical">
-        <div class="section-title red-bar">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</div>
-        <div class="cards three">
+.ticker ul {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    animation: ticker-scroll 90s linear infinite;
+    flex-shrink: 0;
+    min-width: 100%;
+}
 
-            <!-- LATEST -->
-            <article class="card">
-                <div class="media placeholder maroon" id="leh1-media">Latest</div>
-                <div class="card-body" id="leh1-body">
-                    <h3>Coming Soon</h3>
-                    <p>Content will be added shortly.</p>
-                </div>
-            </article>
+.ticker ul li {
+    font-size: 12px;
+    line-height: 1;
+}
 
-            <!-- EDITORIAL -->
-            <article class="card">
-                <div class="media placeholder maroon" id="leh2-media">Editorial</div>
-                <div class="card-body" id="leh2-body">
-                    <h3>Coming Soon</h3>
-                    <p>Content will be added shortly.</p>
-                </div>
-            </article>
+.tools {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
 
-            <!-- HISTORICAL -->
-            <article class="card">
-                <div class="media placeholder maroon" id="leh3-media">Historical</div>
-                <div class="card-body" id="leh3-body">
-                    <h3>Coming Soon</h3>
-                    <p>Content will be added shortly.</p>
-                </div>
-            </article>
+@keyframes ticker-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
 
-        </div>
-    </section>
+/* ========== NAVBAR ========== */
+.navbar {
+    background: #111;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    position: relative;
+}
 
-    <!-- ============================
-    JAMMU KASHMIR SECTION
-    ============================= -->
-    <section id="jammu-kashmir">
-        <div class="section-title red-bar">📍 Jammu Kashmir</div>
-        <div class="cards two">
-            <article class="card">
-                <div class="media placeholder maroon" id="jk1-media">JK</div>
-                <div class="card-body" id="jk1-body">
-                    <h3>Coming Soon</h3>
-                    <p>Reporting from Jammu & Kashmir will appear here.</p>
-                </div>
-            </article>
-            <article class="card">
-                <div class="media placeholder maroon" id="jk2-media">JK</div>
-                <div class="card-body" id="jk2-body">
-                    <h3>Coming Soon</h3>
-                    <p>Additional coverage will be added.</p>
-                </div>
-            </article>
-        </div>
-    </section>
+.hamburger {
+    display: none;
+    background: none;
+    border: 1px solid #444;
+    color: #ffffff;
+    padding: 4px 8px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
 
-    <!-- ============================
-    VLOGS SECTION
-    ============================= -->
-    <section id="vlogs">
-        <div class="section-title red-bar">🎥 Video Reports & Vlogs</div>
-        <!-- IMPORTANT: Correct ID for script.js -->
-        <div class="cards three vlogs-grid" id="vlogs-grid">
-            <!-- Filled dynamically by script.js -->
-        </div>
-        <div style="margin-top:12px; text-align:center;">
-            <a href="https://www.youtube.com" target="_blank" rel="noopener">
-                <button id="vlog-visit-channel" class="btn-red">🎥 Visit Channel</button>
-            </a>
-        </div>
-    </section>
+.nav-list {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
-    <!-- ============================
-    INTERNATIONAL SECTION
-    ============================= -->
-    <section id="international">
-        <div class="section-title red-bar">🌍 International News</div>
-        <div class="cards two">
-            <article class="card">
-                <div class="media placeholder maroon" id="intl1-media">Intl</div>
-                <div class="card-body" id="intl1-body">
-                    <h3>Coming Soon</h3>
-                    <p>International coverage will appear here.</p>
-                </div>
-            </article>
-            <article class="card">
-                <div class="media placeholder maroon" id="intl2-media">Intl</div>
-                <div class="card-body" id="intl2-body">
-                    <h3>Coming Soon</h3>
-                    <p>Additional international reports will be added.</p>
-                </div>
-            </article>
-        </div>
-    </section>
+.nav-item {
+    position: relative;
+}
 
-    <!-- ============================
-    HUMAN RIGHTS SECTION
-    ============================= -->
-    <section id="human-rights">
-        <div class="section-title red-bar">❤️ Human Rights</div>
-        <div class="cards two">
-            <article class="card">
-                <div class="media placeholder maroon" id="hr1-media">HR</div>
-                <div class="card-body" id="hr1-body">
-                    <h3>Coming Soon</h3>
-                    <p>Human rights documentation will appear here.</p>
-                </div>
-            </article>
-            <article class="card">
-                <div class="media placeholder maroon" id="hr2-media">HR</div>
-                <div class="card-body" id="hr2-body">
-                    <h3>Coming Soon</h3>
-                    <p>Further human rights reports will be added.</p>
-                </div>
-            </article>
-        </div>
-    </section>
+.nav-btn,
+.nav-item > a.nav-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
 
-    <!-- ============================
-    ARCHIVE SECTION
-    ============================= -->
-    <section id="archive">
-        <div class="section-title red-bar">📁 Archive</div>
-        <div id="archive-list">
-            <p>Coming Soon — curated archive of articles, reports, and documents.</p>
-        </div>
-    </section>
+.nav-btn:hover,
+.nav-item > a.nav-btn:hover {
+    background: #222;
+}
 
-    <!-- ============================
-    E-PAPER UPLOAD
-    ============================= -->
-    <section id="epaper">
-        <div class="section-title red-bar">📰 E‑Paper Upload</div>
-        <p>Upload your digital publication (PDF). This section is a placeholder; connect to your preferred CMS or cloud later.</p>
-        <form class="epaper-form" onsubmit="return false;">
-            <input type="file" accept="application/pdf">
-            <button type="submit" class="btn-red">⬆️ Upload</button>
-        </form>
-    </section>
+/* Dropdown */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #222;
+    min-width: 180px;
+    z-index: 20;
+    flex-direction: column;
+    padding: 4px 0;
+}
 
-    <!-- ============================
-    NEWSLETTER
-    ============================= -->
-    <section id="newsletter">
-        <div class="section-title red-bar">✉️ Newsletter</div>
-        <form class="newsletter-form" onsubmit="return false;">
-            <input id="subscribeEmail" type="email" placeholder="your@email.com">
-            <button id="subscribeBtn" type="submit" class="btn-red">✉️ Subscribe</button>
-        </form>
-    </section>
+.dropdown.wide {
+    min-width: 220px;
+}
 
-    <!-- ============================
-    CONTACT SECTION
-    ============================= -->
-    <section id="contact">
-        <div class="section-title red-bar">📞 Contact</div>
-        <p>Email: themirrorjk@gmail.com • Phone: +41 783 13 12 13</p>
-        <button id="contact-open" class="btn-red">📞 Open Contact Form</button>
-    </section>
+.dropdown a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    display: block;
+}
 
-</main> <!-- END OF MAIN CONTENT WRAPPER -->
+.dropdown a:hover {
+    background: #333;
+}
 
-<!-- ============================
-CONTACT MODAL
-============================= -->
-<div id="contact-modal" class="modal hidden">
-    <div class="modal-content">
-        <span id="contact-close" class="close">&times;</span>
-        <h3>📞 Contact Us</h3>
-        <p>Send your message to the editorial team.</p>
-        <input type="text" placeholder="Your name">
-        <input type="email" placeholder="Your email">
-        <textarea placeholder="Your message…"></textarea>
-        <button class="btn-red">Send</button>
-    </div>
-</div>
+.nav-item:hover .dropdown {
+    display: flex;
+}
 
-<!-- ============================
-FOOTER
-============================= -->
-<footer class="footer">
-    <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-</footer>
+/* Mobile menu */
+.mobile-menu {
+    display: none;
+    background: #111;
+    color: #ffffff;
+    padding: 8px 10px;
+}
 
-<!-- ============================
-SCRIPTS
-============================= -->
-<script src="script.js?v=23"></script>
+.mobile-menu a {
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 6px 0;
+}
 
-</body>
-</html>
+/* ========== CARDS / GRID ========== */
+.cards {
+    display: grid;
+    gap: 16px;
+}
+
+.cards.three {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.cards.two {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    overflow: hidden;
+}
+
+.media {
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.media.maroon {
+    background: #800000;
+    color: #ffffff;
+}
+
+.media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+}
+
+.card-body {
+    padding: 12px;
+}
+
+.card-body h3 {
+    margin-top: 0;
+}
+
+/* Section titles */
+.section-title {
+    margin: 24px 0 10px;
+    font-weight: 700;
+}
+
+.red-bar {
+    border-left: 6px solid #800000;
+    padding-left: 10px;
+}
+
+/* Vlogs */
+.vlogs-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.vlog-thumb {
+    background: #111;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+}
+
+.play-icon {
+    background: #c00;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+}
+
+/* Buttons */
+.btn-red {
+    background: #800000;
+    color: #ffffff;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-red:hover {
+    background: #a00000;
+}
+
+/* ========== ARTICLE PAGES ========== */
+.article-page .page-shell {
+    max-width: 900px;
+}
+
+.article-container {
+    display: block;
+}
+
+.article-shell {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.article-header h1 {
+    margin-top: 0;
+}
+
+.article-meta {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Hero */
+.article-hero {
+    margin: 20px 0;
+}
+
+.article-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.article-hero figcaption {
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: 4px;
+}
+
+/* Content */
+.article-content {
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.article-content p {
+    margin: 0 0 1em;
+}
+
+/* Important points */
+.important-points {
+    border-left: 4px solid #800000;
+    background: #fdf5f5;
+    padding: 10px 12px;
+    margin: 20px 0;
+}
+
+.important-points ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+/* ===== ARTICLE INLINE IMAGE FIX ===== */
+.article-content figure {
+    max-width: 100%;
+}
+
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.img-left {
+    float: left;
+    width: 38%;
+    margin: 12px 20px 12px 0;
+}
+
+.img-right {
+    float: right;
+    width: 38%;
+    margin: 12px 0 12px 20px;
+}
+
+.article-content::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* Page actions */
+.page-actions {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.page-actions button,
+.page-actions input {
+    font-size: 0.85rem;
+}
+
+.subscribe-input {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+}
+
+/* ========== FORMS / CONTACT / NEWSLETTER / EPAPER ========== */
+.newsletter-form,
+.epaper-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.newsletter-form input,
+.epaper-form input {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    flex: 1 1 200px;
+}
+
+/* Contact modal */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+}
+
+/* ========== FOOTER (WHITE TEXT) ========== */
+.footer {
+    background: #111;
+    color: #ffffff;
+    text-align: center;
+    padding: 14px;
+}
+
+.footer p {
+    color: #ffffff;
+    margin: 6px 0 0;
+}
+
+.footer .social {
+    margin-bottom: 6px;
+}
+
+.footer .social a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 6px;
+    font-size: 0.9rem;
+}
+
+.footer .social a:hover {
+    color: #dddddd;
+}
+
+/* ========== LOADER (INDEX) ========== */
+#site-loader {
+    position: fixed;
+    inset: 0;
+    background: #111;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    transition: opacity 0.3s ease;
+}
+
+.loader-inner {
+    text-align: center;
+}
+
+.loader-title {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.loader-bar {
+    width: 220px;
+    height: 4px;
+    background: #333;
+    margin: 0 auto 8px;
+    overflow: hidden;
+}
+
+.loader-progress {
+    width: 40%;
+    height: 100%;
+    background: #800000;
+    animation: loader-move 1.2s linear infinite;
+}
+
+@keyframes loader-move {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(250%);
+    }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+    .cards.three {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .vlogs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .cards.three,
+    .cards.two {
+        grid-template-columns: 1fr;
+    }
+    .nav-list {
+        display: none;
+    }
+    .hamburger {
+        display: inline-block;
+    }
+    .mobile-menu {
+        display: block;
+    }
+    .image-left,
+    .image-right {
+        float: none;
+        max-width: 100%;
+        margin: 10px 0;
+    }
+}
+
+/* Duplicate safety for floats (kept for compatibility) */
+.img-left {
+    float: left;
+    width: 38%;
+    margin: 10px 20px 10px 0;
+}
+
+.img-right {
+    float: right;
+    width: 38%;
+    margin: 10px 0 10px 20px;
+}
+
+.pull-points {
+    background: #f6f6f6;
+    border-left: 4px solid #900;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+/* ===== ABOUT PAGE HERO FLOAT RIGHT ===== */
+.about-hero {
+    float: right;
+    width: 38%;
+    margin: 12px 0 12px 20px;
+}
+
+.about-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.about-hero figcaption {
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: 4px;
+}
