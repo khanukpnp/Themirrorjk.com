@@ -1,6 +1,7 @@
 // ============================
 // BASIC INITIALISATION
 // ============================
+
 document.addEventListener("DOMContentLoaded", () => {
     initLoader();
     initYear();
@@ -12,19 +13,66 @@ document.addEventListener("DOMContentLoaded", () => {
     initNav();
     initContactModal();
     initVlogs();
-    loadBreaking();
-    loadBlog();
-    loadLatest();
-    loadEditorial();
-    loadHistorical();
+
+    // NEW: Load homepage index first
+    loadHomepageIndex();
 });
+
+// ============================
+// LOAD HOMEPAGE INDEX (NEW)
+// ============================
+
+function loadHomepageIndex() {
+    fetch("content/index.json")
+        .then(r => r.json())
+        .then(data => {
+            loadTopStories(data.homepage.topStories);
+            loadLatestEditorialHistorical(data.homepage.latestEditorialHistorical);
+        })
+        .catch(err => console.error("Index JSON error:", err));
+}
+
+// ============================
+// LOAD TOP STORIES (NEW)
+// ============================
+
+function loadTopStories(section) {
+    if (section.lead) loadArticleToCard(section.lead, "lead-media", "lead-body");
+    if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
+    if (section.opinion) loadArticleToCard(section.opinion, "opinion-media", "opinion-body");
+}
+
+// ============================
+// LOAD LATEST / EDITORIAL / HISTORICAL (NEW)
+// ============================
+
+function loadLatestEditorialHistorical(section) {
+    if (section.latest) loadArticleToCard(section.latest, "leh1-media", "leh1-body");
+    if (section.editorial) loadArticleToCard(section.editorial, "leh2-media", "leh2-body");
+    if (section.historical) loadArticleToCard(section.historical, "leh3-media", "leh3-body");
+}
+
+// ============================
+// UNIVERSAL ARTICLE LOADER (NEW)
+// ============================
+
+function loadArticleToCard(articleId, mediaId, bodyId) {
+    fetch(`content/${articleId}.json`)
+        .then(r => r.json())
+        .then(article => {
+            renderArticleCard(mediaId, bodyId, article, true);
+        })
+        .catch(err => console.error(`Error loading ${articleId}:`, err));
+}
 
 // ============================
 // LOADER
 // ============================
+
 function initLoader() {
     const loader = document.getElementById("site-loader");
     if (!loader) return;
+
     setTimeout(() => {
         loader.style.opacity = "0";
         setTimeout(() => loader.style.display = "none", 300);
@@ -34,6 +82,7 @@ function initLoader() {
 // ============================
 // FOOTER YEAR
 // ============================
+
 function initYear() {
     const y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
@@ -42,6 +91,7 @@ function initYear() {
 // ============================
 // CLOCKS & TIMEZONES
 // ============================
+
 function initClocks() {
     updateClocks();
     setInterval(updateClocks, 1000);
@@ -50,7 +100,6 @@ function initClocks() {
 function updateClocks() {
     const now = new Date();
 
-    // CEST (browser local assumed Europe/Zurich)
     const cestEl = document.querySelector("#clock-cest span");
     if (cestEl) {
         cestEl.textContent = now.toLocaleString("en-GB", {
@@ -64,39 +113,35 @@ function updateClocks() {
         });
     }
 
-    // IST
     const istEl = document.querySelector("#tz-ist span");
     if (istEl) {
-        const ist = new Date().toLocaleTimeString("en-IN", {
+        istEl.textContent = new Date().toLocaleTimeString("en-IN", {
             timeZone: "Asia/Kolkata",
             hour: "2-digit",
             minute: "2-digit",
             second: "2-digit"
         });
-        istEl.textContent = ist;
     }
 
-    // PKT
     const pktEl = document.querySelector("#tz-pkt span");
     if (pktEl) {
-        const pkt = new Date().toLocaleTimeString("en-PK", {
+        pktEl.textContent = new Date().toLocaleTimeString("en-PK", {
             timeZone: "Asia/Karachi",
             hour: "2-digit",
             minute: "2-digit",
             second: "2-digit"
         });
-        pktEl.textContent = pkt;
     }
 }
 
 // ============================
-// HIJRI CALENDAR (APPROXIMATE)
+// HIJRI CALENDAR
 // ============================
+
 function updateHijri() {
     const hijriEl = document.querySelector("#cal-hijri span");
     if (!hijriEl) return;
 
-    // Simple approximation using Intl (where supported)
     try {
         const now = new Date();
         const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
@@ -104,6 +149,7 @@ function updateHijri() {
             month: "long",
             year: "numeric"
         }).format(now);
+
         hijriEl.textContent = hijriDate;
     } catch {
         hijriEl.textContent = "Hijri calendar";
@@ -111,14 +157,15 @@ function updateHijri() {
 }
 
 // ============================
-// VIKRAM SAMVAT CALENDAR (VS)
+// VIKRAM SAMVAT
 // ============================
+
 function updateVikramSamvat() {
     const vsEl = document.querySelector("#cal-hindi span");
     if (!vsEl) return;
 
     const now = new Date();
-    const vsYear = now.getFullYear() + 57; // Approximate offset
+    const vsYear = now.getFullYear() + 57;
 
     const months = [
         "Chaitra", "Vaishakha", "Jyeshtha", "Ashadha",
@@ -126,15 +173,13 @@ function updateVikramSamvat() {
         "Margashirsha", "Pausha", "Magha", "Phalguna"
     ];
 
-    const month = months[now.getMonth()];
-    const day = now.getDate();
-
-    vsEl.textContent = `${day} ${month} ${vsYear} VS`;
+    vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${vsYear} VS`;
 }
 
 // ============================
-// WEATHER BAR (STATIC SAMPLE)
+// WEATHER BAR
 // ============================
+
 function initWeatherBar() {
     const bar = document.getElementById("weather-bar");
     if (!bar) return;
@@ -158,25 +203,25 @@ function initWeatherBar() {
 }
 
 // ============================
-// BREAKING TICKER
+// TICKER
 // ============================
+
 function initTicker() {
-    const ul = document.getElementById("ticker-items");
-    if (!ul) return;
+    fetch("content/index.json")
+        .then(r => r.json())
+        .then(data => {
+            const ul = document.getElementById("ticker-items");
+            if (!ul) return;
 
-    const items = [
-        "Rawalakot shutter down protest over power cuts and blackouts.",
-        "UKPNP briefs British MPs on Kashmir crisis in London.",
-        "UKPNP delegation meets Baroness Emma Nicholson on Kashmir developments.",
-        "Brief history of the State of Jammu and Kashmir, 1819–1953."
-    ];
-
-    ul.innerHTML = items.map(t => `<li>${t}</li>`).join("");
+            ul.innerHTML = data.ticker.map(t => `<li>${t}</li>`).join("");
+        })
+        .catch(() => {});
 }
 
 // ============================
-// NAVIGATION (MOBILE)
+// NAVIGATION
 // ============================
+
 function initNav() {
     const hamburger = document.getElementById("hamburger");
     const navList = document.getElementById("nav-list");
@@ -201,6 +246,7 @@ function initNav() {
 // ============================
 // CONTACT MODAL
 // ============================
+
 function initContactModal() {
     const openBtn = document.getElementById("contact-open");
     const closeBtn = document.getElementById("contact-close");
@@ -208,13 +254,8 @@ function initContactModal() {
 
     if (!openBtn || !closeBtn || !modal) return;
 
-    openBtn.addEventListener("click", () => {
-        modal.classList.remove("hidden");
-    });
-
-    closeBtn.addEventListener("click", () => {
-        modal.classList.add("hidden");
-    });
+    openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
+    closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
 
     modal.addEventListener("click", (e) => {
         if (e.target === modal) modal.classList.add("hidden");
@@ -222,8 +263,9 @@ function initContactModal() {
 }
 
 // ============================
-// VLOGS (STATIC PLACEHOLDERS)
+// VLOGS
 // ============================
+
 function initVlogs() {
     const grid = document.getElementById("vlogs-grid");
     if (!grid) return;
@@ -248,38 +290,13 @@ function initVlogs() {
 }
 
 // ============================
-// ARTICLE RENDERING HELPERS
+// ARTICLE RENDERING
 // ============================
-function renderBlock(block) {
-    if (block.type === "paragraph") {
-        return `<p>${block.text}</p>`;
-    }
-
-    if (block.type === "points") {
-        return `
-            <ul>
-                ${block.items.map(i => `<li>${i}</li>`).join("")}
-            </ul>
-        `;
-    }
-
-    if (block.type === "image") {
-        const alignClass = block.align === "right" ? "img-right" :
-                           block.align === "left" ? "img-left" : "";
-        return `
-            <figure class="${alignClass}">
-                <img src="${block.src}" alt="">
-                <figcaption>${block.caption}</figcaption>
-            </figure>
-        `;
-    }
-
-    return "";
-}
 
 function renderArticleCard(mediaId, bodyId, article, isSimple = true) {
     const mediaEl = document.getElementById(mediaId);
     const bodyEl = document.getElementById(bodyId);
+
     if (!mediaEl || !bodyEl) return;
 
     if (article.heroImage && article.heroImage.src) {
@@ -288,79 +305,8 @@ function renderArticleCard(mediaId, bodyId, article, isSimple = true) {
         mediaEl.innerHTML = `<img src="content/images/${article.hero_image}" alt="">`;
     }
 
-    if (isSimple) {
-        bodyEl.innerHTML = `
-            <h3>${article.title}</h3>
-            <p>${article.excerpt || article.summary || ""}</p>
-        `;
-    } else {
-        const previewBlocks = (article.body || []).slice(0, 3).map(renderBlock).join("");
-        bodyEl.innerHTML = `
-            <h3>${article.title}</h3>
-            <p>${article.excerpt || article.summary || ""}</p>
-            ${previewBlocks}
-        `;
-    }
-}
-
-// ============================
-// LOAD: BREAKING → MIDDLE WINDOW
-// ============================
-function loadBreaking() {
-    fetch("content/breaking-001.json")
-        .then(r => r.json())
-        .then(data => {
-            const a = data.items[0];
-            renderArticleCard("breaking-media", "breaking-body", a, true);
-        })
-        .catch(() => {});
-}
-
-// ============================
-// LOAD: BLOG → RIGHT WINDOW
-// ============================
-function loadBlog() {
-    fetch("content/blog-001.json")
-        .then(r => r.json())
-        .then(data => {
-            const a = data.items[0];
-            renderArticleCard("opinion-media", "opinion-body", a, true);
-        })
-        .catch(() => {});
-}
-
-// ============================
-// LOAD: LATEST-001 → LATEST LEFT
-// ============================
-function loadLatest() {
-    fetch("content/latest-001.json")
-        .then(r => r.json())
-        .then(a => {
-            renderArticleCard("leh1-media", "leh1-body", a, true);
-        })
-        .catch(() => {});
-}
-
-// ============================
-// LOAD: EDITORIAL → MIDDLE
-// ============================
-function loadEditorial() {
-    fetch("content/editorial-brief-history.json")
-        .then(r => r.json())
-        .then(a => {
-            renderArticleCard("leh2-media", "leh2-body", a, true);
-        })
-        .catch(() => {});
-}
-
-// ============================
-// LOAD: HISTORICAL → RIGHT
-// ============================
-function loadHistorical() {
-    fetch("content/historical-brief-history.json")
-        .then(r => r.json())
-        .then(a => {
-            renderArticleCard("leh3-media", "leh3-body", a, true);
-        })
-        .catch(() => {});
+    bodyEl.innerHTML = `
+        <h3>${article.title}</h3>
+        <p>${article.excerpt || article.summary || ""}</p>
+    `;
 }
