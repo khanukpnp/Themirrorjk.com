@@ -5,13 +5,15 @@
   "category": "About",
   "author": "The Mirror Jammu Kashmir",
   "date": "2026-03-08",
-  "heroImage": {
-    "src": "content/images/chief-editor.jpg",
-    "caption": "Sardar Nasir Aziz Khan, Chief Editor of The Mirror Jammu Kashmir",
-    "credit": "The Mirror Jammu Kashmir"
-  },
   "archive": false,
   "body": [
+    {
+      "type": "image",
+      "src": "/content/images/chief-editor.jpg",
+      "align": "left",
+      "caption": "Sardar Nasir Aziz Khan, Chief Editor of The Mirror Jammu Kashmir",
+      "credit": "The Mirror Jammu Kashmir"
+    },
     {
       "type": "header",
       "text": "The Chief Editor\n\nThe Mirror Jammu Kashmir"
