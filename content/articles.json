@@ -1,89 +1,85 @@
 {
-  "items": [
+  "id": "article-001",
+  "slug": "rawalakot-shutter-down-december-16-2025",
+  "title": "Complete Shutter Down Paralyzes Rawalakot Poonch as Thousands Protest Against Punitive Measures, Power Cuts and Communication Blackouts",
+  "category": "Breaking News",
+  "excerpt": "Thousands shut down Rawalakot in protest against prolonged electricity outages, low voltage supply, and communication blackouts across District Poonch.",
+  "author": "Special Correspondent, Rawalakot AK",
+  "location": "Rawalakot, Poonch, Azad Kashmir",
+  "date": "2025-12-16",
+  "readTime": "7 min read",
+  "heroImage": {
+    "src": "content/rawalakot-01.jpg",
+    "caption": "Residents protest prolonged power cuts and communication blackouts in Rawalakot.",
+    "credit": "The Mirror Jammu Kashmir"
+  },
+  "archive": false,
+  "body": [
     {
-      "id": "article-001",
-      "slug": "rawalakot-shutter-down-december-16-2025",
-      "title": "Complete Shutter Down Paralyzes Rawalakot Poonch as Thousands Protest Against Punitive Measures, Power Cuts and Communication Blackouts",
-      "category": "Breaking News",
-      "excerpt": "Thousands shut down Rawalakot in protest against prolonged electricity outages, low voltage supply, and communication blackouts across District Poonch.",
-      "author": "Special Correspondent, Rawalakot AK",
-      "location": "Rawalakot, Poonch, Azad Kashmir",
-      "date": "2025-12-16",
-      "readTime": "7 min read",
-      "heroImage": {
-        "src": "content/rawalakot-01.jpg",
-        "caption": "Residents protest prolonged power cuts and communication blackouts in Rawalakot.",
-        "credit": "The Mirror Jammu Kashmir"
-      },
-      "archive": false,
-      "body": [
-        {
-          "type": "paragraph",
-          "text": "A complete shutter down brought life to a standstill in Rawalakot on Monday as thousands of residents from across District Poonch poured into the streets to protest prolonged power outages, severe load shedding, low voltage electricity, and persistent internet and mobile network disruptions."
-        },
-        {
-          "type": "paragraph",
-          "text": "Markets remained closed and traffic was largely halted as protesters marched through the city and gathered near the grid station, demanding an immediate end to what they described as collective punishment of the population. The protest reflected growing public anger over months of worsening electricity shortages and communication blackouts."
-        },
-        {
-          "type": "points",
-          "items": [
-            "Human rights are non-negotiable",
-            "Access to essential services is a state obligation",
-            "Emergency powers must not violate freedoms"
-          ]
-        },
-        {
-          "type": "image",
-          "src": "content/rawalakot-02.jpg",
-          "align": "right",
-          "caption": "Protesters gather near the grid station demanding restoration of electricity.",
-          "credit": "Local sources"
-        },
-        {
-          "type": "paragraph",
-          "text": "Residents say Azad Kashmir has faced extreme load shedding for several months, with the Poonch region experiencing between 15 and 20 hours of power cuts daily. Electricity supply remains unstable, voltage levels are dangerously low, and internet and mobile services are frequently disrupted."
-        },
-        {
-          "type": "paragraph",
-          "text": "The impact has been widespread. Small businesses dependent on electricity and digital connectivity are struggling. Hospitals, clinics, schools, and universities report serious disruptions. Printing services, legal offices, students, teachers, and research workers have all been affected."
-        },
-        {
-          "type": "image",
-          "src": "content/rawalakot-03.jpg",
-          "align": "left",
-          "caption": "Shuttered markets during the complete shutdown in Rawalakot.",
-          "credit": "The Mirror Jammu Kashmir"
-        },
-        {
-          "type": "paragraph",
-          "text": "Millions of Kashmiris living abroad report difficulty contacting their families due to prolonged power outages and failing communication networks."
-        },
-        {
-          "type": "paragraph",
-          "text": "Public frustration has been building for more than two and a half years. Previous protests forced authorities to promise electricity at production cost and improvements in essential infrastructure, commitments residents say were never fulfilled."
-        },
-        {
-          "type": "paragraph",
-          "text": "Protesters accuse authorities of responding to legitimate democratic demands with force, intimidation, and disinformation. Peaceful demonstrations in recent years were met with crackdowns resulting in civilian deaths, including incidents in Muzaffarabad in May 2024 and further fatalities reported in October 2025."
-        },
-        {
-          "type": "paragraph",
-          "text": "Azad Kashmir produces more than 4,000 megawatts of electricity, while its daily requirement is estimated at only 350 to 400 megawatts. Despite this surplus, residents continue to face prolonged outages."
-        },
-        {
-          "type": "paragraph",
-          "text": "Rights activists cite findings from reports by the United Nations High Commissioner for Human Rights in 2018 and 2019 and the European Parliament's 2007 report on Kashmir, which document serious human rights concerns and emphasize access to basic services."
-        },
-        {
-          "type": "paragraph",
-          "text": "Protesters announced an indefinite sit in in Rawalakot, calling for an immediate end to collective punishment, restoration of reliable electricity and communication services, and full respect for the rights and dignity of the people of Azad Kashmir."
-        },
-        {
-          "type": "paragraph",
-          "text": "The situation remains tense as residents await a response from the authorities."
-        }
+      "type": "paragraph",
+      "text": "A complete shutter down brought life to a standstill in Rawalakot on Monday as thousands of residents from across District Poonch poured into the streets to protest prolonged power outages, severe load shedding, low voltage electricity, and persistent internet and mobile network disruptions."
+    },
+    {
+      "type": "paragraph",
+      "text": "Markets remained closed and traffic was largely halted as protesters marched through the city and gathered near the grid station, demanding an immediate end to what they described as collective punishment of the population. The protest reflected growing public anger over months of worsening electricity shortages and communication blackouts."
+    },
+    {
+      "type": "points",
+      "items": [
+        "Human rights are non-negotiable",
+        "Access to essential services is a state obligation",
+        "Emergency powers must not violate freedoms"
       ]
+    },
+    {
+      "type": "image",
+      "src": "content/rawalakot-02.jpg",
+      "align": "right",
+      "caption": "Protesters gather near the grid station demanding restoration of electricity.",
+      "credit": "Local sources"
+    },
+    {
+      "type": "paragraph",
+      "text": "Residents say Azad Kashmir has faced extreme load shedding for several months, with the Poonch region experiencing between 15 and 20 hours of power cuts daily. Electricity supply remains unstable, voltage levels are dangerously low, and internet and mobile services are frequently disrupted."
+    },
+    {
+      "type": "paragraph",
+      "text": "The impact has been widespread. Small businesses dependent on electricity and digital connectivity are struggling. Hospitals, clinics, schools, and universities report serious disruptions. Printing services, legal offices, students, teachers, and research workers have all been affected."
+    },
+    {
+      "type": "image",
+      "src": "content/rawalakot-03.jpg",
+      "align": "left",
+      "caption": "Shuttered markets during the complete shutdown in Rawalakot.",
+      "credit": "The Mirror Jammu Kashmir"
+    },
+    {
+      "type": "paragraph",
+      "text": "Millions of Kashmiris living abroad report difficulty contacting their families due to prolonged power outages and failing communication networks."
+    },
+    {
+      "type": "paragraph",
+      "text": "Public frustration has been building for more than two and a half years. Previous protests forced authorities to promise electricity at production cost and improvements in essential infrastructure, commitments residents say were never fulfilled."
+    },
+    {
+      "type": "paragraph",
+      "text": "Protesters accuse authorities of responding to legitimate democratic demands with force, intimidation, and disinformation. Peaceful demonstrations in recent years were met with crackdowns resulting in civilian deaths, including incidents in Muzaffarabad in May 2024 and further fatalities reported in October 2025."
+    },
+    {
+      "type": "paragraph",
+      "text": "Azad Kashmir produces more than 4,000 megawatts of electricity, while its daily requirement is estimated at only 350 to 400 megawatts. Despite this surplus, residents continue to face prolonged outages."
+    },
+    {
+      "type": "paragraph",
+      "text": "Rights activists cite findings from reports by the United Nations High Commissioner for Human Rights in 2018 and 2019 and the European Parliament's 2007 report on Kashmir, which document serious human rights concerns and emphasize access to basic services."
+    },
+    {
+      "type": "paragraph",
+      "text": "Protesters announced an indefinite sit in in Rawalakot, calling for an immediate end to collective punishment, restoration of reliable electricity and communication services, and full respect for the rights and dignity of the people of Azad Kashmir."
+    },
+    {
+      "type": "paragraph",
+      "text": "The situation remains tense as residents await a response from the authorities."
     }
   ]
 }
