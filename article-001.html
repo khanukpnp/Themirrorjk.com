@@ -38,7 +38,7 @@ async function loadArticle() {
         const res = await fetch(`content/${id}.json`, { cache: "no-store" });
         const item = await res.json();
 
-        // TITLE
+        // TITLE + CATEGORY
         document.getElementById("title").textContent = item.title;
         document.getElementById("section-label").textContent = item.category;
 
