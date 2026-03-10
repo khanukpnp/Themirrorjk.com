@@ -1,54 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
+<script>
+// YEAR
+document.getElementById("year").textContent = new Date().getFullYear();
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title id="page-title">Loading… | THE MIRROR JAMMU KASHMIR</title>
-<link rel="stylesheet" href="styles.css">
-</head>
+// LIKE
+let likes = 0;
+document.getElementById("likeBtn").onclick =
+() => document.getElementById("likeCount").textContent = ++likes;
 
-<body class="article-page theme-maroon">
+// SUBSCRIBE
+document.getElementById("subscribeBtn").onclick = function(){
+    this.textContent="Subscribed";
+    this.disabled=true;
+};
 
-<main class="page-shell article-main">
-<section class="article-container">
-<div class="article-shell">
+// SHARE
+document.querySelector("[data-share]").onclick = () =>
+    navigator.share
+        ? navigator.share({title:document.title,url:location.href})
+        : alert("Share not supported");
 
-    <!-- SECTION LABEL -->
-    <div id="section-label" class="section-title red-bar">Loading…</div>
+// COPY LINK
+document.querySelector("[data-copy-link]").onclick =
+    () => navigator.clipboard.writeText(location.href);
 
-    <!-- HEADER -->
-    <header class="article-header">
-        <h1 id="title">Loading…</h1>
-        <div id="meta" class="article-meta"></div>
-    </header>
+// GET ARTICLE ID
+function getArticleId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
+}
 
-    <!-- HERO IMAGE -->
-    <figure id="heroWrap" class="article-hero">
-        <img id="heroImg" src="" alt="">
-        <figcaption id="heroCaption"></figcaption>
-    </figure>
+// LOAD ARTICLE JSON
+async function loadArticle() {
+    const id = getArticleId();
+    if (!id) return;
 
-    <!-- CONTENT -->
-    <div id="content" class="article-content"></div>
+    try {
+        const res = await fetch(`content/${id}.json`, { cache: "no-store" });
+        const item = await res.json();
 
-    <!-- ACTION BUTTONS -->
-    <div class="page-actions">
-        <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-        <input id="subscribeEmail" type="email" placeholder="Your email…" class="subscribe-input">
-        <button id="subscribeBtn">🔔 Subscribe</button>
-        <button data-share class="share-btn">📣 Share</button>
-        <button data-copy-link class="copy-btn">🔗 Copy Link</button>
-    </div>
+        // TITLE
+        document.getElementById("title").textContent = item.title;
+        document.getElementById("section-label").textContent = item.category;
 
-</div>
-</section>
-</main>
+        // META
+        const dateObj = new Date(item.date);
+        const formattedDate = dateObj.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
 
-<footer class="footer">
-<p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-</footer>
+        document.getElementById("meta").innerHTML = `
+            <strong>${item.location}</strong> ·
+            ${formattedDate} ·
+            ${item.readTime} ·
+            ${item.author}
+        `;
 
-<script src="script.js"></script>
-</body>
-</html>
+        // HERO IMAGE
+        if (item.heroImage?.src) {
+            document.getElementById("heroImg").src = item.heroImage.src;
+            document.getElementById("heroCaption").textContent =
+                `${item.heroImage.caption} — ${item.heroImage.credit}`;
+        }
+
+        // BODY
+        const container = document.getElementById("content");
+        container.innerHTML = "";
+
+        item.body.forEach(block => {
+            if (block.type === "paragraph") {
+                container.innerHTML += `<p>${block.text}</p>`;
+            }
+            if (block.type === "points") {
+                const items = block.items.map(i => `<li>${i}</li>`).join("");
+                container.innerHTML += `
+                    <div class="important-points">
+                        <ul>${items}</ul>
+                    </div>
+                `;
+            }
+            if (block.type === "image") {
+                const align = block.align === "right" ? "img-right" : "img-left";
+                container.innerHTML += `
+                    <figure class="${align}">
+                        <img src="${block.src}" alt="${block.caption}">
+                        <figcaption>${block.caption} — <em>${block.credit}</em></figcaption>
+                    </figure>
+                `;
+            }
+        });
+
+    } catch (err) {
+        console.error("Failed to load article JSON", err);
+        document.getElementById("title").textContent = "Error loading article";
+    }
+}
+
+loadArticle();
+</script>
