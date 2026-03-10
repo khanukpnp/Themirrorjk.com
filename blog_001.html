@@ -8,7 +8,7 @@
 <!-- FIXED: Ensure all paths resolve from site root -->
 <base href="/">
 
-<title>Blog | THE MIRROR JAMMU KASHMIR</title>
+<title id="page-title">Loading… | THE MIRROR JAMMU KASHMIR</title>
 <link rel="stylesheet" href="styles.css?v=17">
 </head>
 
@@ -18,28 +18,32 @@
 <section class="article-container">
 <div class="article-shell">
 
-<!-- SECTION LABEL -->
-<div class="section-title red-bar">Blog & Opinion</div>
+    <!-- SECTION LABEL -->
+    <div id="section-label" class="section-title red-bar">Blog & Opinion</div>
 
-<!-- HEADER -->
-<header class="article-header">
-<h1 id="blog-title">Loading…</h1>
-<div id="blog-meta" class="article-meta"></div>
-</header>
+    <!-- HEADER -->
+    <header class="article-header">
+        <h1 id="title">Loading…</h1>
+        <div id="meta" class="article-meta"></div>
+    </header>
 
-<!-- HERO IMAGE -->
-<figure id="blog-hero" class="article-hero"></figure>
+    <!-- HERO IMAGE -->
+    <figure id="heroWrap" class="article-hero">
+        <img id="heroImg" src="" alt="">
+        <figcaption id="heroCaption"></figcaption>
+    </figure>
 
-<!-- CONTENT -->
-<div id="blog-content" class="article-content"></div>
+    <!-- CONTENT -->
+    <div id="content" class="article-content"></div>
 
-<!-- ACTION BUTTONS -->
-<div class="page-actions">
-<button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-<button id="subBtn">🔔 Subscribe</button>
-<button id="shareBtn">📣 Share</button>
-<button id="copyBtn">🔗 Copy Link</button>
-</div>
+    <!-- ACTION BUTTONS -->
+    <div class="page-actions">
+        <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+        <input id="subscribeEmail" type="email" placeholder="Your email…" class="subscribe-input">
+        <button id="subscribeBtn">🔔 Subscribe</button>
+        <button data-share class="share-btn">📣 Share</button>
+        <button data-copy-link class="copy-btn">🔗 Copy Link</button>
+    </div>
 
 </div>
 </section>
@@ -49,10 +53,10 @@
 <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
-<!-- FIXED: Load global script (clocks, weather, hijri, VS, UI) -->
+<!-- GLOBAL SCRIPT -->
 <script src="script.js?v=19"></script>
 
-<!-- BLOG LOADER -->
+<!-- BLOG PAGE LOADER -->
 <script>
 // YEAR
 document.getElementById("year").textContent = new Date().getFullYear();
@@ -63,19 +67,19 @@ document.getElementById("likeBtn").onclick =
 () => document.getElementById("likeCount").textContent = ++likes;
 
 // SUBSCRIBE
-document.getElementById("subBtn").onclick = function(){
+document.getElementById("subscribeBtn").onclick = function(){
   this.textContent="Subscribed";
   this.disabled=true;
 };
 
 // SHARE
-document.getElementById("shareBtn").onclick = () =>
+document.querySelector("[data-share]").onclick = () =>
   navigator.share
     ? navigator.share({title:document.title,url:location.href})
     : alert("Share not supported");
 
 // COPY LINK
-document.getElementById("copyBtn").onclick =
+document.querySelector("[data-copy-link]").onclick =
   () => navigator.clipboard.writeText(location.href);
 
 // GET BLOG ID
@@ -84,23 +88,17 @@ function getBlogId() {
   return params.get("id");
 }
 
-// LOAD BLOG
+// LOAD BLOG JSON
 async function loadBlog() {
   const id = getBlogId();
   if (!id) return;
 
   try {
-    const res = await fetch("content/blog.json", { cache: "no-store" });
-    const data = await res.json();
-    const item = data.items.find(a => a.id === id);
-
-    if (!item) {
-      document.getElementById("blog-title").textContent = "Blog not found";
-      return;
-    }
+    const res = await fetch(`content/${id}.json`, { cache: "no-store" });
+    const item = await res.json();
 
     // TITLE
-    document.getElementById("blog-title").textContent = item.title;
+    document.getElementById("title").textContent = item.title;
 
     // META
     const dateObj = new Date(item.date);
@@ -110,7 +108,7 @@ async function loadBlog() {
       year: "numeric"
     });
 
-    document.getElementById("blog-meta").innerHTML = `
+    document.getElementById("meta").innerHTML = `
       <strong>${item.category}</strong> ·
       ${item.location} ·
       ${formattedDate} ·
@@ -119,19 +117,18 @@ async function loadBlog() {
     `;
 
     // HERO IMAGE
-    const hero = document.getElementById("blog-hero");
     if (item.heroImage?.src) {
-      hero.innerHTML = `
-        <img src="${item.heroImage.src}" alt="${item.heroImage.caption}">
-        <figcaption>${item.heroImage.caption} — <em>${item.heroImage.credit}</em></figcaption>
-      `;
+      document.getElementById("heroImg").src = item.heroImage.src;
+      document.getElementById("heroCaption").textContent =
+        `${item.heroImage.caption} — ${item.heroImage.credit}`;
     }
 
     // BODY
-    const container = document.getElementById("blog-content");
+    const container = document.getElementById("content");
     container.innerHTML = "";
 
     item.body.forEach(block => {
+
       if (block.type === "paragraph") {
         container.innerHTML += `<p>${block.text}</p>`;
       }
@@ -150,9 +147,9 @@ async function loadBlog() {
       }
 
       if (block.type === "image") {
-        const align = block.align === "right" ? "right" : "left";
+        const align = block.align === "right" ? "img-right" : "img-left";
         container.innerHTML += `
-          <figure class="image-${align}">
+          <figure class="${align}">
             <img src="${block.src}" alt="${block.caption}">
             <figcaption>${block.caption} — <em>${block.credit}</em></figcaption>
           </figure>
@@ -161,8 +158,8 @@ async function loadBlog() {
     });
 
   } catch (err) {
-    console.error("Failed to load blog.json", err);
-    document.getElementById("blog-title").textContent = "Error loading blog";
+    console.error("Failed to load blog JSON", err);
+    document.getElementById("title").textContent = "Error loading blog";
   }
 }
 
