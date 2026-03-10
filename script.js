@@ -3,6 +3,7 @@
 // ============================
 
 document.addEventListener("DOMContentLoaded", () => {
+
     initLoader();
     initYear();
     initClocks();
@@ -14,12 +15,17 @@ document.addEventListener("DOMContentLoaded", () => {
     initContactModal();
     initVlogs();
 
-    // NEW: Load homepage index first
-    loadHomepageIndex();
+    const isArticlePage = document.body.classList.contains("article-page");
+
+    if (isArticlePage) {
+        initArticlePage();
+    } else {
+        loadHomepageIndex();
+    }
 });
 
 // ============================
-// LOAD HOMEPAGE INDEX (NEW)
+// LOAD HOMEPAGE INDEX
 // ============================
 
 function loadHomepageIndex() {
@@ -33,7 +39,7 @@ function loadHomepageIndex() {
 }
 
 // ============================
-// LOAD TOP STORIES (NEW)
+// LOAD TOP STORIES
 // ============================
 
 function loadTopStories(section) {
@@ -43,7 +49,7 @@ function loadTopStories(section) {
 }
 
 // ============================
-// LOAD LATEST / EDITORIAL / HISTORICAL (NEW)
+// LOAD LATEST / EDITORIAL / HISTORICAL
 // ============================
 
 function loadLatestEditorialHistorical(section) {
@@ -53,7 +59,7 @@ function loadLatestEditorialHistorical(section) {
 }
 
 // ============================
-// UNIVERSAL ARTICLE LOADER (NEW)
+// UNIVERSAL ARTICLE LOADER
 // ============================
 
 function loadArticleToCard(articleId, mediaId, bodyId) {
@@ -290,7 +296,7 @@ function initVlogs() {
 }
 
 // ============================
-// ARTICLE RENDERING
+// HOMEPAGE CARD RENDERER
 // ============================
 
 function renderArticleCard(mediaId, bodyId, article, isSimple = true) {
@@ -301,29 +307,18 @@ function renderArticleCard(mediaId, bodyId, article, isSimple = true) {
 
     if (article.heroImage && article.heroImage.src) {
         mediaEl.innerHTML = `<img src="${article.heroImage.src}" alt="">`;
-    } else if (article.hero_image) {
-        mediaEl.innerHTML = `<img src="content/images/${article.hero_image}" alt="">`;
     }
 
     bodyEl.innerHTML = `
         <h3>${article.title}</h3>
         <p>${article.excerpt || article.summary || ""}</p>
+        <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
     `;
 }
-// ======================================================
-// ARTICLE PAGE DETECTION
-// ======================================================
 
-document.addEventListener("DOMContentLoaded", () => {
-    const isArticlePage = document.body.classList.contains("article-page");
-    if (isArticlePage) {
-        initArticlePage();
-    }
-});
-
-// ======================================================
-// INITIALISE ARTICLE PAGE
-// ======================================================
+// ============================
+// ARTICLE PAGE INITIALISATION
+// ============================
 
 function initArticlePage() {
     const params = new URLSearchParams(window.location.search);
@@ -336,9 +331,9 @@ function initArticlePage() {
         .catch(err => console.error("Article load error:", err));
 }
 
-// ======================================================
-// FULL ARTICLE PAGE RENDERER (BBC / DW / Reuters Style)
-// ======================================================
+// ============================
+// FULL ARTICLE PAGE RENDERER
+// ============================
 
 function renderFullArticlePage(article) {
 
@@ -360,7 +355,7 @@ function renderFullArticlePage(article) {
         titleEl.textContent = article.title;
     }
 
-    // META: PLACE — DAY — DATE — TIME — BYLINE
+    // META
     const metaEl = document.getElementById("meta");
     if (metaEl) {
         const dateObj = new Date(article.date);
@@ -370,18 +365,14 @@ function renderFullArticlePage(article) {
             month: "long",
             day: "numeric"
         });
-
         const timeStr = dateObj.toLocaleTimeString("en-GB", {
             hour: "2-digit",
             minute: "2-digit"
         });
 
-        const place = article.location || "";
-        const byline = article.author || "The Mirror Jammu Kashmir Desk";
-
         metaEl.innerHTML = `
-            <strong>${place}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
-            By <em>${byline}</em>
+            <strong>${article.location}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
+            By <em>${article.author}</em>
         `;
     }
 
@@ -405,12 +396,10 @@ function renderFullArticlePage(article) {
 
     article.body.forEach(block => {
 
-        // PARAGRAPH
         if (block.type === "paragraph") {
             contentEl.innerHTML += `<p>${block.text}</p>`;
         }
 
-        // IMPORTANT POINTS (BBC / DW style)
         if (block.type === "points") {
             contentEl.innerHTML += `
                 <div class="important-points">
@@ -421,7 +410,6 @@ function renderFullArticlePage(article) {
             `;
         }
 
-        // INLINE IMAGE (LEFT / RIGHT FLOAT)
         if (block.type === "image") {
             const alignClass = block.align === "right" ? "img-right" : "img-left";
             contentEl.innerHTML += `
@@ -433,27 +421,3 @@ function renderFullArticlePage(article) {
         }
     });
 }
-
-// ======================================================
-// HOMEPAGE READ MORE LINKS
-// ======================================================
-
-function attachReadMoreLink(bodyId, articleId) {
-    const bodyEl = document.getElementById(bodyId);
-    if (!bodyEl) return;
-
-    const link = bodyEl.querySelector("a.btn-red");
-    if (!link) return;
-
-    link.href = `article.html?id=${articleId}`;
-}
-
-// Modify renderArticleCard to attach read-more links
-const originalRenderArticleCard = renderArticleCard;
-
-renderArticleCard = function(mediaId, bodyId, article, isSimple = true) {
-    originalRenderArticleCard(mediaId, bodyId, article, isSimple);
-
-    // Attach read-more link
-    attachReadMoreLink(bodyId, article.id);
-};
