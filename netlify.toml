@@ -1,3 +1,23 @@
 [build]
-  publish = "."
+  publish = "/"
   command = ""
+
+[[redirects]]
+  from = "/article.html"
+  to = "/article.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog-001.html"
+  to = "/blog-001.html"
+  status = 200
+
+[[redirects]]
+  from = "/breaking-001.html"
+  to = "/breaking-001.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
