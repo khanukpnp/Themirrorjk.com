@@ -310,3 +310,150 @@ function renderArticleCard(mediaId, bodyId, article, isSimple = true) {
         <p>${article.excerpt || article.summary || ""}</p>
     `;
 }
+// ======================================================
+// ARTICLE PAGE DETECTION
+// ======================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+    const isArticlePage = document.body.classList.contains("article-page");
+    if (isArticlePage) {
+        initArticlePage();
+    }
+});
+
+// ======================================================
+// INITIALISE ARTICLE PAGE
+// ======================================================
+
+function initArticlePage() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    if (!id) return;
+
+    fetch(`content/${id}.json`)
+        .then(r => r.json())
+        .then(article => renderFullArticlePage(article))
+        .catch(err => console.error("Article load error:", err));
+}
+
+// ======================================================
+// FULL ARTICLE PAGE RENDERER (BBC / DW / Reuters Style)
+// ======================================================
+
+function renderFullArticlePage(article) {
+
+    // SECTION LABEL
+    const sectionLabel = document.getElementById("section-label");
+    if (sectionLabel) {
+        sectionLabel.textContent = article.category || "THE MIRROR JAMMU KASHMIR";
+    }
+
+    // PAGE TITLE
+    const pageTitle = document.getElementById("page-title");
+    if (pageTitle) {
+        pageTitle.textContent = `${article.title} | THE MIRROR JAMMU KASHMIR`;
+    }
+
+    // MAIN HEADLINE
+    const titleEl = document.getElementById("title");
+    if (titleEl) {
+        titleEl.textContent = article.title;
+    }
+
+    // META: PLACE — DAY — DATE — TIME — BYLINE
+    const metaEl = document.getElementById("meta");
+    if (metaEl) {
+        const dateObj = new Date(article.date);
+        const day = dateObj.toLocaleString("en-GB", { weekday: "long" });
+        const dateStr = dateObj.toLocaleDateString("en-GB", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+
+        const timeStr = dateObj.toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+        const place = article.location || "";
+        const byline = article.author || "The Mirror Jammu Kashmir Desk";
+
+        metaEl.innerHTML = `
+            <strong>${place}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
+            By <em>${byline}</em>
+        `;
+    }
+
+    // HERO IMAGE
+    const heroImg = document.getElementById("heroImg");
+    const heroCaption = document.getElementById("heroCaption");
+    const heroWrap = document.getElementById("heroWrap");
+
+    if (article.heroImage && article.heroImage.src) {
+        heroImg.src = article.heroImage.src;
+        heroCaption.textContent = article.heroImage.caption || "";
+    } else {
+        heroWrap.style.display = "none";
+    }
+
+    // BODY CONTENT
+    const contentEl = document.getElementById("content");
+    if (!contentEl) return;
+
+    contentEl.innerHTML = "";
+
+    article.body.forEach(block => {
+
+        // PARAGRAPH
+        if (block.type === "paragraph") {
+            contentEl.innerHTML += `<p>${block.text}</p>`;
+        }
+
+        // IMPORTANT POINTS (BBC / DW style)
+        if (block.type === "points") {
+            contentEl.innerHTML += `
+                <div class="important-points">
+                    <ul>
+                        ${block.items.map(i => `<li>${i}</li>`).join("")}
+                    </ul>
+                </div>
+            `;
+        }
+
+        // INLINE IMAGE (LEFT / RIGHT FLOAT)
+        if (block.type === "image") {
+            const alignClass = block.align === "right" ? "img-right" : "img-left";
+            contentEl.innerHTML += `
+                <figure class="${alignClass}">
+                    <img src="${block.src}" alt="">
+                    <figcaption>${block.caption || ""}</figcaption>
+                </figure>
+            `;
+        }
+    });
+}
+
+// ======================================================
+// HOMEPAGE READ MORE LINKS
+// ======================================================
+
+function attachReadMoreLink(bodyId, articleId) {
+    const bodyEl = document.getElementById(bodyId);
+    if (!bodyEl) return;
+
+    const link = bodyEl.querySelector("a.btn-red");
+    if (!link) return;
+
+    link.href = `article.html?id=${articleId}`;
+}
+
+// Modify renderArticleCard to attach read-more links
+const originalRenderArticleCard = renderArticleCard;
+
+renderArticleCard = function(mediaId, bodyId, article, isSimple = true) {
+    originalRenderArticleCard(mediaId, bodyId, article, isSimple);
+
+    // Attach read-more link
+    attachReadMoreLink(bodyId, article.id);
+};
