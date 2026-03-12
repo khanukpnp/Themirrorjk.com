@@ -629,3 +629,190 @@ body {
     color: #555;
     margin-top: 4px;
 }
+/* ============================================================
+   MASTER ARTICLE PAGE — FULL COMPATIBILITY EXTENSION
+   (Add at the END of styles.css)
+============================================================ */
+
+/* ARTICLE PAGE CONTAINER */
+.article-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    display: flex;
+    gap: 30px;
+}
+
+/* MAIN ARTICLE BODY */
+.article-body {
+    width: 72%;
+}
+
+/* RIGHT SIDEBAR */
+.sidebar {
+    width: 28%;
+    border-left: 1px solid #eee;
+    padding-left: 25px;
+}
+
+.sidebar h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.sidebar .related-item {
+    margin-bottom: 18px;
+}
+
+.sidebar .related-item a {
+    font-weight: 600;
+    color: #900;
+    text-decoration: none;
+}
+
+.sidebar .related-item p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* HERO IMAGE */
+#heroWrap {
+    margin-bottom: 25px;
+}
+
+#heroImg {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+#heroCaption {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 6px;
+}
+
+/* HEADLINE */
+#title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 20px 0 10px 0;
+}
+
+/* STANDFIRST (2nd Subheading) */
+.standfirst {
+    font-size: 1.25rem;
+    color: #555;
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+/* META LINE */
+#meta {
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+/* BODY CONTENT */
+#content p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+/* INLINE IMAGES */
+.img-left {
+    float: left;
+    width: 45%;
+    margin: 10px 20px 20px 0;
+}
+
+.img-right {
+    float: right;
+    width: 45%;
+    margin: 10px 0 20px 20px;
+}
+
+figure img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+figure figcaption {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* IMPORTANT POINTS — BULLET LIST */
+.important-points {
+    background: #f7f7f7;
+    padding: 15px 20px;
+    border-left: 4px solid #c00;
+    margin: 25px 0;
+}
+
+.important-points ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+/* IMPORTANT POINTS — PULL QUOTE */
+.pull-quote {
+    background: #f7f7f7;
+    border-left: 4px solid #c00;
+    padding: 20px;
+    margin: 30px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* CATEGORY LABEL COLORS */
+.cat-breaking { color: #c00; }
+.cat-blog { color: #005bbb; }
+.cat-editorial { color: #b8860b; }
+.cat-historical { color: #555; }
+.cat-humanrights { color: #800000; }
+.cat-international { color: #0a7d32; }
+.cat-latest { color: #6a0dad; }
+.cat-jk { color: #0b7c7c; }
+.cat-vlog { color: #d35400; }
+.cat-default { color: #900; }
+
+/* CLEAR FLOATS */
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* RESPONSIVE FIXES */
+@media (max-width: 900px) {
+    .article-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+    .article-body,
+    .sidebar {
+        width: 100%;
+    }
+    .sidebar {
+        border-left: none;
+        padding-left: 0;
+        margin-top: 20px;
+    }
+    .img-left,
+    .img-right {
+        float: none;
+        width: 100%;
+        margin: 10px 0;
+    }
+}
