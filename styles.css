@@ -834,3 +834,27 @@ body {
 body > * {
     width: 100%;
 }
+
+/* ARTICLE ACTION BAR */
+.article-actions {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.act-btn {
+    background: #800000;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.act-btn:hover {
+    background: #a00000;
+}
