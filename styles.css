@@ -825,3 +825,12 @@ figure figcaption {
     margin: 10px 0;
     border-radius: 4px;
 }
+/* CENTER ALL PAGES */
+body {
+    display: flex;
+    justify-content: center;
+}
+
+body > * {
+    width: 100%;
+}
