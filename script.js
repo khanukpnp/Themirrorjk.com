@@ -590,3 +590,30 @@ function renderArticleCard(mediaId, bodyId, article) {
         </a>
     `;
 }
+/* ============================================================
+   ARTICLE ACTION BAR — LIKE / SHARE / SUBSCRIBE / COPY LINK
+============================================================ */
+
+function addArticleActions() {
+    const content = document.getElementById("content");
+    if (!content) return;
+
+    const actions = document.createElement("div");
+    actions.className = "article-actions";
+
+    actions.innerHTML = `
+        <button class="act-btn" onclick="alert('Liked!')">👍 Like</button>
+        <button class="act-btn" onclick="navigator.share({title: document.title, url: location.href})">🔗 Share</button>
+        <button class="act-btn" onclick="alert('Subscribed!')">✉️ Subscribe</button>
+        <button class="act-btn" onclick="navigator.clipboard.writeText(location.href)">📋 Copy Link</button>
+    `;
+
+    content.appendChild(actions);
+}
+
+// Attach after article loads
+const originalRenderFullArticlePage = renderFullArticlePage;
+renderFullArticlePage = function(article) {
+    originalRenderFullArticlePage(article);
+    addArticleActions();
+};
