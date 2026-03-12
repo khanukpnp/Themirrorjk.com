@@ -816,3 +816,12 @@ figure figcaption {
         margin: 10px 0;
     }
 }
+/* HOMEPAGE CARD HERO BELOW HEADING */
+.card-hero img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    margin: 10px 0;
+    border-radius: 4px;
+}
