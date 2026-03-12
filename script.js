@@ -3,7 +3,6 @@
 // ============================
 
 document.addEventListener("DOMContentLoaded", () => {
-
     initLoader();
     initYear();
     initClocks();
@@ -16,13 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
     initVlogs();
 
     const isArticlePage = document.body.classList.contains("article-page");
-
     if (isArticlePage) {
         initArticlePage();
     } else {
         loadHomepageIndex();
     }
-
 });
 
 // ============================
@@ -177,8 +174,8 @@ function initClocks() {
 
 function updateClocks() {
     const now = new Date();
-
     const cestEl = document.querySelector("#clock-cest span");
+
     if (cestEl) {
         cestEl.textContent = now.toLocaleString("en-GB", {
             weekday: "long",
@@ -190,7 +187,6 @@ function updateClocks() {
             second: "2-digit"
         });
     }
-
     // If you later re-add IST / PKT elements, you can extend here.
 }
 
@@ -368,7 +364,7 @@ function getCategoryTheme(category) {
 }
 
 // ============================
-// CARD RENDERER
+// CARD RENDERER (HOMEPAGE)
 // ============================
 
 function renderArticleCard(mediaId, bodyId, article) {
@@ -376,19 +372,26 @@ function renderArticleCard(mediaId, bodyId, article) {
     const bodyEl = document.getElementById(bodyId);
     if (!mediaEl || !bodyEl) return;
 
-    // Hero image in placeholder
-    if (article.heroImage && article.heroImage.src) {
-        mediaEl.innerHTML = `<img src="${article.heroImage.src}" alt="">`;
-    }
-
     const theme = getCategoryTheme(article.category);
+
+    const heroHtml =
+        article.heroImage && article.heroImage.src
+            ? `<img src="${article.heroImage.src}" alt="">`
+            : "";
 
     bodyEl.innerHTML = `
 <h3>${article.title}</h3>
+
+<div class="card-hero">
+  ${heroHtml}
+</div>
+
 <p>${article.excerpt || ""}</p>
+
 <p class="card-meta">
   <span class="card-category ${theme.colorClass}">${theme.icon} ${theme.label}</span>
 </p>
+
 <a class="btn-red" href="article.html?id=${article.id}">
   Read More →
 </a>
@@ -457,7 +460,6 @@ ${byline}
 // ============================
 
 function renderFullArticlePage(article) {
-
     // PAGE TITLE
     const pageTitle = document.getElementById("page-title");
     if (pageTitle && article.title) {
@@ -504,7 +506,7 @@ function renderFullArticlePage(article) {
 
     content.innerHTML = "";
 
-    // STANDFIRST (2nd SUBHEADING) – placed between headline and body
+    // STANDFIRST (2nd SUBHEADING)
     if (article.standfirst) {
         content.innerHTML += `
 <p class="standfirst">
@@ -516,13 +518,11 @@ function renderFullArticlePage(article) {
     // BODY BLOCKS
     if (Array.isArray(article.body)) {
         article.body.forEach(block => {
-
             if (block.type === "paragraph") {
                 content.innerHTML += `<p>${block.text}</p>`;
             }
 
             if (block.type === "points") {
-                // Support style: "pull" for pull‑quote style, default = list
                 if (block.style === "pull") {
                     content.innerHTML += `
 <div class="pull-quote">
@@ -557,42 +557,13 @@ function renderFullArticlePage(article) {
 </figure>
 `;
             }
-
         });
     }
 }
-/* ============================================================
-   OVERRIDE: HOMEPAGE CARD — HERO IMAGE BELOW HEADING
-============================================================ */
 
-function renderArticleCard(mediaId, bodyId, article) {
-    const mediaEl = document.getElementById(mediaId);
-    const bodyEl = document.getElementById(bodyId);
-    if (!mediaEl || !bodyEl) return;
-
-    const theme = getCategoryTheme(article.category);
-
-    bodyEl.innerHTML = `
-        <h3>${article.title}</h3>
-
-        <div class="card-hero">
-            ${article.heroImage && article.heroImage.src ? `<img src="${article.heroImage.src}" alt="">` : ""}
-        </div>
-
-        <p>${article.excerpt || ""}</p>
-
-        <p class="card-meta">
-            <span class="card-category ${theme.colorClass}">${theme.icon} ${theme.label}</span>
-        </p>
-
-        <a class="btn-red" href="article.html?id=${article.id}">
-            Read More →
-        </a>
-    `;
-}
-/* ============================================================
-   ARTICLE ACTION BAR — LIKE / SHARE / SUBSCRIBE / COPY LINK
-============================================================ */
+// ============================
+// ARTICLE ACTION BAR
+// ============================
 
 function addArticleActions() {
     const content = document.getElementById("content");
@@ -602,18 +573,18 @@ function addArticleActions() {
     actions.className = "article-actions";
 
     actions.innerHTML = `
-        <button class="act-btn" onclick="alert('Liked!')">👍 Like</button>
-        <button class="act-btn" onclick="navigator.share({title: document.title, url: location.href})">🔗 Share</button>
-        <button class="act-btn" onclick="alert('Subscribed!')">✉️ Subscribe</button>
-        <button class="act-btn" onclick="navigator.clipboard.writeText(location.href)">📋 Copy Link</button>
-    `;
+<button class="act-btn" onclick="alert('Liked!')">👍 Like</button>
+<button class="act-btn" onclick="navigator.share({title: document.title, url: location.href})">🔗 Share</button>
+<button class="act-btn" onclick="alert('Subscribed!')">✉️ Subscribe</button>
+<button class="act-btn" onclick="navigator.clipboard.writeText(location.href)">📋 Copy Link</button>
+`;
 
     content.appendChild(actions);
 }
 
 // Attach after article loads
 const originalRenderFullArticlePage = renderFullArticlePage;
-renderFullArticlePage = function(article) {
+renderFullArticlePage = function (article) {
     originalRenderFullArticlePage(article);
     addArticleActions();
 };
