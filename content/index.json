@@ -1,26 +1,36 @@
-"topStories": {
-  "lead": "article-001",
-  "breaking": "breaking-001",
-  "opinion": "blog-001"
-},
+{
+  "homepage": {
+    "topStories": {
+      "lead": "article-001",
+      "breaking": "breaking-001",
+      "opinion": "blog-001"
+    },
 
-"latestEditorialHistorical": {
-  "latest": "latest-001",
-  "editorial": "editorial-001",
-  "historical": "historical-001"
-},
+    "latestEditorialHistorical": {
+      "latest": "latest-001",
+      "editorial": "editorial-001",
+      "historical": "historical-001"
+    },
 
-"jammuKashmir": [
-  "jk-001",
-  "jk-002"
-],
+    "jammuKashmir": [
+      "jk-001",
+      "jk-002"
+    ],
 
-"international": [
-  "intl-001",
-  "intl-002"
-],
+    "international": [
+      "intl-001",
+      "intl-002"
+    ],
 
-"humanRights": [
-  "hr-001",
-  "hr-002"
-]
+    "humanRights": [
+      "hr-001",
+      "hr-002"
+    ]
+  },
+
+  "ticker": [
+    "Rawalakot protest intensifies",
+    "UKPNP delegation meets MPs in London",
+    "Human rights report released"
+  ]
+}
