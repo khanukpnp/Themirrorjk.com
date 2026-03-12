@@ -561,3 +561,32 @@ function renderFullArticlePage(article) {
         });
     }
 }
+/* ============================================================
+   OVERRIDE: HOMEPAGE CARD — HERO IMAGE BELOW HEADING
+============================================================ */
+
+function renderArticleCard(mediaId, bodyId, article) {
+    const mediaEl = document.getElementById(mediaId);
+    const bodyEl = document.getElementById(bodyId);
+    if (!mediaEl || !bodyEl) return;
+
+    const theme = getCategoryTheme(article.category);
+
+    bodyEl.innerHTML = `
+        <h3>${article.title}</h3>
+
+        <div class="card-hero">
+            ${article.heroImage && article.heroImage.src ? `<img src="${article.heroImage.src}" alt="">` : ""}
+        </div>
+
+        <p>${article.excerpt || ""}</p>
+
+        <p class="card-meta">
+            <span class="card-category ${theme.colorClass}">${theme.icon} ${theme.label}</span>
+        </p>
+
+        <a class="btn-red" href="article.html?id=${article.id}">
+            Read More →
+        </a>
+    `;
+}
