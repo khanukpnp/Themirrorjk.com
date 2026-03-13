@@ -30,26 +30,11 @@ function loadHomepageIndex() {
     .then(data => {
       const hp = data.homepage || data;
 
-      if (hp.topStories) {
-        loadTopStories(hp.topStories);
-      }
-
-      if (hp.latestEditorialHistorical) {
-        loadLatestEditorialHistorical(hp.latestEditorialHistorical);
-      }
-
-      // NEW: Jammu Kashmir, International, Human Rights
-      if (hp.jammuKashmir) {
-        loadJammuKashmir(hp.jammuKashmir);
-      }
-
-      if (hp.international) {
-        loadInternational(hp.international);
-      }
-
-      if (hp.humanRights) {
-        loadHumanRights(hp.humanRights);
-      }
+      if (hp.topStories) loadTopStories(hp.topStories);
+      if (hp.latestEditorialHistorical) loadLatestEditorialHistorical(hp.latestEditorialHistorical);
+      if (hp.jammuKashmir) loadJammuKashmir(hp.jammuKashmir);
+      if (hp.international) loadInternational(hp.international);
+      if (hp.humanRights) loadHumanRights(hp.humanRights);
     })
     .catch(err => console.error("Index JSON error:", err));
 }
@@ -419,10 +404,27 @@ function renderFullArticlePage(article) {
   contentEl.innerHTML = "";
 
   article.body.forEach(block => {
+
+    // PARAGRAPH
     if (block.type === "paragraph") {
       contentEl.innerHTML += `<p>${block.text}</p>`;
     }
 
+    // NEW: MID-ARTICLE SUBHEADING
+    if (block.type === "subheading") {
+      contentEl.innerHTML += `
+        <h2 class="mid-subheading">${block.text}</h2>
+      `;
+    }
+
+    // NEW: PULL QUOTE
+    if (block.type === "pullquote") {
+      contentEl.innerHTML += `
+        <div class="pull-quote">${block.text}</div>
+      `;
+    }
+
+    // IMPORTANT POINTS
     if (block.type === "points") {
       contentEl.innerHTML += `
         <div class="important-points">
@@ -433,6 +435,7 @@ function renderFullArticlePage(article) {
       `;
     }
 
+    // INLINE IMAGE
     if (block.type === "image") {
       const alignClass = block.align === "right" ? "img-right" : "img-left";
       contentEl.innerHTML += `
