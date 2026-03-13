@@ -1,7 +1,6 @@
 // ============================
 // BASIC INITIALISATION
 // ============================
-
 document.addEventListener("DOMContentLoaded", () => {
   initLoader();
   initYear();
@@ -25,12 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
 // ============================
 // LOAD HOMEPAGE INDEX
 // ============================
-
 function loadHomepageIndex() {
   fetch("content/index.json")
     .then(r => r.json())
     .then(data => {
       const hp = data.homepage || data;
+
       if (hp.topStories) loadTopStories(hp.topStories);
       if (hp.latestEditorialHistorical) loadLatestEditorialHistorical(hp.latestEditorialHistorical);
       if (hp.jammuKashmir) loadJammuKashmir(hp.jammuKashmir);
@@ -43,27 +42,24 @@ function loadHomepageIndex() {
 // ============================
 // LOAD TOP STORIES
 // ============================
-
 function loadTopStories(section) {
-  if (section.lead) loadArticleToCard(section.lead, "lead-media", "lead-body");
+  if (section.lead)     loadArticleToCard(section.lead,     "lead-media",     "lead-body");
   if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
-  if (section.opinion) loadArticleToCard(section.opinion, "opinion-media", "opinion-body");
+  if (section.opinion)  loadArticleToCard(section.opinion,  "opinion-media",  "opinion-body");
 }
 
 // ============================
 // LOAD LATEST / EDITORIAL / HISTORICAL
 // ============================
-
 function loadLatestEditorialHistorical(section) {
-  if (section.latest) loadArticleToCard(section.latest, "leh1-media", "leh1-body");
-  if (section.editorial) loadArticleToCard(section.editorial, "leh2-media", "leh2-body");
+  if (section.latest)     loadArticleToCard(section.latest,     "leh1-media", "leh1-body");
+  if (section.editorial)  loadArticleToCard(section.editorial,  "leh2-media", "leh2-body");
   if (section.historical) loadArticleToCard(section.historical, "leh3-media", "leh3-body");
 }
 
 // ============================
 // LOAD JAMMU KASHMIR
 // ============================
-
 function loadJammuKashmir(ids) {
   if (!Array.isArray(ids)) return;
   if (ids[0]) loadArticleToCard(ids[0], "jk1-media", "jk1-body");
@@ -73,7 +69,6 @@ function loadJammuKashmir(ids) {
 // ============================
 // LOAD INTERNATIONAL
 // ============================
-
 function loadInternational(ids) {
   if (!Array.isArray(ids)) return;
   if (ids[0]) loadArticleToCard(ids[0], "intl1-media", "intl1-body");
@@ -83,7 +78,6 @@ function loadInternational(ids) {
 // ============================
 // LOAD HUMAN RIGHTS
 // ============================
-
 function loadHumanRights(ids) {
   if (!Array.isArray(ids)) return;
   if (ids[0]) loadArticleToCard(ids[0], "hr1-media", "hr1-body");
@@ -93,7 +87,6 @@ function loadHumanRights(ids) {
 // ============================
 // UNIVERSAL ARTICLE LOADER
 // ============================
-
 function loadArticleToCard(articleId, mediaId, bodyId) {
   fetch(`content/${articleId}.json`)
     .then(r => r.json())
@@ -106,10 +99,10 @@ function loadArticleToCard(articleId, mediaId, bodyId) {
 // ============================
 // LOADER
 // ============================
-
 function initLoader() {
   const loader = document.getElementById("site-loader");
   if (!loader) return;
+
   setTimeout(() => {
     loader.style.opacity = "0";
     setTimeout(() => (loader.style.display = "none"), 300);
@@ -119,7 +112,6 @@ function initLoader() {
 // ============================
 // FOOTER YEAR
 // ============================
-
 function initYear() {
   const y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
@@ -128,7 +120,6 @@ function initYear() {
 // ============================
 // CLOCKS
 // ============================
-
 function initClocks() {
   updateClocks();
   setInterval(updateClocks, 1000);
@@ -174,10 +165,10 @@ function updateClocks() {
 // ============================
 // HIJRI CALENDAR
 // ============================
-
 function updateHijri() {
   const hijriEl = document.querySelector("#cal-hijri span");
   if (!hijriEl) return;
+
   try {
     const now = new Date();
     const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
@@ -194,46 +185,37 @@ function updateHijri() {
 // ============================
 // VIKRAM SAMVAT
 // ============================
-
 function updateVikramSamvat() {
   const vsEl = document.querySelector("#cal-hindi span");
   if (!vsEl) return;
+
   const now = new Date();
   const vsYear = now.getFullYear() + 57;
   const months = [
-    "Chaitra",
-    "Vaishakha",
-    "Jyeshtha",
-    "Ashadha",
-    "Shravana",
-    "Bhadrapada",
-    "Ashwin",
-    "Kartika",
-    "Margashirsha",
-    "Pausha",
-    "Magha",
-    "Phalguna"
+    "Chaitra", "Vaishakha", "Jyeshtha", "Ashadha",
+    "Shravana", "Bhadrapada", "Ashwin", "Kartika",
+    "Margashirsha", "Pausha", "Magha", "Phalguna"
   ];
+
   vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${vsYear} VS`;
 }
 
 // ============================
 // WEATHER BAR
 // ============================
-
 function initWeatherBar() {
   const bar = document.getElementById("weather-bar");
   if (!bar) return;
 
   const cities = [
-    { name: "Zurich", temp: "6°C" },
-    { name: "Rawalakot", temp: "9°C" },
-    { name: "Jammu", temp: "18°C" },
-    { name: "Kashmir", temp: "4°C" },
-    { name: "Ladakh", temp: "-2°C" },
-    { name: "Gilgit", temp: "3°C" },
-    { name: "Baltistan", temp: "-1°C" },
-    { name: "Muzaffarabad", temp: "10°C" }
+    { name: "Zurich",        temp: "6°C"  },
+    { name: "Rawalakot",     temp: "9°C"  },
+    { name: "Jammu",         temp: "18°C" },
+    { name: "Kashmir",       temp: "4°C"  },
+    { name: "Ladakh",        temp: "-2°C" },
+    { name: "Gilgit",        temp: "3°C"  },
+    { name: "Baltistan",     temp: "-1°C" },
+    { name: "Muzaffarabad",  temp: "10°C" }
   ];
 
   bar.innerHTML = cities
@@ -241,8 +223,7 @@ function initWeatherBar() {
       c => `
 <div class="chip tiny">
   🌡️ ${c.name}: <strong>${c.temp}</strong>
-</div>
-`
+</div>`
     )
     .join("");
 }
@@ -250,13 +231,13 @@ function initWeatherBar() {
 // ============================
 // TICKER
 // ============================
-
 function initTicker() {
   fetch("content/index.json")
     .then(r => r.json())
     .then(data => {
       const ul = document.getElementById("ticker-items");
       if (!ul) return;
+
       const items = data.ticker || [];
       ul.innerHTML = items.map(t => `<li>${t}</li>`).join("");
     })
@@ -266,16 +247,17 @@ function initTicker() {
 // ============================
 // NAVIGATION
 // ============================
-
 function initNav() {
-  const hamburger = document.getElementById("hamburger");
-  const navList = document.getElementById("nav-list");
+  const hamburger  = document.getElementById("hamburger");
+  const navList    = document.getElementById("nav-list");
   const mobileMenu = document.getElementById("mobile-menu");
+
   if (!hamburger || !navList || !mobileMenu) return;
 
   hamburger.addEventListener("click", () => {
     const expanded = hamburger.getAttribute("aria-expanded") === "true";
     hamburger.setAttribute("aria-expanded", String(!expanded));
+
     if (expanded) {
       mobileMenu.hidden = true;
       mobileMenu.innerHTML = "";
@@ -289,15 +271,16 @@ function initNav() {
 // ============================
 // CONTACT MODAL
 // ============================
-
 function initContactModal() {
   const openBtn = document.getElementById("contact-open");
   const closeBtn = document.getElementById("contact-close");
   const modal = document.getElementById("contact-modal");
+
   if (!openBtn || !closeBtn || !modal) return;
 
   openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
   closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
+
   modal.addEventListener("click", e => {
     if (e.target === modal) modal.classList.add("hidden");
   });
@@ -306,15 +289,14 @@ function initContactModal() {
 // ============================
 // VLOGS
 // ============================
-
 function initVlogs() {
   const grid = document.getElementById("vlogs-grid");
   if (!grid) return;
 
   const vlogs = [
-    { title: "Kashmir Protest Highlights", duration: "4:32" },
-    { title: "Diaspora Voices on Human Rights", duration: "6:10" },
-    { title: "Brief History of Jammu & Kashmir", duration: "8:45" }
+    { title: "Kashmir Protest Highlights",        duration: "4:32" },
+    { title: "Diaspora Voices on Human Rights",   duration: "6:10" },
+    { title: "Brief History of Jammu & Kashmir",  duration: "8:45" }
   ];
 
   grid.innerHTML = vlogs
@@ -328,8 +310,7 @@ function initVlogs() {
     <h3>${v.title}</h3>
     <p>Duration: ${v.duration}</p>
   </div>
-</article>
-`
+</article>`
     )
     .join("");
 }
@@ -337,10 +318,9 @@ function initVlogs() {
 // ============================
 // HOMEPAGE CARD RENDERER
 // ============================
-
 function renderArticleCard(mediaId, bodyId, article) {
   const mediaEl = document.getElementById(mediaId);
-  const bodyEl = document.getElementById(bodyId);
+  const bodyEl  = document.getElementById(bodyId);
   if (!mediaEl || !bodyEl) return;
 
   if (article.heroImage && article.heroImage.src) {
@@ -357,7 +337,6 @@ function renderArticleCard(mediaId, bodyId, article) {
 // ============================
 // ARTICLE PAGE INITIALISATION
 // ============================
-
 function initArticlePage() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
@@ -370,25 +349,28 @@ function initArticlePage() {
 }
 
 // ============================
-// FULL ARTICLE RENDERER
+// FULL ARTICLE PAGE RENDERER
 // ============================
-
 function renderFullArticlePage(article) {
+  // SECTION LABEL
   const sectionLabel = document.getElementById("section-label");
   if (sectionLabel) {
     sectionLabel.textContent = article.category || "THE MIRROR JAMMU KASHMIR";
   }
 
+  // PAGE TITLE
   const pageTitle = document.getElementById("page-title");
   if (pageTitle) {
     pageTitle.textContent = `${article.title} | THE MIRROR JAMMU KASHMIR`;
   }
 
+  // MAIN HEADLINE
   const titleEl = document.getElementById("title");
   if (titleEl) {
     titleEl.textContent = article.title;
   }
 
+  // META (Reuters/BBC style: PLACE — Day, Date — Time)
   const metaEl = document.getElementById("meta");
   if (metaEl) {
     const dateObj = new Date(article.date);
@@ -409,53 +391,76 @@ By <em>${article.author}</em>
 `;
   }
 
-  const heroImg = document.getElementById("heroImg");
+  // HERO IMAGE (16:9 via CSS)
+  const heroImg     = document.getElementById("heroImg");
   const heroCaption = document.getElementById("heroCaption");
-  const heroWrap = document.getElementById("heroWrap");
+  const heroWrap    = document.getElementById("heroWrap");
 
   if (article.heroImage && article.heroImage.src) {
-    heroImg.src = article.heroImage.src;
-    heroCaption.textContent = article.heroImage.caption || "";
+    if (heroImg)     heroImg.src = article.heroImage.src;
+    if (heroCaption) heroCaption.textContent = article.heroImage.caption || "";
   } else if (heroWrap) {
     heroWrap.style.display = "none";
   }
 
+  // BODY CONTENT
   const contentEl = document.getElementById("content");
   if (!contentEl) return;
 
   contentEl.innerHTML = "";
 
-  article.body.forEach(block => {
+  (article.body || []).forEach(block => {
+    // Standard paragraphs
     if (block.type === "paragraph") {
       contentEl.innerHTML += `<p>${block.text}</p>`;
     }
 
-    if (block.type === "subheading") {
+    // Mid-article subheading (JSON may use "header" or "subheading")
+    if (block.type === "header" || block.type === "subheading") {
       contentEl.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
     }
 
+    // Pull quote
     if (block.type === "pullquote") {
       contentEl.innerHTML += `<div class="pull-quote">${block.text}</div>`;
     }
 
+    // Important points (bullet list)
     if (block.type === "points") {
+      const pointsHtml = (block.items || [])
+        .map(i => `<li>${i}</li>`)
+        .join("");
+
       contentEl.innerHTML += `
 <div class="important-points">
   <ul>
-    ${block.items.map(i => `<li>${i}</li>`).join("")}
+    ${pointsHtml}
   </ul>
 </div>
 `;
     }
 
+    // Inline images (float left/right, 38% width via CSS)
     if (block.type === "image") {
       const alignClass = block.align === "right" ? "img-right" : "img-left";
+      const caption = block.caption || "";
       contentEl.innerHTML += `
 <figure class="${alignClass}">
   <img src="${block.src}" alt="">
-  <figcaption>${block.caption || ""}</figcaption>
+  <figcaption>${caption}</figcaption>
 </figure>
 `;
     }
   });
+
+  // OPTIONAL: Like / Subscribe / Share / Copy Link bar (you can style via CSS)
+  const actionsBar = document.createElement("div");
+  actionsBar.className = "page-actions";
+  actionsBar.innerHTML = `
+<button class="btn-red">👍 Like</button>
+<button class="btn-red">🔔 Subscribe</button>
+<button class="btn-red" onclick="navigator.share && navigator.share({ title: document.title, url: location.href })">🔗 Share</button>
+<button class="btn-red" onclick="navigator.clipboard && navigator.clipboard.writeText(location.href)">📋 Copy Link</button>
+`;
+  contentEl.appendChild(actionsBar);
 }
