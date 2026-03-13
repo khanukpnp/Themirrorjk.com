@@ -1,11 +1,15 @@
+/* ============================================================
+GLOBAL RESET
+============================================================ */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* ========== BASE ========== */
-
+/* ============================================================
+BASE
+============================================================ */
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -24,8 +28,9 @@ body {
   padding: 20px;
 }
 
-/* ========== HEADER ========== */
-
+/* ============================================================
+HEADER
+============================================================ */
 .site-header {
   text-align: center;
   background: #ffffff;
@@ -43,8 +48,9 @@ body {
   color: #555;
 }
 
-/* ========== BARS (CLOCKS / WEATHER / TICKER) ========== */
-
+/* ============================================================
+CLOCK BAR / WEATHER BAR / TICKER
+============================================================ */
 .bar {
   background: #ffffff;
   padding: 6px 10px;
@@ -69,8 +75,7 @@ body {
   font-size: 0.7rem;
 }
 
-/* ===== Ticker base ===== */
-
+/* ---------------- TICKER ---------------- */
 .ticker-wrap {
   background: #800000;
   color: #fff;
@@ -86,16 +91,13 @@ body {
   padding: 2px 8px;
   min-height: 24px;
   font-size: 12px;
-  flex-wrap: nowrap;
-  overflow: hidden;
+  white-space: nowrap;
 }
 
 .ticker-label {
   font-weight: 700;
   font-size: 12px;
   letter-spacing: .05em;
-  white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .ticker ul {
@@ -104,36 +106,17 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
-  white-space: nowrap;
   animation: ticker-scroll 90s linear infinite;
-  flex-shrink: 0;
-  min-width: 100%;
-}
-
-.ticker ul li {
-  font-size: 12px;
-  line-height: 1;
-}
-
-.tools {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  white-space: nowrap;
-  flex-shrink: 0;
 }
 
 @keyframes ticker-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* ========== NAVBAR ========== */
-
+/* ============================================================
+NAVIGATION
+============================================================ */
 .navbar {
   background: #111;
   color: #ffffff;
@@ -141,7 +124,6 @@ body {
   align-items: center;
   justify-content: center;
   padding: 8px 10px;
-  position: relative;
 }
 
 .hamburger {
@@ -152,7 +134,6 @@ body {
   padding: 4px 8px;
   margin-right: 10px;
   cursor: pointer;
-  font-size: 0.9rem;
 }
 
 .nav-list {
@@ -163,12 +144,7 @@ body {
   padding: 0;
 }
 
-.nav-item {
-  position: relative;
-}
-
-.nav-btn,
-.nav-item > a.nav-btn {
+.nav-btn {
   background: none;
   border: none;
   color: #ffffff;
@@ -176,18 +152,13 @@ body {
   cursor: pointer;
   font-size: 0.9rem;
   text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
 }
 
-.nav-btn:hover,
-.nav-item > a.nav-btn:hover {
+.nav-btn:hover {
   background: #222;
 }
 
 /* Dropdown */
-
 .dropdown {
   display: none;
   position: absolute;
@@ -197,31 +168,23 @@ body {
   min-width: 180px;
   z-index: 20;
   flex-direction: column;
-  padding: 4px 0;
-}
-
-.dropdown.wide {
-  min-width: 220px;
-}
-
-.dropdown a {
-  color: #ffffff;
-  text-decoration: none;
-  padding: 6px 10px;
-  font-size: 0.85rem;
-  display: block;
-}
-
-.dropdown a:hover {
-  background: #333;
 }
 
 .nav-item:hover .dropdown {
   display: flex;
 }
 
-/* Mobile menu */
+.dropdown a {
+  color: #ffffff;
+  padding: 6px 10px;
+  text-decoration: none;
+}
 
+.dropdown a:hover {
+  background: #333;
+}
+
+/* Mobile menu */
 .mobile-menu {
   display: none;
   background: #111;
@@ -231,13 +194,13 @@ body {
 
 .mobile-menu a {
   display: block;
-  color: #ffffff;
-  text-decoration: none;
   padding: 6px 0;
+  color: #ffffff;
 }
 
-/* ========== CARDS / GRID ========== */
-
+/* ============================================================
+CARDS / GRID
+============================================================ */
 .cards {
   display: grid;
   gap: 16px;
@@ -257,18 +220,6 @@ body {
   overflow: hidden;
 }
 
-.media {
-  min-height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.media.maroon {
-  background: #800000;
-  color: #ffffff;
-}
-
 .media img {
   width: 100%;
   height: 100%;
@@ -284,22 +235,20 @@ body {
   margin-top: 0;
 }
 
-/* Section titles */
-
-.section-title {
-  margin: 24px 0 10px;
-  font-weight: 700;
+/* HOMEPAGE CARD HERO — HEADING ABOVE IMAGE */
+.card-body h3 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
 }
 
-.red-bar {
-  border-left: 6px solid #800000;
-  padding-left: 10px;
-}
-
-/* Vlogs */
-
+/* ============================================================
+VLOGS
+============================================================ */
 .vlogs-grid {
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
 .vlog-thumb {
@@ -319,105 +268,100 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
 }
 
-/* Buttons */
-
+/* ============================================================
+BUTTONS
+============================================================ */
 .btn-red {
   background: #800000;
   color: #ffffff;
   border: none;
   padding: 6px 12px;
   cursor: pointer;
-  font-size: 0.9rem;
 }
 
 .btn-red:hover {
   background: #a00000;
 }
 
-/* ========== ARTICLE PAGES (BASE) ========== */
-
-.article-page .page-shell {
-  max-width: 900px;
-}
-
-/* NOTE: layout is restored below with flex; this base block is kept for compatibility */
-.article-container {
-  display: block;
-}
-
-.article-shell {
+/* ============================================================
+ARTICLE PAGE — MAIN
+============================================================ */
+.article-page .article-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 30px;
   background: #ffffff;
   border: 1px solid #ddd;
-  padding: 20px;
+  border-radius: 6px;
+  display: flex;
+  gap: 30px;
 }
 
-.article-header h1 {
-  margin-top: 0;
+.article-body {
+  width: 72%;
 }
 
-.article-meta {
-  font-size: 0.85rem;
-  color: #666;
+.sidebar {
+  width: 28%;
+  border-left: 1px solid #eee;
+  padding-left: 25px;
 }
 
-/* Hero */
-
-.article-hero {
-  margin: 20px 0;
+/* ============================================================
+ARTICLE HERO — HEADING ABOVE IMAGE
+============================================================ */
+#title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 20px 0 10px 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  line-height: 1.2;
 }
 
-.article-hero img {
+#heroWrap {
+  margin-bottom: 25px;
+}
+
+#heroImg {
   width: 100%;
   height: auto;
-  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
-.article-hero figcaption {
-  font-size: 0.8rem;
-  color: #555;
-  margin-top: 4px;
+#heroCaption {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 6px;
+  font-family: "Georgia", "Times New Roman", serif;
 }
 
-/* Content */
-
-.article-content {
-  line-height: 1.6;
+/* ============================================================
+META LINE — REUTERS STYLE
+============================================================ */
+#meta {
   font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 25px;
+  line-height: 1.5;
+  font-family: "Georgia", "Times New Roman", serif;
 }
 
-.article-content p {
-  margin: 0 0 1em;
+/* ============================================================
+ARTICLE CONTENT — BBC/REUTERS STYLE
+============================================================ */
+#content p {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  margin-bottom: 18px;
+  font-family: "Georgia", "Times New Roman", serif;
+  color: #111;
 }
 
-/* Important points (base) */
-
-.important-points {
-  border-left: 4px solid #800000;
-  background: #fdf5f5;
-  padding: 10px 12px;
-  margin: 20px 0;
-}
-
-.important-points ul {
-  margin: 0;
-  padding-left: 18px;
-}
-
-/* ===== ARTICLE INLINE IMAGE FIX ===== */
-
-.article-content figure {
-  max-width: 100%;
-}
-
-.article-content img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
+/* Inline images */
 .img-left {
   float: left;
   width: 38%;
@@ -430,159 +374,95 @@ body {
   margin: 12px 0 12px 20px;
 }
 
-.article-content::after {
-  content: "";
-  display: block;
-  clear: both;
+figure img {
+  width: 100%;
+  border-radius: 4px;
 }
 
-/* Page actions */
-
-.page-actions {
-  margin-top: 24px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-}
-
-.page-actions button,
-.page-actions input {
+figure figcaption {
+  font-family: "Georgia", "Times New Roman", serif;
   font-size: 0.85rem;
+  color: #555;
+  margin-top: 6px;
+  line-height: 1.4;
 }
 
-.subscribe-input {
-  padding: 4px 8px;
-  border: 1px solid #ccc;
+/* ============================================================
+MID‑SUBHEADING
+============================================================ */
+.mid-subheading {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  margin: 40px 0 20px;
+  color: #222;
+  line-height: 1.3;
 }
 
-/* ========== FORMS / CONTACT / NEWSLETTER / EPAPER ========== */
-
-.newsletter-form,
-.epaper-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
+/* ============================================================
+PULL QUOTE
+============================================================ */
+.pull-quote {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+  background: #f7f7f7;
+  border-left: 4px solid #c00;
+  padding: 25px;
+  margin: 40px 0;
+  line-height: 1.4;
 }
 
-.newsletter-form input,
-.epaper-form input {
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  flex: 1 1 200px;
+/* ============================================================
+IMPORTANT POINTS
+============================================================ */
+.important-points {
+  background: #fafafa;
+  border-left: 4px solid #c00;
+  padding: 18px 22px;
+  margin: 30px 0;
+  font-family: "Georgia", "Times New Roman", serif;
 }
 
-/* Contact modal */
-
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
-
-.modal.hidden {
-  display: none;
-}
-
-.modal-content {
-  background: #ffffff;
-  padding: 20px;
-  max-width: 400px;
-  width: 100%;
-}
-
-.modal-content input,
-.modal-content textarea {
-  width: 100%;
-  margin-bottom: 8px;
-  padding: 6px 8px;
-  border: 1px solid #ccc;
-  font-size: 0.9rem;
-}
-
-/* ========== FOOTER (WHITE TEXT) ========== */
-
-.footer {
-  background: #111;
-  color: #ffffff;
-  text-align: center;
-  padding: 14px;
-}
-
-.footer p {
-  color: #ffffff;
-  margin: 6px 0 0;
-}
-
-.footer .social {
+.important-points ul li {
   margin-bottom: 6px;
+  font-size: 1.05rem;
 }
 
-.footer .social a {
-  color: #ffffff;
-  text-decoration: none;
-  margin: 0 6px;
-  font-size: 0.9rem;
+/* ============================================================
+ACTION BAR (LIKE · SUBSCRIBE · SHARE · COPY LINK)
+============================================================ */
+.article-actions {
+  margin-top: 40px;
+  padding-top: 25px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: "Georgia", "Times New Roman", serif;
 }
 
-.footer .social a:hover {
-  color: #dddddd;
-}
-
-/* ========== LOADER (INDEX) ========== */
-
-#site-loader {
-  position: fixed;
-  inset: 0;
-  background: #111;
-  color: #ffffff;
+.action-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 200;
-  transition: opacity 0.3s ease;
+  gap: 6px;
+  background: #eee;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
 }
 
-.loader-inner {
-  text-align: center;
+.action-btn:hover {
+  background: #ddd;
 }
 
-.loader-title {
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.loader-bar {
-  width: 220px;
-  height: 4px;
-  background: #333;
-  margin: 0 auto 8px;
-  overflow: hidden;
-}
-
-.loader-progress {
-  width: 40%;
-  height: 100%;
-  background: #800000;
-  animation: loader-move 1.2s linear infinite;
-}
-
-@keyframes loader-move {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(250%);
-  }
-}
-
-/* ========== RESPONSIVE ========== */
-
+/* ============================================================
+RESPONSIVE
+============================================================ */
 @media (max-width: 900px) {
   .cards.three {
     grid-template-columns: repeat(2, 1fr);
@@ -633,212 +513,4 @@ body {
   .mobile-menu {
     display: block;
   }
-
-  .image-left,
-  .image-right {
-    float: none;
-    max-width: 100%;
-    margin: 10px 0;
-  }
-}
-
-/* Duplicate safety for floats (kept for compatibility) */
-
-.img-left {
-  float: left;
-  width: 38%;
-  margin: 10px 20px 10px 0;
-}
-
-.img-right {
-  float: right;
-  width: 38%;
-  margin: 10px 0 10px 20px;
-}
-
-.pull-points {
-  background: #f6f6f6;
-  border-left: 4px solid #900;
-  padding: 15px;
-  margin: 20px 0;
-}
-
-/* ===== ABOUT PAGE HERO FLOAT RIGHT ===== */
-
-.about-hero {
-  float: right;
-  width: 38%;
-  margin: 12px 0 12px 20px;
-}
-
-.about-hero img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.about-hero figcaption {
-  font-size: 0.8rem;
-  color: #555;
-  margin-top: 4px;
-}
-
-/* ============================
-BBC / Reuters Style Captions
-============================ */
-
-figure {
-  margin: 25px 0;
-}
-
-figure figcaption {
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: 0.85rem;
-  color: #555;
-  line-height: 1.4;
-  margin-top: 6px;
-  text-align: left;
-}
-
-/* ============================
-Mid-Article Subheading
-============================ */
-
-.mid-subheading {
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: 1.45rem;
-  font-weight: 600;
-  margin: 40px 0 20px;
-  color: #222;
-  line-height: 1.3;
-}
-
-/* ============================
-Pull Quote (Reuters Style)
-============================ */
-
-.pull-quote {
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #333;
-  background: #f7f7f7;
-  border-left: 4px solid #c00;
-  padding: 25px;
-  margin: 40px 0;
-  line-height: 1.4;
-}
-
-/* ============================
-Important Points (Enhanced)
-============================ */
-
-.important-points {
-  background: #fafafa;
-  border-left: 4px solid #c00;
-  padding: 18px 22px;
-  margin: 30px 0;
-  font-family: "Georgia", "Times New Roman", serif;
-}
-
-.important-points ul li {
-  margin-bottom: 6px;
-  font-size: 1.05rem;
-}
-
-/* ============================
-Article Typography (BBC/Reuters feel)
-============================ */
-
-#title {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin: 20px 0 10px 0;
-  font-family: "Georgia", "Times New Roman", serif;
-  line-height: 1.2;
-}
-
-#meta {
-  font-size: 0.95rem;
-  color: #444;
-  margin-bottom: 25px;
-  line-height: 1.5;
-}
-
-#content p {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  margin-bottom: 18px;
-  font-family: "Georgia", "Times New Roman", serif;
-  color: #111;
-}
-
-/* ============================
-Article Layout Restore (Master HTML)
-============================ */
-
-.article-page .article-container {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 30px;
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  display: flex;
-  gap: 30px;
-}
-
-.article-page .article-body {
-  width: 72%;
-}
-
-.article-page .sidebar {
-  width: 28%;
-  border-left: 1px solid #eee;
-  padding-left: 25px;
-}
-
-.sidebar h3 {
-  font-size: 1.2rem;
-  margin-bottom: 12px;
-}
-
-.sidebar .related-item {
-  margin-bottom: 18px;
-}
-
-.sidebar .related-item a {
-  font-weight: 600;
-  color: #900;
-  text-decoration: none;
-}
-
-/* Category label */
-
-.category-label {
-  font-size: 0.95rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
-/* Category colors */
-
-.cat-breaking { color: #c00; }
-.cat-blog { color: #005bbb; }
-.cat-editorial { color: #b8860b; }
-.cat-historical { color: #555; }
-.cat-humanrights { color: #800000; }
-.cat-international { color: #0a7d32; }
-.cat-latest { color: #6a0dad; }
-.cat-jk { color: #0b7c7c; }
-.cat-vlog { color: #d35400; }
-.cat-default { color: #900; }
-
-/* Clearfix for article body */
-
-.clearfix::after {
-  content: "";
-  display: block;
-  clear: both;
 }
