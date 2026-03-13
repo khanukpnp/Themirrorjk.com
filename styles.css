@@ -526,3 +526,35 @@ RESPONSIVE
     display: block;
   }
 }
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* COLORS */
+.label-breaking { background: #b30000; }
+.label-latest { background: #444; }
+.label-editorial { background: #003366; }
+.label-blog { background: #006699; }
+.label-historical { background: #5a3e1b; }
+.label-jk { background: #008000; }
+.label-international { background: #333399; }
+.label-humanrights { background: #990000; }
+.label-vlog { background: #222; }
+
+/* ICON STYLE */
+.section-label .icon {
+  font-size: 1rem;
+  line-height: 1;
+}
