@@ -1,20 +1,25 @@
 {
-  "slug": "brief-history-state-of-jammu-kashmir-1819-1953",
+  "id": "editorial-001",
+  "slug": "editorial-brief-history-state-of-jammu-kashmir-1819-1953",
   "title": "Brief History of the State of Jammu and Kashmir, 1819–1953",
-  "hero_image": "brief-history-jk.png",
-  "hero_alt": "Sardar Nasir Aziz Khan with Kashmir mountain backdrop",
-  "category": "History",
-  "published_on": "2026-03-08",
-  "language": "en",
-  "author": {
-    "name": "Sardar Nasir Aziz Khan",
-    "role": "Chief Editor",
-    "profile_image": "author-nasir.png"
+  "category": "editorial",
+  "sectionLabel": "🖋️ EDITORIAL",
+  "excerpt": "A comprehensive historical account of the State of Jammu and Kashmir from the Sikh conquest of 1819 to the political upheavals of 1953, tracing its formation, governance, diversity, legal structures, and the origins of the modern dispute.",
+  "author": "Sardar Nasir Aziz Khan",
+  "location": "Switzerland",
+  "date": "2026-03-08T10:00:00Z",
+  "readTime": "18 min read",
+  "heroImage": {
+    "src": "content/images/brief-history-jk.png",
+    "caption": "Historical evolution of the State of Jammu and Kashmir.",
+    "credit": "The Mirror Jammu Kashmir"
   },
-  "summary": "A comprehensive historical account of the State of Jammu and Kashmir from the Sikh conquest of 1819 to the political upheavals of 1953, tracing its formation, governance, diversity, legal structures, and the origins of the modern dispute.",
+  "archive": false,
+
   "body": [
+
     {
-      "type": "heading",
+      "type": "header",
       "text": "Early Political Shifts Before 1846"
     },
     {
@@ -27,7 +32,7 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "Treaty of Lahore and Treaty of Amritsar, 1846"
     },
     {
@@ -40,11 +45,11 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "Rulers of the State (1846–1953)"
     },
     {
-      "type": "list",
+      "type": "points",
       "items": [
         "Maharaja Gulab Singh (1846–1857)",
         "Maharaja Ranbir Singh (1857–1885)",
@@ -54,7 +59,7 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "Governance and Legal Reforms"
     },
     {
@@ -63,7 +68,7 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "Infrastructure, Forests, and Ecological Management"
     },
     {
@@ -76,7 +81,7 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "State Subject Rule of 1927"
     },
     {
@@ -85,7 +90,7 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "Praja Sabha and Constitutional Developments"
     },
     {
@@ -98,7 +103,7 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "Religious and Regional Diversity"
     },
     {
@@ -107,7 +112,7 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "Partition of 1947 and the Tribal Invasion"
     },
     {
@@ -120,7 +125,7 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "United Nations Involvement"
     },
     {
@@ -129,7 +134,7 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "Human Rights and the Divided State"
     },
     {
@@ -138,7 +143,7 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "International Recognition of the Dispute"
     },
     {
@@ -147,7 +152,7 @@
     },
 
     {
-      "type": "heading",
+      "type": "header",
       "text": "Historical Continuity and Contemporary Claims"
     },
     {
@@ -159,6 +164,7 @@
       "text": "From 1846 until the upheavals of 1947, the State existed with defined borders, citizenship laws, courts, a High Court, a Bar, a legislative assembly, protected forests, regulated grazing, water management, and structured governance. This historical State remains central to understanding the present and future of Jammu and Kashmir."
     }
   ],
+
   "tags": [
     "Jammu & Kashmir",
     "History",
