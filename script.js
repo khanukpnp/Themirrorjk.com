@@ -1,362 +1,446 @@
 // ============================
-// UTILITIES
+// BASIC INITIALISATION
 // ============================
-function getQueryParam(name) {
-  const params = new URLSearchParams(window.location.search);
-  return params.get(name);
-}
+document.addEventListener("DOMContentLoaded", () => {
+  initLoader();
+  initYear();
+  initClocks();
+  updateHijri();
+  updateVikramSamvat();
+  initWeatherBar();
+  initTicker();
+  initNav();
+  initContactModal();
+  initVlogs();
 
-function normalizeItem(data) {
-  if (Array.isArray(data.items)) {
-    return data.items[0];
+  const isArticlePage = document.body.classList.contains("article-page");
+  if (isArticlePage) {
+    initArticlePage();
+  } else {
+    loadHomepageIndex();
   }
-  return data;
-}
-
-// Map IDs to JSON file paths
-function getJsonPathById(id) {
-  // Articles
-  if (id === 'article-001') return 'content/article-rawalakot-loadshedding.json';
-  if (id === 'breaking-001') return 'content/breaking-emma-meeting.json';
-  if (id === 'blog-001') return 'content/blog-ukpnp-briefs-mps.json';
-
-  if (id === 'latest-001') return 'content/latest-001.json';
-  if (id === 'editorial-001') return 'content/editorial-brief-history.json';
-  if (id === 'historical-001') return 'content/historical-001.json';
-
-  if (id === 'jk-001') return 'content/jk-001.json';
-  if (id === 'jk-002') return 'content/jk-002.json';
-
-  if (id === 'intl-001') return 'content/intl-001.json';
-  if (id === 'intl-002') return 'content/intl-002.json';
-
-  if (id === 'hr-001') return 'content/hr-001.json';
-  if (id === 'hr-002') return 'content/hr-002.json';
-
-  if (id === 'about') return 'content/about.json';
-  if (id === 'chief-editor') return 'content/chief-editor.json';
-
-  return null;
-}
-
-async function loadJson(path) {
-  const res = await fetch(path);
-  if (!res.ok) throw new Error('Failed to load ' + path);
-  return res.json();
-}
+});
 
 // ============================
-// HOMEPAGE: INDEX + SECTIONS
+// LOAD HOMEPAGE INDEX
 // ============================
-async function buildHomePage() {
-  const indexPath = 'content/index.json';
-  let index;
-  try {
-    index = await loadJson(indexPath);
-  } catch (e) {
-    console.error('Index load error', e);
-    return;
-  }
+function loadHomepageIndex() {
+  fetch("content/index.json")
+    .then(r => r.json())
+    .then(data => {
+      const hp = data.homepage || data;
 
-  // Top Stories
-  try {
-    const leadData = normalizeItem(await loadJson(getJsonPathById(index.topStories.lead)));
-    const breakingData = normalizeItem(await loadJson(getJsonPathById(index.topStories.breaking)));
-    const opinionData = normalizeItem(await loadJson(getJsonPathById(index.topStories.opinion)));
-
-    const leadImg = document.getElementById('top-lead-img');
-    const breakingImg = document.getElementById('top-breaking-img');
-    const opinionImg = document.getElementById('top-opinion-img');
-
-    if (leadImg && leadData.heroImage) {
-      leadImg.style.backgroundImage = `url(${leadData.heroImage.src})`;
-    }
-    if (breakingImg && breakingData.heroImage) {
-      breakingImg.style.backgroundImage = `url(${breakingData.heroImage.src})`;
-    }
-    if (opinionImg && opinionData.heroImage) {
-      opinionImg.style.backgroundImage = `url(${opinionData.heroImage.src})`;
-    }
-
-    const leadTitle = document.getElementById('top-lead-title');
-    const leadExcerpt = document.getElementById('top-lead-excerpt');
-    const breakingTitle = document.getElementById('top-breaking-title');
-    const breakingExcerpt = document.getElementById('top-breaking-excerpt');
-    const opinionTitle = document.getElementById('top-opinion-title');
-    const opinionExcerpt = document.getElementById('top-opinion-excerpt');
-
-    if (leadTitle) leadTitle.textContent = leadData.title;
-    if (leadExcerpt) leadExcerpt.textContent = leadData.excerpt || '';
-    if (breakingTitle) breakingTitle.textContent = breakingData.title;
-    if (breakingExcerpt) breakingExcerpt.textContent = breakingData.excerpt || '';
-    if (opinionTitle) opinionTitle.textContent = opinionData.title;
-    if (opinionExcerpt) opinionExcerpt.textContent = opinionData.excerpt || '';
-
-    // Click-throughs
-    document.getElementById('top-lead')?.addEventListener('click', () => {
-      window.location.href = `article.html?id=${leadData.id}`;
-    });
-    document.getElementById('top-breaking')?.addEventListener('click', () => {
-      window.location.href = `article.html?id=${breakingData.id}`;
-    });
-    document.getElementById('top-opinion')?.addEventListener('click', () => {
-      window.location.href = `article.html?id=${opinionData.id}`;
-    });
-  } catch (e) {
-    console.error('Top stories error', e);
-  }
-
-  // Latest / Editorial / Historical
-  try {
-    const latestData = normalizeItem(await loadJson(getJsonPathById(index.latestEditorialHistorical.latest)));
-    const editorialData = normalizeItem(await loadJson(getJsonPathById(index.latestEditorialHistorical.editorial)));
-    const historicalData = normalizeItem(await loadJson(getJsonPathById(index.latestEditorialHistorical.historical)));
-
-    const latestTitle = document.getElementById('latest-title');
-    const latestExcerpt = document.getElementById('latest-excerpt');
-    const editorialTitle = document.getElementById('editorial-title');
-    const editorialExcerpt = document.getElementById('editorial-excerpt');
-    const historicalTitle = document.getElementById('historical-title');
-    const historicalExcerpt = document.getElementById('historical-excerpt');
-
-    if (latestTitle) latestTitle.textContent = latestData.title;
-    if (latestExcerpt) latestExcerpt.textContent = latestData.excerpt || '';
-    if (editorialTitle) editorialTitle.textContent = editorialData.title;
-    if (editorialExcerpt) editorialExcerpt.textContent = editorialData.excerpt || '';
-    if (historicalTitle) historicalTitle.textContent = historicalData.title;
-    if (historicalExcerpt) historicalExcerpt.textContent = historicalData.excerpt || '';
-
-    document.getElementById('latest-card')?.addEventListener('click', () => {
-      window.location.href = `article.html?id=${latestData.id}`;
-    });
-    document.getElementById('editorial-card')?.addEventListener('click', () => {
-      window.location.href = `article.html?id=${editorialData.id}`;
-    });
-    document.getElementById('historical-card')?.addEventListener('click', () => {
-      window.location.href = `article.html?id=${historicalData.id}`;
-    });
-  } catch (e) {
-    console.error('LEH error', e);
-  }
-
-  // JK
-  try {
-    const jk1Data = normalizeItem(await loadJson(getJsonPathById(index.jammuKashmir[0])));
-    const jk2Data = normalizeItem(await loadJson(getJsonPathById(index.jammuKashmir[1])));
-    const jk1Title = document.getElementById('jk-1-title');
-    const jk2Title = document.getElementById('jk-2-title');
-    if (jk1Title) jk1Title.textContent = jk1Data.title;
-    if (jk2Title) jk2Title.textContent = jk2Data.title;
-  } catch (e) {
-    console.error('JK error', e);
-  }
-
-  // International
-  try {
-    const intl1Data = normalizeItem(await loadJson(getJsonPathById(index.international[0])));
-    const intl2Data = normalizeItem(await loadJson(getJsonPathById(index.international[1])));
-    const intl1Title = document.getElementById('intl-1-title');
-    const intl2Title = document.getElementById('intl-2-title');
-    if (intl1Title) intl1Title.textContent = intl1Data.title;
-    if (intl2Title) intl2Title.textContent = intl2Data.title;
-  } catch (e) {
-    console.error('Intl error', e);
-  }
-
-  // Human Rights
-  try {
-    const hr1Data = normalizeItem(await loadJson(getJsonPathById(index.humanRights[0])));
-    const hr2Data = normalizeItem(await loadJson(getJsonPathById(index.humanRights[1])));
-    const hr1Title = document.getElementById('hr-1-title');
-    const hr2Title = document.getElementById('hr-2-title');
-    if (hr1Title) hr1Title.textContent = hr1Data.title;
-    if (hr2Title) hr2Title.textContent = hr2Data.title;
-  } catch (e) {
-    console.error('HR error', e);
-  }
-}
-
-// ============================
-// ARTICLE PAGE RENDERING
-// ============================
-function getCategoryClass(category) {
-  if (!category) return 'cat-default';
-  const c = category.toLowerCase();
-  if (c.includes('breaking')) return 'cat-breaking';
-  if (c.includes('blog') || c.includes('opinion')) return 'cat-blog';
-  if (c.includes('editorial')) return 'cat-editorial';
-  if (c.includes('historical')) return 'cat-historical';
-  if (c.includes('human')) return 'cat-humanrights';
-  if (c.includes('international')) return 'cat-international';
-  if (c.includes('latest')) return 'cat-latest';
-  if (c.includes('jammu') || c.includes('kashmir')) return 'cat-jk';
-  if (c.includes('vlog')) return 'cat-vlog';
-  return 'cat-default';
-}
-
-function renderArticle(item) {
-  const titleEl = document.getElementById('title');
-  const pageTitleEl = document.getElementById('page-title');
-  const metaEl = document.getElementById('meta');
-  const heroImg = document.getElementById('heroImg');
-  const heroCaption = document.getElementById('heroCaption');
-  const content = document.getElementById('content');
-  const sectionLabel = document.getElementById('section-label');
-
-  if (!titleEl || !metaEl || !content) return;
-
-  titleEl.textContent = item.title || '';
-  if (pageTitleEl) {
-    pageTitleEl.textContent = (item.title || 'Article') + ' – THE MIRROR JAMMU KASHMIR';
-  }
-
-  const metaParts = [];
-  if (item.category) metaParts.push(item.category);
-  if (item.author) metaParts.push(item.author);
-  if (item.location) metaParts.push(item.location);
-  if (item.date) metaParts.push(item.date);
-  if (item.readTime) metaParts.push(item.readTime);
-  metaEl.textContent = metaParts.join(' · ');
-
-  if (item.heroImage && heroImg && heroCaption) {
-    heroImg.src = item.heroImage.src;
-    heroImg.alt = item.heroImage.caption || item.title || '';
-    heroCaption.textContent = item.heroImage.caption +
-      (item.heroImage.credit ? ' © ' + item.heroImage.credit : '');
-  }
-
-  if (sectionLabel) {
-    sectionLabel.textContent = item.category || '';
-    sectionLabel.className = 'category-label ' + getCategoryClass(item.category);
-  }
-
-  content.innerHTML = '';
-
-  if (Array.isArray(item.body)) {
-    item.body.forEach(block => {
-      if (block.type === 'paragraph') {
-        const p = document.createElement('p');
-        p.textContent = block.text;
-        content.appendChild(p);
-      } else if (block.type === 'points') {
-        const div = document.createElement('div');
-        div.className = 'important-points';
-        const ul = document.createElement('ul');
-        (block.items || []).forEach(pt => {
-          const li = document.createElement('li');
-          li.textContent = pt;
-          ul.appendChild(li);
-        });
-        div.appendChild(ul);
-        content.appendChild(div);
-      } else if (block.type === 'image') {
-        const figure = document.createElement('figure');
-        const img = document.createElement('img');
-        img.src = block.src;
-        img.alt = block.caption || '';
-        if (block.align === 'left') img.className = 'img-left';
-        else if (block.align === 'right') img.className = 'img-right';
-        const cap = document.createElement('figcaption');
-        cap.textContent = block.caption +
-          (block.credit ? ' © ' + block.credit : '');
-        figure.appendChild(img);
-        figure.appendChild(cap);
-        content.appendChild(figure);
-      } else if (block.type === 'header') {
-        const h2 = document.createElement('h2');
-        h2.textContent = block.text;
-        content.appendChild(h2);
+      if (hp.topStories) {
+        loadTopStories(hp.topStories);
       }
-    });
-  }
-}
 
-async function buildArticlePage() {
-  const id = getQueryParam('id');
-  if (!id) return;
+      if (hp.latestEditorialHistorical) {
+        loadLatestEditorialHistorical(hp.latestEditorialHistorical);
+      }
 
-  const path = getJsonPathById(id);
-  if (!path) {
-    console.error('No JSON path for id', id);
-    return;
-  }
+      // NEW: Jammu Kashmir, International, Human Rights
+      if (hp.jammuKashmir) {
+        loadJammuKashmir(hp.jammuKashmir);
+      }
 
-  try {
-    const data = await loadJson(path);
-    const item = normalizeItem(data);
-    renderArticle(item);
-  } catch (e) {
-    console.error('Article load error', e);
-  }
+      if (hp.international) {
+        loadInternational(hp.international);
+      }
+
+      if (hp.humanRights) {
+        loadHumanRights(hp.humanRights);
+      }
+    })
+    .catch(err => console.error("Index JSON error:", err));
 }
 
 // ============================
-// CALENDARS & REGIONAL TIME
+// LOAD TOP STORIES
 // ============================
-function updateDatesAndTimes() {
+function loadTopStories(section) {
+  if (section.lead) loadArticleToCard(section.lead, "lead-media", "lead-body");
+  if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
+  if (section.opinion) loadArticleToCard(section.opinion, "opinion-media", "opinion-body");
+}
+
+// ============================
+// LOAD LATEST / EDITORIAL / HISTORICAL
+// ============================
+function loadLatestEditorialHistorical(section) {
+  if (section.latest) loadArticleToCard(section.latest, "leh1-media", "leh1-body");
+  if (section.editorial) loadArticleToCard(section.editorial, "leh2-media", "leh2-body");
+  if (section.historical) loadArticleToCard(section.historical, "leh3-media", "leh3-body");
+}
+
+// ============================
+// NEW: LOAD JAMMU KASHMIR
+// ============================
+function loadJammuKashmir(ids) {
+  if (!Array.isArray(ids)) return;
+  if (ids[0]) loadArticleToCard(ids[0], "jk1-media", "jk1-body");
+  if (ids[1]) loadArticleToCard(ids[1], "jk2-media", "jk2-body");
+}
+
+// ============================
+// NEW: LOAD INTERNATIONAL
+// ============================
+function loadInternational(ids) {
+  if (!Array.isArray(ids)) return;
+  if (ids[0]) loadArticleToCard(ids[0], "intl1-media", "intl1-body");
+  if (ids[1]) loadArticleToCard(ids[1], "intl2-media", "intl2-body");
+}
+
+// ============================
+// NEW: LOAD HUMAN RIGHTS
+// ============================
+function loadHumanRights(ids) {
+  if (!Array.isArray(ids)) return;
+  if (ids[0]) loadArticleToCard(ids[0], "hr1-media", "hr1-body");
+  if (ids[1]) loadArticleToCard(ids[1], "hr2-media", "hr2-body");
+}
+
+// ============================
+// UNIVERSAL ARTICLE LOADER
+// ============================
+function loadArticleToCard(articleId, mediaId, bodyId) {
+  fetch(`content/${articleId}.json`)
+    .then(r => r.json())
+    .then(article => {
+      renderArticleCard(mediaId, bodyId, article, true);
+    })
+    .catch(err => console.error(`Error loading ${articleId}:`, err));
+}
+
+// ============================
+// LOADER
+// ============================
+function initLoader() {
+  const loader = document.getElementById("site-loader");
+  if (!loader) return;
+
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    setTimeout(() => loader.style.display = "none", 300);
+  }, 800);
+}
+
+// ============================
+// FOOTER YEAR
+// ============================
+function initYear() {
+  const y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
+}
+
+// ============================
+// CLOCKS & TIMEZONES
+// ============================
+function initClocks() {
+  updateClocks();
+  setInterval(updateClocks, 1000);
+}
+
+function updateClocks() {
   const now = new Date();
 
-  // Gregorian
-  const gregEl = document.getElementById('gregorian-date');
-  if (gregEl) {
-    gregEl.textContent = now.toLocaleString('en-GB', {
-      weekday: 'long',
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
+  const cestEl = document.querySelector("#clock-cest span");
+  if (cestEl) {
+    cestEl.textContent = now.toLocaleString("en-GB", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
     });
   }
 
-  // Simple Hijri approximation (for production you might use a proper library)
-  const hijriEl = document.getElementById('hijri-date');
-  if (hijriEl) {
-    hijriEl.textContent = 'Ramadan 24, 1447 AH'; // static placeholder to match your screenshots
+  const istEl = document.querySelector("#tz-ist span");
+  if (istEl) {
+    istEl.textContent = new Date().toLocaleTimeString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
   }
 
-  const vikramEl = document.getElementById('vikram-date');
-  if (vikramEl) {
-    vikramEl.textContent = '13 Jyeshtha 2083 VS'; // static placeholder
+  const pktEl = document.querySelector("#tz-pkt span");
+  if (pktEl) {
+    pktEl.textContent = new Date().toLocaleTimeString("en-PK", {
+      timeZone: "Asia/Karachi",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
   }
+}
 
-  // Regional times (fixed offsets relative to UTC)
-  const zones = [
-    { id: 'tz-zurich', label: 'Zurich', offset: 1 },
-    { id: 'tz-rawalakot', label: 'Rawalakot', offset: 5 },
-    { id: 'tz-jammu', label: 'Jammu', offset: 5.5 },
-    { id: 'tz-kashmir', label: 'Kashmir', offset: 5.5 },
-    { id: 'tz-ladakh', label: 'Ladakh', offset: 5.5 },
-    { id: 'tz-gilgit', label: 'Gilgit', offset: 5 },
-    { id: 'tz-baltistan', label: 'Baltistan', offset: 5 },
-    { id: 'tz-muzaffarabad', label: 'Muzaffarabad', offset: 5 }
+// ============================
+// HIJRI CALENDAR
+// ============================
+function updateHijri() {
+  const hijriEl = document.querySelector("#cal-hijri span");
+  if (!hijriEl) return;
+
+  try {
+    const now = new Date();
+    const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }).format(now);
+    hijriEl.textContent = hijriDate;
+  } catch {
+    hijriEl.textContent = "Hijri calendar";
+  }
+}
+
+// ============================
+// VIKRAM SAMVAT
+// ============================
+function updateVikramSamvat() {
+  const vsEl = document.querySelector("#cal-hindi span");
+  if (!vsEl) return;
+
+  const now = new Date();
+  const vsYear = now.getFullYear() + 57;
+  const months = [
+    "Chaitra", "Vaishakha", "Jyeshtha", "Ashadha",
+    "Shravana", "Bhadrapada", "Ashwin", "Kartika",
+    "Margashirsha", "Pausha", "Magha", "Phalguna"
   ];
 
-  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${vsYear} VS`;
+}
 
-  zones.forEach(z => {
-    const el = document.getElementById(z.id);
-    if (!el) return;
-    const local = new Date(utc + z.offset * 3600000);
-    el.textContent = `${z.label}: ${local.toLocaleTimeString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit'
-    })}`;
+// ============================
+// WEATHER BAR
+// ============================
+function initWeatherBar() {
+  const bar = document.getElementById("weather-bar");
+  if (!bar) return;
+
+  const cities = [
+    { name: "Zurich", temp: "6°C" },
+    { name: "Rawalakot", temp: "9°C" },
+    { name: "Jammu", temp: "18°C" },
+    { name: "Kashmir", temp: "4°C" },
+    { name: "Ladakh", temp: "-2°C" },
+    { name: "Gilgit", temp: "3°C" },
+    { name: "Baltistan", temp: "-1°C" },
+    { name: "Muzaffarabad", temp: "10°C" }
+  ];
+
+  bar.innerHTML = cities.map(c => `
+    <div class="chip tiny">
+      🌡️ ${c.name}: <strong>${c.temp}</strong>
+    </div>
+  `).join("");
+}
+
+// ============================
+// TICKER
+// ============================
+function initTicker() {
+  fetch("content/index.json")
+    .then(r => r.json())
+    .then(data => {
+      const ul = document.getElementById("ticker-items");
+      if (!ul) return;
+
+      const items = data.ticker || [];
+      ul.innerHTML = items.map(t => `<li>${t}</li>`).join("");
+    })
+    .catch(() => {});
+}
+
+// ============================
+// NAVIGATION
+// ============================
+function initNav() {
+  const hamburger = document.getElementById("hamburger");
+  const navList = document.getElementById("nav-list");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  if (!hamburger || !navList || !mobileMenu) return;
+
+  hamburger.addEventListener("click", () => {
+    const expanded = hamburger.getAttribute("aria-expanded") === "true";
+    hamburger.setAttribute("aria-expanded", String(!expanded));
+
+    if (expanded) {
+      mobileMenu.hidden = true;
+      mobileMenu.innerHTML = "";
+    } else {
+      mobileMenu.hidden = false;
+      mobileMenu.innerHTML = navList.innerHTML;
+    }
   });
 }
 
 // ============================
-// INIT
+// CONTACT MODAL
 // ============================
-document.addEventListener('DOMContentLoaded', () => {
-  // Detect page type
-  if (document.body.classList.contains('article-page')) {
-    buildArticlePage();
-  } else {
-    buildHomePage();
+function initContactModal() {
+  const openBtn = document.getElementById("contact-open");
+  const closeBtn = document.getElementById("contact-close");
+  const modal = document.getElementById("contact-modal");
+
+  if (!openBtn || !closeBtn || !modal) return;
+
+  openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
+  closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.classList.add("hidden");
+  });
+}
+
+// ============================
+// VLOGS
+// ============================
+function initVlogs() {
+  const grid = document.getElementById("vlogs-grid");
+  if (!grid) return;
+
+  const vlogs = [
+    { title: "Kashmir Protest Highlights", duration: "4:32" },
+    { title: "Diaspora Voices on Human Rights", duration: "6:10" },
+    { title: "Brief History of Jammu & Kashmir", duration: "8:45" }
+  ];
+
+  grid.innerHTML = vlogs.map(v => `
+    <article class="card">
+      <div class="vlog-thumb">
+        <div class="play-icon">▶</div>
+      </div>
+      <div class="card-body">
+        <h3>${v.title}</h3>
+        <p>Duration: ${v.duration}</p>
+      </div>
+    </article>
+  `).join("");
+}
+
+// ============================
+// HOMEPAGE CARD RENDERER
+// ============================
+function renderArticleCard(mediaId, bodyId, article, isSimple = true) {
+  const mediaEl = document.getElementById(mediaId);
+  const bodyEl = document.getElementById(bodyId);
+  if (!mediaEl || !bodyEl) return;
+
+  if (article.heroImage && article.heroImage.src) {
+    mediaEl.innerHTML = `<img src="${article.heroImage.src}" alt="">`;
   }
 
-  updateDatesAndTimes();
-  setInterval(updateDatesAndTimes, 1000);
-});
+  bodyEl.innerHTML = `
+    <h3>${article.title}</h3>
+    <p>${article.excerpt || article.summary || ""}</p>
+    <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
+  `;
+}
+
+// ============================
+// ARTICLE PAGE INITIALISATION
+// ============================
+function initArticlePage() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  if (!id) return;
+
+  fetch(`content/${id}.json`)
+    .then(r => r.json())
+    .then(article => renderFullArticlePage(article))
+    .catch(err => console.error("Article load error:", err));
+}
+
+// ============================
+// FULL ARTICLE PAGE RENDERER
+// ============================
+function renderFullArticlePage(article) {
+  // SECTION LABEL
+  const sectionLabel = document.getElementById("section-label");
+  if (sectionLabel) {
+    sectionLabel.textContent = article.category || "THE MIRROR JAMMU KASHMIR";
+  }
+
+  // PAGE TITLE
+  const pageTitle = document.getElementById("page-title");
+  if (pageTitle) {
+    pageTitle.textContent = `${article.title} | THE MIRROR JAMMU KASHMIR`;
+  }
+
+  // MAIN HEADLINE
+  const titleEl = document.getElementById("title");
+  if (titleEl) {
+    titleEl.textContent = article.title;
+  }
+
+  // META
+  const metaEl = document.getElementById("meta");
+  if (metaEl) {
+    const dateObj = new Date(article.date);
+    const day = dateObj.toLocaleString("en-GB", { weekday: "long" });
+    const dateStr = dateObj.toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+    const timeStr = dateObj.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+    metaEl.innerHTML = `
+      <strong>${article.location}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
+      By <em>${article.author}</em>
+    `;
+  }
+
+  // HERO IMAGE
+  const heroImg = document.getElementById("heroImg");
+  const heroCaption = document.getElementById("heroCaption");
+  const heroWrap = document.getElementById("heroWrap");
+
+  if (article.heroImage && article.heroImage.src) {
+    heroImg.src = article.heroImage.src;
+    heroCaption.textContent = article.heroImage.caption || "";
+  } else if (heroWrap) {
+    heroWrap.style.display = "none";
+  }
+
+  // BODY CONTENT
+  const contentEl = document.getElementById("content");
+  if (!contentEl) return;
+
+  contentEl.innerHTML = "";
+
+  article.body.forEach(block => {
+    if (block.type === "paragraph") {
+      contentEl.innerHTML += `<p>${block.text}</p>`;
+    }
+
+    if (block.type === "points") {
+      contentEl.innerHTML += `
+        <div class="important-points">
+          <ul>
+            ${block.items.map(i => `<li>${i}</li>`).join("")}
+          </ul>
+        </div>
+      `;
+    }
+
+    if (block.type === "image") {
+      const alignClass = block.align === "right" ? "img-right" : "img-left";
+      contentEl.innerHTML += `
+        <figure class="${alignClass}">
+          <img src="${block.src}" alt="">
+          <figcaption>${block.caption || ""}</figcaption>
+        </figure>
+      `;
+    }
+  });
+}
