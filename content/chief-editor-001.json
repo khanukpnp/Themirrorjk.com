@@ -2,50 +2,60 @@
   "id": "chief-editor-001",
   "slug": "chief-editor-the-mirror-jammu-kashmir",
   "title": "The Chief Editor – The Mirror Jammu Kashmir",
-  "category": "About",
+  "category": "about",
+  "sectionLabel": "👤 ABOUT",
   "author": "The Mirror Jammu Kashmir",
-  "date": "2026-03-08",
+  "location": "Switzerland",
+  "date": "2026-03-08T10:00:00Z",
+  "readTime": "6 min read",
   "archive": false,
+
   "body": [
+
     {
       "type": "image",
-      "src": "/content/images/chief-editor.jpg",
-      "align": "left",
+      "src": "content/images/chief-editor.jpg",
+      "align": "right",
       "caption": "Sardar Nasir Aziz Khan, Chief Editor of The Mirror Jammu Kashmir",
-      "credit": "The Mirror Jammu Kashmir"
+      "credit": "The Mirror Jammu Kashmir",
+      "width": "38%"
     },
-    {
-      "type": "header",
-      "text": "The Chief Editor\n\nThe Mirror Jammu Kashmir"
-    },
+
     {
       "type": "paragraph",
       "text": "Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional insight, political clarity, and a firm commitment to principled and rights based journalism. A Kashmiri human rights defender, political analyst, and columnist, he is originally from Rawalakot in the Poonch region of the historical State of Jammu and Kashmir and is currently based in Switzerland."
     },
+
     {
       "type": "paragraph",
       "text": "Alongside his editorial leadership, he serves as Central Spokesperson of the United Kashmir People’s National Party and as the main representative of affiliated civil society organizations NGOs to the United Nations in Geneva. In this capacity, he regularly engages with United Nations mechanisms, diplomats, parliamentarians, and international media to document and highlight human rights violations, political repression, and socio-economic marginalization across the divided regions of Jammu and Kashmir."
     },
+
     {
       "type": "paragraph",
       "text": "His work focuses on issues that are often ignored or deliberately suppressed. These include enforced disappearances, arbitrary detentions, restrictions on press freedom, militarization, erosion of civil and political rights, and the shrinking space for democratic participation. He has also spoken extensively about prolonged public protests over electricity shortages, taxation policies, lack of basic services, and the targeting of journalists and peaceful activists."
     },
+
     {
       "type": "paragraph",
       "text": "As a writer and commentator, Sardar Nasir Aziz Khan contributes to international platforms and policy discussions. His analysis covers the Jammu Kashmir conflict, United Nations human rights mechanisms, freedom of expression, rule of law, governance failures, extremism, security challenges, underdevelopment, gender equality, racial discrimination, environmental concerns, global warming, and the broader impact of regional and global conflicts on ordinary people. His work is grounded in documented facts, field engagement, and direct interaction with affected communities."
     },
+
     {
       "type": "paragraph",
-      "text": "He has contributed to multiple international advocacy efforts. These include participation and moderation at United Nations forums, moderation and briefings at International forums, public engagements with British Members of Parliament, statements at the United Nations Human Rights Council, and campaigns demanding accountability for the arrest of journalists and the suppression of peaceful dissent. He consistently maintains that there is no military solution to the Jammu Kashmir dispute and that any sustainable resolution must be rooted in the will and rights of the people in accordance with relevant United Nations resolutions."
+      "text": "He has contributed to multiple international advocacy efforts. These include participation and moderation at United Nations forums, moderation and briefings at international conferences, public engagements with British Members of Parliament, statements at the United Nations Human Rights Council, and campaigns demanding accountability for the arrest of journalists and the suppression of peaceful dissent. He consistently maintains that there is no military solution to the Jammu Kashmir dispute and that any sustainable resolution must be rooted in the will and rights of the people in accordance with relevant United Nations resolutions."
     },
+
     {
       "type": "paragraph",
       "text": "As Chief Editor, he safeguards editorial independence and ensures that journalism remains accountable to truth rather than power. Under his leadership, The Mirror Jammu Kashmir positions itself as an independent digital platform committed to credible reporting, rigorous analysis, and amplifying voices from across all regions of the historical State of Jammu and Kashmir."
     },
+
     {
       "type": "paragraph",
       "text": "Sardar Nasir Aziz Khan continues to act as a bridge between Kashmiri communities, international institutions, and global audiences, using media as a tool for awareness, documentation, and principled advocacy."
     },
+
     {
       "type": "paragraph",
       "text": "He can be reached at themirrorjk@gmail.com or by phone at +41 783 13 12 13. On X, he can be followed at @NasirKhanUKPNP."
