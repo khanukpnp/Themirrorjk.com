@@ -41,6 +41,7 @@ HEADER
 .site-title {
   margin: 0;
   font-size: 2rem;
+  font-family: "Georgia", "Times New Roman", serif;
 }
 
 .subheading {
@@ -233,13 +234,8 @@ CARDS / GRID
 
 .card-body h3 {
   margin-top: 0;
-}
-
-/* HOMEPAGE CARD HERO — HEADING ABOVE IMAGE */
-.card-body h3 {
   font-family: "Georgia", "Times New Roman", serif;
   font-size: 1.2rem;
-  margin-bottom: 8px;
 }
 
 /* ============================================================
@@ -340,7 +336,7 @@ ARTICLE HERO — HEADING ABOVE IMAGE
 }
 
 /* ============================================================
-META LINE — REUTERS STYLE
+META LINE — BBC STYLE
 ============================================================ */
 #meta {
   font-size: 0.95rem;
@@ -351,7 +347,7 @@ META LINE — REUTERS STYLE
 }
 
 /* ============================================================
-ARTICLE CONTENT — BBC/REUTERS STYLE
+ARTICLE CONTENT — BBC STYLE
 ============================================================ */
 #content p {
   font-size: 1.125rem;
@@ -361,7 +357,23 @@ ARTICLE CONTENT — BBC/REUTERS STYLE
   color: #111;
 }
 
-/* Inline images */
+/* ============================================================
+GUARDIAN‑STYLE DROP CAP
+============================================================ */
+#content p:first-of-type::first-letter {
+  float: left;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 4.8rem;
+  line-height: 0.85;
+  padding-right: 10px;
+  padding-top: 4px;
+  color: #800000;
+  font-weight: 600;
+}
+
+/* ============================================================
+INLINE IMAGES — BBC STYLE
+============================================================ */
 .img-left {
   float: left;
   width: 38%;
@@ -433,7 +445,7 @@ IMPORTANT POINTS
 /* ============================================================
 ACTION BAR (LIKE · SUBSCRIBE · SHARE · COPY LINK)
 ============================================================ */
-.article-actions {
+.page-actions {
   margin-top: 40px;
   padding-top: 25px;
   border-top: 1px solid #ddd;
