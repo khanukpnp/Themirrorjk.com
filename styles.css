@@ -1,556 +1,734 @@
-// ============================
-// BASIC INITIALISATION
-// ============================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  initLoader();
-  initYear();
-  initClocks();
-  updateHijri();
-  updateVikramSamvat();
-  initWeatherBar();
-  initTicker();
-  initNav();
-  initContactModal();
-  initVlogs();
-
-  const isArticlePage = document.body.classList.contains("article-page");
-
-  if (isArticlePage) {
-    initArticlePage();
-  } else {
-    loadHomepageIndex();
-  }
-
-});
-
-
-// ============================
-// LOAD HOMEPAGE INDEX
-// ============================
-
-function loadHomepageIndex() {
-
-  fetch("content/index.json")
-    .then(r => r.json())
-    .then(data => {
-
-      const hp = data.homepage || data;
-
-      if (hp.topStories) loadTopStories(hp.topStories);
-      if (hp.latestEditorialHistorical) loadLatestEditorialHistorical(hp.latestEditorialHistorical);
-      if (hp.jammuKashmir) loadJammuKashmir(hp.jammuKashmir);
-      if (hp.international) loadInternational(hp.international);
-      if (hp.humanRights) loadHumanRights(hp.humanRights);
-
-    })
-    .catch(err => console.error("Index JSON error:", err));
-
+*,
+*::before,
+*::after {
+box-sizing: border-box;
 }
 
+/* ========== BASE ========== */
 
-// ============================
-// LOAD TOP STORIES
-// ============================
-
-function loadTopStories(section) {
-
-  if (section.lead) loadArticleToCard(section.lead, "lead-media", "lead-body");
-  if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
-  if (section.opinion) loadArticleToCard(section.opinion, "opinion-media", "opinion-body");
-
+body {
+margin: 0;
+font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+background: #f5f5f5;
+color: #222;
 }
 
-
-// ============================
-// LOAD LATEST / EDITORIAL / HISTORICAL
-// ============================
-
-function loadLatestEditorialHistorical(section) {
-
-  if (section.latest) loadArticleToCard(section.latest, "leh1-media", "leh1-body");
-  if (section.editorial) loadArticleToCard(section.editorial, "leh2-media", "leh2-body");
-  if (section.historical) loadArticleToCard(section.historical, "leh3-media", "leh3-body");
-
+.theme-maroon {
+background: #f5f5f5;
+color: #222;
 }
 
-
-// ============================
-// LOAD JAMMU KASHMIR
-// ============================
-
-function loadJammuKashmir(ids) {
-
-  if (!Array.isArray(ids)) return;
-
-  if (ids[0]) loadArticleToCard(ids[0], "jk1-media", "jk1-body");
-  if (ids[1]) loadArticleToCard(ids[1], "jk2-media", "jk2-body");
-
+.page-shell {
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
 }
 
+/* ========== HEADER ========== */
 
-// ============================
-// LOAD INTERNATIONAL
-// ============================
-
-function loadInternational(ids) {
-
-  if (!Array.isArray(ids)) return;
-
-  if (ids[0]) loadArticleToCard(ids[0], "intl1-media", "intl1-body");
-  if (ids[1]) loadArticleToCard(ids[1], "intl2-media", "intl2-body");
-
+.site-header {
+text-align: center;
+background: #ffffff;
+border-bottom: 3px solid #800000;
+padding: 10px;
 }
 
-
-// ============================
-// LOAD HUMAN RIGHTS
-// ============================
-
-function loadHumanRights(ids) {
-
-  if (!Array.isArray(ids)) return;
-
-  if (ids[0]) loadArticleToCard(ids[0], "hr1-media", "hr1-body");
-  if (ids[1]) loadArticleToCard(ids[1], "hr2-media", "hr2-body");
-
+.site-title {
+margin: 0;
+font-size: 2rem;
 }
 
-
-// ============================
-// UNIVERSAL ARTICLE LOADER
-// ============================
-
-function loadArticleToCard(articleId, mediaId, bodyId) {
-
-  fetch(`content/${articleId}.json`)
-    .then(r => r.json())
-    .then(article => {
-      renderArticleCard(mediaId, bodyId, article, true);
-    })
-    .catch(err => console.error(`Error loading ${articleId}:`, err));
-
+.subheading {
+font-size: 0.9rem;
+color: #555;
 }
 
+/* ========== BARS (CLOCKS / WEATHER / TICKER) ========== */
 
-// ============================
-// LOADER
-// ============================
-
-function initLoader() {
-
-  const loader = document.getElementById("site-loader");
-
-  if (!loader) return;
-
-  setTimeout(() => {
-
-    loader.style.opacity = "0";
-
-    setTimeout(() => loader.style.display = "none", 300);
-
-  }, 800);
-
+.bar {
+background: #ffffff;
+padding: 6px 10px;
+border-bottom: 1px solid #ddd;
 }
 
-
-// ============================
-// FOOTER YEAR
-// ============================
-
-function initYear() {
-
-  const y = document.getElementById("year");
-
-  if (y) y.textContent = new Date().getFullYear();
-
+.row {
+display: flex;
+gap: 6px;
+flex-wrap: wrap;
+justify-content: center;
 }
 
-
-// ============================
-// CLOCKS
-// ============================
-
-function initClocks() {
-
-  updateClocks();
-  setInterval(updateClocks, 1000);
-
+.chip {
+background: #eee;
+padding: 4px 8px;
+border-radius: 20px;
+font-size: 0.75rem;
 }
 
-function updateClocks() {
-
-  const now = new Date();
-
-  const cestEl = document.querySelector("#clock-cest span");
-
-  if (cestEl) {
-
-    cestEl.textContent = now.toLocaleString("en-GB", {
-      weekday:"long",
-      year:"numeric",
-      month:"long",
-      day:"numeric",
-      hour:"2-digit",
-      minute:"2-digit",
-      second:"2-digit"
-    });
-
-  }
-
-  const istEl = document.querySelector("#tz-ist span");
-
-  if (istEl) {
-
-    istEl.textContent = new Date().toLocaleTimeString("en-IN", {
-      timeZone:"Asia/Kolkata",
-      hour:"2-digit",
-      minute:"2-digit",
-      second:"2-digit"
-    });
-
-  }
-
-  const pktEl = document.querySelector("#tz-pkt span");
-
-  if (pktEl) {
-
-    pktEl.textContent = new Date().toLocaleTimeString("en-PK", {
-      timeZone:"Asia/Karachi",
-      hour:"2-digit",
-      minute:"2-digit",
-      second:"2-digit"
-    });
-
-  }
-
+.chip.tiny {
+font-size: 0.7rem;
 }
 
+/* ===== Ticker base ===== */
 
-// ============================
-// HIJRI CALENDAR
-// ============================
-
-function updateHijri() {
-
-  const hijriEl = document.querySelector("#cal-hijri span");
-  if (!hijriEl) return;
-
-  try {
-
-    const now = new Date();
-
-    const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
-      day:"numeric",
-      month:"long",
-      year:"numeric"
-    }).format(now);
-
-    hijriEl.textContent = hijriDate;
-
-  } catch {
-
-    hijriEl.textContent = "Hijri calendar";
-
-  }
-
+.ticker-wrap {
+background: #800000;
+color: #fff;
+overflow: hidden;
+border-top: 1px solid #600;
+border-bottom: 1px solid #600;
 }
 
-
-// ============================
-// VIKRAM SAMVAT
-// ============================
-
-function updateVikramSamvat() {
-
-  const vsEl = document.querySelector("#cal-hindi span");
-  if (!vsEl) return;
-
-  const now = new Date();
-  const vsYear = now.getFullYear()+57;
-
-  const months = [
-    "Chaitra","Vaishakha","Jyeshtha","Ashadha",
-    "Shravana","Bhadrapada","Ashwin","Kartika",
-    "Margashirsha","Pausha","Magha","Phalguna"
-  ];
-
-  vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${vsYear} VS`;
-
+.ticker {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 2px 8px;
+min-height: 24px;
+font-size: 12px;
+flex-wrap: nowrap;
+overflow: hidden;
 }
 
-
-// ============================
-// WEATHER BAR
-// ============================
-
-function initWeatherBar() {
-
-  const bar = document.getElementById("weather-bar");
-  if (!bar) return;
-
-  const cities = [
-
-    {name:"Zurich",temp:"6°C"},
-    {name:"Rawalakot",temp:"9°C"},
-    {name:"Jammu",temp:"18°C"},
-    {name:"Kashmir",temp:"4°C"},
-    {name:"Ladakh",temp:"-2°C"},
-    {name:"Gilgit",temp:"3°C"},
-    {name:"Baltistan",temp:"-1°C"},
-    {name:"Muzaffarabad",temp:"10°C"}
-
-  ];
-
-  bar.innerHTML = cities.map(c=>`
-    <div class="chip tiny">
-      🌡️ ${c.name}: <strong>${c.temp}</strong>
-    </div>
-  `).join("");
-
+.ticker-label {
+font-weight: 700;
+font-size: 12px;
+letter-spacing: .05em;
+white-space: nowrap;
+flex-shrink: 0;
 }
 
-
-// ============================
-// TICKER
-// ============================
-
-function initTicker() {
-
-  fetch("content/index.json")
-    .then(r=>r.json())
-    .then(data=>{
-
-      const ul=document.getElementById("ticker-items");
-      if(!ul) return;
-
-      const items=data.ticker || [];
-
-      ul.innerHTML = items.map(t=>`<li>${t}</li>`).join("");
-
-    })
-    .catch(()=>{});
-
+.ticker ul {
+display: flex;
+gap: 24px;
+list-style: none;
+margin: 0;
+padding: 0;
+white-space: nowrap;
+animation: ticker-scroll 90s linear infinite;
+flex-shrink: 0;
+min-width: 100%;
 }
 
-
-// ============================
-// NAVIGATION
-// ============================
-
-function initNav() {
-
-  const hamburger=document.getElementById("hamburger");
-  const navList=document.getElementById("nav-list");
-  const mobileMenu=document.getElementById("mobile-menu");
-
-  if(!hamburger || !navList || !mobileMenu) return;
-
-  hamburger.addEventListener("click",()=>{
-
-    const expanded=hamburger.getAttribute("aria-expanded")==="true";
-
-    hamburger.setAttribute("aria-expanded",String(!expanded));
-
-    if(expanded){
-
-      mobileMenu.hidden=true;
-      mobileMenu.innerHTML="";
-
-    }else{
-
-      mobileMenu.hidden=false;
-      mobileMenu.innerHTML=navList.innerHTML;
-
-    }
-
-  });
-
+.ticker ul li {
+font-size: 12px;
+line-height: 1;
 }
 
-
-// ============================
-// CONTACT MODAL
-// ============================
-
-function initContactModal(){
-
-  const openBtn=document.getElementById("contact-open");
-  const closeBtn=document.getElementById("contact-close");
-  const modal=document.getElementById("contact-modal");
-
-  if(!openBtn || !closeBtn || !modal) return;
-
-  openBtn.addEventListener("click",()=>modal.classList.remove("hidden"));
-  closeBtn.addEventListener("click",()=>modal.classList.add("hidden"));
-
-  modal.addEventListener("click",(e)=>{
-    if(e.target===modal) modal.classList.add("hidden");
-  });
-
+.tools {
+display: flex;
+align-items: center;
+gap: 6px;
+white-space: nowrap;
+flex-shrink: 0;
 }
 
-
-// ============================
-// VLOGS
-// ============================
-
-function initVlogs(){
-
-  const grid=document.getElementById("vlogs-grid");
-  if(!grid) return;
-
-  const vlogs=[
-    {title:"Kashmir Protest Highlights",duration:"4:32"},
-    {title:"Diaspora Voices on Human Rights",duration:"6:10"},
-    {title:"Brief History of Jammu & Kashmir",duration:"8:45"}
-  ];
-
-  grid.innerHTML=vlogs.map(v=>`
-    <article class="card">
-      <div class="vlog-thumb">
-        <div class="play-icon">▶</div>
-      </div>
-      <div class="card-body">
-        <h3>${v.title}</h3>
-        <p>Duration: ${v.duration}</p>
-      </div>
-    </article>
-  `).join("");
-
+@keyframes ticker-scroll {
+0% {
+transform: translateX(0);
+}
+100% {
+transform: translateX(-50%);
+}
 }
 
+/* ========== NAVBAR ========== */
 
-// ============================
-// HOMEPAGE CARD RENDERER
-// ============================
-
-function renderArticleCard(mediaId,bodyId,article){
-
-  const mediaEl=document.getElementById(mediaId);
-  const bodyEl=document.getElementById(bodyId);
-
-  if(!mediaEl || !bodyEl) return;
-
-  if(article.heroImage && article.heroImage.src){
-    mediaEl.innerHTML=`<img src="${article.heroImage.src}" alt="">`;
-  }
-
-  bodyEl.innerHTML=`
-    <h3>${article.title}</h3>
-    <p>${article.excerpt || article.summary || ""}</p>
-    <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
-  `;
-
+.navbar {
+background: #111;
+color: #ffffff;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 8px 10px;
+position: relative;
 }
 
-
-// ============================
-// ARTICLE PAGE INITIALISATION
-// ============================
-
-function initArticlePage(){
-
-  const params=new URLSearchParams(window.location.search);
-  const id=params.get("id");
-  if(!id) return;
-
-  fetch(`content/${id}.json`)
-    .then(r=>r.json())
-    .then(article=>renderFullArticlePage(article));
-
+.hamburger {
+display: none;
+background: none;
+border: 1px solid #444;
+color: #ffffff;
+padding: 4px 8px;
+margin-right: 10px;
+cursor: pointer;
+font-size: 0.9rem;
 }
 
+.nav-list {
+display: flex;
+gap: 8px;
+list-style: none;
+margin: 0;
+padding: 0;
+}
 
-// ============================
-// FULL ARTICLE RENDERER
-// ============================
+.nav-item {
+position: relative;
+}
 
-function renderFullArticlePage(article){
+.nav-btn,
+.nav-item > a.nav-btn {
+background: none;
+border: none;
+color: #ffffff;
+padding: 6px 10px;
+cursor: pointer;
+font-size: 0.9rem;
+text-decoration: none;
+display: inline-flex;
+align-items: center;
+gap: 4px;
+}
 
-  const sectionLabel=document.getElementById("section-label");
-  if(sectionLabel) sectionLabel.textContent=article.category || "THE MIRROR JAMMU KASHMIR";
+.nav-btn:hover,
+.nav-item > a.nav-btn:hover {
+background: #222;
+}
 
-  const pageTitle=document.getElementById("page-title");
-  if(pageTitle) pageTitle.textContent=`${article.title} | THE MIRROR JAMMU KASHMIR`;
+/* Dropdown */
 
-  const titleEl=document.getElementById("title");
-  if(titleEl) titleEl.textContent=article.title;
+.dropdown {
+display: none;
+position: absolute;
+top: 100%;
+left: 0;
+background: #222;
+min-width: 180px;
+z-index: 20;
+flex-direction: column;
+padding: 4px 0;
+}
 
-  const metaEl=document.getElementById("meta");
+.dropdown.wide {
+min-width: 220px;
+}
 
-  if(metaEl){
+.dropdown a {
+color: #ffffff;
+text-decoration: none;
+padding: 6px 10px;
+font-size: 0.85rem;
+display: block;
+}
 
-    const dateObj=new Date(article.date);
+.dropdown a:hover {
+background: #333;
+}
 
-    const day=dateObj.toLocaleString("en-GB",{weekday:"long"});
-    const dateStr=dateObj.toLocaleDateString("en-GB",{year:"numeric",month:"long",day:"numeric"});
-    const timeStr=dateObj.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
+.nav-item:hover .dropdown {
+display: flex;
+}
 
-    metaEl.innerHTML=`
-      <strong>${article.location}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
-      By <em>${article.author}</em>
-    `;
+/* Mobile menu */
 
-  }
+.mobile-menu {
+display: none;
+background: #111;
+color: #ffffff;
+padding: 8px 10px;
+}
 
-  const heroImg=document.getElementById("heroImg");
-  const heroCaption=document.getElementById("heroCaption");
-  const heroWrap=document.getElementById("heroWrap");
+.mobile-menu a {
+display: block;
+color: #ffffff;
+text-decoration: none;
+padding: 6px 0;
+}
 
-  if(article.heroImage && article.heroImage.src){
+/* ========== CARDS / GRID ========== */
 
-    heroImg.src=article.heroImage.src;
-    heroCaption.textContent=article.heroImage.caption || "";
+.cards {
+display: grid;
+gap: 16px;
+}
 
-  }else if(heroWrap){
+.cards.three {
+grid-template-columns: repeat(3, 1fr);
+}
 
-    heroWrap.style.display="none";
+.cards.two {
+grid-template-columns: repeat(2, 1fr);
+}
 
-  }
+.card {
+background: #ffffff;
+border: 1px solid #ddd;
+overflow: hidden;
+}
 
-  const contentEl=document.getElementById("content");
-  if(!contentEl) return;
+.media {
+min-height: 150px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
 
-  contentEl.innerHTML="";
+.media.maroon {
+background: #800000;
+color: #ffffff;
+}
 
-  article.body.forEach(block=>{
+.media img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+aspect-ratio: 16 / 9;
+}
 
-    if(block.type==="paragraph"){
-      contentEl.innerHTML+=`<p>${block.text}</p>`;
-    }
+.card-body {
+padding: 12px;
+}
 
-    if(block.type==="subheading"){
-      contentEl.innerHTML+=`<h2 class="mid-subheading">${block.text}</h2>`;
-    }
+.card-body h3 {
+margin-top: 0;
+}
 
-    if(block.type==="pullquote"){
-      contentEl.innerHTML+=`<div class="pull-quote">${block.text}</div>`;
-    }
+/* Section titles */
 
-    if(block.type==="points"){
-      contentEl.innerHTML+=`
-        <div class="important-points">
-          <ul>
-            ${block.items.map(i=>`<li>${i}</li>`).join("")}
-          </ul>
-        </div>
-      `;
-    }
+.section-title {
+margin: 24px 0 10px;
+font-weight: 700;
+}
 
-    if(block.type==="image"){
+.red-bar {
+border-left: 6px solid #800000;
+padding-left: 10px;
+}
 
-      const alignClass=block.align==="right"?"img-right":"img-left";
+/* Vlogs */
 
-      contentEl.innerHTML+=`
-        <figure class="${alignClass}">
-          <img src="${block.src}" alt="">
-          <figcaption>${block.caption || ""}</figcaption>
-        </figure>
-      `;
-    }
+.vlogs-grid {
+grid-template-columns: repeat(3, 1fr);
+}
 
-  });
+.vlog-thumb {
+background: #111;
+color: #ffffff;
+display: flex;
+align-items: center;
+justify-content: center;
+min-height: 160px;
+}
 
+.play-icon {
+background: #c00;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #ffffff;
+}
+
+/* Buttons */
+
+.btn-red {
+background: #800000;
+color: #ffffff;
+border: none;
+padding: 6px 12px;
+cursor: pointer;
+font-size: 0.9rem;
+}
+
+.btn-red:hover {
+background: #a00000;
+}
+
+/* ========== ARTICLE PAGES ========== */
+
+.article-page .page-shell {
+max-width: 900px;
+}
+
+.article-container {
+display: block;
+}
+
+.article-shell {
+background: #ffffff;
+border: 1px solid #ddd;
+padding: 20px;
+}
+
+.article-header h1 {
+margin-top: 0;
+}
+
+.article-meta {
+font-size: 0.85rem;
+color: #666;
+}
+
+/* Hero */
+
+.article-hero {
+margin: 20px 0;
+}
+
+.article-hero img {
+width: 100%;
+height: auto;
+display: block;
+}
+
+.article-hero figcaption {
+font-size: 0.8rem;
+color: #555;
+margin-top: 4px;
+}
+
+/* Content */
+
+.article-content {
+line-height: 1.6;
+font-size: 0.95rem;
+}
+
+.article-content p {
+margin: 0 0 1em;
+}
+
+/* Important points */
+
+.important-points {
+border-left: 4px solid #800000;
+background: #fdf5f5;
+padding: 10px 12px;
+margin: 20px 0;
+}
+
+.important-points ul {
+margin: 0;
+padding-left: 18px;
+}
+
+/* ===== ARTICLE INLINE IMAGE FIX ===== */
+
+.article-content figure {
+max-width: 100%;
+}
+
+.article-content img {
+max-width: 100%;
+height: auto;
+display: block;
+}
+
+.img-left {
+float: left;
+width: 38%;
+margin: 12px 20px 12px 0;
+}
+
+.img-right {
+float: right;
+width: 38%;
+margin: 12px 0 12px 20px;
+}
+
+.article-content::after {
+content: "";
+display: block;
+clear: both;
+}
+
+/* Page actions */
+
+.page-actions {
+margin-top: 24px;
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+align-items: center;
+}
+
+.page-actions button,
+.page-actions input {
+font-size: 0.85rem;
+}
+
+.subscribe-input {
+padding: 4px 8px;
+border: 1px solid #ccc;
+}
+
+/* ========== FORMS / CONTACT / NEWSLETTER / EPAPER ========== */
+
+.newsletter-form,
+.epaper-form {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+align-items: center;
+}
+
+.newsletter-form input,
+.epaper-form input {
+padding: 4px 8px;
+border: 1px solid #ccc;
+flex: 1 1 200px;
+}
+
+/* Contact modal */
+
+.modal {
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, 0.6);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 100;
+}
+
+.modal.hidden {
+display: none;
+}
+
+.modal-content {
+background: #ffffff;
+padding: 20px;
+max-width: 400px;
+width: 100%;
+}
+
+.modal-content input,
+.modal-content textarea {
+width: 100%;
+margin-bottom: 8px;
+padding: 6px 8px;
+border: 1px solid #ccc;
+font-size: 0.9rem;
+}
+
+/* ========== FOOTER (WHITE TEXT) ========== */
+
+.footer {
+background: #111;
+color: #ffffff;
+text-align: center;
+padding: 14px;
+}
+
+.footer p {
+color: #ffffff;
+margin: 6px 0 0;
+}
+
+.footer .social {
+margin-bottom: 6px;
+}
+
+.footer .social a {
+color: #ffffff;
+text-decoration: none;
+margin: 0 6px;
+font-size: 0.9rem;
+}
+
+.footer .social a:hover {
+color: #dddddd;
+}
+
+/* ========== LOADER (INDEX) ========== */
+
+#site-loader {
+position: fixed;
+inset: 0;
+background: #111;
+color: #ffffff;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 200;
+transition: opacity 0.3s ease;
+}
+
+.loader-inner {
+text-align: center;
+}
+
+.loader-title {
+font-weight: 700;
+margin-bottom: 10px;
+}
+
+.loader-bar {
+width: 220px;
+height: 4px;
+background: #333;
+margin: 0 auto 8px;
+overflow: hidden;
+}
+
+.loader-progress {
+width: 40%;
+height: 100%;
+background: #800000;
+animation: loader-move 1.2s linear infinite;
+}
+
+@keyframes loader-move {
+0% {
+transform: translateX(-100%);
+}
+100% {
+transform: translateX(250%);
+}
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 900px) {
+.cards.three {
+grid-template-columns: repeat(2, 1fr);
+}
+.vlogs-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+}
+
+@media (max-width: 700px) {
+.cards.three,
+.cards.two {
+grid-template-columns: 1fr;
+}
+.nav-list {
+display: none;
+}
+.hamburger {
+display: inline-block;
+}
+.mobile-menu {
+display: block;
+}
+.image-left,
+.image-right {
+float: none;
+max-width: 100%;
+margin: 10px 0;
+}
+}
+
+/* Duplicate safety for floats (kept for compatibility) */
+
+.img-left {
+float: left;
+width: 38%;
+margin: 10px 20px 10px 0;
+}
+
+.img-right {
+float: right;
+width: 38%;
+margin: 10px 0 10px 20px;
+}
+
+.pull-points {
+background: #f6f6f6;
+border-left: 4px solid #900;
+padding: 15px;
+margin: 20px 0;
+}
+
+/* ===== ABOUT PAGE HERO FLOAT RIGHT ===== */
+
+.about-hero {
+float: right;
+width: 38%;
+margin: 12px 0 12px 20px;
+}
+
+.about-hero img {
+width: 100%;
+height: auto;
+display: block;
+}
+
+.about-hero figcaption {
+font-size: 0.8rem;
+color: #555;
+margin-top: 4px;
+}
+
+/* ============================
+BBC / Reuters Style Captions
+============================ */
+
+figure {
+margin: 25px 0;
+}
+
+figure figcaption {
+font-family: "Georgia", "Times New Roman", serif;
+font-size: 0.85rem;
+color: #555;
+line-height: 1.4;
+margin-top: 6px;
+text-align: left;
+}
+
+/* ============================
+Mid-Article Subheading
+============================ */
+
+.mid-subheading {
+font-family: "Georgia", "Times New Roman", serif;
+font-size: 1.45rem;
+font-weight: 600;
+margin: 40px 0 20px;
+color: #222;
+line-height: 1.3;
+}
+
+/* ============================
+Pull Quote (Reuters Style)
+============================ */
+
+.pull-quote {
+font-family: "Georgia", "Times New Roman", serif;
+font-size: 1.4rem;
+font-weight: 600;
+color: #333;
+background: #f7f7f7;
+border-left: 4px solid #c00;
+padding: 25px;
+margin: 40px 0;
+line-height: 1.4;
+}
+
+/* ============================
+Important Points (Enhanced)
+============================ */
+
+.important-points {
+background: #fafafa;
+border-left: 4px solid #c00;
+padding: 18px 22px;
+margin: 30px 0;
+font-family: "Georgia", "Times New Roman", serif;
+}
+
+.important-points ul li {
+margin-bottom: 6px;
+font-size: 1.05rem;
+}
+
+/* ============================
+Article Body Typography (BBC/Reuters style)
+aligned with master article HTML (#content)
+============================ */
+
+.article-page #content {
+font-family: "Georgia", "Times New Roman", serif;
+}
+
+.article-page #content p {
+font-size: 1.125rem;
+line-height: 1.8;
+margin-bottom: 18px;
+color: #111;
 }
