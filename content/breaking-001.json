@@ -1,47 +1,28 @@
  {
-  "id": "breaking-001",
-  "slug": "ukpnp-delegation-briefs-british-mps-london-parliament-kashmir-crisis",
+  "id": "blog-001",
+  "slug": "blog-ukpnp-briefs-british-mps-london-25-november-2025",
   "title": "UKPNP High Level Delegation Briefs British MPs on Kashmir Crisis and Current Situation in London House of Parliament",
-  "category": "breaking",
-  "sectionLabel": "🆕 BREAKING NEWS",
-  "excerpt": "A high-level UKPNP delegation led by Sardar Shaukat Ali Kashmiri briefed British MPs in the House of Parliament on the Kashmir crisis, human rights concerns, and the current political situation.",
-  "author": "London Correspondent",
+  "category": "blog",
+  "sectionLabel": "📝 OPINION & BLOG",
+  "excerpt": "A high level UKPNP delegation led by Sardar Shaukat Ali Kashmiri briefed British MPs in the House of Parliament on the Kashmir crisis, historical context, and current developments.",
+  "author": "Special Correspondent, London UK",
   "location": "London, United Kingdom",
-  "date": "2026-02-10T14:00:00Z",
-  "readTime": "6 min read",
+  "date": "2025-11-25T10:00:00Z",
+  "readTime": "14 min read",
   "heroImage": {
-    "src": "content/ukpnp-london-01.jpg",
-    "caption": "UKPNP delegation meeting British MPs inside the UK Parliament.",
+    "src": "content/images/blog-ukpnp-mps-01.jpg",
+    "caption": "UKPNP delegation briefing British MPs at the House of Parliament.",
     "credit": "The Mirror Jammu Kashmir"
   },
   "archive": false,
   "body": [
     {
       "type": "paragraph",
-      "text": "A high-level delegation of the United Kashmir People's National Party (UKPNP) met British Members of Parliament in the House of Commons to brief them on the ongoing Kashmir crisis and the deteriorating human rights situation."
+      "text": "A high level delegation of the United Kashmir People’s National Party, led by Sardar Shaukat Ali Kashmiri, met and briefed British Parliament Members Fabian Hamilton MP, Richard Burgon MP, Imran Hussain MP, and others at the House of Parliament in London."
     },
     {
       "type": "paragraph",
-      "text": "The delegation, led by UKPNP Chairman Sardar Shaukat Ali Kashmiri, highlighted concerns regarding political repression, enforced disappearances, restrictions on civil liberties, and the humanitarian impact of communication blackouts."
-    },
-    {
-      "type": "image",
-      "src": "content/ukpnp-london-02.jpg",
-      "align": "right",
-      "caption": "Delegation members presenting documents to MPs.",
-      "credit": "UKPNP Media Cell"
-    },
-    {
-      "type": "paragraph",
-      "text": "British MPs expressed serious concern over the reports and called for renewed international attention to the region. They emphasized the importance of peaceful dialogue, democratic rights, and the protection of civilians."
-    },
-    {
-      "type": "paragraph",
-      "text": "The UKPNP delegation urged the British government to raise the issue at the United Nations and other international forums, stressing that the people of Jammu & Kashmir deserve justice, dignity, and fundamental freedoms."
-    },
-    {
-      "type": "paragraph",
-      "text": "The meeting concluded with a commitment to continue engagement and ensure that the voices of the people of Jammu & Kashmir are heard at the highest levels of global diplomacy."
+      "text": "The UKPNP delegation headed by Sardar Shaukat Ali Kashmiri included Sardar Nasir Aziz Khan, Central Spokesperson UKPNP, Mahmood Kashmiri, Senior Leader UKPNP and Chairman JKNIA, Sardar Tariq Khan, President UK Chapter, and Sardar Tikka Khan Tahir, Central Secretary Information. The delegation briefed MPs on the current situation in Jammu and Kashmir."
     }
   ]
 }
