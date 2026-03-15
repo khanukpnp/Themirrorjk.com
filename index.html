@@ -1,77 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Mirror Jammu Kashmir</title>
+    <link rel="stylesheet" href="styles.css?v=27">
+</head>
+
+<body>
+
 <header id="site-header">
 
 <!-- ===========================
      TOP BAR (UPDATED)
 =========================== -->
-
-<style>
-/* Unified top bar */
-.top-bar {
-    background:#111;
-    color:#f5f5f5;
-    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    padding:6px 14px;
-    border-bottom:2px solid #b30000;
-}
-
-/* Line 1: calendars + clocks + language bar */
-.top-bar-line {
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    justify-content:space-between;
-    font-size:13px;
-    white-space:nowrap;
-    gap:10px;
-}
-
-/* Left side of line 1 */
-.top-bar-left {
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    gap:10px;
-}
-
-/* Right side of line 1 (language bar) */
-.top-bar-right {
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
-
-.top-bar-right .lang-btn {
-    background:#222;
-    border:1px solid #444;
-    color:#fff;
-    padding:2px 6px;
-    font-size:12px;
-    cursor:pointer;
-}
-
-.top-bar-right .lang-btn.active {
-    background:#b30000;
-    border-color:#b30000;
-}
-
-/* Line 2: weather */
-.top-bar-weather {
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    gap:10px;
-    margin-top:4px;
-    font-size:13px;
-}
-
-.top-bar-weather strong {
-    font-weight:600;
-}
-
-.separator {
-    opacity:0.4;
-}
-</style>
 
 <div class="top-bar">
 
@@ -127,7 +69,7 @@
 </div>
 
 <!-- ===========================
-     SLOGAN (UNCHANGED)
+     SLOGAN
 =========================== -->
 
 <div class="slogan-banner">
@@ -140,10 +82,11 @@
 </div>
 
 <!-- ===========================
-     NAVIGATION (UNCHANGED)
+     NAVIGATION
 =========================== -->
 
 <div class="nav-bar">
+
     <div class="logo-area">
         <span class="site-logo-text">THE MIRROR JAMMU KASHMIR</span>
     </div>
@@ -177,10 +120,11 @@
             <button id="search-btn">🔍</button>
         </div>
     </div>
+
 </div>
 
 <!-- ===========================
-     TICKER (UNCHANGED)
+     TICKER
 =========================== -->
 
 <div class="ticker-bar">
@@ -194,466 +138,283 @@
 <main id="main-content">
 
 <!-- ========== TOP STORIES (3 WINDOWS) ========== -->
-
 <section id="top-stories" class="section-block">
 
-<div class="section-header">
+    <div class="section-header">
+        <span class="section-icon">📰</span>
+        <h2>TOP STORIES</h2>
+    </div>
 
-<span class="section-icon">📰</span>
+    <div id="top-stories-grid" class="card-grid card-grid-3">
 
-<h2>TOP STORIES</h2>
+        <!-- Lead Story -->
+        <div class="card" data-slot="lead">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-breaking">Lead Story</div>
+                <h3 class="card-title">Top story will appear here</h3>
+                <p class="card-excerpt">Lead story will be loaded dynamically.</p>
+            </div>
+        </div>
 
-</div>
+        <!-- Breaking -->
+        <div class="card" data-slot="breaking">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-breaking">Breaking</div>
+                <h3 class="card-title">Breaking news will appear here</h3>
+                <p class="card-excerpt">Breaking updates will be loaded dynamically.</p>
+            </div>
+        </div>
 
-<div id="top-stories-grid" class="card-grid card-grid-3">
+        <!-- Opinion -->
+        <div class="card" data-slot="opinion">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-editorial">Opinion</div>
+                <h3 class="card-title">Opinion article will appear here</h3>
+                <p class="card-excerpt">Opinion and analysis will be loaded dynamically.</p>
+            </div>
+        </div>
 
-<!-- Lead Story -->
-
-<div class="card" data-slot="lead">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-breaking">Lead Story</div>
-
-<h3 class="card-title">Top story will appear here</h3>
-
-<p class="card-excerpt">Lead story will be loaded dynamically.</p>
-
-</div>
-
-</div>
-
-<!-- Breaking -->
-
-<div class="card" data-slot="breaking">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-breaking">Breaking</div>
-
-<h3 class="card-title">Breaking news will appear here</h3>
-
-<p class="card-excerpt">Breaking updates will be loaded dynamically.</p>
-
-</div>
-
-</div>
-
-<!-- Opinion -->
-
-<div class="card" data-slot="opinion">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-editorial">Opinion</div>
-
-<h3 class="card-title">Opinion article will appear here</h3>
-
-<p class="card-excerpt">Opinion and analysis will be loaded dynamically.</p>
-
-</div>
-
-</div>
-
-</div>
-
+    </div>
 </section>
 
 <!-- ========== LATEST / EDITORIAL / HISTORICAL (3 WINDOWS) ========== -->
-
 <section id="latest-editorial-historical" class="section-block">
 
-<div class="section-header">
+    <div class="section-header">
+        <span class="section-icon">🕒</span>
+        <h2>LATEST · EDITORIAL · HISTORICAL</h2>
+    </div>
 
-<span class="section-icon">🕒</span>
+    <div class="card-grid card-grid-3" id="leh-grid">
 
-<h2>LATEST · EDITORIAL · HISTORICAL</h2>
+        <!-- Latest -->
+        <div class="card" data-slot="latest">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-latest">Latest</div>
+                <h3 class="card-title">Latest update will appear here</h3>
+                <p class="card-excerpt">Fresh coverage will be loaded dynamically.</p>
+            </div>
+        </div>
 
-</div>
+        <!-- Editorial -->
+        <div class="card" data-slot="editorial">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-editorial">Editorial</div>
+                <h3 class="card-title">Editorial will appear here</h3>
+                <p class="card-excerpt">Opinion and analysis will be loaded dynamically.</p>
+            </div>
+        </div>
 
-<div class="card-grid card-grid-3" id="leh-grid">
+        <!-- Historical -->
+        <div class="card" data-slot="historical">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-historical">Historical</div>
+                <h3 class="card-title">Historical feature coming soon</h3>
+                <p class="card-excerpt">Archival and historical content will be added.</p>
+            </div>
+        </div>
 
-<!-- Latest -->
-
-<div class="card" data-slot="latest">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-latest">Latest</div>
-
-<h3 class="card-title">Latest update will appear here</h3>
-
-<p class="card-excerpt">Fresh coverage will be loaded dynamically.</p>
-
-</div>
-
-</div>
-
-<!-- Editorial -->
-
-<div class="card" data-slot="editorial">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-editorial">Editorial</div>
-
-<h3 class="card-title">Editorial will appear here</h3>
-
-<p class="card-excerpt">Opinion and analysis will be loaded dynamically.</p>
-
-</div>
-
-</div>
-
-<!-- Historical -->
-
-<div class="card" data-slot="historical">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-historical">Historical</div>
-
-<h3 class="card-title">Historical feature coming soon</h3>
-
-<p class="card-excerpt">Archival and historical content will be added.</p>
-
-</div>
-
-</div>
-
-</div>
-
+    </div>
 </section>
 
 <!-- ========== JAMMU & KASHMIR (2 WINDOWS) ========== -->
-
 <section id="jk-section" class="section-block">
 
-<div class="section-header">
+    <div class="section-header">
+        <span class="section-icon">📍</span>
+        <h2>JAMMU &amp; KASHMIR</h2>
+    </div>
 
-<span class="section-icon">📍</span>
+    <div id="jk-grid" class="card-grid card-grid-2">
 
-<h2>JAMMU &amp; KASHMIR</h2>
+        <div class="card placeholder-card">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-jk">Coming Soon</div>
+                <h3>Reporting from Jammu &amp; Kashmir will appear here</h3>
+                <p>In-depth coverage from the region will be added.</p>
+            </div>
+        </div>
 
-</div>
+        <div class="card placeholder-card">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-jk">Coming Soon</div>
+                <h3>Additional coverage will be added</h3>
+                <p>More reports and features will be published.</p>
+            </div>
+        </div>
 
-<div id="jk-grid" class="card-grid card-grid-2">
-
-<div class="card placeholder-card">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-jk">Coming Soon</div>
-
-<h3>Reporting from Jammu &amp; Kashmir will appear here</h3>
-
-<p>In-depth coverage from the region will be added.</p>
-
-</div>
-
-</div>
-
-<div class="card placeholder-card">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-jk">Coming Soon</div>
-
-<h3>Additional coverage will be added</h3>
-
-<p>More reports and features will be published.</p>
-
-</div>
-
-</div>
-
-</div>
-
+    </div>
 </section>
 
 <!-- ========== VLOGS (BETWEEN JK AND INTERNATIONAL) ========== -->
-
 <section id="vlogs-section" class="section-block">
 
-<div class="section-header">
+    <div class="section-header">
+        <span class="section-icon">🎥</span>
+        <h2>VIDEO REPORTS &amp; VLOGS</h2>
+    </div>
 
-<span class="section-icon">🎥</span>
+    <p class="section-intro">
+        In-depth reports, exclusive interviews, and documentary-style coverage from Jammu &amp; Kashmir and beyond.
+    </p>
 
-<h2>VIDEO REPORTS &amp; VLOGS</h2>
+    <div class="vlog-filters">
+        <button class="vlog-filter-btn active" data-filter="all">⭐ All</button>
+        <button class="vlog-filter-btn" data-filter="interview">🎤 Interview</button>
+        <button class="vlog-filter-btn" data-filter="current-affairs">📰 Current Affairs</button>
+        <button class="vlog-filter-btn" data-filter="analysis">📊 Analysis</button>
+        <button class="vlog-filter-btn" data-filter="culture">🎭 Culture</button>
+        <button class="vlog-filter-btn" data-filter="forum">💬 Forum</button>
+        <button class="vlog-filter-btn" data-filter="feature">🎬 Feature</button>
+    </div>
 
-</div>
+    <div id="vlogs-grid" class="card-grid card-grid-3">
 
-<p class="section-intro">
+        <div class="card placeholder-card">
+            <div class="card-thumb placeholder-thumb vlog-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-vlog">Vlog</div>
+                <h3>Vlog content will appear here</h3>
+                <p>Video reports and interviews will be loaded from YouTube.</p>
+            </div>
+        </div>
 
-In-depth reports, exclusive interviews, and documentary-style coverage from Jammu &amp; Kashmir and beyond.
+        <div class="card placeholder-card">
+            <div class="card-thumb placeholder-thumb vlog-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-vlog">Vlog</div>
+                <h3>Vlog content will appear here</h3>
+                <p>Video reports and interviews will be loaded from YouTube.</p>
+            </div>
+        </div>
 
-</p>
+        <div class="card placeholder-card">
+            <div class="card-thumb placeholder-thumb vlog-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-vlog">Vlog</div>
+                <h3>Vlog content will appear here</h3>
+                <p>Video reports and interviews will be loaded from YouTube.</p>
+            </div>
+        </div>
 
-<div class="vlog-filters">
+    </div>
 
-<button class="vlog-filter-btn active" data-filter="all">⭐ All</button>
-
-<button class="vlog-filter-btn" data-filter="interview">🎤 Interview</button>
-
-<button class="vlog-filter-btn" data-filter="current-affairs">📰 Current Affairs</button>
-
-<button class="vlog-filter-btn" data-filter="analysis">📊 Analysis</button>
-
-<button class="vlog-filter-btn" data-filter="culture">🎭 Culture</button>
-
-<button class="vlog-filter-btn" data-filter="forum">💬 Forum</button>
-
-<button class="vlog-filter-btn" data-filter="feature">🎬 Feature</button>
-
-</div>
-
-<div id="vlogs-grid" class="card-grid card-grid-3">
-
-<!-- Filled dynamically from vlogs JSON -->
-
-<div class="card placeholder-card">
-
-<div class="card-thumb placeholder-thumb vlog-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-vlog">Vlog</div>
-
-<h3>Vlog content will appear here</h3>
-
-<p>Video reports and interviews will be loaded from YouTube.</p>
-
-</div>
-
-</div>
-
-<div class="card placeholder-card">
-
-<div class="card-thumb placeholder-thumb vlog-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-vlog">Vlog</div>
-
-<h3>Vlog content will appear here</h3>
-
-<p>Video reports and interviews will be loaded from YouTube.</p>
-
-</div>
-
-</div>
-
-<div class="card placeholder-card">
-
-<div class="card-thumb placeholder-thumb vlog-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-vlog">Vlog</div>
-
-<h3>Vlog content will appear here</h3>
-
-<p>Video reports and interviews will be loaded from YouTube.</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="vlog-actions">
-
-<a href="vlog.html" class="btn-secondary">View All Vlogs</a>
-
-<a href="https://www.youtube.com" target="_blank" class="btn-primary">
-
-Visit Channel
-
-</a>
-
-</div>
+    <div class="vlog-actions">
+        <a href="vlog.html" class="btn-secondary">View All Vlogs</a>
+        <a href="https://www.youtube.com" target="_blank" class="btn-primary">Visit Channel</a>
+    </div>
 
 </section>
 
 <!-- ========== INTERNATIONAL (2 WINDOWS) ========== -->
-
 <section id="international-section" class="section-block">
 
-<div class="section-header">
+    <div class="section-header">
+        <span class="section-icon">🌍</span>
+        <h2>INTERNATIONAL</h2>
+    </div>
 
-<span class="section-icon">🌍</span>
+    <div id="international-grid" class="card-grid card-grid-2">
 
-<h2>INTERNATIONAL</h2>
+        <div class="card placeholder-card">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-international">Coming Soon</div>
+                <h3>International coverage will appear here</h3>
+                <p>Global developments and analysis will be added.</p>
+            </div>
+        </div>
 
-</div>
+        <div class="card placeholder-card">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-international">Coming Soon</div>
+                <h3>Additional international reports will be added</h3>
+                <p>More stories from around the world.</p>
+            </div>
+        </div>
 
-<div id="international-grid" class="card-grid card-grid-2">
-
-<div class="card placeholder-card">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-international">Coming Soon</div>
-
-<h3>International coverage will appear here</h3>
-
-<p>Global developments and analysis will be added.</p>
-
-</div>
-
-</div>
-
-<div class="card placeholder-card">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-international">Coming Soon</div>
-
-<h3>Additional international reports will be added</h3>
-
-<p>More stories from around the world.</p>
-
-</div>
-
-</div>
-
-</div>
-
+    </div>
 </section>
 
 <!-- ========== HUMAN RIGHTS (2 WINDOWS) ========== -->
-
 <section id="human-rights-section" class="section-block">
 
-<div class="section-header">
+    <div class="section-header">
+        <span class="section-icon">❤️</span>
+        <h2>HUMAN RIGHTS</h2>
+    </div>
 
-<span class="section-icon">❤️</span>
+    <div id="human-rights-grid" class="card-grid card-grid-2">
 
-<h2>HUMAN RIGHTS</h2>
+        <div class="card placeholder-card">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-humanrights">Coming Soon</div>
+                <h3>Human rights coverage will appear here</h3>
+                <p>Reports, testimonies, and advocacy updates will be added.</p>
+            </div>
+        </div>
 
-</div>
+        <div class="card placeholder-card">
+            <div class="card-thumb placeholder-thumb"></div>
+            <div class="card-body">
+                <div class="card-category cat-humanrights">Coming Soon</div>
+                <h3>Additional human rights reports will be added</h3>
+                <p>More stories from the ground and international forums.</p>
+            </div>
+        </div>
 
-<div id="human-rights-grid" class="card-grid card-grid-2">
-
-<div class="card placeholder-card">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-humanrights">Coming Soon</div>
-
-<h3>Human rights coverage will appear here</h3>
-
-<p>Reports, testimonies, and advocacy updates will be added.</p>
-
-</div>
-
-</div>
-
-<div class="card placeholder-card">
-
-<div class="card-thumb placeholder-thumb"></div>
-
-<div class="card-body">
-
-<div class="card-category cat-humanrights">Coming Soon</div>
-
-<h3>Additional human rights reports will be added</h3>
-
-<p>More stories from the ground and international forums.</p>
-
-</div>
-
-</div>
-
-</div>
-
+    </div>
 </section>
 
-<!-- ========== MODERN CARD BLOCK: ARCHIVE / E-PAPER / SUBSCRIBE / CONTACT ========== -->
-
+<!-- ========== EXPLORE & CONNECT (4 CARDS) ========== -->
 <section id="services-section" class="section-block">
 
-<div class="section-header">
+    <div class="section-header">
+        <span class="section-icon">📚</span>
+        <h2>EXPLORE &amp; CONNECT</h2>
+    </div>
 
-<span class="section-icon">📚</span>
+    <div class="card-grid card-grid-4">
 
-<h2>EXPLORE &amp; CONNECT</h2>
+        <div class="card service-card">
+            <div class="service-icon">📚</div>
+            <h3>Archive</h3>
+            <p>Browse all past coverage by category and date.</p>
+            <a href="archive.html" class="btn-link">Open Archive →</a>
+        </div>
 
-</div>
+        <div class="card service-card">
+            <div class="service-icon">📄</div>
+            <h3>E-Paper</h3>
+            <p>Access digital editions and downloadable PDFs.</p>
+            <a href="epaper.html" class="btn-link">View E-Paper →</a>
+        </div>
 
-<div class="card-grid card-grid-4">
+        <div class="card service-card">
+            <div class="service-icon">✉️</div>
+            <h3>Newsletter</h3>
+            <p>Subscribe for curated updates and key stories.</p>
+            <a href="subscribe.html" class="btn-link">Subscribe →</a>
+        </div>
 
-<div class="card service-card">
+        <div class="card service-card">
+            <div class="service-icon">☎️</div>
+            <h3>Contact</h3>
+            <p>Reach our editorial and advocacy teams.</p>
+            <a href="contact.html" class="btn-link">Get in Touch →</a>
+        </div>
 
-<div class="service-icon">📚</div>
-
-<h3>Archive</h3>
-
-<p>Browse all past coverage by category and date.</p>
-
-<a href="archive.html" class="btn-link">Open Archive →</a>
-
-</div>
-
-<div class="card service-card">
-
-<div class="service-icon">📄</div>
-
-<h3>E-Paper</h3>
-
-<p>Access digital editions and downloadable PDFs.</p>
-
-<a href="epaper.html" class="btn-link">View E-Paper →</a>
-
-</div>
-
-<div class="card service-card">
-
-<div class="service-icon">✉️</div>
-
-<h3>Newsletter</h3>
-
-<p>Subscribe for curated updates and key stories.</p>
-
-<a href="subscribe.html" class="btn-link">Subscribe →</a>
-
-</div>
-
-<div class="card service-card">
-
-<div class="service-icon">☎️</div>
-
-<h3>Contact</h3>
-
-<p>Reach our editorial and advocacy teams.</p>
-
-<a href="contact.html" class="btn-link">Get in Touch →</a>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
@@ -662,38 +423,29 @@ Visit Channel
 
 <footer id="site-footer">
 
-<div class="footer-inner">
+    <div class="footer-inner">
 
-<div class="footer-left">
+        <div class="footer-left">
+            <p>&copy; <span id="footer-year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+            <p>Independent, rights-based journalism and advocacy for Jammu &amp; Kashmir and beyond.</p>
+        </div>
 
-<p>&copy; <span id="footer-year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+        <div class="footer-right">
+            <a href="about.html">About</a> ·
+            <a href="privacy.html">Privacy</a> ·
+            <a href="terms.html">Terms</a> ·
+            <a href="contact.html">Contact</a>
+        </div>
 
-<p>Independent, rights-based journalism and advocacy for Jammu &amp; Kashmir and beyond.</p>
-
-</div>
-
-<div class="footer-right">
-
-<a href="about.html">About</a> ·
-
-<a href="privacy.html">Privacy</a> ·
-
-<a href="terms.html">Terms</a> ·
-
-<a href="contact.html">Contact</a>
-
-</div>
-
-</div>
+    </div>
 
 </footer>
 
 <!-- ================= SCRIPTS ================= -->
 
-<script src="script.js?v=26"></script>
+<script src="script.js?v=27"></script>
 
 <script>
-
 // Footer year
 document.getElementById('footer-year').textContent = new Date().getFullYear();
 
@@ -703,9 +455,7 @@ document.querySelectorAll('.vlog-filter-btn').forEach(btn => {
         document.querySelectorAll('.vlog-filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const filter = btn.getAttribute('data-filter');
-        if (window.filterVlogs) {
-            window.filterVlogs(filter);
-        }
+        if (window.filterVlogs) window.filterVlogs(filter);
     });
 });
 
@@ -722,7 +472,6 @@ if (window.loadInternationalSection) window.loadInternationalSection('#internati
 if (window.loadHumanRightsSection) window.loadHumanRightsSection('#human-rights-grid');
 if (window.loadVlogs) window.loadVlogs('#vlogs-grid');
 if (window.loadBreakingTicker) window.loadBreakingTicker('#breaking-ticker');
-
 </script>
 
 </body>
