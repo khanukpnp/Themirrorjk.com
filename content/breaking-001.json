@@ -1,157 +1,135 @@
  {
-  "id": "breaking-001",
-  "slug": "ukpnp-meets-baroness-emma-nicholson-london-house-of-lords",
-  "title": "UKPNP Delegation Meets Baroness Emma Nicholson in London to Discuss Kashmir Crisis and Political Developments",
-  "category": "breaking",
-  "sectionLabel": "🟥 BREAKING NEWS",
-  "excerpt": "A high level UKPNP delegation led by Sardar Shaukat Ali Kashmiri held a detailed meeting with Baroness Emma Nicholson in London to discuss the Kashmir conflict, human rights situation, and international engagement.",
-  "author": "Special Correspondent",
-  "location": "London, United Kingdom",
-  "date": "2025-11-26T11:00:00Z",
-  "readTime": "16 min read",
+"id":"breaking-001",
+"slug":"ukpnp-meets-baroness-emma-nicholson-london-house-of-lords",
+"title":"UKPNP Delegation Meets Baroness Emma Nicholson in London to Discuss Kashmir Crisis and Political Developments",
+"category":"breaking",
+"sectionLabel":"🟥 BREAKING NEWS",
+"excerpt":"A high level UKPNP delegation led by Sardar Shaukat Ali Kashmiri held a meeting with Baroness Emma Nicholson in London to discuss the Kashmir conflict and political developments across the region.",
+"author":"Special Correspondent",
+"location":"London, United Kingdom",
+"date":"2025-11-26T11:00:00Z",
+"readTime":"16 min read",
 
-  "heroImage": {
-    "src": "content/images/breaking-emma-meeting-01.jpg",
-    "caption": "UKPNP delegation meeting Baroness Emma Nicholson in London.",
-    "credit": "The Mirror Jammu Kashmir"
-  },
+"heroImage":{
+"src":"content/images/london-ukpnp-01.jpg",
+"caption":"UKPNP delegation meeting Baroness Emma Nicholson in London.",
+"credit":"The Mirror Jammu Kashmir"
+},
 
-  "archive": false,
+"archive":false,
 
-  "body": [
+"body":[
 
-    {
-      "type": "points",
-      "items": [
-        "UKPNP delegation met Baroness Emma Nicholson in London House of Lords.",
-        "Delegation discussed the Kashmir conflict and political developments across all regions.",
-        "The 2007 European Parliament Kashmir Report was highlighted as a key international reference.",
-        "Delegation raised concerns over the 2019 constitutional changes in Indian administered regions.",
-        "Situation in Azad Kashmir and Gilgit Baltistan was described as politically restricted.",
-        "UKPNP called for renewed international engagement and respect for UN resolutions."
-      ]
-    },
+{
+"type":"points",
+"items":[
+"UKPNP delegation met Baroness Emma Nicholson in London House of Lords",
+"Delegation discussed the Kashmir conflict and developments across all regions",
+"The 2007 European Parliament Kashmir Report highlighted as key international document",
+"Concerns raised about political rights and constitutional developments",
+"Call made for renewed international engagement on Kashmir"
+]
+},
 
-    {
-      "type": "paragraph",
-      "text": "A high level delegation of the United Kashmir People’s National Party, UKPNP, led by its Exiled Chairman Sardar Shaukat Ali Kashmiri, held a formal meeting and briefing with Baroness Emma Nicholson, Member of the House of Lords of the United Kingdom. The meeting took place in London and focused on political conditions across the historical State of Jammu and Kashmir, including human rights challenges and developments since the adoption of the European Parliament’s 2007 Kashmir report."
-    },
+{
+"type":"paragraph",
+"text":"A high level delegation of the United Kashmir People’s National Party, UKPNP, led by its Exiled Chairman Sardar Shaukat Ali Kashmiri held a formal meeting and briefing with Baroness Emma Nicholson, Member of the House of Lords of the United Kingdom."
+},
 
-    {
-      "type": "image",
-      "src": "content/images/breaking-emma-meeting-02.jpg",
-      "caption": "Delegation members during the briefing session in London.",
-      "align": "right"
-    },
+{
+"type":"image",
+"src":"content/images/london-ukpnp-02.jpg",
+"caption":"Members of the UKPNP delegation during the meeting in London.",
+"align":"right"
+},
 
-    {
-      "type": "paragraph",
-      "text": "Baroness Nicholson has played a significant role in international discussions on Kashmir. She served as Member of the European Parliament, Rapporteur on Kashmir, and Vice President of the European Parliament Committee on Foreign Affairs, Human Rights, Common Defence and Security Policy. Her report on Kashmir adopted in May 2007 by 522 votes to 9 remains one of the most influential international documents on the issue."
-    },
+{
+"type":"paragraph",
+"text":"The meeting focused on political conditions in the historical State of Jammu and Kashmir and recent developments affecting the region. Baroness Nicholson has long been associated with international engagement on Kashmir and previously served as Rapporteur on Kashmir in the European Parliament."
+},
 
-    {
-      "type": "subheading",
-      "text": "Delegation Members and Briefing Agenda"
-    },
+{
+"type":"subheading",
+"text":"Delegation Members and Briefing Agenda"
+},
 
-    {
-      "type": "paragraph",
-      "text": "The UKPNP delegation included Sardar Nasir Aziz Khan, Central Spokesperson UKPNP, Mahmood Kashmiri, Member Central Committee UKPNP, Sardar Tikka Khan Tahir, Central Secretary Information UKPNP, Sardar Amjad Yousaf, President UKPNP Europe Zone, Sardar Tariq Khan, President UKPNP UK Zone, Raja Sarfraz, General Secretary UKPNP UK Zone, and Sajjad Hussain, President UKPNP London."
-    },
+{
+"type":"paragraph",
+"text":"The UKPNP delegation included Sardar Nasir Aziz Khan, Central Spokesperson UKPNP, Mahmood Kashmiri, Member Central Committee UKPNP, Sardar Tikka Khan Tahir, Central Secretary Information UKPNP, Sardar Amjad Yousaf, President UKPNP Europe Zone, Sardar Tariq Khan, President UKPNP UK Zone, Raja Sarfraz, General Secretary UKPNP UK Zone and Sajjad Hussain, President UKPNP London."
+},
 
-    {
-      "type": "paragraph",
-      "text": "During the meeting, the delegation compared the findings of the 2007 European Parliament report with current developments across Jammu, Kashmir, Ladakh, Gilgit Baltistan, and Azad Jammu and Kashmir."
-    },
+{
+"type":"paragraph",
+"text":"During the meeting the delegation compared the findings of the 2007 European Parliament report with current developments across Jammu, Kashmir, Ladakh, Gilgit Baltistan and Azad Jammu and Kashmir."
+},
 
-    {
-      "type": "pullquote",
-      "text": "The people of Jammu and Kashmir must remain central to any political process regarding the future of the region."
-    },
+{
+"type":"pullquote",
+"text":"The people of Jammu and Kashmir must remain central to any political process regarding the future of the region."
+},
 
-    {
-      "type": "subheading",
-      "text": "Concerns Over Constitutional Changes and Political Rights"
-    },
+{
+"type":"subheading",
+"text":"Political Developments Since 2019"
+},
 
-    {
-      "type": "paragraph",
-      "text": "The delegation explained that Indian administered Jammu and Kashmir and Ladakh enjoyed a special constitutional status until August 2019, when the Government of India abrogated Article 370 and Article 35A. These constitutional changes reorganised the region and created two union territories, leading to widespread political debate and concern about representation and governance."
-    },
+{
+"type":"paragraph",
+"text":"The delegation explained that Indian administered Jammu and Kashmir and Ladakh held a special constitutional status until August 2019 when the Government of India abrogated Article 370 and Article 35A and reorganised the region into two union territories."
+},
 
-    {
-      "type": "image",
-      "src": "content/images/breaking-emma-meeting-03.jpg",
-      "caption": "Discussion during the UKPNP delegation meeting.",
-      "align": "left"
-    },
+{
+"type":"paragraph",
+"text":"While Indian administered regions have stronger infrastructure and democratic institutions, the delegation said the constitutional changes created concerns about democratic representation and political rights."
+},
 
-    {
-      "type": "paragraph",
-      "text": "The delegation said that while Indian administered regions have stronger infrastructure, media presence, and democratic institutions, the 2019 changes represented a setback for political rights and democratic representation. The Jammu and Kashmir Assembly has since passed resolutions calling for restoration of special status and statehood."
-    },
+{
+"type":"subheading",
+"text":"Situation in Azad Kashmir and Gilgit Baltistan"
+},
 
-    {
-      "type": "subheading",
-      "text": "Situation in Azad Kashmir and Gilgit Baltistan"
-    },
+{
+"type":"paragraph",
+"text":"The delegation informed Baroness Nicholson that Azad Kashmir and Gilgit Baltistan remain under strong administrative control from Islamabad and lack representation in Pakistan’s National Assembly and Senate."
+},
 
-    {
-      "type": "paragraph",
-      "text": "The delegation informed Baroness Nicholson that Azad Kashmir and Gilgit Baltistan remain under strong administrative control from Islamabad and lack representation in Pakistan’s National Assembly and Senate. The regions have rich natural resources and receive significant remittances from diaspora communities, yet political and economic decision making remains limited."
-    },
+{
+"type":"paragraph",
+"text":"They said nationalist political parties face restrictions and candidates must sign declarations supporting accession to Pakistan before participating in elections."
+},
 
-    {
-      "type": "paragraph",
-      "text": "The delegation also raised concerns about restrictions on nationalist political parties, limitations on civil liberties, and the requirement that candidates sign declarations supporting accession to Pakistan before participating in elections."
-    },
+{
+"type":"pullquote",
+"text":"There is no military solution to the Kashmir conflict. Dialogue and respect for human rights remain essential."
+},
 
-    {
-      "type": "pullquote",
-      "text": "There is no military solution to the Kashmir conflict. Dialogue and respect for human rights remain essential."
-    },
+{
+"type":"subheading",
+"text":"Future Dialogue and International Engagement"
+},
 
-    {
-      "type": "subheading",
-      "text": "Diaspora Engagement and Youth Participation"
-    },
+{
+"type":"paragraph",
+"text":"The delegation stressed that the State of Jammu and Kashmir historically existed as a single political entity until 1947 and remains one of the longest unresolved international disputes."
+},
 
-    {
-      "type": "paragraph",
-      "text": "Baroness Nicholson welcomed the briefing and emphasised the importance of well educated and politically engaged Kashmiri youth in the diaspora. The delegation agreed and noted that younger generations are increasingly active in international politics and human rights advocacy."
-    },
+{
+"type":"paragraph",
+"text":"UKPNP leaders called for renewed international engagement based on United Nations resolutions and recommendations of the European Parliament report."
+},
 
-    {
-      "type": "paragraph",
-      "text": "The delegation also discussed challenges faced by secular and democratic voices in the region and the spread of misinformation within diaspora communities."
-    },
+{
+"type":"paragraph",
+"text":"Baroness Nicholson welcomed the briefing and expressed readiness to continue discussions and engagement on the Kashmir issue."
+}
 
-    {
-      "type": "subheading",
-      "text": "International Engagement and Future Dialogue"
-    },
+],
 
-    {
-      "type": "paragraph",
-      "text": "The delegation stressed that the State of Jammu and Kashmir was established in 1846 under the Treaty of Amritsar and existed as a single political entity until 1947. Since the partition of British India, the region has remained divided and continues to be one of the longest unresolved international disputes."
-    },
+"engagement":{
+"like":true,
+"subscribe":true,
+"share":true,
+"copyLink":true
+}
 
-    {
-      "type": "paragraph",
-      "text": "UKPNP leaders called for renewed international engagement based on the recommendations of the 2007 European Parliament report and United Nations resolutions. They urged governments and international institutions to prioritise human rights, freedom of movement, and democratic participation across all regions of Jammu and Kashmir."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "Baroness Nicholson expressed readiness to continue discussions and acknowledged that significant political developments have taken place since the 2007 report, making further international dialogue necessary."
-    }
-
-  ],
-
-  "engagement": {
-    "like": true,
-    "subscribe": true,
-    "share": true,
-    "copyLink": true
-  }
 }
