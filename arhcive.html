@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Archive – THE MIRROR JAMMU KASHMIR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css?v=26" />
+</head>
+
+<body class="theme-maroon">
+
+<header class="archive-header">
+  <h1>ARCHIVE</h1>
+  <p class="archive-subtitle">Browse all past coverage by category</p>
+</header>
+
+<main class="archive-main">
+
+  <!-- ================= TOP STORIES ARCHIVE ================= -->
+  <section class="archive-section" id="archive-topstories">
+    <div class="archive-section-header">
+      <span class="archive-icon">📰</span>
+      <h2>Top Stories</h2>
+    </div>
+
+    <div class="archive-grid" id="topstories-archive-grid">
+      <!-- Cards loaded dynamically -->
+    </div>
+
+    <div class="pagination" id="topstories-pagination"></div>
+  </section>
+
+  <!-- ================= LATEST ARCHIVE ================= -->
+  <section class="archive-section" id="archive-latest">
+    <div class="archive-section-header">
+      <span class="archive-icon">🕒</span>
+      <h2>Latest</h2>
+    </div>
+
+    <div class="archive-grid" id="latest-archive-grid">
+      <!-- Cards loaded dynamically -->
+    </div>
+
+    <div class="pagination" id="latest-pagination"></div>
+  </section>
+
+  <!-- ================= JAMMU & KASHMIR ARCHIVE ================= -->
+  <section class="archive-section" id="archive-jk">
+    <div class="archive-section-header">
+      <span class="archive-icon">📍</span>
+      <h2>Jammu & Kashmir</h2>
+    </div>
+
+    <div class="archive-grid" id="jk-archive-grid">
+      <!-- Cards loaded dynamically -->
+    </div>
+
+    <div class="pagination" id="jk-pagination"></div>
+  </section>
+
+  <!-- ================= INTERNATIONAL ARCHIVE ================= -->
+  <section class="archive-section" id="archive-international">
+    <div class="archive-section-header">
+      <span class="archive-icon">🌍</span>
+      <h2>International</h2>
+    </div>
+
+    <div class="archive-grid" id="international-archive-grid">
+      <!-- Cards loaded dynamically -->
+    </div>
+
+    <div class="pagination" id="international-pagination"></div>
+  </section>
+
+  <!-- ================= HUMAN RIGHTS ARCHIVE ================= -->
+  <section class="archive-section" id="archive-humanrights">
+    <div class="archive-section-header">
+      <span class="archive-icon">❤️</span>
+      <h2>Human Rights</h2>
+    </div>
+
+    <div class="archive-grid" id="humanrights-archive-grid">
+      <!-- Cards loaded dynamically -->
+    </div>
+
+    <div class="pagination" id="humanrights-pagination"></div>
+  </section>
+
+</main>
+
+<footer class="archive-footer">
+  <p>&copy; <span id="footer-year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+</footer>
+
+<script src="script.js?v=26"></script>
+
+<script>
+  // Footer year
+  document.getElementById("footer-year").textContent = new Date().getFullYear();
+
+  // ===========================
+  // ARCHIVE LOADING HOOKS
+  // ===========================
+  // These functions must exist in script.js:
+  // loadArchiveSection(jsonFile, gridID, paginationID)
+
+  if (window.loadArchiveSection) {
+    window.loadArchiveSection("topstories.json", "#topstories-archive-grid", "#topstories-pagination");
+    window.loadArchiveSection("latest.json", "#latest-archive-grid", "#latest-pagination");
+    window.loadArchiveSection("jk.json", "#jk-archive-grid", "#jk-pagination");
+    window.loadArchiveSection("international.json", "#international-archive-grid", "#international-pagination");
+    window.loadArchiveSection("humanrights.json", "#humanrights-archive-grid", "#humanrights-pagination");
+  }
+</script>
+
+</body>
+</html>
