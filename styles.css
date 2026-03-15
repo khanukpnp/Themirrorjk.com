@@ -172,7 +172,7 @@ a:hover { color: var(--dark-maroon); }
 }
 
 /* ============================================================
-UPDATED TOP BAR (17 MARCH)
+UPDATED TOP BAR (FINAL VERSION)
 ============================================================ */
 
 .top-bar {
@@ -231,6 +231,17 @@ UPDATED TOP BAR (17 MARCH)
 
 .top-bar-weather strong { font-weight:600; }
 .separator { opacity:0.4; }
+
+/* MOBILE TOP BAR FIX */
+@media (max-width: 600px) {
+    .top-bar-line {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .top-bar-right {
+        margin-top: 6px;
+    }
+}
 
 /* SLOGAN */
 .slogan-banner {
@@ -456,6 +467,7 @@ RESPONSIVE (HOMEPAGE)
 ============================================================ */
 
 @media (max-width: 900px) {
+
     .nav-bar {
         flex-direction: column;
         gap: 14px;
