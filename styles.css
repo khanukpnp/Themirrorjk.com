@@ -740,3 +740,146 @@ color:#fff;
 .action-btn .icon{
 font-size:16px;
 }
+
+/* =====================================================
+BBC / REUTERS STYLE ARTICLE LAYOUT IMPROVEMENT
+APPEND AT END OF styles.css
+=====================================================*/
+
+/* Center article layout */
+
+.article-container{
+max-width:1100px;
+margin-left:auto;
+margin-right:auto;
+}
+
+/* Improve article reading column */
+
+.article-body{
+max-width:720px;
+margin-left:auto;
+margin-right:auto;
+}
+
+/* Better paragraph readability */
+
+#content p{
+font-family:Georgia, "Times New Roman", serif;
+font-size:18px;
+line-height:1.85;
+color:#111;
+}
+
+/* Better spacing for headings */
+
+.mid-subheading{
+font-size:1.5rem;
+margin-top:40px;
+margin-bottom:15px;
+font-weight:700;
+font-family:Georgia, "Times New Roman", serif;
+}
+
+/* Improve pull quote style */
+
+.pull-quote{
+font-family:Georgia, "Times New Roman", serif;
+font-size:1.25rem;
+line-height:1.6;
+font-weight:600;
+border-left:4px solid #b30000;
+padding:20px;
+margin:30px 0;
+background:#fafafa;
+}
+
+/* Important points box */
+
+.important-points{
+background:#f6f6f6;
+border-left:4px solid #b30000;
+padding:18px 22px;
+margin:30px 0;
+}
+
+.important-points li{
+margin-bottom:8px;
+font-size:17px;
+}
+
+/* =====================================================
+ARTICLE ACTION BAR (LIKE SHARE SUBSCRIBE)
+=====================================================*/
+
+.article-actions{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:14px;
+margin-top:40px;
+padding-top:25px;
+border-top:1px solid #ddd;
+}
+
+/* buttons */
+
+.action-btn{
+display:flex;
+align-items:center;
+gap:8px;
+padding:10px 18px;
+font-size:14px;
+font-weight:600;
+border-radius:6px;
+border:1px solid #ddd;
+background:#f8f8f8;
+cursor:pointer;
+transition:all .2s ease;
+}
+
+/* hover */
+
+.action-btn:hover{
+background:#8b0000;
+color:#fff;
+border-color:#8b0000;
+}
+
+/* icons */
+
+.action-btn .icon{
+font-size:17px;
+}
+
+/* =====================================================
+MOBILE ARTICLE FIX
+=====================================================*/
+
+@media(max-width:900px){
+
+.article-container{
+flex-direction:column;
+padding:20px;
+}
+
+.article-body{
+width:100%;
+max-width:100%;
+}
+
+.sidebar{
+width:100%;
+border-left:none;
+padding-left:0;
+margin-top:30px;
+}
+
+.img-left,
+.img-right{
+float:none;
+width:100%;
+margin:20px 0;
+}
+
+}
