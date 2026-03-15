@@ -1,10 +1,11 @@
 /* ============================================================
-   PAGE LOADER
+PAGE LOADER
 ============================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
 
   initLoader();
+
   initYear();
 
   updateGregorian();
@@ -19,22 +20,25 @@ document.addEventListener("DOMContentLoaded", () => {
   initVlogs();
 
   // Auto-refresh
+
   setInterval(updateGregorian, 1000);
   setInterval(updateHijri, 60000);
   setInterval(updateBikrami, 60000);
   setInterval(updateClocks, 1000);
 
   // Homepage content loader
+
   loadHomepageIndex();
 
   // Article page loader
+
   loadArticlePage();
 
 });
 
 
 /* ============================================================
-   LOADER
+LOADER
 ============================================================ */
 
 function initLoader() {
@@ -51,7 +55,7 @@ function initLoader() {
 
 
 /* ============================================================
-   FOOTER YEAR
+FOOTER YEAR
 ============================================================ */
 
 function initYear() {
@@ -63,7 +67,7 @@ function initYear() {
 
 
 /* ============================================================
-   GREGORIAN DATE
+GREGORIAN DATE (FULL DATE + TIME)
 ============================================================ */
 
 function updateGregorian() {
@@ -92,7 +96,7 @@ function updateGregorian() {
 
 
 /* ============================================================
-   HIJRI DATE
+HIJRI DATE
 ============================================================ */
 
 function updateHijri() {
@@ -122,7 +126,7 @@ function updateHijri() {
 
 
 /* ============================================================
-   BIKRAMI DATE
+PUNJABI DESI BIKRAMI DATE
 ============================================================ */
 
 function updateBikrami() {
@@ -138,8 +142,11 @@ function updateBikrami() {
   ];
 
   const startMonth = 2;
+
   const month = (now.getMonth() - startMonth + 12) % 12;
+
   const year = now.getFullYear() + 57;
+
   const day = now.getDate();
 
   el.textContent = `${day} ${months[month]} ${year} BK`;
@@ -148,7 +155,7 @@ function updateBikrami() {
 
 
 /* ============================================================
-   CLOCKS
+CLOCKS — CEST / IST / PKT
 ============================================================ */
 
 function updateClocks() {
@@ -189,7 +196,7 @@ function updateClocks() {
 
 
 /* ============================================================
-   WEATHER BAR
+WEATHER BAR
 ============================================================ */
 
 function initWeatherBar() {
@@ -198,27 +205,31 @@ function initWeatherBar() {
   if (!bar) return;
 
   const cities = [
-    {name:"Zurich",temp:"7°C"},
-    {name:"Rawalakot",temp:"9°C"},
-    {name:"Jammu",temp:"18°C"},
-    {name:"Kashmir",temp:"5°C"},
-    {name:"Ladakh",temp:"2°C"},
-    {name:"Gilgit",temp:"3°C"},
-    {name:"Baltistan",temp:"3°C"},
-    {name:"Muzaffarabad",temp:"8°C"}
+    { name: "Zurich", temp: "7°C" },
+    { name: "Rawalakot", temp: "9°C" },
+    { name: "Jammu", temp: "18°C" },
+    { name: "Kashmir", temp: "5°C" },
+    { name: "Ladakh", temp: "2°C" },
+    { name: "Gilgit", temp: "3°C" },
+    { name: "Baltistan", temp: "3°C" },
+    { name: "Muzaffarabad", temp: "8°C" }
   ];
 
-  bar.innerHTML = cities.map(c => `
-    <div class="chip tiny">
-      🌡️ ${c.name}: <strong>${c.temp}</strong>
-    </div>
-  `).join("");
+  bar.innerHTML = cities
+    .map(
+      c => `
+      <div class="chip tiny">
+        🌡️ ${c.name}: <strong>${c.temp}</strong>
+      </div>
+    `
+    )
+    .join("");
 
 }
 
 
 /* ============================================================
-   TICKER
+TICKER
 ============================================================ */
 
 function initTicker() {
@@ -237,7 +248,7 @@ function initTicker() {
 
 
 /* ============================================================
-   NAVIGATION
+NAVIGATION
 ============================================================ */
 
 function initNav() {
@@ -267,7 +278,7 @@ function initNav() {
 
 
 /* ============================================================
-   CONTACT MODAL
+CONTACT MODAL
 ============================================================ */
 
 function initContactModal() {
@@ -289,7 +300,7 @@ function initContactModal() {
 
 
 /* ============================================================
-   VLOGS
+VLOGS
 ============================================================ */
 
 function initVlogs() {
@@ -298,129 +309,196 @@ function initVlogs() {
   if (!grid) return;
 
   const vlogs = [
-    {title:"Kashmir Protest Highlights",duration:"4:32"},
-    {title:"Diaspora Voices on Human Rights",duration:"6:10"},
-    {title:"Brief History of Jammu & Kashmir",duration:"8:45"}
+    { title: "Kashmir Protest Highlights", duration: "4:32" },
+    { title: "Diaspora Voices on Human Rights", duration: "6:10" },
+    { title: "Brief History of Jammu & Kashmir", duration: "8:45" }
   ];
 
-  grid.innerHTML = vlogs.map(v => `
-    <article class="card">
-      <div class="media maroon">▶</div>
-      <div class="card-body">
-        <h3>${v.title}</h3>
-        <p>Duration: ${v.duration}</p>
-      </div>
-    </article>
-  `).join("");
+  grid.innerHTML = vlogs
+    .map(
+      v => `
+      <article class="card">
+        <div class="media maroon">▶</div>
+        <div class="card-body">
+          <h3>${v.title}</h3>
+          <p>Duration: ${v.duration}</p>
+        </div>
+      </article>
+    `
+    )
+    .join("");
 
 }
 
 
 /* ============================================================
-   HOMEPAGE CONTENT LOADER
+HOMEPAGE CONTENT LOADER
 ============================================================ */
 
 function loadHomepageIndex() {
 
   fetch("content/index.json")
-  .then(r => r.json())
-  .then(data => {
 
-    const hp = data.homepage || data;
+    .then(r => r.json())
 
-    if (hp.topStories) loadTopStories(hp.topStories);
-    if (hp.latestEditorialHistorical) loadLatestEditorialHistorical(hp.latestEditorialHistorical);
-    if (hp.jammuKashmir) loadJammuKashmir(hp.jammuKashmir);
-    if (hp.international) loadInternational(hp.international);
-    if (hp.humanRights) loadHumanRights(hp.humanRights);
+    .then(data => {
 
-  })
-  .catch(err => console.error("Index JSON error:", err));
+      const hp = data.homepage || data;
+
+      if (hp.topStories) loadTopStories(hp.topStories);
+
+      if (hp.latestEditorialHistorical) loadLatestEditorialHistorical(hp.latestEditorialHistorical);
+
+      if (hp.jammuKashmir) loadJammuKashmir(hp.jammuKashmir);
+
+      if (hp.international) loadInternational(hp.international);
+
+      if (hp.humanRights) loadHumanRights(hp.humanRights);
+
+    })
+
+    .catch(err => console.error("Index JSON error:", err));
 
 }
 
 
 /* ============================================================
-   TOP STORIES
+TOP STORIES
 ============================================================ */
 
 function loadTopStories(section) {
 
-  if (section.lead) loadArticleToCard(section.lead,"lead-media","lead-body");
-  if (section.breaking) loadArticleToCard(section.breaking,"breaking-media","breaking-body");
-  if (section.opinion) loadArticleToCard(section.opinion,"opinion-media","opinion-body");
+  if (section.lead) loadArticleToCard(section.lead, "lead-media", "lead-body");
+
+  if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
+
+  if (section.opinion) loadArticleToCard(section.opinion, "opinion-media", "opinion-body");
 
 }
 
 
 /* ============================================================
-   UNIVERSAL ARTICLE PAGE LOADER
+UNIVERSAL ARTICLE LOADER
+============================================================ */
+
+function loadArticleToCard(articleId, mediaId, bodyId) {
+
+  fetch(`content/${articleId}.json`)
+
+    .then(r => r.json())
+
+    .then(article => {
+
+      renderArticleCard(mediaId, bodyId, article);
+
+    })
+
+    .catch(err => console.error(`Error loading ${articleId}:`, err));
+
+}
+
+
+/* ============================================================
+RENDER ARTICLE CARD
+============================================================ */
+
+function renderArticleCard(mediaId, bodyId, article) {
+
+  const mediaEl = document.getElementById(mediaId);
+
+  const bodyEl = document.getElementById(bodyId);
+
+  if (!mediaEl || !bodyEl) return;
+
+  if (article.heroImage && article.heroImage.src) {
+
+    mediaEl.innerHTML = `<img src="${article.heroImage.src}" alt="">`;
+
+  }
+
+  bodyEl.innerHTML = `
+
+    <h3>${article.title}</h3>
+
+    <p>${article.excerpt || article.summary || ""}</p>
+
+    <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
+
+  `;
+
+}
+
+
+/* ============================================================
+ARTICLE PAGE LOADER
 ============================================================ */
 
 function loadArticlePage(){
 
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-  if(!id) return;
+const params=new URLSearchParams(window.location.search);
 
-  fetch(`content/${id}.json`)
-  .then(r=>r.json())
-  .then(article=>{
+const id=params.get("id");
 
-    const title = document.getElementById("title");
-    const label = document.getElementById("section-label");
-    const meta = document.getElementById("meta");
-    const heroImg = document.getElementById("heroImg");
-    const heroCaption = document.getElementById("heroCaption");
-    const content = document.getElementById("content");
+if(!id)return;
 
-    if(title) title.textContent = article.title;
-    if(label) label.textContent = article.sectionLabel || "";
+fetch(`content/${id}.json`)
+.then(r=>r.json())
+.then(article=>{
 
-    if(meta){
-      const d = new Date(article.date).toLocaleDateString();
-      meta.textContent = `${article.author} | ${article.location} | ${d} | ${article.readTime}`;
-    }
+const title=document.getElementById("title");
+const label=document.getElementById("section-label");
+const meta=document.getElementById("meta");
+const hero=document.getElementById("heroImg");
+const caption=document.getElementById("heroCaption");
+const content=document.getElementById("content");
 
-    if(heroImg && article.heroImage?.src) heroImg.src = article.heroImage.src;
-    if(heroCaption) heroCaption.textContent = article.heroImage?.caption || "";
+if(!content)return;
 
-    if(!content) return;
+if(title)title.textContent=article.title;
+if(label)label.textContent=article.sectionLabel||"";
 
-    content.innerHTML="";
+if(meta){
+const d=new Date(article.date).toLocaleDateString();
+meta.textContent=`${article.author} | ${article.location} | ${d} | ${article.readTime}`;
+}
 
-    article.body.forEach(block=>{
+if(hero && article.heroImage?.src) hero.src=article.heroImage.src;
+if(caption) caption.textContent=article.heroImage?.caption||"";
 
-      if(block.type==="paragraph"){
-        content.innerHTML += `<p>${block.text}</p>`;
-      }
+content.innerHTML="";
 
-      if(block.type==="subheading"){
-        content.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
-      }
+article.body.forEach(block=>{
 
-      if(block.type==="pullquote"){
-        content.innerHTML += `<div class="pull-quote">${block.text}</div>`;
-      }
+if(block.type==="paragraph"){
+content.innerHTML+=`<p>${block.text}</p>`;
+}
 
-      if(block.type==="points"){
-        content.innerHTML += `
-        <div class="important-points">
-        <ul>${block.items.map(i=>`<li>${i}</li>`).join("")}</ul>
-        </div>`;
-      }
+if(block.type==="subheading"){
+content.innerHTML+=`<h2 class="mid-subheading">${block.text}</h2>`;
+}
 
-      if(block.type==="image"){
-        const align = block.align==="right" ? "img-right":"img-left";
-        content.innerHTML += `
-        <figure class="${align}">
-        <img src="${block.src}">
-        <figcaption>${block.caption||""}</figcaption>
-        </figure>`;
-      }
+if(block.type==="pullquote"){
+content.innerHTML+=`<div class="pull-quote">${block.text}</div>`;
+}
 
-    });
+if(block.type==="points"){
+content.innerHTML+=`
+<div class="important-points">
+<ul>${block.items.map(i=>`<li>${i}</li>`).join("")}</ul>
+</div>`;
+}
 
-  });
+if(block.type==="image"){
+const align=block.align==="right"?"img-right":"img-left";
+content.innerHTML+=`
+<figure class="${align}">
+<img src="${block.src}">
+<figcaption>${block.caption||""}</figcaption>
+</figure>`;
+}
+
+});
+
+});
 
 }
