@@ -1,30 +1,31 @@
-/* ============================================================
-   RENDER ARTICLE CARD (with COMING SOON fallback)
-============================================================ */
-function renderArticleCard(mediaId, bodyId, article) {
-  const mediaEl = document.getElementById(mediaId);
-  const bodyEl = document.getElementById(bodyId);
-
-  if (!mediaEl || !bodyEl) return;
-
-  // If article JSON is missing or empty → show COMING SOON
-  if (!article || !article.title) {
-    mediaEl.innerHTML = `<div class="placeholder maroon">COMING SOON</div>`;
-    bodyEl.innerHTML = `
-      <h3>Coming Soon</h3>
-      <p>Content will appear here.</p>
-    `;
-    return;
-  }
-
-  // Normal article rendering
-  if (article.heroImage && article.heroImage.src) {
-    mediaEl.innerHTML = `<img src="${article.heroImage.src}" alt="">`;
-  }
-
-  bodyEl.innerHTML = `
-    <h3>${article.title}</h3>
-    <p>${article.excerpt || article.summary || ""}</p>
-    <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
-  `;
+{
+  "homepage": {
+    "topStories": {
+      "lead": "article-001",
+      "breaking": "breaking-001",
+      "opinion": "blog-001"
+    },
+    "latestEditorialHistorical": {
+      "latest": "latest-001",
+      "editorial": "editorial-001",
+      "historical": "historical-001"
+    },
+    "jammuKashmir": [
+      "jk-001",
+      "jk-002"
+    ],
+    "international": [
+      "intl-001",
+      "intl-002"
+    ],
+    "humanRights": [
+      "hr-001",
+      "hr-002"
+    ]
+  },
+  "ticker": [
+    "Rawalakot protest intensifies",
+    "UKPNP delegation meets MPs in London",
+    "Human rights report released"
+  ]
 }
