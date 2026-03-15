@@ -972,3 +972,49 @@ figure figcaption {
     font-size: 1.05rem;
   }
 }
+/* ============================
+   FIX NAVIGATION DROPDOWN HIDING
+============================ */
+
+/* Ensure nav bar sits above all sections */
+.nav-bar,
+.main-nav,
+#site-header {
+  position: relative;
+  z-index: 9999 !important;
+  overflow: visible !important;
+}
+
+/* Dropdown menu must float above everything */
+.main-nav .dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  min-width: 180px;
+  padding: 10px 0;
+  display: none;
+  z-index: 99999 !important;
+}
+
+/* Show dropdown on hover */
+.has-dropdown:hover .dropdown {
+  display: block;
+}
+
+/* Dropdown items */
+.main-nav .dropdown li {
+  list-style: none;
+  padding: 8px 14px;
+  white-space: nowrap;
+}
+
+.main-nav .dropdown li a {
+  color: #000;
+  display: block;
+}
+
+.main-nav .dropdown li:hover {
+  background: #f2f2f2;
+}
