@@ -2,30 +2,42 @@
    PAGE LOADER
 ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
-  const loader = document.getElementById("site-loader");
-  if (loader) {
-    setTimeout(() => {
-      loader.style.opacity = "0";
-      setTimeout(() => (loader.style.display = "none"), 600);
-    }, 1200);
-  }
-
+  initLoader();
   initYear();
+
   updateGregorian();
   updateHijri();
   updateBikrami();
   updateClocks();
+
   initWeatherBar();
   initTicker();
   initNav();
   initContactModal();
   initVlogs();
 
+  // Auto-refresh
   setInterval(updateGregorian, 1000);
   setInterval(updateHijri, 60000);
   setInterval(updateBikrami, 60000);
   setInterval(updateClocks, 1000);
+
+  // Homepage content loader
+  loadHomepageIndex();
 });
+
+/* ============================================================
+   LOADER
+============================================================ */
+function initLoader() {
+  const loader = document.getElementById("site-loader");
+  if (!loader) return;
+
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    setTimeout(() => (loader.style.display = "none"), 600);
+  }, 1200);
+}
 
 /* ============================================================
    FOOTER YEAR
@@ -37,19 +49,20 @@ function initYear() {
 
 /* ============================================================
    GREGORIAN DATE (FULL DATE + TIME)
-   Example: Friday, 20 February 2026 at 19:50:20
 ============================================================ */
 function updateGregorian() {
   const el = document.querySelector("#cal-gregorian span");
   if (!el) return;
 
   const now = new Date();
+
   const datePart = now.toLocaleDateString("en-GB", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric"
   });
+
   const timePart = now.toLocaleTimeString("en-GB", {
     hour: "2-digit",
     minute: "2-digit",
@@ -60,7 +73,7 @@ function updateGregorian() {
 }
 
 /* ============================================================
-   HIJRI DATE (Islamic calendar)
+   HIJRI DATE
 ============================================================ */
 function updateHijri() {
   const el = document.querySelector("#cal-hijri span");
@@ -73,14 +86,15 @@ function updateHijri() {
       month: "long",
       year: "numeric"
     }).format(now);
+
     el.textContent = hijriDate;
-  } catch (e) {
+  } catch {
     el.textContent = "Hijri calendar";
   }
 }
 
 /* ============================================================
-   PUNJABI DESI BIKRAMI DATE (Simplified)
+   PUNJABI DESI BIKRAMI DATE
 ============================================================ */
 function updateBikrami() {
   const el = document.querySelector("#cal-bikrami span");
@@ -93,9 +107,9 @@ function updateBikrami() {
     "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"
   ];
 
-  const startMonth = 2; // Chet begins mid‑March (0=Jan,1=Feb,2=Mar)
+  const startMonth = 2; // Chet begins mid-March
   const month = (now.getMonth() - startMonth + 12) % 12;
-  const year = now.getFullYear() + 57; // Bikrami offset
+  const year = now.getFullYear() + 57;
   const day = now.getDate();
 
   el.textContent = `${day} ${months[month]} ${year} BK`;
@@ -107,59 +121,56 @@ function updateBikrami() {
 function updateClocks() {
   const now = new Date();
 
-  // CEST (Europe/Zurich)
+  // CEST
   const cestEl = document.querySelector("#clock-cest span");
   if (cestEl) {
-    const cestTime = now.toLocaleTimeString("en-GB", {
+    cestEl.textContent = now.toLocaleTimeString("en-GB", {
       timeZone: "Europe/Zurich",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit"
     });
-    cestEl.textContent = cestTime;
   }
 
-  // IST (Asia/Kolkata)
+  // IST
   const istEl = document.querySelector("#tz-ist span");
   if (istEl) {
-    const istTime = now.toLocaleTimeString("en-IN", {
+    istEl.textContent = now.toLocaleTimeString("en-IN", {
       timeZone: "Asia/Kolkata",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit"
     });
-    istEl.textContent = istTime;
   }
 
-  // PKT (Asia/Karachi)
+  // PKT
   const pktEl = document.querySelector("#tz-pkt span");
   if (pktEl) {
-    const pktTime = now.toLocaleTimeString("en-PK", {
+    pktEl.textContent = now.toLocaleTimeString("en-PK", {
       timeZone: "Asia/Karachi",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit"
     });
-    pktEl.textContent = pktTime;
   }
 }
 
 /* ============================================================
-   WEATHER BAR (STATIC SAMPLE, MATCHING YOUR CITIES)
+   WEATHER BAR
 ============================================================ */
 function initWeatherBar() {
   const bar = document.getElementById("weather-bar");
   if (!bar) return;
 
   const cities = [
-    { name: "Zurich",       temp: "7°C"  },
-    { name: "Rawalakot",    temp: "9°C"  },
-    { name: "Jammu",        temp: "18°C" },
-    { name: "Kashmir",      temp: "5°C"  },
-    { name: "Ladakh",       temp: "2°C"  },
-    { name: "Gilgit",       temp: "3°C"  },
-    { name: "Baltistan",    temp: "3°C"  },
-    { name: "Muzaffarabad", temp: "8°C"  }
+    { name: "Zurich", temp: "7°C" },
+    { name: "Rawalakot", temp: "9°C" },
+    { name: "Jammu", temp: "18°C" },
+    { name: "Kashmir", temp: "5°C" },
+    { name: "Ladakh", temp: "2°C" },
+    { name: "Gilgit", temp: "3°C" },
+    { name: "Baltistan", temp: "3°C" },
+    { name: "Muzaffarabad", temp: "8°C" }
   ];
 
   bar.innerHTML = cities
@@ -174,7 +185,7 @@ function initWeatherBar() {
 }
 
 /* ============================================================
-   TICKER (DUMMY PLACEHOLDER ITEMS)
+   TICKER
 ============================================================ */
 function initTicker() {
   const ul = document.getElementById("ticker-items");
@@ -189,7 +200,7 @@ function initTicker() {
 }
 
 /* ============================================================
-   NAVIGATION (MOBILE MENU)
+   NAVIGATION
 ============================================================ */
 function initNav() {
   const hamburger = document.getElementById("hamburger");
@@ -247,9 +258,7 @@ function initVlogs() {
     .map(
       v => `
       <article class="card">
-        <div class="media maroon">
-          ▶
-        </div>
+        <div class="media maroon">▶</div>
         <div class="card-body">
           <h3>${v.title}</h3>
           <p>Duration: ${v.duration}</p>
@@ -258,4 +267,102 @@ function initVlogs() {
     `
     )
     .join("");
+}
+
+/* ============================================================
+   HOMEPAGE CONTENT LOADER
+============================================================ */
+function loadHomepageIndex() {
+  fetch("content/index.json")
+    .then(r => r.json())
+    .then(data => {
+      const hp = data.homepage || data;
+
+      if (hp.topStories) loadTopStories(hp.topStories);
+      if (hp.latestEditorialHistorical) loadLatestEditorialHistorical(hp.latestEditorialHistorical);
+      if (hp.jammuKashmir) loadJammuKashmir(hp.jammuKashmir);
+      if (hp.international) loadInternational(hp.international);
+      if (hp.humanRights) loadHumanRights(hp.humanRights);
+    })
+    .catch(err => console.error("Index JSON error:", err));
+}
+
+/* ============================================================
+   TOP STORIES
+============================================================ */
+function loadTopStories(section) {
+  if (section.lead) loadArticleToCard(section.lead, "lead-media", "lead-body");
+  if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
+  if (section.opinion) loadArticleToCard(section.opinion, "opinion-media", "opinion-body");
+}
+
+/* ============================================================
+   LATEST / EDITORIAL / HISTORICAL
+============================================================ */
+function loadLatestEditorialHistorical(section) {
+  if (section.latest) loadArticleToCard(section.latest, "leh1-media", "leh1-body");
+  if (section.editorial) loadArticleToCard(section.editorial, "leh2-media", "leh2-body");
+  if (section.historical) loadArticleToCard(section.historical, "leh3-media", "leh3-body");
+}
+
+/* ============================================================
+   JAMMU KASHMIR
+============================================================ */
+function loadJammuKashmir(ids) {
+  if (!Array.isArray(ids)) return;
+
+  if (ids[0]) loadArticleToCard(ids[0], "jk1-media", "jk1-body");
+  if (ids[1]) loadArticleToCard(ids[1], "jk2-media", "jk2-body");
+}
+
+/* ============================================================
+   INTERNATIONAL
+============================================================ */
+function loadInternational(ids) {
+  if (!Array.isArray(ids)) return;
+
+  if (ids[0]) loadArticleToCard(ids[0], "intl1-media", "intl1-body");
+  if (ids[1]) loadArticleToCard(ids[1], "intl2-media", "intl2-body");
+}
+
+/* ============================================================
+   HUMAN RIGHTS
+============================================================ */
+function loadHumanRights(ids) {
+  if (!Array.isArray(ids)) return;
+
+  if (ids[0]) loadArticleToCard(ids[0], "hr1-media", "hr1-body");
+  if (ids[1]) loadArticleToCard(ids[1], "hr2-media", "hr2-body");
+}
+
+/* ============================================================
+   UNIVERSAL ARTICLE LOADER
+============================================================ */
+function loadArticleToCard(articleId, mediaId, bodyId) {
+  fetch(`content/${articleId}.json`)
+    .then(r => r.json())
+    .then(article => {
+      renderArticleCard(mediaId, bodyId, article);
+    })
+    .catch(err => console.error(`Error loading ${articleId}:`, err));
+}
+
+/* ============================================================
+   RENDER ARTICLE CARD
+============================================================ */
+function renderArticleCard(mediaId, bodyId, article) {
+  const mediaEl = document.getElementById(mediaId);
+  const bodyEl = document.getElementById(bodyId);
+
+  if (!mediaEl || !bodyEl) return;
+
+  if (article.heroImage && article.heroImage.src) {
+    mediaEl.innerHTML = `<img src="${article.heroImage.src}" alt="">`;
+  }
+
+  bodyEl.innerHTML = `
+    <h3>${article.title}</h3>
+    <p>${article.excerpt || article.summary || ""}</p>
+    <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
+  `;
 }
