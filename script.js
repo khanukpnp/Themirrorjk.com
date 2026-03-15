@@ -366,3 +366,100 @@ function renderArticleCard(mediaId, bodyId, article) {
     <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
   `;
 }
+
+/* ============================================================
+   ARTICLE PAGE LOADER
+============================================================ */
+
+function loadArticlePage() {
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
+  if (!id) return;
+
+  fetch(`content/${id}.json`)
+    .then(r => r.json())
+    .then(article => {
+
+      const titleEl = document.getElementById("title");
+      const labelEl = document.getElementById("section-label");
+      const metaEl = document.getElementById("meta");
+      const heroImg = document.getElementById("heroImg");
+      const heroCaption = document.getElementById("heroCaption");
+      const contentEl = document.getElementById("content");
+
+      if (!contentEl) return;
+
+      if (titleEl) titleEl.textContent = article.title;
+      if (labelEl) labelEl.textContent = article.sectionLabel || "";
+
+      if (metaEl) {
+        const date = new Date(article.date).toLocaleDateString();
+        metaEl.textContent =
+          `${article.author} | ${article.location} | ${date} | ${article.readTime}`;
+      }
+
+      if (heroImg && article.heroImage?.src) {
+        heroImg.src = article.heroImage.src;
+      }
+
+      if (heroCaption && article.heroImage?.caption) {
+        heroCaption.textContent =
+          `${article.heroImage.caption} — ${article.heroImage.credit || ""}`;
+      }
+
+      contentEl.innerHTML = "";
+
+      article.body.forEach(block => {
+
+        // PARAGRAPH
+        if (block.type === "paragraph") {
+          contentEl.innerHTML += `<p>${block.text}</p>`;
+        }
+
+        // MID ARTICLE SUBHEADING
+        if (block.type === "subheading") {
+          contentEl.innerHTML +=
+            `<h2 class="mid-subheading">${block.text}</h2>`;
+        }
+
+        // PULL QUOTE
+        if (block.type === "pullquote") {
+          contentEl.innerHTML +=
+            `<div class="pull-quote">${block.text}</div>`;
+        }
+
+        // IMPORTANT POINTS
+        if (block.type === "points") {
+          contentEl.innerHTML += `
+            <div class="important-points">
+              <ul>
+                ${block.items.map(i => `<li>${i}</li>`).join("")}
+              </ul>
+            </div>
+          `;
+        }
+
+        // INLINE IMAGE
+        if (block.type === "image") {
+
+          const alignClass =
+            block.align === "right" ? "img-right" : "img-left";
+
+          contentEl.innerHTML += `
+            <figure class="${alignClass}">
+              <img src="${block.src}" alt="">
+              <figcaption>${block.caption || ""}</figcaption>
+            </figure>
+          `;
+        }
+
+      });
+
+      loadArticleSidebar();
+
+    })
+    .catch(err => console.error("Article load error:", err));
+
+}
