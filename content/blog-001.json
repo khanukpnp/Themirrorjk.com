@@ -1,39 +1,193 @@
 {
-  "id": "blog-001",
-  "slug": "blog-ukpnp-briefs-british-mps-london-25-november-2025",
-  "title": "UKPNP High Level Delegation Briefs British MPs on Kashmir Crisis and Current Situation in London House of Parliament",
-  "category": "blog",
-  "sectionLabel": "📝 OPINION & BLOG",
-  "excerpt": "A high level UKPNP delegation led by Sardar Shaukat Ali Kashmiri briefed British MPs in the House of Parliament on the Kashmir crisis, historical context, and current developments.",
-  "author": "Special Correspondent, London UK",
-  "location": "London, United Kingdom",
-  "date": "2025-11-25T10:00:00Z",
-  "readTime": "14 min read",
-  "heroImage": {
-    "src": "content/images/blog-ukpnp-mps-01.jpg",
-    "caption": "UKPNP delegation briefing British MPs at the House of Parliament.",
-    "credit": "The Mirror Jammu Kashmir"
-  },
-  "archive": false,
-  "body": [
-    {
-      "type": "paragraph",
-      "text": "A high level delegation of the United Kashmir People’s National Party, led by Sardar Shaukat Ali Kashmiri, met and briefed British Parliament Members Fabian Hamilton MP, Richard Burgon MP, Imran Hussain MP, and others at the House of Parliament in London."
-    },
-    {
-      "type": "paragraph",
-      "text": "The delegation discussed the historical foundations of the State of Jammu and Kashmir, the forced division of the region, and the ongoing political and humanitarian challenges faced by its people."
-    },
-    {
-      "type": "image",
-      "src": "content/images/blog-ukpnp-mps-02.jpg",
-      "align": "right",
-      "caption": "Delegation members during the briefing session.",
-      "credit": "UKPNP Media Cell"
-    },
-    {
-      "type": "paragraph",
-      "text": "The UKPNP leadership emphasized the need for international engagement, democratic rights, and the restoration of fundamental freedoms across all regions of Jammu and Kashmir."
-    }
-  ]
+"id": "blog-001",
+"slug": "blog-ukpnp-briefs-british-mps-london-25-november-2025",
+"title": "UKPNP Delegation Briefs British MPs on Kashmir Crisis at the House of Parliament in London",
+"category": "blog",
+"sectionLabel": "📝 OPINION & BLOG",
+"excerpt": "A high level delegation of the United Kashmir People’s National Party briefed British Members of Parliament in London on the historical roots of the Kashmir conflict and the current political and human rights situation.",
+"author": "Special Correspondent",
+"location": "London, United Kingdom",
+"date": "2025-11-25T10:00:00Z",
+"readTime": "14 min read",
+
+"heroImage": {
+"src": "content/images/blog-ukpnp-mps-01.jpg",
+"caption": "UKPNP delegation briefing British MPs at the House of Parliament in London.",
+"credit": "The Mirror Jammu Kashmir"
+},
+
+"archive": false,
+
+"body": [
+
+{
+"type": "points",
+"items": [
+"UKPNP delegation briefed British MPs in the House of Parliament in London",
+"Delegation explained the historical roots of the Kashmir conflict",
+"Concerns raised over political rights and human rights in Azad Kashmir and Gilgit Baltistan",
+"British MPs reaffirmed support for the right to self determination of the Kashmiri people",
+"Delegation warned Kashmir remains a nuclear flashpoint until a peaceful settlement is achieved"
+]
+},
+
+{
+"type": "paragraph",
+"text": "A high level delegation of the United Kashmir People’s National Party met with British Members of Parliament at the House of Parliament in London to brief them on the historical background of the State of Jammu and Kashmir and the current political and humanitarian situation in the region."
+},
+
+{
+"type": "paragraph",
+"text": "The delegation was led by Sardar Shaukat Ali Kashmiri and included Sardar Nasir Aziz Khan, Central Spokesperson of UKPNP, Mahmood Kashmiri, Senior Leader UKPNP and Chairman of JKNIA, Sardar Tariq Khan, President UK Chapter, and Sardar Tikka Khan Tahir, Central Secretary Information."
+},
+
+{
+"type": "image",
+"src": "content/images/blog-ukpnp-mps-02.jpg",
+"align": "right",
+"caption": "Delegation members during the briefing session with British MPs.",
+"credit": "UKPNP Media Cell"
+},
+
+{
+"type": "paragraph",
+"text": "The delegation met Fabian Hamilton MP, Richard Burgon MP, Imran Hussain MP and other parliamentarians. The discussion focused on the historical roots of the Kashmir conflict, the forced division of the region, and the ongoing political challenges faced by the people of Jammu and Kashmir."
+},
+
+{
+"type": "pullquote",
+"text": "Kashmir is not a bilateral dispute between India and Pakistan. It concerns the lives and future of millions of Kashmiris."
+},
+
+{
+"type": "subheading",
+"text": "Historical foundations of the conflict"
+},
+
+{
+"type": "paragraph",
+"text": "Sardar Shaukat Ali Kashmiri explained that Jammu and Kashmir historically existed as a multi religious, multi cultural and multi ethnic state. He said the Kashmir dispute cannot be reduced to a religious or territorial issue and should instead be understood through historical treaties, political developments and international law."
+},
+
+{
+"type": "paragraph",
+"text": "He explained that when British India was divided in 1947, more than 580 princely states were given the option to join India, join Pakistan or remain independent. Maharaja Hari Singh, the last legitimate ruler of Jammu and Kashmir, initially chose independence."
+},
+
+{
+"type": "paragraph",
+"text": "However, Pakistan violated the standstill agreement and launched an invasion of Jammu and Kashmir on 22 October 1947. The invasion led to widespread violence and displacement across the region."
+},
+
+{
+"type": "paragraph",
+"text": "Facing the invasion, Maharaja Hari Singh sought military assistance from India. India agreed to intervene only after the signing of a provisional treaty of accession. Indian forces entered the State on 27 October 1947 with the stated aim of repelling the invaders and restoring stability."
+},
+
+{
+"type": "subheading",
+"text": "United Nations involvement"
+},
+
+{
+"type": "paragraph",
+"text": "The Kashmir conflict has remained on the agenda of the United Nations since 1948. United Nations Security Council resolutions adopted in August 1948 called for Pakistan to withdraw its forces and citizens from the territory before any further political steps could take place."
+},
+
+{
+"type": "paragraph",
+"text": "The delegation stated that Pakistan did not comply with the UN resolutions and instead consolidated its control over parts of the region."
+},
+
+{
+"type": "paragraph",
+"text": "Pakistan separated Gilgit Baltistan from Azad Kashmir in 1949 and assumed direct administrative control. In subsequent decades Pakistan launched a number of military operations related to Kashmir, including Operation Gulmarg in 1947, Operation Gibraltar in 1965 and Operation Tupac in 1988."
+},
+
+{
+"type": "subheading",
+"text": "Political rights and governance concerns"
+},
+
+{
+"type": "paragraph",
+"text": "The delegation told MPs that Azad Kashmir and Gilgit Baltistan remain politically constrained regions with limited democratic rights. Elections in Azad Kashmir were introduced only in 1970, while people in Gilgit Baltistan were granted voting rights in 2009."
+},
+
+{
+"type": "paragraph",
+"text": "Under the Azad Jammu and Kashmir Interim Constitution Act 1974, pro independence political parties cannot contest elections unless they sign an oath of allegiance to Pakistan. Article 7 of the Act requires candidates to support accession to Pakistan, effectively excluding nationalist parties from participation."
+},
+
+{
+"type": "paragraph",
+"text": "Delegation members argued that the region’s governance structure leaves local institutions dependent on Islamabad while denying residents representation in Pakistan’s national parliament."
+},
+
+{
+"type": "pullquote",
+"text": "Political participation in Azad Kashmir remains restricted by legal provisions that prevent nationalist parties from contesting elections."
+},
+
+{
+"type": "subheading",
+"text": "Human rights concerns"
+},
+
+{
+"type": "paragraph",
+"text": "The delegation also raised concerns about human rights violations and restrictions on civil liberties. They referred to incidents where peaceful protests were met with force and highlighted the deaths of protesters in Muzaffarabad during demonstrations in May 2024."
+},
+
+{
+"type": "paragraph",
+"text": "Delegation members also described a communications blackout imposed in Azad Kashmir between late September and early October 2025 during which internet and mobile services were suspended for several days."
+},
+
+{
+"type": "paragraph",
+"text": "According to the delegation, the blackout affected millions of residents and also cut off communication for large diaspora communities abroad."
+},
+
+{
+"type": "subheading",
+"text": "British MPs respond"
+},
+
+{
+"type": "paragraph",
+"text": "Fabian Hamilton MP said the Kashmir conflict cannot be viewed purely as a territorial dispute between India and Pakistan. He stated that the issue concerns the lives and rights of millions of Kashmiris and must be addressed through dialogue and international engagement."
+},
+
+{
+"type": "paragraph",
+"text": "Imran Hussain MP said that the right to self determination remains a key principle under international law and that different perspectives on the issue must be heard and respected."
+},
+
+{
+"type": "paragraph",
+"text": "Both MPs expressed appreciation for the briefing and reaffirmed their support for peaceful dialogue and diplomatic engagement aimed at resolving the Kashmir conflict."
+},
+
+{
+"type": "subheading",
+"text": "Call for peaceful resolution"
+},
+
+{
+"type": "paragraph",
+"text": "The UKPNP delegation stressed that there is no military solution to the Kashmir conflict and called for renewed international engagement to support a peaceful settlement."
+},
+
+{
+"type": "paragraph",
+"text": "Delegation members said the people of Jammu and Kashmir must be recognised as the principal stakeholders in any future settlement and that their right to self determination should be respected."
+},
+
+{
+"type": "paragraph",
+"text": "They warned that the unresolved conflict continues to pose a serious risk to regional stability and described Kashmir as a nuclear flashpoint that requires urgent diplomatic attention."
+}
+
+]
 }
