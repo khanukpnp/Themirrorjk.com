@@ -1,135 +1,261 @@
 /* ============================================================
    PAGE LOADER
 ============================================================ */
-
 document.addEventListener("DOMContentLoaded", () => {
-    const loader = document.getElementById("site-loader");
+  const loader = document.getElementById("site-loader");
+  if (loader) {
     setTimeout(() => {
-        loader.style.opacity = "0";
-        setTimeout(() => loader.style.display = "none", 600);
+      loader.style.opacity = "0";
+      setTimeout(() => (loader.style.display = "none"), 600);
     }, 1200);
+  }
+
+  initYear();
+  updateGregorian();
+  updateHijri();
+  updateBikrami();
+  updateClocks();
+  initWeatherBar();
+  initTicker();
+  initNav();
+  initContactModal();
+  initVlogs();
+
+  setInterval(updateGregorian, 1000);
+  setInterval(updateHijri, 60000);
+  setInterval(updateBikrami, 60000);
+  setInterval(updateClocks, 1000);
 });
 
 /* ============================================================
-   GREGORIAN DATE
+   FOOTER YEAR
 ============================================================ */
-
-function updateGregorianDate() {
-    const now = new Date();
-    const options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    };
-    const formatted = now.toLocaleDateString("en-US", options);
-    document.getElementById("gregorian-date").textContent = formatted;
+function initYear() {
+  const y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
 }
 
 /* ============================================================
-   HIJRI DATE (Umm al-Qura)
+   GREGORIAN DATE (FULL DATE + TIME)
+   Example: Friday, 20 February 2026 at 19:50:20
 ============================================================ */
+function updateGregorian() {
+  const el = document.querySelector("#cal-gregorian span");
+  if (!el) return;
 
-function updateHijriDate() {
-    try {
-        const today = new Date();
-        const hijri = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-        }).format(today);
+  const now = new Date();
+  const datePart = now.toLocaleDateString("en-GB", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+  const timePart = now.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
 
-        document.getElementById("hijri-date").textContent = hijri;
-    } catch (e) {
-        document.getElementById("hijri-date").textContent = "Hijri unavailable";
+  el.textContent = `${datePart} at ${timePart}`;
+}
+
+/* ============================================================
+   HIJRI DATE (Islamic calendar)
+============================================================ */
+function updateHijri() {
+  const el = document.querySelector("#cal-hijri span");
+  if (!el) return;
+
+  try {
+    const now = new Date();
+    const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }).format(now);
+    el.textContent = hijriDate;
+  } catch (e) {
+    el.textContent = "Hijri calendar";
+  }
+}
+
+/* ============================================================
+   PUNJABI DESI BIKRAMI DATE (Simplified)
+============================================================ */
+function updateBikrami() {
+  const el = document.querySelector("#cal-bikrami span");
+  if (!el) return;
+
+  const now = new Date();
+
+  const months = [
+    "Chet", "Vaisakh", "Jeth", "Harh", "Sawan", "Bhadon",
+    "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"
+  ];
+
+  const startMonth = 2; // Chet begins mid‑March (0=Jan,1=Feb,2=Mar)
+  const month = (now.getMonth() - startMonth + 12) % 12;
+  const year = now.getFullYear() + 57; // Bikrami offset
+  const day = now.getDate();
+
+  el.textContent = `${day} ${months[month]} ${year} BK`;
+}
+
+/* ============================================================
+   CLOCKS — CEST / IST / PKT
+============================================================ */
+function updateClocks() {
+  const now = new Date();
+
+  // CEST (Europe/Zurich)
+  const cestEl = document.querySelector("#clock-cest span");
+  if (cestEl) {
+    const cestTime = now.toLocaleTimeString("en-GB", {
+      timeZone: "Europe/Zurich",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+    cestEl.textContent = cestTime;
+  }
+
+  // IST (Asia/Kolkata)
+  const istEl = document.querySelector("#tz-ist span");
+  if (istEl) {
+    const istTime = now.toLocaleTimeString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+    istEl.textContent = istTime;
+  }
+
+  // PKT (Asia/Karachi)
+  const pktEl = document.querySelector("#tz-pkt span");
+  if (pktEl) {
+    const pktTime = now.toLocaleTimeString("en-PK", {
+      timeZone: "Asia/Karachi",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+    pktEl.textContent = pktTime;
+  }
+}
+
+/* ============================================================
+   WEATHER BAR (STATIC SAMPLE, MATCHING YOUR CITIES)
+============================================================ */
+function initWeatherBar() {
+  const bar = document.getElementById("weather-bar");
+  if (!bar) return;
+
+  const cities = [
+    { name: "Zurich",       temp: "7°C"  },
+    { name: "Rawalakot",    temp: "9°C"  },
+    { name: "Jammu",        temp: "18°C" },
+    { name: "Kashmir",      temp: "5°C"  },
+    { name: "Ladakh",       temp: "2°C"  },
+    { name: "Gilgit",       temp: "3°C"  },
+    { name: "Baltistan",    temp: "3°C"  },
+    { name: "Muzaffarabad", temp: "8°C"  }
+  ];
+
+  bar.innerHTML = cities
+    .map(
+      c => `
+      <div class="chip tiny">
+        🌡️ ${c.name}: <strong>${c.temp}</strong>
+      </div>
+    `
+    )
+    .join("");
+}
+
+/* ============================================================
+   TICKER (DUMMY PLACEHOLDER ITEMS)
+============================================================ */
+function initTicker() {
+  const ul = document.getElementById("ticker-items");
+  if (!ul) return;
+
+  const items = [
+    "WE DO NOT MANUFACTURE NARRATIVES — WE REFLECT REALITY",
+    "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH"
+  ];
+
+  ul.innerHTML = items.map(t => `<li>${t}</li>`).join("");
+}
+
+/* ============================================================
+   NAVIGATION (MOBILE MENU)
+============================================================ */
+function initNav() {
+  const hamburger = document.getElementById("hamburger");
+  const navList = document.getElementById("nav-list");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  if (!hamburger || !navList || !mobileMenu) return;
+
+  hamburger.addEventListener("click", () => {
+    const expanded = hamburger.getAttribute("aria-expanded") === "true";
+    hamburger.setAttribute("aria-expanded", String(!expanded));
+
+    if (expanded) {
+      mobileMenu.hidden = true;
+      mobileMenu.innerHTML = "";
+    } else {
+      mobileMenu.hidden = false;
+      mobileMenu.innerHTML = navList.innerHTML;
     }
+  });
 }
 
 /* ============================================================
-   PUNJABI DESI BIKRAMI DATE
-   (Simplified solar calendar approximation)
+   CONTACT MODAL
 ============================================================ */
+function initContactModal() {
+  const openBtn = document.getElementById("contact-open");
+  const closeBtn = document.getElementById("contact-close");
+  const modal = document.getElementById("contact-modal");
 
-function updateBikramiDate() {
-    const now = new Date();
-    const monthNames = [
-        "Chet", "Vaisakh", "Jeth", "Harh", "Sawan", "Bhadon",
-        "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"
-    ];
+  if (!openBtn || !closeBtn || !modal) return;
 
-    const startMonth = 3; // Chet starts mid-March
-    const year = now.getFullYear() + 57; // Bikrami year offset
-    const month = (now.getMonth() - startMonth + 12) % 12;
-    const day = now.getDate();
+  openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
+  closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
 
-    const formatted = `${day} ${monthNames[month]} ${year} BK`;
-    document.getElementById("bikrami-date").textContent = formatted;
+  modal.addEventListener("click", e => {
+    if (e.target === modal) modal.classList.add("hidden");
+  });
 }
 
 /* ============================================================
-   INITIALIZE DATES
+   VLOGS (STATIC PLACEHOLDERS)
 ============================================================ */
+function initVlogs() {
+  const grid = document.getElementById("vlogs-grid");
+  if (!grid) return;
 
-updateGregorianDate();
-updateHijriDate();
-updateBikramiDate();
-setInterval(updateGregorianDate, 60000);
-setInterval(updateHijriDate, 60000);
-setInterval(updateBikramiDate, 60000);
-/* ============================================================
-   REGIONAL CLOCKS — IST (Jammu, Kashmir, Ladakh)
-   & PST (Gilgit, Baltistan, Muzaffarabad)
-============================================================ */
+  const vlogs = [
+    { title: "Kashmir Protest Highlights", duration: "4:32" },
+    { title: "Diaspora Voices on Human Rights", duration: "6:10" },
+    { title: "Brief History of Jammu & Kashmir", duration: "8:45" }
+  ];
 
-function formatTime(date) {
-    let h = date.getHours();
-    let m = date.getMinutes();
-    let s = date.getSeconds();
-
-    if (h < 10) h = "0" + h;
-    if (m < 10) m = "0" + m;
-    if (s < 10) s = "0" + s;
-
-    return `${h}:${m}:${s}`;
+  grid.innerHTML = vlogs
+    .map(
+      v => `
+      <article class="card">
+        <div class="media maroon">
+          ▶
+        </div>
+        <div class="card-body">
+          <h3>${v.title}</h3>
+          <p>Duration: ${v.duration}</p>
+        </div>
+      </article>
+    `
+    )
+    .join("");
 }
-
-function updateRegionalClocks() {
-    const now = new Date();
-
-    /* ------------------------------
-       IST — UTC+5:30
-    ------------------------------ */
-    const istOffset = 5.5 * 60 * 60 * 1000;
-    const istTime = new Date(now.getTime() + istOffset - (now.getTimezoneOffset() * 60000));
-
-    document.getElementById("clock-jammu").textContent =
-        `Jammu (IST): ${formatTime(istTime)}`;
-
-    document.getElementById("clock-kashmir").textContent =
-        `Kashmir (IST): ${formatTime(istTime)}`;
-
-    document.getElementById("clock-ladakh").textContent =
-        `Ladakh (IST): ${formatTime(istTime)}`;
-
-    /* ------------------------------
-       PST — UTC+5:00
-    ------------------------------ */
-    const pstOffset = 5 * 60 * 60 * 1000;
-    const pstTime = new Date(now.getTime() + pstOffset - (now.getTimezoneOffset() * 60000));
-
-    document.getElementById("clock-gilgit").textContent =
-        `Gilgit (PST): ${formatTime(pstTime)}`;
-
-    document.getElementById("clock-baltistan").textContent =
-        `Baltistan (PST): ${formatTime(pstTime)}`;
-
-    document.getElementById("clock-muzaffarabad").textContent =
-        `Muzaffarabad (PST): ${formatTime(pstTime)}`;
-}
-
-/* ============================================================
-   INITIALIZE CLOCKS
-============================================================ */
-
-updateRegionalClocks();
-setInterval(updateRegionalClocks, 1000);
