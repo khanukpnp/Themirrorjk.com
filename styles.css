@@ -1,321 +1,786 @@
 /* ============================================================
-GLOBAL RESET
-============================================================ */
-*,
-*::before,
-*::after {
+   GLOBAL BASE STYLES — THE MIRROR JAMMU KASHMIR
+   Foundation for all pages: typography, layout, colors, resets
+   ============================================================ */
+
+/* ------------------------------
+   RESET + NORMALIZE
+--------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* ============================================================
-BASE
-============================================================ */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   background: #f5f5f5;
-  color: #222;
+  color: #111;
+  line-height: 1.6;
 }
 
-.theme-maroon {
-  background: #f5f5f5;
-  color: #222;
+/* ------------------------------
+   COLOR SYSTEM
+--------------------------------*/
+:root {
+  --maroon: #800000;
+  --dark-maroon: #5a0000;
+  --light-maroon: #b30000;
+
+  --black: #111;
+  --gray-900: #222;
+  --gray-700: #555;
+  --gray-500: #888;
+  --gray-300: #ccc;
+  --gray-200: #e5e5e5;
+  --gray-100: #f5f5f5;
+
+  --white: #fff;
+
+  --accent-blue: #005bbb;
+  --accent-green: #0a7d32;
+  --accent-gold: #b8860b;
+  --accent-purple: #6a0dad;
+  --accent-orange: #d35400;
 }
 
-.page-shell {
-  max-width: 1200px;
+/* ------------------------------
+   TYPOGRAPHY
+--------------------------------*/
+h1, h2, h3, h4 {
+  font-family: "Georgia", serif;
+  font-weight: 700;
+  color: var(--black);
+}
+
+p {
+  font-size: 1rem;
+  color: var(--gray-900);
+}
+
+a {
+  text-decoration: none;
+  color: var(--maroon);
+  transition: 0.2s ease;
+}
+
+a:hover {
+  color: var(--dark-maroon);
+}
+
+/* ------------------------------
+   GLOBAL LAYOUT CONTAINERS
+--------------------------------*/
+.section-block {
+  padding: 40px 5%;
   margin: 0 auto;
-  padding: 20px;
 }
 
-/* ============================================================
-HEADER
-============================================================ */
-.site-header {
-  text-align: center;
-  background: #ffffff;
-  border-bottom: 3px solid #800000;
-  padding: 10px;
-}
-
-.site-title {
-  margin: 0;
-  font-size: 2rem;
-  font-family: "Georgia", "Times New Roman", serif;
-}
-
-.subheading {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-/* ============================================================
-CLOCK BAR / WEATHER BAR / TICKER
-============================================================ */
-.bar {
-  background: #ffffff;
-  padding: 6px 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.row {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.chip {
-  background: #eee;
-  padding: 4px 8px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-}
-
-.chip.tiny {
-  font-size: 0.7rem;
-}
-
-/* ---------------- TICKER ---------------- */
-.ticker-wrap {
-  background: #800000;
-  color: #fff;
-  overflow: hidden;
-  border-top: 1px solid #600;
-  border-bottom: 1px solid #600;
-}
-
-.ticker {
+.section-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 2px 8px;
-  min-height: 24px;
-  font-size: 12px;
-  white-space: nowrap;
+  margin-bottom: 25px;
+}
+
+.section-header h2 {
+  font-size: 1.8rem;
+}
+
+.section-icon {
+  font-size: 1.8rem;
+}
+
+/* ------------------------------
+   CARD GRID SYSTEM
+--------------------------------*/
+.card-grid {
+  display: grid;
+  gap: 25px;
+}
+
+.card-grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.card-grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.card-grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* ------------------------------
+   CARD COMPONENT
+--------------------------------*/
+.card {
+  background: var(--white);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--gray-300);
+  transition: 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.card-thumb {
+  width: 100%;
+  height: 180px;
+  background: var(--gray-200);
+}
+
+.vlog-thumb {
+  height: 200px;
+}
+
+.card-body {
+  padding: 18px;
+}
+
+.card-title {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.card-excerpt {
+  font-size: 0.95rem;
+  color: var(--gray-700);
+}
+
+/* ------------------------------
+   CATEGORY LABEL COLORS
+--------------------------------*/
+.card-category {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.cat-breaking { color: #c00; }
+.cat-blog { color: var(--accent-blue); }
+.cat-editorial { color: var(--accent-gold); }
+.cat-historical { color: #555; }
+.cat-humanrights { color: var(--maroon); }
+.cat-international { color: var(--accent-green); }
+.cat-latest { color: var(--accent-purple); }
+.cat-jk { color: #0b7c7c; }
+.cat-vlog { color: var(--accent-orange); }
+.cat-default { color: var(--dark-maroon); }
+
+/* ------------------------------
+   PLACEHOLDER CARDS
+--------------------------------*/
+.placeholder-card {
+  opacity: 0.75;
+}
+
+.placeholder-thumb {
+  background: repeating-linear-gradient(
+    45deg,
+    #ddd,
+    #ddd 10px,
+    #eee 10px,
+    #eee 20px
+  );
+}
+
+/* ------------------------------
+   BUTTONS
+--------------------------------*/
+.btn-primary {
+  background: var(--maroon);
+  color: var(--white);
+  padding: 10px 18px;
+  border-radius: 4px;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: var(--dark-maroon);
+}
+
+.btn-secondary {
+  background: var(--gray-900);
+  color: var(--white);
+  padding: 10px 18px;
+  border-radius: 4px;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background: var(--black);
+}
+
+.btn-link {
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+.btn-link:hover {
+  color: var(--dark-maroon);
+}
+
+/* ------------------------------
+   PAGINATION
+--------------------------------*/
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.pagination button {
+  padding: 8px 14px;
+  border: 1px solid var(--gray-400);
+  background: var(--white);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: var(--gray-200);
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  font-size: 0.9rem;
+  color: var(--gray-700);
+}
+
+/* ------------------------------
+   RESPONSIVE
+--------------------------------*/
+@media (max-width: 768px) {
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .card-thumb {
+    height: 150px;
+  }
+}
+/* ============================================================
+   HOMEPAGE STYLES — THE MIRROR JAMMU KASHMIR
+   Header, ticker, nav, homepage sections, vlog filters
+   ============================================================ */
+
+/* ------------------------------
+   TOP BAR (WEATHER + CLOCKS)
+--------------------------------*/
+.top-bar {
+  background: var(--black);
+  color: var(--white);
+  padding: 8px 5%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+.top-bar-left,
+.top-bar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.time-weather span {
+  margin-right: 6px;
+}
+
+/* ------------------------------
+   SLOGAN BANNER
+--------------------------------*/
+.slogan-banner {
+  background: var(--maroon);
+  color: var(--white);
+  text-align: center;
+  padding: 18px 10px;
+}
+
+.slogan-main {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.slogan-sub {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* ------------------------------
+   NAVIGATION BAR
+--------------------------------*/
+.nav-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-300);
+  padding: 12px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-area .site-logo-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 22px;
+}
+
+.main-nav a {
+  font-weight: 600;
+  color: var(--black);
+}
+
+.main-nav a:hover {
+  color: var(--maroon);
+}
+
+/* Dropdown */
+.has-dropdown {
+  position: relative;
+}
+
+.has-dropdown:hover .dropdown {
+  display: block;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  padding: 10px 0;
+  top: 28px;
+  left: 0;
+  min-width: 160px;
+  z-index: 10;
+}
+
+.dropdown li {
+  padding: 6px 14px;
+}
+
+.dropdown li:hover {
+  background: var(--gray-100);
+}
+
+/* ------------------------------
+   NAV TOOLS (LANG + SEARCH)
+--------------------------------*/
+.nav-tools {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.language-switcher .lang-btn {
+  background: var(--gray-200);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.language-switcher .active {
+  background: var(--maroon);
+  color: var(--white);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#site-search {
+  border: none;
+  padding: 6px 10px;
+  width: 160px;
+}
+
+#search-btn {
+  background: var(--maroon);
+  color: var(--white);
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+/* ------------------------------
+   BREAKING TICKER
+--------------------------------*/
+.ticker-bar {
+  background: var(--black);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  padding: 8px 5%;
+  overflow: hidden;
 }
 
 .ticker-label {
   font-weight: 700;
-  font-size: 12px;
-  letter-spacing: .05em;
+  margin-right: 12px;
+  color: var(--light-maroon);
 }
 
-.ticker ul {
-  display: flex;
-  gap: 24px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  animation: ticker-scroll 90s linear infinite;
+.ticker-content {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#breaking-ticker {
+  display: inline-flex;
+  gap: 40px;
+  animation: ticker-scroll 18s linear infinite;
 }
 
 @keyframes ticker-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
 }
 
+/* ------------------------------
+   SECTION SPACING
+--------------------------------*/
+#main-content .section-block {
+  border-bottom: 1px solid var(--gray-200);
+}
+
+/* ------------------------------
+   TOP STORIES (3 GRID)
+--------------------------------*/
+#top-stories-grid .card-thumb {
+  height: 200px;
+}
+
+/* ------------------------------
+   LATEST / EDITORIAL / HISTORICAL
+--------------------------------*/
+#leh-grid .card-thumb {
+  height: 180px;
+}
+
+/* ------------------------------
+   JK / INTERNATIONAL / HUMAN RIGHTS
+--------------------------------*/
+#jk-grid .card-thumb,
+#international-grid .card-thumb,
+#human-rights-grid .card-thumb {
+  height: 180px;
+}
+
+/* ------------------------------
+   VLOG SECTION
+--------------------------------*/
+.vlog-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.vlog-filter-btn {
+  padding: 8px 14px;
+  border: 1px solid var(--gray-400);
+  background: var(--white);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.vlog-filter-btn.active {
+  background: var(--maroon);
+  color: var(--white);
+  border-color: var(--maroon);
+}
+
+#vlogs-grid .card-thumb {
+  height: 200px;
+}
+
+.vlog-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 14px;
+}
+
+/* ------------------------------
+   SERVICE CARDS (ARCHIVE / EPAPER / SUBSCRIBE / CONTACT)
+--------------------------------*/
+.service-card {
+  text-align: center;
+  padding: 25px;
+}
+
+.service-icon {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+}
+
+/* ------------------------------
+   FOOTER
+--------------------------------*/
+#site-footer {
+  background: var(--black);
+  color: var(--white);
+  padding: 30px 5%;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-right a {
+  color: var(--white);
+  margin-left: 12px;
+}
+
+.footer-right a:hover {
+  color: var(--light-maroon);
+}
+
+/* ------------------------------
+   RESPONSIVE
+--------------------------------*/
+@media (max-width: 900px) {
+  .nav-bar {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .main-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .vlog-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 /* ============================================================
-NAVIGATION
-============================================================ */
-.navbar {
-  background: #111;
-  color: #ffffff;
+   ARCHIVE PAGE STYLES — THE MIRROR JAMMU KASHMIR
+   Multi-section archive, pagination, grid layout
+   ============================================================ */
+
+/* ------------------------------
+   ARCHIVE HEADER
+--------------------------------*/
+.archive-header {
+  text-align: center;
+  padding: 50px 5% 30px;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.archive-header h1 {
+  font-size: 2.2rem;
+  color: var(--maroon);
+  margin-bottom: 10px;
+}
+
+.archive-subtitle {
+  font-size: 1rem;
+  color: var(--gray-700);
+}
+
+/* ------------------------------
+   ARCHIVE MAIN WRAPPER
+--------------------------------*/
+.archive-main {
+  padding: 40px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ------------------------------
+   ARCHIVE SECTION BLOCK
+--------------------------------*/
+.archive-section {
+  margin-bottom: 60px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.archive-section-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 8px 10px;
+  gap: 12px;
+  margin-bottom: 25px;
 }
 
-.hamburger {
-  display: none;
-  background: none;
-  border: 1px solid #444;
-  color: #ffffff;
-  padding: 4px 8px;
-  margin-right: 10px;
-  cursor: pointer;
+.archive-section-header h2 {
+  font-size: 1.7rem;
 }
 
-.nav-list {
-  display: flex;
-  gap: 8px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.archive-icon {
+  font-size: 1.8rem;
 }
 
-.nav-btn {
-  background: none;
-  border: none;
-  color: #ffffff;
-  padding: 6px 10px;
-  cursor: pointer;
+/* ------------------------------
+   ARCHIVE GRID (9 CARDS)
+--------------------------------*/
+.archive-grid {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* Card overrides for archive */
+.archive-grid .card-thumb {
+  height: 180px;
+}
+
+.archive-grid .card-title {
+  font-size: 1.1rem;
+}
+
+.archive-grid .card-excerpt {
   font-size: 0.9rem;
-  text-decoration: none;
 }
 
-.nav-btn:hover {
-  background: #222;
+/* ------------------------------
+   EMPTY STATE
+--------------------------------*/
+.archive-empty {
+  padding: 20px;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  text-align: center;
+  color: var(--gray-700);
+  font-size: 1rem;
 }
 
-/* Dropdown */
-.dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #222;
-  min-width: 180px;
-  z-index: 20;
-  flex-direction: column;
-}
-
-.nav-item:hover .dropdown {
-  display: flex;
-}
-
-.dropdown a {
-  color: #ffffff;
-  padding: 6px 10px;
-  text-decoration: none;
-}
-
-.dropdown a:hover {
-  background: #333;
-}
-
-/* Mobile menu */
-.mobile-menu {
-  display: none;
-  background: #111;
-  color: #ffffff;
-  padding: 8px 10px;
-}
-
-.mobile-menu a {
-  display: block;
-  padding: 6px 0;
-  color: #ffffff;
-}
-
-/* ============================================================
-CARDS / GRID
-============================================================ */
-.cards {
-  display: grid;
-  gap: 16px;
-}
-
-.cards.three {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.cards.two {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.card {
-  background: #ffffff;
-  border: 1px solid #ddd;
-  overflow: hidden;
-}
-
-.media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 16 / 9;
-}
-
-.card-body {
-  padding: 12px;
-}
-
-.card-body h3 {
-  margin-top: 0;
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: 1.2rem;
-}
-
-/* ============================================================
-VLOGS
-============================================================ */
-.vlogs-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.vlog-thumb {
-  background: #111;
-  color: #ffffff;
+/* ------------------------------
+   PAGINATION (ARCHIVE)
+--------------------------------*/
+.pagination {
+  margin-top: 25px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-height: 160px;
+  gap: 14px;
 }
 
-.play-icon {
-  background: #c00;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ============================================================
-BUTTONS
-============================================================ */
-.btn-red {
-  background: #800000;
-  color: #ffffff;
-  border: none;
-  padding: 6px 12px;
+.pagination button {
+  padding: 8px 16px;
+  background: var(--white);
+  border: 1px solid var(--gray-400);
+  border-radius: 4px;
   cursor: pointer;
+  font-weight: 600;
 }
 
-.btn-red:hover {
-  background: #a00000;
+.pagination button:hover:not(:disabled) {
+  background: var(--gray-200);
 }
 
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  font-size: 0.9rem;
+  color: var(--gray-700);
+}
+
+/* ------------------------------
+   RESPONSIVE
+--------------------------------*/
+@media (max-width: 768px) {
+  .archive-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .archive-section-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .archive-grid {
+    grid-template-columns: 1fr;
+  }
+}
 /* ============================================================
-ARTICLE PAGE — MAIN
-============================================================ */
-.article-page .article-container {
-  max-width: 1100px;
+   ARTICLE PAGE — THE MIRROR JAMMU KASHMIR
+   Modernized version of your master article template
+   ============================================================ */
+
+/* ------------------------------
+   ARTICLE CONTAINER
+--------------------------------*/
+.article-container {
+  max-width: 1200px;
   margin: 40px auto;
   padding: 30px;
-  background: #ffffff;
-  border: 1px solid #ddd;
+  background: var(--white);
+  border: 1px solid var(--gray-300);
   border-radius: 6px;
   display: flex;
-  gap: 30px;
+  gap: 40px;
 }
 
 .article-body {
-  width: 72%;
+  width: 70%;
 }
 
 .sidebar {
-  width: 28%;
-  border-left: 1px solid #eee;
+  width: 30%;
+  border-left: 1px solid var(--gray-200);
   padding-left: 25px;
 }
 
-/* ============================================================
-ARTICLE HERO — HEADING ABOVE IMAGE
-============================================================ */
-#title {
-  font-size: 2.2rem;
+/* ------------------------------
+   CATEGORY LABEL
+--------------------------------*/
+.category-label {
+  font-size: 0.95rem;
   font-weight: 700;
-  margin: 20px 0 10px 0;
-  font-family: "Georgia", "Times New Roman", serif;
-  line-height: 1.2;
+  text-transform: uppercase;
+  margin-bottom: 12px;
 }
 
+/* Category colors (same as homepage) */
+.cat-breaking { color: #c00; }
+.cat-blog { color: var(--accent-blue); }
+.cat-editorial { color: var(--accent-gold); }
+.cat-historical { color: #555; }
+.cat-humanrights { color: var(--maroon); }
+.cat-international { color: var(--accent-green); }
+.cat-latest { color: var(--accent-purple); }
+.cat-jk { color: #0b7c7c; }
+.cat-vlog { color: var(--accent-orange); }
+.cat-default { color: var(--dark-maroon); }
+
+/* ------------------------------
+   HERO IMAGE
+--------------------------------*/
 #heroWrap {
   margin-bottom: 25px;
 }
@@ -330,60 +795,61 @@ ARTICLE HERO — HEADING ABOVE IMAGE
 
 #heroCaption {
   font-size: 0.9rem;
-  color: #666;
+  color: var(--gray-700);
   margin-top: 6px;
-  font-family: "Georgia", "Times New Roman", serif;
 }
 
-/* ============================================================
-META LINE — BBC STYLE
-============================================================ */
+/* ------------------------------
+   HEADLINE + STANDFIRST
+--------------------------------*/
+#title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin: 20px 0 10px 0;
+  font-family: "Georgia", serif;
+  line-height: 1.2;
+}
+
+.standfirst {
+  font-size: 1.25rem;
+  color: var(--gray-700);
+  margin: 20px 0;
+  line-height: 1.6;
+  font-family: "Georgia", serif;
+}
+
+/* ------------------------------
+   META LINE
+--------------------------------*/
 #meta {
   font-size: 0.95rem;
-  color: #444;
+  color: var(--gray-700);
   margin-bottom: 25px;
   line-height: 1.5;
-  font-family: "Georgia", "Times New Roman", serif;
 }
 
-/* ============================================================
-ARTICLE CONTENT — BBC STYLE
-============================================================ */
+/* ------------------------------
+   BODY CONTENT
+--------------------------------*/
 #content p {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  margin-bottom: 18px;
-  font-family: "Georgia", "Times New Roman", serif;
-  color: #111;
+  font-size: 1.15rem;
+  line-height: 1.85;
+  margin-bottom: 20px;
+  font-family: "Georgia", serif;
+  color: var(--black);
 }
 
-/* ============================================================
-GUARDIAN‑STYLE DROP CAP
-============================================================ */
-#content p:first-of-type::first-letter {
-  float: left;
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: 4.8rem;
-  line-height: 0.85;
-  padding-right: 10px;
-  padding-top: 4px;
-  color: #800000;
-  font-weight: 600;
-}
-
-/* ============================================================
-INLINE IMAGES — BBC STYLE
-============================================================ */
+/* Inline images */
 .img-left {
   float: left;
-  width: 38%;
-  margin: 12px 20px 12px 0;
+  width: 45%;
+  margin: 10px 20px 20px 0;
 }
 
 .img-right {
   float: right;
-  width: 38%;
-  margin: 12px 0 12px 20px;
+  width: 45%;
+  margin: 10px 0 20px 20px;
 }
 
 figure img {
@@ -392,98 +858,96 @@ figure img {
 }
 
 figure figcaption {
-  font-family: "Georgia", "Times New Roman", serif;
   font-size: 0.85rem;
-  color: #555;
-  margin-top: 6px;
-  line-height: 1.4;
+  color: var(--gray-700);
+  margin-top: 4px;
 }
 
-/* ============================================================
-MID‑SUBHEADING
-============================================================ */
-.mid-subheading {
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: 1.45rem;
-  font-weight: 600;
-  margin: 40px 0 20px;
-  color: #222;
-  line-height: 1.3;
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
-/* ============================================================
-PULL QUOTE
-============================================================ */
-.pull-quote {
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #333;
-  background: #f7f7f7;
-  border-left: 4px solid #c00;
-  padding: 25px;
-  margin: 40px 0;
-  line-height: 1.4;
-}
-
-/* ============================================================
-IMPORTANT POINTS
-============================================================ */
+/* ------------------------------
+   IMPORTANT POINTS BOX
+--------------------------------*/
 .important-points {
-  background: #fafafa;
-  border-left: 4px solid #c00;
+  background: var(--gray-100);
   padding: 18px 22px;
+  border-left: 4px solid var(--maroon);
   margin: 30px 0;
-  font-family: "Georgia", "Times New Roman", serif;
 }
 
-.important-points ul li {
-  margin-bottom: 6px;
-  font-size: 1.05rem;
+.important-points ul {
+  margin: 0;
+  padding-left: 20px;
 }
 
-/* ============================================================
-ACTION BAR (LIKE · SUBSCRIBE · SHARE · COPY LINK)
-============================================================ */
-.page-actions {
-  margin-top: 40px;
-  padding-top: 25px;
-  border-top: 1px solid #ddd;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  align-items: center;
-  font-family: "Georgia", "Times New Roman", serif;
+/* ------------------------------
+   PULL QUOTE
+--------------------------------*/
+.pull-quote {
+  background: var(--gray-100);
+  border-left: 4px solid var(--maroon);
+  padding: 22px;
+  margin: 35px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  font-family: "Georgia", serif;
 }
 
-.action-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: #eee;
-  padding: 8px 14px;
+/* ------------------------------
+   SIDEBAR
+--------------------------------*/
+.sidebar h3 {
+  font-size: 1.2rem;
+  margin-bottom: 14px;
+  font-family: "Georgia", serif;
+}
+
+.sidebar .related-item,
+.sidebar .latest-item {
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  font-weight: 600;
+  color: var(--maroon);
+}
+
+.sidebar a:hover {
+  color: var(--dark-maroon);
+}
+
+.sidebar p {
+  font-size: 0.9rem;
+  color: var(--gray-700);
+}
+
+/* ------------------------------
+   SHARE BUTTON
+--------------------------------*/
+.sidebar button {
+  background: var(--maroon);
+  color: var(--white);
+  padding: 10px 14px;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.95rem;
-  border: 1px solid #ccc;
+  font-weight: 600;
 }
 
-.action-btn:hover {
-  background: #ddd;
+.sidebar button:hover {
+  background: var(--dark-maroon);
 }
 
-/* ============================================================
-RESPONSIVE
-============================================================ */
+/* ------------------------------
+   RESPONSIVE
+--------------------------------*/
 @media (max-width: 900px) {
-  .cards.three {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .vlogs-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .article-container {
     flex-direction: column;
     padding: 20px;
@@ -497,64 +961,14 @@ RESPONSIVE
   .sidebar {
     border-left: none;
     padding-left: 0;
-    margin-top: 20px;
+    margin-top: 30px;
   }
 
-  .img-left,
-  .img-right {
-    float: none;
-    width: 100%;
-    margin: 10px 0;
-  }
-}
-
-@media (max-width: 700px) {
-  .cards.three,
-  .cards.two {
-    grid-template-columns: 1fr;
+  #title {
+    font-size: 1.9rem;
   }
 
-  .nav-list {
-    display: none;
+  #content p {
+    font-size: 1.05rem;
   }
-
-  .hamburger {
-    display: inline-block;
-  }
-
-  .mobile-menu {
-    display: block;
-  }
-}
-
-.section-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: 30px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.5px;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-}
-
-/* COLORS */
-.label-breaking { background: #b30000; }
-.label-latest { background: #444; }
-.label-editorial { background: #003366; }
-.label-blog { background: #006699; }
-.label-historical { background: #5a3e1b; }
-.label-jk { background: #008000; }
-.label-international { background: #333399; }
-.label-humanrights { background: #990000; }
-.label-vlog { background: #222; }
-
-/* ICON STYLE */
-.section-label .icon {
-  font-size: 1rem;
-  line-height: 1;
 }
