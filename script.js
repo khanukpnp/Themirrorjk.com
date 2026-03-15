@@ -1,466 +1,487 @@
-// ============================
-// BASIC INITIALISATION
-// ============================
-document.addEventListener("DOMContentLoaded", () => {
-  initLoader();
-  initYear();
-  initClocks();
-  updateHijri();
-  updateVikramSamvat();
-  initWeatherBar();
-  initTicker();
-  initNav();
-  initContactModal();
-  initVlogs();
+/* =========================================================
+   THE MIRROR JAMMU KASHMIR – script.js (v26)
+   Dynamic JSON loading, archive pagination, vlogs filters,
+   ticker, clocks, and basic calendar hooks.
+   ========================================================= */
 
-  const isArticlePage = document.body.classList.contains("article-page");
-  if (isArticlePage) {
-    initArticlePage();
-  } else {
-    loadHomepageIndex();
-  }
-});
+/* ==========================
+   GLOBAL CONFIG
+   ========================== */
 
-// ============================
-// LOAD HOMEPAGE INDEX
-// ============================
-function loadHomepageIndex() {
-  fetch("content/index.json")
-    .then(r => r.json())
-    .then(data => {
-      const hp = data.homepage || data;
+const JSON_PATHS = {
+  topstories: 'topstories.json',
+  latest: 'latest.json',
+  editorial: 'editorial.json',
+  historical: 'historical.json',
+  jk: 'jk.json',
+  international: 'international.json',
+  humanrights: 'humanrights.json',
+  vlogs: 'vlogs.json',
+  breaking: 'breaking.json'
+};
 
-      if (hp.topStories) loadTopStories(hp.topStories);
-      if (hp.latestEditorialHistorical) loadLatestEditorialHistorical(hp.latestEditorialHistorical);
-      if (hp.jammuKashmir) loadJammuKashmir(hp.jammuKashmir);
-      if (hp.international) loadInternational(hp.international);
-      if (hp.humanRights) loadHumanRights(hp.humanRights);
-    })
-    .catch(err => console.error("Index JSON error:", err));
-}
+const ARTICLES_PER_ARCHIVE_PAGE = 9;
 
-// ============================
-// LOAD TOP STORIES
-// ============================
-function loadTopStories(section) {
-  if (section.lead)     loadArticleToCard(section.lead,     "lead-media",     "lead-body");
-  if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
-  if (section.opinion)  loadArticleToCard(section.opinion,  "opinion-media",  "opinion-body");
-}
+/* ==========================
+   UTILITY: FETCH JSON
+   ========================== */
 
-// ============================
-// LOAD LATEST / EDITORIAL / HISTORICAL
-// ============================
-function loadLatestEditorialHistorical(section) {
-  if (section.latest)     loadArticleToCard(section.latest,     "leh1-media", "leh1-body");
-  if (section.editorial)  loadArticleToCard(section.editorial,  "leh2-media", "leh2-body");
-  if (section.historical) loadArticleToCard(section.historical, "leh3-media", "leh3-body");
-}
-
-// ============================
-// LOAD JAMMU KASHMIR
-// ============================
-function loadJammuKashmir(ids) {
-  if (!Array.isArray(ids)) return;
-  if (ids[0]) loadArticleToCard(ids[0], "jk1-media", "jk1-body");
-  if (ids[1]) loadArticleToCard(ids[1], "jk2-media", "jk2-body");
-}
-
-// ============================
-// LOAD INTERNATIONAL
-// ============================
-function loadInternational(ids) {
-  if (!Array.isArray(ids)) return;
-  if (ids[0]) loadArticleToCard(ids[0], "intl1-media", "intl1-body");
-  if (ids[1]) loadArticleToCard(ids[1], "intl2-media", "intl2-body");
-}
-
-// ============================
-// LOAD HUMAN RIGHTS
-// ============================
-function loadHumanRights(ids) {
-  if (!Array.isArray(ids)) return;
-  if (ids[0]) loadArticleToCard(ids[0], "hr1-media", "hr1-body");
-  if (ids[1]) loadArticleToCard(ids[1], "hr2-media", "hr2-body");
-}
-
-// ============================
-// UNIVERSAL ARTICLE LOADER
-// ============================
-function loadArticleToCard(articleId, mediaId, bodyId) {
-  fetch(`content/${articleId}.json`)
-    .then(r => r.json())
-    .then(article => {
-      renderArticleCard(mediaId, bodyId, article);
-    })
-    .catch(err => console.error(`Error loading ${articleId}:`, err));
-}
-
-// ============================
-// LOADER
-// ============================
-function initLoader() {
-  const loader = document.getElementById("site-loader");
-  if (!loader) return;
-
-  setTimeout(() => {
-    loader.style.opacity = "0";
-    setTimeout(() => (loader.style.display = "none"), 300);
-  }, 800);
-}
-
-// ============================
-// FOOTER YEAR
-// ============================
-function initYear() {
-  const y = document.getElementById("year");
-  if (y) y.textContent = new Date().getFullYear();
-}
-
-// ============================
-// CLOCKS
-// ============================
-function initClocks() {
-  updateClocks();
-  setInterval(updateClocks, 1000);
-}
-
-function updateClocks() {
-  const now = new Date();
-
-  const cestEl = document.querySelector("#clock-cest span");
-  if (cestEl) {
-    cestEl.textContent = now.toLocaleString("en-GB", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    });
-  }
-
-  const istEl = document.querySelector("#tz-ist span");
-  if (istEl) {
-    istEl.textContent = new Date().toLocaleTimeString("en-IN", {
-      timeZone: "Asia/Kolkata",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    });
-  }
-
-  const pktEl = document.querySelector("#tz-pkt span");
-  if (pktEl) {
-    pktEl.textContent = new Date().toLocaleTimeString("en-PK", {
-      timeZone: "Asia/Karachi",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    });
-  }
-}
-
-// ============================
-// HIJRI CALENDAR
-// ============================
-function updateHijri() {
-  const hijriEl = document.querySelector("#cal-hijri span");
-  if (!hijriEl) return;
-
+async function fetchJSON(path) {
   try {
-    const now = new Date();
-    const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    }).format(now);
-    hijriEl.textContent = hijriDate;
-  } catch {
-    hijriEl.textContent = "Hijri calendar";
+    const res = await fetch(path, { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error('Error loading JSON:', path, err);
+    return [];
   }
 }
 
-// ============================
-// VIKRAM SAMVAT
-// ============================
-function updateVikramSamvat() {
-  const vsEl = document.querySelector("#cal-hindi span");
-  if (!vsEl) return;
+/* ==========================
+   UTILITY: CREATE ARTICLE CARD
+   ========================== */
 
-  const now = new Date();
-  const vsYear = now.getFullYear() + 57;
-  const months = [
-    "Chaitra", "Vaishakha", "Jyeshtha", "Ashadha",
-    "Shravana", "Bhadrapada", "Ashwin", "Kartika",
-    "Margashirsha", "Pausha", "Magha", "Phalguna"
-  ];
+function createArticleCard(article, categoryClass, isVlog = false) {
+  const card = document.createElement('article');
+  card.className = 'card';
 
-  vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${vsYear} VS`;
+  const thumb = document.createElement('div');
+  thumb.className = 'card-thumb';
+  if (isVlog) thumb.classList.add('vlog-thumb');
+  if (article.image) {
+    thumb.style.backgroundImage = `url('${article.image}')`;
+    thumb.style.backgroundSize = 'cover';
+    thumb.style.backgroundPosition = 'center';
+  } else {
+    thumb.classList.add('placeholder-thumb');
+  }
+
+  const body = document.createElement('div');
+  body.className = 'card-body';
+
+  const cat = document.createElement('div');
+  cat.className = `card-category ${categoryClass || 'cat-default'}`;
+  cat.textContent = article.categoryLabel || article.category || 'Story';
+
+  const title = document.createElement('h3');
+  title.className = 'card-title';
+  title.textContent = article.title || 'Untitled';
+
+  const excerpt = document.createElement('p');
+  excerpt.className = 'card-excerpt';
+  excerpt.textContent = article.excerpt || article.summary || '';
+
+  body.appendChild(cat);
+  body.appendChild(title);
+  body.appendChild(excerpt);
+
+  card.appendChild(thumb);
+  card.appendChild(body);
+
+  if (article.id) {
+    card.addEventListener('click', () => {
+      window.location.href = `article.html?id=${encodeURIComponent(article.id)}`;
+    });
+    card.style.cursor = 'pointer';
+  } else if (article.url) {
+    card.addEventListener('click', () => {
+      window.location.href = article.url;
+    });
+    card.style.cursor = 'pointer';
+  }
+
+  return card;
 }
 
-// ============================
-// WEATHER BAR
-// ============================
-function initWeatherBar() {
-  const bar = document.getElementById("weather-bar");
-  if (!bar) return;
+/* ==========================
+   HOMEPAGE: TOP STORIES (3)
+   ========================== */
 
-  const cities = [
-    { name: "Zurich",        temp: "6°C"  },
-    { name: "Rawalakot",     temp: "9°C"  },
-    { name: "Jammu",         temp: "18°C" },
-    { name: "Kashmir",       temp: "4°C"  },
-    { name: "Ladakh",        temp: "-2°C" },
-    { name: "Gilgit",        temp: "3°C"  },
-    { name: "Baltistan",     temp: "-1°C" },
-    { name: "Muzaffarabad",  temp: "10°C" }
-  ];
+async function loadTopStories(selector) {
+  const container = document.querySelector(selector);
+  if (!container) return;
 
-  bar.innerHTML = cities
-    .map(
-      c => `
-<div class="chip tiny">
-  🌡️ ${c.name}: <strong>${c.temp}</strong>
-</div>`
-    )
-    .join("");
+  const data = await fetchJSON(JSON_PATHS.topstories);
+  container.innerHTML = '';
+
+  const items = data.slice(0, 3);
+  if (!items.length) {
+    container.innerHTML = ''; // keep placeholders if no data
+    return;
+  }
+
+  items.forEach(article => {
+    const card = createArticleCard(article, 'cat-breaking');
+    container.appendChild(card);
+  });
 }
 
-// ============================
-// TICKER
-// ============================
-function initTicker() {
-  fetch("content/index.json")
-    .then(r => r.json())
-    .then(data => {
-      const ul = document.getElementById("ticker-items");
-      if (!ul) return;
+/* ==========================
+   HOMEPAGE: LATEST / EDITORIAL / HISTORICAL
+   ========================== */
 
-      const items = data.ticker || [];
-      ul.innerHTML = items.map(t => `<li>${t}</li>`).join("");
-    })
-    .catch(() => {});
+async function loadLatestEditorialHistorical(selector) {
+  const container = document.querySelector(selector);
+  if (!container) return;
+
+  const latestSlot = container.querySelector('[data-slot="latest"]');
+  const editorialSlot = container.querySelector('[data-slot="editorial"]');
+  const historicalSlot = container.querySelector('[data-slot="historical"]');
+
+  // Latest
+  const latestData = await fetchJSON(JSON_PATHS.latest);
+  if (latestData.length && latestSlot) {
+    const a = latestData[0];
+    fillSlotCard(latestSlot, a, 'cat-latest', 'Latest');
+  }
+
+  // Editorial
+  const editorialData = await fetchJSON(JSON_PATHS.editorial);
+  if (editorialData.length && editorialSlot) {
+    const a = editorialData[0];
+    fillSlotCard(editorialSlot, a, 'cat-editorial', 'Editorial');
+  }
+
+  // Historical
+  const historicalData = await fetchJSON(JSON_PATHS.historical);
+  if (historicalData.length && historicalSlot) {
+    const a = historicalData[0];
+    fillSlotCard(historicalSlot, a, 'cat-historical', 'Historical');
+  }
 }
 
-// ============================
-// NAVIGATION
-// ============================
-function initNav() {
-  const hamburger  = document.getElementById("hamburger");
-  const navList    = document.getElementById("nav-list");
-  const mobileMenu = document.getElementById("mobile-menu");
+function fillSlotCard(slot, article, categoryClass, fallbackLabel) {
+  const thumb = slot.querySelector('.card-thumb');
+  const cat = slot.querySelector('.card-category');
+  const title = slot.querySelector('.card-title');
+  const excerpt = slot.querySelector('.card-excerpt');
 
-  if (!hamburger || !navList || !mobileMenu) return;
+  if (thumb && article.image) {
+    thumb.classList.remove('placeholder-thumb');
+    thumb.style.backgroundImage = `url('${article.image}')`;
+    thumb.style.backgroundSize = 'cover';
+    thumb.style.backgroundPosition = 'center';
+  }
 
-  hamburger.addEventListener("click", () => {
-    const expanded = hamburger.getAttribute("aria-expanded") === "true";
-    hamburger.setAttribute("aria-expanded", String(!expanded));
+  if (cat) {
+    cat.className = `card-category ${categoryClass}`;
+    cat.textContent = article.categoryLabel || article.category || fallbackLabel;
+  }
 
-    if (expanded) {
-      mobileMenu.hidden = true;
-      mobileMenu.innerHTML = "";
+  if (title) title.textContent = article.title || fallbackLabel;
+  if (excerpt) excerpt.textContent = article.excerpt || article.summary || '';
+
+  if (article.id) {
+    slot.style.cursor = 'pointer';
+    slot.addEventListener('click', () => {
+      window.location.href = `article.html?id=${encodeURIComponent(article.id)}`;
+    });
+  }
+}
+
+/* ==========================
+   HOMEPAGE: JK / INT / HR (2 each)
+   ========================== */
+
+async function loadJKSection(selector) {
+  await loadTwoCardSection(selector, JSON_PATHS.jk, 'cat-jk', 'Jammu & Kashmir');
+}
+
+async function loadInternationalSection(selector) {
+  await loadTwoCardSection(selector, JSON_PATHS.international, 'cat-international', 'International');
+}
+
+async function loadHumanRightsSection(selector) {
+  await loadTwoCardSection(selector, JSON_PATHS.humanrights, 'cat-humanrights', 'Human Rights');
+}
+
+async function loadTwoCardSection(selector, jsonPath, categoryClass, fallbackLabel) {
+  const container = document.querySelector(selector);
+  if (!container) return;
+
+  const data = await fetchJSON(jsonPath);
+  if (!data.length) return; // keep placeholders
+
+  container.innerHTML = '';
+  const items = data.slice(0, 2);
+
+  items.forEach(article => {
+    const card = createArticleCard(article, categoryClass);
+    container.appendChild(card);
+  });
+}
+
+/* ==========================
+   HOMEPAGE: VLOGS (JSON + FILTERS)
+   ========================== */
+
+let VLOG_DATA = [];
+let VLOG_FILTER = 'all';
+
+async function loadVlogs(selector) {
+  const container = document.querySelector(selector);
+  if (!container) return;
+
+  VLOG_DATA = await fetchJSON(JSON_PATHS.vlogs);
+  renderVlogs(container);
+}
+
+function renderVlogs(container) {
+  container.innerHTML = '';
+
+  const filtered = VLOG_DATA.filter(v => {
+    if (VLOG_FILTER === 'all') return true;
+    const type = (v.type || v.category || '').toLowerCase();
+    return type === VLOG_FILTER;
+  }).slice(0, 9);
+
+  if (!filtered.length) {
+    const placeholder = document.createElement('div');
+    placeholder.className = 'card placeholder-card';
+    placeholder.innerHTML = `
+      <div class="card-thumb placeholder-thumb vlog-thumb"></div>
+      <div class="card-body">
+        <div class="card-category cat-vlog">Vlog</div>
+        <h3>No videos available in this category yet</h3>
+        <p>New video reports and interviews will be added soon.</p>
+      </div>
+    `;
+    container.appendChild(placeholder);
+    return;
+  }
+
+  filtered.forEach(v => {
+    const card = document.createElement('article');
+    card.className = 'card';
+
+    const thumb = document.createElement('div');
+    thumb.className = 'card-thumb vlog-thumb';
+    if (v.thumbnail) {
+      thumb.style.backgroundImage = `url('${v.thumbnail}')`;
+      thumb.style.backgroundSize = 'cover';
+      thumb.style.backgroundPosition = 'center';
     } else {
-      mobileMenu.hidden = false;
-      mobileMenu.innerHTML = navList.innerHTML;
+      thumb.classList.add('placeholder-thumb');
     }
+
+    const body = document.createElement('div');
+    body.className = 'card-body';
+
+    const cat = document.createElement('div');
+    cat.className = 'card-category cat-vlog';
+    cat.textContent = v.typeLabel || v.type || 'Vlog';
+
+    const title = document.createElement('h3');
+    title.className = 'card-title';
+    title.textContent = v.title || 'Untitled Video';
+
+    const meta = document.createElement('p');
+    meta.className = 'card-excerpt';
+    const duration = v.duration ? ` • ${v.duration}` : '';
+    meta.textContent = (v.description || '') + duration;
+
+    body.appendChild(cat);
+    body.appendChild(title);
+    body.appendChild(meta);
+
+    card.appendChild(thumb);
+    card.appendChild(body);
+
+    if (v.youtubeId) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        window.open(`https://www.youtube.com/watch?v=${encodeURIComponent(v.youtubeId)}`, '_blank');
+      });
+    } else if (v.url) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        window.open(v.url, '_blank');
+      });
+    }
+
+    container.appendChild(card);
   });
 }
 
-// ============================
-// CONTACT MODAL
-// ============================
-function initContactModal() {
-  const openBtn = document.getElementById("contact-open");
-  const closeBtn = document.getElementById("contact-close");
-  const modal = document.getElementById("contact-modal");
+function filterVlogs(filter) {
+  VLOG_FILTER = filter;
+  const container = document.querySelector('#vlogs-grid');
+  if (!container) return;
+  renderVlogs(container);
+}
 
-  if (!openBtn || !closeBtn || !modal) return;
+/* ==========================
+   HOMEPAGE: BREAKING TICKER
+   ========================== */
 
-  openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
-  closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
+async function loadBreakingTicker(selector) {
+  const list = document.querySelector(selector);
+  if (!list) return;
 
-  modal.addEventListener("click", e => {
-    if (e.target === modal) modal.classList.add("hidden");
+  const data = await fetchJSON(JSON_PATHS.breaking);
+  list.innerHTML = '';
+
+  if (!data.length) {
+    const li = document.createElement('li');
+    li.textContent = 'No breaking news at the moment.';
+    list.appendChild(li);
+    return;
+  }
+
+  data.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = item.title || item.text || '';
+    list.appendChild(li);
   });
 }
 
-// ============================
-// VLOGS
-// ============================
-function initVlogs() {
-  const grid = document.getElementById("vlogs-grid");
-  if (!grid) return;
+/* ==========================
+   CLOCKS & CALENDARS (BASIC)
+   ========================== */
 
-  const vlogs = [
-    { title: "Kashmir Protest Highlights",        duration: "4:32" },
-    { title: "Diaspora Voices on Human Rights",   duration: "6:10" },
-    { title: "Brief History of Jammu & Kashmir",  duration: "8:45" }
-  ];
+function initClocksAndCalendars() {
+  // Simple example: show local time for Zurich and placeholders for others
+  function updateClocks() {
+    const now = new Date();
+    const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
 
-  grid.innerHTML = vlogs
-    .map(
-      v => `
-<article class="card">
-  <div class="vlog-thumb">
-    <div class="play-icon">▶</div>
-  </div>
-  <div class="card-body">
-    <h3>${v.title}</h3>
-    <p>Duration: ${v.duration}</p>
-  </div>
-</article>`
-    )
-    .join("");
-}
+    const zurich = now.toLocaleTimeString('en-GB', options);
+    const rawalakot = now.toLocaleTimeString('en-GB', options);
+    const jammu = now.toLocaleTimeString('en-GB', options);
+    const kashmir = now.toLocaleTimeString('en-GB', options);
+    const ladakh = now.toLocaleTimeString('en-GB', options);
+    const gilgit = now.toLocaleTimeString('en-GB', options);
+    const muzaffarabad = now.toLocaleTimeString('en-GB', options);
 
-// ============================
-// HOMEPAGE CARD RENDERER
-// ============================
-function renderArticleCard(mediaId, bodyId, article) {
-  const mediaEl = document.getElementById(mediaId);
-  const bodyEl  = document.getElementById(bodyId);
-  if (!mediaEl || !bodyEl) return;
-
-  if (article.heroImage && article.heroImage.src) {
-    mediaEl.innerHTML = `<img src="${article.heroImage.src}" alt="">`;
+    setText('clock-zurich', `Zurich: ${zurich}`);
+    setText('clock-rawalakot', `Rawalakot: ${rawalakot}`);
+    setText('clock-jammu', `Jammu: ${jammu}`);
+    setText('clock-kashmir', `Kashmir: ${kashmir}`);
+    setText('clock-ladakh', `Ladakh: ${ladakh}`);
+    setText('clock-gilgit', `Gilgit: ${gilgit}`);
+    setText('clock-muzaffarabad', `Muzaffarabad: ${muzaffarabad}`);
   }
 
-  bodyEl.innerHTML = `
-<h3>${article.title}</h3>
-<p>${article.excerpt || article.summary || ""}</p>
-<a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
-`;
-}
-
-// ============================
-// ARTICLE PAGE INITIALISATION
-// ============================
-function initArticlePage() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-  if (!id) return;
-
-  fetch(`content/${id}.json`)
-    .then(r => r.json())
-    .then(article => renderFullArticlePage(article))
-    .catch(err => console.error("Article load error:", err));
-}
-
-// ============================
-// FULL ARTICLE PAGE RENDERER
-// ============================
-function renderFullArticlePage(article) {
-  // SECTION LABEL
-  const sectionLabel = document.getElementById("section-label");
-  if (sectionLabel) {
-    sectionLabel.textContent = article.category || "THE MIRROR JAMMU KASHMIR";
+  function setText(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
   }
 
-  // PAGE TITLE
-  const pageTitle = document.getElementById("page-title");
-  if (pageTitle) {
-    pageTitle.textContent = `${article.title} | THE MIRROR JAMMU KASHMIR`;
-  }
-
-  // MAIN HEADLINE
-  const titleEl = document.getElementById("title");
-  if (titleEl) {
-    titleEl.textContent = article.title;
-  }
-
-  // META (Reuters/BBC style: PLACE — Day, Date — Time)
-  const metaEl = document.getElementById("meta");
-  if (metaEl) {
-    const dateObj = new Date(article.date);
-    const day = dateObj.toLocaleString("en-GB", { weekday: "long" });
-    const dateStr = dateObj.toLocaleDateString("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    });
-    const timeStr = dateObj.toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit"
+  function updateCalendars() {
+    const now = new Date();
+    const greg = now.toLocaleDateString('en-GB', {
+      weekday: 'short',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
     });
 
-    metaEl.innerHTML = `
-<strong>${article.location}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
-By <em>${article.author}</em>
-`;
+    setText('gregorian-date', greg);
+    setText('hijri-date', 'Hijri: (placeholder)');
+    setText('bikrami-date', 'Bikrami: (placeholder)');
+    setText('vikram-samvat-date', 'Vikram Samvat: (placeholder)');
   }
 
-  // HERO IMAGE (16:9 via CSS)
-  const heroImg     = document.getElementById("heroImg");
-  const heroCaption = document.getElementById("heroCaption");
-  const heroWrap    = document.getElementById("heroWrap");
+  updateClocks();
+  updateCalendars();
+  setInterval(updateClocks, 1000 * 30);
+}
 
-  if (article.heroImage && article.heroImage.src) {
-    if (heroImg)     heroImg.src = article.heroImage.src;
-    if (heroCaption) heroCaption.textContent = article.heroImage.caption || "";
-  } else if (heroWrap) {
-    heroWrap.style.display = "none";
+/* ==========================
+   ARCHIVE: PAGINATION
+   ========================== */
+
+async function loadArchiveSection(jsonFile, gridSelector, paginationSelector) {
+  const grid = document.querySelector(gridSelector);
+  const pagination = document.querySelector(paginationSelector);
+  if (!grid || !pagination) return;
+
+  const data = await fetchJSON(jsonFile);
+  if (!data.length) {
+    grid.innerHTML = '<p class="archive-empty">No archived content available yet.</p>';
+    pagination.innerHTML = '';
+    return;
   }
 
-  // BODY CONTENT
-  const contentEl = document.getElementById("content");
-  if (!contentEl) return;
+  const state = {
+    data,
+    currentPage: 1,
+    totalPages: Math.ceil(data.length / ARTICLES_PER_ARCHIVE_PAGE)
+  };
 
-  contentEl.innerHTML = "";
+  function renderPage(page) {
+    state.currentPage = page;
+    grid.innerHTML = '';
 
-  (article.body || []).forEach(block => {
-    // Standard paragraphs
-    if (block.type === "paragraph") {
-      contentEl.innerHTML += `<p>${block.text}</p>`;
-    }
+    const start = (page - 1) * ARTICLES_PER_ARCHIVE_PAGE;
+    const end = start + ARTICLES_PER_ARCHIVE_PAGE;
+    const slice = data.slice(start, end);
 
-    // Mid-article subheading (JSON may use "header" or "subheading")
-    if (block.type === "header" || block.type === "subheading") {
-      contentEl.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
-    }
+    slice.forEach(article => {
+      const catClass = mapCategoryToClass(article.category || article.section);
+      const card = createArticleCard(article, catClass);
+      grid.appendChild(card);
+    });
 
-    // Pull quote
-    if (block.type === "pullquote") {
-      contentEl.innerHTML += `<div class="pull-quote">${block.text}</div>`;
-    }
+    renderPaginationControls(pagination, state, renderPage);
+  }
 
-    // Important points (bullet list)
-    if (block.type === "points") {
-      const pointsHtml = (block.items || [])
-        .map(i => `<li>${i}</li>`)
-        .join("");
+  renderPage(1);
+}
 
-      contentEl.innerHTML += `
-<div class="important-points">
-  <ul>
-    ${pointsHtml}
-  </ul>
-</div>
-`;
-    }
+function renderPaginationControls(container, state, onPageChange) {
+  container.innerHTML = '';
 
-    // Inline images (float left/right, 38% width via CSS)
-    if (block.type === "image") {
-      const alignClass = block.align === "right" ? "img-right" : "img-left";
-      const caption = block.caption || "";
-      contentEl.innerHTML += `
-<figure class="${alignClass}">
-  <img src="${block.src}" alt="">
-  <figcaption>${caption}</figcaption>
-</figure>
-`;
-    }
+  if (state.totalPages <= 1) return;
+
+  const prev = document.createElement('button');
+  prev.textContent = '← Previous';
+  prev.disabled = state.currentPage === 1;
+  prev.addEventListener('click', () => {
+    if (state.currentPage > 1) onPageChange(state.currentPage - 1);
   });
 
-  // OPTIONAL: Like / Subscribe / Share / Copy Link bar (you can style via CSS)
-  const actionsBar = document.createElement("div");
-  actionsBar.className = "page-actions";
-  actionsBar.innerHTML = `
-<button class="btn-red">👍 Like</button>
-<button class="btn-red">🔔 Subscribe</button>
-<button class="btn-red" onclick="navigator.share && navigator.share({ title: document.title, url: location.href })">🔗 Share</button>
-<button class="btn-red" onclick="navigator.clipboard && navigator.clipboard.writeText(location.href)">📋 Copy Link</button>
-`;
-  contentEl.appendChild(actionsBar);
+  const next = document.createElement('button');
+  next.textContent = 'Next →';
+  next.disabled = state.currentPage === state.totalPages;
+  next.addEventListener('click', () => {
+    if (state.currentPage < state.totalPages) onPageChange(state.currentPage + 1);
+  });
+
+  const info = document.createElement('span');
+  info.className = 'pagination-info';
+  info.textContent = `Page ${state.currentPage} of ${state.totalPages}`;
+
+  container.appendChild(prev);
+  container.appendChild(info);
+  container.appendChild(next);
 }
+
+function mapCategoryToClass(cat) {
+  if (!cat) return 'cat-default';
+  const c = cat.toLowerCase();
+  if (c.includes('breaking')) return 'cat-breaking';
+  if (c.includes('latest')) return 'cat-latest';
+  if (c.includes('editorial')) return 'cat-editorial';
+  if (c.includes('historical')) return 'cat-historical';
+  if (c.includes('human')) return 'cat-humanrights';
+  if (c.includes('international')) return 'cat-international';
+  if (c.includes('jammu') || c.includes('kashmir') || c === 'jk') return 'cat-jk';
+  if (c.includes('vlog') || c.includes('video')) return 'cat-vlog';
+  return 'cat-default';
+}
+
+/* ==========================
+   EXPORT HOOKS TO WINDOW
+   ========================== */
+
+window.loadTopStories = loadTopStories;
+window.loadLatestEditorialHistorical = loadLatestEditorialHistorical;
+window.loadJKSection = loadJKSection;
+window.loadInternationalSection = loadInternationalSection;
+window.loadHumanRightsSection = loadHumanRightsSection;
+window.loadVlogs = loadVlogs;
+window.filterVlogs = filterVlogs;
+window.loadBreakingTicker = loadBreakingTicker;
+window.initClocksAndCalendars = initClocksAndCalendars;
+window.loadArchiveSection = loadArchiveSection;
