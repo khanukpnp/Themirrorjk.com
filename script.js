@@ -1,487 +1,135 @@
-/* ==========================
-GLOBAL CONFIG
-========================== */
-
-const JSON_PATHS = {
-    topstories: 'topstories.json',
-    latest: 'latest.json',
-    editorial: 'editorial.json',
-    historical: 'historical.json',
-    jk: 'jk.json',
-    international: 'international.json',
-    humanrights: 'humanrights.json',
-    vlogs: 'vlogs.json',
-    breaking: 'breaking.json'
-};
-
-const ARTICLES_PER_ARCHIVE_PAGE = 9;
-
-/* ==========================
-UTILITY: FETCH JSON
-========================== */
-
-async function fetchJSON(path) {
-    try {
-        const res = await fetch(path, { cache: 'no-cache' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return await res.json();
-    } catch (err) {
-        console.error('Error loading JSON:', path, err);
-        return [];
-    }
-}
-
-/* ==========================
-UTILITY: CREATE ARTICLE CARD
-========================== */
-
-function createArticleCard(article, categoryClass, isVlog = false) {
-    const card = document.createElement('article');
-    card.className = 'card';
-
-    const thumb = document.createElement('div');
-    thumb.className = 'card-thumb';
-    if (isVlog) thumb.classList.add('vlog-thumb');
-
-    if (article.image) {
-        thumb.style.backgroundImage = `url('${article.image}')`;
-        thumb.style.backgroundSize = 'cover';
-        thumb.style.backgroundPosition = 'center';
-    } else {
-        thumb.classList.add('placeholder-thumb');
-    }
-
-    const body = document.createElement('div');
-    body.className = 'card-body';
-
-    const cat = document.createElement('div');
-    cat.className = `card-category ${categoryClass || 'cat-default'}`;
-    cat.textContent = article.categoryLabel || article.category || 'Story';
-
-    const title = document.createElement('h3');
-    title.className = 'card-title';
-    title.textContent = article.title || 'Untitled';
-
-    const excerpt = document.createElement('p');
-    excerpt.className = 'card-excerpt';
-    excerpt.textContent = article.excerpt || article.summary || '';
-
-    body.appendChild(cat);
-    body.appendChild(title);
-    body.appendChild(excerpt);
-
-    card.appendChild(thumb);
-    card.appendChild(body);
-
-    if (article.id) {
-        card.addEventListener('click', () => {
-            window.location.href = `article.html?id=${encodeURIComponent(article.id)}`;
-        });
-        card.style.cursor = 'pointer';
-    } else if (article.url) {
-        card.addEventListener('click', () => {
-            window.location.href = article.url;
-        });
-        card.style.cursor = 'pointer';
-    }
-
-    return card;
-}
-
-/* ==========================
-HOMEPAGE: TOP STORIES
-========================== */
-
-async function loadTopStories(selector) {
-    const container = document.querySelector(selector);
-    if (!container) return;
-
-    const data = await fetchJSON(JSON_PATHS.topstories);
-    container.innerHTML = '';
-
-    const items = data.slice(0, 3);
-    if (!items.length) return;
-
-    items.forEach(article => {
-        const card = createArticleCard(article, 'cat-breaking');
-        container.appendChild(card);
-    });
-}
-
-/* ==========================
-HOMEPAGE: LATEST / EDITORIAL / HISTORICAL
-========================== */
-
-async function loadLatestEditorialHistorical(selector) {
-    const container = document.querySelector(selector);
-    if (!container) return;
-
-    const latestSlot = container.querySelector('[data-slot="latest"]');
-    const editorialSlot = container.querySelector('[data-slot="editorial"]');
-    const historicalSlot = container.querySelector('[data-slot="historical"]');
-
-    const latestData = await fetchJSON(JSON_PATHS.latest);
-    if (latestData.length && latestSlot) {
-        fillSlotCard(latestSlot, latestData[0], 'cat-latest', 'Latest');
-    }
-
-    const editorialData = await fetchJSON(JSON_PATHS.editorial);
-    if (editorialData.length && editorialSlot) {
-        fillSlotCard(editorialSlot, editorialData[0], 'cat-editorial', 'Editorial');
-    }
-
-    const historicalData = await fetchJSON(JSON_PATHS.historical);
-    if (historicalData.length && historicalSlot) {
-        fillSlotCard(historicalSlot, historicalData[0], 'cat-historical', 'Historical');
-    }
-}
-
-function fillSlotCard(slot, article, categoryClass, fallbackLabel) {
-    const thumb = slot.querySelector('.card-thumb');
-    const cat = slot.querySelector('.card-category');
-    const title = slot.querySelector('.card-title');
-    const excerpt = slot.querySelector('.card-excerpt');
-
-    if (thumb && article.image) {
-        thumb.classList.remove('placeholder-thumb');
-        thumb.style.backgroundImage = `url('${article.image}')`;
-        thumb.style.backgroundSize = 'cover';
-        thumb.style.backgroundPosition = 'center';
-    }
-
-    if (cat) {
-        cat.className = `card-category ${categoryClass}`;
-        cat.textContent = article.categoryLabel || article.category || fallbackLabel;
-    }
-
-    if (title) title.textContent = article.title || fallbackLabel;
-    if (excerpt) excerpt.textContent = article.excerpt || article.summary || '';
-
-    if (article.id) {
-        slot.style.cursor = 'pointer';
-        slot.addEventListener('click', () => {
-            window.location.href = `article.html?id=${encodeURIComponent(article.id)}`;
-        });
-    }
-}
-
-/* ==========================
-HOMEPAGE: JK / INT / HR
-========================== */
-
-async function loadJKSection(selector) {
-    await loadTwoCardSection(selector, JSON_PATHS.jk, 'cat-jk', 'Jammu & Kashmir');
-}
-
-async function loadInternationalSection(selector) {
-    await loadTwoCardSection(selector, JSON_PATHS.international, 'cat-international', 'International');
-}
-
-async function loadHumanRightsSection(selector) {
-    await loadTwoCardSection(selector, JSON_PATHS.humanrights, 'cat-humanrights', 'Human Rights');
-}
-
-async function loadTwoCardSection(selector, jsonPath, categoryClass, fallbackLabel) {
-    const container = document.querySelector(selector);
-    if (!container) return;
-
-    const data = await fetchJSON(jsonPath);
-    if (!data.length) return;
-
-    container.innerHTML = '';
-
-    const items = data.slice(0, 2);
-    items.forEach(article => {
-        const card = createArticleCard(article, categoryClass);
-        container.appendChild(card);
-    });
-}
-
-/* ==========================
-VLOGS
-========================== */
-
-let VLOG_DATA = [];
-let VLOG_FILTER = 'all';
-
-async function loadVlogs(selector) {
-    const container = document.querySelector(selector);
-    if (!container) return;
-
-    VLOG_DATA = await fetchJSON(JSON_PATHS.vlogs);
-    renderVlogs(container);
-}
-
-function renderVlogs(container) {
-    container.innerHTML = '';
-
-    const filtered = VLOG_DATA.filter(v => {
-        if (VLOG_FILTER === 'all') return true;
-        const type = (v.type || v.category || '').toLowerCase();
-        return type === VLOG_FILTER;
-    }).slice(0, 9);
-
-    if (!filtered.length) {
-        const placeholder = document.createElement('div');
-        placeholder.className = 'card placeholder-card';
-        placeholder.innerHTML = `
-            <div class="card-thumb placeholder-thumb vlog-thumb"></div>
-            <div class="card-body">
-                <div class="card-category cat-vlog">Vlog</div>
-                <h3>No videos available in this category yet</h3>
-                <p>New video reports and interviews will be added soon.</p>
-            </div>
-        `;
-        container.appendChild(placeholder);
-        return;
-    }
-
-    filtered.forEach(v => {
-        const card = document.createElement('article');
-        card.className = 'card';
-
-        const thumb = document.createElement('div');
-        thumb.className = 'card-thumb vlog-thumb';
-
-        if (v.thumbnail) {
-            thumb.style.backgroundImage = `url('${v.thumbnail}')`;
-            thumb.style.backgroundSize = 'cover';
-            thumb.style.backgroundPosition = 'center';
-        } else {
-            thumb.classList.add('placeholder-thumb');
-        }
-
-        const body = document.createElement('div');
-        body.className = 'card-body';
-
-        const cat = document.createElement('div');
-        cat.className = 'card-category cat-vlog';
-        cat.textContent = v.typeLabel || v.type || 'Vlog';
-
-        const title = document.createElement('h3');
-        title.className = 'card-title';
-        title.textContent = v.title || 'Untitled Video';
-
-        const meta = document.createElement('p');
-        meta.className = 'card-excerpt';
-        const duration = v.duration ? ` • ${v.duration}` : '';
-        meta.textContent = (v.description || '') + duration;
-
-        body.appendChild(cat);
-        body.appendChild(title);
-        body.appendChild(meta);
-
-        card.appendChild(thumb);
-        card.appendChild(body);
-
-        if (v.youtubeId) {
-            card.style.cursor = 'pointer';
-            card.addEventListener('click', () => {
-                window.open(`https://www.youtube.com/watch?v=${encodeURIComponent(v.youtubeId)}`, '_blank');
-            });
-        } else if (v.url) {
-            card.style.cursor = 'pointer';
-            card.addEventListener('click', () => {
-                window.open(v.url, '_blank');
-            });
-        }
-
-        container.appendChild(card);
-    });
-}
-
-function filterVlogs(filter) {
-    VLOG_FILTER = filter;
-    const container = document.querySelector('#vlogs-grid');
-    if (!container) return;
-    renderVlogs(container);
-}
-
-/* ==========================
-BREAKING TICKER
-========================== */
-
-async function loadBreakingTicker(selector) {
-    const list = document.querySelector(selector);
-    if (!list) return;
-
-    const data = await fetchJSON(JSON_PATHS.breaking);
-    list.innerHTML = '';
-
-    if (!data.length) {
-        const li = document.createElement('li');
-        li.textContent = 'No breaking news at the moment.';
-        list.appendChild(li);
-        return;
-    }
-
-    data.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = item.title || item.text || '';
-        list.appendChild(li);
-    });
-}
-
-/* ==========================
-CLOCKS & CALENDARS (STATIC WEATHER)
-========================== */
-
-function initClocksAndCalendars() {
-
-    /* ---- CLOCKS ---- */
-    function updateClocks() {
-        const now = new Date();
-        const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        const t = now.toLocaleTimeString('en-GB', options);
-
-        setText('clock-zurich', `Zurich: ${t}`);
-        setText('clock-rawalakot', `Rawalakot: ${t}`);
-        setText('clock-jammu', `Jammu: ${t}`);
-        setText('clock-kashmir', `Kashmir: ${t}`);
-        setText('clock-ladakh', `Ladakh: ${t}`);
-        setText('clock-gilgit', `Gilgit: ${t}`);
-        setText('clock-muzaffarabad', `Muzaffarabad: ${t}`);
-    }
-
-    /* ---- CALENDARS ---- */
-    function updateCalendars() {
-        const now = new Date();
-
-        const greg = now.toLocaleDateString('en-GB', {
-            weekday: 'long',
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        });
-
-        setText('gregorian-date', greg);
-        setText('hijri-date', 'Hijri: (static)');
-        setText('bikrami-date', 'Bikrami: (static)');
-        setText('vikram-samvat-date', 'Vikram Samvat: (static)');
-    }
-
-    /* ---- STATIC WEATHER ---- */
-    function setStaticWeather() {
-        setText('wx-zurich', '7°C');
-        setText('wx-rawalakot', '9°C');
-        setText('wx-jammu', '18°C');
-        setText('wx-kashmir', '5°C');
-        setText('wx-ladakh', '2°C');
-        setText('wx-gilgit', '3°C');
-        setText('wx-muzaffarabad', '8°C');
-    }
-
-    function setText(id, text) {
-        const el = document.getElementById(id);
-        if (el) el.textContent = text;
-    }
-
-    updateClocks();
-    updateCalendars();
-    setStaticWeather();
-
-    setInterval(updateClocks, 1000 * 30);
-}
-
-/* ==========================
-ARCHIVE PAGINATION
-========================== */
-
-async function loadArchiveSection(jsonFile, gridSelector, paginationSelector) {
-    const grid = document.querySelector(gridSelector);
-    const pagination = document.querySelector(paginationSelector);
-    if (!grid || !pagination) return;
-
-    const data = await fetchJSON(jsonFile);
-
-    if (!data.length) {
-        grid.innerHTML = '<p class="archive-empty">No archived content available yet.</p>';
-        pagination.innerHTML = '';
-        return;
-    }
-
-    const state = {
-        data,
-        currentPage: 1,
-        totalPages: Math.ceil(data.length / ARTICLES_PER_ARCHIVE_PAGE)
+/* ============================================================
+   PAGE LOADER
+============================================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+    const loader = document.getElementById("site-loader");
+    setTimeout(() => {
+        loader.style.opacity = "0";
+        setTimeout(() => loader.style.display = "none", 600);
+    }, 1200);
+});
+
+/* ============================================================
+   GREGORIAN DATE
+============================================================ */
+
+function updateGregorianDate() {
+    const now = new Date();
+    const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
     };
+    const formatted = now.toLocaleDateString("en-US", options);
+    document.getElementById("gregorian-date").textContent = formatted;
+}
 
-    function renderPage(page) {
-        state.currentPage = page;
-        grid.innerHTML = '';
+/* ============================================================
+   HIJRI DATE (Umm al-Qura)
+============================================================ */
 
-        const start = (page - 1) * ARTICLES_PER_ARCHIVE_PAGE;
-        const end = start + ARTICLES_PER_ARCHIVE_PAGE;
-        const slice = data.slice(start, end);
+function updateHijriDate() {
+    try {
+        const today = new Date();
+        const hijri = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }).format(today);
 
-        slice.forEach(article => {
-            const catClass = mapCategoryToClass(article.category || article.section);
-            const card = createArticleCard(article, catClass);
-            grid.appendChild(card);
-        });
-
-        renderPaginationControls(pagination, state, renderPage);
+        document.getElementById("hijri-date").textContent = hijri;
+    } catch (e) {
+        document.getElementById("hijri-date").textContent = "Hijri unavailable";
     }
-
-    renderPage(1);
 }
 
-function renderPaginationControls(container, state, onPageChange) {
-    container.innerHTML = '';
+/* ============================================================
+   PUNJABI DESI BIKRAMI DATE
+   (Simplified solar calendar approximation)
+============================================================ */
 
-    if (state.totalPages <= 1) return;
+function updateBikramiDate() {
+    const now = new Date();
+    const monthNames = [
+        "Chet", "Vaisakh", "Jeth", "Harh", "Sawan", "Bhadon",
+        "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"
+    ];
 
-    const prev = document.createElement('button');
-    prev.textContent = '← Previous';
-    prev.disabled = state.currentPage === 1;
-    prev.addEventListener('click', () => {
-        if (state.currentPage > 1) onPageChange(state.currentPage - 1);
-    });
+    const startMonth = 3; // Chet starts mid-March
+    const year = now.getFullYear() + 57; // Bikrami year offset
+    const month = (now.getMonth() - startMonth + 12) % 12;
+    const day = now.getDate();
 
-    const next = document.createElement('button');
-    next.textContent = 'Next →';
-    next.disabled = state.currentPage === state.totalPages;
-    next.addEventListener('click', () => {
-        if (state.currentPage < state.totalPages) onPageChange(state.currentPage + 1);
-    });
-
-    const info = document.createElement('span');
-    info.className = 'pagination-info';
-    info.textContent = `Page ${state.currentPage} of ${state.totalPages}`;
-
-    container.appendChild(prev);
-    container.appendChild(info);
-    container.appendChild(next);
+    const formatted = `${day} ${monthNames[month]} ${year} BK`;
+    document.getElementById("bikrami-date").textContent = formatted;
 }
 
-function mapCategoryToClass(cat) {
-    if (!cat) return 'cat-default';
+/* ============================================================
+   INITIALIZE DATES
+============================================================ */
 
-    const c = cat.toLowerCase();
+updateGregorianDate();
+updateHijriDate();
+updateBikramiDate();
+setInterval(updateGregorianDate, 60000);
+setInterval(updateHijriDate, 60000);
+setInterval(updateBikramiDate, 60000);
+/* ============================================================
+   REGIONAL CLOCKS — IST (Jammu, Kashmir, Ladakh)
+   & PST (Gilgit, Baltistan, Muzaffarabad)
+============================================================ */
 
-    if (c.includes('breaking')) return 'cat-breaking';
-    if (c.includes('latest')) return 'cat-latest';
-    if (c.includes('editorial')) return 'cat-editorial';
-    if (c.includes('historical')) return 'cat-historical';
-    if (c.includes('human')) return 'cat-humanrights';
-    if (c.includes('international')) return 'cat-international';
-    if (c.includes('jammu') || c.includes('kashmir') || c === 'jk') return 'cat-jk';
-    if (c.includes('vlog') || c.includes('video')) return 'cat-vlog';
+function formatTime(date) {
+    let h = date.getHours();
+    let m = date.getMinutes();
+    let s = date.getSeconds();
 
-    return 'cat-default';
+    if (h < 10) h = "0" + h;
+    if (m < 10) m = "0" + m;
+    if (s < 10) s = "0" + s;
+
+    return `${h}:${m}:${s}`;
 }
 
-/* ==========================
-EXPORT HOOKS
-========================== */
+function updateRegionalClocks() {
+    const now = new Date();
 
-window.loadTopStories = loadTopStories;
-window.loadLatestEditorialHistorical = loadLatestEditorialHistorical;
-window.loadJKSection = loadJKSection;
-window.loadInternationalSection = loadInternationalSection;
-window.loadHumanRightsSection = loadHumanRightsSection;
-window.loadVlogs = loadVlogs;
-window.filterVlogs = filterVlogs;
-window.loadBreakingTicker = loadBreakingTicker;
-window.initClocksAndCalendars = initClocksAndCalendars;
-window.loadArchiveSection = loadArchiveSection;
+    /* ------------------------------
+       IST — UTC+5:30
+    ------------------------------ */
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const istTime = new Date(now.getTime() + istOffset - (now.getTimezoneOffset() * 60000));
+
+    document.getElementById("clock-jammu").textContent =
+        `Jammu (IST): ${formatTime(istTime)}`;
+
+    document.getElementById("clock-kashmir").textContent =
+        `Kashmir (IST): ${formatTime(istTime)}`;
+
+    document.getElementById("clock-ladakh").textContent =
+        `Ladakh (IST): ${formatTime(istTime)}`;
+
+    /* ------------------------------
+       PST — UTC+5:00
+    ------------------------------ */
+    const pstOffset = 5 * 60 * 60 * 1000;
+    const pstTime = new Date(now.getTime() + pstOffset - (now.getTimezoneOffset() * 60000));
+
+    document.getElementById("clock-gilgit").textContent =
+        `Gilgit (PST): ${formatTime(pstTime)}`;
+
+    document.getElementById("clock-baltistan").textContent =
+        `Baltistan (PST): ${formatTime(pstTime)}`;
+
+    document.getElementById("clock-muzaffarabad").textContent =
+        `Muzaffarabad (PST): ${formatTime(pstTime)}`;
+}
+
+/* ============================================================
+   INITIALIZE CLOCKS
+============================================================ */
+
+updateRegionalClocks();
+setInterval(updateRegionalClocks, 1000);
