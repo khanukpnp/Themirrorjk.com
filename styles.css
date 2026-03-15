@@ -1,170 +1,105 @@
 /* ============================================================
-   GLOBAL BASE STYLES — THE MIRROR JAMMU KASHMIR
-   Foundation for all pages: typography, layout, colors, resets
-   ============================================================ */
+GLOBAL BASE STYLES — THE MIRROR JAMMU KASHMIR
+============================================================ */
 
-/* ------------------------------
-   RESET + NORMALIZE
---------------------------------*/
+/* RESET */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: "Inter", Arial, sans-serif;
-  background: #f5f5f5;
-  color: #111;
-  line-height: 1.6;
+    font-family: "Inter", Arial, sans-serif;
+    background: #f5f5f5;
+    color: #111;
+    line-height: 1.6;
 }
 
-/* ------------------------------
-   COLOR SYSTEM
---------------------------------*/
+/* COLOR SYSTEM */
 :root {
-  --maroon: #800000;
-  --dark-maroon: #5a0000;
-  --light-maroon: #b30000;
-
-  --black: #111;
-  --gray-900: #222;
-  --gray-700: #555;
-  --gray-500: #888;
-  --gray-300: #ccc;
-  --gray-200: #e5e5e5;
-  --gray-100: #f5f5f5;
-
-  --white: #fff;
-
-  --accent-blue: #005bbb;
-  --accent-green: #0a7d32;
-  --accent-gold: #b8860b;
-  --accent-purple: #6a0dad;
-  --accent-orange: #d35400;
+    --maroon: #800000;
+    --dark-maroon: #5a0000;
+    --light-maroon: #b30000;
+    --black: #111;
+    --gray-900: #222;
+    --gray-700: #555;
+    --gray-500: #888;
+    --gray-300: #ccc;
+    --gray-200: #e5e5e5;
+    --gray-100: #f5f5f5;
+    --white: #fff;
+    --accent-blue: #005bbb;
+    --accent-green: #0a7d32;
+    --accent-gold: #b8860b;
+    --accent-purple: #6a0dad;
+    --accent-orange: #d35400;
 }
 
-/* ------------------------------
-   TYPOGRAPHY
---------------------------------*/
+/* TYPOGRAPHY */
 h1, h2, h3, h4 {
-  font-family: "Georgia", serif;
-  font-weight: 700;
-  color: var(--black);
+    font-family: "Georgia", serif;
+    font-weight: 700;
+    color: var(--black);
 }
 
-p {
-  font-size: 1rem;
-  color: var(--gray-900);
-}
+p { font-size: 1rem; color: var(--gray-900); }
 
 a {
-  text-decoration: none;
-  color: var(--maroon);
-  transition: 0.2s ease;
+    text-decoration: none;
+    color: var(--maroon);
+    transition: 0.2s ease;
 }
+a:hover { color: var(--dark-maroon); }
 
-a:hover {
-  color: var(--dark-maroon);
-}
-
-/* ------------------------------
-   GLOBAL LAYOUT CONTAINERS
---------------------------------*/
+/* GLOBAL LAYOUT */
 .section-block {
-  padding: 40px 5%;
-  margin: 0 auto;
+    padding: 40px 5%;
+    margin: 0 auto;
 }
 
 .section-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
 }
 
-.section-header h2 {
-  font-size: 1.8rem;
-}
+.section-header h2 { font-size: 1.8rem; }
+.section-icon { font-size: 1.8rem; }
 
-.section-icon {
-  font-size: 1.8rem;
-}
+/* CARD GRID */
+.card-grid { display: grid; gap: 25px; }
+.card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.card-grid-4 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 
-/* ------------------------------
-   CARD GRID SYSTEM
---------------------------------*/
-.card-grid {
-  display: grid;
-  gap: 25px;
-}
-
-.card-grid-2 {
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-}
-
-.card-grid-3 {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.card-grid-4 {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-
-/* ------------------------------
-   CARD COMPONENT
---------------------------------*/
+/* CARD */
 .card {
-  background: var(--white);
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--gray-300);
-  transition: 0.25s ease;
+    background: var(--white);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--gray-300);
+    transition: 0.25s ease;
 }
-
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
-
 .card-thumb {
-  width: 100%;
-  height: 180px;
-  background: var(--gray-200);
+    width: 100%;
+    height: 180px;
+    background: var(--gray-200);
 }
+.vlog-thumb { height: 200px; }
+.card-body { padding: 18px; }
+.card-title { font-size: 1.15rem; margin-bottom: 8px; }
+.card-excerpt { font-size: 0.95rem; color: var(--gray-700); }
 
-.vlog-thumb {
-  height: 200px;
-}
-
-.card-body {
-  padding: 18px;
-}
-
-.card-title {
-  font-size: 1.15rem;
-  margin-bottom: 8px;
-}
-
-.card-excerpt {
-  font-size: 0.95rem;
-  color: var(--gray-700);
-}
-
-/* ------------------------------
-   CATEGORY LABEL COLORS
---------------------------------*/
-.card-category {
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-
+/* CATEGORY COLORS */
+.card-category { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
 .cat-breaking { color: #c00; }
 .cat-blog { color: var(--accent-blue); }
 .cat-editorial { color: var(--accent-gold); }
@@ -176,845 +111,740 @@ a:hover {
 .cat-vlog { color: var(--accent-orange); }
 .cat-default { color: var(--dark-maroon); }
 
-/* ------------------------------
-   PLACEHOLDER CARDS
---------------------------------*/
-.placeholder-card {
-  opacity: 0.75;
-}
-
+/* PLACEHOLDERS */
+.placeholder-card { opacity: 0.75; }
 .placeholder-thumb {
-  background: repeating-linear-gradient(
-    45deg,
-    #ddd,
-    #ddd 10px,
-    #eee 10px,
-    #eee 20px
-  );
+    background: repeating-linear-gradient(
+        45deg,
+        #ddd,
+        #ddd 10px,
+        #eee 10px,
+        #eee 20px
+    );
 }
 
-/* ------------------------------
-   BUTTONS
---------------------------------*/
+/* BUTTONS */
 .btn-primary {
-  background: var(--maroon);
-  color: var(--white);
-  padding: 10px 18px;
-  border-radius: 4px;
-  display: inline-block;
-  font-weight: 600;
+    background: var(--maroon);
+    color: var(--white);
+    padding: 10px 18px;
+    border-radius: 4px;
+    display: inline-block;
+    font-weight: 600;
 }
-
-.btn-primary:hover {
-  background: var(--dark-maroon);
-}
+.btn-primary:hover { background: var(--dark-maroon); }
 
 .btn-secondary {
-  background: var(--gray-900);
-  color: var(--white);
-  padding: 10px 18px;
-  border-radius: 4px;
-  display: inline-block;
-  font-weight: 600;
+    background: var(--gray-900);
+    color: var(--white);
+    padding: 10px 18px;
+    border-radius: 4px;
+    display: inline-block;
+    font-weight: 600;
 }
+.btn-secondary:hover { background: var(--black); }
 
-.btn-secondary:hover {
-  background: var(--black);
-}
+.btn-link { color: var(--maroon); font-weight: 700; }
+.btn-link:hover { color: var(--dark-maroon); }
 
-.btn-link {
-  color: var(--maroon);
-  font-weight: 700;
-}
-
-.btn-link:hover {
-  color: var(--dark-maroon);
-}
-
-/* ------------------------------
-   PAGINATION
---------------------------------*/
+/* PAGINATION */
 .pagination {
-  margin-top: 20px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
 }
-
 .pagination button {
-  padding: 8px 14px;
-  border: 1px solid var(--gray-400);
-  background: var(--white);
-  cursor: pointer;
-  border-radius: 4px;
+    padding: 8px 14px;
+    border: 1px solid var(--gray-400);
+    background: var(--white);
+    cursor: pointer;
+    border-radius: 4px;
 }
+.pagination button:hover:not(:disabled) { background: var(--gray-200); }
+.pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+.pagination-info { font-size: 0.9rem; color: var(--gray-700); }
 
-.pagination button:hover:not(:disabled) {
-  background: var(--gray-200);
-}
-
-.pagination button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.pagination-info {
-  font-size: 0.9rem;
-  color: var(--gray-700);
-}
-
-/* ------------------------------
-   RESPONSIVE
---------------------------------*/
+/* RESPONSIVE */
 @media (max-width: 768px) {
-  .section-header h2 {
-    font-size: 1.5rem;
-  }
-
-  .card-thumb {
-    height: 150px;
-  }
+    .section-header h2 { font-size: 1.5rem; }
+    .card-thumb { height: 150px; }
 }
+
 /* ============================================================
-   HOMEPAGE STYLES — THE MIRROR JAMMU KASHMIR
-   Header, ticker, nav, homepage sections, vlog filters
-   ============================================================ */
+UPDATED TOP BAR (17 MARCH)
+============================================================ */
 
-/* ------------------------------
-   TOP BAR (WEATHER + CLOCKS)
---------------------------------*/
 .top-bar {
-  background: var(--black);
-  color: var(--white);
-  padding: 8px 5%;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
+    background:#111;
+    color:#f5f5f5;
+    padding:6px 14px;
+    border-bottom:2px solid #b30000;
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
-.top-bar-left,
+.top-bar-line {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    font-size:13px;
+}
+
+.top-bar-left {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px;
+}
+
 .top-bar-right {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+    display:flex;
+    align-items:center;
+    gap:6px;
 }
 
-.time-weather span {
-  margin-right: 6px;
+.top-bar-right .lang-btn {
+    background:#222;
+    border:1px solid #444;
+    color:#fff;
+    padding:2px 6px;
+    font-size:12px;
+    cursor:pointer;
+    border-radius:3px;
 }
 
-/* ------------------------------
-   SLOGAN BANNER
---------------------------------*/
+.top-bar-right .lang-btn.active {
+    background:#b30000;
+    border-color:#b30000;
+}
+
+.top-bar-weather {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px;
+    margin-top:4px;
+    font-size:13px;
+}
+
+.top-bar-weather strong { font-weight:600; }
+.separator { opacity:0.4; }
+
+/* SLOGAN */
 .slogan-banner {
-  background: var(--maroon);
-  color: var(--white);
-  text-align: center;
-  padding: 18px 10px;
+    background: var(--maroon);
+    color: var(--white);
+    text-align: center;
+    padding: 18px 10px;
 }
+.slogan-main { font-size: 1.2rem; font-weight: 700; }
+.slogan-sub { font-size: 0.95rem; opacity: 0.9; }
 
-.slogan-main {
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.slogan-sub {
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
-
-/* ------------------------------
-   NAVIGATION BAR
---------------------------------*/
+/* NAVIGATION */
 .nav-bar {
-  background: var(--white);
-  border-bottom: 1px solid var(--gray-300);
-  padding: 12px 5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-300);
+    padding: 12px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo-area .site-logo-text {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--maroon);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--maroon);
 }
 
 .main-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 22px;
+    list-style: none;
+    display: flex;
+    gap: 22px;
 }
 
 .main-nav a {
-  font-weight: 600;
-  color: var(--black);
+    font-weight: 600;
+    color: var(--black);
 }
+.main-nav a:hover { color: var(--maroon); }
 
-.main-nav a:hover {
-  color: var(--maroon);
-}
-
-/* Dropdown */
-.has-dropdown {
-  position: relative;
-}
-
-.has-dropdown:hover .dropdown {
-  display: block;
-}
+/* DROPDOWN */
+.has-dropdown { position: relative; }
+.has-dropdown:hover .dropdown { display: block; }
 
 .dropdown {
-  display: none;
-  position: absolute;
-  background: var(--white);
-  border: 1px solid var(--gray-300);
-  padding: 10px 0;
-  top: 28px;
-  left: 0;
-  min-width: 160px;
-  z-index: 10;
+    display: none;
+    position: absolute;
+    background: var(--white);
+    border: 1px solid var(--gray-300);
+    padding: 10px 0;
+    top: 28px;
+    left: 0;
+    min-width: 160px;
+    z-index: 10;
 }
 
-.dropdown li {
-  padding: 6px 14px;
-}
+.dropdown li { padding: 6px 14px; }
+.dropdown li:hover { background: var(--gray-100); }
 
-.dropdown li:hover {
-  background: var(--gray-100);
-}
-
-/* ------------------------------
-   NAV TOOLS (LANG + SEARCH)
---------------------------------*/
-.nav-tools {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.language-switcher .lang-btn {
-  background: var(--gray-200);
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.language-switcher .active {
-  background: var(--maroon);
-  color: var(--white);
-}
+/* SEARCH */
+.nav-tools { display: flex; align-items: center; gap: 18px; }
 
 .search-box {
-  display: flex;
-  align-items: center;
-  border: 1px solid var(--gray-300);
-  border-radius: 4px;
-  overflow: hidden;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 #site-search {
-  border: none;
-  padding: 6px 10px;
-  width: 160px;
+    border: none;
+    padding: 6px 10px;
+    width: 160px;
 }
 
 #search-btn {
-  background: var(--maroon);
-  color: var(--white);
-  border: none;
-  padding: 6px 10px;
-  cursor: pointer;
+    background: var(--maroon);
+    color: var(--white);
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
 }
 
-/* ------------------------------
-   BREAKING TICKER
---------------------------------*/
+/* TICKER */
 .ticker-bar {
-  background: var(--black);
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  padding: 8px 5%;
-  overflow: hidden;
+    background: var(--black);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    padding: 8px 5%;
+    overflow: hidden;
 }
 
 .ticker-label {
-  font-weight: 700;
-  margin-right: 12px;
-  color: var(--light-maroon);
+    font-weight: 700;
+    margin-right: 12px;
+    color: var(--light-maroon);
 }
 
-.ticker-content {
-  overflow: hidden;
-  white-space: nowrap;
-}
+.ticker-content { overflow: hidden; white-space: nowrap; }
 
 #breaking-ticker {
-  display: inline-flex;
-  gap: 40px;
-  animation: ticker-scroll 18s linear infinite;
+    display: inline-flex;
+    gap: 40px;
+    animation: ticker-scroll 18s linear infinite;
 }
 
 @keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
 }
+/* ============================================================
+HOMEPAGE SECTION SPACING
+============================================================ */
 
-/* ------------------------------
-   SECTION SPACING
---------------------------------*/
 #main-content .section-block {
-  border-bottom: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
 }
 
-/* ------------------------------
-   TOP STORIES (3 GRID)
---------------------------------*/
+/* ============================================================
+TOP STORIES (3 GRID)
+============================================================ */
+
 #top-stories-grid .card-thumb {
-  height: 200px;
+    height: 200px;
 }
 
-/* ------------------------------
-   LATEST / EDITORIAL / HISTORICAL
---------------------------------*/
+/* ============================================================
+LATEST / EDITORIAL / HISTORICAL
+============================================================ */
+
 #leh-grid .card-thumb {
-  height: 180px;
+    height: 180px;
 }
 
-/* ------------------------------
-   JK / INTERNATIONAL / HUMAN RIGHTS
---------------------------------*/
+/* ============================================================
+JK / INTERNATIONAL / HUMAN RIGHTS
+============================================================ */
+
 #jk-grid .card-thumb,
 #international-grid .card-thumb,
 #human-rights-grid .card-thumb {
-  height: 180px;
+    height: 180px;
 }
 
-/* ------------------------------
-   VLOG SECTION
---------------------------------*/
+/* ============================================================
+VLOG SECTION
+============================================================ */
+
 .vlog-filters {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .vlog-filter-btn {
-  padding: 8px 14px;
-  border: 1px solid var(--gray-400);
-  background: var(--white);
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
+    padding: 8px 14px;
+    border: 1px solid var(--gray-400);
+    background: var(--white);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .vlog-filter-btn.active {
-  background: var(--maroon);
-  color: var(--white);
-  border-color: var(--maroon);
+    background: var(--maroon);
+    color: var(--white);
+    border-color: var(--maroon);
 }
 
 #vlogs-grid .card-thumb {
-  height: 200px;
+    height: 200px;
 }
 
 .vlog-actions {
-  margin-top: 20px;
-  display: flex;
-  gap: 14px;
+    margin-top: 20px;
+    display: flex;
+    gap: 14px;
 }
 
-/* ------------------------------
-   SERVICE CARDS (ARCHIVE / EPAPER / SUBSCRIBE / CONTACT)
---------------------------------*/
+/* ============================================================
+SERVICE CARDS (ARCHIVE / EPAPER / SUBSCRIBE / CONTACT)
+============================================================ */
+
 .service-card {
-  text-align: center;
-  padding: 25px;
+    text-align: center;
+    padding: 25px;
 }
 
 .service-icon {
-  font-size: 2.2rem;
-  margin-bottom: 12px;
+    font-size: 2.2rem;
+    margin-bottom: 12px;
 }
 
-/* ------------------------------
-   FOOTER
---------------------------------*/
+/* ============================================================
+FOOTER
+============================================================ */
+
 #site-footer {
-  background: var(--black);
-  color: var(--white);
-  padding: 30px 5%;
+    background: var(--black);
+    color: var(--white);
+    padding: 30px 5%;
 }
 
 .footer-inner {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .footer-right a {
-  color: var(--white);
-  margin-left: 12px;
+    color: var(--white);
+    margin-left: 12px;
 }
 
 .footer-right a:hover {
-  color: var(--light-maroon);
+    color: var(--light-maroon);
 }
 
-/* ------------------------------
-   RESPONSIVE
---------------------------------*/
+/* ============================================================
+RESPONSIVE (HOMEPAGE)
+============================================================ */
+
 @media (max-width: 900px) {
-  .nav-bar {
-    flex-direction: column;
-    gap: 14px;
-  }
+    .nav-bar {
+        flex-direction: column;
+        gap: 14px;
+    }
 
-  .main-nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-  .vlog-actions {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    .vlog-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 /* ============================================================
-   ARCHIVE PAGE STYLES — THE MIRROR JAMMU KASHMIR
-   Multi-section archive, pagination, grid layout
-   ============================================================ */
+ARCHIVE PAGE STYLES — THE MIRROR JAMMU KASHMIR
+============================================================ */
 
-/* ------------------------------
-   ARCHIVE HEADER
---------------------------------*/
+/* ARCHIVE HEADER */
 .archive-header {
-  text-align: center;
-  padding: 50px 5% 30px;
-  background: var(--white);
-  border-bottom: 1px solid var(--gray-300);
+    text-align: center;
+    padding: 50px 5% 30px;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-300);
 }
 
 .archive-header h1 {
-  font-size: 2.2rem;
-  color: var(--maroon);
-  margin-bottom: 10px;
+    font-size: 2.2rem;
+    color: var(--maroon);
+    margin-bottom: 10px;
 }
 
 .archive-subtitle {
-  font-size: 1rem;
-  color: var(--gray-700);
+    font-size: 1rem;
+    color: var(--gray-700);
 }
 
-/* ------------------------------
-   ARCHIVE MAIN WRAPPER
---------------------------------*/
+/* ARCHIVE MAIN WRAPPER */
 .archive-main {
-  padding: 40px 5%;
-  max-width: 1400px;
-  margin: 0 auto;
+    padding: 40px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-/* ------------------------------
-   ARCHIVE SECTION BLOCK
---------------------------------*/
+/* ARCHIVE SECTION BLOCK */
 .archive-section {
-  margin-bottom: 60px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--gray-200);
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--gray-200);
 }
 
 .archive-section-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
 }
 
 .archive-section-header h2 {
-  font-size: 1.7rem;
+    font-size: 1.7rem;
 }
 
 .archive-icon {
-  font-size: 1.8rem;
+    font-size: 1.8rem;
 }
 
-/* ------------------------------
-   ARCHIVE GRID (9 CARDS)
---------------------------------*/
+/* ARCHIVE GRID (9 CARDS) */
 .archive-grid {
-  display: grid;
-  gap: 25px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-/* Card overrides for archive */
 .archive-grid .card-thumb {
-  height: 180px;
+    height: 180px;
 }
 
 .archive-grid .card-title {
-  font-size: 1.1rem;
+    font-size: 1.1rem;
 }
 
 .archive-grid .card-excerpt {
-  font-size: 0.9rem;
+    font-size: 0.9rem;
 }
 
-/* ------------------------------
-   EMPTY STATE
---------------------------------*/
+/* EMPTY STATE */
 .archive-empty {
-  padding: 20px;
-  background: var(--gray-100);
-  border: 1px solid var(--gray-300);
-  border-radius: 6px;
-  text-align: center;
-  color: var(--gray-700);
-  font-size: 1rem;
+    padding: 20px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    border-radius: 6px;
+    text-align: center;
+    color: var(--gray-700);
+    font-size: 1rem;
 }
 
-/* ------------------------------
-   PAGINATION (ARCHIVE)
---------------------------------*/
+/* PAGINATION (ARCHIVE) */
 .pagination {
-  margin-top: 25px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
 .pagination button {
-  padding: 8px 16px;
-  background: var(--white);
-  border: 1px solid var(--gray-400);
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
+    padding: 8px 16px;
+    background: var(--white);
+    border: 1px solid var(--gray-400);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .pagination button:hover:not(:disabled) {
-  background: var(--gray-200);
+    background: var(--gray-200);
 }
 
 .pagination button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 .pagination-info {
-  font-size: 0.9rem;
-  color: var(--gray-700);
+    font-size: 0.9rem;
+    color: var(--gray-700);
 }
 
-/* ------------------------------
-   RESPONSIVE
---------------------------------*/
+/* RESPONSIVE (ARCHIVE) */
 @media (max-width: 768px) {
-  .archive-header h1 {
-    font-size: 1.8rem;
-  }
+    .archive-header h1 {
+        font-size: 1.8rem;
+    }
 
-  .archive-section-header h2 {
-    font-size: 1.4rem;
-  }
+    .archive-section-header h2 {
+        font-size: 1.4rem;
+    }
 
-  .archive-grid {
-    grid-template-columns: 1fr;
-  }
+    .archive-grid {
+        grid-template-columns: 1fr;
+    }
 }
-/* ============================================================
-   ARTICLE PAGE — THE MIRROR JAMMU KASHMIR
-   Modernized version of your master article template
-   ============================================================ */
 
-/* ------------------------------
-   ARTICLE CONTAINER
---------------------------------*/
+/* ============================================================
+ARTICLE PAGE — THE MIRROR JAMMU KASHMIR
+============================================================ */
+
+/* ARTICLE CONTAINER */
 .article-container {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 30px;
-  background: var(--white);
-  border: 1px solid var(--gray-300);
-  border-radius: 6px;
-  display: flex;
-  gap: 40px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background: var(--white);
+    border: 1px solid var(--gray-300);
+    border-radius: 6px;
+    display: flex;
+    gap: 40px;
 }
 
 .article-body {
-  width: 70%;
+    width: 70%;
 }
 
 .sidebar {
-  width: 30%;
-  border-left: 1px solid var(--gray-200);
-  padding-left: 25px;
+    width: 30%;
+    border-left: 1px solid var(--gray-200);
+    padding-left: 25px;
 }
 
-/* ------------------------------
-   CATEGORY LABEL
---------------------------------*/
+/* CATEGORY LABEL */
 .category-label {
-  font-size: 0.95rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
 }
 
-/* Category colors (same as homepage) */
-.cat-breaking { color: #c00; }
-.cat-blog { color: var(--accent-blue); }
-.cat-editorial { color: var(--accent-gold); }
-.cat-historical { color: #555; }
-.cat-humanrights { color: var(--maroon); }
-.cat-international { color: var(--accent-green); }
-.cat-latest { color: var(--accent-purple); }
-.cat-jk { color: #0b7c7c; }
-.cat-vlog { color: var(--accent-orange); }
-.cat-default { color: var(--dark-maroon); }
-
-/* ------------------------------
-   HERO IMAGE
---------------------------------*/
-#heroWrap {
-  margin-bottom: 25px;
-}
+/* HERO IMAGE */
+#heroWrap { margin-bottom: 25px; }
 
 #heroImg {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 4px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 4px;
 }
 
 #heroCaption {
-  font-size: 0.9rem;
-  color: var(--gray-700);
-  margin-top: 6px;
+    font-size: 0.9rem;
+    color: var(--gray-700);
+    margin-top: 6px;
 }
 
-/* ------------------------------
-   HEADLINE + STANDFIRST
---------------------------------*/
+/* HEADLINE + STANDFIRST */
 #title {
-  font-size: 2.3rem;
-  font-weight: 700;
-  margin: 20px 0 10px 0;
-  font-family: "Georgia", serif;
-  line-height: 1.2;
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin: 20px 0 10px 0;
+    font-family: "Georgia", serif;
+    line-height: 1.2;
 }
 
 .standfirst {
-  font-size: 1.25rem;
-  color: var(--gray-700);
-  margin: 20px 0;
-  line-height: 1.6;
-  font-family: "Georgia", serif;
+    font-size: 1.25rem;
+    color: var(--gray-700);
+    margin: 20px 0;
+    line-height: 1.6;
+    font-family: "Georgia", serif;
 }
 
-/* ------------------------------
-   META LINE
---------------------------------*/
+/* META LINE */
 #meta {
-  font-size: 0.95rem;
-  color: var(--gray-700);
-  margin-bottom: 25px;
-  line-height: 1.5;
+    font-size: 0.95rem;
+    color: var(--gray-700);
+    margin-bottom: 25px;
+    line-height: 1.5;
 }
 
-/* ------------------------------
-   BODY CONTENT
---------------------------------*/
+/* BODY CONTENT */
 #content p {
-  font-size: 1.15rem;
-  line-height: 1.85;
-  margin-bottom: 20px;
-  font-family: "Georgia", serif;
-  color: var(--black);
+    font-size: 1.15rem;
+    line-height: 1.85;
+    margin-bottom: 20px;
+    font-family: "Georgia", serif;
+    color: var(--black);
 }
 
-/* Inline images */
+/* INLINE IMAGES */
 .img-left {
-  float: left;
-  width: 45%;
-  margin: 10px 20px 20px 0;
+    float: left;
+    width: 45%;
+    margin: 10px 20px 20px 0;
 }
 
 .img-right {
-  float: right;
-  width: 45%;
-  margin: 10px 0 20px 20px;
+    float: right;
+    width: 45%;
+    margin: 10px 0 20px 20px;
 }
 
 figure img {
-  width: 100%;
-  border-radius: 4px;
+    width: 100%;
+    border-radius: 4px;
 }
 
 figure figcaption {
-  font-size: 0.85rem;
-  color: var(--gray-700);
-  margin-top: 4px;
+    font-size: 0.85rem;
+    color: var(--gray-700);
+    margin-top: 4px;
 }
 
-/* Clear floats */
+/* CLEAR FLOATS */
 .clearfix::after {
-  content: "";
-  display: block;
-  clear: both;
+    content: "";
+    display: block;
+    clear: both;
 }
 
-/* ------------------------------
-   IMPORTANT POINTS BOX
---------------------------------*/
+/* IMPORTANT POINTS BOX */
 .important-points {
-  background: var(--gray-100);
-  padding: 18px 22px;
-  border-left: 4px solid var(--maroon);
-  margin: 30px 0;
+    background: var(--gray-100);
+    padding: 18px 22px;
+    border-left: 4px solid var(--maroon);
+    margin: 30px 0;
 }
 
 .important-points ul {
-  margin: 0;
-  padding-left: 20px;
+    margin: 0;
+    padding-left: 20px;
 }
 
-/* ------------------------------
-   PULL QUOTE
---------------------------------*/
+/* PULL QUOTE */
 .pull-quote {
-  background: var(--gray-100);
-  border-left: 4px solid var(--maroon);
-  padding: 22px;
-  margin: 35px 0;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--gray-900);
-  font-family: "Georgia", serif;
+    background: var(--gray-100);
+    border-left: 4px solid var(--maroon);
+    padding: 22px;
+    margin: 35px 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    font-family: "Georgia", serif;
 }
 
-/* ------------------------------
-   SIDEBAR
---------------------------------*/
+/* SIDEBAR */
 .sidebar h3 {
-  font-size: 1.2rem;
-  margin-bottom: 14px;
-  font-family: "Georgia", serif;
+    font-size: 1.2rem;
+    margin-bottom: 14px;
+    font-family: "Georgia", serif;
 }
 
 .sidebar .related-item,
 .sidebar .latest-item {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .sidebar a {
-  font-weight: 600;
-  color: var(--maroon);
+    font-weight: 600;
+    color: var(--maroon);
 }
 
 .sidebar a:hover {
-  color: var(--dark-maroon);
+    color: var(--dark-maroon);
 }
 
 .sidebar p {
-  font-size: 0.9rem;
-  color: var(--gray-700);
+    font-size: 0.9rem;
+    color: var(--gray-700);
 }
 
-/* ------------------------------
-   SHARE BUTTON
---------------------------------*/
+/* SHARE BUTTON */
 .sidebar button {
-  background: var(--maroon);
-  color: var(--white);
-  padding: 10px 14px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
+    background: var(--maroon);
+    color: var(--white);
+    padding: 10px 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .sidebar button:hover {
-  background: var(--dark-maroon);
+    background: var(--dark-maroon);
 }
 
-/* ------------------------------
-   RESPONSIVE
---------------------------------*/
+/* RESPONSIVE (ARTICLE PAGE) */
 @media (max-width: 900px) {
-  .article-container {
-    flex-direction: column;
-    padding: 20px;
-  }
+    .article-container {
+        flex-direction: column;
+        padding: 20px;
+    }
 
-  .article-body,
-  .sidebar {
-    width: 100%;
-  }
+    .article-body,
+    .sidebar {
+        width: 100%;
+    }
 
-  .sidebar {
-    border-left: none;
-    padding-left: 0;
-    margin-top: 30px;
-  }
+    .sidebar {
+        border-left: none;
+        padding-left: 0;
+        margin-top: 30px;
+    }
 
-  #title {
-    font-size: 1.9rem;
-  }
+    #title {
+        font-size: 1.9rem;
+    }
 
-  #content p {
-    font-size: 1.05rem;
-  }
+    #content p {
+        font-size: 1.05rem;
+    }
 }
-/* ============================
-   FIX NAVIGATION DROPDOWN HIDING
-============================ */
 
-/* Ensure nav bar sits above all sections */
+/* ============================================================
+NAVIGATION DROPDOWN FIX
+============================================================ */
+
 .nav-bar,
 .main-nav,
 #site-header {
-  position: relative;
-  z-index: 9999 !important;
-  overflow: visible !important;
+    position: relative;
+    z-index: 9999 !important;
+    overflow: visible !important;
 }
 
-/* Dropdown menu must float above everything */
 .main-nav .dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #ffffff;
-  border: 1px solid #ccc;
-  min-width: 180px;
-  padding: 10px 0;
-  display: none;
-  z-index: 99999 !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    min-width: 180px;
+    padding: 10px 0;
+    display: none;
+    z-index: 99999 !important;
 }
 
-/* Show dropdown on hover */
-.has-dropdown:hover .dropdown {
-  display: block;
-}
+.has-dropdown:hover .dropdown { display: block; }
 
-/* Dropdown items */
 .main-nav .dropdown li {
-  list-style: none;
-  padding: 8px 14px;
-  white-space: nowrap;
+    list-style: none;
+    padding: 8px 14px;
+    white-space: nowrap;
 }
 
 .main-nav .dropdown li a {
-  color: #000;
-  display: block;
+    color: #000;
+    display: block;
 }
 
 .main-nav .dropdown li:hover {
-  background: #f2f2f2;
+    background: #f2f2f2;
 }
