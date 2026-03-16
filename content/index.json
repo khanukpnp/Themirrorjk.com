@@ -5,22 +5,20 @@
     "opinion": "blog-001"
   },
 
-  "latest": ["latest-001"],
-  "editorial": ["editorial-001"],
-  "historical": ["historical-001"],
-
-  "jammuKashmir": {
-    "first": "jk-001",
-    "second": null
+  "latestEditorialHistorical": {
+    "latest": "latest-001",
+    "editorial": "editorial-001",
+    "historical": "historical-001"
   },
 
-  "international": {
-    "first": "international-001",
-    "second": null
-  },
+  "jammuKashmir": ["jk-001", null],
 
-  "humanRights": {
-    "first": "humanrights-001",
-    "second": null
-  }
+  "international": ["international-001", null],
+
+  "humanRights": ["humanrights-001", null],
+
+  "ticker": [
+    "WE DO NOT MANUFACTURE NARRATIVES — WE REFLECT REALITY",
+    "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH"
+  ]
 }
