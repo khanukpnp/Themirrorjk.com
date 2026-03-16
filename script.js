@@ -51,38 +51,30 @@ let id = params.get("id");
 
 const path = window.location.pathname.toLowerCase();
 
-/* ------------------------------------------------------------
-STATIC PAGE DETECTION
------------------------------------------------------------- */
+/* detect static pages */
 
 if(!id){
 
 if(path.includes("about")) id = "about-001";
-
 else if(path.includes("chief-editor")) id = "chief-editor-001";
-
 else if(path.includes("blog")) id = "blog-001";
 
 }
 
-/* If still no id → stop safely */
+/* stop safely if no article id */
 
 if(!id) return;
 
 
-/* ------------------------------------------------------------
-FETCH ARTICLE JSON
------------------------------------------------------------- */
+/* load json */
 
 fetch(`content/${id}.json`)
 
 .then(res => {
 
 if(!res.ok){
-
 console.error("Article JSON not found:", id);
 return null;
-
 }
 
 return res.json();
@@ -94,9 +86,7 @@ return res.json();
 if(!article) return;
 
 
-/* ------------------------------------------------------------
-GET PAGE ELEMENTS
------------------------------------------------------------- */
+/* page elements */
 
 const title = document.getElementById("title");
 const label = document.getElementById("section-label");
@@ -108,9 +98,7 @@ const content = document.getElementById("content");
 if(!content) return;
 
 
-/* ------------------------------------------------------------
-HEADER DATA
------------------------------------------------------------- */
+/* header */
 
 if(title) title.textContent = article.title;
 
@@ -126,38 +114,21 @@ meta.textContent =
 }
 
 
-/* ------------------------------------------------------------
-HERO IMAGE
------------------------------------------------------------- */
+/* hero image */
 
-if(hero && article.heroImage && article.heroImage.src){
+if(hero && article.heroImage?.src) hero.src = article.heroImage.src;
 
-hero.src = article.heroImage.src;
-
-}
-
-if(caption){
-
-caption.textContent = article.heroImage?.caption || "";
-
-}
+if(caption) caption.textContent = article.heroImage?.caption || "";
 
 
-/* ------------------------------------------------------------
-CLEAR CONTENT
------------------------------------------------------------- */
+/* clear content */
 
 content.innerHTML = "";
 
 
-/* ------------------------------------------------------------
-RENDER BODY BLOCKS
------------------------------------------------------------- */
+/* render article blocks */
 
 article.body.forEach(block => {
-
-
-/* Paragraph */
 
 if(block.type === "paragraph"){
 
@@ -165,26 +136,17 @@ content.innerHTML += `<p>${block.text}</p>`;
 
 }
 
-
-/* Subheading */
-
 if(block.type === "subheading"){
 
 content.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
 
 }
 
-
-/* Pull Quote */
-
 if(block.type === "pullquote"){
 
 content.innerHTML += `<div class="pull-quote">${block.text}</div>`;
 
 }
-
-
-/* BBC Style Points */
 
 if(block.type === "points"){
 
@@ -197,9 +159,6 @@ ${block.items.map(i => `<li>${i}</li>`).join("")}
 `;
 
 }
-
-
-/* Inline Images */
 
 if(block.type === "image"){
 
@@ -217,29 +176,21 @@ content.innerHTML += `
 });
 
 
-/* ------------------------------------------------------------
+/* ============================================================
 ARTICLE ACTION BAR
------------------------------------------------------------- */
+============================================================ */
 
 content.innerHTML += `
 
 <div class="article-actions">
 
-<button class="action-btn like-btn" onclick="likeArticle()">
-👍 <span>Like</span>
-</button>
+<button class="action-btn" onclick="likeArticle()">👍 Like</button>
 
-<button class="action-btn subscribe-btn" onclick="subscribeChannel()">
-🔔 <span>Subscribe</span>
-</button>
+<button class="action-btn" onclick="subscribeChannel()">🔔 Subscribe</button>
 
-<button class="action-btn share-btn" onclick="shareArticle()">
-🔗 <span>Share</span>
-</button>
+<button class="action-btn" onclick="shareArticle()">🔗 Share</button>
 
-<button class="action-btn copy-btn" onclick="copyLink()">
-📋 <span>Copy Link</span>
-</button>
+<button class="action-btn" onclick="copyLink()">📋 Copy Link</button>
 
 </div>
 
@@ -247,11 +198,7 @@ content.innerHTML += `
 
 })
 
-.catch(err => {
-
-console.error("Article loading error:", err);
-
-});
+.catch(err => console.error("Article load error:", err));
 
 }
   
