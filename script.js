@@ -1,432 +1,461 @@
-/* ============================================================
-   THE MIRROR JAMMU KASHMIR — FULL COMBINED SCRIPT
-   All features merged: Calendars, Times, Weather, Ticker,
-   Homepage Sections, YouTube, Team, Language, Newsletter,
-   Engagement Buttons, Archive Loader.
-   ============================================================ */
+// ============================
+// BASIC INITIALISATION
+// ============================
 
-/* ------------------------------------------------------------
-   1. UTILITY: SAFE JSON FETCH
------------------------------------------------------------- */
-async function fetchJSON(url) {
-    try {
-        const res = await fetch(url, { cache: "no-cache" });
-        if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-        return await res.json();
-    } catch (err) {
-        console.error("JSON Load Error:", url, err);
-        return null;
-    }
-}
-
-/* ------------------------------------------------------------
-   2. ENGAGEMENT BUTTON BAR (Like, Subscribe, Share, Copy)
------------------------------------------------------------- */
-function createEngagementBar(url, title) {
-    const bar = document.createElement("div");
-    bar.className = "engagement-bar";
-
-    const like = document.createElement("button");
-    like.textContent = "👍 Like";
-    like.onclick = () => like.classList.add("active");
-
-    const sub = document.createElement("button");
-    sub.textContent = "🔔 Subscribe";
-    sub.onclick = () => window.open("https://www.youtube.com/@themirrorjk", "_blank");
-
-    const share = document.createElement("button");
-    share.textContent = "📤 Share";
-    share.onclick = async () => {
-        if (navigator.share) {
-            await navigator.share({ title, text: title, url });
-        } else alert("Sharing not supported.");
-    };
-
-    const copy = document.createElement("button");
-    copy.textContent = "📋 Copy Link";
-    copy.onclick = async () => {
-        await navigator.clipboard.writeText(url);
-        copy.textContent = "✅ Copied";
-        setTimeout(() => (copy.textContent = "📋 Copy Link"), 1500);
-    };
-
-    bar.append(like, sub, share, copy);
-    return bar;
-}
-
-/* ------------------------------------------------------------
-   3. ARTICLE CARD GENERATOR
------------------------------------------------------------- */
-function createArticleCard(item) {
-    const card = document.createElement("article");
-    card.className = "news-card";
-
-    if (item.image) {
-        const wrap = document.createElement("div");
-        wrap.className = "thumb thumb-cropped";
-        const img = document.createElement("img");
-        img.src = item.image;
-        img.alt = item.title;
-        wrap.appendChild(img);
-        card.appendChild(wrap);
-    }
-
-    const body = document.createElement("div");
-    body.className = "card-body";
-
-    if (item.category) {
-        const cat = document.createElement("div");
-        cat.className = "card-category";
-        cat.textContent = item.category;
-        body.appendChild(cat);
-    }
-
-    const h3 = document.createElement("h3");
-    const a = document.createElement("a");
-    a.href = item.link;
-    a.textContent = item.title;
-    h3.appendChild(a);
-    body.appendChild(h3);
-
-    if (item.subtitle) {
-        const sub = document.createElement("p");
-        sub.className = "card-subtitle";
-        sub.textContent = item.subtitle;
-        body.appendChild(sub);
-    }
-
-    if (item.date) {
-        const meta = document.createElement("div");
-        meta.className = "card-meta";
-        meta.textContent = item.date;
-        body.appendChild(meta);
-    }
-
-    body.appendChild(createEngagementBar(item.link, item.title));
-    card.appendChild(body);
-
-    return card;
-}
-
-/* ------------------------------------------------------------
-   4. RENDER LISTS
------------------------------------------------------------- */
-function renderList(id, items) {
-    const box = document.getElementById(id);
-    if (!box) return;
-    box.innerHTML = "";
-
-    if (!items || !items.length) {
-        box.innerHTML = "<p>No content available.</p>";
-        return;
-    }
-
-    items.forEach(item => box.appendChild(createArticleCard(item)));
-}
-
-/* ------------------------------------------------------------
-   5. ARCHIVE RENDERER
------------------------------------------------------------- */
-function renderArchive(id, archive) {
-    const box = document.getElementById(id);
-    if (!box) return;
-    box.innerHTML = "";
-
-    archive.forEach(yearBlock => {
-        const sec = document.createElement("div");
-        sec.className = "archive-year-block";
-
-        const h3 = document.createElement("h3");
-        h3.textContent = yearBlock.year;
-        sec.appendChild(h3);
-
-        const ul = document.createElement("ul");
-        yearBlock.items.forEach(item => {
-            const li = document.createElement("li");
-            const a = document.createElement("a");
-            a.href = item.link;
-            a.textContent = item.title;
-
-            const d = document.createElement("span");
-            d.className = "archive-date";
-            d.textContent = item.date;
-
-            li.append(a, d);
-            ul.appendChild(li);
-        });
-
-        sec.appendChild(ul);
-        box.appendChild(sec);
-    });
-}
-
-/* ------------------------------------------------------------
-   6. HOMEPAGE LOADER (index.json)
------------------------------------------------------------- */
-async function loadHomePage() {
-    const data = await fetchJSON("index.json");
-    if (!data) return;
-
-    renderList("top-stories-container", data.topStories);
-    renderList("latest-container", data.latest);
-    renderList("editorial-container", data.editorial);
-    renderList("historical-container", data.historical);
-    renderList("jk-container", data.jammuKashmir);
-    renderList("international-container", data.international);
-    renderList("human-rights-container", data.humanRights);
-    renderArchive("archive-container", data.archive);
-
-    initTicker(data.ticker);
-}
-
-/* ------------------------------------------------------------
-   7. TICKER (from index.json)
------------------------------------------------------------- */
-function initTicker(items) {
-    const box = document.getElementById("ticker-content");
-    if (!box || !items || !items.length) return;
-
-    let i = 0;
-    function next() {
-        box.innerHTML = "";
-        const a = document.createElement("a");
-        a.href = items[i].link;
-        a.textContent = items[i].text;
-        box.appendChild(a);
-        i = (i + 1) % items.length;
-    }
-
-    next();
-    setInterval(next, 8000);
-}
-
-/* ------------------------------------------------------------
-   8. NEWSLETTER
------------------------------------------------------------- */
-function initNewsletter() {
-    const form = document.getElementById("newsletter-form");
-    const msg = document.getElementById("newsletter-message");
-
-    if (!form) return;
-
-    form.addEventListener("submit", e => {
-        e.preventDefault();
-        msg.textContent = "Thank you for subscribing.";
-        msg.className = "newsletter-success";
-        form.reset();
-    });
-}
-
-/* ------------------------------------------------------------
-   9. LANGUAGE SELECTOR
------------------------------------------------------------- */
-function initLanguageSelector() {
-    const sel = document.getElementById("language-dropdown");
-    if (!sel) return;
-
-    sel.addEventListener("change", () => {
-        console.log("Language changed to:", sel.value);
-    });
-}
-
-/* ------------------------------------------------------------
-   10. WEATHER (Static placeholders)
------------------------------------------------------------- */
-function initWeather() {
-    const W = {
-        zurich: "Zurich: 5°C, Cloudy",
-        jammu: "Jammu: 18°C, Clear",
-        kashmir: "Kashmir: 4°C, Snow",
-        ladakh: "Ladakh: -2°C, Clear",
-        gilgit: "Gilgit: 3°C, Partly Cloudy",
-        baltistan: "Baltistan: -1°C, Snow",
-        muzaffarabad: "Muzaffarabad: 7°C, Cloudy",
-        rawalakot: "Rawalakot: 6°C, Mist"
-    };
-
-    const set = (id, text) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = text;
-    };
-
-    set("weather-zurich", W.zurich);
-    set("weather-jammu", W.jammu);
-    set("weather-kashmir", W.kashmir);
-    set("weather-ladakh", W.ladakh);
-    set("weather-gilgit", W.gilgit);
-    set("weather-baltistan", W.baltistan);
-    set("weather-muzaffarabad", W.muzaffarabad);
-    set("weather-rawalakot", W.rawalakot);
-}
-
-/* ------------------------------------------------------------
-   11. CALENDARS (Gregorian + Hijri + Punjabi Desi)
------------------------------------------------------------- */
-function loadGregorian() {
-    const now = new Date();
-    const opt = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
-    document.getElementById("gregorian-date").textContent =
-        now.toLocaleDateString("en-US", opt);
-}
-
-function loadHijri() {
-    const now = new Date();
-    const hijri = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
-        day: "numeric", month: "long", year: "numeric"
-    }).format(now);
-    document.getElementById("hijri-date").textContent = hijri + " AH";
-}
-
-function loadPunjabi() {
-    const months = [
-        "Chet","Vaisakh","Jeth","Harh","Sawan","Bhadon",
-        "Assu","Kattak","Maghar","Poh","Magh","Phagun"
-    ];
-
-    const now = new Date();
-    const gy = now.getFullYear();
-    const by = gy + 57;
-    const m = now.getMonth();
-    const d = now.getDate();
-
-    const pm = (m + 10) % 12;
-
-    document.getElementById("punjabi-date").textContent =
-        `${months[pm]} ${d}, ${by} Bikrami`;
-}
-
-function loadTimes() {
-    const now = new Date();
-
-    const ist = now.toLocaleTimeString("en-US", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" });
-    const pkt = now.toLocaleTimeString("en-US", { timeZone: "Asia/Karachi", hour: "2-digit", minute: "2-digit" });
-    const cet = now.toLocaleTimeString("en-US", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit" });
-
-    document.getElementById("region-times").textContent =
-        `IST (JKL): ${ist} | PKT (GBM): ${pkt} | CET (Zurich): ${cet}`;
-}
-
-function initCalendars() {
-    loadGregorian();
-    loadHijri();
-    loadPunjabi();
-    loadTimes();
-    setInterval(loadTimes, 60000);
-}
-
-/* ------------------------------------------------------------
-   12. YOUTUBE (youtube.json)
------------------------------------------------------------- */
-async function initYouTube() {
-    const box = document.getElementById("vlog-container");
-    if (!box) return;
-
-    const data = await fetchJSON("youtube.json");
-    if (!data) {
-        box.innerHTML = "<p>No videos available.</p>";
-        return;
-    }
-
-    box.innerHTML = "";
-    data.slice(0, 3).forEach(v => {
-        const card = document.createElement("article");
-        card.className = "video-card";
-
-        const wrap = document.createElement("div");
-        wrap.className = "thumb thumb-cropped";
-
-        const img = document.createElement("img");
-        img.src = v.thumbnail;
-        img.alt = v.title;
-        wrap.appendChild(img);
-
-        const body = document.createElement("div");
-        body.className = "card-body";
-
-        const h3 = document.createElement("h3");
-        const a = document.createElement("a");
-        a.href = v.url;
-        a.target = "_blank";
-        a.textContent = v.title;
-        h3.appendChild(a);
-
-        const meta = document.createElement("div");
-        meta.className = "card-meta";
-        meta.textContent = v.publishedAt;
-
-        body.append(h3, meta, createEngagementBar(v.url, v.title));
-        card.append(wrap, body);
-        box.appendChild(card);
-    });
-}
-
-/* ------------------------------------------------------------
-   13. TEAM (our-team.json)
------------------------------------------------------------- */
-async function initTeam() {
-    const box = document.getElementById("team-container");
-    if (!box) return;
-
-    const data = await fetchJSON("our-team.json");
-    if (!data) {
-        box.innerHTML = "<p>No team members available.</p>";
-        return;
-    }
-
-    box.innerHTML = "";
-    data.forEach(m => {
-        const card = document.createElement("article");
-        card.className = "team-card";
-
-        if (m.photo) {
-            const wrap = document.createElement("div");
-            wrap.className = "team-photo";
-            const img = document.createElement("img");
-            img.src = m.photo;
-            img.alt = m.name;
-            wrap.appendChild(img);
-            card.appendChild(wrap);
-        }
-
-        const body = document.createElement("div");
-        body.className = "team-body";
-
-        const h3 = document.createElement("h3");
-        h3.textContent = m.name;
-
-        const role = document.createElement("p");
-        role.className = "team-role";
-        role.textContent = m.role;
-
-        const bio = document.createElement("p");
-        bio.className = "team-bio";
-        bio.textContent = m.bio;
-
-        body.append(h3, role, bio);
-
-        if (m.link) {
-            const link = document.createElement("a");
-            link.href = m.link;
-            link.target = "_blank";
-            link.className = "team-link";
-            link.textContent = "Profile / Contact";
-            body.appendChild(link);
-        }
-
-        card.appendChild(body);
-        box.appendChild(card);
-    });
-}
-
-/* ------------------------------------------------------------
-   14. MASTER INITIALIZER
------------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-    initCalendars();
-    initWeather();
-    initLanguageSelector();
-    initNewsletter();
-    loadHomePage();
-    initYouTube();
-    initTeam();
+  initLoader();
+  initYear();
+  initClocks();
+  updateHijri();
+  updateVikramSamvat();
+  initWeatherBar();
+  initTicker();
+  initNav();
+  initContactModal();
+  initVlogs();
+
+  const isArticlePage = document.body.classList.contains("article-page");
+  if (isArticlePage) {
+    initArticlePage();
+  } else {
+    loadHomepageIndex();
+  }
 });
+
+// ============================
+// LOAD HOMEPAGE INDEX
+// ============================
+
+function loadHomepageIndex() {
+  fetch("content/index.json")
+    .then(r => r.json())
+    .then(data => {
+      const hp = data.homepage || data;
+      if (hp.topStories) loadTopStories(hp.topStories);
+      if (hp.latestEditorialHistorical) loadLatestEditorialHistorical(hp.latestEditorialHistorical);
+      if (hp.jammuKashmir) loadJammuKashmir(hp.jammuKashmir);
+      if (hp.international) loadInternational(hp.international);
+      if (hp.humanRights) loadHumanRights(hp.humanRights);
+    })
+    .catch(err => console.error("Index JSON error:", err));
+}
+
+// ============================
+// LOAD TOP STORIES
+// ============================
+
+function loadTopStories(section) {
+  if (section.lead) loadArticleToCard(section.lead, "lead-media", "lead-body");
+  if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
+  if (section.opinion) loadArticleToCard(section.opinion, "opinion-media", "opinion-body");
+}
+
+// ============================
+// LOAD LATEST / EDITORIAL / HISTORICAL
+// ============================
+
+function loadLatestEditorialHistorical(section) {
+  if (section.latest) loadArticleToCard(section.latest, "leh1-media", "leh1-body");
+  if (section.editorial) loadArticleToCard(section.editorial, "leh2-media", "leh2-body");
+  if (section.historical) loadArticleToCard(section.historical, "leh3-media", "leh3-body");
+}
+
+// ============================
+// LOAD JAMMU KASHMIR
+// ============================
+
+function loadJammuKashmir(ids) {
+  if (!Array.isArray(ids)) return;
+  if (ids[0]) loadArticleToCard(ids[0], "jk1-media", "jk1-body");
+  if (ids[1]) loadArticleToCard(ids[1], "jk2-media", "jk2-body");
+}
+
+// ============================
+// LOAD INTERNATIONAL
+// ============================
+
+function loadInternational(ids) {
+  if (!Array.isArray(ids)) return;
+  if (ids[0]) loadArticleToCard(ids[0], "intl1-media", "intl1-body");
+  if (ids[1]) loadArticleToCard(ids[1], "intl2-media", "intl2-body");
+}
+
+// ============================
+// LOAD HUMAN RIGHTS
+// ============================
+
+function loadHumanRights(ids) {
+  if (!Array.isArray(ids)) return;
+  if (ids[0]) loadArticleToCard(ids[0], "hr1-media", "hr1-body");
+  if (ids[1]) loadArticleToCard(ids[1], "hr2-media", "hr2-body");
+}
+
+// ============================
+// UNIVERSAL ARTICLE LOADER
+// ============================
+
+function loadArticleToCard(articleId, mediaId, bodyId) {
+  fetch(`content/${articleId}.json`)
+    .then(r => r.json())
+    .then(article => {
+      renderArticleCard(mediaId, bodyId, article);
+    })
+    .catch(err => console.error(`Error loading ${articleId}:`, err));
+}
+
+// ============================
+// LOADER
+// ============================
+
+function initLoader() {
+  const loader = document.getElementById("site-loader");
+  if (!loader) return;
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    setTimeout(() => (loader.style.display = "none"), 300);
+  }, 800);
+}
+
+// ============================
+// FOOTER YEAR
+// ============================
+
+function initYear() {
+  const y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
+}
+
+// ============================
+// CLOCKS
+// ============================
+
+function initClocks() {
+  updateClocks();
+  setInterval(updateClocks, 1000);
+}
+
+function updateClocks() {
+  const now = new Date();
+
+  const cestEl = document.querySelector("#clock-cest span");
+  if (cestEl) {
+    cestEl.textContent = now.toLocaleString("en-GB", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+
+  const istEl = document.querySelector("#tz-ist span");
+  if (istEl) {
+    istEl.textContent = new Date().toLocaleTimeString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+
+  const pktEl = document.querySelector("#tz-pkt span");
+  if (pktEl) {
+    pktEl.textContent = new Date().toLocaleTimeString("en-PK", {
+      timeZone: "Asia/Karachi",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+}
+
+// ============================
+// HIJRI CALENDAR
+// ============================
+
+function updateHijri() {
+  const hijriEl = document.querySelector("#cal-hijri span");
+  if (!hijriEl) return;
+  try {
+    const now = new Date();
+    const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }).format(now);
+    hijriEl.textContent = hijriDate;
+  } catch {
+    hijriEl.textContent = "Hijri calendar";
+  }
+}
+
+// ============================
+// VIKRAM SAMVAT
+// ============================
+
+function updateVikramSamvat() {
+  const vsEl = document.querySelector("#cal-hindi span");
+  if (!vsEl) return;
+  const now = new Date();
+  const vsYear = now.getFullYear() + 57;
+  const months = [
+    "Chaitra",
+    "Vaishakha",
+    "Jyeshtha",
+    "Ashadha",
+    "Shravana",
+    "Bhadrapada",
+    "Ashwin",
+    "Kartika",
+    "Margashirsha",
+    "Pausha",
+    "Magha",
+    "Phalguna"
+  ];
+  vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${vsYear} VS`;
+}
+
+// ============================
+// WEATHER BAR
+// ============================
+
+function initWeatherBar() {
+  const bar = document.getElementById("weather-bar");
+  if (!bar) return;
+
+  const cities = [
+    { name: "Zurich", temp: "6°C" },
+    { name: "Rawalakot", temp: "9°C" },
+    { name: "Jammu", temp: "18°C" },
+    { name: "Kashmir", temp: "4°C" },
+    { name: "Ladakh", temp: "-2°C" },
+    { name: "Gilgit", temp: "3°C" },
+    { name: "Baltistan", temp: "-1°C" },
+    { name: "Muzaffarabad", temp: "10°C" }
+  ];
+
+  bar.innerHTML = cities
+    .map(
+      c => `
+<div class="chip tiny">
+  🌡️ ${c.name}: <strong>${c.temp}</strong>
+</div>
+`
+    )
+    .join("");
+}
+
+// ============================
+// TICKER
+// ============================
+
+function initTicker() {
+  fetch("content/index.json")
+    .then(r => r.json())
+    .then(data => {
+      const ul = document.getElementById("ticker-items");
+      if (!ul) return;
+      const items = data.ticker || [];
+      ul.innerHTML = items.map(t => `<li>${t}</li>`).join("");
+    })
+    .catch(() => {});
+}
+
+// ============================
+// NAVIGATION
+// ============================
+
+function initNav() {
+  const hamburger = document.getElementById("hamburger");
+  const navList = document.getElementById("nav-list");
+  const mobileMenu = document.getElementById("mobile-menu");
+  if (!hamburger || !navList || !mobileMenu) return;
+
+  hamburger.addEventListener("click", () => {
+    const expanded = hamburger.getAttribute("aria-expanded") === "true";
+    hamburger.setAttribute("aria-expanded", String(!expanded));
+    if (expanded) {
+      mobileMenu.hidden = true;
+      mobileMenu.innerHTML = "";
+    } else {
+      mobileMenu.hidden = false;
+      mobileMenu.innerHTML = navList.innerHTML;
+    }
+  });
+}
+
+// ============================
+// CONTACT MODAL
+// ============================
+
+function initContactModal() {
+  const openBtn = document.getElementById("contact-open");
+  const closeBtn = document.getElementById("contact-close");
+  const modal = document.getElementById("contact-modal");
+  if (!openBtn || !closeBtn || !modal) return;
+
+  openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
+  closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
+  modal.addEventListener("click", e => {
+    if (e.target === modal) modal.classList.add("hidden");
+  });
+}
+
+// ============================
+// VLOGS
+// ============================
+
+function initVlogs() {
+  const grid = document.getElementById("vlogs-grid");
+  if (!grid) return;
+
+  const vlogs = [
+    { title: "Kashmir Protest Highlights", duration: "4:32" },
+    { title: "Diaspora Voices on Human Rights", duration: "6:10" },
+    { title: "Brief History of Jammu & Kashmir", duration: "8:45" }
+  ];
+
+  grid.innerHTML = vlogs
+    .map(
+      v => `
+<article class="card">
+  <div class="vlog-thumb">
+    <div class="play-icon">▶</div>
+  </div>
+  <div class="card-body">
+    <h3>${v.title}</h3>
+    <p>Duration: ${v.duration}</p>
+  </div>
+</article>
+`
+    )
+    .join("");
+}
+
+// ============================
+// HOMEPAGE CARD RENDERER
+// ============================
+
+function renderArticleCard(mediaId, bodyId, article) {
+  const mediaEl = document.getElementById(mediaId);
+  const bodyEl = document.getElementById(bodyId);
+  if (!mediaEl || !bodyEl) return;
+
+  if (article.heroImage && article.heroImage.src) {
+    mediaEl.innerHTML = `<img src="${article.heroImage.src}" alt="">`;
+  }
+
+  bodyEl.innerHTML = `
+<h3>${article.title}</h3>
+<p>${article.excerpt || article.summary || ""}</p>
+<a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
+`;
+}
+
+// ============================
+// ARTICLE PAGE INITIALISATION
+// ============================
+
+function initArticlePage() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  if (!id) return;
+
+  fetch(`content/${id}.json`)
+    .then(r => r.json())
+    .then(article => renderFullArticlePage(article))
+    .catch(err => console.error("Article load error:", err));
+}
+
+// ============================
+// FULL ARTICLE RENDERER
+// ============================
+
+function renderFullArticlePage(article) {
+  const sectionLabel = document.getElementById("section-label");
+  if (sectionLabel) {
+    sectionLabel.textContent = article.category || "THE MIRROR JAMMU KASHMIR";
+  }
+
+  const pageTitle = document.getElementById("page-title");
+  if (pageTitle) {
+    pageTitle.textContent = `${article.title} | THE MIRROR JAMMU KASHMIR`;
+  }
+
+  const titleEl = document.getElementById("title");
+  if (titleEl) {
+    titleEl.textContent = article.title;
+  }
+
+  const metaEl = document.getElementById("meta");
+  if (metaEl) {
+    const dateObj = new Date(article.date);
+    const day = dateObj.toLocaleString("en-GB", { weekday: "long" });
+    const dateStr = dateObj.toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+    const timeStr = dateObj.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+    metaEl.innerHTML = `
+<strong>${article.location}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
+By <em>${article.author}</em>
+`;
+  }
+
+  const heroImg = document.getElementById("heroImg");
+  const heroCaption = document.getElementById("heroCaption");
+  const heroWrap = document.getElementById("heroWrap");
+
+  if (article.heroImage && article.heroImage.src) {
+    heroImg.src = article.heroImage.src;
+    heroCaption.textContent = article.heroImage.caption || "";
+  } else if (heroWrap) {
+    heroWrap.style.display = "none";
+  }
+
+  const contentEl = document.getElementById("content");
+  if (!contentEl) return;
+
+  contentEl.innerHTML = "";
+
+  article.body.forEach(block => {
+    if (block.type === "paragraph") {
+      contentEl.innerHTML += `<p>${block.text}</p>`;
+    }
+
+    if (block.type === "subheading") {
+      contentEl.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
+    }
+
+    if (block.type === "pullquote") {
+      contentEl.innerHTML += `<div class="pull-quote">${block.text}</div>`;
+    }
+
+    if (block.type === "points") {
+      contentEl.innerHTML += `
+<div class="important-points">
+  <ul>
+    ${block.items.map(i => `<li>${i}</li>`).join("")}
+  </ul>
+</div>
+`;
+    }
+
+    if (block.type === "image") {
+      const alignClass = block.align === "right" ? "img-right" : "img-left";
+      contentEl.innerHTML += `
+<figure class="${alignClass}">
+  <img src="${block.src}" alt="">
+  <figcaption>${block.caption || ""}</figcaption>
+</figure>
+`;
+    }
+  });
+}
