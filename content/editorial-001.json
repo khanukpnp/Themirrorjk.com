@@ -11,7 +11,7 @@
   "readTime": "22 min read",
 
   "heroImage": {
-    "src": "content/images/brief-history-jk-hero.png",
+    "src": "content/images/brief-history-jk.png",
     "caption": "Historical flags and symbols of the State of Jammu and Kashmir",
     "credit": "The Mirror Jammu Kashmir"
   },
@@ -44,6 +44,7 @@
       "type": "subheading",
       "text": "The Treaty of Lahore and Treaty of Amritsar"
     },
+
     {
       "type": "paragraph",
       "text": "The First Anglo Sikh War of 1845 to 1846 marked a decisive turning point. The Sikh Empire was defeated by the East India Company resulting in partial subjugation of the Sikh kingdom."
@@ -78,6 +79,7 @@
       "type": "subheading",
       "text": "Rulers of the State"
     },
+
     {
       "type": "points",
       "items": [
@@ -100,6 +102,7 @@
       "type": "subheading",
       "text": "Administrative and Legal Development"
     },
+
     {
       "type": "paragraph",
       "text": "Under Maharaja Ranbir Singh the administration was consolidated and codified. The Ranbir Penal Code became the foundation of criminal law in the State."
@@ -129,6 +132,7 @@
       "type": "subheading",
       "text": "Forest Governance and Land Protection"
     },
+
     {
       "type": "paragraph",
       "text": "Forest conservation was a key feature of governance. Large tracts of land were declared reserved or protected forests."
@@ -154,6 +158,7 @@
       "type": "subheading",
       "text": "State Subject Rule and Constitutional Reforms"
     },
+
     {
       "type": "paragraph",
       "text": "Maharaja Hari Singh who ascended the throne in 1925 introduced major reforms. In 1927 the State Subject Rule was enacted."
@@ -191,6 +196,7 @@
       "type": "subheading",
       "text": "Events of 1947"
     },
+
     {
       "type": "paragraph",
       "text": "In 1947 during the partition of British India into India and Pakistan more than 580 princely states were given the option to join either dominion or remain independent."
@@ -224,6 +230,7 @@
       "type": "subheading",
       "text": "United Nations and International Dimension"
     },
+
     {
       "type": "paragraph",
       "text": "The United Nations became involved in 1948. Its resolutions and the UNCIP truce agreement called for Pakistan to withdraw forthwith from the territory of the State of Jammu and Kashmir."
