@@ -19,18 +19,28 @@ document.addEventListener("DOMContentLoaded", () => {
   initContactModal();
   initVlogs();
 
-  // Auto-refresh
+  /* Auto-refresh */
 
   setInterval(updateGregorian, 1000);
   setInterval(updateHijri, 60000);
   setInterval(updateBikrami, 60000);
   setInterval(updateClocks, 1000);
 
-  // Homepage content loader
+  /* Homepage content loader */
 
   loadHomepageIndex();
 
-  // Article page loader
+  /* Load homepage sections (Latest, Editorial, Historical) */
+
+  if(document.getElementById("latest-media") ||
+     document.getElementById("editorial-media") ||
+     document.getElementById("historical-media")){
+
+      loadHomepageSections();
+
+  }
+
+  /* Article / Static page loader */
 
   loadArticlePage();
 
@@ -47,13 +57,18 @@ function initLoader() {
   if (!loader) return;
 
   setTimeout(() => {
+
     loader.style.opacity = "0";
-    setTimeout(() => (loader.style.display = "none"), 600);
+
+    setTimeout(() => {
+
+      loader.style.display = "none";
+
+    }, 600);
+
   }, 1200);
 
 }
-
-
 /* ============================================================
 FOOTER YEAR
 ============================================================ */
