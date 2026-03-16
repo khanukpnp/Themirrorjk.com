@@ -1,61 +1,77 @@
 {
   "id": "latest-001",
-  "slug": "latest-dangerous-escalation-us-israel-iran-war-1-march-2026",
-  "title": "Dangerous Escalation in the Middle East: U.S.–Israel Strikes on Iran and Iran’s Retaliation Heighten the Risk of Regional War and Global Instability",
+  "slug": "us-israel-iran-escalation-press-release-march-2026",
+  "title": "Dangerous Escalation: US–Israel Strikes on Iran and Iran’s Retaliation Raise Fears of Wider War",
   "category": "latest",
-  "sectionLabel": "🕒 LATEST UPDATES",
-  "excerpt": "Sardar Nasir Aziz Khan warns that U.S.–Israel strikes on Iran and Iran’s retaliation risk triggering a wider regional conflict with global consequences.",
+  "sectionLabel": "🕒 LATEST UPDATE",
+  "excerpt": "A sharp escalation between the United States, Israel, and Iran has triggered global alarm, raising fears of a wider regional conflict and the possibility of a catastrophic world war.",
   "author": "Sardar Nasir Aziz Khan",
-  "location": "Switzerland",
-  "date": "2026-03-01T10:00:00Z",
-  "readTime": "8 min read",
+  "location": "Geneva",
+  "date": "2026-03-01T09:00:00Z",
+  "readTime": "6 min read",
+
   "heroImage": {
-    "src": "content/images/middle-east-escalation-2026.jpg",
-    "caption": "Rising tensions across the Middle East following U.S.–Israel strikes and Iranian retaliation.",
+    "src": "content/images/latest-001-hero.jpg",
+    "caption": "Rising regional tensions following US–Israel strikes and Iran’s retaliation",
     "credit": "The Mirror Jammu Kashmir"
   },
+
   "archive": false,
 
   "body": [
-
+    {
+      "type": "paragraph",
+      "text": "Sardar Nasir Aziz Khan, Central Spokesperson of the United Kashmir People’s National Party, has issued a strong warning regarding the rapidly escalating military confrontation between the United States, Israel, and Iran."
+    },
+    {
+      "type": "paragraph",
+      "text": "On 28 February 2026, coordinated strikes by the United States and Israel against Iranian targets sharply intensified tensions across the Middle East. Tehran responded with missile and drone attacks on Israel and U.S. military positions in the region, triggering fears of a broader and more destructive conflict."
+    },
     {
       "type": "pullquote",
-      "text": "“Give Peace a Chance — Diplomacy Must Prevail Over War.”"
+      "text": "When nations exchange airstrikes and missile attacks, the risk of a wider regional war — even a global war — increases dramatically."
+    },
+    {
+      "type": "paragraph",
+      "text": "Sardar Nasir Aziz Khan emphasized that such escalations can draw in additional regional and global powers, creating conditions that could spiral into a devastating world war. He warned that the consequences of a full‑scale conflict would be catastrophic for civilians across the region and beyond."
     },
 
     {
-      "type": "paragraph",
-      "text": "Sardar Nasir Aziz Khan, Central Spokesperson of the United Kashmir People’s National Party, expressed profound concern over the rapidly deteriorating security situation in the Middle East, warning that the latest military escalation carries grave implications for regional and global peace."
+      "type": "image",
+      "src": "content/images/latest-001-inline.jpg",
+      "caption": "Escalating tensions threaten regional stability and global security",
+      "credit": "The Mirror Jammu Kashmir",
+      "align": "center"
     },
 
     {
+      "type": "subheading",
+      "text": "Humanitarian and Global Impact"
+    },
+    {
       "type": "paragraph",
-      "text": "He noted that the coordinated strikes conducted by the United States and Israel against Iranian targets on 28 February 2026 have triggered a dangerous cycle of retaliation. Iran’s subsequent missile and drone attacks on Israel and on U.S. forces and installations across the region have dramatically intensified tensions, raising the specter of a broader confrontation."
+      "text": "War brings destruction on a massive scale. Hundreds of thousands could lose their lives, and millions may be displaced. Global trade, energy markets, and essential services would face severe disruption, affecting not only the Middle East but the entire world."
+    },
+    {
+      "type": "paragraph",
+      "text": "Civilians — especially women, children, and the elderly — suffer first and suffer most. Rising food and fuel prices, destroyed infrastructure, and long‑term psychological trauma become the lasting legacy of war."
     },
 
     {
-      "type": "paragraph",
-      "text": "Sardar Nasir Aziz Khan emphasized that when states engage in cross‑border airstrikes, missile exchanges, and military mobilization—while drawing in their respective allies—the risk of miscalculation and uncontrolled escalation increases exponentially. Such dynamics can rapidly transform a regional crisis into a conflict involving major global powers, creating conditions that could spiral toward a catastrophic world war."
+      "type": "subheading",
+      "text": "A Call for Diplomacy"
     },
-
     {
       "type": "paragraph",
-      "text": "He stressed that war brings devastation on a scale that no nation can afford. Large‑scale conflict would result in massive loss of life, widespread displacement, and the collapse of essential infrastructure. Global trade routes, energy supplies, and critical economic systems would face severe disruption, affecting not only the Middle East but every region of the world."
+      "text": "The world has repeatedly witnessed how localized violence can quickly spill across borders. In such circumstances, it is vital for world leaders to prioritize dialogue and negotiation instead of further military action."
     },
-
     {
       "type": "paragraph",
-      "text": "Sardar Nasir Aziz Khan underscored that civilians—especially women, children, the elderly, and marginalized communities—bear the heaviest burden of war. Rising food and fuel prices, destroyed homes, shattered health systems, and long‑term psychological trauma become the enduring legacy of armed conflict."
+      "text": "Sardar Nasir Aziz Khan urged all concerned countries to step back from confrontation and act with responsibility. He stressed that peace must be given a chance and that diplomacy is the only path that can prevent further chaos and destruction."
     },
-
     {
-      "type": "paragraph",
-      "text": "He reminded the international community that history has repeatedly shown how localized violence can spill across borders with alarming speed. In such volatile circumstances, responsible leadership demands restraint, dialogue, and a commitment to peaceful resolution rather than further militarization."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "Sardar Nasir Aziz Khan urged all parties to step back from the brink, prioritize diplomacy, and engage in meaningful negotiations. “We must give peace a chance,” he stated. “The world cannot afford another devastating war. Nations must choose diplomacy over confrontation and uphold their responsibility to protect human life, regional stability, and global peace.”"
+      "type": "pullquote",
+      "text": "We must give peace a chance. Countries must choose diplomacy over war."
     }
   ]
 }
