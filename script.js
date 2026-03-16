@@ -242,11 +242,36 @@ function initTicker() {
     "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH"
   ];
 
-  ul.innerHTML = items.map(t => `<li>${t}</li>`).join("");
+  /* create duplicated list for continuous scroll */
+  const fullList = items.concat(items);
 
+  ul.innerHTML = fullList.map(t => `<li class="ticker-item">${t}</li>`).join("");
+
+  /* layout */
+  ul.style.display = "flex";
+  ul.style.gap = "60px";
+  ul.style.whiteSpace = "nowrap";
+  ul.style.alignItems = "center";
+  ul.style.willChange = "transform";
+
+  /* smooth animation */
+  let position = 0;
+
+  function scrollTicker(){
+
+    position -= 0.4;
+
+    if(Math.abs(position) >= ul.scrollWidth / 2){
+      position = 0;
+    }
+
+    ul.style.transform = `translateX(${position}px)`;
+
+    requestAnimationFrame(scrollTicker);
+  }
+
+  scrollTicker();
 }
-
-
 /* ============================================================
 NAVIGATION
 ============================================================ */
