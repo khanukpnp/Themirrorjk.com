@@ -1,564 +1,432 @@
 /* ============================================================
-PAGE LOADER & GLOBAL INIT
-============================================================ */
+   THE MIRROR JAMMU KASHMIR — FULL COMBINED SCRIPT
+   All features merged: Calendars, Times, Weather, Ticker,
+   Homepage Sections, YouTube, Team, Language, Newsletter,
+   Engagement Buttons, Archive Loader.
+   ============================================================ */
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Core UI
-    if (typeof initLoader === "function") initLoader();
-    initYear();
-
-    // Time & calendars
-    updateGregorian();
-    updateHijri();
-    updateBikrami();
-    updateClocks();
-
-    // Live weather
-    initWeatherBar();
-
-    // UI components
-    initTicker();
-    initNav();
-    initContactModal();
-    initVlogs();
-    initVlogChannelButton();
-
-    // Auto-refresh
-    setInterval(updateGregorian, 1000);
-    setInterval(updateHijri, 60000);
-    setInterval(updateBikrami, 60000);
-    setInterval(updateClocks, 1000);
-
-    // Homepage content loader
-    loadHomepageIndex();
-
-    // Load homepage sections (Latest, Editorial, Historical) if present
-    if (
-        document.getElementById("latest-media") ||
-        document.getElementById("editorial-media") ||
-        document.getElementById("historical-media")
-    ) {
-        loadHomepageSections();
+/* ------------------------------------------------------------
+   1. UTILITY: SAFE JSON FETCH
+------------------------------------------------------------ */
+async function fetchJSON(url) {
+    try {
+        const res = await fetch(url, { cache: "no-cache" });
+        if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+        return await res.json();
+    } catch (err) {
+        console.error("JSON Load Error:", url, err);
+        return null;
     }
-
-    // Article/static page loader (no-op on pages without article container)
-    loadArticlePage();
-});
-
-/* ============================================================
-ARTICLE / STATIC PAGE LOADER
-============================================================ */
-
-function loadArticlePage() {
-    const params = new URLSearchParams(window.location.search);
-    let id = params.get("id");
-    const path = window.location.pathname.toLowerCase();
-
-    // Detect static pages
-    if (!id) {
-        if (path.includes("about")) id = "about-001";
-        else if (path.includes("chief-editor")) id = "chief-editor-001";
-        else if (path.includes("blog")) id = "blog-001";
-    }
-
-    // Stop safely if no article id
-    if (!id) return;
-
-    fetch(`content/${id}.json`)
-        .then(res => {
-            if (!res.ok) {
-                console.error("Article JSON not found:", id);
-                return null;
-            }
-            return res.json();
-        })
-        .then(article => {
-            if (!article) return;
-
-            const title = document.getElementById("title");
-            const label = document.getElementById("section-label");
-            const meta = document.getElementById("meta");
-            const hero = document.getElementById("heroImg");
-            const caption = document.getElementById("heroCaption");
-            const content = document.getElementById("content");
-            if (!content) return;
-
-            // Header
-            if (title) title.textContent = article.title;
-            if (label) label.textContent = article.sectionLabel || "";
-            if (meta) {
-                const d = new Date(article.date).toLocaleDateString();
-                meta.textContent = `${article.author} | ${article.location} | ${d} | ${article.readTime}`;
-            }
-
-            // Hero image
-            if (hero && article.heroImage?.src) hero.src = article.heroImage.src;
-            if (caption) caption.textContent = article.heroImage?.caption || "";
-
-            // Clear content
-            content.innerHTML = "";
-
-            // Render article blocks
-            article.body.forEach(block => {
-                if (block.type === "paragraph") {
-                    content.innerHTML += `<p>${block.text}</p>`;
-                }
-                if (block.type === "subheading") {
-                    content.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
-                }
-                if (block.type === "pullquote") {
-                    content.innerHTML += `<div class="pull-quote">${block.text}</div>`;
-                }
-                if (block.type === "points") {
-                    content.innerHTML += `
-                        <div class="important-points">
-                            <ul>
-                                ${block.items.map(i => `<li>${i}</li>`).join("")}
-                            </ul>
-                        </div>
-                    `;
-                }
-                if (block.type === "image") {
-                    const align = block.align === "right" ? "img-right" : "img-left";
-                    content.innerHTML += `
-                        <figure class="${align}">
-                            <img src="${block.src}" loading="lazy">
-                            <figcaption>${block.caption || ""}</figcaption>
-                        </figure>
-                    `;
-                }
-            });
-
-            // ARTICLE ACTION BAR
-            content.innerHTML += `
-                <div class="article-actions">
-                    <button class="action-btn" onclick="likeArticle()">👍 Like</button>
-                    <button class="action-btn" onclick="subscribeChannel()">🔔 Subscribe</button>
-                    <button class="action-btn" onclick="shareArticle()">🔗 Share</button>
-                    <button class="action-btn" onclick="copyLink()">📋 Copy Link</button>
-                </div>
-            `;
-        })
-        .catch(err => console.error("Article load error:", err));
 }
 
-/* ============================================================
-FOOTER YEAR
-============================================================ */
+/* ------------------------------------------------------------
+   2. ENGAGEMENT BUTTON BAR (Like, Subscribe, Share, Copy)
+------------------------------------------------------------ */
+function createEngagementBar(url, title) {
+    const bar = document.createElement("div");
+    bar.className = "engagement-bar";
 
-function initYear() {
-    const y = document.getElementById("year");
-    if (y) y.textContent = new Date().getFullYear();
+    const like = document.createElement("button");
+    like.textContent = "👍 Like";
+    like.onclick = () => like.classList.add("active");
+
+    const sub = document.createElement("button");
+    sub.textContent = "🔔 Subscribe";
+    sub.onclick = () => window.open("https://www.youtube.com/@themirrorjk", "_blank");
+
+    const share = document.createElement("button");
+    share.textContent = "📤 Share";
+    share.onclick = async () => {
+        if (navigator.share) {
+            await navigator.share({ title, text: title, url });
+        } else alert("Sharing not supported.");
+    };
+
+    const copy = document.createElement("button");
+    copy.textContent = "📋 Copy Link";
+    copy.onclick = async () => {
+        await navigator.clipboard.writeText(url);
+        copy.textContent = "✅ Copied";
+        setTimeout(() => (copy.textContent = "📋 Copy Link"), 1500);
+    };
+
+    bar.append(like, sub, share, copy);
+    return bar;
 }
 
-/* ============================================================
-GREGORIAN DATE (FULL DATE + TIME)
-============================================================ */
+/* ------------------------------------------------------------
+   3. ARTICLE CARD GENERATOR
+------------------------------------------------------------ */
+function createArticleCard(item) {
+    const card = document.createElement("article");
+    card.className = "news-card";
 
-function updateGregorian() {
-    const el = document.querySelector("#cal-gregorian span");
-    if (!el) return;
+    if (item.image) {
+        const wrap = document.createElement("div");
+        wrap.className = "thumb thumb-cropped";
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.alt = item.title;
+        wrap.appendChild(img);
+        card.appendChild(wrap);
+    }
 
-    const now = new Date();
-    el.textContent = now.toLocaleString("en-GB", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
+    const body = document.createElement("div");
+    body.className = "card-body";
+
+    if (item.category) {
+        const cat = document.createElement("div");
+        cat.className = "card-category";
+        cat.textContent = item.category;
+        body.appendChild(cat);
+    }
+
+    const h3 = document.createElement("h3");
+    const a = document.createElement("a");
+    a.href = item.link;
+    a.textContent = item.title;
+    h3.appendChild(a);
+    body.appendChild(h3);
+
+    if (item.subtitle) {
+        const sub = document.createElement("p");
+        sub.className = "card-subtitle";
+        sub.textContent = item.subtitle;
+        body.appendChild(sub);
+    }
+
+    if (item.date) {
+        const meta = document.createElement("div");
+        meta.className = "card-meta";
+        meta.textContent = item.date;
+        body.appendChild(meta);
+    }
+
+    body.appendChild(createEngagementBar(item.link, item.title));
+    card.appendChild(body);
+
+    return card;
+}
+
+/* ------------------------------------------------------------
+   4. RENDER LISTS
+------------------------------------------------------------ */
+function renderList(id, items) {
+    const box = document.getElementById(id);
+    if (!box) return;
+    box.innerHTML = "";
+
+    if (!items || !items.length) {
+        box.innerHTML = "<p>No content available.</p>";
+        return;
+    }
+
+    items.forEach(item => box.appendChild(createArticleCard(item)));
+}
+
+/* ------------------------------------------------------------
+   5. ARCHIVE RENDERER
+------------------------------------------------------------ */
+function renderArchive(id, archive) {
+    const box = document.getElementById(id);
+    if (!box) return;
+    box.innerHTML = "";
+
+    archive.forEach(yearBlock => {
+        const sec = document.createElement("div");
+        sec.className = "archive-year-block";
+
+        const h3 = document.createElement("h3");
+        h3.textContent = yearBlock.year;
+        sec.appendChild(h3);
+
+        const ul = document.createElement("ul");
+        yearBlock.items.forEach(item => {
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.href = item.link;
+            a.textContent = item.title;
+
+            const d = document.createElement("span");
+            d.className = "archive-date";
+            d.textContent = item.date;
+
+            li.append(a, d);
+            ul.appendChild(li);
+        });
+
+        sec.appendChild(ul);
+        box.appendChild(sec);
     });
 }
 
-/* ============================================================
-HIJRI DATE
-============================================================ */
+/* ------------------------------------------------------------
+   6. HOMEPAGE LOADER (index.json)
+------------------------------------------------------------ */
+async function loadHomePage() {
+    const data = await fetchJSON("index.json");
+    if (!data) return;
 
-function updateHijri() {
-    const el = document.querySelector("#cal-hijri span");
-    if (!el) return;
+    renderList("top-stories-container", data.topStories);
+    renderList("latest-container", data.latest);
+    renderList("editorial-container", data.editorial);
+    renderList("historical-container", data.historical);
+    renderList("jk-container", data.jammuKashmir);
+    renderList("international-container", data.international);
+    renderList("human-rights-container", data.humanRights);
+    renderArchive("archive-container", data.archive);
 
-    try {
-        const now = new Date();
-        const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-        }).format(now);
-        el.textContent = hijriDate;
-    } catch {
-        el.textContent = "Hijri calendar";
-    }
+    initTicker(data.ticker);
 }
 
-/* ============================================================
-PUNJABI DESI BIKRAMI DATE
-============================================================ */
+/* ------------------------------------------------------------
+   7. TICKER (from index.json)
+------------------------------------------------------------ */
+function initTicker(items) {
+    const box = document.getElementById("ticker-content");
+    if (!box || !items || !items.length) return;
 
-function updateBikrami() {
-    const el = document.querySelector("#cal-bikrami span");
-    if (!el) return;
+    let i = 0;
+    function next() {
+        box.innerHTML = "";
+        const a = document.createElement("a");
+        a.href = items[i].link;
+        a.textContent = items[i].text;
+        box.appendChild(a);
+        i = (i + 1) % items.length;
+    }
 
+    next();
+    setInterval(next, 8000);
+}
+
+/* ------------------------------------------------------------
+   8. NEWSLETTER
+------------------------------------------------------------ */
+function initNewsletter() {
+    const form = document.getElementById("newsletter-form");
+    const msg = document.getElementById("newsletter-message");
+
+    if (!form) return;
+
+    form.addEventListener("submit", e => {
+        e.preventDefault();
+        msg.textContent = "Thank you for subscribing.";
+        msg.className = "newsletter-success";
+        form.reset();
+    });
+}
+
+/* ------------------------------------------------------------
+   9. LANGUAGE SELECTOR
+------------------------------------------------------------ */
+function initLanguageSelector() {
+    const sel = document.getElementById("language-dropdown");
+    if (!sel) return;
+
+    sel.addEventListener("change", () => {
+        console.log("Language changed to:", sel.value);
+    });
+}
+
+/* ------------------------------------------------------------
+   10. WEATHER (Static placeholders)
+------------------------------------------------------------ */
+function initWeather() {
+    const W = {
+        zurich: "Zurich: 5°C, Cloudy",
+        jammu: "Jammu: 18°C, Clear",
+        kashmir: "Kashmir: 4°C, Snow",
+        ladakh: "Ladakh: -2°C, Clear",
+        gilgit: "Gilgit: 3°C, Partly Cloudy",
+        baltistan: "Baltistan: -1°C, Snow",
+        muzaffarabad: "Muzaffarabad: 7°C, Cloudy",
+        rawalakot: "Rawalakot: 6°C, Mist"
+    };
+
+    const set = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+    };
+
+    set("weather-zurich", W.zurich);
+    set("weather-jammu", W.jammu);
+    set("weather-kashmir", W.kashmir);
+    set("weather-ladakh", W.ladakh);
+    set("weather-gilgit", W.gilgit);
+    set("weather-baltistan", W.baltistan);
+    set("weather-muzaffarabad", W.muzaffarabad);
+    set("weather-rawalakot", W.rawalakot);
+}
+
+/* ------------------------------------------------------------
+   11. CALENDARS (Gregorian + Hijri + Punjabi Desi)
+------------------------------------------------------------ */
+function loadGregorian() {
     const now = new Date();
+    const opt = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+    document.getElementById("gregorian-date").textContent =
+        now.toLocaleDateString("en-US", opt);
+}
+
+function loadHijri() {
+    const now = new Date();
+    const hijri = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
+        day: "numeric", month: "long", year: "numeric"
+    }).format(now);
+    document.getElementById("hijri-date").textContent = hijri + " AH";
+}
+
+function loadPunjabi() {
     const months = [
         "Chet","Vaisakh","Jeth","Harh","Sawan","Bhadon",
         "Assu","Kattak","Maghar","Poh","Magh","Phagun"
     ];
-    const startMonth = 2; // Chet begins in March
-    const month = (now.getMonth() - startMonth + 12) % 12;
-    const year = now.getFullYear() + 57;
-    const day = now.getDate();
 
-    el.textContent = `${day} ${months[month]} ${year} BK`;
+    const now = new Date();
+    const gy = now.getFullYear();
+    const by = gy + 57;
+    const m = now.getMonth();
+    const d = now.getDate();
+
+    const pm = (m + 10) % 12;
+
+    document.getElementById("punjabi-date").textContent =
+        `${months[pm]} ${d}, ${by} Bikrami`;
 }
 
-/* ============================================================
-CLOCKS — CEST / IST / PKT
-============================================================ */
-
-function updateClocks() {
+function loadTimes() {
     const now = new Date();
 
-    const zones = [
-        { selector: "#clock-cest span", tz: "Europe/Zurich" },
-        { selector: "#tz-ist span", tz: "Asia/Kolkata" },
-        { selector: "#tz-pkt span", tz: "Asia/Karachi" }
-    ];
+    const ist = now.toLocaleTimeString("en-US", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" });
+    const pkt = now.toLocaleTimeString("en-US", { timeZone: "Asia/Karachi", hour: "2-digit", minute: "2-digit" });
+    const cet = now.toLocaleTimeString("en-US", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit" });
 
-    zones.forEach(z => {
-        const el = document.querySelector(z.selector);
-        if (el) {
-            el.textContent = now.toLocaleTimeString("en-GB", {
-                timeZone: z.tz,
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit"
-            });
-        }
+    document.getElementById("region-times").textContent =
+        `IST (JKL): ${ist} | PKT (GBM): ${pkt} | CET (Zurich): ${cet}`;
+}
+
+function initCalendars() {
+    loadGregorian();
+    loadHijri();
+    loadPunjabi();
+    loadTimes();
+    setInterval(loadTimes, 60000);
+}
+
+/* ------------------------------------------------------------
+   12. YOUTUBE (youtube.json)
+------------------------------------------------------------ */
+async function initYouTube() {
+    const box = document.getElementById("vlog-container");
+    if (!box) return;
+
+    const data = await fetchJSON("youtube.json");
+    if (!data) {
+        box.innerHTML = "<p>No videos available.</p>";
+        return;
+    }
+
+    box.innerHTML = "";
+    data.slice(0, 3).forEach(v => {
+        const card = document.createElement("article");
+        card.className = "video-card";
+
+        const wrap = document.createElement("div");
+        wrap.className = "thumb thumb-cropped";
+
+        const img = document.createElement("img");
+        img.src = v.thumbnail;
+        img.alt = v.title;
+        wrap.appendChild(img);
+
+        const body = document.createElement("div");
+        body.className = "card-body";
+
+        const h3 = document.createElement("h3");
+        const a = document.createElement("a");
+        a.href = v.url;
+        a.target = "_blank";
+        a.textContent = v.title;
+        h3.appendChild(a);
+
+        const meta = document.createElement("div");
+        meta.className = "card-meta";
+        meta.textContent = v.publishedAt;
+
+        body.append(h3, meta, createEngagementBar(v.url, v.title));
+        card.append(wrap, body);
+        box.appendChild(card);
     });
 }
 
-/* ============================================================
-WEATHER BAR — LIVE OPEN-METEO API
-============================================================ */
+/* ------------------------------------------------------------
+   13. TEAM (our-team.json)
+------------------------------------------------------------ */
+async function initTeam() {
+    const box = document.getElementById("team-container");
+    if (!box) return;
 
-async function initWeatherBar() {
-    const bar = document.getElementById("weather-bar");
-    if (!bar) return;
-
-    const cities = [
-        { name: "Zurich", lat: 47.3769, lon: 8.5417 },
-        { name: "Rawalakot", lat: 33.8570, lon: 73.7604 },
-        { name: "Jammu", lat: 32.7266, lon: 74.8570 },
-        { name: "Kashmir", lat: 34.0837, lon: 74.7973 },
-        { name: "Ladakh", lat: 34.1526, lon: 77.5770 },
-        { name: "Gilgit", lat: 35.9208, lon: 74.3089 },
-        { name: "Baltistan", lat: 35.3500, lon: 75.5500 },
-        { name: "Muzaffarabad", lat: 34.3700, lon: 73.4700 }
-    ];
-
-    const fetchWeather = async c => {
-        try {
-            const url = `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`;
-            const res = await fetch(url);
-            const data = await res.json();
-            return `${Math.round(data.current_weather.temperature)}°C`;
-        } catch {
-            return "—°C";
-        }
-    };
-
-    const temps = await Promise.all(cities.map(fetchWeather));
-
-    bar.innerHTML = cities
-        .map((c, i) => `
-            <div class="chip tiny">
-                🌡️ ${c.name}: <strong>${temps[i]}</strong>
-            </div>
-        `)
-        .join("");
-
-    // Auto-refresh every 10 minutes
-    setTimeout(initWeatherBar, 600000);
-}
-
-/* ============================================================
-TICKER
-============================================================ */
-
-function initTicker() {
-    const ul = document.getElementById("ticker-items");
-    if (!ul) return;
-
-    const items = [
-        "WE DO NOT MANUFACTURE NARRATIVES — WE REFLECT REALITY",
-        "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH"
-    ];
-
-    const fullList = items.concat(items);
-    ul.innerHTML = fullList.map(t => `<li class="ticker-item">${t}</li>`).join("");
-
-    ul.style.display = "flex";
-    ul.style.gap = "60px";
-    ul.style.whiteSpace = "nowrap";
-    ul.style.alignItems = "center";
-    ul.style.willChange = "transform";
-
-    let position = 0;
-
-    function scrollTicker() {
-        position -= 0.4;
-        if (Math.abs(position) >= ul.scrollWidth / 2) {
-            position = 0;
-        }
-        ul.style.transform = `translateX(${position}px)`;
-        requestAnimationFrame(scrollTicker);
+    const data = await fetchJSON("our-team.json");
+    if (!data) {
+        box.innerHTML = "<p>No team members available.</p>";
+        return;
     }
 
-    scrollTicker();
-}
+    box.innerHTML = "";
+    data.forEach(m => {
+        const card = document.createElement("article");
+        card.className = "team-card";
 
-/* ============================================================
-NAVIGATION
-============================================================ */
-
-function initNav() {
-    const hamburger = document.getElementById("hamburger");
-    const navList = document.getElementById("nav-list");
-    const mobileMenu = document.getElementById("mobile-menu");
-    if (!hamburger || !navList || !mobileMenu) return;
-
-    hamburger.addEventListener("click", () => {
-        const expanded = hamburger.getAttribute("aria-expanded") === "true";
-        hamburger.setAttribute("aria-expanded", String(!expanded));
-
-        if (expanded) {
-            mobileMenu.hidden = true;
-            mobileMenu.innerHTML = "";
-        } else {
-            mobileMenu.hidden = false;
-            mobileMenu.innerHTML = navList.innerHTML;
+        if (m.photo) {
+            const wrap = document.createElement("div");
+            wrap.className = "team-photo";
+            const img = document.createElement("img");
+            img.src = m.photo;
+            img.alt = m.name;
+            wrap.appendChild(img);
+            card.appendChild(wrap);
         }
+
+        const body = document.createElement("div");
+        body.className = "team-body";
+
+        const h3 = document.createElement("h3");
+        h3.textContent = m.name;
+
+        const role = document.createElement("p");
+        role.className = "team-role";
+        role.textContent = m.role;
+
+        const bio = document.createElement("p");
+        bio.className = "team-bio";
+        bio.textContent = m.bio;
+
+        body.append(h3, role, bio);
+
+        if (m.link) {
+            const link = document.createElement("a");
+            link.href = m.link;
+            link.target = "_blank";
+            link.className = "team-link";
+            link.textContent = "Profile / Contact";
+            body.appendChild(link);
+        }
+
+        card.appendChild(body);
+        box.appendChild(card);
     });
 }
 
-/* ============================================================
-CONTACT MODAL
-============================================================ */
-
-function initContactModal() {
-    const openBtn = document.getElementById("contact-open");
-    const closeBtn = document.getElementById("contact-close");
-    const modal = document.getElementById("contact-modal");
-    if (!openBtn || !closeBtn || !modal) return;
-
-    openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
-    closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
-
-    modal.addEventListener("click", e => {
-        if (e.target === modal) modal.classList.add("hidden");
-    });
-}
-
-/* ============================================================
-VLOGS
-============================================================ */
-
-function initVlogs() {
-    const grid = document.getElementById("vlogs-grid");
-    if (!grid) return;
-
-    const vlogs = [
-        { title: "Kashmir Protest Highlights", duration: "4:32" },
-        { title: "Diaspora Voices on Human Rights", duration: "6:10" },
-        { title: "Brief History of Jammu & Kashmir", duration: "8:45" }
-    ];
-
-    grid.innerHTML = vlogs
-        .map(
-            v => `
-            <article class="card">
-                <div class="media maroon">▶</div>
-                <div class="card-body">
-                    <h3>${v.title}</h3>
-                    <p>Duration: ${v.duration}</p>
-                </div>
-            </article>
-        `
-        )
-        .join("");
-}
-
-function initVlogChannelButton() {
-    const btn = document.getElementById("vlog-visit-channel");
-    if (!btn) return;
-    btn.addEventListener("click", () => {
-        window.open("https://youtube.com/@themirrorjk", "_blank");
-    });
-}
-
-/* ============================================================
-HOMEPAGE CONTENT LOADER
-============================================================ */
-
-function loadHomepageIndex() {
-    fetch("content/index.json")
-        .then(r => r.json())
-        .then(data => {
-            const hp = data.homepage || data;
-            if (hp.topStories) loadTopStories(hp.topStories);
-            if (hp.latestEditorialHistorical)
-                loadLatestEditorialHistorical(hp.latestEditorialHistorical);
-            if (hp.jammuKashmir) loadJammuKashmir(hp.jammuKashmir);
-            if (hp.international) loadInternational(hp.international);
-            if (hp.humanRights) loadHumanRights(hp.humanRights);
-        })
-        .catch(err => console.error("Index JSON error:", err));
-}
-
-/* ============================================================
-TOP STORIES
-============================================================ */
-
-function loadTopStories(section) {
-    if (section.lead) loadArticleToCard(section.lead, "lead-media", "lead-body");
-    if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
-    if (section.opinion) loadArticleToCard(section.opinion, "opinion-media", "opinion-body");
-}
-
-/* ============================================================
-UNIVERSAL ARTICLE LOADER
-============================================================ */
-
-function loadArticleToCard(articleId, mediaId, bodyId) {
-    fetch(`content/${articleId}.json`)
-        .then(r => r.json())
-        .then(article => {
-            renderArticleCard(mediaId, bodyId, article);
-        })
-        .catch(err => console.error(`Error loading ${articleId}:`, err));
-}
-
-/* ============================================================
-RENDER ARTICLE CARD
-============================================================ */
-
-function renderArticleCard(mediaId, bodyId, article) {
-    const mediaEl = document.getElementById(mediaId);
-    const bodyEl = document.getElementById(bodyId);
-    if (!mediaEl || !bodyEl) return;
-
-    if (article.heroImage && article.heroImage.src) {
-        mediaEl.innerHTML = `<img src="${article.heroImage.src}" alt="">`;
-    }
-
-    bodyEl.innerHTML = `
-        <h3>${article.title}</h3>
-        <p>${article.excerpt || article.summary || ""}</p>
-        <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
-    `;
-}
-
-/* ============================================================
-LOAD HOMEPAGE CARDS (Latest, Editorial, Historical)
-============================================================ */
-
-async function loadHomepageSections() {
-    try {
-        const res = await fetch("content/index.json");
-        const index = await res.json();
-
-        // Latest
-        if (index.latest && index.latest.length) {
-            const latestId = index.latest[0];
-            const latestRes = await fetch(`content/${latestId}.json`);
-            const latestArticle = await latestRes.json();
-            renderArticleCard("latest-media", "latest-body", latestArticle);
-        }
-
-        // Editorial
-        if (index.editorial && index.editorial.length) {
-            const editorialId = index.editorial[0];
-            const editorialRes = await fetch(`content/${editorialId}.json`);
-            const editorialArticle = await editorialRes.json();
-            renderArticleCard("editorial-media", "editorial-body", editorialArticle);
-        }
-
-        // Historical
-        if (index.historical && index.historical.length) {
-            const historicalId = index.historical[0];
-            const historicalRes = await fetch(`content/${historicalId}.json`);
-            const historicalArticle = await historicalRes.json();
-            renderArticleCard("historical-media", "historical-body", historicalArticle);
-        }
-    } catch (err) {
-        console.error("Homepage load error:", err);
-    }
-}
-
-/* ============================================================
-LATEST · EDITORIAL · HISTORICAL (from index.homepage.latestEditorialHistorical)
-============================================================ */
-
-function loadLatestEditorialHistorical(section) {
-    // Defensive: support both array of IDs and structured object
-    if (Array.isArray(section)) {
-        const [latestId, editorialId, historicalId] = section;
-
-        if (latestId) loadArticleToCard(latestId, "latest-media", "latest-body");
-        if (editorialId) loadArticleToCard(editorialId, "editorial-media", "editorial-body");
-        if (historicalId) loadArticleToCard(historicalId, "historical-media", "historical-body");
-    } else if (typeof section === "object" && section !== null) {
-        if (section.latest) loadArticleToCard(section.latest, "latest-media", "latest-body");
-        if (section.editorial) loadArticleToCard(section.editorial, "editorial-media", "editorial-body");
-        if (section.historical) loadArticleToCard(section.historical, "historical-media", "historical-body");
-    }
-}
-
-/* ============================================================
-JAMMU KASHMIR / INTERNATIONAL / HUMAN RIGHTS
-============================================================ */
-
-function loadJammuKashmir(section) {
-    if (section.first) loadArticleToCard(section.first, "jk1-media", "jk1-body");
-    if (section.second) loadArticleToCard(section.second, "jk2-media", "jk2-body");
-}
-
-function loadInternational(section) {
-    if (section.first) loadArticleToCard(section.first, "intl1-media", "intl1-body");
-    if (section.second) loadArticleToCard(section.second, "intl2-media", "intl2-body");
-}
-
-function loadHumanRights(section) {
-    if (section.first) loadArticleToCard(section.first, "hr1-media", "hr1-body");
-    if (section.second) loadArticleToCard(section.second, "hr2-media", "hr2-body");
-}
-
-/* ============================================================
-ARTICLE ACTIONS
-============================================================ */
-
-function likeArticle() {
-    alert("Thank you for liking this article.");
-}
-
-function subscribeChannel() {
-    window.open("https://youtube.com/@themirrorjk", "_blank");
-}
-
-function shareArticle() {
-    if (navigator.share) {
-        navigator.share({
-            title: document.title,
-            url: window.location.href
-        });
-    } else {
-        alert("Sharing not supported on this browser.");
-    }
-}
-
-function copyLink() {
-    navigator.clipboard.writeText(window.location.href);
-    alert("Article link copied.");
-}
+/* ------------------------------------------------------------
+   14. MASTER INITIALIZER
+------------------------------------------------------------ */
+document.addEventListener("DOMContentLoaded", () => {
+    initCalendars();
+    initWeather();
+    initLanguageSelector();
+    initNewsletter();
+    loadHomePage();
+    initYouTube();
+    initTeam();
+});
