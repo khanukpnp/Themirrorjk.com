@@ -1,11 +1,10 @@
-/* ============================================================
-GLOBAL RESET & BASE
-============================================================ */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+
+/* ========== BASE ========== */
 
 body {
   margin: 0;
@@ -25,9 +24,8 @@ body {
   padding: 20px;
 }
 
-/* ============================================================
-HEADER — HEADING + SUBHEADING
-============================================================ */
+/* ========== HEADER ========== */
+
 .site-header {
   text-align: center;
   background: #ffffff;
@@ -45,9 +43,8 @@ HEADER — HEADING + SUBHEADING
   color: #555;
 }
 
-/* ============================================================
-BARS (CLOCKS / WEATHER / TICKER)
-============================================================ */
+/* ========== BARS (CLOCKS / WEATHER / TICKER) ========== */
+
 .bar {
   background: #ffffff;
   padding: 6px 10px;
@@ -72,12 +69,8 @@ BARS (CLOCKS / WEATHER / TICKER)
   font-size: 0.7rem;
 }
 
-/* Slight tightening for the clocks line */
-.clocks-line .row {
-  gap: 8px;
-}
-
 /* ===== Ticker base ===== */
+
 .ticker-wrap {
   background: #800000;
   color: #fff;
@@ -139,9 +132,8 @@ BARS (CLOCKS / WEATHER / TICKER)
   }
 }
 
-/* ============================================================
-NAVBAR
-============================================================ */
+/* ========== NAVBAR ========== */
+
 .navbar {
   background: #111;
   color: #ffffff;
@@ -195,6 +187,7 @@ NAVBAR
 }
 
 /* Dropdown */
+
 .dropdown {
   display: none;
   position: absolute;
@@ -228,6 +221,7 @@ NAVBAR
 }
 
 /* Mobile menu */
+
 .mobile-menu {
   display: none;
   background: #111;
@@ -242,53 +236,8 @@ NAVBAR
   padding: 6px 0;
 }
 
-/* ============================================================
-SEARCH BAR
-============================================================ */
-.search {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+/* ========== CARDS / GRID ========== */
 
-.search input {
-  padding: 6px 10px;
-  border: 1px solid #bbb;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  width: 180px;
-}
-
-.search button {
-  background: #800000;
-  color: #fff;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-
-.search button:hover {
-  background: #a00000;
-}
-
-/* ============================================================
-SECTION TITLES
-============================================================ */
-.section-title {
-  margin: 24px 0 10px;
-  font-weight: 700;
-}
-
-.red-bar {
-  border-left: 6px solid #800000;
-  padding-left: 10px;
-}
-
-/* ============================================================
-CARDS / GRID
-============================================================ */
 .cards {
   display: grid;
   gap: 16px;
@@ -315,8 +264,7 @@ CARDS / GRID
   justify-content: center;
 }
 
-.media.maroon,
-.placeholder.maroon {
+.media.maroon {
   background: #800000;
   color: #ffffff;
 }
@@ -336,12 +284,46 @@ CARDS / GRID
   margin-top: 0;
 }
 
+/* Section titles */
+
+.section-title {
+  margin: 24px 0 10px;
+  font-weight: 700;
+}
+
+.red-bar {
+  border-left: 6px solid #800000;
+  padding-left: 10px;
+}
+
 /* Vlogs */
+
 .vlogs-grid {
   grid-template-columns: repeat(3, 1fr);
 }
 
+.vlog-thumb {
+  background: #111;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+}
+
+.play-icon {
+  background: #c00;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
 /* Buttons */
+
 .btn-red {
   background: #800000;
   color: #ffffff;
@@ -355,9 +337,127 @@ CARDS / GRID
   background: #a00000;
 }
 
-/* ============================================================
-FORMS / CONTACT / NEWSLETTER / EPAPER
-============================================================ */
+/* ========== ARTICLE PAGES (BASE) ========== */
+
+.article-page .page-shell {
+  max-width: 900px;
+}
+
+/* NOTE: layout is restored below with flex; this base block is kept for compatibility */
+.article-container {
+  display: block;
+}
+
+.article-shell {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  padding: 20px;
+}
+
+.article-header h1 {
+  margin-top: 0;
+}
+
+.article-meta {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Hero */
+
+.article-hero {
+  margin: 20px 0;
+}
+
+.article-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.article-hero figcaption {
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 4px;
+}
+
+/* Content */
+
+.article-content {
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.article-content p {
+  margin: 0 0 1em;
+}
+
+/* Important points (base) */
+
+.important-points {
+  border-left: 4px solid #800000;
+  background: #fdf5f5;
+  padding: 10px 12px;
+  margin: 20px 0;
+}
+
+.important-points ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+/* ===== ARTICLE INLINE IMAGE FIX ===== */
+
+.article-content figure {
+  max-width: 100%;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.img-left {
+  float: left;
+  width: 38%;
+  margin: 12px 20px 12px 0;
+}
+
+.img-right {
+  float: right;
+  width: 38%;
+  margin: 12px 0 12px 20px;
+}
+
+.article-content::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* Page actions */
+
+.page-actions {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.page-actions button,
+.page-actions input {
+  font-size: 0.85rem;
+}
+
+.subscribe-input {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+}
+
+/* ========== FORMS / CONTACT / NEWSLETTER / EPAPER ========== */
+
 .newsletter-form,
 .epaper-form {
   display: flex;
@@ -374,6 +474,7 @@ FORMS / CONTACT / NEWSLETTER / EPAPER
 }
 
 /* Contact modal */
+
 .modal {
   position: fixed;
   inset: 0;
@@ -404,9 +505,8 @@ FORMS / CONTACT / NEWSLETTER / EPAPER
   font-size: 0.9rem;
 }
 
-/* ============================================================
-FOOTER
-============================================================ */
+/* ========== FOOTER (WHITE TEXT) ========== */
+
 .footer {
   background: #111;
   color: #ffffff;
@@ -419,9 +519,23 @@ FOOTER
   margin: 6px 0 0;
 }
 
-/* ============================================================
-LOADER
-============================================================ */
+.footer .social {
+  margin-bottom: 6px;
+}
+
+.footer .social a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 6px;
+  font-size: 0.9rem;
+}
+
+.footer .social a:hover {
+  color: #dddddd;
+}
+
+/* ========== LOADER (INDEX) ========== */
+
 #site-loader {
   position: fixed;
   inset: 0;
@@ -467,9 +581,8 @@ LOADER
   }
 }
 
-/* ============================================================
-RESPONSIVE
-============================================================ */
+/* ========== RESPONSIVE ========== */
+
 @media (max-width: 900px) {
   .cards.three {
     grid-template-columns: repeat(2, 1fr);
@@ -477,6 +590,29 @@ RESPONSIVE
 
   .vlogs-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .article-container {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .article-body,
+  .sidebar {
+    width: 100%;
+  }
+
+  .sidebar {
+    border-left: none;
+    padding-left: 0;
+    margin-top: 20px;
+  }
+
+  .img-left,
+  .img-right {
+    float: none;
+    width: 100%;
+    margin: 10px 0;
   }
 }
 
@@ -497,389 +633,212 @@ RESPONSIVE
   .mobile-menu {
     display: block;
   }
+
+  .image-left,
+  .image-right {
+    float: none;
+    max-width: 100%;
+    margin: 10px 0;
+  }
 }
 
-/* =========================================================
-BBC / REUTERS STYLE ARTICLE LAYOUT
-Add at the bottom of styles.css
-=========================================================*/
+/* Duplicate safety for floats (kept for compatibility) */
 
-/* ARTICLE PAGE CONTAINER */
-
-.article-shell{
-max-width:1100px;
-margin:0 auto;
-padding:40px 20px;
-display:grid;
-grid-template-columns:3fr 1fr;
-gap:40px;
+.img-left {
+  float: left;
+  width: 38%;
+  margin: 10px 20px 10px 0;
 }
 
-/* MAIN ARTICLE COLUMN */
-
-.article-main{
-max-width:720px;
-margin:0 auto;
+.img-right {
+  float: right;
+  width: 38%;
+  margin: 10px 0 10px 20px;
 }
 
-/* ARTICLE TITLE */
-
-.article-main h1{
-font-family:Georgia,"Times New Roman",serif;
-font-size:40px;
-line-height:1.2;
-font-weight:700;
-margin-bottom:15px;
-color:#111;
+.pull-points {
+  background: #f6f6f6;
+  border-left: 4px solid #900;
+  padding: 15px;
+  margin: 20px 0;
 }
 
-/* SECTION LABEL */
+/* ===== ABOUT PAGE HERO FLOAT RIGHT ===== */
 
-#section-label{
-font-size:13px;
-font-weight:700;
-letter-spacing:1px;
-color:#8b0000;
-margin-bottom:10px;
+.about-hero {
+  float: right;
+  width: 38%;
+  margin: 12px 0 12px 20px;
 }
 
-/* META LINE */
-
-#meta{
-font-size:14px;
-color:#666;
-margin-bottom:25px;
+.about-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
-/* HERO IMAGE */
-
-.hero-image{
-margin-bottom:25px;
+.about-hero figcaption {
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 4px;
 }
 
-.hero-image img{
-width:100%;
-height:auto;
-border-radius:4px;
+/* ============================
+BBC / Reuters Style Captions
+============================ */
+
+figure {
+  margin: 25px 0;
 }
 
-.hero-image figcaption{
-font-size:13px;
-color:#666;
-margin-top:6px;
+figure figcaption {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.4;
+  margin-top: 6px;
+  text-align: left;
 }
 
-/* ARTICLE BODY */
+/* ============================
+Mid-Article Subheading
+============================ */
 
-#content{
-font-family:Georgia,"Times New Roman",serif;
-font-size:18px;
-line-height:1.8;
-color:#222;
+.mid-subheading {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  margin: 40px 0 20px;
+  color: #222;
+  line-height: 1.3;
 }
 
-/* PARAGRAPH SPACING */
+/* ============================
+Pull Quote (Reuters Style)
+============================ */
 
-#content p{
-margin-bottom:20px;
+.pull-quote {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+  background: #f7f7f7;
+  border-left: 4px solid #c00;
+  padding: 25px;
+  margin: 40px 0;
+  line-height: 1.4;
 }
 
-/* MID ARTICLE SUBHEADINGS */
+/* ============================
+Important Points (Enhanced)
+============================ */
 
-.mid-subheading{
-font-size:26px;
-margin-top:40px;
-margin-bottom:15px;
-font-weight:700;
+.important-points {
+  background: #fafafa;
+  border-left: 4px solid #c00;
+  padding: 18px 22px;
+  margin: 30px 0;
+  font-family: "Georgia", "Times New Roman", serif;
 }
 
-/* PULL QUOTES */
-
-.pull-quote{
-font-family:Georgia,serif;
-font-size:24px;
-font-weight:600;
-line-height:1.4;
-color:#8b0000;
-border-left:5px solid #8b0000;
-padding-left:18px;
-margin:35px 0;
+.important-points ul li {
+  margin-bottom: 6px;
+  font-size: 1.05rem;
 }
 
-/* KEY POINTS BOX */
+/* ============================
+Article Typography (BBC/Reuters feel)
+============================ */
 
-.important-points{
-background:#f5f5f5;
-border-left:4px solid #8b0000;
-padding:18px 20px;
-margin:30px 0;
+#title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 20px 0 10px 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  line-height: 1.2;
 }
 
-.important-points ul{
-margin:0;
-padding-left:18px;
+#meta {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 25px;
+  line-height: 1.5;
 }
 
-.important-points li{
-margin-bottom:10px;
-font-weight:500;
+#content p {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  margin-bottom: 18px;
+  font-family: "Georgia", "Times New Roman", serif;
+  color: #111;
 }
 
-/* INLINE IMAGES */
+/* ============================
+Article Layout Restore (Master HTML)
+============================ */
 
-.img-left{
-float:left;
-width:38%;
-margin:6px 20px 15px 0;
+.article-page .article-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  display: flex;
+  gap: 30px;
 }
 
-.img-right{
-float:right;
-width:38%;
-margin:6px 0 15px 20px;
+.article-page .article-body {
+  width: 72%;
 }
 
-.img-left img,
-.img-right img{
-width:100%;
-border-radius:4px;
+.article-page .sidebar {
+  width: 28%;
+  border-left: 1px solid #eee;
+  padding-left: 25px;
 }
 
-.img-left figcaption,
-.img-right figcaption{
-font-size:13px;
-color:#666;
-margin-top:5px;
+.sidebar h3 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
 }
 
-/* CLEAR FLOATS AFTER ARTICLE */
-
-#content::after{
-content:"";
-display:block;
-clear:both;
+.sidebar .related-item {
+  margin-bottom: 18px;
 }
 
-/* SIDEBAR */
-
-.article-sidebar{
-font-size:15px;
+.sidebar .related-item a {
+  font-weight: 600;
+  color: #900;
+  text-decoration: none;
 }
 
-.sidebar-block{
-margin-bottom:35px;
+/* Category label */
+
+.category-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
-.sidebar-block h3{
-font-size:16px;
-border-bottom:2px solid #8b0000;
-padding-bottom:6px;
-margin-bottom:12px;
-}
+/* Category colors */
 
-.sidebar-block a{
-display:block;
-color:#111;
-text-decoration:none;
-margin-bottom:8px;
-}
+.cat-breaking { color: #c00; }
+.cat-blog { color: #005bbb; }
+.cat-editorial { color: #b8860b; }
+.cat-historical { color: #555; }
+.cat-humanrights { color: #800000; }
+.cat-international { color: #0a7d32; }
+.cat-latest { color: #6a0dad; }
+.cat-jk { color: #0b7c7c; }
+.cat-vlog { color: #d35400; }
+.cat-default { color: #900; }
 
-.sidebar-block a:hover{
-text-decoration:underline;
-}
+/* Clearfix for article body */
 
-/* MOBILE */
-
-@media(max-width:900px){
-
-.article-shell{
-grid-template-columns:1fr;
-}
-
-.img-left,
-.img-right{
-float:none;
-width:100%;
-margin:20px 0;
-}
-
-.article-main h1{
-font-size:32px;
-}
-
-}
-
-.article-actions{
-margin-top:40px;
-padding-top:20px;
-border-top:1px solid #e0e0e0;
-display:flex;
-gap:14px;
-flex-wrap:wrap;
-}
-
-.action-btn{
-display:flex;
-align-items:center;
-gap:8px;
-padding:10px 16px;
-font-size:14px;
-background:#f4f4f4;
-border-radius:6px;
-border:none;
-cursor:pointer;
-transition:all .2s ease;
-font-weight:600;
-}
-
-.action-btn:hover{
-background:#8b0000;
-color:#fff;
-}
-
-.action-btn .icon{
-font-size:16px;
-}
-
-/* =====================================================
-BBC / REUTERS STYLE ARTICLE LAYOUT IMPROVEMENT
-APPEND AT END OF styles.css
-=====================================================*/
-
-/* Center article layout */
-
-.article-container{
-max-width:1100px;
-margin-left:auto;
-margin-right:auto;
-}
-
-/* Improve article reading column */
-
-.article-body{
-max-width:720px;
-margin-left:auto;
-margin-right:auto;
-}
-
-/* Better paragraph readability */
-
-#content p{
-font-family:Georgia, "Times New Roman", serif;
-font-size:18px;
-line-height:1.85;
-color:#111;
-}
-
-/* Better spacing for headings */
-
-.mid-subheading{
-font-size:1.5rem;
-margin-top:40px;
-margin-bottom:15px;
-font-weight:700;
-font-family:Georgia, "Times New Roman", serif;
-}
-
-/* Improve pull quote style */
-
-.pull-quote{
-font-family:Georgia, "Times New Roman", serif;
-font-size:1.25rem;
-line-height:1.6;
-font-weight:600;
-border-left:4px solid #b30000;
-padding:20px;
-margin:30px 0;
-background:#fafafa;
-}
-
-/* Important points box */
-
-.important-points{
-background:#f6f6f6;
-border-left:4px solid #b30000;
-padding:18px 22px;
-margin:30px 0;
-}
-
-.important-points li{
-margin-bottom:8px;
-font-size:17px;
-}
-
-/* =====================================================
-ARTICLE ACTION BAR (LIKE SHARE SUBSCRIBE)
-=====================================================*/
-
-.article-actions{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:14px;
-margin-top:40px;
-padding-top:25px;
-border-top:1px solid #ddd;
-}
-
-/* buttons */
-
-.action-btn{
-display:flex;
-align-items:center;
-gap:8px;
-padding:10px 18px;
-font-size:14px;
-font-weight:600;
-border-radius:6px;
-border:1px solid #ddd;
-background:#f8f8f8;
-cursor:pointer;
-transition:all .2s ease;
-}
-
-/* hover */
-
-.action-btn:hover{
-background:#8b0000;
-color:#fff;
-border-color:#8b0000;
-}
-
-/* icons */
-
-.action-btn .icon{
-font-size:17px;
-}
-
-/* =====================================================
-MOBILE ARTICLE FIX
-=====================================================*/
-
-@media(max-width:900px){
-
-.article-container{
-flex-direction:column;
-padding:20px;
-}
-
-.article-body{
-width:100%;
-max-width:100%;
-}
-
-.sidebar{
-width:100%;
-border-left:none;
-padding-left:0;
-margin-top:30px;
-}
-
-.img-left,
-.img-right{
-float:none;
-width:100%;
-margin:20px 0;
-}
-
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
 }
