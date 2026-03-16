@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Team — THE MIRROR JAMMU KASHMIR</title>
+<link rel="stylesheet" href="styles.css?v=26">
+<style>
+/* TEAM PAGE LAYOUT */
+.team-shell {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.team-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #111;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.team-subtitle {
+    text-align: center;
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+/* GRID */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+}
+
+@media(max-width: 900px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* TEAM CARD */
+.team-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 18px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.team-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.team-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #111;
+}
+
+.team-role {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #800000;
+    margin-bottom: 10px;
+}
+
+.team-contact {
+    font-size: 0.85rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+.team-contact a {
+    color: #800000;
+    text-decoration: none;
+}
+
+.team-contact a:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+
+<body class="theme-maroon">
+
+<main class="team-shell">
+
+    <h1 class="team-title">Our Team</h1>
+    <p class="team-subtitle">
+        Meet the dedicated journalists, editors, designers, and human rights advocates behind THE MIRROR JAMMU KASHMIR.
+    </p>
+
+    <div class="team-grid">
+
+        <!-- TEAM MEMBER TEMPLATE -->
+        <div class="team-card">
+            <img src="images/team-placeholder.jpg" alt="Team Member">
+            <div class="team-name">Full Name</div>
+            <div class="team-role">Designation / Role</div>
+            <div class="team-contact">
+                Email: <a href="mailto:someone@example.com">someone@example.com</a><br>
+                Phone: +00 000 000 0000
+            </div>
+        </div>
+
+        <!-- Duplicate this block for more members -->
+        <div class="team-card">
+            <img src="images/team-placeholder.jpg" alt="Team Member">
+            <div class="team-name">Full Name</div>
+            <div class="team-role">Designation / Role</div>
+            <div class="team-contact">
+                Email: <a href="mailto:someone@example.com">someone@example.com</a><br>
+                Phone: +00 000 000 0000
+            </div>
+        </div>
+
+        <div class="team-card">
+            <img src="images/team-placeholder.jpg" alt="Team Member">
+            <div class="team-name">Full Name</div>
+            <div class="team-role">Designation / Role</div>
+            <div class="team-contact">
+                Email: <a href="mailto:someone@example.com">someone@example.com</a><br>
+                Phone: +00 000 000 0000
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>
