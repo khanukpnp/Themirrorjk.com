@@ -1,415 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <base href="./">
-  <title>THE MIRROR JAMMU KASHMIR</title>
-  <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
-  <link rel="preconnect" href="https://api.open-meteo.com">
-  <link rel="stylesheet" href="styles.css?v=26">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Mirror Jammu Kashmir</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="theme-maroon" id="top">
+<body>
 
-  <!-- LOADER -->
-  <div id="site-loader">
-    <div class="loader-inner">
-      <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
-      <div class="loader-bar">
-        <div class="loader-progress"></div>
-      </div>
-      <p>Loading newsroom…</p>
+<!-- ===========================
+     TOP HEADER BAR
+=========================== -->
+<div id="top-header">
+
+    <!-- DATE + CALENDARS + REGIONAL TIMES (ONE LINE) -->
+    <div id="date-time-line">
+        <span id="gregorian-date"></span> |
+        <span id="hijri-date"></span> |
+        <span id="punjabi-date"></span> |
+        <span id="region-times"></span>
     </div>
-  </div>
 
-  <!-- HEADER -->
-  <header class="site-header modern-header">
-    <div class="header-center">
-      <h1 class="site-title">
-        THE MIRROR JAMMU KASHMIR
-      </h1>
-      <div class="subheading">
-        CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD
-      </div>
+    <!-- WEATHER BAR -->
+    <div id="weather-bar">
+        <span id="weather-zurich"></span> |
+        <span id="weather-jammu"></span> |
+        <span id="weather-kashmir"></span> |
+        <span id="weather-ladakh"></span> |
+        <span id="weather-gilgit"></span> |
+        <span id="weather-baltistan"></span> |
+        <span id="weather-muzaffarabad"></span> |
+        <span id="weather-rawalakot"></span>
     </div>
-  </header>
 
-  <!-- CLOCKS + CALENDARS -->
-  <section class="bar clocks-line">
-    <div class="row tight nowrap center">
-
-      <!-- Gregorian (full date + time) -->
-      <div id="cal-gregorian" class="chip tiny">
-        🗓️ <span>Loading date…</span>
-      </div>
-
-      <!-- Hijri -->
-      <div id="cal-hijri" class="chip tiny">
-        🗓️ <span>Hijri…</span>
-      </div>
-
-      <!-- Punjabi Desi Bikrami -->
-      <div id="cal-bikrami" class="chip tiny">
-        🗓️ <span>Bikrami…</span>
-      </div>
-
-      <!-- CEST (Europe / Zurich) -->
-      <div id="clock-cest" class="chip tiny">
-        🕒 CEST: <span>—:—</span>
-      </div>
-
-      <!-- IST -->
-      <div id="tz-ist" class="chip tiny">
-        🕒 IST (Jammu–Kashmir–Ladakh): <span>—:—</span>
-      </div>
-
-      <!-- PKT -->
-      <div id="tz-pkt" class="chip tiny">
-        🕒 PKT (Gilgit–Baltistan & Azad Kashmir): <span>—:—</span>
-      </div>
-
+    <!-- TICKER -->
+    <div id="breaking-ticker">
+        <span class="ticker-label">BREAKING</span>
+        <span id="ticker-content"></span>
     </div>
-  </section>
 
-  <!-- WEATHER BAR -->
-  <section class="bar weather-line">
-    <div class="row nowrap super-tight center" id="weather-bar"></div>
-  </section>
-
-  <!-- BREAKING TICKER -->
-  <section class="ticker-wrap">
-    <div class="ticker">
-      <span class="ticker-label">🆕 BREAKING</span>
-      <ul id="ticker-items"></ul>
-      <div class="tools">
-        <label class="lang-select">
-          🌍
-          <select id="language-select">
-            <option value="en" selected>English</option>
-            <option value="de">German</option>
-            <option value="fr">French</option>
+    <!-- LANGUAGE SELECTOR -->
+    <div id="language-selector">
+        <select id="language-dropdown">
+            <option value="en">English</option>
             <option value="ur">Urdu</option>
             <option value="hi">Hindi</option>
-            <option value="ar">Arabic</option>
-          </select>
-        </label>
-        <form class="search" onsubmit="event.preventDefault();">
-          <input id="search-input" type="search" placeholder="Search…">
-          <button type="submit">🔍</button>
-        </form>
-      </div>
+        </select>
     </div>
-  </section>
 
-  <!-- NAVIGATION -->
-  <nav class="navbar modern-nav">
-    <button class="hamburger" aria-expanded="false" id="hamburger">
-      ☰ Menu
-    </button>
+</div>
 
-    <ul class="nav-list" id="nav-list">
-      <li class="nav-item has-sub">
-        <button class="nav-btn">🏠 Home</button>
-        <div class="dropdown">
-          <a href="about.html">About</a>
-          <a href="chief-editor.html">Chief Editor</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </li>
+<!-- ===========================
+     LOGO + BRANDING
+=========================== -->
+<header id="main-header">
+    <div class="logo-left">
+        <img src="logo-left.png" alt="Left Logo">
+    </div>
 
-      <li class="nav-item">
-        <a class="nav-btn" href="breaking.html">🆕 Breaking News</a>
-      </li>
+    <div class="site-title">
+        <h1>THE MIRROR JAMMU KASHMIR</h1>
+        <p class="tagline">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD... REVEALING THE TRUTH BEYOND BORDERS</p>
+    </div>
 
-      <li class="nav-item has-sub">
-        <button class="nav-btn">📝 Blog</button>
-        <div class="dropdown wide">
-          <a href="editorial.html">Editorial</a>
-          <a href="blog.html">Opinion</a>
-          <a href="#latest-editorial-historical">Latest Updates</a>
-        </div>
-      </li>
+    <div class="logo-right">
+        <img src="logo-right.png" alt="Right Logo">
+    </div>
+</header>
 
-      <li class="nav-item has-sub">
-        <button class="nav-btn">🎥 Vlog</button>
-        <div class="dropdown">
-          <a href="#vlogs">Latest Vlogs</a>
-          <a href="vlog-archive.html">Archive</a>
-        </div>
-      </li>
+<!-- ===========================
+     NAVIGATION WITH ICONS + DROPDOWN
+=========================== -->
+<nav id="nav">
+    <ul id="nav-list">
 
-      <li class="nav-item">
-        <a class="nav-btn" href="#epaper">📰 E-Paper</a>
-      </li>
+        <!-- HOME DROPDOWN -->
+        <li class="dropdown">
+            <a href="#" class="dropbtn">🏠 Home</a>
+            <ul class="dropdown-content">
+                <li><a href="about.html">ℹ️ About</a></li>
+                <li><a href="chief-editor.html">🧑‍💼 Chief Editor</a></li>
+                <li><a href="our-team.html">👥 Our Team</a></li>
+                <li><a href="contact.html">📞 Contact</a></li>
+            </ul>
+        </li>
 
-      <li class="nav-item has-sub">
-        <button class="nav-btn">📍 Jammu Kashmir</button>
-        <div class="dropdown wide">
-          <a href="#jammu-kashmir">Regions</a>
-          <a href="#jammu-kashmir">History</a>
-          <a href="#jammu-kashmir">Culture</a>
-        </div>
-      </li>
+        <li><a href="breaking.html">🆕 Breaking News</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="vlog.html">🎥 Vlog</a></li>
+        <li><a href="epaper.html">📰 E‑Paper</a></li>
+        <li><a href="jammu-kashmir.html">📍 Jammu Kashmir</a></li>
+        <li><a href="historical.html">🏛️ Historical Documents</a></li>
+        <li><a href="human-rights.html">🕊️ UN & Human Rights</a></li>
+        <li><a href="global-advocacy.html">🌍 Global Advocacy</a></li>
 
-      <li class="nav-item has-sub">
-        <button class="nav-btn">🕊️ UN & Human Rights</button>
-        <div class="dropdown">
-          <a href="#human-rights">UNHRC</a>
-          <a href="#human-rights">Reports</a>
-          <a href="#human-rights">Advocacy</a>
-        </div>
-      </li>
     </ul>
+</nav>
 
-    <div id="mobile-menu" class="mobile-menu" hidden></div>
-  </nav>
+<!-- Dropdown CSS (kept minimal, no layout changes) -->
+<style>
+.dropdown { position: relative; }
+.dropbtn { display: inline-block; }
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: #fff;
+    min-width: 180px;
+    border: 1px solid #ddd;
+    z-index: 9999;
+}
+.dropdown-content li a {
+    display: block;
+    padding: 10px 14px;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.dropdown-content li a:hover { background: #f2f2f2; }
+.dropdown:hover .dropdown-content { display: block; }
+</style>
+<!-- ===========================
+     MAIN CONTENT WRAPPER
+=========================== -->
+<main id="content">
 
-  <!-- MAIN CONTENT -->
-  <main class="page-shell home-shell">
-
-    <!-- TOP STORIES -->
-    <section id="top-stories">
-      <div class="section-title red-bar">
-        ⭐ Top Stories
-      </div>
-
-      <div class="cards three">
-
-        <article class="card">
-          <div class="media placeholder maroon" id="lead-media">Lead</div>
-          <div class="card-body" id="lead-body">
-            <h3>Loading story…</h3>
-            <p>Lead story will appear here.</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="media placeholder maroon" id="breaking-media">Breaking</div>
-          <div class="card-body" id="breaking-body">
-            <h3>Loading story…</h3>
-            <p>Breaking news will appear here.</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="media placeholder maroon" id="opinion-media">Opinion</div>
-          <div class="card-body" id="opinion-body">
-            <h3>Loading story…</h3>
-            <p>Opinion article will appear here.</p>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- LATEST · EDITORIAL · HISTORICAL -->
-   <section id="latest-editorial-historical">
-    <div class="section-title red-bar">
-        🕒 Latest · 🖋️ Editorial · 🏛️ Historical
+<!-- ===========================
+     TOP STORIES
+=========================== -->
+<section id="top-stories">
+    <h2>⭐ Top Stories</h2>
+    <div class="story-grid" id="top-stories-container">
+        <!-- Loaded dynamically from JSON -->
     </div>
+</section>
 
-    <div class="cards three">
+<!-- ===========================
+     LATEST / EDITORIAL / HISTORICAL
+=========================== -->
+<section id="latest-editorial-historical">
+    <h2>🕒 Latest · Editorial · Historical</h2>
 
-        <article class="card">
-            <div class="media placeholder maroon" id="latest-media">Latest</div>
-            <div class="card-body" id="latest-body">
-                <h3>Loading story…</h3>
-                <p>Latest update will appear here.</p>
+    <div class="leh-grid">
+
+        <div class="leh-column">
+            <h3>🕒 Latest</h3>
+            <div id="latest-container">
+                <!-- Loaded dynamically -->
             </div>
-        </article>
+        </div>
 
-        <article class="card">
-            <div class="media placeholder maroon" id="editorial-media">Editorial</div>
-            <div class="card-body" id="editorial-body">
-                <h3>Loading story…</h3>
-                <p>Editorial article will appear here.</p>
+        <div class="leh-column">
+            <h3>✍️ Editorial</h3>
+            <div id="editorial-container">
+                <!-- Loaded dynamically -->
             </div>
-        </article>
+        </div>
 
-        <article class="card">
-            <div class="media placeholder maroon" id="historical-media">Historical</div>
-            <div class="card-body" id="historical-body">
-                <h3>Loading story…</h3>
-                <p>Historical analysis will appear here.</p>
+        <div class="leh-column">
+            <h3>📜 Historical</h3>
+            <div id="historical-container">
+                <!-- Loaded dynamically -->
             </div>
-        </article>
+        </div>
 
     </div>
 </section>
+
+<!-- ===========================
+     JAMMU KASHMIR SECTION
+=========================== -->
+<section id="jk-section">
+    <h2>📍 Jammu Kashmir</h2>
+    <div class="jk-grid" id="jk-container">
+        <!-- Loaded dynamically -->
     </div>
 </section>
-    <!-- JAMMU KASHMIR -->
-    <section id="jammu-kashmir">
-      <div class="section-title red-bar">
-        📍 Jammu Kashmir
-      </div>
 
-      <div class="cards two">
-
-        <article class="card">
-          <div class="media placeholder maroon" id="jk1-media">JK</div>
-          <div class="card-body" id="jk1-body">
-            <h3>Loading story…</h3>
-            <p>Regional update will appear here.</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="media placeholder maroon" id="jk2-media">JK</div>
-          <div class="card-body" id="jk2-body">
-            <h3>Loading story…</h3>
-            <p>Regional update will appear here.</p>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- VLOGS -->
-    <section id="vlogs">
-      <div class="section-title red-bar">
-        🎥 Video Reports & Vlogs
-      </div>
-
-      <div class="cards three vlogs-grid" id="vlogs-grid"></div>
-
-      <div style="margin-top:12px;text-align:center">
-        <button id="vlog-visit-channel" class="btn-red">
-          🎥 Visit Channel
-        </button>
-      </div>
-    </section>
-
-    <!-- INTERNATIONAL -->
-    <section id="international">
-      <div class="section-title red-bar">
-        🌍 International News
-      </div>
-
-      <div class="cards two">
-
-        <article class="card">
-          <div class="media placeholder maroon" id="intl1-media">Intl</div>
-          <div class="card-body" id="intl1-body">
-            <h3>Loading story…</h3>
-            <p>International report will appear here.</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="media placeholder maroon" id="intl2-media">Intl</div>
-          <div class="card-body" id="intl2-body">
-            <h3>Loading story…</h3>
-            <p>International report will appear here.</p>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- HUMAN RIGHTS -->
-    <section id="human-rights">
-      <div class="section-title red-bar">
-        ❤️ Human Rights
-      </div>
-
-      <div class="cards two">
-
-        <article class="card">
-          <div class="media placeholder maroon" id="hr1-media">HR</div>
-          <div class="card-body" id="hr1-body">
-            <h3>Loading story…</h3>
-            <p>Human rights report will appear here.</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="media placeholder maroon" id="hr2-media">HR</div>
-          <div class="card-body" id="hr2-body">
-            <h3>Loading story…</h3>
-            <p>Human rights report will appear here.</p>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ARCHIVE -->
-    <section id="archive">
-      <div class="section-title red-bar">
-        📁 Archive
-      </div>
-
-      <div id="archive-list">
-        <p>Archive will appear here.</p>
-      </div>
-    </section>
-
-    <!-- EPAPER -->
-    <section id="epaper">
-      <div class="section-title red-bar">
-        📰 E-Paper Upload
-      </div>
-
-      <form class="epaper-form">
-        <input type="file" accept="application/pdf">
-        <button class="btn-red">Upload</button>
-      </form>
-    </section>
-
-    <!-- NEWSLETTER -->
-    <section id="newsletter">
-      <div class="section-title red-bar">
-        ✉️ Newsletter
-      </div>
-
-      <form class="newsletter-form">
-        <input id="subscribeEmail" type="email" placeholder="your@email.com">
-        <button id="subscribeBtn" class="btn-red">
-          Subscribe
-        </button>
-      </form>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="section-title red-bar">
-        📞 Contact
-      </div>
-
-      <p>
-        Email themirrorjk@gmail.com<br>
-        Phone +41 783 13 12 13
-      </p>
-
-      <button id="contact-open" class="btn-red">
-        Open Contact Form
-      </button>
-    </section>
-
-  </main>
-
-  <!-- CONTACT MODAL -->
-  <div id="contact-modal" class="modal hidden">
-    <div class="modal-content">
-      <span id="contact-close" class="close">×</span>
-      <h3>Contact Us</h3>
-      <input type="text" placeholder="Your name">
-      <input type="email" placeholder="Your email">
-      <textarea placeholder="Your message"></textarea>
-      <button class="btn-red">Send</button>
+<!-- ===========================
+     INTERNATIONAL SECTION
+=========================== -->
+<section id="international-section">
+    <h2>🌍 International</h2>
+    <div class="international-grid" id="international-container">
+        <!-- Loaded dynamically -->
     </div>
-  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>
-      © <span id="year"></span>
-      THE MIRROR JAMMU KASHMIR
-    </p>
-  </footer>
+<!-- ===========================
+     VLOG SECTION (3 CARDS + VISIT CHANNEL)
+=========================== -->
+<section id="vlog-section">
+    <h2>🎥 Latest Videos</h2>
 
-  <script src="script.js?v=26" defer></script>
+    <div class="vlog-grid" id="vlog-container">
+        <!-- 3 YouTube cards loaded dynamically -->
+    </div>
+
+    <div class="visit-channel">
+        <a href="https://www.youtube.com/@themirrorjk" target="_blank" class="visit-btn">
+            ▶️ Visit Our YouTube Channel
+        </a>
+    </div>
+</section>
+
+<!-- ===========================
+     HUMAN RIGHTS SECTION
+=========================== -->
+<section id="human-rights-section">
+    <h2>❤️ Human Rights</h2>
+    <div class="hr-grid" id="human-rights-container">
+        <!-- Loaded dynamically -->
+    </div>
+</section>
+
+<!-- ===========================
+     ARCHIVE SECTION
+=========================== -->
+<section id="archive-section">
+    <h2>📁 Archive</h2>
+    <div id="archive-container">
+        <!-- Loaded dynamically -->
+    </div>
+</section>
+
+<!-- ===========================
+     NEWSLETTER SIGNUP
+=========================== -->
+<section id="newsletter-section">
+    <h2>✉️ Newsletter</h2>
+    <p>Subscribe to receive updates, reports, and breaking news alerts.</p>
+
+    <form id="newsletter-form">
+        <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+        <button type="submit">Subscribe</button>
+    </form>
+
+    <div id="newsletter-message"></div>
+</section>
+
+<!-- ===========================
+     CONTACT SECTION
+=========================== -->
+<section id="contact-section">
+    <h2>📞 Contact Us</h2>
+
+    <p>If you have news, feedback, or urgent matters, reach out anytime.</p>
+
+    <ul class="contact-list">
+        <li>Email: <a href="mailto:themirrorjk@gmail.com">themirrorjk@gmail.com</a></li>
+        <li>Website: <a href="https://themirrorjk.com" target="_blank">themirrorjk.com</a></li>
+        <li>Contact Form: <a href="contact.html">Open Form</a></li>
+    </ul>
+</section>
+
+</main>
+<!-- ===========================
+     FOOTER
+=========================== -->
+<footer id="footer">
+    <div class="footer-content">
+
+        <div class="footer-column">
+            <h3>About Us</h3>
+            <p>The Mirror Jammu Kashmir is an independent digital media platform dedicated to justice, truth, and the voices of the unheard.</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="chief-editor.html">Chief Editor</a></li>
+                <li><a href="our-team.html">Our Team</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <ul>
+                <li><a href="mailto:themirrorjk@gmail.com">Email Us</a></li>
+                <li><a href="https://www.youtube.com/@themirrorjk" target="_blank">YouTube</a></li>
+                <li><a href="https://themirrorjk.com" target="_blank">Website</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 The Mirror Jammu Kashmir — All Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- ===========================
+     JAVASCRIPT FILES
+=========================== -->
+
+<!-- Main Script -->
+<script src="script.js?v=26"></script>
+
+<!-- Calendars -->
+<script src="calendar.js"></script>
+
+<!-- Weather -->
+<script src="weather.js"></script>
+
+<!-- Ticker -->
+<script src="ticker.js"></script>
+
+<!-- Language Selector -->
+<script src="language.js"></script>
+
+<!-- YouTube Loader -->
+<script src="youtube.js"></script>
+
+<!-- Team Loader -->
+<script src="team.js"></script>
+
+<!-- ===========================
+     INLINE CALENDAR + TIME LOGIC
+=========================== -->
+<script>
+// ------------------------------
+// GREGORIAN DATE
+// ------------------------------
+function loadGregorianDate() {
+    const now = new Date();
+    const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+    document.getElementById("gregorian-date").textContent = now.toLocaleDateString("en-US", options);
+}
+
+// ------------------------------
+// HIJRI DATE
+// ------------------------------
+function loadHijriDate() {
+    const today = new Date();
+    const hijri = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    }).format(today);
+
+    document.getElementById("hijri-date").textContent = hijri + " AH";
+}
+
+// ------------------------------
+// PUNJABI DESI (BIKRAMI) CALENDAR
+// ------------------------------
+function loadPunjabiDate() {
+    const punjabiMonths = [
+        "Chet","Vaisakh","Jeth","Harh","Sawan","Bhadon",
+        "Assu","Kattak","Maghar","Poh","Magh","Phagun"
+    ];
+
+    const now = new Date();
+    const gregorianYear = now.getFullYear();
+    const bikramiYear = gregorianYear + 57;
+
+    const month = now.getMonth();
+    const date = now.getDate();
+
+    // Punjabi month index (approximate alignment)
+    const punjabiMonthIndex = (month + 9) % 12;
+
+    document.getElementById("punjabi-date").textContent =
+        `${punjabiMonths[punjabiMonthIndex]} ${date}, ${bikramiYear} Bikrami`;
+}
+
+// ------------------------------
+// REGIONAL TIMES
+// ------------------------------
+function loadRegionalTimes() {
+    const now = new Date();
+
+    const ist = now.toLocaleTimeString("en-US", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" });
+    const pkt = now.toLocaleTimeString("en-US", { timeZone: "Asia/Karachi", hour: "2-digit", minute: "2-digit" });
+    const cet = now.toLocaleTimeString("en-US", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit" });
+
+    document.getElementById("region-times").textContent =
+        `IST (JKL): ${ist} | PKT (GBM): ${pkt} | CET (Zurich): ${cet}`;
+}
+
+// ------------------------------
+// INITIAL LOAD
+// ------------------------------
+loadGregorianDate();
+loadHijriDate();
+loadPunjabiDate();
+loadRegionalTimes();
+
+// Update times every minute
+setInterval(loadRegionalTimes, 60000);
+</script>
+
 </body>
 </html>
