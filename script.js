@@ -51,23 +51,105 @@ document.addEventListener("DOMContentLoaded", () => {
 LOADER
 ============================================================ */
 
-function initLoader() {
+function loadArticlePage(){
 
-  const loader = document.getElementById("site-loader");
-  if (!loader) return;
+const params = new URLSearchParams(window.location.search);
+let id = params.get("id");
 
-  setTimeout(() => {
+const path = window.location.pathname;
 
-    loader.style.opacity = "0";
+/* STATIC PAGES */
 
-    setTimeout(() => {
+if(!id){
 
-      loader.style.display = "none";
+if(path.includes("about")) id = "about-001";
 
-    }, 600);
+if(path.includes("chief-editor")) id = "chief-editor-001";
 
-  }, 1200);
+if(path.includes("blog")) id = "blog-001";
 
+}
+
+if(!id) return;
+
+fetch(`content/${id}.json`)
+.then(r=>r.json())
+.then(article=>{
+
+const title=document.getElementById("title");
+const label=document.getElementById("section-label");
+const meta=document.getElementById("meta");
+const hero=document.getElementById("heroImg");
+const caption=document.getElementById("heroCaption");
+const content=document.getElementById("content");
+
+if(!content) return;
+
+if(title) title.textContent = article.title;
+if(label) label.textContent = article.sectionLabel || "";
+
+if(meta){
+const d = new Date(article.date).toLocaleDateString();
+meta.textContent =
+`${article.author} | ${article.location} | ${d} | ${article.readTime}`;
+}
+
+if(hero && article.heroImage?.src) hero.src = article.heroImage.src;
+if(caption) caption.textContent = article.heroImage?.caption || "";
+
+content.innerHTML="";
+
+article.body.forEach(block=>{
+
+if(block.type==="paragraph"){
+content.innerHTML += `<p>${block.text}</p>`;
+}
+
+if(block.type==="subheading"){
+content.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
+}
+
+if(block.type==="pullquote"){
+content.innerHTML += `<div class="pull-quote">${block.text}</div>`;
+}
+
+if(block.type==="points"){
+content.innerHTML += `
+<div class="important-points">
+<ul>${block.items.map(i=>`<li>${i}</li>`).join("")}</ul>
+</div>`;
+}
+
+if(block.type==="image"){
+const align = block.align==="right" ? "img-right" : "img-left";
+content.innerHTML += `
+<figure class="${align}">
+<img src="${block.src}">
+<figcaption>${block.caption||""}</figcaption>
+</figure>`;
+}
+
+});
+
+/* ---------- ACTION BAR ---------- */
+
+content.innerHTML += `
+<div class="article-actions">
+
+<button onclick="likeArticle()">👍 Like</button>
+
+<button onclick="subscribeChannel()">🔔 Subscribe</button>
+
+<button onclick="shareArticle()">🔗 Share</button>
+
+<button onclick="copyLink()">📋 Copy Link</button>
+
+</div>
+`;
+
+});
+
+}
 }
 /* ============================================================
 FOOTER YEAR
@@ -588,3 +670,27 @@ async function loadHomepageSections(){
 }
 
 document.addEventListener("DOMContentLoaded",loadHomepageSections);
+
+function likeArticle(){
+alert("Thank you for liking this article.");
+}
+
+function subscribeChannel(){
+window.open("https://youtube.com/@themirrorjk","_blank");
+}
+
+function shareArticle(){
+if(navigator.share){
+navigator.share({
+title:document.title,
+url:window.location.href
+});
+}else{
+alert("Sharing not supported on this browser.");
+}
+}
+
+function copyLink(){
+navigator.clipboard.writeText(window.location.href);
+alert("Article link copied.");
+}
