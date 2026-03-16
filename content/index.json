@@ -2,62 +2,25 @@
   "topStories": {
     "lead": "article-001",
     "breaking": "breaking-001",
-    "blog": "blog-001"
+    "opinion": "blog-001"
   },
 
-  "latest": [
-    "latest-001"
-  ],
+  "latest": ["latest-001"],
+  "editorial": ["editorial-001"],
+  "historical": ["historical-001"],
 
-  "editorial": [
-    "editorial-001"
-  ],
-
-  "historical": [
-    "historical-001"
-  ],
-
-  "sections": {
-
-    "jammuKashmir": [
-      "jk-001"
-    ],
-
-    "international": [
-      "international-001"
-    ],
-
-    "humanRights": [
-      "humanrights-001"
-    ]
-
+  "jammuKashmir": {
+    "first": "jk-001",
+    "second": null
   },
 
-  "media": {
-
-    "vlogs": [
-      "vlog-001"
-    ],
-
-    "epaper": [
-      "epaper-001"
-    ]
-
+  "international": {
+    "first": "international-001",
+    "second": null
   },
 
-  "archive": {
-
-    "articles": [
-      "archive-001"
-    ],
-
-    "editorials": [
-      "archive-editorial-001"
-    ],
-
-    "blogs": [
-      "archive-blog-001"
-    ]
-
+  "humanRights": {
+    "first": "humanrights-001",
+    "second": null
   }
 }
