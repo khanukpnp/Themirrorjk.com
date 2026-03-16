@@ -502,3 +502,49 @@ content.innerHTML+=`
 });
 
 }
+
+/* ============================================================
+   LOAD HOMEPAGE CARDS (Latest, Editorial, Historical)
+============================================================ */
+
+async function loadHomepageSections(){
+
+  try{
+
+    const res = await fetch("content/index.json");
+    const index = await res.json();
+
+    /* ---------- Latest ---------- */
+
+    if(index.latest && index.latest.length){
+      const latestId = index.latest[0];
+      const latestRes = await fetch(`content/${latestId}.json`);
+      const latestArticle = await latestRes.json();
+      renderArticleCard("latest-media","latest-body",latestArticle);
+    }
+
+    /* ---------- Editorial ---------- */
+
+    if(index.editorial && index.editorial.length){
+      const editorialId = index.editorial[0];
+      const editorialRes = await fetch(`content/${editorialId}.json`);
+      const editorialArticle = await editorialRes.json();
+      renderArticleCard("editorial-media","editorial-body",editorialArticle);
+    }
+
+    /* ---------- Historical ---------- */
+
+    if(index.historical && index.historical.length){
+      const historicalId = index.historical[0];
+      const historicalRes = await fetch(`content/${historicalId}.json`);
+      const historicalArticle = await historicalRes.json();
+      renderArticleCard("historical-media","historical-body",historicalArticle);
+    }
+
+  }catch(err){
+    console.error("Homepage load error:",err);
+  }
+
+}
+
+document.addEventListener("DOMContentLoaded",loadHomepageSections);
