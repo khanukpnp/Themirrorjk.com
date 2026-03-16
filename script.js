@@ -40,15 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
-  /* Article / Static page loader */
-
-  loadArticlePage();
-
-});
-
-
 /* ============================================================
-LOADER
+ARTICLE / STATIC PAGE LOADER
 ============================================================ */
 
 function loadArticlePage(){
@@ -56,100 +49,210 @@ function loadArticlePage(){
 const params = new URLSearchParams(window.location.search);
 let id = params.get("id");
 
-const path = window.location.pathname;
+const path = window.location.pathname.toLowerCase();
 
-/* STATIC PAGES */
+/* ------------------------------------------------------------
+STATIC PAGE DETECTION
+------------------------------------------------------------ */
 
 if(!id){
 
 if(path.includes("about")) id = "about-001";
 
-if(path.includes("chief-editor")) id = "chief-editor-001";
+else if(path.includes("chief-editor")) id = "chief-editor-001";
 
-if(path.includes("blog")) id = "blog-001";
+else if(path.includes("blog")) id = "blog-001";
 
 }
+
+/* If still no id → stop safely */
 
 if(!id) return;
 
-fetch(`content/${id}.json`)
-.then(r=>r.json())
-.then(article=>{
 
-const title=document.getElementById("title");
-const label=document.getElementById("section-label");
-const meta=document.getElementById("meta");
-const hero=document.getElementById("heroImg");
-const caption=document.getElementById("heroCaption");
-const content=document.getElementById("content");
+/* ------------------------------------------------------------
+FETCH ARTICLE JSON
+------------------------------------------------------------ */
+
+fetch(`content/${id}.json`)
+
+.then(res => {
+
+if(!res.ok){
+
+console.error("Article JSON not found:", id);
+return null;
+
+}
+
+return res.json();
+
+})
+
+.then(article => {
+
+if(!article) return;
+
+
+/* ------------------------------------------------------------
+GET PAGE ELEMENTS
+------------------------------------------------------------ */
+
+const title = document.getElementById("title");
+const label = document.getElementById("section-label");
+const meta = document.getElementById("meta");
+const hero = document.getElementById("heroImg");
+const caption = document.getElementById("heroCaption");
+const content = document.getElementById("content");
 
 if(!content) return;
 
+
+/* ------------------------------------------------------------
+HEADER DATA
+------------------------------------------------------------ */
+
 if(title) title.textContent = article.title;
+
 if(label) label.textContent = article.sectionLabel || "";
 
 if(meta){
+
 const d = new Date(article.date).toLocaleDateString();
+
 meta.textContent =
 `${article.author} | ${article.location} | ${d} | ${article.readTime}`;
+
 }
 
-if(hero && article.heroImage?.src) hero.src = article.heroImage.src;
-if(caption) caption.textContent = article.heroImage?.caption || "";
 
-content.innerHTML="";
+/* ------------------------------------------------------------
+HERO IMAGE
+------------------------------------------------------------ */
 
-article.body.forEach(block=>{
+if(hero && article.heroImage && article.heroImage.src){
 
-if(block.type==="paragraph"){
+hero.src = article.heroImage.src;
+
+}
+
+if(caption){
+
+caption.textContent = article.heroImage?.caption || "";
+
+}
+
+
+/* ------------------------------------------------------------
+CLEAR CONTENT
+------------------------------------------------------------ */
+
+content.innerHTML = "";
+
+
+/* ------------------------------------------------------------
+RENDER BODY BLOCKS
+------------------------------------------------------------ */
+
+article.body.forEach(block => {
+
+
+/* Paragraph */
+
+if(block.type === "paragraph"){
+
 content.innerHTML += `<p>${block.text}</p>`;
+
 }
 
-if(block.type==="subheading"){
+
+/* Subheading */
+
+if(block.type === "subheading"){
+
 content.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
+
 }
 
-if(block.type==="pullquote"){
+
+/* Pull Quote */
+
+if(block.type === "pullquote"){
+
 content.innerHTML += `<div class="pull-quote">${block.text}</div>`;
+
 }
 
-if(block.type==="points"){
+
+/* BBC Style Points */
+
+if(block.type === "points"){
+
 content.innerHTML += `
 <div class="important-points">
-<ul>${block.items.map(i=>`<li>${i}</li>`).join("")}</ul>
-</div>`;
-}
-
-if(block.type==="image"){
-const align = block.align==="right" ? "img-right" : "img-left";
-content.innerHTML += `
-<figure class="${align}">
-<img src="${block.src}">
-<figcaption>${block.caption||""}</figcaption>
-</figure>`;
-}
-
-});
-
-/* ---------- ACTION BAR ---------- */
-
-content.innerHTML += `
-<div class="article-actions">
-
-<button onclick="likeArticle()">👍 Like</button>
-
-<button onclick="subscribeChannel()">🔔 Subscribe</button>
-
-<button onclick="shareArticle()">🔗 Share</button>
-
-<button onclick="copyLink()">📋 Copy Link</button>
-
+<ul>
+${block.items.map(i => `<li>${i}</li>`).join("")}
+</ul>
 </div>
 `;
 
-});
+}
+
+
+/* Inline Images */
+
+if(block.type === "image"){
+
+const align = block.align === "right" ? "img-right" : "img-left";
+
+content.innerHTML += `
+<figure class="${align}">
+<img src="${block.src}" loading="lazy">
+<figcaption>${block.caption || ""}</figcaption>
+</figure>
+`;
 
 }
+
+});
+
+
+/* ------------------------------------------------------------
+ARTICLE ACTION BAR
+------------------------------------------------------------ */
+
+content.innerHTML += `
+
+<div class="article-actions">
+
+<button class="action-btn like-btn" onclick="likeArticle()">
+👍 <span>Like</span>
+</button>
+
+<button class="action-btn subscribe-btn" onclick="subscribeChannel()">
+🔔 <span>Subscribe</span>
+</button>
+
+<button class="action-btn share-btn" onclick="shareArticle()">
+🔗 <span>Share</span>
+</button>
+
+<button class="action-btn copy-btn" onclick="copyLink()">
+📋 <span>Copy Link</span>
+</button>
+
+</div>
+
+`;
+
+})
+
+.catch(err => {
+
+console.error("Article loading error:", err);
+
+});
+
 }
 /* ============================================================
 FOOTER YEAR
