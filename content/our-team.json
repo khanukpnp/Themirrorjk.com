@@ -1,0 +1,57 @@
+{
+  "id": "our-team-001",
+  "title": "Our Team",
+  "sectionLabel": "THE MIRROR JAMMU KASHMIR",
+  "date": "2025-01-01",
+  "author": "Editorial Desk",
+  "location": "Global",
+  "readTime": "3 min read",
+
+  "heroImage": {
+    "src": "images/team-banner.jpg",
+    "caption": "The dedicated team behind THE MIRROR JAMMU KASHMIR"
+  },
+
+  "team": [
+    {
+      "name": "Full Name",
+      "designation": "Designation / Role",
+      "email": "someone@example.com",
+      "phone": "+00 000 000 0000",
+      "image": "images/team-placeholder.jpg"
+    },
+    {
+      "name": "Full Name",
+      "designation": "Designation / Role",
+      "email": "someone@example.com",
+      "phone": "+00 000 000 0000",
+      "image": "images/team-placeholder.jpg"
+    },
+    {
+      "name": "Full Name",
+      "designation": "Designation / Role",
+      "email": "someone@example.com",
+      "phone": "+00 000 000 0000",
+      "image": "images/team-placeholder.jpg"
+    }
+  ],
+
+  "body": [
+    {
+      "type": "paragraph",
+      "text": "THE MIRROR JAMMU KASHMIR is powered by a diverse team of journalists, editors, designers, researchers, and human rights advocates committed to truth, justice, and dignity."
+    },
+    {
+      "type": "paragraph",
+      "text": "Our team works across continents, bringing global perspectives and local insights to every story we publish."
+    },
+    {
+      "type": "subheading",
+      "text": "Meet Our Team"
+    },
+    {
+      "type": "paragraph",
+      "text": "Below is a list of our core team members. More profiles will be added as our newsroom expands."
+    }
+  ]
+}
