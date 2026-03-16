@@ -18,8 +18,7 @@
       "src": "content/images/logo.png",
       "align": "right",
       "caption": "The Mirror Jammu Kashmir Logo",
-      "credit": "The Mirror Jammu Kashmir",
-      "width": "38%"
+      "credit": "The Mirror Jammu Kashmir"
     },
 
     {
@@ -59,7 +58,7 @@
 
     {
       "type": "paragraph",
-      "text": "On 22 October 1947, invasion-initiated violence, bloodshed, and forced division. This compelled the Maharaja to seek military assistance from India. India demanded a provisional Instrument of Accession, signed on 26 October 1947. Indian forces entered Kashmir on 27 October 1947 with assurances to protect the life, liberty, and property of the people and to reunite the entire state. These promises were never fulfilled. More than 78 years have passed. Instead of reunification, the Government of India dismembered and bifurcated Jammu and Kashmir and Ladakh into two Union Territories without the consent of the people."
+      "text": "On 22 October 1947, invasion initiated violence, bloodshed, and forced division. This compelled the Maharaja to seek military assistance from India. India demanded a provisional Instrument of Accession, signed on 26 October 1947. Indian forces entered Kashmir on 27 October 1947 with assurances to protect the life, liberty, and property of the people and to reunite the entire state. These promises were never fulfilled. More than 78 years have passed. Instead of reunification, the Government of India dismembered and bifurcated Jammu and Kashmir and Ladakh into two Union Territories without the consent of the people."
     },
 
     {
@@ -93,7 +92,7 @@
     },
 
     {
-      "type": "paragraph",
+      "type": "pullquote",
       "text": "We do not manufacture narratives. We reflect reality."
     },
 
@@ -101,5 +100,6 @@
       "type": "paragraph",
       "text": "The Mirror Jammu Kashmir holds up a mirror to power, to policy, to history, and to truth."
     }
+
   ]
 }
