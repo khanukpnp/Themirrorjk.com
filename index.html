@@ -75,13 +75,20 @@
 <section class="bar weather-line">
   <div class="row nowrap super-tight center" id="weather-bar"></div>
 </section>
-  <!-- BREAKING TICKER -->
-  <section class="ticker-wrap">
-    <div class="ticker">
-      <span class="ticker-label">🆕 BREAKING</span>
-      <ul id="ticker-items"></ul>
-      <div class="tools">
-        <label class="lang-select">
+
+<!-- BREAKING TICKER -->
+<section class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-label">🆕 BREAKING</span>
+
+    <!-- Dynamic ticker items from ticker.json -->
+    <ul id="ticker-items"></ul>
+
+    <div class="tools">
+      <label class="lang-select"></label>
+    </div>
+  </div>
+</section>
           🌍
           <select id="language-select">
             <option value="en" selected>English</option>
