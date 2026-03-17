@@ -43,7 +43,9 @@ body {
   color: #555;
 }
 
-/* ========== BARS (CLOCKS / WEATHER / TICKER) ========== */
+/* ============================================
+   BARS (CLOCKS / CALENDARS / WEATHER / TICKER)
+   ============================================ */
 
 .bar {
   background: #ffffff;
@@ -51,24 +53,83 @@ body {
   border-bottom: 1px solid #ddd;
 }
 
+/* Shared row behavior */
 .row {
   display: flex;
   gap: 6px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
 }
 
+.row::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* CHIP STYLE */
 .chip {
   background: #eee;
-  padding: 4px 8px;
+  padding: 4px 10px;
   border-radius: 20px;
   font-size: 0.75rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .chip.tiny {
   font-size: 0.7rem;
+  padding: 3px 8px;
 }
 
+/* CLOCKS + CALENDARS BAR */
+.bar.clocks-line {
+  background: #fafafa;
+}
+
+.bar.clocks-line .chip.tiny {
+  margin-right: 4px;
+}
+
+/* WEATHER BAR */
+.bar.weather-line {
+  background: #f7f7f7;
+}
+
+#weather-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+#weather-bar::-webkit-scrollbar {
+  display: none;
+}
+
+#weather-bar .chip.tiny {
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+/* RESPONSIVE FIXES */
+@media (max-width: 600px) {
+  .chip.tiny {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+
+  .row {
+    gap: 4px;
+  }
+
+  #weather-bar .chip.tiny {
+    margin-right: 6px;
+  }
+}
 /* ===== Ticker base ===== */
 
 .ticker-wrap {
