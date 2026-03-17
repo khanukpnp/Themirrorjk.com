@@ -6,29 +6,28 @@
   <base href="./">
   <title>THE MIRROR JAMMU KASHMIR</title>
   <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
-  <link rel="preconnect" href="https://api.open-meteo.com">
-  <link rel="stylesheet" href="styles.css?v=26">
+  <link rel="stylesheet" href="styles.css?v=30">
 </head>
-
 <body class="theme-maroon" id="top">
 
-  <!-- LOADER -->
-  <div id="site-loader">
-    <div class="loader-inner">
-      <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
-      <div class="loader-bar">
-        <div class="loader-progress"></div>
-      </div>
-      <p>Loading newsroom…</p>
+<!-- LOADER -->
+<div id="site-loader">
+  <div class="loader-inner">
+    <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
     </div>
+    <p>Loading newsroom…</p>
   </div>
+</div>
+
+<!-- PAGE WRAPPER (CENTERED) -->
+<div class="page-shell">
 
   <!-- HEADER -->
   <header class="site-header modern-header">
     <div class="header-center">
-      <h1 class="site-title">
-        THE MIRROR JAMMU KASHMIR
-      </h1>
+      <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
       <div class="subheading">
         CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD
       </div>
@@ -38,37 +37,24 @@
   <!-- CLOCKS + CALENDARS -->
   <section class="bar clocks-line">
     <div class="row tight nowrap center">
-
-      <!-- Gregorian (full date + time) -->
       <div id="cal-gregorian" class="chip tiny">
         🗓️ <span>Loading date…</span>
       </div>
-
-      <!-- Hijri Calendar -->
       <div id="cal-hijri" class="chip tiny">
         🗓️ <span>Hijri…</span>
       </div>
-
-      <!-- Punjabi Desi Bikrami Calendar -->
       <div id="cal-hindi" class="chip tiny">
         🗓️ <span>Bikrami…</span>
       </div>
-
-      <!-- CEST (Europe / Zurich) -->
       <div id="clock-cest" class="chip tiny">
         🕒 CEST: <span>—:—</span>
       </div>
-
-      <!-- IST (Jammu–Kashmir–Ladakh) -->
       <div id="tz-ist" class="chip tiny">
         🕒 IST: <span>—:—</span>
       </div>
-
-      <!-- PKT (Gilgit–Baltistan & Azad Kashmir) -->
       <div id="tz-pkt" class="chip tiny">
         🕒 PKT: <span>—:—</span>
       </div>
-
     </div>
   </section>
 
@@ -77,7 +63,7 @@
     <div class="row nowrap super-tight center" id="weather-bar"></div>
   </section>
 
-  <!-- UTILITY BAR: LANGUAGE + SEARCH -->
+  <!-- UTILITY BAR -->
   <section class="bar utility-line">
     <div class="row tight nowrap center utility-row">
       <div class="lang-box">
@@ -91,7 +77,6 @@
           <option value="ar">Arabic</option>
         </select>
       </div>
-
       <form class="search" onsubmit="event.preventDefault();">
         <input id="search-input" type="search" placeholder="Search…">
         <button type="submit">🔍</button>
@@ -104,9 +89,7 @@
     <div class="ticker">
       <span class="ticker-label">🆕 BREAKING</span>
       <ul id="ticker-items"></ul>
-      <div class="tools">
-        <label class="lang-select"></label>
-      </div>
+      <div class="tools"></div>
     </div>
   </section>
 
@@ -115,7 +98,6 @@
     <button class="hamburger" aria-expanded="false" id="hamburger">
       ☰ Menu
     </button>
-
     <ul class="nav-list" id="nav-list">
       <li class="nav-item has-sub">
         <button class="nav-btn">🏠 Home</button>
@@ -125,11 +107,9 @@
           <a href="#contact">Contact</a>
         </div>
       </li>
-
       <li class="nav-item">
         <a class="nav-btn" href="breaking.html">🆕 Breaking News</a>
       </li>
-
       <li class="nav-item has-sub">
         <button class="nav-btn">📝 Blog</button>
         <div class="dropdown wide">
@@ -138,7 +118,6 @@
           <a href="#latest-editorial-historical">Latest Updates</a>
         </div>
       </li>
-
       <li class="nav-item has-sub">
         <button class="nav-btn">🎥 Vlog</button>
         <div class="dropdown">
@@ -146,11 +125,9 @@
           <a href="vlog-archive.html">Archive</a>
         </div>
       </li>
-
       <li class="nav-item">
         <a class="nav-btn" href="#epaper">📰 E-Paper</a>
       </li>
-
       <li class="nav-item has-sub">
         <button class="nav-btn">📍 Jammu Kashmir</button>
         <div class="dropdown wide">
@@ -159,7 +136,6 @@
           <a href="#jammu-kashmir">Culture</a>
         </div>
       </li>
-
       <li class="nav-item has-sub">
         <button class="nav-btn">🕊️ UN & Human Rights</button>
         <div class="dropdown">
@@ -169,38 +145,34 @@
         </div>
       </li>
     </ul>
-
     <div id="mobile-menu" class="mobile-menu" hidden></div>
   </nav>
 
   <!-- MAIN CONTENT -->
-  <main class="page-shell home-shell">
+  <main class="home-main">
 
     <!-- TOP STORIES -->
     <section id="top-stories">
-      <div class="section-title red-bar">
+      <div class="section-title">
         ⭐ Top Stories
       </div>
-
       <div class="cards three">
         <article class="card">
-          <div class="media placeholder maroon" id="lead-media">Lead</div>
+          <div class="media placeholder" id="lead-media">Lead</div>
           <div class="card-body" id="lead-body">
             <h3>Loading story…</h3>
             <p>Lead story will appear here.</p>
           </div>
         </article>
-
         <article class="card">
-          <div class="media placeholder maroon" id="breaking-media">Breaking</div>
+          <div class="media placeholder" id="breaking-media">Breaking</div>
           <div class="card-body" id="breaking-body">
             <h3>Loading story…</h3>
             <p>Breaking news will appear here.</p>
           </div>
         </article>
-
         <article class="card">
-          <div class="media placeholder maroon" id="opinion-media">Opinion</div>
+          <div class="media placeholder" id="opinion-media">Opinion</div>
           <div class="card-body" id="opinion-body">
             <h3>Loading story…</h3>
             <p>Opinion article will appear here.</p>
@@ -209,25 +181,22 @@
       </div>
     </section>
 
-    <!-- LATEST EDITORIAL HISTORICAL -->
+    <!-- LATEST / EDITORIAL / HISTORICAL -->
     <section id="latest-editorial-historical">
-      <div class="section-title red-bar">
+      <div class="section-title">
         🕒 Latest · 🖋️ Editorial · 🏛️ Historical
       </div>
-
       <div class="cards three">
         <article class="card">
-          <div class="media placeholder maroon" id="leh1-media">Latest</div>
+          <div class="media placeholder" id="leh1-media">Latest</div>
           <div class="card-body" id="leh1-body"></div>
         </article>
-
         <article class="card">
-          <div class="media placeholder maroon" id="leh2-media">Editorial</div>
+          <div class="media placeholder" id="leh2-media">Editorial</div>
           <div class="card-body" id="leh2-body"></div>
         </article>
-
         <article class="card">
-          <div class="media placeholder maroon" id="leh3-media">Historical</div>
+          <div class="media placeholder" id="leh3-media">Historical</div>
           <div class="card-body" id="leh3-body"></div>
         </article>
       </div>
@@ -235,52 +204,46 @@
 
     <!-- JAMMU KASHMIR -->
     <section id="jammu-kashmir">
-      <div class="section-title red-bar">
+      <div class="section-title">
         📍 Jammu Kashmir
       </div>
-
       <div class="cards two">
         <article class="card">
-          <div class="media placeholder maroon" id="jk1-media">JK</div>
+          <div class="media placeholder" id="jk1-media">JK</div>
           <div class="card-body" id="jk1-body"></div>
         </article>
-
         <article class="card">
-          <div class="media placeholder maroon" id="jk2-media">JK</div>
+          <div class="media placeholder" id="jk2-media">JK</div>
           <div class="card-body" id="jk2-body"></div>
         </article>
       </div>
     </section>
 
-    <!-- VLOGS -->
+    <!-- VLOGS (YOUTUBE JSON) -->
     <section id="vlogs">
-      <div class="section-title red-bar">
+      <div class="section-title">
         🎥 Video Reports & Vlogs
       </div>
-
-      <div class="cards three vlogs-grid" id="vlogs-grid"></div>
-
-      <div style="margin-top:12px;text-align:center">
-        <button id="vlog-visit-channel" class="btn-red">
+      <div class="vlog-toolbar">
+        <button class="btn-red" id="vlog-visit-channel">
           🎥 Visit Channel
         </button>
       </div>
+      <div class="cards three vlogs-grid" id="vlogs-grid"></div>
     </section>
 
     <!-- INTERNATIONAL -->
     <section id="international">
-      <div class="section-title red-bar">
+      <div class="section-title">
         🌍 International News
       </div>
-
       <div class="cards two">
         <article class="card">
-          <div class="media placeholder maroon" id="intl1-media">Intl</div>
+          <div class="media placeholder" id="intl1-media">Intl</div>
           <div class="card-body" id="intl1-body"></div>
         </article>
-
         <article class="card">
-          <div class="media placeholder maroon" id="intl2-media">Intl</div>
+          <div class="media placeholder" id="intl2-media">Intl</div>
           <div class="card-body" id="intl2-body"></div>
         </article>
       </div>
@@ -288,18 +251,16 @@
 
     <!-- HUMAN RIGHTS -->
     <section id="human-rights">
-      <div class="section-title red-bar">
+      <div class="section-title">
         ❤️ Human Rights
       </div>
-
       <div class="cards two">
         <article class="card">
-          <div class="media placeholder maroon" id="hr1-media">HR</div>
+          <div class="media placeholder" id="hr1-media">HR</div>
           <div class="card-body" id="hr1-body"></div>
         </article>
-
         <article class="card">
-          <div class="media placeholder maroon" id="hr2-media">HR</div>
+          <div class="media placeholder" id="hr2-media">HR</div>
           <div class="card-body" id="hr2-body"></div>
         </article>
       </div>
@@ -307,7 +268,7 @@
 
     <!-- ARCHIVE -->
     <section id="archive">
-      <div class="section-title red-bar">
+      <div class="section-title">
         📁 Archive
       </div>
       <div id="archive-list">
@@ -317,7 +278,7 @@
 
     <!-- EPAPER -->
     <section id="epaper">
-      <div class="section-title red-bar">
+      <div class="section-title">
         📰 E-Paper Upload
       </div>
       <form class="epaper-form">
@@ -328,20 +289,18 @@
 
     <!-- NEWSLETTER -->
     <section id="newsletter">
-      <div class="section-title red-bar">
+      <div class="section-title">
         ✉️ Newsletter
       </div>
       <form class="newsletter-form">
         <input id="subscribeEmail" type="email" placeholder="your@email.com">
-        <button id="subscribeBtn" class="btn-red">
-          Subscribe
-        </button>
+        <button id="subscribeBtn" class="btn-red">Subscribe</button>
       </form>
     </section>
 
     <!-- CONTACT -->
     <section id="contact">
-      <div class="section-title red-bar">
+      <div class="section-title">
         📞 Contact
       </div>
       <p>
@@ -353,9 +312,41 @@
       </button>
     </section>
 
+    <!-- SOCIAL ACTIONS (BOTTOM OF PAGE) -->
+    <div class="social-actions">
+      <button class="sa-btn">
+        👍 Like
+      </button>
+      <button class="sa-btn">
+        🔔 Subscribe
+      </button>
+      <button class="sa-btn">
+        📤 Share
+      </button>
+      <button class="sa-btn" onclick="copyPageLink()">
+        🔗 Copy Link
+      </button>
+    </div>
+
   </main>
 
   <!-- CONTACT MODAL -->
   <div id="contact-modal" class="modal hidden">
     <div class="modal-content">
-      <span id="contact-close" class="close">
+      <span id="contact-close" class="close">&times;</span>
+      <h2>Contact The Mirror Jammu Kashmir</h2>
+      <p>Email: themirrorjk@gmail.com</p>
+      <p>Phone: +41 783 13 12 13</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.
+  </footer>
+
+</div><!-- /.page-shell -->
+
+<script src="script.js?v=30"></script>
+</body>
+</html>
