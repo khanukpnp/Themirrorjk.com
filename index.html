@@ -34,26 +34,49 @@
     </div>
   </header>
 
-  <!-- CLOCKS + CALENDARS -->
+    <!-- CLOCKS + CALENDARS -->
   <section class="bar clocks-line">
     <div class="row tight nowrap center">
-      <div id="clock-cest" class="chip tiny">
-        🕒 <span>Loading CEST…</span>
+
+      <!-- Gregorian (full date + time) -->
+      <div id="cal-gregorian" class="chip tiny">
+        🗓️ <span>Loading date…</span>
       </div>
+
+      <!-- Hijri -->
       <div id="cal-hijri" class="chip tiny">
         🗓️ <span>Hijri…</span>
       </div>
-      <div id="cal-hindi" class="chip tiny">
-        🗓️ <span>VS…</span>
+
+      <!-- Punjabi Desi Bikrami -->
+      <div id="cal-bikrami" class="chip tiny">
+        🗓️ <span>Bikrami…</span>
       </div>
+
+      <!-- CEST (Europe / Zurich) -->
+      <div id="clock-cest" class="chip tiny">
+        🕒 CEST: <span>—:—</span>
+      </div>
+
+      <!-- IST -->
       <div id="tz-ist" class="chip tiny">
-        🕒 IST (Jammu-Kashmir-Ladakh): <span>—:—</span>
+        🕒 IST (Jammu–Kashmir–Ladakh): <span>—:—</span>
       </div>
+
+      <!-- PKT -->
       <div id="tz-pkt" class="chip tiny">
-        🕒 PKT (Gilgit-Baltistan & Azad Kashmir): <span>—:—</span>
+        🕒 PKT (Gilgit–Baltistan & Azad Kashmir): <span>—:—</span>
       </div>
+
     </div>
   </section>
+
+  <!-- WEATHER BAR -->
+  <section class="bar weather-line">
+    <div class="row nowrap super-tight center" id="weather-bar"></div>
+  </section>
+
+
 
   <!-- WEATHER BAR -->
   <section class="bar weather-line">
