@@ -312,7 +312,7 @@ a:hover {
 #ticker-items {
   display: inline-flex;
   gap: 40px;
-  animation: ticker-scroll 40s linear infinite;
+  animation: ticker-scroll 150s linear infinite;
 }
 
 #ticker-items li {
