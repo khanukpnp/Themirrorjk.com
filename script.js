@@ -192,31 +192,36 @@ function updateHijri() {
 }
 
 // ============================
-// VIKRAM SAMVAT
+// PUNJABI BIKRAMI (DESI) CALENDAR
 // ============================
 
-function updateVikramSamvat() {
+function updateBikramiPunjabi() {
   const vsEl = document.querySelector("#cal-hindi span");
   if (!vsEl) return;
-  const now = new Date();
-  const vsYear = now.getFullYear() + 57;
-  const months = [
-    "Chaitra",
-    "Vaishakha",
-    "Jyeshtha",
-    "Ashadha",
-    "Shravana",
-    "Bhadrapada",
-    "Ashwin",
-    "Kartika",
-    "Margashirsha",
-    "Pausha",
-    "Magha",
-    "Phalguna"
-  ];
-  vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${vsYear} VS`;
-}
 
+  const now = new Date();
+
+  // Bikrami year = Gregorian year + 57
+  const bikramiYear = now.getFullYear() + 57;
+
+  // Punjabi Desi (Bikrami) months
+  const months = [
+    "Chet",
+    "Vaisakh",
+    "Jeth",
+    "Harh",
+    "Sawan",
+    "Bhadon",
+    "Assu",
+    "Kattak",
+    "Maghar",
+    "Poh",
+    "Magh",
+    "Phagun"
+  ];
+
+  vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${bikramiYear} BK`;
+}
 // ============================
 // WEATHER BAR
 // ============================
