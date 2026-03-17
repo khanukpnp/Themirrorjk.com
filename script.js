@@ -137,6 +137,7 @@ function initClocks() {
 function updateClocks() {
   const now = new Date();
 
+  // CEST / CET (Switzerland)
   const cestEl = document.querySelector("#clock-cest span");
   if (cestEl) {
     cestEl.textContent = now.toLocaleString("en-GB", {
@@ -150,6 +151,7 @@ function updateClocks() {
     });
   }
 
+  // IST (India)
   const istEl = document.querySelector("#tz-ist span");
   if (istEl) {
     istEl.textContent = new Date().toLocaleTimeString("en-IN", {
@@ -160,6 +162,7 @@ function updateClocks() {
     });
   }
 
+  // PKT (Pakistan)
   const pktEl = document.querySelector("#tz-pkt span");
   if (pktEl) {
     pktEl.textContent = new Date().toLocaleTimeString("en-PK", {
@@ -171,6 +174,8 @@ function updateClocks() {
   }
 }
 
+
+
 // ============================
 // HIJRI CALENDAR
 // ============================
@@ -178,6 +183,7 @@ function updateClocks() {
 function updateHijri() {
   const hijriEl = document.querySelector("#cal-hijri span");
   if (!hijriEl) return;
+
   try {
     const now = new Date();
     const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
@@ -185,11 +191,14 @@ function updateHijri() {
       month: "long",
       year: "numeric"
     }).format(now);
+
     hijriEl.textContent = hijriDate;
   } catch {
-    hijriEl.textContent = "Hijri calendar";
+    hijriEl.textContent = "Hijri calendar unavailable";
   }
 }
+
+
 
 // ============================
 // PUNJABI BIKRAMI (DESI) CALENDAR
@@ -222,6 +231,9 @@ function updateBikramiPunjabi() {
 
   vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${bikramiYear} BK`;
 }
+
+
+
 // ============================
 // WEATHER BAR
 // ============================
