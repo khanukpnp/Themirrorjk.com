@@ -651,4 +651,303 @@ a:hover {
   padding: 2px 6px;
   border-radius: 3px;
 }
+/* ============================================================
+   PART 5 — VLOGS, FORMS, CONTACT MODAL, FOOTER
+   THE MIRROR JAMMU KASHMIR — FULL PRODUCTION STYLESHEET
+============================================================ */
+
+/* ============================
+   VLOGS SECTION
+============================ */
+
+.vlog-toolbar {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.vlogs-grid {
+  display: grid;
+  gap: 20px;
+  width: 100%;
+}
+
+.vlogs-grid.three,
+.cards.three.vlogs-grid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* Vlog Thumbnail Container */
+.vlog-card-thumb {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
+  background: #000;
+}
+
+.vlog-card-thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Play Icon */
+.vlog-play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.4rem;
+  color: #ff0000;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Duration Badge */
+.vlog-duration {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+}
+
+/* ============================
+   FORMS (E-PAPER + NEWSLETTER)
+============================ */
+
+.epaper-form,
+.newsletter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.epaper-form input[type="file"],
+.newsletter-form input[type="email"] {
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+.newsletter-form input[type="email"] {
+  width: 240px;
+}
+
+/* ============================
+   CONTACT MODAL
+============================ */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 24px;
+  width: 90%;
+  max-width: 420px;
+  border-radius: 6px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  position: relative;
+  animation: modalFadeIn 0.25s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Close Button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: #444;
+  transition: 0.2s ease;
+}
+
+.close:hover {
+  color: #b30000;
+}
+
+/* ============================
+   FOOTER
+============================ */
+
+footer {
+  text-align: center;
+  padding: 24px 0 10px;
+  color: #666;
+  font-size: 0.85rem;
+  margin-top: 40px;
+  border-top: 1px solid #e0e0e0;
+  background: #fafafa;
+}
+
+footer span {
+  font-weight: 600;
+  color: #444;
+}
+/* ============================================================
+   PART 6 — SOCIAL ACTION BAR + RESPONSIVE BREAKPOINTS
+   THE MIRROR JAMMU KASHMIR — FULL PRODUCTION STYLESHEET
+============================================================ */
+
+/* ============================
+   SOCIAL ACTION BAR (GLOBAL)
+============================ */
+
+.social-actions {
+  margin: 40px auto 20px;
+  padding-top: 18px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.sa-btn {
+  background: #ffffff;
+  border: 1px solid #dcdcdc;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.sa-btn:hover {
+  background: #f5f5f5;
+  border-color: #b30000;
+  color: #b30000;
+}
+
+/* ============================
+   RESPONSIVE BREAKPOINTS
+============================ */
+
+/* ---------- TABLETS (≤ 992px) ---------- */
+@media (max-width: 992px) {
+
+  .page-shell {
+    padding: 0 10px 30px;
+  }
+
+  .section-title {
+    font-size: 1.15rem;
+  }
+
+  .cards.two {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .cards.three {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .vlog-card-thumb img {
+    height: auto;
+  }
+}
+
+/* ---------- MOBILE (≤ 768px) ---------- */
+@media (max-width: 768px) {
+
+  /* Header */
+  .site-title {
+    font-size: 1.7rem;
+  }
+
+  .subheading {
+    font-size: 0.9rem;
+  }
+
+  /* Bars */
+  .row {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .utility-line .utility-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Cards */
+  .cards.two,
+  .cards.three {
+    grid-template-columns: 1fr;
+  }
+
+  /* Vlogs */
+  .vlogs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Social actions */
+  .social-actions {
+    gap: 10px;
+  }
+
+  .sa-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---------- SMALL MOBILE (≤ 480px) ---------- */
+@media (max-width: 480px) {
+
+  .site-title {
+    font-size: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+  }
+
+  .search input {
+    width: 150px;
+  }
+
+  .vlog-play-icon {
+    font-size: 1.8rem;
+  }
+
+  .vlog-duration {
+    font-size: 0.7rem;
+  }
+
+  footer {
+    font-size: 0.8rem;
+  }
+}
 
