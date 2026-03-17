@@ -1,3 +1,9 @@
+/* ============================================================
+   PART A — INITIALISATION, LOADER, YEAR, CLOCKS, CALENDARS,
+   WEATHER BAR, TICKER
+   THE MIRROR JAMMU KASHMIR — FULL PRODUCTION SCRIPT
+============================================================ */
+
 // ============================
 // BASIC INITIALISATION
 // ============================
@@ -21,6 +27,202 @@ document.addEventListener("DOMContentLoaded", () => {
     loadHomepageIndex();
   }
 });
+
+// ============================
+// LOADER
+// ============================
+
+function initLoader() {
+  const loader = document.getElementById("site-loader");
+  if (!loader) return;
+
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    setTimeout(() => (loader.style.display = "none"), 300);
+  }, 800);
+}
+
+// ============================
+// FOOTER YEAR
+// ============================
+
+function initYear() {
+  const y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
+}
+
+// ============================
+// CLOCKS
+// ============================
+
+function initClocks() {
+  updateClocks();
+  setInterval(updateClocks, 1000);
+}
+
+function updateClocks() {
+  const now = new Date();
+
+  // Optional Gregorian full date/time (if element exists)
+  const gregEl = document.querySelector("#cal-gregorian span");
+  if (gregEl) {
+    gregEl.textContent = now.toLocaleString("en-GB", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+
+  // CEST (Zurich / Central Europe)
+  const cestEl = document.querySelector("#clock-cest span");
+  if (cestEl) {
+    cestEl.textContent = now.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+
+  // IST — Jammu, Kashmir, Ladakh
+  const istEl = document.querySelector("#tz-ist span");
+  if (istEl) {
+    istEl.textContent = new Date().toLocaleTimeString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+
+  // PKT — Gilgit-Baltistan & Azad Kashmir
+  const pktEl = document.querySelector("#tz-pkt span");
+  if (pktEl) {
+    pktEl.textContent = new Date().toLocaleTimeString("en-PK", {
+      timeZone: "Asia/Karachi",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+}
+
+// ============================
+// HIJRI CALENDAR
+// ============================
+
+function updateHijri() {
+  const hijriEl = document.querySelector("#cal-hijri span");
+  if (!hijriEl) return;
+
+  try {
+    const now = new Date();
+    const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }).format(now);
+
+    hijriEl.textContent = hijriDate;
+  } catch {
+    hijriEl.textContent = "Hijri calendar unavailable";
+  }
+}
+
+// ============================
+// BIKRAMI / DESI PUNJABI CALENDAR
+// ============================
+
+function updateBikramiPunjabi() {
+  const vsEl = document.querySelector("#cal-hindi span");
+  if (!vsEl) return;
+
+  const now = new Date();
+
+  // Bikrami year = Gregorian + 57
+  const bikramiYear = now.getFullYear() + 57;
+
+  const months = [
+    "Chet", "Vaisakh", "Jeth", "Harh",
+    "Sawan", "Bhadon", "Assu", "Kattak",
+    "Maghar", "Poh", "Magh", "Phagun"
+  ];
+
+  vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${bikramiYear} BK`;
+}
+
+// ============================
+// WEATHER BAR (STATIC PLACEHOLDER, WITH REGIONS)
+// ============================
+
+function initWeatherBar() {
+  const bar = document.getElementById("weather-bar");
+  if (!bar) return;
+
+  const cities = [
+    { name: "Zurich (Switzerland)", temp: "6°C" },
+    { name: "Rawalakot (Poonch, AJK)", temp: "9°C" },
+    { name: "Jammu (Jammu Region)", temp: "18°C" },
+    { name: "Kashmir (Valley)", temp: "4°C" },
+    { name: "Ladakh (Leh/Kargil)", temp: "-2°C" },
+    { name: "Gilgit (Gilgit-Baltistan)", temp: "3°C" },
+    { name: "Baltistan (Skardu Region)", temp: "-1°C" },
+    { name: "Muzaffarabad (AJK Capital)", temp: "10°C" }
+  ];
+
+  bar.innerHTML = cities
+    .map(
+      c => `
+      <div class="chip tiny">
+        🌡️ ${c.name}: <strong>${c.temp}</strong>
+      </div>
+    `
+    )
+    .join("");
+}
+
+// ============================
+// TICKER
+// ============================
+
+const TICKER_ITEMS = [
+  "THE MIRROR JAMMU KASHMIR — AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
+  "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
+  "OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR",
+  "HOPE BECOMES REAL THROUGH ACTION, PERSISTENCE AND PRINCIPLED JOURNALISM",
+  "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS — UDHR ARTICLE 1",
+  "EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE",
+  "DEMOCRACY DERIVES LEGITIMACY FROM THE WILL AND PARTICIPATION OF THE PEOPLE",
+  "DEMOCRACY CANNOT SURVIVE WHERE HUMAN RIGHTS ARE VIOLATED OR POPULATIONS EXCLUDED",
+  "THE MIRROR JAMMU KASHMIR STANDS AGAINST THE GLOBAL EROSION OF HUMAN RIGHTS",
+  "NEO-COLONIAL PRACTICES AND MODERN FORMS OF SLAVERY REMAIN PRESENT-DAY REALITIES",
+  "JAMMU KASHMIR — A MULTI-RELIGIOUS, MULTI-CULTURAL, MULTI-LINGUAL AND MULTI-ETHNIC SOCIETY",
+  "SINCE 1947 THE PEOPLE OF JAMMU KASHMIR HAVE REMAINED FORCIBLY DIVIDED",
+  "FREEDOM OF MOVEMENT ACROSS DIFFERENT PARTS OF THE STATE OF JAMMU KASHMIR HAS BEEN DENIED SINCE 1947",
+  "FREEDOM OF EXPRESSION, PEACEFUL ASSEMBLY AND ASSOCIATION ARE RESTRICTED",
+  "INDEPENDENT JOURNALISM IS INCREASINGLY MARGINALIZED — FREEDOM OF THE PRESS IS ESSENTIAL",
+  "WE PRESENT VERIFIED FACTS, TREATIES AND GROUND REALITIES",
+  "WE REMIND STATES OF THEIR RESPONSIBILITIES UNDER INTERNATIONAL LAW AND UN OBLIGATIONS",
+  "WE ASSESS POLICIES AGAINST PROMISES AND ACTIONS AGAINST PLEDGES",
+  "WE DO NOT MANUFACTURE NARRATIVES — WE REFLECT REALITY",
+  "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH",
+  "GOT NEWS, FEEDBACK OR URGENT UPDATES? CONTACT THE MIRROR JAMMU KASHMIR",
+  "FOLLOW US ON YOUTUBE — THE MIRROR JAMMU KASHMIR — SUBSCRIBE, LIKE AND SHARE"
+];
+
+function initTicker() {
+  const ul = document.getElementById("ticker-items");
+  if (!ul) return;
+
+  ul.innerHTML = TICKER_ITEMS.map(t => `<li>${t}</li>`).join("");
+}
+/* ============================================================
+   PART B — HOMEPAGE INDEX, SECTION LOADERS, CARD RENDERER,
+   NAVIGATION, CONTACT MODAL, VLOGS
+============================================================ */
 
 // ============================
 // HOMEPAGE INDEX LOADER
@@ -131,179 +333,23 @@ function loadArticleToCard(articleId, mediaId, bodyId) {
 }
 
 // ============================
-// LOADER
+// HOMEPAGE CARD RENDERER
 // ============================
 
-function initLoader() {
-  const loader = document.getElementById("site-loader");
-  if (!loader) return;
-  setTimeout(() => {
-    loader.style.opacity = "0";
-    setTimeout(() => (loader.style.display = "none"), 300);
-  }, 800);
-}
+function renderArticleCard(mediaId, bodyId, article) {
+  const mediaEl = document.getElementById(mediaId);
+  const bodyEl = document.getElementById(bodyId);
+  if (!mediaEl || !bodyEl) return;
 
-// ============================
-// FOOTER YEAR
-// ============================
-
-function initYear() {
-  const y = document.getElementById("year");
-  if (y) y.textContent = new Date().getFullYear();
-}
-
-// ============================
-// CLOCKS
-// ============================
-
-function initClocks() {
-  updateClocks();
-  setInterval(updateClocks, 1000);
-}
-
-function updateClocks() {
-  const now = new Date();
-
-  const gregEl = document.querySelector("#cal-gregorian span");
-  if (gregEl) {
-    gregEl.textContent = now.toLocaleString("en-GB", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    });
+  if (article.heroImage && article.heroImage.src) {
+    mediaEl.innerHTML = `<img src="${article.heroImage.src}" alt="">`;
   }
 
-  const cestEl = document.querySelector("#clock-cest span");
-  if (cestEl) {
-    cestEl.textContent = now.toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    });
-  }
-
-  const istEl = document.querySelector("#tz-ist span");
-  if (istEl) {
-    istEl.textContent = new Date().toLocaleTimeString("en-IN", {
-      timeZone: "Asia/Kolkata",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    });
-  }
-
-  const pktEl = document.querySelector("#tz-pkt span");
-  if (pktEl) {
-    pktEl.textContent = new Date().toLocaleTimeString("en-PK", {
-      timeZone: "Asia/Karachi",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    });
-  }
-}
-
-// ============================
-// HIJRI CALENDAR
-// ============================
-
-function updateHijri() {
-  const hijriEl = document.querySelector("#cal-hijri span");
-  if (!hijriEl) return;
-  try {
-    const now = new Date();
-    const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    }).format(now);
-    hijriEl.textContent = hijriDate;
-  } catch {
-    hijriEl.textContent = "Hijri calendar unavailable";
-  }
-}
-
-// ============================
-// PUNJABI BIKRAMI (DESI) CALENDAR
-// ============================
-
-function updateBikramiPunjabi() {
-  const vsEl = document.querySelector("#cal-hindi span");
-  if (!vsEl) return;
-  const now = new Date();
-  const bikramiYear = now.getFullYear() + 57;
-  const months = [
-    "Chet","Vaisakh","Jeth","Harh","Sawan","Bhadon",
-    "Assu","Kattak","Maghar","Poh","Magh","Phagun"
-  ];
-  vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${bikramiYear} BK`;
-}
-
-// ============================
-// WEATHER BAR (STATIC PLACEHOLDER)
-// ============================
-
-function initWeatherBar() {
-  const bar = document.getElementById("weather-bar");
-  if (!bar) return;
-  const cities = [
-    { name: "Zurich", temp: "6°C" },
-    { name: "Rawalakot", temp: "9°C" },
-    { name: "Jammu", temp: "18°C" },
-    { name: "Kashmir", temp: "4°C" },
-    { name: "Ladakh", temp: "-2°C" },
-    { name: "Gilgit", temp: "3°C" },
-    { name: "Baltistan", temp: "-1°C" },
-    { name: "Muzaffarabad", temp: "10°C" }
-  ];
-  bar.innerHTML = cities
-    .map(
-      c => `
-      <div class="chip tiny">
-        🌡️ ${c.name}: <strong>${c.temp}</strong>
-      </div>
-    `
-    )
-    .join("");
-}
-
-// ============================
-// TICKER
-// ============================
-
-const TICKER_ITEMS = [
-  "THE MIRROR JAMMU KASHMIR — AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
-  "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
-  "OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR",
-  "HOPE BECOMES REAL THROUGH ACTION, PERSISTENCE AND PRINCIPLED JOURNALISM",
-  "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS — UDHR ARTICLE 1",
-  "EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE",
-  "DEMOCRACY DERIVES LEGITIMACY FROM THE WILL AND PARTICIPATION OF THE PEOPLE",
-  "DEMOCRACY CANNOT SURVIVE WHERE HUMAN RIGHTS ARE VIOLATED OR POPULATIONS EXCLUDED",
-  "THE MIRROR JAMMU KASHMIR STANDS AGAINST THE GLOBAL EROSION OF HUMAN RIGHTS",
-  "NEO-COLONIAL PRACTICES AND MODERN FORMS OF SLAVERY REMAIN PRESENT-DAY REALITIES",
-  "JAMMU KASHMIR — A MULTI-RELIGIOUS, MULTI-CULTURAL, MULTI-LINGUAL AND MULTI-ETHNIC SOCIETY",
-  "SINCE 1947 THE PEOPLE OF JAMMU KASHMIR HAVE REMAINED FORCIBLY DIVIDED",
-  "FREEDOM OF MOVEMENT ACROSS DIFFERENT PARTS OF THE STATE OF JAMMU KASHMIR HAS BEEN DENIED SINCE 1947",
-  "FREEDOM OF EXPRESSION, PEACEFUL ASSEMBLY AND ASSOCIATION ARE RESTRICTED",
-  "INDEPENDENT JOURNALISM IS INCREASINGLY MARGINALIZED — FREEDOM OF THE PRESS IS ESSENTIAL",
-  "WE PRESENT VERIFIED FACTS, TREATIES AND GROUND REALITIES",
-  "WE REMIND STATES OF THEIR RESPONSIBILITIES UNDER INTERNATIONAL LAW AND UN OBLIGATIONS",
-  "WE ASSESS POLICIES AGAINST PROMISES AND ACTIONS AGAINST PLEDGES",
-  "WE DO NOT MANUFACTURE NARRATIVES — WE REFLECT REALITY",
-  "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH",
-  "GOT NEWS, FEEDBACK OR URGENT UPDATES? CONTACT THE MIRROR JAMMU KASHMIR",
-  "FOLLOW US ON YOUTUBE — THE MIRROR JAMMU KASHMIR — SUBSCRIBE, LIKE AND SHARE"
-];
-
-function initTicker() {
-  const ul = document.getElementById("ticker-items");
-  if (!ul) return;
-  ul.innerHTML = TICKER_ITEMS.map(t => `<li>${t}</li>`).join("");
+  bodyEl.innerHTML = `
+    <h3>${article.title}</h3>
+    <p>${article.excerpt || article.summary || ""}</p>
+    <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
+  `;
 }
 
 // ============================
@@ -314,11 +360,13 @@ function initNav() {
   const hamburger = document.getElementById("hamburger");
   const navList = document.getElementById("nav-list");
   const mobileMenu = document.getElementById("mobile-menu");
+
   if (!hamburger || !navList || !mobileMenu) return;
 
   hamburger.addEventListener("click", () => {
     const expanded = hamburger.getAttribute("aria-expanded") === "true";
     hamburger.setAttribute("aria-expanded", String(!expanded));
+
     if (expanded) {
       mobileMenu.hidden = true;
       mobileMenu.innerHTML = "";
@@ -337,10 +385,12 @@ function initContactModal() {
   const openBtn = document.getElementById("contact-open");
   const closeBtn = document.getElementById("contact-close");
   const modal = document.getElementById("contact-modal");
+
   if (!openBtn || !closeBtn || !modal) return;
 
   openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
   closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
+
   modal.addEventListener("click", e => {
     if (e.target === modal) modal.classList.add("hidden");
   });
@@ -370,18 +420,18 @@ function initVlogsFromYoutube() {
         .map(v => {
           const thumb = `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`;
           return `
-          <article class="card">
-            <div class="vlog-card-thumb">
-              <img src="${thumb}" alt="${v.title}">
-              <div class="vlog-play-icon">▶</div>
-              <div class="vlog-duration">${v.duration}</div>
-            </div>
-            <div class="card-body">
-              <h3>${v.title}</h3>
-              <p>${v.description}</p>
-            </div>
-          </article>
-        `;
+            <article class="card">
+              <div class="vlog-card-thumb">
+                <img src="${thumb}" alt="${v.title}">
+                <div class="vlog-play-icon">▶</div>
+                <div class="vlog-duration">${v.duration}</div>
+              </div>
+              <div class="card-body">
+                <h3>${v.title}</h3>
+                <p>${v.description}</p>
+              </div>
+            </article>
+          `;
         })
         .join("");
     })
@@ -390,26 +440,10 @@ function initVlogsFromYoutube() {
       if (grid) grid.innerHTML = "<p>Vlogs will appear here.</p>";
     });
 }
-
-// ============================
-// HOMEPAGE CARD RENDERER
-// ============================
-
-function renderArticleCard(mediaId, bodyId, article) {
-  const mediaEl = document.getElementById(mediaId);
-  const bodyEl = document.getElementById(bodyId);
-  if (!mediaEl || !bodyEl) return;
-
-  if (article.heroImage && article.heroImage.src) {
-    mediaEl.innerHTML = `<img src="${article.heroImage.src}" alt="">`;
-  }
-
-  bodyEl.innerHTML = `
-    <h3>${article.title}</h3>
-    <p>${article.excerpt || article.summary || ""}</p>
-    <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
-  `;
-}
+/* ============================================================
+   PART C — ARTICLE PAGE INITIALISATION, FULL ARTICLE RENDERER,
+   COPY LINK
+============================================================ */
 
 // ============================
 // ARTICLE PAGE INITIALISATION
@@ -433,7 +467,8 @@ function initArticlePage() {
 function renderFullArticlePage(article) {
   const sectionLabel = document.getElementById("section-label");
   if (sectionLabel) {
-    sectionLabel.textContent = article.sectionLabel || article.category || "THE MIRROR JAMMU KASHMIR";
+    sectionLabel.textContent =
+      article.sectionLabel || article.category || "THE MIRROR JAMMU KASHMIR";
   }
 
   const pageTitle = document.getElementById("page-title");
@@ -459,6 +494,7 @@ function renderFullArticlePage(article) {
       hour: "2-digit",
       minute: "2-digit"
     });
+
     metaEl.innerHTML = `
       <strong>${article.location}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
       By <em>${article.author}</em> · ${article.readTime || ""}
@@ -468,6 +504,7 @@ function renderFullArticlePage(article) {
   const heroImg = document.getElementById("heroImg");
   const heroCaption = document.getElementById("heroCaption");
   const heroWrap = document.getElementById("heroWrap");
+
   if (article.heroImage && article.heroImage.src) {
     heroImg.src = article.heroImage.src;
     heroCaption.textContent = article.heroImage.caption || "";
@@ -477,18 +514,22 @@ function renderFullArticlePage(article) {
 
   const contentEl = document.getElementById("content");
   if (!contentEl) return;
+
   contentEl.innerHTML = "";
 
   (article.body || []).forEach(block => {
     if (block.type === "paragraph") {
       contentEl.innerHTML += `<p>${block.text}</p>`;
     }
+
     if (block.type === "subheading") {
       contentEl.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
     }
+
     if (block.type === "pullquote") {
       contentEl.innerHTML += `<div class="pull-quote">${block.text}</div>`;
     }
+
     if (block.type === "points") {
       contentEl.innerHTML += `
         <div class="important-points">
@@ -498,8 +539,15 @@ function renderFullArticlePage(article) {
         </div>
       `;
     }
+
     if (block.type === "image") {
-      const alignClass = block.align === "right" ? "img-right" : block.align === "center" ? "img-center" : "img-left";
+      const alignClass =
+        block.align === "right"
+          ? "img-right"
+          : block.align === "center"
+          ? "img-center"
+          : "img-left";
+
       contentEl.innerHTML += `
         <figure class="${alignClass}">
           <img src="${block.src}" alt="">
@@ -511,10 +559,57 @@ function renderFullArticlePage(article) {
 }
 
 // ============================
+// ARTICLE ACTION BAR HANDLERS
+// ============================
+
+function initArticleActions() {
+  const likeBtn = document.getElementById("btn-like");
+  const subscribeBtn = document.getElementById("btn-subscribe");
+  const shareBtn = document.getElementById("btn-share");
+  const copyBtn = document.getElementById("btn-copy");
+
+  if (likeBtn) {
+    likeBtn.addEventListener("click", () => {
+      alert("Thank you for liking this article!");
+    });
+  }
+
+  if (subscribeBtn) {
+    subscribeBtn.addEventListener("click", () => {
+      alert("Thank you for subscribing!");
+    });
+  }
+
+  if (shareBtn) {
+    shareBtn.addEventListener("click", async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+        } catch (err) {
+          console.log("Share cancelled");
+        }
+      } else {
+        alert("Sharing is not supported on this device.");
+      }
+    });
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      copyPageLink();
+    });
+  }
+}
+// ============================
 // COPY PAGE LINK FUNCTION
 // ============================
 
 function copyPageLink() {
-  navigator.clipboard.writeText(window.location.href)
+  navigator.clipboard
+    .writeText(window.location.href)
     .then(() => alert("Link copied to clipboard!"));
 }
+
