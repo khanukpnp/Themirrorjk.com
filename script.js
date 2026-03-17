@@ -1,13 +1,12 @@
 // ============================
 // BASIC INITIALISATION
 // ============================
-
 document.addEventListener("DOMContentLoaded", () => {
   initLoader();
   initYear();
   initClocks();
   updateHijri();
-  updateVikramSamvat();
+  updateBikramiPunjabi(); // FIX: use Bikrami, not Vikram Samvat
   initWeatherBar();
   initTicker();
   initNav();
@@ -23,19 +22,49 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ============================
-// LOAD HOMEPAGE INDEX
+// HOMEPAGE INDEX LOADER (aligned with your index.json)
 // ============================
-
 function loadHomepageIndex() {
   fetch("content/index.json")
     .then(r => r.json())
     .then(data => {
       const hp = data.homepage || data;
-      if (hp.topStories) loadTopStories(hp.topStories);
-      if (hp.latestEditorialHistorical) loadLatestEditorialHistorical(hp.latestEditorialHistorical);
-      if (hp.jammuKashmir) loadJammuKashmir(hp.jammuKashmir);
-      if (hp.international) loadInternational(hp.international);
-      if (hp.humanRights) loadHumanRights(hp.humanRights);
+
+      if (hp.topStories) {
+        loadTopStories(hp.topStories);
+      }
+
+      // latest / editorial / historical from flat keys
+      const lehSection = {
+        latest: (Array.isArray(hp.latest) ? hp.latest[0] : hp.latest) || null,
+        editorial: (Array.isArray(hp.editorial) ? hp.editorial[0] : hp.editorial) || null,
+        historical: (Array.isArray(hp.historical) ? hp.historical[0] : hp.historical) || null
+      };
+      loadLatestEditorialHistorical(lehSection);
+
+      // Jammu Kashmir: object {first, second} → array
+      if (hp.jammuKashmir) {
+        const jkIds = Array.isArray(hp.jammuKashmir)
+          ? hp.jammuKashmir
+          : [hp.jammuKashmir.first, hp.jammuKashmir.second];
+        loadJammuKashmir(jkIds);
+      }
+
+      // International: object {first, second}
+      if (hp.international) {
+        const intlIds = Array.isArray(hp.international)
+          ? hp.international
+          : [hp.international.first, hp.international.second];
+        loadInternational(intlIds);
+      }
+
+      // Human Rights: object {first, second}
+      if (hp.humanRights) {
+        const hrIds = Array.isArray(hp.humanRights)
+          ? hp.humanRights
+          : [hp.humanRights.first, hp.humanRights.second];
+        loadHumanRights(hrIds);
+      }
     })
     .catch(err => console.error("Index JSON error:", err));
 }
@@ -43,7 +72,6 @@ function loadHomepageIndex() {
 // ============================
 // LOAD TOP STORIES
 // ============================
-
 function loadTopStories(section) {
   if (section.lead) loadArticleToCard(section.lead, "lead-media", "lead-body");
   if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
@@ -53,7 +81,6 @@ function loadTopStories(section) {
 // ============================
 // LOAD LATEST / EDITORIAL / HISTORICAL
 // ============================
-
 function loadLatestEditorialHistorical(section) {
   if (section.latest) loadArticleToCard(section.latest, "leh1-media", "leh1-body");
   if (section.editorial) loadArticleToCard(section.editorial, "leh2-media", "leh2-body");
@@ -63,7 +90,6 @@ function loadLatestEditorialHistorical(section) {
 // ============================
 // LOAD JAMMU KASHMIR
 // ============================
-
 function loadJammuKashmir(ids) {
   if (!Array.isArray(ids)) return;
   if (ids[0]) loadArticleToCard(ids[0], "jk1-media", "jk1-body");
@@ -73,7 +99,6 @@ function loadJammuKashmir(ids) {
 // ============================
 // LOAD INTERNATIONAL
 // ============================
-
 function loadInternational(ids) {
   if (!Array.isArray(ids)) return;
   if (ids[0]) loadArticleToCard(ids[0], "intl1-media", "intl1-body");
@@ -83,7 +108,6 @@ function loadInternational(ids) {
 // ============================
 // LOAD HUMAN RIGHTS
 // ============================
-
 function loadHumanRights(ids) {
   if (!Array.isArray(ids)) return;
   if (ids[0]) loadArticleToCard(ids[0], "hr1-media", "hr1-body");
@@ -93,7 +117,6 @@ function loadHumanRights(ids) {
 // ============================
 // UNIVERSAL ARTICLE LOADER
 // ============================
-
 function loadArticleToCard(articleId, mediaId, bodyId) {
   fetch(`content/${articleId}.json`)
     .then(r => r.json())
@@ -106,10 +129,10 @@ function loadArticleToCard(articleId, mediaId, bodyId) {
 // ============================
 // LOADER
 // ============================
-
 function initLoader() {
   const loader = document.getElementById("site-loader");
   if (!loader) return;
+
   setTimeout(() => {
     loader.style.opacity = "0";
     setTimeout(() => (loader.style.display = "none"), 300);
@@ -119,7 +142,6 @@ function initLoader() {
 // ============================
 // FOOTER YEAR
 // ============================
-
 function initYear() {
   const y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
@@ -128,7 +150,6 @@ function initYear() {
 // ============================
 // CLOCKS
 // ============================
-
 function initClocks() {
   updateClocks();
   setInterval(updateClocks, 1000);
@@ -174,12 +195,9 @@ function updateClocks() {
   }
 }
 
-
-
 // ============================
 // HIJRI CALENDAR
 // ============================
-
 function updateHijri() {
   const hijriEl = document.querySelector("#cal-hijri span");
   if (!hijriEl) return;
@@ -198,22 +216,16 @@ function updateHijri() {
   }
 }
 
-
-
 // ============================
 // PUNJABI BIKRAMI (DESI) CALENDAR
 // ============================
-
 function updateBikramiPunjabi() {
   const vsEl = document.querySelector("#cal-hindi span");
   if (!vsEl) return;
 
   const now = new Date();
-
-  // Bikrami year = Gregorian year + 57
   const bikramiYear = now.getFullYear() + 57;
 
-  // Punjabi Desi (Bikrami) months
   const months = [
     "Chet",
     "Vaisakh",
@@ -232,12 +244,9 @@ function updateBikramiPunjabi() {
   vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${bikramiYear} BK`;
 }
 
-
-
 // ============================
 // WEATHER BAR
 // ============================
-
 function initWeatherBar() {
   const bar = document.getElementById("weather-bar");
   if (!bar) return;
@@ -265,34 +274,54 @@ function initWeatherBar() {
 }
 
 // ============================
-// TICKER
+// TICKER (hard-coded list, scrolling)
 // ============================
+const TICKER_ITEMS = [
+  "THE MIRROR JAMMU KASHMIR — AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
+  "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
+  "OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR",
+  "HOPE BECOMES REAL THROUGH ACTION, PERSISTENCE AND PRINCIPLED JOURNALISM",
+  "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS — UDHR ARTICLE 1",
+  "EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE",
+  "DEMOCRACY DERIVES LEGITIMACY FROM THE WILL AND PARTICIPATION OF THE PEOPLE",
+  "DEMOCRACY CANNOT SURVIVE WHERE HUMAN RIGHTS ARE VIOLATED OR POPULATIONS EXCLUDED",
+  "THE MIRROR JAMMU KASHMIR STANDS AGAINST THE GLOBAL EROSION OF HUMAN RIGHTS",
+  "NEO-COLONIAL PRACTICES AND MODERN FORMS OF SLAVERY REMAIN PRESENT-DAY REALITIES",
+  "JAMMU KASHMIR — A MULTI-RELIGIOUS, MULTI-CULTURAL, MULTI-LINGUAL AND MULTI-ETHNIC SOCIETY",
+  "SINCE 1947 THE PEOPLE OF JAMMU KASHMIR HAVE REMAINED FORCIBLY DIVIDED",
+  "FREEDOM OF MOVEMENT ACROSS DIFFERENT PARTS OF THE STATE OF JAMMU KASHMIR HAS BEEN DENIED SINCE 1947",
+  "FREEDOM OF EXPRESSION, PEACEFUL ASSEMBLY AND ASSOCIATION ARE RESTRICTED",
+  "INDEPENDENT JOURNALISM IS INCREASINGLY MARGINALIZED — FREEDOM OF THE PRESS IS ESSENTIAL",
+  "WE PRESENT VERIFIED FACTS, TREATIES AND GROUND REALITIES",
+  "WE REMIND STATES OF THEIR RESPONSIBILITIES UNDER INTERNATIONAL LAW AND UN OBLIGATIONS",
+  "WE ASSESS POLICIES AGAINST PROMISES AND ACTIONS AGAINST PLEDGES",
+  "WE DO NOT MANUFACTURE NARRATIVES — WE REFLECT REALITY",
+  "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH",
+  "GOT NEWS, FEEDBACK OR URGENT UPDATES? CONTACT THE MIRROR JAMMU KASHMIR",
+  "FOLLOW US ON YOUTUBE — THE MIRROR JAMMU KASHMIR — SUBSCRIBE, LIKE AND SHARE"
+];
 
 function initTicker() {
-  fetch("content/index.json")
-    .then(r => r.json())
-    .then(data => {
-      const ul = document.getElementById("ticker-items");
-      if (!ul) return;
-      const items = data.ticker || [];
-      ul.innerHTML = items.map(t => `<li>${t}</li>`).join("");
-    })
-    .catch(() => {});
+  const ul = document.getElementById("ticker-items");
+  if (!ul) return;
+
+  ul.innerHTML = TICKER_ITEMS.map(t => `<li>${t}</li>`).join("");
 }
 
 // ============================
 // NAVIGATION
 // ============================
-
 function initNav() {
   const hamburger = document.getElementById("hamburger");
   const navList = document.getElementById("nav-list");
   const mobileMenu = document.getElementById("mobile-menu");
+
   if (!hamburger || !navList || !mobileMenu) return;
 
   hamburger.addEventListener("click", () => {
     const expanded = hamburger.getAttribute("aria-expanded") === "true";
     hamburger.setAttribute("aria-expanded", String(!expanded));
+
     if (expanded) {
       mobileMenu.hidden = true;
       mobileMenu.innerHTML = "";
@@ -306,15 +335,16 @@ function initNav() {
 // ============================
 // CONTACT MODAL
 // ============================
-
 function initContactModal() {
   const openBtn = document.getElementById("contact-open");
   const closeBtn = document.getElementById("contact-close");
   const modal = document.getElementById("contact-modal");
+
   if (!openBtn || !closeBtn || !modal) return;
 
   openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
   closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
+
   modal.addEventListener("click", e => {
     if (e.target === modal) modal.classList.add("hidden");
   });
@@ -323,7 +353,6 @@ function initContactModal() {
 // ============================
 // VLOGS
 // ============================
-
 function initVlogs() {
   const grid = document.getElementById("vlogs-grid");
   if (!grid) return;
@@ -354,7 +383,6 @@ function initVlogs() {
 // ============================
 // HOMEPAGE CARD RENDERER
 // ============================
-
 function renderArticleCard(mediaId, bodyId, article) {
   const mediaEl = document.getElementById(mediaId);
   const bodyEl = document.getElementById(bodyId);
@@ -374,7 +402,6 @@ function renderArticleCard(mediaId, bodyId, article) {
 // ============================
 // ARTICLE PAGE INITIALISATION
 // ============================
-
 function initArticlePage() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
@@ -389,7 +416,6 @@ function initArticlePage() {
 // ============================
 // FULL ARTICLE RENDERER
 // ============================
-
 function renderFullArticlePage(article) {
   const sectionLabel = document.getElementById("section-label");
   if (sectionLabel) {
@@ -446,15 +472,12 @@ By <em>${article.author}</em>
     if (block.type === "paragraph") {
       contentEl.innerHTML += `<p>${block.text}</p>`;
     }
-
     if (block.type === "subheading") {
       contentEl.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
     }
-
     if (block.type === "pullquote") {
       contentEl.innerHTML += `<div class="pull-quote">${block.text}</div>`;
     }
-
     if (block.type === "points") {
       contentEl.innerHTML += `
 <div class="important-points">
@@ -464,7 +487,6 @@ By <em>${article.author}</em>
 </div>
 `;
     }
-
     if (block.type === "image") {
       const alignClass = block.align === "right" ? "img-right" : "img-left";
       contentEl.innerHTML += `
