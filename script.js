@@ -1,17 +1,18 @@
 // ============================
 // BASIC INITIALISATION
 // ============================
+
 document.addEventListener("DOMContentLoaded", () => {
   initLoader();
   initYear();
   initClocks();
   updateHijri();
-  updateBikramiPunjabi(); // FIX: use Bikrami, not Vikram Samvat
+  updateBikramiPunjabi();
   initWeatherBar();
   initTicker();
   initNav();
   initContactModal();
-  initVlogs();
+  initVlogsFromYoutube();
 
   const isArticlePage = document.body.classList.contains("article-page");
   if (isArticlePage) {
@@ -22,8 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ============================
-// HOMEPAGE INDEX LOADER (aligned with your index.json)
+// HOMEPAGE INDEX LOADER
 // ============================
+
 function loadHomepageIndex() {
   fetch("content/index.json")
     .then(r => r.json())
@@ -34,7 +36,6 @@ function loadHomepageIndex() {
         loadTopStories(hp.topStories);
       }
 
-      // latest / editorial / historical from flat keys
       const lehSection = {
         latest: (Array.isArray(hp.latest) ? hp.latest[0] : hp.latest) || null,
         editorial: (Array.isArray(hp.editorial) ? hp.editorial[0] : hp.editorial) || null,
@@ -42,7 +43,6 @@ function loadHomepageIndex() {
       };
       loadLatestEditorialHistorical(lehSection);
 
-      // Jammu Kashmir: object {first, second} → array
       if (hp.jammuKashmir) {
         const jkIds = Array.isArray(hp.jammuKashmir)
           ? hp.jammuKashmir
@@ -50,7 +50,6 @@ function loadHomepageIndex() {
         loadJammuKashmir(jkIds);
       }
 
-      // International: object {first, second}
       if (hp.international) {
         const intlIds = Array.isArray(hp.international)
           ? hp.international
@@ -58,7 +57,6 @@ function loadHomepageIndex() {
         loadInternational(intlIds);
       }
 
-      // Human Rights: object {first, second}
       if (hp.humanRights) {
         const hrIds = Array.isArray(hp.humanRights)
           ? hp.humanRights
@@ -72,6 +70,7 @@ function loadHomepageIndex() {
 // ============================
 // LOAD TOP STORIES
 // ============================
+
 function loadTopStories(section) {
   if (section.lead) loadArticleToCard(section.lead, "lead-media", "lead-body");
   if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
@@ -81,6 +80,7 @@ function loadTopStories(section) {
 // ============================
 // LOAD LATEST / EDITORIAL / HISTORICAL
 // ============================
+
 function loadLatestEditorialHistorical(section) {
   if (section.latest) loadArticleToCard(section.latest, "leh1-media", "leh1-body");
   if (section.editorial) loadArticleToCard(section.editorial, "leh2-media", "leh2-body");
@@ -90,6 +90,7 @@ function loadLatestEditorialHistorical(section) {
 // ============================
 // LOAD JAMMU KASHMIR
 // ============================
+
 function loadJammuKashmir(ids) {
   if (!Array.isArray(ids)) return;
   if (ids[0]) loadArticleToCard(ids[0], "jk1-media", "jk1-body");
@@ -99,6 +100,7 @@ function loadJammuKashmir(ids) {
 // ============================
 // LOAD INTERNATIONAL
 // ============================
+
 function loadInternational(ids) {
   if (!Array.isArray(ids)) return;
   if (ids[0]) loadArticleToCard(ids[0], "intl1-media", "intl1-body");
@@ -108,6 +110,7 @@ function loadInternational(ids) {
 // ============================
 // LOAD HUMAN RIGHTS
 // ============================
+
 function loadHumanRights(ids) {
   if (!Array.isArray(ids)) return;
   if (ids[0]) loadArticleToCard(ids[0], "hr1-media", "hr1-body");
@@ -117,6 +120,7 @@ function loadHumanRights(ids) {
 // ============================
 // UNIVERSAL ARTICLE LOADER
 // ============================
+
 function loadArticleToCard(articleId, mediaId, bodyId) {
   fetch(`content/${articleId}.json`)
     .then(r => r.json())
@@ -129,10 +133,10 @@ function loadArticleToCard(articleId, mediaId, bodyId) {
 // ============================
 // LOADER
 // ============================
+
 function initLoader() {
   const loader = document.getElementById("site-loader");
   if (!loader) return;
-
   setTimeout(() => {
     loader.style.opacity = "0";
     setTimeout(() => (loader.style.display = "none"), 300);
@@ -142,6 +146,7 @@ function initLoader() {
 // ============================
 // FOOTER YEAR
 // ============================
+
 function initYear() {
   const y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
@@ -150,6 +155,7 @@ function initYear() {
 // ============================
 // CLOCKS
 // ============================
+
 function initClocks() {
   updateClocks();
   setInterval(updateClocks, 1000);
@@ -158,10 +164,9 @@ function initClocks() {
 function updateClocks() {
   const now = new Date();
 
-  // CEST / CET (Switzerland)
-  const cestEl = document.querySelector("#clock-cest span");
-  if (cestEl) {
-    cestEl.textContent = now.toLocaleString("en-GB", {
+  const gregEl = document.querySelector("#cal-gregorian span");
+  if (gregEl) {
+    gregEl.textContent = now.toLocaleString("en-GB", {
       weekday: "long",
       year: "numeric",
       month: "long",
@@ -172,7 +177,15 @@ function updateClocks() {
     });
   }
 
-  // IST (India)
+  const cestEl = document.querySelector("#clock-cest span");
+  if (cestEl) {
+    cestEl.textContent = now.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+
   const istEl = document.querySelector("#tz-ist span");
   if (istEl) {
     istEl.textContent = new Date().toLocaleTimeString("en-IN", {
@@ -183,7 +196,6 @@ function updateClocks() {
     });
   }
 
-  // PKT (Pakistan)
   const pktEl = document.querySelector("#tz-pkt span");
   if (pktEl) {
     pktEl.textContent = new Date().toLocaleTimeString("en-PK", {
@@ -198,10 +210,10 @@ function updateClocks() {
 // ============================
 // HIJRI CALENDAR
 // ============================
+
 function updateHijri() {
   const hijriEl = document.querySelector("#cal-hijri span");
   if (!hijriEl) return;
-
   try {
     const now = new Date();
     const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
@@ -209,7 +221,6 @@ function updateHijri() {
       month: "long",
       year: "numeric"
     }).format(now);
-
     hijriEl.textContent = hijriDate;
   } catch {
     hijriEl.textContent = "Hijri calendar unavailable";
@@ -219,38 +230,26 @@ function updateHijri() {
 // ============================
 // PUNJABI BIKRAMI (DESI) CALENDAR
 // ============================
+
 function updateBikramiPunjabi() {
   const vsEl = document.querySelector("#cal-hindi span");
   if (!vsEl) return;
-
   const now = new Date();
   const bikramiYear = now.getFullYear() + 57;
-
   const months = [
-    "Chet",
-    "Vaisakh",
-    "Jeth",
-    "Harh",
-    "Sawan",
-    "Bhadon",
-    "Assu",
-    "Kattak",
-    "Maghar",
-    "Poh",
-    "Magh",
-    "Phagun"
+    "Chet","Vaisakh","Jeth","Harh","Sawan","Bhadon",
+    "Assu","Kattak","Maghar","Poh","Magh","Phagun"
   ];
-
   vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${bikramiYear} BK`;
 }
 
 // ============================
-// WEATHER BAR
+// WEATHER BAR (STATIC PLACEHOLDER)
 // ============================
+
 function initWeatherBar() {
   const bar = document.getElementById("weather-bar");
   if (!bar) return;
-
   const cities = [
     { name: "Zurich", temp: "6°C" },
     { name: "Rawalakot", temp: "9°C" },
@@ -261,21 +260,21 @@ function initWeatherBar() {
     { name: "Baltistan", temp: "-1°C" },
     { name: "Muzaffarabad", temp: "10°C" }
   ];
-
   bar.innerHTML = cities
     .map(
       c => `
-<div class="chip tiny">
-  🌡️ ${c.name}: <strong>${c.temp}</strong>
-</div>
-`
+      <div class="chip tiny">
+        🌡️ ${c.name}: <strong>${c.temp}</strong>
+      </div>
+    `
     )
     .join("");
 }
 
 // ============================
-// TICKER (hard-coded list, scrolling)
+// TICKER
 // ============================
+
 const TICKER_ITEMS = [
   "THE MIRROR JAMMU KASHMIR — AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
   "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
@@ -304,24 +303,22 @@ const TICKER_ITEMS = [
 function initTicker() {
   const ul = document.getElementById("ticker-items");
   if (!ul) return;
-
   ul.innerHTML = TICKER_ITEMS.map(t => `<li>${t}</li>`).join("");
 }
 
 // ============================
 // NAVIGATION
 // ============================
+
 function initNav() {
   const hamburger = document.getElementById("hamburger");
   const navList = document.getElementById("nav-list");
   const mobileMenu = document.getElementById("mobile-menu");
-
   if (!hamburger || !navList || !mobileMenu) return;
 
   hamburger.addEventListener("click", () => {
     const expanded = hamburger.getAttribute("aria-expanded") === "true";
     hamburger.setAttribute("aria-expanded", String(!expanded));
-
     if (expanded) {
       mobileMenu.hidden = true;
       mobileMenu.innerHTML = "";
@@ -335,54 +332,69 @@ function initNav() {
 // ============================
 // CONTACT MODAL
 // ============================
+
 function initContactModal() {
   const openBtn = document.getElementById("contact-open");
   const closeBtn = document.getElementById("contact-close");
   const modal = document.getElementById("contact-modal");
-
   if (!openBtn || !closeBtn || !modal) return;
 
   openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
   closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
-
   modal.addEventListener("click", e => {
     if (e.target === modal) modal.classList.add("hidden");
   });
 }
 
 // ============================
-// VLOGS
+// VLOGS FROM YOUTUBE JSON
 // ============================
-function initVlogs() {
+
+function initVlogsFromYoutube() {
   const grid = document.getElementById("vlogs-grid");
+  const visitBtn = document.getElementById("vlog-visit-channel");
   if (!grid) return;
 
-  const vlogs = [
-    { title: "Kashmir Protest Highlights", duration: "4:32" },
-    { title: "Diaspora Voices on Human Rights", duration: "6:10" },
-    { title: "Brief History of Jammu & Kashmir", duration: "8:45" }
-  ];
+  fetch("content/youtube.json")
+    .then(r => r.json())
+    .then(data => {
+      const channelUrl = data.channel && data.channel.url;
+      if (visitBtn && channelUrl) {
+        visitBtn.addEventListener("click", () => {
+          window.open(channelUrl, "_blank");
+        });
+      }
 
-  grid.innerHTML = vlogs
-    .map(
-      v => `
-<article class="card">
-  <div class="vlog-thumb">
-    <div class="play-icon">▶</div>
-  </div>
-  <div class="card-body">
-    <h3>${v.title}</h3>
-    <p>Duration: ${v.duration}</p>
-  </div>
-</article>
-`
-    )
-    .join("");
+      const videos = data.videos || [];
+      grid.innerHTML = videos
+        .map(v => {
+          const thumb = `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`;
+          return `
+          <article class="card">
+            <div class="vlog-card-thumb">
+              <img src="${thumb}" alt="${v.title}">
+              <div class="vlog-play-icon">▶</div>
+              <div class="vlog-duration">${v.duration}</div>
+            </div>
+            <div class="card-body">
+              <h3>${v.title}</h3>
+              <p>${v.description}</p>
+            </div>
+          </article>
+        `;
+        })
+        .join("");
+    })
+    .catch(err => {
+      console.error("YouTube JSON error:", err);
+      if (grid) grid.innerHTML = "<p>Vlogs will appear here.</p>";
+    });
 }
 
 // ============================
 // HOMEPAGE CARD RENDERER
 // ============================
+
 function renderArticleCard(mediaId, bodyId, article) {
   const mediaEl = document.getElementById(mediaId);
   const bodyEl = document.getElementById(bodyId);
@@ -393,15 +405,16 @@ function renderArticleCard(mediaId, bodyId, article) {
   }
 
   bodyEl.innerHTML = `
-<h3>${article.title}</h3>
-<p>${article.excerpt || article.summary || ""}</p>
-<a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
-`;
+    <h3>${article.title}</h3>
+    <p>${article.excerpt || article.summary || ""}</p>
+    <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
+  `;
 }
 
 // ============================
 // ARTICLE PAGE INITIALISATION
 // ============================
+
 function initArticlePage() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
@@ -416,10 +429,11 @@ function initArticlePage() {
 // ============================
 // FULL ARTICLE RENDERER
 // ============================
+
 function renderFullArticlePage(article) {
   const sectionLabel = document.getElementById("section-label");
   if (sectionLabel) {
-    sectionLabel.textContent = article.category || "THE MIRROR JAMMU KASHMIR";
+    sectionLabel.textContent = article.sectionLabel || article.category || "THE MIRROR JAMMU KASHMIR";
   }
 
   const pageTitle = document.getElementById("page-title");
@@ -445,17 +459,15 @@ function renderFullArticlePage(article) {
       hour: "2-digit",
       minute: "2-digit"
     });
-
     metaEl.innerHTML = `
-<strong>${article.location}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
-By <em>${article.author}</em>
-`;
+      <strong>${article.location}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
+      By <em>${article.author}</em> · ${article.readTime || ""}
+    `;
   }
 
   const heroImg = document.getElementById("heroImg");
   const heroCaption = document.getElementById("heroCaption");
   const heroWrap = document.getElementById("heroWrap");
-
   if (article.heroImage && article.heroImage.src) {
     heroImg.src = article.heroImage.src;
     heroCaption.textContent = article.heroImage.caption || "";
@@ -465,10 +477,9 @@ By <em>${article.author}</em>
 
   const contentEl = document.getElementById("content");
   if (!contentEl) return;
-
   contentEl.innerHTML = "";
 
-  article.body.forEach(block => {
+  (article.body || []).forEach(block => {
     if (block.type === "paragraph") {
       contentEl.innerHTML += `<p>${block.text}</p>`;
     }
@@ -480,21 +491,21 @@ By <em>${article.author}</em>
     }
     if (block.type === "points") {
       contentEl.innerHTML += `
-<div class="important-points">
-  <ul>
-    ${block.items.map(i => `<li>${i}</li>`).join("")}
-  </ul>
-</div>
-`;
+        <div class="important-points">
+          <ul>
+            ${block.items.map(i => `<li>${i}</li>`).join("")}
+          </ul>
+        </div>
+      `;
     }
     if (block.type === "image") {
-      const alignClass = block.align === "right" ? "img-right" : "img-left";
+      const alignClass = block.align === "right" ? "img-right" : block.align === "center" ? "img-center" : "img-left";
       contentEl.innerHTML += `
-<figure class="${alignClass}">
-  <img src="${block.src}" alt="">
-  <figcaption>${block.caption || ""}</figcaption>
-</figure>
-`;
+        <figure class="${alignClass}">
+          <img src="${block.src}" alt="">
+          <figcaption>${block.caption || ""}</figcaption>
+        </figure>
+      `;
     }
   });
 }
