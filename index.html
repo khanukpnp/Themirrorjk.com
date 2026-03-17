@@ -80,32 +80,31 @@
 <section class="ticker-wrap">
   <div class="ticker">
     <span class="ticker-label">🆕 BREAKING</span>
-
-    <!-- Dynamic ticker items from ticker.json -->
     <ul id="ticker-items"></ul>
-
     <div class="tools">
       <label class="lang-select"></label>
     </div>
   </div>
 </section>
-          🌍
-          <select id="language-select">
-            <option value="en" selected>English</option>
-            <option value="de">German</option>
-            <option value="fr">French</option>
-            <option value="ur">Urdu</option>
-            <option value="hi">Hindi</option>
-            <option value="ar">Arabic</option>
-          </select>
-        </label>
-        <form class="search" onsubmit="event.preventDefault();">
-          <input id="search-input" type="search" placeholder="Search…">
-          <button type="submit">🔍</button>
-        </form>
-      </div>
-    </div>
-  </section>
+
+<!-- LANGUAGE SELECT -->
+<div class="lang-box">
+  🌍
+  <select id="language-select">
+    <option value="en" selected>English</option>
+    <option value="de">German</option>
+    <option value="fr">French</option>
+    <option value="ur">Urdu</option>
+    <option value="hi">Hindi</option>
+    <option value="ar">Arabic</option>
+  </select>
+</div>
+
+<!-- SEARCH -->
+<form class="search" onsubmit="event.preventDefault();">
+  <input id="search-input" type="search" placeholder="Search…">
+  <button type="submit">🔍</button>
+</form>
 
   <!-- NAVIGATION -->
   <nav class="navbar modern-nav">
