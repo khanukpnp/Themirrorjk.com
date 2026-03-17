@@ -1,7 +1,6 @@
 /* ============================================================
-   PART A — INITIALISATION, LOADER, YEAR, CLOCKS, CALENDARS,
-   WEATHER BAR, TICKER
-   THE MIRROR JAMMU KASHMIR — FULL PRODUCTION SCRIPT
+PART A — INITIALISATION, LOADER, YEAR, CLOCKS, CALENDARS,
+WEATHER BAR, TICKER
 ============================================================ */
 
 // ============================
@@ -125,7 +124,6 @@ function updateHijri() {
       month: "long",
       year: "numeric"
     }).format(now);
-
     hijriEl.textContent = hijriDate;
   } catch {
     hijriEl.textContent = "Hijri calendar unavailable";
@@ -141,14 +139,21 @@ function updateBikramiPunjabi() {
   if (!vsEl) return;
 
   const now = new Date();
-
   // Bikrami year = Gregorian + 57
   const bikramiYear = now.getFullYear() + 57;
-
   const months = [
-    "Chet", "Vaisakh", "Jeth", "Harh",
-    "Sawan", "Bhadon", "Assu", "Kattak",
-    "Maghar", "Poh", "Magh", "Phagun"
+    "Chet",
+    "Vaisakh",
+    "Jeth",
+    "Harh",
+    "Sawan",
+    "Bhadon",
+    "Assu",
+    "Kattak",
+    "Maghar",
+    "Poh",
+    "Magh",
+    "Phagun"
   ];
 
   vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${bikramiYear} BK`;
@@ -176,10 +181,10 @@ function initWeatherBar() {
   bar.innerHTML = cities
     .map(
       c => `
-      <div class="chip tiny">
-        🌡️ ${c.name}: <strong>${c.temp}</strong>
-      </div>
-    `
+<div class="chip tiny">
+  🌡️ ${c.name}: <strong>${c.temp}</strong>
+</div>
+`
     )
     .join("");
 }
@@ -219,9 +224,10 @@ function initTicker() {
 
   ul.innerHTML = TICKER_ITEMS.map(t => `<li>${t}</li>`).join("");
 }
+
 /* ============================================================
-   PART B — HOMEPAGE INDEX, SECTION LOADERS, CARD RENDERER,
-   NAVIGATION, CONTACT MODAL, VLOGS
+PART B — HOMEPAGE INDEX, SECTION LOADERS, CARD RENDERER,
+NAVIGATION, CONTACT MODAL, VLOGS
 ============================================================ */
 
 // ============================
@@ -240,8 +246,12 @@ function loadHomepageIndex() {
 
       const lehSection = {
         latest: (Array.isArray(hp.latest) ? hp.latest[0] : hp.latest) || null,
-        editorial: (Array.isArray(hp.editorial) ? hp.editorial[0] : hp.editorial) || null,
-        historical: (Array.isArray(hp.historical) ? hp.historical[0] : hp.historical) || null
+        editorial:
+          (Array.isArray(hp.editorial) ? hp.editorial[0] : hp.editorial) ||
+          null,
+        historical:
+          (Array.isArray(hp.historical) ? hp.historical[0] : hp.historical) ||
+          null
       };
       loadLatestEditorialHistorical(lehSection);
 
@@ -275,8 +285,10 @@ function loadHomepageIndex() {
 
 function loadTopStories(section) {
   if (section.lead) loadArticleToCard(section.lead, "lead-media", "lead-body");
-  if (section.breaking) loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
-  if (section.opinion) loadArticleToCard(section.opinion, "opinion-media", "opinion-body");
+  if (section.breaking)
+    loadArticleToCard(section.breaking, "breaking-media", "breaking-body");
+  if (section.opinion)
+    loadArticleToCard(section.opinion, "opinion-media", "opinion-body");
 }
 
 // ============================
@@ -284,9 +296,12 @@ function loadTopStories(section) {
 // ============================
 
 function loadLatestEditorialHistorical(section) {
-  if (section.latest) loadArticleToCard(section.latest, "leh1-media", "leh1-body");
-  if (section.editorial) loadArticleToCard(section.editorial, "leh2-media", "leh2-body");
-  if (section.historical) loadArticleToCard(section.historical, "leh3-media", "leh3-body");
+  if (section.latest)
+    loadArticleToCard(section.latest, "leh1-media", "leh1-body");
+  if (section.editorial)
+    loadArticleToCard(section.editorial, "leh2-media", "leh2-body");
+  if (section.historical)
+    loadArticleToCard(section.historical, "leh3-media", "leh3-body");
 }
 
 // ============================
@@ -346,10 +361,10 @@ function renderArticleCard(mediaId, bodyId, article) {
   }
 
   bodyEl.innerHTML = `
-    <h3>${article.title}</h3>
-    <p>${article.excerpt || article.summary || ""}</p>
-    <a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
-  `;
+<h3>${article.title}</h3>
+<p>${article.excerpt || article.summary || ""}</p>
+<a class="btn-red" href="article.html?id=${article.id}">Read More →</a>
+`;
 }
 
 // ============================
@@ -360,7 +375,6 @@ function initNav() {
   const hamburger = document.getElementById("hamburger");
   const navList = document.getElementById("nav-list");
   const mobileMenu = document.getElementById("mobile-menu");
-
   if (!hamburger || !navList || !mobileMenu) return;
 
   hamburger.addEventListener("click", () => {
@@ -385,7 +399,6 @@ function initContactModal() {
   const openBtn = document.getElementById("contact-open");
   const closeBtn = document.getElementById("contact-close");
   const modal = document.getElementById("contact-modal");
-
   if (!openBtn || !closeBtn || !modal) return;
 
   openBtn.addEventListener("click", () => modal.classList.remove("hidden"));
@@ -420,18 +433,18 @@ function initVlogsFromYoutube() {
         .map(v => {
           const thumb = `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`;
           return `
-            <article class="card">
-              <div class="vlog-card-thumb">
-                <img src="${thumb}" alt="${v.title}">
-                <div class="vlog-play-icon">▶</div>
-                <div class="vlog-duration">${v.duration}</div>
-              </div>
-              <div class="card-body">
-                <h3>${v.title}</h3>
-                <p>${v.description}</p>
-              </div>
-            </article>
-          `;
+<article class="card">
+  <div class="vlog-card-thumb">
+    <img src="${thumb}" alt="${v.title}">
+    <div class="vlog-play-icon">▶</div>
+    <div class="vlog-duration">${v.duration}</div>
+  </div>
+  <div class="card-body">
+    <h3>${v.title}</h3>
+    <p>${v.description}</p>
+  </div>
+</article>
+`;
         })
         .join("");
     })
@@ -440,9 +453,10 @@ function initVlogsFromYoutube() {
       if (grid) grid.innerHTML = "<p>Vlogs will appear here.</p>";
     });
 }
+
 /* ============================================================
-   PART C — ARTICLE PAGE INITIALISATION, FULL ARTICLE RENDERER,
-   COPY LINK
+PART C — ARTICLE PAGE INITIALISATION, FULL ARTICLE RENDERER,
+COPY LINK
 ============================================================ */
 
 // ============================
@@ -496,9 +510,9 @@ function renderFullArticlePage(article) {
     });
 
     metaEl.innerHTML = `
-      <strong>${article.location}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
-      By <em>${article.author}</em> · ${article.readTime || ""}
-    `;
+<strong>${article.location}</strong> — ${day}, ${dateStr} — ${timeStr}<br>
+By <em>${article.author}</em> · ${article.readTime || ""}
+`;
   }
 
   const heroImg = document.getElementById("heroImg");
@@ -516,30 +530,25 @@ function renderFullArticlePage(article) {
   if (!contentEl) return;
 
   contentEl.innerHTML = "";
-
   (article.body || []).forEach(block => {
     if (block.type === "paragraph") {
       contentEl.innerHTML += `<p>${block.text}</p>`;
     }
-
     if (block.type === "subheading") {
       contentEl.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
     }
-
     if (block.type === "pullquote") {
       contentEl.innerHTML += `<div class="pull-quote">${block.text}</div>`;
     }
-
     if (block.type === "points") {
       contentEl.innerHTML += `
-        <div class="important-points">
-          <ul>
-            ${block.items.map(i => `<li>${i}</li>`).join("")}
-          </ul>
-        </div>
-      `;
+<div class="important-points">
+  <ul>
+    ${block.items.map(i => `<li>${i}</li>`).join("")}
+  </ul>
+</div>
+`;
     }
-
     if (block.type === "image") {
       const alignClass =
         block.align === "right"
@@ -549,11 +558,11 @@ function renderFullArticlePage(article) {
           : "img-left";
 
       contentEl.innerHTML += `
-        <figure class="${alignClass}">
-          <img src="${block.src}" alt="">
-          <figcaption>${block.caption || ""}</figcaption>
-        </figure>
-      `;
+<figure class="${alignClass}">
+  <img src="${block.src}" alt="">
+  <figcaption>${block.caption || ""}</figcaption>
+</figure>
+`;
     }
   });
 }
@@ -603,6 +612,7 @@ function initArticleActions() {
     });
   }
 }
+
 // ============================
 // COPY PAGE LINK FUNCTION
 // ============================
@@ -612,4 +622,3 @@ function copyPageLink() {
     .writeText(window.location.href)
     .then(() => alert("Link copied to clipboard!"));
 }
-
