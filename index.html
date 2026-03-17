@@ -1,72 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <base href="./">
-  <title>THE MIRROR JAMMU KASHMIR</title>
-  <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
-  <link rel="stylesheet" href="styles.css?v=30">
-</head>
-<body class="theme-maroon" id="top">
-
-<!-- LOADER -->
-<div id="site-loader">
-  <div class="loader-inner">
-    <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
-    <div class="loader-bar">
-      <div class="loader-progress"></div>
+<!-- HEADER -->
+<header class="site-header modern-header">
+  <div class="header-center">
+    <h1 class="site-title">
+      THE MIRROR JAMMU KASHMIR
+    </h1>
+    <div class="subheading">
+      CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD
     </div>
-    <p>Loading newsroom…</p>
   </div>
-</div>
+</header>
 
-<!-- PAGE WRAPPER (CENTERED) -->
-<div class="page-shell">
+<!-- CLOCKS + CALENDARS -->
+<section class="bar clocks-line">
+  <div class="row tight nowrap center">
 
-  <!-- HEADER -->
-  <header class="site-header modern-header">
-    <div class="header-center">
-      <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-      <div class="subheading">
-        CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD
-      </div>
+    <div id="clock-cest" class="chip tiny">
+      🕒 <span>Loading CEST…</span>
     </div>
-  </header>
 
-  <!-- CLOCKS + CALENDARS -->
-  <section class="bar clocks-line">
-    <div class="row tight nowrap center">
-      <div id="cal-gregorian" class="chip tiny">
-        🗓️ <span>Loading date…</span>
-      </div>
-      <div id="cal-hijri" class="chip tiny">
-        🗓️ <span>Hijri…</span>
-      </div>
-      <div id="cal-hindi" class="chip tiny">
-        🗓️ <span>Bikrami…</span>
-      </div>
-      <div id="clock-cest" class="chip tiny">
-        🕒 CEST: <span>—:—</span>
-      </div>
-      <div id="tz-ist" class="chip tiny">
-        🕒 IST: <span>—:—</span>
-      </div>
-      <div id="tz-pkt" class="chip tiny">
-        🕒 PKT: <span>—:—</span>
-      </div>
+    <div id="cal-hijri" class="chip tiny">
+      🗓️ <span>Hijri…</span>
     </div>
-  </section>
 
-  <!-- WEATHER BAR -->
-  <section class="bar weather-line">
-    <div class="row nowrap super-tight center" id="weather-bar"></div>
-  </section>
+    <div id="cal-hindi" class="chip tiny">
+      🗓️ <span>Bikrami…</span>
+    </div>
 
-  <!-- UTILITY BAR -->
-  <section class="bar utility-line">
-    <div class="row tight nowrap center utility-row">
-      <div class="lang-box">
+    <div id="tz-ist" class="chip tiny">
+      🕒 IST (Jammu-Kashmir-Ladakh): <span>—:—</span>
+    </div>
+
+    <div id="tz-pkt" class="chip tiny">
+      🕒 PKT (Gilgit-Baltistan & Azad Kashmir): <span>—:—</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- WEATHER BAR -->
+<section class="bar weather-line">
+  <div class="row nowrap super-tight center" id="weather-bar"></div>
+</section>
+
+<!-- BREAKING TICKER -->
+<section class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-label">🆕 BREAKING</span>
+    <ul id="ticker-items"></ul>
+
+    <div class="tools">
+      <label class="lang-select">
         🌍
         <select id="language-select">
           <option value="en" selected>English</option>
@@ -76,23 +59,16 @@
           <option value="hi">Hindi</option>
           <option value="ar">Arabic</option>
         </select>
-      </div>
+      </label>
+
       <form class="search" onsubmit="event.preventDefault();">
         <input id="search-input" type="search" placeholder="Search…">
         <button type="submit">🔍</button>
       </form>
     </div>
-  </section>
 
-  <!-- BREAKING TICKER -->
-  <section class="ticker-wrap">
-    <div class="ticker">
-      <span class="ticker-label">🆕 BREAKING</span>
-      <ul id="ticker-items"></ul>
-      <div class="tools"></div>
-    </div>
-  </section>
-
+  </div>
+</section>
   <!-- NAVIGATION -->
   <nav class="navbar modern-nav">
     <button class="hamburger" aria-expanded="false" id="hamburger">
