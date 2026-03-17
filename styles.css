@@ -114,10 +114,6 @@ a:hover {
   opacity: 0.85;
   margin-top: 6px;
 }
-/* ============================================================
-   PART 2 — HEADER, CLOCKS, CALENDARS, WEATHER, UTILITY BAR
-   THE MIRROR JAMMU KASHMIR — FULL PRODUCTION STYLESHEET
-============================================================ */
 
 /* ============================
    HEADER — HAROON MAROON
@@ -283,10 +279,6 @@ a:hover {
 .search button:hover {
   background: #8a0000;
 }
-/* ============================================================
-   PART 3 — TICKER + NAVIGATION (DESKTOP & MOBILE)
-   THE MIRROR JAMMU KASHMIR — FULL PRODUCTION STYLESHEET
-============================================================ */
 
 /* ============================
    BREAKING TICKER
@@ -479,10 +471,6 @@ a:hover {
     display: block;
   }
 }
-/* ============================================================
-   PART 4 — SECTION TITLES, CARDS, MEDIA PLACEHOLDERS, BUTTONS
-   THE MIRROR JAMMU KASHMIR — FULL PRODUCTION STYLESHEET
-============================================================ */
 
 /* ============================
    SECTION TITLES — MODERN ICON STYLE
@@ -651,10 +639,7 @@ a:hover {
   padding: 2px 6px;
   border-radius: 3px;
 }
-/* ============================================================
-   PART 5 — VLOGS, FORMS, CONTACT MODAL, FOOTER
-   THE MIRROR JAMMU KASHMIR — FULL PRODUCTION STYLESHEET
-============================================================ */
+
 
 /* ============================
    VLOGS SECTION
@@ -810,10 +795,6 @@ footer span {
   font-weight: 600;
   color: #444;
 }
-/* ============================================================
-   PART 6 — SOCIAL ACTION BAR + RESPONSIVE BREAKPOINTS
-   THE MIRROR JAMMU KASHMIR — FULL PRODUCTION STYLESHEET
-============================================================ */
 
 /* ============================
    SOCIAL ACTION BAR (GLOBAL)
