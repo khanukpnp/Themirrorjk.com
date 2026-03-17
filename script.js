@@ -498,3 +498,12 @@ By <em>${article.author}</em>
     }
   });
 }
+
+// ============================
+// COPY PAGE LINK FUNCTION
+// ============================
+
+function copyPageLink() {
+  navigator.clipboard.writeText(window.location.href)
+    .then(() => alert("Link copied to clipboard!"));
+}
