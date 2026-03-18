@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical | THE MIRROR JAMMU KASHMIR</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .historical-page {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .historical-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #b30000;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .historical-meta {
+            color: #666;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.95rem;
+        }
+        
+        .hero-image-container {
+            margin-bottom: 30px;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        
+        #heroImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        #heroCaption {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .historical-content {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .historical-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .historical-content .float-right {
+            float: right;
+            width: 38%;
+            margin: 0 0 1rem 1.5rem;
+        }
+        
+        .historical-content .float-left {
+            float: left;
+            width: 38%;
+            margin: 0 1.5rem 1rem 0;
+        }
+        
+        .historical-content figure {
+            margin: 0;
+        }
+        
+        .historical-content figure img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        
+        .historical-content figcaption {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        .historical-content h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1rem;
+            font-family: 'Playfair Display', serif;
+            color: #b30000;
+        }
+        
+        .historical-content .pull-quote {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            background: #f9f9f9;
+            border-left: 4px solid #b30000;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .historical-content .important-points {
+            background: #f5f5f5;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+        
+        .historical-content .important-points ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .historical-content .important-points li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .historical-content .important-points li:before {
+            content: "•";
+            color: #b30000;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        
+        .page-actions {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .page-actions button {
+            padding: 0.75rem 1.5rem;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .page-actions button:hover {
+            background: #b30000;
+            color: white;
+            border-color: #b30000;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            margin-top: 40px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .historical-content .float-right,
+            .historical-content .float-left {
+                float: none;
+                width: 100%;
+                margin: 1.5rem 0;
+            }
+            
+            .historical-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="historical-page">
+        <h1 class="historical-title" id="historical-title">Loading...</h1>
+        <div class="historical-meta" id="historical-meta"></div>
+        
+        <div id="heroWrap" class="hero-image-container">
+            <img id="heroImg" src="" alt="">
+            <div id="heroCaption"></div>
+        </div>
+        
+        <div class="historical-content clearfix" id="historical-content"></div>
+        
+        <div class="page-actions">
+            <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+            <button id="subBtn">🔔 Subscribe</button>
+            <button id="shareBtn">📣 Share</button>
+            <button id="copyBtn">🔗 Copy Link</button>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
