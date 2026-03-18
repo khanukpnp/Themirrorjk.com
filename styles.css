@@ -1,7 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
-   FIXED: REMOVED GREY AREAS, RESTORED CALENDARS, REDUCED GAP
-   MAROON FOOTER WITH WHITE TEXT - 30% SHRUNK
+   FULL WIDTH - NO GREY AREAS - COMPACT CALENDARS
    ============================================================ */
 
 /* ============================
@@ -16,7 +15,7 @@
 html, body {
     width: 100%;
     min-height: 100%;
-    background: white; /* Pure white background */
+    background: white; /* Pure white background - no grey */
 }
 
 body {
@@ -36,11 +35,12 @@ h1, h2, h3, h4, h5 {
    PAGE SHELL - FULL WIDTH
    ============================ */
 .page-shell {
-    max-width: 1200px;
+    max-width: 1400px; /* Increased from 1200px for wider layout */
     margin: 0 auto;
     background: white;
-    box-shadow: none; /* No shadows */
+    box-shadow: none;
     width: 100%;
+    padding: 0; /* No padding to eliminate grey areas */
 }
 
 /* ============================
@@ -115,7 +115,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .site-title {
-    font-size: 2.8rem; /* Slightly larger for full screen */
+    font-size: 3rem; /* Larger for full screen */
     font-weight: 900;
     letter-spacing: -0.5px;
     color: #000;
@@ -126,7 +126,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .subheading {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #b30000;
     font-weight: 600;
     letter-spacing: 0.3px;
@@ -136,69 +136,69 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   INFO BAR - CALENDARS RESTORED
+   INFO BAR - COMPACT CALENDARS (SINGLE LINE)
    ============================ */
 .info-bar {
     background: #f8f8f8;
-    padding: 8px 20px;
+    padding: 6px 20px; /* Reduced padding */
     border-bottom: 1px solid #ddd;
-    font-size: 0.9rem;
+    font-size: 0.8rem; /* Smaller font for single line */
     width: 100%;
 }
 
 .info-items {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* Force single line */
     justify-content: center;
     align-items: center;
-    gap: 12px;
-    max-width: 1200px;
+    gap: 8px; /* Smaller gap */
+    max-width: 1400px;
     margin: 0 auto;
+    overflow-x: auto; /* Allow scrolling on very small screens */
+    padding: 2px 0;
+    white-space: nowrap;
 }
 
 .info-items span {
     color: #333;
     white-space: nowrap;
-    font-size: 0.9rem;
+    font-size: 0.8rem; /* Smaller font */
 }
 
 .info-items .separator {
     color: #999;
     font-weight: 300;
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     margin: 0 2px;
 }
 
-#clock-cest, #cal-hijri, #cal-bikrami {
-    font-weight: 500;
-}
-
-#tz-ist span, #tz-pkt span {
+.info-items strong {
     font-weight: 600;
     color: #b30000;
+    font-size: 0.8rem;
 }
 
 /* ============================
-   WEATHER BAR - RESTORED
+   WEATHER BAR - COMPACT (SINGLE LINE)
    ============================ */
 .weather-bar {
     background: #fff;
     border-bottom: 2px solid #b30000;
-    padding: 8px 20px;
+    padding: 5px 20px; /* Reduced padding */
 }
 
 .weather-bar .info-items span {
     display: inline-flex;
     align-items: center;
-    gap: 3px;
-    font-size: 0.9rem;
+    gap: 2px;
+    font-size: 0.8rem;
 }
 
 .weather-bar .info-items strong {
     color: #b30000;
     font-weight: 700;
     margin-left: 2px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 /* ============================
@@ -217,7 +217,7 @@ h1, h2, h3, h4, h5 {
     display: flex;
     align-items: center;
     white-space: nowrap;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     position: relative;
     padding: 0 20px;
@@ -260,7 +260,7 @@ h1, h2, h3, h4, h5 {
     display: flex;
     justify-content: flex-end;
     gap: 15px;
-    padding: 8px 20px;
+    padding: 6px 20px;
     background: #f8f8f8;
     border-bottom: 1px solid #ddd;
     width: 100%;
@@ -270,14 +270,14 @@ h1, h2, h3, h4, h5 {
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .lang-select select {
-    padding: 4px 8px;
+    padding: 3px 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     background: white;
     cursor: pointer;
 }
@@ -287,22 +287,22 @@ h1, h2, h3, h4, h5 {
 }
 
 .search input {
-    padding: 4px 10px;
+    padding: 3px 10px;
     border: 1px solid #ddd;
     border-right: none;
     border-radius: 4px 0 0 4px;
-    font-size: 0.85rem;
-    width: 200px;
+    font-size: 0.8rem;
+    width: 180px;
 }
 
 .search button {
-    padding: 4px 12px;
+    padding: 3px 12px;
     background: #b30000;
     color: white;
     border: none;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
 .search button:hover {
@@ -325,7 +325,7 @@ h1, h2, h3, h4, h5 {
     list-style: none;
     justify-content: center;
     flex-wrap: wrap;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 10px;
 }
@@ -442,19 +442,19 @@ h1, h2, h3, h4, h5 {
    MAIN CONTENT - REDUCED GAP
    ============================ */
 .home-main {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 5px 20px 20px; /* Significantly reduced top padding */
+    padding: 5px 20px 20px;
 }
 
 /* ============================
-   SECTION TITLES - REDUCED MARGIN
+   SECTION TITLES
    ============================ */
 .modern-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: #b30000;
-    margin: 10px 0 15px; /* Reduced top margin */
+    margin: 10px 0 15px;
     padding-bottom: 8px;
     border-bottom: 2px solid #b30000;
     position: relative;
@@ -471,13 +471,12 @@ h1, h2, h3, h4, h5 {
     background: #b30000;
 }
 
-/* First section title (Top Stories) should have minimal margin */
 #top-stories .modern-title {
-    margin-top: 0; /* No margin after navigation */
+    margin-top: 0;
 }
 
 /* ============================
-   CARD GRID
+   CARD GRID - WIDER LAYOUT
    ============================ */
 .cards {
     display: grid;
@@ -813,93 +812,123 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   FOOTER - MAROON WITH WHITE TEXT - 30% SHRUNK
+   FOOTER - ULTRA COMPACT WITH DROPDOWN STYLE
    ============================ */
 .modern-footer {
-    background: #800000; /* Maroon background */
-    color: white; /* White text */
-    padding: 12px 20px 6px; /* Reduced by 30% from original 18px/8px */
+    background: #800000;
+    color: white;
+    padding: 8px 20px 4px; /* Extremely compact */
     border-top: 2px solid #b30000;
-    font-size: 0.75rem; /* Smaller font */
+    font-size: 0.7rem;
     width: 100%;
 }
 
 .footer-content {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px; /* Reduced gap */
-    padding-bottom: 6px; /* Reduced padding */
-    border-bottom: 1px solid #993333; /* Lighter maroon border */
+    gap: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #993333;
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
 }
 
 .footer-section h4 {
-    color: white; /* White headings */
-    margin-bottom: 4px; /* Reduced margin */
-    font-size: 0.8rem; /* Smaller font */
+    color: white;
+    margin-bottom: 2px;
+    font-size: 0.75rem;
     font-family: 'Playfair Display', serif;
     font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
 }
 
-.footer-section p {
-    color: white; /* White text */
-    font-size: 0.7rem; /* Smaller font */
-    line-height: 1.3;
-    opacity: 0.9;
+.footer-section h4:hover {
+    text-decoration: underline;
+}
+
+/* Dropdown indicator */
+.footer-section h4::after {
+    content: '▼';
+    font-size: 0.5rem;
+    margin-left: 4px;
+    opacity: 0.7;
+    display: inline-block;
 }
 
 .footer-section ul {
     list-style: none;
+    margin-top: 2px;
+    padding-left: 2px;
 }
 
 .footer-section ul li {
-    margin-bottom: 2px; /* Reduced margin */
+    margin-bottom: 1px;
+    line-height: 1.2;
 }
 
 .footer-section ul li a {
-    color: white; /* White links */
+    color: white;
     text-decoration: none;
-    font-size: 0.7rem; /* Smaller font */
+    font-size: 0.65rem;
     transition: opacity 0.2s;
     opacity: 0.9;
+    display: block;
+    padding: 1px 0;
 }
 
 .footer-section ul li a:hover {
     opacity: 1;
     text-decoration: underline;
+    padding-left: 2px;
+}
+
+.footer-section p {
+    color: white;
+    font-size: 0.65rem;
+    line-height: 1.2;
+    opacity: 0.9;
+    margin: 1px 0;
 }
 
 .social-icons {
     display: flex;
-    gap: 6px; /* Reduced gap */
+    gap: 4px;
+    margin-top: 2px;
 }
 
 .social-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px; /* Smaller icons */
-    height: 24px; /* Smaller icons */
-    background: #993333; /* Lighter maroon */
+    width: 20px;
+    height: 20px;
+    background: #993333;
     color: white;
     border-radius: 50%;
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     transition: background 0.2s;
 }
 
 .social-icon:hover {
-    background: #b30000; /* Brighter maroon on hover */
+    background: #b30000;
 }
 
 .footer-bottom {
-    max-width: 1200px;
-    margin: 6px auto 0; /* Reduced margin */
+    max-width: 1400px;
+    margin: 4px auto 0;
     text-align: center;
-    color: white; /* White text */
-    font-size: 0.65rem; /* Smaller font */
-    padding-top: 6px; /* Reduced padding */
+    color: white;
+    font-size: 0.6rem;
+    padding-top: 4px;
     opacity: 0.8;
 }
 
@@ -911,6 +940,21 @@ h1, h2, h3, h4, h5 {
 /* ============================
    RESPONSIVE
    ============================ */
+@media (max-width: 1200px) {
+    .page-shell {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    
+    .info-items {
+        gap: 5px;
+    }
+    
+    .info-items span {
+        font-size: 0.75rem;
+    }
+}
+
 @media (max-width: 992px) {
     .cards.three {
         grid-template-columns: repeat(2, 1fr);
@@ -926,14 +970,14 @@ h1, h2, h3, h4, h5 {
         font-size: 2.2rem;
     }
     
+    .info-items {
+        flex-wrap: wrap;
+        white-space: normal;
+    }
+    
     .cards.three,
     .cards.two {
         grid-template-columns: 1fr;
-    }
-    
-    .info-items {
-        flex-direction: column;
-        gap: 5px;
     }
     
     .nav-list {
@@ -961,6 +1005,10 @@ h1, h2, h3, h4, h5 {
     .social-icons {
         justify-content: center;
     }
+    
+    .footer-section h4::after {
+        content: '▼';
+    }
 }
 
 @media (max-width: 480px) {
@@ -970,5 +1018,9 @@ h1, h2, h3, h4, h5 {
     
     .modern-title {
         font-size: 1.3rem;
+    }
+    
+    .info-items span {
+        font-size: 0.7rem;
     }
 }
