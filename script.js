@@ -1,6 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT
-   WITH 16:9 CARD RATIO AND FIXED READ MORE BUTTONS
+   WITH YOUTUBE VIDEOS AND ALL CONTENT LOADING
    ============================================================ */
 
 // Wait for DOM to be fully loaded
@@ -26,19 +26,20 @@ document.addEventListener("DOMContentLoaded", function() {
     // Load homepage content from JSON
     loadHomepageContent();
     
-    // Check if we're on article page
-    if (window.location.pathname.includes("article.html") || window.location.search.includes("id=")) {
+    // Check current page and load appropriate content
+    const path = window.location.pathname;
+    
+    if (path.includes("article.html") || window.location.search.includes("id=")) {
         initArticlePage();
     }
-    
-    // Check if we're on about page
-    if (window.location.pathname.includes("about.html")) {
+    else if (path.includes("about.html")) {
         loadAboutPage();
     }
-    
-    // Check if we're on chief editor page
-    if (window.location.pathname.includes("chief-editor.html")) {
+    else if (path.includes("chief-editor.html")) {
         loadChiefEditorPage();
+    }
+    else if (path.includes("historical.html")) {
+        loadHistoricalPage();
     }
     
     // Set up clock to update every second
@@ -304,7 +305,7 @@ function initContactModal() {
 }
 
 /* ============================
-   VLOGS
+   VLOGS - LOAD FROM YOUTUBE JSON
    ============================ */
 function initVlogs() {
     const grid = document.getElementById("vlogs-grid");
@@ -312,7 +313,7 @@ function initVlogs() {
     
     if (!grid) return;
     
-    // Try to load from YouTube JSON
+    // Load from YouTube JSON
     fetch("content/youtube.json")
         .then(function(response) {
             if (response.ok) {
@@ -325,37 +326,18 @@ function initVlogs() {
                 visitBtn.addEventListener("click", function() {
                     window.open(data.channel.url, "_blank");
                 });
+                visitBtn.style.display = 'inline-block';
             }
             
             const videos = data.videos || [];
             renderVlogs(videos);
         })
-        .catch(function() {
-            // Fallback to sample videos
+        .catch(function(error) {
+            console.log("YouTube JSON not found", error);
             if (visitBtn) {
-                visitBtn.addEventListener("click", function() {
-                    window.open("https://youtube.com/@TheMirrorJammuKashmir", "_blank");
-                });
+                visitBtn.style.display = 'none';
             }
-            
-            const videos = [
-                {
-                    title: "Exclusive Interview | The Mirror Jammu Kashmir",
-                    description: "In-depth interview on peace, justice, and human rights.",
-                    duration: "15:32"
-                },
-                {
-                    title: "Ground Report | Community Voices",
-                    description: "Voices from the ground. Real stories. Real people.",
-                    duration: "12:45"
-                },
-                {
-                    title: "Analysis | Human Rights Framework",
-                    description: "Legal and political analysis of ongoing human rights issues.",
-                    duration: "18:20"
-                }
-            ];
-            renderVlogs(videos);
+            grid.innerHTML = '<p class="coming-soon">Videos will appear here.</p>';
         });
 }
 
@@ -377,7 +359,7 @@ function renderVlogs(videos) {
         html += `
             <article class="card">
                 <div class="vlog-card-thumb">
-                    <img src="${thumb}" alt="${v.title || 'Video'}">
+                    <img src="${thumb}" alt="${v.title || 'Video'}" onerror="this.src='https://via.placeholder.com/640x360?text=Video'">
                     <div class="vlog-play-icon">▶</div>
                     <div class="vlog-duration">${v.duration || '00:00'}</div>
                 </div>
@@ -561,27 +543,45 @@ function loadHomepageContent() {
                     index.latestEditorialHistorical.editorial,
                     index.latestEditorialHistorical.historical
                 ]);
+            } else if (index.latest || index.editorial || index.historical) {
+                loadLehSection([
+                    index.latest ? index.latest[0] : null,
+                    index.editorial ? index.editorial[0] : null,
+                    index.historical ? index.historical[0] : null
+                ]);
             } else {
                 loadLehFallback();
             }
             
             // Load Jammu Kashmir
             if (index.jammuKashmir) {
-                loadJammuKashmir(index.jammuKashmir);
+                if (Array.isArray(index.jammuKashmir)) {
+                    loadJammuKashmir(index.jammuKashmir);
+                } else {
+                    loadJammuKashmir([index.jammuKashmir.first, index.jammuKashmir.second]);
+                }
             } else {
                 loadJammuKashmirFallback();
             }
             
             // Load International
             if (index.international) {
-                loadInternational(index.international);
+                if (Array.isArray(index.international)) {
+                    loadInternational(index.international);
+                } else {
+                    loadInternational([index.international.first, index.international.second]);
+                }
             } else {
                 loadInternationalFallback();
             }
             
             // Load Human Rights
             if (index.humanRights) {
-                loadHumanRights(index.humanRights);
+                if (Array.isArray(index.humanRights)) {
+                    loadHumanRights(index.humanRights);
+                } else {
+                    loadHumanRights([index.humanRights.first, index.humanRights.second]);
+                }
             } else {
                 loadHumanRightsFallback();
             }
@@ -936,14 +936,14 @@ function loadHumanRightsFallback() {
 }
 
 /* ============================
-   CREATE HOMEPAGE CARD - 16:9 RATIO
+   CREATE HOMEPAGE CARD
    ============================ */
 function createHomepageCard(article, label) {
     if (!article) return '';
     
     const title = article.title || 'Untitled';
     const excerpt = article.excerpt || article.summary || 'Click to read more about this story.';
-    let image = 'https://via.placeholder.com/640x360?text=No+Image'; // 16:9 ratio placeholder
+    let image = 'https://via.placeholder.com/640x360?text=No+Image';
     
     if (article.heroImage && article.heroImage.src) {
         image = article.heroImage.src;
@@ -1011,10 +1011,11 @@ function loadAboutPage() {
             }
             throw new Error("About content not found");
         })
-        .then(function(about) {
-            renderAboutPage(about);
+        .then(function(data) {
+            renderAboutPage(data);
         })
-        .catch(function() {
+        .catch(function(error) {
+            console.error("Failed to load about page:", error);
             document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>About content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
         });
 }
@@ -1043,18 +1044,34 @@ function renderAboutPage(data) {
     
     if (contentEl && data.body) {
         let html = '';
-        data.body.forEach(function(block) {
+        data.body.forEach(function(block, index) {
             if (block.type === "paragraph") {
-                html += '<p>' + block.text + '</p>';
+                // Handle first paragraph with floating logo
+                if (index === 0 && data.heroImage) {
+                    const alignClass = data.heroImage.align === "left" ? "float-left" : "float-right";
+                    html += `
+                        <p>
+                            <figure class="${alignClass}">
+                                <img src="${data.heroImage.src}" alt="${data.heroImage.caption || 'Logo'}">
+                                <figcaption>${data.heroImage.caption || ''}</figcaption>
+                            </figure>
+                            ${block.text}
+                        </p>
+                    `;
+                } else {
+                    html += '<p>' + block.text + '</p>';
+                }
+            } else if (block.type === "subheading") {
+                html += '<h2>' + block.text + '</h2>';
             } else if (block.type === "pullquote") {
                 html += '<div class="pull-quote">' + block.text + '</div>';
-            } else if (block.type === "image" && block.src) {
-                let imageSrc = block.src;
-                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
-                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-                }
-                const alignClass = block.align === "right" ? "img-right" : block.align === "left" ? "img-left" : "img-center";
-                html += `<figure class="${alignClass}"><img src="${imageSrc}" alt="${block.caption || ''}"><figcaption>${block.caption || ''}</figcaption></figure>`;
+            } else if (block.type === "points" && block.items) {
+                let itemsHtml = '<div class="important-points"><ul>';
+                block.items.forEach(item => {
+                    itemsHtml += '<li>' + item + '</li>';
+                });
+                itemsHtml += '</ul></div>';
+                html += itemsHtml;
             }
         });
         contentEl.innerHTML = html;
@@ -1063,216 +1080,4 @@ function renderAboutPage(data) {
 
 /* ============================
    CHIEF EDITOR PAGE LOADER
-   ============================ */
-function loadChiefEditorPage() {
-    fetch("content/chief-editor-001.json")
-        .then(function(response) {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("Chief Editor content not found");
-        })
-        .then(function(editor) {
-            renderChiefEditorPage(editor);
-        })
-        .catch(function() {
-            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Chief Editor content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
-        });
-}
-
-function renderChiefEditorPage(data) {
-    // Set page title
-    document.title = (data.title || "Chief Editor") + " | THE MIRROR JAMMU KASHMIR";
-    
-    const titleEl = document.getElementById("editor-title");
-    const metaEl = document.getElementById("editor-meta");
-    const contentEl = document.getElementById("editor-content");
-    
-    if (titleEl) titleEl.textContent = data.title || "Chief Editor";
-    
-    if (metaEl && data.date) {
-        const dateObj = new Date(data.date);
-        const formattedDate = dateObj.toLocaleDateString("en-GB", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });
-        metaEl.innerHTML = `<strong>${data.location || 'Switzerland'}</strong> — ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
-    }
-    
-    if (contentEl && data.body) {
-        let html = '';
-        data.body.forEach(function(block) {
-            if (block.type === "paragraph") {
-                html += '<p>' + block.text + '</p>';
-            } else if (block.type === "image" && block.src) {
-                let imageSrc = block.src;
-                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
-                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-                }
-                const alignClass = block.align === "right" ? "img-right" : block.align === "left" ? "img-left" : "img-center";
-                html += `<figure class="${alignClass}"><img src="${imageSrc}" alt="${block.caption || ''}"><figcaption>${block.caption || ''}</figcaption></figure>`;
-            }
-        });
-        contentEl.innerHTML = html;
-    }
-}
-
-/* ============================
-   ARTICLE PAGE INITIALIZATION
-   ============================ */
-function initArticlePage() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    
-    if (!id) {
-        document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>No article specified</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
-        return;
-    }
-    
-    fetch("content/" + id + ".json")
-        .then(function(response) {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("Article not found");
-        })
-        .then(function(article) {
-            renderFullArticlePage(article);
-        })
-        .catch(function() {
-            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Article not found</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
-        });
-}
-
-function renderFullArticlePage(article) {
-    // Set page title
-    const pageTitle = document.getElementById("page-title");
-    if (pageTitle) {
-        pageTitle.textContent = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
-    }
-    
-    // Set section label
-    const sectionLabel = document.getElementById("section-label");
-    if (sectionLabel) {
-        sectionLabel.textContent = article.sectionLabel || article.category || "ARTICLE";
-    }
-    
-    // Set title
-    const titleEl = document.getElementById("title");
-    if (titleEl) {
-        titleEl.textContent = article.title || "Untitled";
-    }
-    
-    // Set meta
-    const metaEl = document.getElementById("meta");
-    if (metaEl) {
-        let metaHtml = '';
-        if (article.location) metaHtml += '<strong>' + article.location + '</strong>';
-        if (article.date) {
-            const dateObj = new Date(article.date);
-            const formattedDate = dateObj.toLocaleDateString("en-GB", {
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-            });
-            metaHtml += (metaHtml ? ' — ' : '') + formattedDate;
-        }
-        if (article.author) metaHtml += '<br>By <em>' + article.author + '</em>';
-        if (article.readTime) metaHtml += ' · ' + article.readTime;
-        metaEl.innerHTML = metaHtml;
-    }
-    
-    // Set hero image
-    const heroWrap = document.getElementById("heroWrap");
-    const heroImg = document.getElementById("heroImg");
-    const heroCaption = document.getElementById("heroCaption");
-    
-    if (article.heroImage && article.heroImage.src && heroImg) {
-        let imageSrc = article.heroImage.src;
-        if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
-            imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-        }
-        heroImg.src = imageSrc;
-        if (heroCaption) heroCaption.textContent = article.heroImage.caption || '';
-        if (heroWrap) heroWrap.style.display = 'block';
-    } else if (heroWrap) {
-        heroWrap.style.display = 'none';
-    }
-    
-    // Render body
-    const contentEl = document.getElementById("content");
-    if (!contentEl) return;
-    
-    contentEl.innerHTML = '';
-    
-    if (article.body && Array.isArray(article.body)) {
-        article.body.forEach(function(block) {
-            if (block.type === "paragraph") {
-                contentEl.innerHTML += '<p>' + block.text + '</p>';
-            } else if (block.type === "subheading") {
-                contentEl.innerHTML += '<h2 class="mid-subheading">' + block.text + '</h2>';
-            } else if (block.type === "pullquote") {
-                contentEl.innerHTML += '<div class="pull-quote">' + block.text + '</div>';
-            } else if (block.type === "points" && block.items) {
-                let listHtml = '<div class="important-points"><ul>';
-                block.items.forEach(function(item) {
-                    listHtml += '<li>' + item + '</li>';
-                });
-                listHtml += '</ul></div>';
-                contentEl.innerHTML += listHtml;
-            } else if (block.type === "image" && block.src) {
-                let imageSrc = block.src;
-                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
-                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-                }
-                const alignClass = block.align === "right" ? "img-right" : block.align === "left" ? "img-left" : "img-center";
-                contentEl.innerHTML += `<figure class="${alignClass}"><img src="${imageSrc}" alt="${block.caption || ''}"><figcaption>${block.caption || ''}</figcaption></figure>`;
-            }
-        });
-    }
-    
-    // Initialize article actions
-    initArticleActions();
-}
-
-function initArticleActions() {
-    const likeBtn = document.getElementById("btn-like");
-    const subscribeBtn = document.getElementById("btn-subscribe");
-    const shareBtn = document.getElementById("btn-share");
-    const copyBtn = document.getElementById("btn-copy");
-    
-    if (likeBtn) {
-        likeBtn.addEventListener("click", function() {
-            alert("Thank you for liking this article!");
-        });
-    }
-    
-    if (subscribeBtn) {
-        subscribeBtn.addEventListener("click", function() {
-            alert("Thank you for subscribing!");
-        });
-    }
-    
-    if (shareBtn) {
-        shareBtn.addEventListener("click", function() {
-            if (navigator.share) {
-                navigator.share({
-                    title: document.title,
-                    url: window.location.href
-                }).catch(function() {});
-            } else {
-                alert("Share this article: " + window.location.href);
-            }
-        });
-    }
-    
-    if (copyBtn) {
-        copyBtn.addEventListener("click", function() {
-            copyPageLink();
-        });
-    }
-}
-
-// Make copyPageLink globally available
-window.copyPageLink = copyPageLink;
+  
