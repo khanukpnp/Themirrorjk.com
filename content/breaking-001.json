@@ -1,135 +1,69 @@
 {
-"id":"breaking-001",
-"slug":"ukpnp-meets-baroness-emma-nicholson-london-house-of-lords",
-"title":"UKPNP Delegation Meets Baroness Emma Nicholson in London House of Lords to Discuss Kashmir Crisis",
-"category":"breaking",
-"sectionLabel":"🟥 BREAKING NEWS",
-"excerpt":"A high level UKPNP delegation led by Sardar Shaukat Ali Kashmiri met Baroness Emma Nicholson in London to discuss the Kashmir conflict, regional developments, and prospects for international engagement.",
-"author":"Special Correspondent",
-"location":"London, United Kingdom",
-"date":"2025-11-26T11:00:00Z",
-"readTime":"18 min read",
-
-"heroImage":{
-"src":"content/images/london-ukpnp-01.jpg",
-"caption":"UKPNP delegation meeting Baroness Emma Nicholson in London.",
-"credit":"The Mirror Jammu Kashmir"
-},
-
-"archive":false,
-
-"body":[
-
-{
-"type":"points",
-"items":[
-"UKPNP delegation met Baroness Emma Nicholson in London House of Lords",
-"Delegation discussed the Kashmir conflict and regional developments",
-"European Parliament Kashmir report referenced during discussion",
-"Concerns raised regarding political rights and governance structures",
-"Call for renewed international engagement and dialogue"
-]
-},
-
-{
-"type":"paragraph",
-"text":"A high level delegation of the United Kashmir People’s National Party led by its Exiled Chairman Sardar Shaukat Ali Kashmiri held a detailed meeting with Baroness Emma Nicholson, Member of the House of Lords of the United Kingdom, in London. The meeting focused on the political situation in the historical State of Jammu and Kashmir and recent developments affecting the region."
-},
-
-{
-"type":"image",
-"src":"content/images/london-ukpnp-02.jpg",
-"caption":"Members of the UKPNP delegation during discussions in London.",
-"align":"right"
-},
-
-{
-"type":"paragraph",
-"text":"Baroness Emma Nicholson has long been associated with international engagement on Kashmir and previously served as Rapporteur on Kashmir in the European Parliament. During the meeting the delegation recalled the 2007 European Parliament report on Kashmir which highlighted the political, human rights and governance challenges faced by people across different parts of the region."
-},
-
-{
-"type":"subheading",
-"text":"Delegation Members and Briefing"
-},
-
-{
-"type":"paragraph",
-"text":"The UKPNP delegation included Sardar Nasir Aziz Khan, Central Spokesperson UKPNP, Mahmood Kashmiri, Member Central Committee UKPNP and Chairman JKNIA, Sardar Tikka Khan Tahir, Central Secretary Information UKPNP, Sardar Amjad Yousaf, President UKPNP Europe Zone, Sardar Tariq Khan, President UKPNP UK Zone, Raja Sarfraz, General Secretary UKPNP UK Zone and Sajjad Hussain, President UKPNP London."
-},
-
-{
-"type":"paragraph",
-"text":"Delegation members presented a detailed briefing on the political situation across Jammu, Kashmir, Ladakh, Gilgit Baltistan and Azad Jammu and Kashmir. They emphasised that the Kashmir issue remains one of the longest unresolved international political disputes."
-},
-
-{
-"type":"pullquote",
-"text":"The people of Jammu and Kashmir must remain central to any political process regarding the future of the region."
-},
-
-{
-"type":"subheading",
-"text":"Developments Since 2019"
-},
-
-{
-"type":"paragraph",
-"text":"The delegation explained that Indian administered Jammu and Kashmir and Ladakh had a special constitutional status until August 2019 when the Government of India revoked Articles 370 and 35A and reorganised the region into two union territories. These constitutional changes generated debate and concern regarding democratic representation and local governance."
-},
-
-{
-"type":"paragraph",
-"text":"Delegation members noted that while infrastructure development and administrative changes have taken place, political representation and the restoration of democratic processes remain important issues in the region."
-},
-
-{
-"type":"subheading",
-"text":"Situation in Azad Kashmir and Gilgit Baltistan"
-},
-
-{
-"type":"paragraph",
-"text":"The delegation also discussed governance arrangements in Azad Jammu and Kashmir and Gilgit Baltistan. They informed Baroness Nicholson that both regions continue to face constitutional and political challenges, including limited representation in Pakistan’s national institutions."
-},
-
-{
-"type":"paragraph",
-"text":"According to the delegation nationalist political parties often face restrictions and candidates are required to sign declarations related to the constitutional status of the region before participating in elections."
-},
-
-{
-"type":"pullquote",
-"text":"There is no military solution to the Kashmir conflict. Dialogue and democratic participation remain essential."
-},
-
-{
-"type":"subheading",
-"text":"Need for International Engagement"
-},
-
-{
-"type":"paragraph",
-"text":"The delegation emphasised that the historical State of Jammu and Kashmir existed as a single political entity until 1947 and its division has had lasting consequences for millions of people across the region."
-},
-
-{
-"type":"paragraph",
-"text":"They stressed that families remain divided across the Line of Control and movement across the region remains heavily restricted. Delegation members called for renewed international attention to the issue based on principles of dialogue, peace and democratic participation."
-},
-
-{
-"type":"paragraph",
-"text":"Baroness Emma Nicholson welcomed the briefing and expressed her interest in continuing dialogue on the Kashmir issue. She acknowledged the importance of constructive engagement and peaceful approaches to resolving long standing political disputes."
-}
-
-],
-
-"engagement":{
-"like":true,
-"subscribe":true,
-"share":true,
-"copyLink":true
-}
-
+  "id": "breaking-001",
+  "slug": "ukpnp-delegation-briefs-british-mps-london-parliament-kashmir-crisis",
+  "title": "UKPNP High Level Delegation Briefs British MPs on Kashmir Crisis and Current Situation in London House of Parliament",
+  "category": "breaking",
+  "sectionLabel": "🆕 BREAKING NEWS",
+  "excerpt": "A high-level UKPNP delegation led by Sardar Shaukat Ali Kashmiri briefed British MPs in the House of Parliament on the Kashmir crisis, human rights concerns, and the current political situation.",
+  "author": "London Correspondent",
+  "location": "London, United Kingdom",
+  "date": "2026-02-10T14:00:00Z",
+  "readTime": "6 min read",
+  "heroImage": {
+    "src": "content/images/london-ukpnp-01.jpg",
+    "caption": "UKPNP delegation meeting British MPs inside the UK Parliament.",
+    "credit": "The Mirror Jammu Kashmir"
+  },
+  "archive": false,
+  "body": [
+    {
+      "type": "paragraph",
+      "text": "A high-level delegation of the United Kashmir People's National Party (UKPNP) met British Members of Parliament in the House of Commons to brief them on the ongoing Kashmir crisis and the deteriorating human rights situation across the region."
+    },
+    {
+      "type": "paragraph",
+      "text": "The delegation, led by Sardar Shaukat Ali Kashmiri, included senior party members who presented a detailed briefing on the historical context of the Kashmir conflict, the current political situation, and the humanitarian challenges faced by civilians in the region."
+    },
+    {
+      "type": "pullquote",
+      "text": "The people of Jammu and Kashmir cannot be silenced. Their voices must be heard in the corridors of power, and their rights must be protected under international law."
+    },
+    {
+      "type": "paragraph",
+      "text": "During the meeting, the delegation highlighted concerns regarding political repression, arbitrary detentions, and the frequent communication blackouts that have severed contact between families and their loved ones abroad. They emphasized that such measures constitute collective punishment and violate fundamental human rights."
+    },
+    {
+      "type": "image",
+      "src": "content/images/london-ukpnp-02.jpg",
+      "align": "right",
+      "caption": "Delegation members presenting documents to MPs.",
+      "credit": "UKPNP Media Cell"
+    },
+    {
+      "type": "paragraph",
+      "text": "The delegation also raised the issue of prolonged public protests over electricity shortages, lack of basic services, and the targeting of journalists and peaceful activists. They called for an immediate end to what they described as the militarization of civilian life."
+    },
+    {
+      "type": "pullquote",
+      "text": "There is no military solution to the Kashmir conflict. Only dialogue, democratic participation, and respect for human dignity can lead to a just and lasting peace."
+    },
+    {
+      "type": "paragraph",
+      "text": "British MPs expressed serious concern over the human rights situation and called for renewed international attention to the region. They emphasized the importance of democratic rights, freedom of expression, and the protection of civilians under international humanitarian law."
+    },
+    {
+      "type": "paragraph",
+      "text": "The meeting concluded with a mutual commitment to continue diplomatic engagement and to work together in raising the Kashmir issue at international forums, including the United Nations Human Rights Council and the European Parliament."
+    },
+    {
+      "type": "points",
+      "items": [
+        "UKPNP delegation met with multiple British MPs across party lines",
+        "Discussions focused on human rights violations and political repression",
+        "Concerns raised over communication blackouts affecting millions",
+        "British MPs pledged to raise the issue in Parliament",
+        "Both sides agreed on the need for peaceful dialogue and international mediation"
+      ]
+    }
+  ]
 }
