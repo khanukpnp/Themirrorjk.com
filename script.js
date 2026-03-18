@@ -134,20 +134,33 @@ function updateHijri() {
 // BIKRAMI / DESI PUNJABI CALENDAR
 // ============================
 
-function updateBikramiPunjabi() {
-  const vsEl = document.querySelector("#cal-hindi span");
-  if (!vsEl) return;
+function updateBikrami(){
 
-  const now = new Date();
-  const bikramiYear = now.getFullYear() + 57;
+  const el = document.getElementById("bikrami-date");
+  if(!el) return;
+
+  const today = new Date();
+
+  const start = new Date(today.getFullYear(), 2, 14); // March 14 = Chet start
 
   const months = [
-    "Chet", "Vaisakh", "Jeth", "Harh",
-    "Sawan", "Bhadon", "Assu", "Kattak",
-    "Maghar", "Poh", "Magh", "Phagun"
+    "Chet","Vaisakh","Jeth","Harh","Sawan","Bhadon",
+    "Assu","Kattak","Maghar","Poh","Magh","Phagun"
   ];
 
-  vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${bikramiYear} BK`;
+  let diff = Math.floor((today - start) / (1000*60*60*24));
+
+  if(diff < 0){
+    diff += 365;
+  }
+
+  const monthIndex = Math.floor(diff / 30);
+  const day = (diff % 30) + 1;
+
+  const year = today.getFullYear() + 57;
+
+  el.textContent = `${day} ${months[monthIndex]} ${year} BK`;
+
 }
 
 // ============================
