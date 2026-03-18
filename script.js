@@ -168,16 +168,15 @@ function initWeatherBar() {
   if (!bar) return;
 
   const cities = [
-    { name: "Zurich (Switzerland)", temp: "6°C" },
-    { name: "Rawalakot (Poonch, AJK)", temp: "9°C" },
-    { name: "Jammu (Jammu Region)", temp: "18°C" },
-    { name: "Kashmir (Valley)", temp: "4°C" },
-    { name: "Ladakh (Leh/Kargil)", temp: "-2°C" },
-    { name: "Gilgit (Gilgit-Baltistan)", temp: "3°C" },
-    { name: "Baltistan (Skardu Region)", temp: "-1°C" },
-    { name: "Muzaffarabad (AJK Capital)", temp: "10°C" }
-  ];
-
+  { name: "Rawalakot", temp: "9°C" },
+  { name: "Jammu", temp: "18°C" },
+  { name: "Kashmir", temp: "4°C" },
+  { name: "Ladakh", temp: "-2°C" },
+  { name: "Gilgit", temp: "3°C" },
+  { name: "Baltistan", temp: "-1°C" },
+  { name: "Muzaffarabad", temp: "10°C" }
+];
+  
   bar.innerHTML = cities
     .map(
       c => `
