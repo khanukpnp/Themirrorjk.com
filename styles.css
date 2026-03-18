@@ -1,5 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
+   16:9 RATIO FOR ALL CARDS AND HERO IMAGES
    ============================================================ */
 
 /* ============================
@@ -474,7 +475,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   CARD GRID
+   CARD GRID - 16:9 RATIO CARDS
    ============================ */
 .cards {
     display: grid;
@@ -492,7 +493,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   CARD STYLES
+   CARD STYLES - 16:9 RATIO
    ============================ */
 .card {
     background: white;
@@ -511,8 +512,10 @@ h1, h2, h3, h4, h5 {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* 16:9 Aspect Ratio for Card Images */
 .media {
-    height: 160px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
     background: #f5f5f5;
     display: flex;
     align-items: center;
@@ -530,28 +533,41 @@ h1, h2, h3, h4, h5 {
 }
 
 .media .placeholder-icon {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #ccc;
 }
 
 .card-body {
-    padding: 15px;
+    padding: 20px;
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-body h3 {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
     line-height: 1.4;
     color: #222;
     font-family: 'Playfair Display', serif;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-body p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #666;
     margin-bottom: 15px;
     line-height: 1.5;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .coming-soon {
@@ -569,15 +585,18 @@ h1, h2, h3, h4, h5 {
     display: inline-block;
     background: #b30000;
     color: white;
-    padding: 6px 16px;
+    padding: 8px 18px;
     border-radius: 4px;
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     border: none;
     cursor: pointer;
     transition: background 0.2s;
     margin-top: 10px;
+    align-self: flex-start;
+    text-align: center;
+    width: fit-content;
 }
 
 .btn-red:hover {
@@ -585,7 +604,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   VLOGS SECTION
+   VLOGS SECTION - 16:9 RATIO
    ============================ */
 .vlog-toolbar {
     margin-bottom: 15px;
@@ -593,7 +612,8 @@ h1, h2, h3, h4, h5 {
 
 .vlog-card-thumb {
     position: relative;
-    height: 150px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
     background: #000;
     overflow: hidden;
 }
@@ -609,27 +629,303 @@ h1, h2, h3, h4, h5 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background: #b30000;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     opacity: 0.9;
 }
 
 .vlog-duration {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    bottom: 8px;
+    right: 8px;
     background: rgba(0,0,0,0.8);
     color: white;
-    padding: 2px 6px;
-    font-size: 0.7rem;
+    padding: 3px 8px;
+    font-size: 0.8rem;
     border-radius: 3px;
+}
+
+/* ============================
+   ARTICLE PAGE - 16:9 HERO IMAGE
+   ============================ */
+.article-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+}
+
+.article-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.category-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    color: #b30000;
+    letter-spacing: 0.5px;
+}
+
+#title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 15px;
+    font-family: 'Playfair Display', serif;
+    color: #1a1a1a;
+}
+
+.article-meta {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.article-meta strong {
+    color: #b30000;
+    font-weight: 600;
+}
+
+/* 16:9 Hero Image */
+.hero-image-container {
+    margin-bottom: 30px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+#heroImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#heroCaption {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* Article Content */
+#content {
+    font-family: 'Georgia', serif;
+    line-height: 1.8;
+    color: #333;
+}
+
+#content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Georgia', serif;
+}
+
+#content .mid-subheading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2rem 0 1rem;
+    font-family: 'Playfair Display', serif;
+    color: #1a1a1a;
+}
+
+#content .pull-quote {
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.6;
+    margin: 2rem 0;
+    padding: 1.5rem 2rem;
+    background: #f9f9f9;
+    border-left: 4px solid #b30000;
+    font-family: 'Playfair Display', serif;
+    color: #1a1a1a;
+    font-style: italic;
+}
+
+#content .important-points {
+    background: #f5f5f5;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    border-radius: 4px;
+}
+
+#content .important-points ul {
+    list-style: none;
+    padding: 0;
+}
+
+#content .important-points li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: 1.1rem;
+}
+
+#content .important-points li:before {
+    content: "•";
+    color: #b30000;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Inline Images - 38% width floating */
+#content .img-left {
+    float: left;
+    width: 38%;
+    margin: 0.5rem 1.5rem 1rem 0;
+}
+
+#content .img-right {
+    float: right;
+    width: 38%;
+    margin: 0.5rem 0 1rem 1.5rem;
+}
+
+#content .img-center {
+    width: 100%;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+#content figure {
+    margin: 1.5rem 0;
+}
+
+#content figure img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+#content figcaption {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Article Actions */
+.article-actions {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e0e0e0;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: #b30000;
+    color: white;
+    border-color: #b30000;
+}
+
+/* ============================
+   ABOUT & CHIEF EDITOR PAGES - 16:9 HERO
+   ============================ */
+.about-page, .editor-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.about-title, .editor-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #b30000;
+    margin-bottom: 10px;
+    font-family: 'Playfair Display', serif;
+}
+
+.about-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.about-meta, .editor-meta {
+    color: #666;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.about-content, .editor-content {
+    font-family: 'Georgia', serif;
+    line-height: 1.8;
+    color: #333;
+}
+
+.about-content p, .editor-content p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.about-content .pull-quote, .editor-content .pull-quote {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 2rem 0;
+    padding: 1.5rem 2rem;
+    background: #f9f9f9;
+    border-left: 4px solid #b30000;
+    font-style: italic;
+}
+
+.about-content img, .editor-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.about-content .img-right, .editor-content .img-right {
+    float: right;
+    width: 38%;
+    margin: 0 0 1rem 1.5rem;
+}
+
+.about-content .img-left, .editor-content .img-left {
+    float: left;
+    width: 38%;
+    margin: 0 1.5rem 1rem 0;
+}
+
+.about-content .img-center, .editor-content .img-center {
+    display: block;
+    margin: 2rem auto;
+    text-align: center;
 }
 
 /* ============================
@@ -843,6 +1139,11 @@ h1, h2, h3, h4, h5 {
 .footer-section ul {
     list-style: none;
     margin-top: 5px;
+    display: none;
+}
+
+.footer-section.open ul {
+    display: block;
 }
 
 .footer-section ul li {
@@ -874,6 +1175,11 @@ h1, h2, h3, h4, h5 {
     display: flex;
     gap: 8px;
     margin-top: 5px;
+    display: none;
+}
+
+.footer-section.open .social-icons {
+    display: flex;
 }
 
 .social-icon {
@@ -937,6 +1243,21 @@ h1, h2, h3, h4, h5 {
         grid-template-columns: 1fr;
     }
     
+    #title {
+        font-size: 2rem;
+    }
+    
+    #content .img-left,
+    #content .img-right,
+    .about-content .img-right,
+    .about-content .img-left,
+    .editor-content .img-right,
+    .editor-content .img-left {
+        float: none;
+        width: 100%;
+        margin: 1.5rem 0;
+    }
+    
     .nav-list {
         display: none;
     }
@@ -971,5 +1292,9 @@ h1, h2, h3, h4, h5 {
     
     .modern-title {
         font-size: 1.3rem;
+    }
+    
+    #title {
+        font-size: 1.8rem;
     }
 }
