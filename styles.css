@@ -1,6 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
-   FIXED WITH PROPER CALENDAR AND NAVIGATION
+   FINAL VERSION WITH ALL FIXES
    ============================================================ */
 
 /* ============================
@@ -132,17 +132,13 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   CLOCKS AND CALENDARS SECTION - ORIGINAL FORMAT
+   INFO BAR - SINGLE LINE
    ============================ */
 .info-bar {
     background: #f8f8f8;
-    padding: 10px 20px;
+    padding: 8px 20px;
     border-bottom: 1px solid #ddd;
-    font-size: 0.9rem;
-}
-
-.clocks-calendars {
-    background: #f8f8f8;
+    font-size: 0.85rem;
 }
 
 .info-items {
@@ -150,7 +146,7 @@ h1, h2, h3, h4, h5 {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -158,15 +154,16 @@ h1, h2, h3, h4, h5 {
 .info-items span {
     color: #333;
     white-space: nowrap;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .info-items .separator {
     color: #999;
     font-weight: 300;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
+/* Clocks and Calendars */
 #clock-cest {
     font-weight: 500;
 }
@@ -175,17 +172,8 @@ h1, h2, h3, h4, h5 {
     font-weight: 500;
 }
 
-/* IST and PKT with region names - matching original */
-#tz-ist::before {
-    content: "IST (Jammu-Kashmir-Ladakh): ";
-    font-weight: normal;
-    color: #333;
-}
-
-#tz-pkt::before {
-    content: "PKT (Gilgit-Baltistan & Azad Kashmir): ";
-    font-weight: normal;
-    color: #333;
+#tz-ist, #tz-pkt {
+    white-space: nowrap;
 }
 
 #tz-ist span, #tz-pkt span {
@@ -194,34 +182,30 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   WEATHER BAR - SINGLE LINE WITH REGION NAMES
+   WEATHER BAR - SINGLE LINE
    ============================ */
 .weather-bar {
     background: #fff;
     border-bottom: 2px solid #b30000;
-    padding: 8px 20px;
-}
-
-.weather-bar .info-items {
-    gap: 12px;
+    padding: 6px 20px;
 }
 
 .weather-bar .info-items span {
     display: inline-flex;
     align-items: center;
     gap: 3px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .weather-bar .info-items strong {
     color: #b30000;
     font-weight: 700;
     margin-left: 2px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 /* ============================
-   TICKER - COMPACT
+   TICKER
    ============================ */
 .ticker-wrap {
     background: #111;
@@ -271,7 +255,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   TOOLS BAR - COMPACT
+   TOOLS BAR
    ============================ */
 .tools-bar {
     display: flex;
@@ -326,10 +310,10 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   NAVIGATION - MAROON WITH BLACK CORNERS
+   NAVIGATION - MAROON
    ============================ */
 .navbar {
-    background: #800000; /* Maroon */
+    background: #800000;
     border-bottom: 2px solid #b30000;
     padding: 0;
     position: relative;
@@ -360,9 +344,9 @@ h1, h2, h3, h4, h5 {
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s;
     white-space: nowrap;
-    background: #800000; /* Maroon */
+    background: #800000;
 }
 
 .nav-btn:hover {
@@ -370,13 +354,13 @@ h1, h2, h3, h4, h5 {
     color: white;
 }
 
-/* Dropdown Menus - Black with maroon borders */
+/* Dropdown Menus */
 .dropdown {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
-    background: #222; /* Dark grey/black */
+    background: #222;
     border: 1px solid #b30000;
     min-width: 200px;
     z-index: 1000;
@@ -423,14 +407,12 @@ h1, h2, h3, h4, h5 {
     font-weight: 600;
     cursor: pointer;
     text-align: left;
-    border-bottom: 2px solid #b30000;
 }
 
 .hamburger:hover {
     background: #990000;
 }
 
-/* Mobile Menu */
 .mobile-menu {
     background: #800000;
     border-top: 1px solid #660000;
@@ -455,27 +437,26 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   MAIN CONTENT - REDUCED GAP
+   MAIN CONTENT
    ============================ */
 .home-main {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 15px 20px 20px;
+    padding: 20px 20px 20px;
 }
 
 /* ============================
-   SECTION TITLES - COMPACT
+   SECTION TITLES
    ============================ */
 .modern-title {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #b30000;
-    margin: 15px 0 15px;
+    margin: 25px 0 15px;
     padding-bottom: 8px;
     border-bottom: 2px solid #b30000;
     position: relative;
     font-family: 'Playfair Display', serif;
-    letter-spacing: -0.2px;
 }
 
 .modern-title::before {
@@ -489,12 +470,12 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   CARD GRID - COMPACT
+   CARD GRID - RESTORED WINDOWS
    ============================ */
 .cards {
     display: grid;
     gap: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .cards.three {
@@ -506,7 +487,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   CARD STYLES - COMPACT
+   CARD STYLES - WITH WINDOWS
    ============================ */
 .card {
     background: white;
@@ -529,7 +510,7 @@ h1, h2, h3, h4, h5 {
     align-items: center;
     justify-content: center;
     color: #999;
-    font-size: 0.9rem;
+    font-size: 1rem;
     border-bottom: 1px solid #eee;
 }
 
@@ -542,6 +523,12 @@ h1, h2, h3, h4, h5 {
 .media .placeholder-icon {
     font-size: 2.5rem;
     color: #ccc;
+}
+
+.media span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #b30000;
 }
 
 .card-body {
@@ -561,7 +548,6 @@ h1, h2, h3, h4, h5 {
     color: #666;
     margin-bottom: 12px;
     line-height: 1.5;
-    font-family: 'Source Sans Pro', sans-serif;
 }
 
 .coming-soon {
@@ -573,7 +559,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   RED BUTTON - COMPACT
+   RED BUTTON
    ============================ */
 .btn-red {
     display: inline-block;
@@ -587,7 +573,6 @@ h1, h2, h3, h4, h5 {
     border: none;
     cursor: pointer;
     transition: background 0.2s;
-    font-family: 'Source Sans Pro', sans-serif;
 }
 
 .btn-red:hover {
@@ -595,7 +580,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   VLOGS SECTION - COMPACT
+   VLOGS SECTION - WITH 3 WINDOWS
    ============================ */
 .vlog-toolbar {
     margin-bottom: 15px;
@@ -643,97 +628,63 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   MODERN FOOTER - COMPACT
+   E-PAPER FORM - FIXED
    ============================ */
-.modern-footer {
-    background: #1a1a1a;
-    color: #f0f0f0;
-    padding: 20px 20px 10px;
-    border-top: 2px solid #b30000;
+.epaper-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.epaper-form input[type="file"] {
+    display: none;
+}
+
+.file-label {
+    padding: 6px 14px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
     font-size: 0.85rem;
 }
 
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #333;
+.file-label:hover {
+    background: #e0e0e0;
 }
 
-.footer-section h4 {
-    color: #b30000;
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-    font-family: 'Playfair Display', serif;
-}
-
-.footer-section p {
-    color: #ccc;
-    font-size: 0.8rem;
-    line-height: 1.4;
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section ul li {
-    margin-bottom: 4px;
-}
-
-.footer-section ul li a {
-    color: #ccc;
-    text-decoration: none;
-    font-size: 0.8rem;
-    transition: color 0.2s;
-}
-
-.footer-section ul li a:hover {
-    color: #b30000;
-}
-
-.social-icons {
-    display: flex;
-    gap: 10px;
-}
-
-.social-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    background: #333;
-    color: white;
-    border-radius: 50%;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: background 0.2s;
-}
-
-.social-icon:hover {
-    background: #b30000;
-}
-
-.footer-bottom {
-    max-width: 1200px;
-    margin: 10px auto 0;
-    text-align: center;
-    color: #999;
-    font-size: 0.75rem;
-    padding-top: 10px;
-}
-
-.footer-bottom span {
-    color: #b30000;
-    font-weight: 600;
+.file-name {
+    color: #666;
+    font-size: 0.85rem;
 }
 
 /* ============================
-   CONTACT MODAL - COMPACT
+   NEWSLETTER FORM
+   ============================ */
+.newsletter-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.newsletter-form input[type="email"] {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    width: 250px;
+}
+
+.newsletter-form input[type="email"]:focus {
+    outline: none;
+    border-color: #b30000;
+}
+
+/* ============================
+   CONTACT MODAL
    ============================ */
 .modal {
     position: fixed;
@@ -800,7 +751,6 @@ h1, h2, h3, h4, h5 {
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 0.85rem;
-    font-family: 'Source Sans Pro', sans-serif;
 }
 
 .form-row textarea {
@@ -840,7 +790,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   SOCIAL ACTIONS - COMPACT
+   SOCIAL ACTIONS
    ============================ */
 .social-actions {
     display: flex;
@@ -874,6 +824,96 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
+   FOOTER - COMPACT (50% HEIGHT)
+   ============================ */
+.modern-footer {
+    background: #1a1a1a;
+    color: #f0f0f0;
+    padding: 15px 20px 8px;
+    border-top: 2px solid #b30000;
+    font-size: 0.8rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+}
+
+.footer-section h4 {
+    color: #b30000;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.footer-section p {
+    color: #ccc;
+    font-size: 0.75rem;
+    line-height: 1.3;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 3px;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.75rem;
+    transition: color 0.2s;
+}
+
+.footer-section ul li a:hover {
+    color: #b30000;
+}
+
+.social-icons {
+    display: flex;
+    gap: 8px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #333;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.social-icon:hover {
+    background: #b30000;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 8px auto 0;
+    text-align: center;
+    color: #999;
+    font-size: 0.7rem;
+    padding-top: 8px;
+}
+
+.footer-bottom span {
+    color: #b30000;
+    font-weight: 600;
+}
+
+/* ============================
    RESPONSIVE DESIGN
    ============================ */
 @media (max-width: 992px) {
@@ -883,7 +923,6 @@ h1, h2, h3, h4, h5 {
     
     .footer-content {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
     }
 }
 
@@ -892,20 +931,10 @@ h1, h2, h3, h4, h5 {
         font-size: 2rem;
     }
     
-    .subheading {
-        font-size: 0.85rem;
-    }
-    
     .info-items {
         flex-direction: column;
         align-items: center;
         gap: 5px;
-    }
-    
-    .weather-bar .info-items {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
     }
     
     .cards.three,
@@ -924,7 +953,6 @@ h1, h2, h3, h4, h5 {
     .tools-bar {
         flex-direction: column;
         align-items: stretch;
-        gap: 8px;
     }
     
     .search input {
@@ -939,15 +967,6 @@ h1, h2, h3, h4, h5 {
     .social-icons {
         justify-content: center;
     }
-    
-    .social-actions {
-        flex-direction: column;
-    }
-    
-    .sa-btn {
-        width: 100%;
-        justify-content: center;
-    }
 }
 
 @media (max-width: 480px) {
@@ -957,9 +976,5 @@ h1, h2, h3, h4, h5 {
     
     .modern-title {
         font-size: 1.2rem;
-    }
-    
-    .info-items span {
-        font-size: 0.75rem;
     }
 }
