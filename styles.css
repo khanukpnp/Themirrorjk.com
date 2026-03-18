@@ -1,6 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
-   MATCHING ORIGINAL PNG SCREENSHOTS
+   FIXED: REMOVED GREY AREAS, RESTORED CALENDARS, REDUCED GAP
    ============================================================ */
 
 /* ============================
@@ -15,12 +15,12 @@
 html, body {
     width: 100%;
     min-height: 100%;
-    background: #f0f0f0;
+    background: white; /* Changed to white to remove grey areas */
 }
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    background: #f0f0f0;
+    background: white; /* Changed to white */
     color: #222;
     line-height: 1.5;
     overflow-x: hidden;
@@ -32,15 +32,15 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   PAGE SHELL
+   PAGE SHELL - NO GREY BORDERS
    ============================ */
 .page-shell {
     max-width: 1200px;
     margin: 0 auto;
     background: white;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    box-shadow: none;
+    border-left: none; /* Removed grey border */
+    border-right: none; /* Removed grey border */
+    box-shadow: 0 0 10px rgba(0,0,0,0.05); /* Very subtle shadow only */
 }
 
 /* ============================
@@ -104,7 +104,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   HEADER - MATCHING ORIGINAL PNG
+   HEADER
    ============================ */
 .site-header {
     text-align: center;
@@ -164,6 +164,7 @@ h1, h2, h3, h4, h5 {
     color: #999;
     font-weight: 300;
     font-size: 0.8rem;
+    margin: 0 2px;
 }
 
 /* ============================
@@ -422,22 +423,22 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   MAIN CONTENT
+   MAIN CONTENT - REDUCED GAP
    ============================ */
 .home-main {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px 20px 20px; /* Reduced top padding from 20px to 10px */
 }
 
 /* ============================
-   SECTION TITLES
+   SECTION TITLES - REDUCED MARGIN
    ============================ */
 .modern-title {
     font-size: 1.5rem;
     font-weight: 700;
     color: #b30000;
-    margin: 25px 0 15px;
+    margin: 15px 0 15px; /* Reduced top margin from 25px to 15px */
     padding-bottom: 8px;
     border-bottom: 2px solid #b30000;
     position: relative;
@@ -454,13 +455,18 @@ h1, h2, h3, h4, h5 {
     background: #b30000;
 }
 
+/* First section title (Top Stories) should have even smaller margin */
+#top-stories .modern-title {
+    margin-top: 5px; /* Minimal margin after navigation */
+}
+
 /* ============================
-   CARD GRID - CRITICAL FOR WINDOWS
+   CARD GRID
    ============================ */
 .cards {
     display: grid;
     gap: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     width: 100%;
 }
 
