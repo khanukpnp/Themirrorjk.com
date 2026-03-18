@@ -19,16 +19,16 @@
     </div>
 
     <div class="page-shell">
-        <!-- HEADER - ORIGINAL STYLE FROM PNG -->
+        <!-- HEADER - ORIGINAL STYLE -->
         <header class="site-header">
             <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
             <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
         </header>
 
-        <!-- DATE/TIME BAR - MATCHING ORIGINAL PNG -->
+        <!-- DATE/TIME BAR - WITH FULL DATE FORMAT -->
         <div class="datetime-bar">
-            <ul class="datetime-list" id="datetime-list">
-                <li id="clock-cest"><span>Loading CEST...</span></li>
+            <ul class="datetime-list">
+                <li id="clock-cest"><span>Loading date...</span></li>
                 <li class="separator">•</li>
                 <li id="cal-hijri"><span>Loading Hijri...</span></li>
                 <li class="separator">•</li>
@@ -40,14 +40,12 @@
             </ul>
         </div>
 
-        <!-- WEATHER BAR - ALL REGIONS FROM PNG -->
+        <!-- WEATHER BAR - ALL REGIONS -->
         <div class="weather-bar">
-            <ul class="weather-list" id="weather-bar">
-                <!-- Populated by JavaScript -->
-            </ul>
+            <ul class="weather-list" id="weather-bar"></ul>
         </div>
 
-        <!-- BREAKING TICKER - ORIGINAL STYLE -->
+        <!-- BREAKING TICKER - ANIMATED -->
         <div class="ticker-wrap">
             <div class="ticker">
                 <span class="ticker-label">🆕 BREAKING</span>
@@ -74,7 +72,7 @@
             </form>
         </div>
 
-        <!-- NAVIGATION - ORIGINAL STYLE -->
+        <!-- NAVIGATION BAR -->
         <nav class="navbar">
             <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
             <ul class="nav-list" id="nav-list">
@@ -118,73 +116,65 @@
 
         <!-- MAIN CONTENT -->
         <main class="home-main">
-            <!-- TOP STORIES SECTION - EXACTLY AS PNG -->
+            <!-- TOP STORIES SECTION - 3 CARDS -->
             <section id="top-stories">
                 <h2 class="section-title">⭐ Top Stories</h2>
-                <div class="cards three" id="top-stories-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards three" id="top-stories-grid"></div>
             </section>
 
-            <!-- LATEST / EDITORIAL / HISTORICAL SECTION -->
+            <!-- LATEST / EDITORIAL / HISTORICAL - 3 CARDS -->
             <section id="latest-editorial-historical">
                 <h2 class="section-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</h2>
-                <div class="cards three" id="leh-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards three" id="leh-grid"></div>
             </section>
 
-            <!-- JAMMU KASHMIR SECTION -->
+            <!-- JAMMU KASHMIR - 2 CARDS -->
             <section id="jammu-kashmir">
                 <h2 class="section-title">📍 Jammu Kashmir</h2>
-                <div class="cards two" id="jk-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards two" id="jk-grid"></div>
             </section>
 
-            <!-- VLOGS SECTION - MATCHING PNG -->
+            <!-- VLOGS SECTION - 3 CARDS -->
             <section id="vlogs">
                 <h2 class="section-title">🎥 Video Reports & Vlogs</h2>
                 <div class="vlog-toolbar">
                     <button class="btn-red" id="vlog-visit-channel">🎥 Visit Channel</button>
                 </div>
-                <div class="cards three vlogs-grid" id="vlogs-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards three vlogs-grid" id="vlogs-grid"></div>
             </section>
 
-            <!-- INTERNATIONAL SECTION -->
+            <!-- INTERNATIONAL NEWS - 2 CARDS -->
             <section id="international">
                 <h2 class="section-title">🌍 International News</h2>
-                <div class="cards two" id="intl-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards two" id="intl-grid"></div>
             </section>
 
-            <!-- HUMAN RIGHTS SECTION -->
+            <!-- HUMAN RIGHTS - 2 CARDS -->
             <section id="human-rights">
                 <h2 class="section-title">❤️ Human Rights</h2>
-                <div class="cards two" id="hr-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards two" id="hr-grid"></div>
             </section>
 
             <!-- ARCHIVE SECTION -->
             <section id="archive">
                 <h2 class="section-title">📁 Archive</h2>
-                <div id="archive-list"></div>
+                <div id="archive-list" class="archive-content">
+                    <p>Archive will appear here.</p>
+                </div>
             </section>
 
-            <!-- EPAPER SECTION -->
+            <!-- E-PAPER UPLOAD -->
             <section id="epaper">
                 <h2 class="section-title">📰 E-Paper Upload</h2>
                 <form class="epaper-form">
-                    <input type="file" accept="application/pdf">
-                    <button class="btn-red">Upload</button>
+                    <input type="file" id="file-upload" accept="application/pdf">
+                    <label for="file-upload" class="file-label">Choose File</label>
+                    <span class="file-name">No file chosen</span>
+                    <button type="submit" class="btn-red">Upload</button>
                 </form>
             </section>
 
-            <!-- NEWSLETTER SECTION -->
+            <!-- NEWSLETTER -->
             <section id="newsletter">
                 <h2 class="section-title">✉️ Newsletter</h2>
                 <form class="newsletter-form">
@@ -193,7 +183,7 @@
                 </form>
             </section>
 
-            <!-- CONTACT SECTION -->
+            <!-- CONTACT -->
             <section id="contact">
                 <h2 class="section-title">📞 Contact</h2>
                 <p>Email: themirrorjk@gmail.com<br>Phone: +41 783 13 12 13</p>
@@ -219,9 +209,40 @@
             </div>
         </div>
 
-        <!-- FOOTER -->
-        <footer>
-            © <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.
+        <!-- FOOTER - MODERNIZED -->
+        <footer class="modern-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>THE MIRROR JAMMU KASHMIR</h4>
+                    <p>Champion Justice & Amplify the Voices of the Unheard</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#top-stories">Top Stories</a></li>
+                        <li><a href="#vlogs">Vlogs</a></li>
+                        <li><a href="#international">International</a></li>
+                        <li><a href="#human-rights">Human Rights</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>Email: themirrorjk@gmail.com</p>
+                    <p>Phone: +41 783 13 12 13</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">📘</a>
+                        <a href="#" class="social-icon">🐦</a>
+                        <a href="#" class="social-icon">📷</a>
+                        <a href="#" class="social-icon">▶️</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.
+            </div>
         </footer>
     </div>
 
