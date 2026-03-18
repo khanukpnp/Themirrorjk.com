@@ -1,6 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT
-   WITH FULL ARTICLE, ABOUT, AND CHIEF EDITOR RENDERING
+   WITH 16:9 CARD RATIO AND FIXED READ MORE BUTTONS
    ============================================================ */
 
 // Wait for DOM to be fully loaded
@@ -196,7 +196,11 @@ const TICKER_ITEMS = [
     "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
     "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
     "OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR",
-    "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS --- UDHR ARTICLE 1"
+    "HOPE BECOMES REAL THROUGH ACTION, PERSISTENCE AND PRINCIPLED JOURNALISM",
+    "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS --- UDHR ARTICLE 1",
+    "EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE",
+    "DEMOCRACY DERIVES LEGITIMACY FROM THE WILL AND PARTICIPATION OF THE PEOPLE",
+    "DEMOCRACY CANNOT SURVIVE WHERE HUMAN RIGHTS ARE VIOLATED OR POPULATIONS EXCLUDED"
 ];
 
 function initTicker() {
@@ -230,6 +234,31 @@ function initNav() {
             mobileMenu.innerHTML = navList.innerHTML;
         }
     });
+    
+    // Dropdown handling for desktop
+    const dropdowns = document.querySelectorAll(".has-sub");
+    dropdowns.forEach(function(item) {
+        const btn = item.querySelector(".nav-btn");
+        const dropdown = item.querySelector(".dropdown");
+        
+        if (btn && dropdown) {
+            btn.addEventListener("click", function(e) {
+                e.preventDefault();
+                document.querySelectorAll(".dropdown").forEach(function(d) {
+                    if (d !== dropdown) d.style.display = "none";
+                });
+                dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+            });
+        }
+    });
+    
+    document.addEventListener("click", function(e) {
+        if (!e.target.closest(".has-sub")) {
+            document.querySelectorAll(".dropdown").forEach(function(d) {
+                d.style.display = "none";
+            });
+        }
+    });
 }
 
 /* ============================
@@ -258,6 +287,12 @@ function initContactModal() {
         });
     }
     
+    modal.addEventListener("click", function(e) {
+        if (e.target === modal) {
+            modal.classList.add("hidden");
+        }
+    });
+    
     if (contactForm) {
         contactForm.addEventListener("submit", function(e) {
             e.preventDefault();
@@ -273,38 +308,82 @@ function initContactModal() {
    ============================ */
 function initVlogs() {
     const grid = document.getElementById("vlogs-grid");
+    const visitBtn = document.getElementById("vlog-visit-channel");
+    
     if (!grid) return;
     
-    const videos = [
-        {
-            title: "Exclusive Interview | The Mirror Jammu Kashmir",
-            description: "In-depth interview on peace, justice, and human rights.",
-            duration: "15:32"
-        },
-        {
-            title: "Ground Report | Community Voices",
-            description: "Voices from the ground. Real stories. Real people.",
-            duration: "12:45"
-        },
-        {
-            title: "Analysis | Human Rights Framework",
-            description: "Legal and political analysis of ongoing human rights issues.",
-            duration: "18:20"
-        }
-    ];
+    // Try to load from YouTube JSON
+    fetch("content/youtube.json")
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("YouTube JSON not found");
+        })
+        .then(function(data) {
+            if (visitBtn && data.channel && data.channel.url) {
+                visitBtn.addEventListener("click", function() {
+                    window.open(data.channel.url, "_blank");
+                });
+            }
+            
+            const videos = data.videos || [];
+            renderVlogs(videos);
+        })
+        .catch(function() {
+            // Fallback to sample videos
+            if (visitBtn) {
+                visitBtn.addEventListener("click", function() {
+                    window.open("https://youtube.com/@TheMirrorJammuKashmir", "_blank");
+                });
+            }
+            
+            const videos = [
+                {
+                    title: "Exclusive Interview | The Mirror Jammu Kashmir",
+                    description: "In-depth interview on peace, justice, and human rights.",
+                    duration: "15:32"
+                },
+                {
+                    title: "Ground Report | Community Voices",
+                    description: "Voices from the ground. Real stories. Real people.",
+                    duration: "12:45"
+                },
+                {
+                    title: "Analysis | Human Rights Framework",
+                    description: "Legal and political analysis of ongoing human rights issues.",
+                    duration: "18:20"
+                }
+            ];
+            renderVlogs(videos);
+        });
+}
+
+function renderVlogs(videos) {
+    const grid = document.getElementById("vlogs-grid");
+    if (!grid) return;
+    
+    if (!videos || videos.length === 0) {
+        grid.innerHTML = '<p class="coming-soon">Videos will appear here.</p>';
+        return;
+    }
     
     let html = '';
     videos.forEach(function(v) {
+        const thumb = v.youtubeId ? 
+            'https://img.youtube.com/vi/' + v.youtubeId + '/hqdefault.jpg' : 
+            'https://via.placeholder.com/640x360?text=Video';
+        
         html += `
             <article class="card">
                 <div class="vlog-card-thumb">
-                    <img src="https://via.placeholder.com/320x180?text=Video" alt="${v.title}">
+                    <img src="${thumb}" alt="${v.title || 'Video'}">
                     <div class="vlog-play-icon">▶</div>
-                    <div class="vlog-duration">${v.duration}</div>
+                    <div class="vlog-duration">${v.duration || '00:00'}</div>
                 </div>
                 <div class="card-body">
-                    <h3>${v.title}</h3>
-                    <p>${v.description}</p>
+                    <h3>${v.title || 'Video'}</h3>
+                    <p>${v.description || ''}</p>
                 </div>
             </article>
         `;
@@ -394,6 +473,18 @@ function initFileUpload() {
     fileInput.addEventListener("change", function() {
         fileNameSpan.textContent = fileInput.files.length > 0 ? fileInput.files[0].name : "No file chosen";
     });
+    
+    const uploadForm = document.querySelector(".epaper-form");
+    if (uploadForm) {
+        uploadForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            if (fileInput.files.length > 0) {
+                alert("File '" + fileInput.files[0].name + "' ready for upload.");
+            } else {
+                alert("Please select a file first.");
+            }
+        });
+    }
 }
 
 /* ============================
@@ -429,7 +520,9 @@ function initFooterDropdowns() {
         const heading = section.querySelector('h4');
         if (!heading) return;
         
-        heading.addEventListener('click', function() {
+        heading.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             section.classList.toggle('open');
         });
     });
@@ -439,6 +532,7 @@ function initFooterDropdowns() {
    HOMEPAGE CONTENT LOADER
    ============================ */
 function loadHomepageContent() {
+    // Try to load from index.json
     fetch("content/index.json")
         .then(function(response) {
             if (response.ok) {
@@ -456,6 +550,8 @@ function loadHomepageContent() {
                     index.topStories.breaking,
                     index.topStories.opinion
                 ]);
+            } else {
+                loadTopStoriesFallback();
             }
             
             // Load Latest/Editorial/Historical
@@ -465,31 +561,43 @@ function loadHomepageContent() {
                     index.latestEditorialHistorical.editorial,
                     index.latestEditorialHistorical.historical
                 ]);
+            } else {
+                loadLehFallback();
             }
             
             // Load Jammu Kashmir
             if (index.jammuKashmir) {
                 loadJammuKashmir(index.jammuKashmir);
+            } else {
+                loadJammuKashmirFallback();
             }
             
             // Load International
             if (index.international) {
                 loadInternational(index.international);
+            } else {
+                loadInternationalFallback();
             }
             
             // Load Human Rights
             if (index.humanRights) {
                 loadHumanRights(index.humanRights);
+            } else {
+                loadHumanRightsFallback();
             }
         })
         .catch(function(error) {
             console.log("Index JSON not found, using fallback", error);
-            loadTopStoriesFallback();
-            loadLehFallback();
-            loadJammuKashmirFallback();
-            loadInternationalFallback();
-            loadHumanRightsFallback();
+            loadAllFallback();
         });
+}
+
+function loadAllFallback() {
+    loadTopStoriesFallback();
+    loadLehFallback();
+    loadJammuKashmirFallback();
+    loadInternationalFallback();
+    loadHumanRightsFallback();
 }
 
 /* ============================
@@ -536,26 +644,32 @@ function loadTopStoriesFallback() {
     
     grid.innerHTML = `
         <article class="card">
-            <div class="media"><span class="placeholder-icon">📰</span></div>
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=Rawalakot+Protest" alt="Rawalakot Protest">
+            </div>
             <div class="card-body">
                 <h3>Complete Shutter Down Paralyses Rawalakot Poonch</h3>
-                <p>Thousands shut down Rawalakot in protest against prolonged electricity outages...</p>
+                <p>Thousands shut down Rawalakot in protest against prolonged electricity outages, low voltage supply and communication blackouts across District Poonch.</p>
                 <a href="article.html?id=article-001" class="btn-red">Read More →</a>
             </div>
         </article>
         <article class="card">
-            <div class="media"><span class="placeholder-icon">📰</span></div>
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=UKPNP+Delegation" alt="UKPNP Delegation">
+            </div>
             <div class="card-body">
                 <h3>UKPNP Delegation Meets Baroness Emma Nicholson</h3>
-                <p>High level delegation discusses Kashmir crisis in London...</p>
+                <p>A high level UKPNP delegation led by Sardar Shaukat Ali Kashmiri met Baroness Emma Nicholson in London to discuss the Kashmir conflict.</p>
                 <a href="article.html?id=breaking-001" class="btn-red">Read More →</a>
             </div>
         </article>
         <article class="card">
-            <div class="media"><span class="placeholder-icon">📰</span></div>
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=British+MPs" alt="British MPs">
+            </div>
             <div class="card-body">
                 <h3>UKPNP Delegation Briefs British MPs</h3>
-                <p>Delegation briefs MPs on Kashmir conflict...</p>
+                <p>A high level delegation briefed British Members of Parliament on the historical roots of the Kashmir conflict and current human rights situation.</p>
                 <a href="article.html?id=blog-001" class="btn-red">Read More →</a>
             </div>
         </article>
@@ -603,16 +717,34 @@ function loadLehFallback() {
     
     grid.innerHTML = `
         <article class="card">
-            <div class="media"><span class="placeholder-icon">📰</span></div>
-            <div class="card-body"><h3>LATEST</h3><p class="coming-soon">Coming soon</p></div>
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=Latest+News" alt="Latest News">
+            </div>
+            <div class="card-body">
+                <h3>LATEST</h3>
+                <p>Latest news and updates from the region will appear here.</p>
+                <a href="#" class="btn-red">Read More →</a>
+            </div>
         </article>
         <article class="card">
-            <div class="media"><span class="placeholder-icon">📝</span></div>
-            <div class="card-body"><h3>EDITORIAL</h3><p class="coming-soon">Coming soon</p></div>
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=Editorial" alt="Editorial">
+            </div>
+            <div class="card-body">
+                <h3>EDITORIAL</h3>
+                <p>Editorial content and opinions will appear here.</p>
+                <a href="#" class="btn-red">Read More →</a>
+            </div>
         </article>
         <article class="card">
-            <div class="media"><span class="placeholder-icon">📜</span></div>
-            <div class="card-body"><h3>HISTORICAL</h3><p class="coming-soon">Coming soon</p></div>
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=Historical" alt="Historical">
+            </div>
+            <div class="card-body">
+                <h3>HISTORICAL</h3>
+                <p>Historical analysis and articles will appear here.</p>
+                <a href="#" class="btn-red">Read More →</a>
+            </div>
         </article>
     `;
 }
@@ -657,12 +789,24 @@ function loadJammuKashmirFallback() {
     
     grid.innerHTML = `
         <article class="card">
-            <div class="media"><span class="placeholder-icon">🏔️</span></div>
-            <div class="card-body"><h3>Jammu Region</h3><p class="coming-soon">JK</p></div>
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=Jammu+Region" alt="Jammu Region">
+            </div>
+            <div class="card-body">
+                <h3>Jammu Region</h3>
+                <p>News and updates from Jammu region will appear here.</p>
+                <a href="#" class="btn-red">Read More →</a>
+            </div>
         </article>
         <article class="card">
-            <div class="media"><span class="placeholder-icon">🏞️</span></div>
-            <div class="card-body"><h3>Kashmir Valley</h3><p class="coming-soon">JK</p></div>
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=Kashmir+Valley" alt="Kashmir Valley">
+            </div>
+            <div class="card-body">
+                <h3>Kashmir Valley</h3>
+                <p>News and updates from Kashmir valley will appear here.</p>
+                <a href="#" class="btn-red">Read More →</a>
+            </div>
         </article>
     `;
 }
@@ -699,3 +843,436 @@ function loadInternational(ids) {
         
         grid.innerHTML = html;
     });
+}
+
+function loadInternationalFallback() {
+    const grid = document.getElementById("intl-grid");
+    if (!grid) return;
+    
+    grid.innerHTML = `
+        <article class="card">
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=International+News" alt="International News">
+            </div>
+            <div class="card-body">
+                <h3>International News</h3>
+                <p>Global headlines and international affairs will appear here.</p>
+                <a href="#" class="btn-red">Read More →</a>
+            </div>
+        </article>
+        <article class="card">
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=World+Affairs" alt="World Affairs">
+            </div>
+            <div class="card-body">
+                <h3>World Affairs</h3>
+                <p>World news and diplomatic developments will appear here.</p>
+                <a href="#" class="btn-red">Read More →</a>
+            </div>
+        </article>
+    `;
+}
+
+/* ============================
+   LOAD HUMAN RIGHTS
+   ============================ */
+function loadHumanRights(ids) {
+    const grid = document.getElementById("hr-grid");
+    if (!grid) return;
+    
+    Promise.all(
+        ids.map(function(id) {
+            if (!id) return Promise.resolve(null);
+            return fetch("content/" + id + ".json")
+                .then(function(r) {
+                    if (r.ok) return r.json();
+                    return null;
+                })
+                .catch(function() {
+                    return null;
+                });
+        })
+    ).then(function(articles) {
+        let html = '';
+        
+        articles.forEach(function(article) {
+            if (article) {
+                html += createHomepageCard(article, "HR");
+            } else {
+                html += createEmptyCard("HR");
+            }
+        });
+        
+        grid.innerHTML = html;
+    });
+}
+
+function loadHumanRightsFallback() {
+    const grid = document.getElementById("hr-grid");
+    if (!grid) return;
+    
+    grid.innerHTML = `
+        <article class="card">
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=Human+Rights" alt="Human Rights">
+            </div>
+            <div class="card-body">
+                <h3>Human Rights</h3>
+                <p>Human rights updates and reports will appear here.</p>
+                <a href="#" class="btn-red">Read More →</a>
+            </div>
+        </article>
+        <article class="card">
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=UNHRC" alt="UNHRC">
+            </div>
+            <div class="card-body">
+                <h3>UNHRC Updates</h3>
+                <p>United Nations Human Rights Council developments will appear here.</p>
+                <a href="#" class="btn-red">Read More →</a>
+            </div>
+        </article>
+    `;
+}
+
+/* ============================
+   CREATE HOMEPAGE CARD - 16:9 RATIO
+   ============================ */
+function createHomepageCard(article, label) {
+    if (!article) return '';
+    
+    const title = article.title || 'Untitled';
+    const excerpt = article.excerpt || article.summary || 'Click to read more about this story.';
+    let image = 'https://via.placeholder.com/640x360?text=No+Image'; // 16:9 ratio placeholder
+    
+    if (article.heroImage && article.heroImage.src) {
+        image = article.heroImage.src;
+        // Fix GitHub image URLs if needed
+        if (image.includes('github.com') && !image.includes('raw')) {
+            image = image.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+        }
+    }
+    
+    const id = article.id || '';
+    const category = article.category || '';
+    
+    // Truncate title if too long
+    let displayTitle = title;
+    if (title.length > 80) {
+        displayTitle = title.substring(0, 80) + '...';
+    }
+    
+    // Truncate excerpt if too long
+    let displayExcerpt = excerpt;
+    if (excerpt.length > 120) {
+        displayExcerpt = excerpt.substring(0, 120) + '...';
+    }
+    
+    return `
+        <article class="card" data-category="${category}">
+            <div class="media">
+                <img src="${image}" alt="${displayTitle}" onerror="this.src='https://via.placeholder.com/640x360?text=News'">
+            </div>
+            <div class="card-body">
+                <h3>${displayTitle}</h3>
+                <p>${displayExcerpt}</p>
+                <a href="article.html?id=${id}" class="btn-red">Read More →</a>
+            </div>
+        </article>
+    `;
+}
+
+/* ============================
+   CREATE EMPTY CARD
+   ============================ */
+function createEmptyCard(label) {
+    return `
+        <article class="card">
+            <div class="media">
+                <img src="https://via.placeholder.com/640x360?text=${label}" alt="${label}">
+            </div>
+            <div class="card-body">
+                <h3>${label}</h3>
+                <p>Content coming soon. Please check back later.</p>
+                <a href="#" class="btn-red">Read More →</a>
+            </div>
+        </article>
+    `;
+}
+
+/* ============================
+   ABOUT PAGE LOADER
+   ============================ */
+function loadAboutPage() {
+    fetch("content/about-001.json")
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("About content not found");
+        })
+        .then(function(about) {
+            renderAboutPage(about);
+        })
+        .catch(function() {
+            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>About content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        });
+}
+
+function renderAboutPage(data) {
+    // Set page title
+    document.title = (data.title || "About") + " | THE MIRROR JAMMU KASHMIR";
+    
+    const titleEl = document.getElementById("about-title");
+    const subtitleEl = document.getElementById("about-subtitle");
+    const metaEl = document.getElementById("about-meta");
+    const contentEl = document.getElementById("about-content");
+    
+    if (titleEl) titleEl.textContent = data.title || "About The Mirror Jammu Kashmir";
+    if (subtitleEl) subtitleEl.textContent = data.subtitle || "";
+    
+    if (metaEl && data.date) {
+        const dateObj = new Date(data.date);
+        const formattedDate = dateObj.toLocaleDateString("en-GB", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+        metaEl.innerHTML = `<strong>${data.location || 'Switzerland'}</strong> — ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
+    }
+    
+    if (contentEl && data.body) {
+        let html = '';
+        data.body.forEach(function(block) {
+            if (block.type === "paragraph") {
+                html += '<p>' + block.text + '</p>';
+            } else if (block.type === "pullquote") {
+                html += '<div class="pull-quote">' + block.text + '</div>';
+            } else if (block.type === "image" && block.src) {
+                let imageSrc = block.src;
+                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                const alignClass = block.align === "right" ? "img-right" : block.align === "left" ? "img-left" : "img-center";
+                html += `<figure class="${alignClass}"><img src="${imageSrc}" alt="${block.caption || ''}"><figcaption>${block.caption || ''}</figcaption></figure>`;
+            }
+        });
+        contentEl.innerHTML = html;
+    }
+}
+
+/* ============================
+   CHIEF EDITOR PAGE LOADER
+   ============================ */
+function loadChiefEditorPage() {
+    fetch("content/chief-editor-001.json")
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Chief Editor content not found");
+        })
+        .then(function(editor) {
+            renderChiefEditorPage(editor);
+        })
+        .catch(function() {
+            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Chief Editor content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        });
+}
+
+function renderChiefEditorPage(data) {
+    // Set page title
+    document.title = (data.title || "Chief Editor") + " | THE MIRROR JAMMU KASHMIR";
+    
+    const titleEl = document.getElementById("editor-title");
+    const metaEl = document.getElementById("editor-meta");
+    const contentEl = document.getElementById("editor-content");
+    
+    if (titleEl) titleEl.textContent = data.title || "Chief Editor";
+    
+    if (metaEl && data.date) {
+        const dateObj = new Date(data.date);
+        const formattedDate = dateObj.toLocaleDateString("en-GB", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+        metaEl.innerHTML = `<strong>${data.location || 'Switzerland'}</strong> — ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
+    }
+    
+    if (contentEl && data.body) {
+        let html = '';
+        data.body.forEach(function(block) {
+            if (block.type === "paragraph") {
+                html += '<p>' + block.text + '</p>';
+            } else if (block.type === "image" && block.src) {
+                let imageSrc = block.src;
+                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                const alignClass = block.align === "right" ? "img-right" : block.align === "left" ? "img-left" : "img-center";
+                html += `<figure class="${alignClass}"><img src="${imageSrc}" alt="${block.caption || ''}"><figcaption>${block.caption || ''}</figcaption></figure>`;
+            }
+        });
+        contentEl.innerHTML = html;
+    }
+}
+
+/* ============================
+   ARTICLE PAGE INITIALIZATION
+   ============================ */
+function initArticlePage() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    
+    if (!id) {
+        document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>No article specified</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        return;
+    }
+    
+    fetch("content/" + id + ".json")
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Article not found");
+        })
+        .then(function(article) {
+            renderFullArticlePage(article);
+        })
+        .catch(function() {
+            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Article not found</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        });
+}
+
+function renderFullArticlePage(article) {
+    // Set page title
+    const pageTitle = document.getElementById("page-title");
+    if (pageTitle) {
+        pageTitle.textContent = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
+    }
+    
+    // Set section label
+    const sectionLabel = document.getElementById("section-label");
+    if (sectionLabel) {
+        sectionLabel.textContent = article.sectionLabel || article.category || "ARTICLE";
+    }
+    
+    // Set title
+    const titleEl = document.getElementById("title");
+    if (titleEl) {
+        titleEl.textContent = article.title || "Untitled";
+    }
+    
+    // Set meta
+    const metaEl = document.getElementById("meta");
+    if (metaEl) {
+        let metaHtml = '';
+        if (article.location) metaHtml += '<strong>' + article.location + '</strong>';
+        if (article.date) {
+            const dateObj = new Date(article.date);
+            const formattedDate = dateObj.toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+            metaHtml += (metaHtml ? ' — ' : '') + formattedDate;
+        }
+        if (article.author) metaHtml += '<br>By <em>' + article.author + '</em>';
+        if (article.readTime) metaHtml += ' · ' + article.readTime;
+        metaEl.innerHTML = metaHtml;
+    }
+    
+    // Set hero image
+    const heroWrap = document.getElementById("heroWrap");
+    const heroImg = document.getElementById("heroImg");
+    const heroCaption = document.getElementById("heroCaption");
+    
+    if (article.heroImage && article.heroImage.src && heroImg) {
+        let imageSrc = article.heroImage.src;
+        if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+            imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+        }
+        heroImg.src = imageSrc;
+        if (heroCaption) heroCaption.textContent = article.heroImage.caption || '';
+        if (heroWrap) heroWrap.style.display = 'block';
+    } else if (heroWrap) {
+        heroWrap.style.display = 'none';
+    }
+    
+    // Render body
+    const contentEl = document.getElementById("content");
+    if (!contentEl) return;
+    
+    contentEl.innerHTML = '';
+    
+    if (article.body && Array.isArray(article.body)) {
+        article.body.forEach(function(block) {
+            if (block.type === "paragraph") {
+                contentEl.innerHTML += '<p>' + block.text + '</p>';
+            } else if (block.type === "subheading") {
+                contentEl.innerHTML += '<h2 class="mid-subheading">' + block.text + '</h2>';
+            } else if (block.type === "pullquote") {
+                contentEl.innerHTML += '<div class="pull-quote">' + block.text + '</div>';
+            } else if (block.type === "points" && block.items) {
+                let listHtml = '<div class="important-points"><ul>';
+                block.items.forEach(function(item) {
+                    listHtml += '<li>' + item + '</li>';
+                });
+                listHtml += '</ul></div>';
+                contentEl.innerHTML += listHtml;
+            } else if (block.type === "image" && block.src) {
+                let imageSrc = block.src;
+                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                const alignClass = block.align === "right" ? "img-right" : block.align === "left" ? "img-left" : "img-center";
+                contentEl.innerHTML += `<figure class="${alignClass}"><img src="${imageSrc}" alt="${block.caption || ''}"><figcaption>${block.caption || ''}</figcaption></figure>`;
+            }
+        });
+    }
+    
+    // Initialize article actions
+    initArticleActions();
+}
+
+function initArticleActions() {
+    const likeBtn = document.getElementById("btn-like");
+    const subscribeBtn = document.getElementById("btn-subscribe");
+    const shareBtn = document.getElementById("btn-share");
+    const copyBtn = document.getElementById("btn-copy");
+    
+    if (likeBtn) {
+        likeBtn.addEventListener("click", function() {
+            alert("Thank you for liking this article!");
+        });
+    }
+    
+    if (subscribeBtn) {
+        subscribeBtn.addEventListener("click", function() {
+            alert("Thank you for subscribing!");
+        });
+    }
+    
+    if (shareBtn) {
+        shareBtn.addEventListener("click", function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                }).catch(function() {});
+            } else {
+                alert("Share this article: " + window.location.href);
+            }
+        });
+    }
+    
+    if (copyBtn) {
+        copyBtn.addEventListener("click", function() {
+            copyPageLink();
+        });
+    }
+}
+
+// Make copyPageLink globally available
+window.copyPageLink = copyPageLink;
