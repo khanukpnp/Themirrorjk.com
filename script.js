@@ -1074,4 +1074,199 @@ function renderAboutPage(data) {
                 html += itemsHtml;
             }
         });
-        content
+        contentEl.innerHTML = html;
+    }
+}
+
+/* ============================
+   CHIEF EDITOR PAGE LOADER
+   ============================ */
+function loadChiefEditorPage() {
+    fetch("content/chief-editor-001.json")
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Chief Editor content not found");
+        })
+        .then(function(data) {
+            renderChiefEditorPage(data);
+        })
+        .catch(function(error) {
+            console.error("Failed to load chief editor page:", error);
+            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Chief Editor content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        });
+}
+
+function renderChiefEditorPage(data) {
+    // Set page title
+    document.title = (data.title || "Chief Editor") + " | THE MIRROR JAMMU KASHMIR";
+    
+    const titleEl = document.getElementById("editor-title");
+    const metaEl = document.getElementById("editor-meta");
+    const contentEl = document.getElementById("editor-content");
+    
+    if (titleEl) titleEl.textContent = data.title || "Chief Editor";
+    
+    if (metaEl && data.date) {
+        const dateObj = new Date(data.date);
+        const formattedDate = dateObj.toLocaleDateString("en-GB", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+        metaEl.innerHTML = `<strong>${data.location || 'Switzerland'}</strong> — ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
+    }
+    
+    if (contentEl && data.body) {
+        let html = '';
+        data.body.forEach(function(block, index) {
+            if (block.type === "paragraph") {
+                // Handle first paragraph with floating image
+                if (index === 0 && data.heroImage) {
+                    const alignClass = data.heroImage.align === "left" ? "float-left" : "float-right";
+                    html += `
+                        <p>
+                            <figure class="${alignClass}">
+                                <img src="${data.heroImage.src}" alt="${data.heroImage.caption || 'Chief Editor'}">
+                                <figcaption>${data.heroImage.caption || ''}</figcaption>
+                            </figure>
+                            ${block.text}
+                        </p>
+                    `;
+                } else {
+                    html += '<p>' + block.text + '</p>';
+                }
+            } else if (block.type === "subheading") {
+                html += '<h2>' + block.text + '</h2>';
+            } else if (block.type === "pullquote") {
+                html += '<div class="pull-quote">' + block.text + '</div>';
+            } else if (block.type === "points" && block.items) {
+                let itemsHtml = '<div class="important-points"><ul>';
+                block.items.forEach(item => {
+                    itemsHtml += '<li>' + item + '</li>';
+                });
+                itemsHtml += '</ul></div>';
+                html += itemsHtml;
+            }
+        });
+        contentEl.innerHTML = html;
+    }
+}
+
+/* ============================
+   HISTORICAL PAGE LOADER
+   ============================ */
+function loadHistoricalPage() {
+    fetch("content/historical-001.json")
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Historical content not found");
+        })
+        .then(function(data) {
+            renderHistoricalPage(data);
+        })
+        .catch(function(error) {
+            console.error("Failed to load historical page:", error);
+            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Historical content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        });
+}
+
+function renderHistoricalPage(data) {
+    // Set page title
+    document.title = (data.title || "Historical") + " | THE MIRROR JAMMU KASHMIR";
+    
+    const titleEl = document.getElementById("historical-title");
+    const metaEl = document.getElementById("historical-meta");
+    const heroImg = document.getElementById("heroImg");
+    const heroCaption = document.getElementById("heroCaption");
+    const heroWrap = document.getElementById("heroWrap");
+    const contentEl = document.getElementById("historical-content");
+    
+    if (titleEl) titleEl.textContent = data.title || "Historical Article";
+    
+    if (metaEl && data.date) {
+        const dateObj = new Date(data.date);
+        const formattedDate = dateObj.toLocaleDateString("en-GB", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+        metaEl.innerHTML = `<strong>${data.location || 'Geneva'}</strong> — ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
+    }
+    
+    if (data.heroImage && data.heroImage.src && heroImg) {
+        heroImg.src = data.heroImage.src;
+        heroImg.alt = data.heroImage.caption || '';
+        if (heroCaption) heroCaption.textContent = data.heroImage.caption || '';
+        if (heroWrap) heroWrap.style.display = 'block';
+    } else if (heroWrap) {
+        heroWrap.style.display = 'none';
+    }
+    
+    if (contentEl && data.body) {
+        let html = '';
+        data.body.forEach(function(block, index) {
+            if (block.type === "paragraph") {
+                html += '<p>' + block.text + '</p>';
+            } else if (block.type === "subheading") {
+                html += '<h2>' + block.text + '</h2>';
+            } else if (block.type === "pullquote") {
+                html += '<div class="pull-quote">' + block.text + '</div>';
+            } else if (block.type === "points" && block.items) {
+                let itemsHtml = '<div class="important-points"><ul>';
+                block.items.forEach(item => {
+                    itemsHtml += '<li>' + item + '</li>';
+                });
+                itemsHtml += '</ul></div>';
+                html += itemsHtml;
+            } else if (block.type === "image" && block.src) {
+                const alignClass = block.align === "left" ? "float-left" : "float-right";
+                html += `
+                    <figure class="${alignClass}">
+                        <img src="${block.src}" alt="${block.caption || ''}">
+                        <figcaption>${block.caption || ''}</figcaption>
+                    </figure>
+                `;
+            }
+        });
+        contentEl.innerHTML = html;
+    }
+}
+
+/* ============================
+   ARTICLE PAGE INITIALIZATION
+   ============================ */
+function initArticlePage() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    
+    if (!id) {
+        document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>No article specified</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        return;
+    }
+    
+    fetch("content/" + id + ".json")
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Article not found");
+        })
+        .then(function(article) {
+            renderFullArticlePage(article);
+        })
+        .catch(function() {
+            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Article not found</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        });
+}
+
+function renderFullArticlePage(article) {
+    // This function would need the article.html structure
+    console.log("Article data:", article);
+}
+
+// Make copyPageLink globally available
+window.copyPageLink = copyPageLink;
