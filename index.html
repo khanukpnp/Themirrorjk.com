@@ -6,62 +6,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css?v=20">
 </head>
-<body class="theme-maroon">
-  <!-- LOADER -->
-  <div id="site-loader">
-    <div class="loader-inner">
-      <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
-      <div class="loader-bar">
-        <div class="loader-progress"></div>
-      </div>
-      <p>Loading newsroom, clocks, calendars and headlines…</p>
+
+<body>
+
+<!-- LOADER -->
+<div id="site-loader">
+  <div class="loader-inner">
+    <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
     </div>
+    <p>Loading newsroom, clocks, calendars and headlines…</p>
   </div>
+</div>
 
-  <div class="page-shell">
-    <!-- HEADER -->
-    <header class="site-header modern-header">
-      <div class="header-center">
-        <h1 class="site-title">
-          THE MIRROR JAMMU KASHMIR
-        </h1>
-        <div class="subheading">
-          CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD
-        </div>
-      </div>
-    </header>
+<div class="page-shell">
 
-    <!-- CLOCKS + CALENDARS -->
-    <section class="bar clocks-line">
-      <div class="row tight nowrap center">
-        <div id="clock-cest" class="chip tiny">
-          🕒 <span>Loading CEST…</span>
-        </div>
-        <div id="cal-hijri" class="chip tiny">
-          🗓️ <span>Hijri…</span>
-        </div>
-        <div id="cal-hindi" class="chip tiny">
-          🗓️ <span>Bikrami…</span>
-        </div>
-        <div id="tz-ist" class="chip tiny">
-          🕒 IST (Jammu-Kashmir-Ladakh): <span>—:—</span>
-        </div>
-        <div id="tz-pkt" class="chip tiny">
-          🕒 PKT (Gilgit-Baltistan &amp; Azad Kashmir): <span>—:—</span>
-        </div>
-      </div>
-    </section>
+<!-- ============================
+     HEADER (WHITE, CLEAN STYLE)
+============================= -->
+<header class="site-header">
+  <div class="header-center">
+    <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+    <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
+  </div>
+</header>
 
-    <!-- WEATHER BAR -->
-    <section class="bar weather-line">
-      <div class="row nowrap super-tight center" id="weather-bar"></div>
-    </section>
+<!-- ============================
+     CLOCKS + CALENDARS
+============================= -->
+<section class="bar clocks-line">
+  <div class="row tight nowrap center">
 
-    <!-- BREAKING TICKER -->
-    <section class="ticker-wrap">
-      <div class="ticker">
-        <span class="ticker-label">🆕 BREAKING</span>
-        <ul id="ticker-items"></ul>
+    <div id="clock-cest" class="chip tiny">
+      🕒 <span>Loading CEST…</span>
+    </div>
+
+    <div id="cal-hijri" class="chip tiny">
+      📅 <span>Hijri…</span>
+    </div>
+
+    <div id="cal-hindi" class="chip tiny">
+      📅 <span>Bikrami (Desi Punjabi)…</span>
+    </div>
+
+    <div id="tz-ist" class="chip tiny">
+      🕒 IST (Jammu–Kashmir–Ladakh): <span>—:—</span>
+    </div>
+
+    <div id="tz-pkt" class="chip tiny">
+      🕒 PKT (Gilgit–Baltistan & AJK): <span>—:—</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     WEATHER BAR (REGION NAMES ONLY)
+============================= -->
+<section class="bar weather-line">
+  <div class="row nowrap super-tight center" id="weather-bar"></div>
+</section>
+
+<!-- ============================
+     BREAKING TICKER
+============================= -->
+<section class="ticker-wrap">
+  <div class="ticker">
+
+    <span class="ticker-label">🆕 BREAKING</span>
+    <ul id="ticker-items"></ul>
+
+    <div class="tools">
+      <label class="lang-select">
+        🌍
+        <select id="language-select">
+          <option value="en" selected>English</option>
+          <option value="de">German</option>
+          <option value="fr">French</option>
+          <option value="ur">Urdu</option>
+          <option value="hi">Hindi</option>
+          <option value="ar">Arabic</option>
+        </select>
+      </label>
+
+      <form class="search" onsubmit="event.preventDefault();">
+        <input id="search-input" type="search" placeholder="Search…">
+        <button type="submit">🔍</button>
+      </form>
+    </div>
+
+  </div>
+</section>
 
         <div class="tools">
           <label class="lang-select">
