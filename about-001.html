@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | THE MIRROR JAMMU KASHMIR</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .about-page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .about-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #b30000;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .about-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 20px;
+        }
+        
+        .about-content {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .about-content .float-right {
+            float: right;
+            width: 40%;
+            margin: 0 0 1rem 1.5rem;
+        }
+        
+        .about-content .float-left {
+            float: left;
+            width: 40%;
+            margin: 0 1.5rem 1rem 0;
+        }
+        
+        .about-content figure {
+            margin: 0;
+        }
+        
+        .about-content figure img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        
+        .about-content figcaption {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        .about-content h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1rem;
+            font-family: 'Playfair Display', serif;
+            color: #b30000;
+        }
+        
+        .about-content .pull-quote {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            background: #f9f9f9;
+            border-left: 4px solid #b30000;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .about-content .important-points {
+            background: #f5f5f5;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+        
+        .about-content .important-points ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .about-content .important-points li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .about-content .important-points li:before {
+            content: "•";
+            color: #b30000;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        
+        .page-actions {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .page-actions button {
+            padding: 0.75rem 1.5rem;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .page-actions button:hover {
+            background: #b30000;
+            color: white;
+            border-color: #b30000;
+        }
+        
+        .page-actions button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            margin-top: 40px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .about-content .float-right,
+            .about-content .float-left {
+                float: none;
+                width: 100%;
+                margin: 1.5rem 0;
+            }
+            
+            .about-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page-shell about-page">
+        <h1 class="about-title" id="about-title">Loading...</h1>
+        <div class="about-subtitle" id="about-subtitle"></div>
+        
+        <div class="about-content clearfix" id="about-content"></div>
+        
+        <div class="page-actions">
+            <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
+            <button id="subBtn">🔔 Subscribe</button>
+            <button id="shareBtn">📣 Share</button>
+            <button id="copyBtn">🔗 Copy Link</button>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        // Year
+        document.getElementById("year").textContent = new Date().getFullYear();
+        
+        // Like button
+        let likes = 0;
+        document.getElementById("likeBtn").addEventListener("click", function() {
+            document.getElementById("likeCount").textContent = ++likes;
+        });
+        
+        // Subscribe button
+        document.getElementById("subBtn").addEventListener("click", function() {
+            this.textContent = "🔔 Subscribed";
+            this.disabled = true;
+        });
+        
+        // Share button
+        document.getElementById("shareBtn").addEventListener("click", function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                }).catch(() => {});
+            } else {
+                alert("Share this page: " + window.location.href);
+            }
+        });
+        
+        // Copy link button
+        document.getElementById("copyBtn").addEventListener("click", function() {
+            navigator.clipboard.writeText(window.location.href)
+                .then(() => alert("Link copied to clipboard!"))
+                .catch(() => alert("Failed to copy link"));
+        });
+        
+        // Load About content from JSON
+        async function loadAbout() {
+            try {
+                const response = await fetch("content/about-001.json");
+                if (!response.ok) throw new Error("Failed to load");
+                
+                const data = await response.json();
+                
+                // Set title and subtitle
+                document.getElementById("about-title").textContent = data.title || "About The Mirror Jammu Kashmir";
+                document.getElementById("about-subtitle").textContent = data.subtitle || "";
+                
+                const container = document.getElementById("about-content");
+                container.innerHTML = "";
+                
+                // Process body content
+                if (data.body && Array.isArray(data.body)) {
+                    data.body.forEach((block, index) => {
+                        // Handle first paragraph with floating logo
+                        if (index === 0 && data.heroImage && block.type === "paragraph") {
+                            container.innerHTML += `
+                                <p>
+                                    <figure class="float-right">
+                                        <img src="${data.heroImage.src}" alt="${data.heroImage.caption || 'Logo'}">
+                                        <figcaption>${data.heroImage.caption || ''}</figcaption>
+                                    </figure>
+                                    ${block.text}
+                                </p>
+                            `;
+                        }
+                        // Paragraph
+                        else if (block.type === "paragraph") {
+                            container.innerHTML += `<p>${block.text}</p>`;
+                        }
+                        // Subheading
+                        else if (block.type === "subheading") {
+                            container.innerHTML += `<h2>${block.text}</h2>`;
+                        }
+                        // Pull quote
+                        else if (block.type === "pullquote") {
+                            container.innerHTML += `<div class="pull-quote">${block.text}</div>`;
+                        }
+                        // Points / bullet list
+                        else if (block.type === "points" && block.items) {
+                            let itemsHtml = '<div class="important-points"><ul>';
+                            block.items.forEach(item => {
+                                itemsHtml += `<li>${item}</li>`;
+                            });
+                            itemsHtml += '</ul></div>';
+                            container.innerHTML += itemsHtml;
+                        }
+                        // Image (if any other images)
+                        else if (block.type === "image" && block.src) {
+                            const alignClass = block.align === "left" ? "float-left" : "float-right";
+                            container.innerHTML += `
+                                <figure class="${alignClass}">
+                                    <img src="${block.src}" alt="${block.caption || ''}">
+                                    <figcaption>${block.caption || ''}</figcaption>
+                                </figure>
+                            `;
+                        }
+                    });
+                }
+                
+            } catch (error) {
+                console.error("Failed to load about.json", error);
+                document.getElementById("about-title").textContent = "Error loading content";
+                document.getElementById("about-content").innerHTML = '<p class="error">Unable to load about page content. Please try again later.</p>';
+            }
+        }
+        
+        loadAbout();
+    </script>
+</body>
+</html>
