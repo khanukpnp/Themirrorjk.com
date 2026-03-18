@@ -126,25 +126,38 @@ function updateBikrami(){
 
   const today = new Date();
 
-  const start = new Date(today.getFullYear(), 2, 14); // March 14 = Chet start
+  // Chet usually starts around March 14
+  const start = new Date(today.getFullYear(), 2, 14);
 
   const months = [
     "Chet","Vaisakh","Jeth","Harh","Sawan","Bhadon",
     "Assu","Kattak","Maghar","Poh","Magh","Phagun"
   ];
 
-  let diff = Math.floor((today - start) / (1000*60*60*24));
+  let diff = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+
+  // If before Chet, go to previous Bikrami year
+  let bikramYear = today.getFullYear() + 57;
 
   if(diff < 0){
     diff += 365;
+    bikramYear -= 1;
   }
 
-  const monthIndex = Math.floor(diff / 30);
+  // Prevent overflow
+  const monthIndex = Math.floor(diff / 30) % 12;
   const day = (diff % 30) + 1;
 
-  const year = today.getFullYear() + 57;
-  
-  el.textContent = `${day} ${months[monthIndex]} ${year} BK`;
+  const formatted = `${day} ${months[monthIndex]} ${bikramYear} BK`;
+
+  // If you have <span> inside, update it cleanly
+  const span = el.querySelector("span");
+
+  if(span){
+    span.textContent = formatted;
+  } else {
+    el.textContent = formatted;
+  }
 
 }
 
