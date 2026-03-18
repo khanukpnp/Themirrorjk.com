@@ -139,21 +139,12 @@ function updateBikramiPunjabi() {
   if (!vsEl) return;
 
   const now = new Date();
-  // Bikrami year = Gregorian + 57
   const bikramiYear = now.getFullYear() + 57;
+
   const months = [
-    "Chet",
-    "Vaisakh",
-    "Jeth",
-    "Harh",
-    "Sawan",
-    "Bhadon",
-    "Assu",
-    "Kattak",
-    "Maghar",
-    "Poh",
-    "Magh",
-    "Phagun"
+    "Chet", "Vaisakh", "Jeth", "Harh",
+    "Sawan", "Bhadon", "Assu", "Kattak",
+    "Maghar", "Poh", "Magh", "Phagun"
   ];
 
   vsEl.textContent = `${now.getDate()} ${months[now.getMonth()]} ${bikramiYear} BK`;
