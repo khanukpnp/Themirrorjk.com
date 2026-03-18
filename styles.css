@@ -1,7 +1,5 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
-   FULL WIDTH - NO GREY AREAS - COMPACT CALENDARS
-   FOOTER WITH CLICK DROPDOWNS - BIGGER FONTS
    ============================================================ */
 
 /* ============================
@@ -33,7 +31,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   PAGE SHELL - FULL WIDTH
+   PAGE SHELL
    ============================ */
 .page-shell {
     max-width: 1400px;
@@ -41,7 +39,6 @@ h1, h2, h3, h4, h5 {
     background: white;
     box-shadow: none;
     width: 100%;
-    padding: 0;
 }
 
 /* ============================
@@ -105,7 +102,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   HEADER - EXPANDED FOR FULL SCREEN
+   HEADER
    ============================ */
 .site-header {
     text-align: center;
@@ -137,7 +134,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   INFO BAR - COMPACT CALENDARS
+   INFO BAR
    ============================ */
 .info-bar {
     background: #f8f8f8;
@@ -238,7 +235,7 @@ h1, h2, h3, h4, h5 {
 .ticker-items {
     display: inline-flex;
     gap: 40px;
-    animation: ticker-scroll 480s linear infinite;
+    animation: ticker-scroll 40s linear infinite;
 }
 
 .ticker-items span {
@@ -311,7 +308,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   NAVIGATION - MAROON
+   NAVIGATION
    ============================ */
 .navbar {
     background: #800000;
@@ -813,14 +810,14 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   FOOTER - WITH CLICK DROPDOWNS - BIGGER FONTS
+   FOOTER
    ============================ */
 .modern-footer {
     background: #800000;
     color: white;
-    padding: 15px 20px 8px; /* Increased padding for bigger fonts */
+    padding: 15px 20px 8px;
     border-top: 2px solid #b30000;
-    font-size: 0.85rem; /* Bigger base font */
+    font-size: 0.85rem;
     width: 100%;
 }
 
@@ -829,136 +826,50 @@ h1, h2, h3, h4, h5 {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px; /* Increased gap */
+    gap: 15px;
     padding-bottom: 10px;
     border-bottom: 1px solid #993333;
 }
 
-.footer-section {
-    display: flex;
-    flex-direction: column;
-}
-
-/* EXCLUDED from dropdown - THE MIRROR section */
-.footer-section:first-child h4,
-.footer-section:first-child ul,
-.footer-section:first-child p {
-    cursor: default;
-}
-
-.footer-section:first-child h4::after {
-    display: none; /* Remove dropdown arrow */
-}
-
-.footer-section:first-child ul {
-    display: block; /* Always visible */
-}
-
-/* EXCLUDED from dropdown - Copyright section (handled separately) */
-.footer-bottom {
-    cursor: default;
-}
-
-.footer-bottom span {
-    cursor: default;
-}
-
-/* Dropdown sections - Click to toggle */
 .footer-section h4 {
     color: white;
     margin-bottom: 6px;
-    font-size: 0.95rem; /* Bigger headings */
+    font-size: 0.95rem;
     font-family: 'Playfair Display', serif;
     font-weight: 600;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
     cursor: pointer;
-    position: relative;
-    display: inline-block;
-    transition: opacity 0.2s;
-}
-
-.footer-section h4:hover {
-    opacity: 0.9;
-    text-decoration: underline;
-}
-
-/* Dropdown indicator - only for clickable sections */
-.footer-section:nth-child(2) h4::after,
-.footer-section:nth-child(3) h4::after,
-.footer-section:nth-child(4) h4::after {
-    content: '▶'; /* Right arrow for closed state */
-    font-size: 0.6rem;
-    margin-left: 6px;
-    opacity: 0.8;
-    display: inline-block;
-    transition: transform 0.2s;
-}
-
-/* Rotate arrow when dropdown is open */
-.footer-section:nth-child(2) h4.open::after,
-.footer-section:nth-child(3) h4.open::after,
-.footer-section:nth-child(4) h4.open::after {
-    transform: rotate(90deg);
-    content: '▼';
-}
-
-/* Dropdown content - hidden by default */
-.footer-section:nth-child(2) ul,
-.footer-section:nth-child(3) ul,
-.footer-section:nth-child(4) ul,
-.footer-section:nth-child(2) .social-icons,
-.footer-section:nth-child(3) .social-icons,
-.footer-section:nth-child(4) .social-icons {
-    display: none;
-    margin-top: 5px;
-}
-
-/* When open class is added, show the content */
-.footer-section:nth-child(2).open ul,
-.footer-section:nth-child(3).open ul,
-.footer-section:nth-child(4).open ul,
-.footer-section:nth-child(2).open .social-icons,
-.footer-section:nth-child(3).open .social-icons,
-.footer-section:nth-child(4).open .social-icons {
-    display: block;
 }
 
 .footer-section ul {
     list-style: none;
-    padding-left: 2px;
+    margin-top: 5px;
 }
 
 .footer-section ul li {
-    margin-bottom: 4px; /* Increased spacing */
-    line-height: 1.4;
+    margin-bottom: 4px;
 }
 
 .footer-section ul li a {
     color: white;
     text-decoration: none;
-    font-size: 0.85rem; /* Bigger link text */
+    font-size: 0.85rem;
     transition: opacity 0.2s;
     opacity: 0.9;
-    display: block;
-    padding: 3px 0;
 }
 
 .footer-section ul li a:hover {
     opacity: 1;
     text-decoration: underline;
-    padding-left: 5px;
 }
 
 .footer-section p {
     color: white;
-    font-size: 0.85rem; /* Bigger text */
+    font-size: 0.85rem;
     line-height: 1.4;
     opacity: 0.9;
     margin: 3px 0;
 }
 
-/* Social icons in footer */
 .social-icons {
     display: flex;
     gap: 8px;
@@ -969,8 +880,8 @@ h1, h2, h3, h4, h5 {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px; /* Bigger icons */
-    height: 28px; /* Bigger icons */
+    width: 28px;
+    height: 28px;
     background: #993333;
     color: white;
     border-radius: 50%;
@@ -983,13 +894,12 @@ h1, h2, h3, h4, h5 {
     background: #b30000;
 }
 
-/* Footer bottom - always visible, no dropdown */
 .footer-bottom {
     max-width: 1400px;
     margin: 10px auto 0;
     text-align: center;
     color: white;
-    font-size: 0.8rem; /* Bigger copyright */
+    font-size: 0.8rem;
     padding-top: 8px;
     opacity: 0.8;
 }
@@ -1002,21 +912,6 @@ h1, h2, h3, h4, h5 {
 /* ============================
    RESPONSIVE
    ============================ */
-@media (max-width: 1200px) {
-    .page-shell {
-        max-width: 100%;
-        padding: 0 10px;
-    }
-    
-    .info-items {
-        gap: 5px;
-    }
-    
-    .info-items span {
-        font-size: 0.75rem;
-    }
-}
-
 @media (max-width: 992px) {
     .cards.three {
         grid-template-columns: repeat(2, 1fr);
@@ -1067,17 +962,6 @@ h1, h2, h3, h4, h5 {
     .social-icons {
         justify-content: center;
     }
-    
-    .footer-section h4 {
-        display: inline-block;
-    }
-    
-    .footer-section:nth-child(2) h4::after,
-    .footer-section:nth-child(3) h4::after,
-    .footer-section:nth-child(4) h4::after {
-        content: '▼';
-        font-size: 0.7rem;
-    }
 }
 
 @media (max-width: 480px) {
@@ -1087,9 +971,5 @@ h1, h2, h3, h4, h5 {
     
     .modern-title {
         font-size: 1.3rem;
-    }
-    
-    .info-items span {
-        font-size: 0.7rem;
     }
 }
