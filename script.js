@@ -1122,6 +1122,4 @@ function loadAboutPage() {
     fetch("content/about-001.json")
         .then(function(response) {
             if (response.ok) {
-                return response.json();
-            }
-            throw new Error
+                return
