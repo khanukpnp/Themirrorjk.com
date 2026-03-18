@@ -4,21 +4,18 @@
     "breaking": "breaking-001",
     "opinion": "blog-001"
   },
-
   "latestEditorialHistorical": {
     "latest": "latest-001",
     "editorial": "editorial-001",
     "historical": "historical-001"
   },
-
   "jammuKashmir": ["jk-001", null],
-
   "international": ["international-001", null],
-
   "humanRights": ["humanrights-001", null],
-
   "ticker": [
-    "WE DO NOT MANUFACTURE NARRATIVES — WE REFLECT REALITY",
-    "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH"
+    "WE DO NOT MANUFACTURE NARRATIVES --- WE REFLECT REALITY",
+    "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH",
+    "GOT NEWS, FEEDBACK OR URGENT UPDATES? CONTACT THE MIRROR JAMMU KASHMIR",
+    "FOLLOW US ON YOUTUBE --- THE MIRROR JAMMU KASHMIR --- SUBSCRIBE, LIKE AND SHARE"
   ]
 }
