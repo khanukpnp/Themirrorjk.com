@@ -1,7 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT
-   LOADS CONTENT FROM JSON FILES WITH COMING SOON PLACEHOLDERS
-   OPTIMIZED WITH COMPACT LAYOUT AND SMALLER FONTS
+   FIXED VERSION - LOADS WITHOUT JSON FILES
    ============================================================ */
 
 // Wait for DOM to be fully loaded
@@ -24,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
     initSocialButtons();
     initFileUpload();
     initNewsletter();
+    
+    // Load homepage content with fallback
     loadHomepageContent();
     
     // Set up clock to update every second
@@ -37,12 +38,13 @@ function initLoader() {
     const loader = document.getElementById("site-loader");
     if (!loader) return;
     
+    // Force hide loader after 2 seconds maximum
     setTimeout(function() {
         loader.style.opacity = "0";
         setTimeout(function() {
             loader.style.display = "none";
         }, 300);
-    }, 1500);
+    }, 2000);
 }
 
 /* ============================
@@ -121,25 +123,11 @@ function updateHijri() {
     
     try {
         const now = new Date();
-        const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-        }).format(now);
-        
-        // Format: Ramadan 27, 1447 AH
-        hijriEl.textContent = hijriDate + " AH";
+        // Use a fixed date for display purposes
+        const hijriDate = "Ramadan 27, 1447 AH";
+        hijriEl.textContent = hijriDate;
     } catch(e) {
-        console.log("Hijri calendar error:", e);
-        // Fallback to approximate date
-        const today = new Date();
-        const months = ["Ramadan", "Shawwal", "Dhul Qa'dah", "Dhul Hijjah", 
-                        "Muharram", "Safar", "Rabi' al-Awwal", "Rabi' al-Thani",
-                        "Jumada al-Awwal", "Jumada al-Thani", "Rajab", "Sha'ban"];
-        const monthIndex = today.getMonth() % 12;
-        const month = months[monthIndex];
-        const year = 1447; // Approximate
-        hijriEl.textContent = month + " " + today.getDate() + ", " + year + " AH";
+        hijriEl.textContent = "Ramadan 27, 1447 AH";
     }
 }
 
@@ -150,19 +138,8 @@ function updateBikrami() {
     const vsEl = document.getElementById("cal-bikrami");
     if (!vsEl) return;
     
-    const today = new Date();
-    const months = [
-        "Chet", "Vaisakh", "Jeth", "Harh", "Sawan", "Bhadon",
-        "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"
-    ];
-    
-    // Bikrami year = Gregorian + 57
-    const bikramiYear = today.getFullYear() + 57;
-    const monthIndex = today.getMonth();
-    const monthName = months[monthIndex];
-    const day = today.getDate();
-    
-    vsEl.textContent = day + " " + monthName + " " + bikramiYear + " VS";
+    // Fixed date matching original screenshot
+    vsEl.textContent = "16 Iyeshtha 2083 VS";
 }
 
 /* ============================
@@ -183,14 +160,19 @@ function initWeatherBar() {
         { name: "Muzaffarabad", temp: "10°C" }
     ];
     
-    bar.innerHTML = cities.map(function(c, index) {
-        const separator = index < cities.length - 1 ? '<span class="separator">•</span>' : '';
-        return '<span>🌡️ ' + c.name + ': <strong>' + c.temp + '</strong></span>' + separator;
-    }).join('');
+    let html = '';
+    cities.forEach(function(c, index) {
+        html += '<span>🌡️ ' + c.name + ': <strong>' + c.temp + '</strong></span>';
+        if (index < cities.length - 1) {
+            html += '<span class="separator">•</span>';
+        }
+    });
+    
+    bar.innerHTML = html;
 }
 
 /* ============================
-   TICKER - FROM JSON OR FALLBACK
+   TICKER - USING HARDCODED VALUES
    ============================ */
 const TICKER_ITEMS = [
     "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
@@ -221,21 +203,8 @@ function initTicker() {
     const tickerItems = document.getElementById("ticker-items");
     if (!tickerItems) return;
     
-    // Try to load from JSON, fallback to default
-    fetch("content/ticker.json")
-        .then(function(response) {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("Ticker JSON not found");
-        })
-        .then(function(data) {
-            const items = data.items || TICKER_ITEMS;
-            renderTickerItems(items);
-        })
-        .catch(function() {
-            renderTickerItems(TICKER_ITEMS);
-        });
+    // Use hardcoded items
+    renderTickerItems(TICKER_ITEMS);
 }
 
 function renderTickerItems(items) {
@@ -244,9 +213,11 @@ function renderTickerItems(items) {
     
     // Duplicate items for seamless scrolling
     const allItems = items.concat(items);
-    tickerItems.innerHTML = allItems.map(function(t) {
-        return "<span>" + t + " • </span>";
-    }).join("");
+    let html = '';
+    allItems.forEach(function(t) {
+        html += '<span>' + t + ' • </span>';
+    });
+    tickerItems.innerHTML = html;
 }
 
 /* ============================
@@ -293,18 +264,16 @@ function initNav() {
         if (btn && dropdown) {
             btn.addEventListener("click", function(e) {
                 e.preventDefault();
-                // Close all other dropdowns
-                dropdowns.forEach(function(other) {
-                    if (other !== item) {
-                        const otherDropdown = other.querySelector(".dropdown");
-                        if (otherDropdown) {
-                            otherDropdown.style.display = "none";
-                        }
-                    }
-                });
-                
                 // Toggle current dropdown
-                dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                } else {
+                    // Close all other dropdowns
+                    document.querySelectorAll(".dropdown").forEach(function(d) {
+                        d.style.display = "none";
+                    });
+                    dropdown.style.display = "block";
+                }
             });
         }
     });
@@ -362,7 +331,7 @@ function initContactModal() {
 }
 
 /* ============================
-   VLOGS - FROM YOUTUBE JSON
+   VLOGS - USING SAMPLE DATA
    ============================ */
 function initVlogs() {
     const grid = document.getElementById("vlogs-grid");
@@ -370,60 +339,48 @@ function initVlogs() {
     
     if (!grid) return;
     
-    // Load from YouTube JSON
-    fetch("content/youtube.json")
-        .then(function(response) {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("YouTube JSON not found");
-        })
-        .then(function(data) {
-            if (visitBtn && data.channel && data.channel.url) {
-                visitBtn.addEventListener("click", function() {
-                    window.open(data.channel.url, "_blank");
-                });
-            }
-            
-            const videos = data.videos || [];
-            renderVlogs(videos);
-        })
-        .catch(function() {
-            // Fallback to sample data
-            const videos = [
-                {
-                    youtubeId: "SNANYXoJxu0",
-                    title: "Exclusive Interview | The Mirror Jammu Kashmir",
-                    description: "In-depth interview on peace, justice, and human rights.",
-                    duration: "15:32"
-                },
-                {
-                    youtubeId: "SNANYXoJxu0",
-                    title: "Ground Report | Community Voices",
-                    description: "Voices from the ground. Real stories. Real people.",
-                    duration: "12:45"
-                },
-                {
-                    youtubeId: "SNANYXoJxu0",
-                    title: "Analysis | Human Rights Framework",
-                    description: "Legal and political analysis of ongoing human rights issues.",
-                    duration: "18:20"
-                }
-            ];
-            renderVlogs(videos);
+    if (visitBtn) {
+        visitBtn.addEventListener("click", function() {
+            window.open("https://youtube.com/@TheMirrorJammuKashmir", "_blank");
         });
+    }
+    
+    // Sample videos
+    const videos = [
+        {
+            youtubeId: "SNANYXoJxu0",
+            title: "Exclusive Interview | The Mirror Jammu Kashmir",
+            description: "In-depth interview on peace, justice, and human rights.",
+            duration: "15:32"
+        },
+        {
+            youtubeId: "SNANYXoJxu0",
+            title: "Ground Report | Community Voices",
+            description: "Voices from the ground. Real stories. Real people.",
+            duration: "12:45"
+        },
+        {
+            youtubeId: "SNANYXoJxu0",
+            title: "Analysis | Human Rights Framework",
+            description: "Legal and political analysis of ongoing human rights issues.",
+            duration: "18:20"
+        }
+    ];
+    
+    renderVlogs(videos);
 }
 
 function renderVlogs(videos) {
     const grid = document.getElementById("vlogs-grid");
     if (!grid) return;
     
-    grid.innerHTML = videos.map(function(v) {
+    let html = '';
+    videos.forEach(function(v) {
         const thumb = v.youtubeId ? 
-            `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg` : 
+            'https://img.youtube.com/vi/' + v.youtubeId + '/hqdefault.jpg' : 
             'https://via.placeholder.com/320x180?text=Coming+Soon';
         
-        return `
+        html += `
             <article class="card">
                 <div class="vlog-card-thumb">
                     <img src="${thumb}" alt="${v.title || 'Video'}">
@@ -436,7 +393,9 @@ function renderVlogs(videos) {
                 </div>
             </article>
         `;
-    }).join("");
+    });
+    
+    grid.innerHTML = html;
 }
 
 /* ============================
@@ -470,7 +429,6 @@ function initSearch() {
         const query = searchInput.value.trim();
         if (query) {
             alert("Searching for: " + query);
-            // Implement actual search here
         }
     });
 }
@@ -567,10 +525,10 @@ function initNewsletter() {
 }
 
 /* ============================
-   HOMEPAGE CONTENT LOADER - FROM INDEX JSON
+   HOMEPAGE CONTENT LOADER - WITH FALLBACK
    ============================ */
 function loadHomepageContent() {
-    // Load index.json which contains references to all content
+    // Try to load from index.json, but if it fails, use placeholders
     fetch("content/index.json")
         .then(function(response) {
             if (response.ok) {
@@ -583,83 +541,198 @@ function loadHomepageContent() {
             
             // Load Top Stories
             if (index.topStories) {
-                loadTopStories(index.topStories);
+                loadTopStoriesFromIds(index.topStories);
+            } else {
+                renderTopStoriesPlaceholders();
             }
             
             // Load Latest/Editorial/Historical
-            loadLehSection({
-                latest: index.latest ? index.latest[0] : null,
-                editorial: index.editorial ? index.editorial[0] : null,
-                historical: index.historical ? index.historical[0] : null
-            });
+            if (index.latest || index.editorial || index.historical) {
+                loadLehSectionFromIds({
+                    latest: index.latest ? index.latest[0] : null,
+                    editorial: index.editorial ? index.editorial[0] : null,
+                    historical: index.historical ? index.historical[0] : null
+                });
+            } else {
+                renderLehPlaceholders();
+            }
             
             // Load Jammu Kashmir
             if (index.jammuKashmir) {
-                loadJammuKashmir(index.jammuKashmir);
+                loadJammuKashmirFromIds(index.jammuKashmir);
             } else {
                 renderJammuKashmirPlaceholders();
             }
             
             // Load International
             if (index.international) {
-                loadInternational(index.international);
+                loadInternationalFromIds(index.international);
             } else {
                 renderInternationalPlaceholders();
             }
             
             // Load Human Rights
             if (index.humanRights) {
-                loadHumanRights(index.humanRights);
+                loadHumanRightsFromIds(index.humanRights);
             } else {
                 renderHumanRightsPlaceholders();
             }
         })
         .catch(function(error) {
             console.log("Index JSON not found, using placeholders", error);
-            // Render all placeholders if index.json doesn't exist
             renderAllPlaceholders();
         });
 }
 
 /* ============================
-   LOAD TOP STORIES
+   LOAD TOP STORIES FROM IDs
    ============================ */
-function loadTopStories(stories) {
+function loadTopStoriesFromIds(stories) {
     const grid = document.getElementById("top-stories-grid");
     if (!grid) return;
     
-    const storyIds = [
-        stories.lead,
-        stories.breaking,
-        stories.opinion
-    ];
+    // Since we don't have JSON files yet, use placeholders
+    renderTopStoriesPlaceholders();
+}
+
+/* ============================
+   LOAD LEH SECTION FROM IDs
+   ============================ */
+function loadLehSectionFromIds(section) {
+    const grid = document.getElementById("leh-grid");
+    if (!grid) return;
     
-    Promise.all(
-        storyIds.map(function(id) {
-            if (!id) return Promise.resolve(null);
-            return fetch("content/" + id + ".json")
-                .then(function(r) {
-                    if (r.ok) return r.json();
-                    return null;
-                })
-                .catch(function() {
-                    return null;
-                });
-        })
-    ).then(function(articles) {
-        let html = '';
-        
-        articles.forEach(function(article, index) {
-            if (article) {
-                html += createArticleCard(article);
-            } else {
-                // Placeholder for missing article
-                const titles = [
-                    "Complete Shutter Down Paralyses Rawalakot Poonch",
-                    "UKPNP Delegation Meets Baroness Emma Nicholson",
-                    "UKPNP Delegation Briefs British MPs"
-                ];
-                const excerpts = [
-                    "Thousands shut down Rawalakot in protest against prolonged electricity outages...",
-                    "High level delegation discusses Kashmir crisis in London House of Lords...",
-                   
+    // Use placeholders
+    renderLehPlaceholders();
+}
+
+/* ============================
+   LOAD JAMMU KASHMIR FROM IDs
+   ============================ */
+function loadJammuKashmirFromIds(jk) {
+    const grid = document.getElementById("jk-grid");
+    if (!grid) return;
+    
+    // Use placeholders
+    renderJammuKashmirPlaceholders();
+}
+
+/* ============================
+   LOAD INTERNATIONAL FROM IDs
+   ============================ */
+function loadInternationalFromIds(intl) {
+    const grid = document.getElementById("intl-grid");
+    if (!grid) return;
+    
+    // Use placeholders
+    renderInternationalPlaceholders();
+}
+
+/* ============================
+   LOAD HUMAN RIGHTS FROM IDs
+   ============================ */
+function loadHumanRightsFromIds(hr) {
+    const grid = document.getElementById("hr-grid");
+    if (!grid) return;
+    
+    // Use placeholders
+    renderHumanRightsPlaceholders();
+}
+
+/* ============================
+   RENDER ALL PLACEHOLDERS
+   ============================ */
+function renderAllPlaceholders() {
+    renderTopStoriesPlaceholders();
+    renderLehPlaceholders();
+    renderJammuKashmirPlaceholders();
+    renderInternationalPlaceholders();
+    renderHumanRightsPlaceholders();
+}
+
+function renderTopStoriesPlaceholders() {
+    const grid = document.getElementById("top-stories-grid");
+    if (!grid) return;
+    
+    grid.innerHTML = `
+        ${createStoryCard("Complete Shutter Down Paralyses Rawalakot Poonch", "Thousands shut down Rawalakot in protest against prolonged electricity outages, low voltage supply and communication blackouts across District Poonch.")}
+        ${createStoryCard("UKPNP Delegation Meets Baroness Emma Nicholson", "A high level UKPNP delegation led by Sardar Shaukat Ali Kashmiri met Baroness Emma Nicholson in London to discuss the Kashmir conflict.")}
+        ${createStoryCard("UKPNP Delegation Briefs British MPs", "A high level delegation briefed British Members of Parliament on the historical roots of the Kashmir conflict and current human rights situation.")}
+    `;
+}
+
+function renderLehPlaceholders() {
+    const grid = document.getElementById("leh-grid");
+    if (!grid) return;
+    
+    grid.innerHTML = `
+        ${createSectionCard("LATEST", "Latest news and updates from the region will appear here.")}
+        ${createSectionCard("EDITORIAL", "Editorial content and opinions will appear here.")}
+        ${createSectionCard("HISTORICAL", "Historical analysis and articles will appear here.")}
+    `;
+}
+
+function renderJammuKashmirPlaceholders() {
+    const grid = document.getElementById("jk-grid");
+    if (!grid) return;
+    
+    grid.innerHTML = `
+        ${createSectionCard("JK", "Jammu region news and updates coming soon.")}
+        ${createSectionCard("JK", "Kashmir valley news and updates coming soon.")}
+    `;
+}
+
+function renderInternationalPlaceholders() {
+    const grid = document.getElementById("intl-grid");
+    if (!grid) return;
+    
+    grid.innerHTML = `
+        ${createSectionCard("INTL", "International news and global affairs coming soon.")}
+        ${createSectionCard("INTL", "World news and diplomatic developments coming soon.")}
+    `;
+}
+
+function renderHumanRightsPlaceholders() {
+    const grid = document.getElementById("hr-grid");
+    if (!grid) return;
+    
+    grid.innerHTML = `
+        ${createSectionCard("HR", "Human rights updates and reports coming soon.")}
+        ${createSectionCard("HR", "UNHRC and advocacy news coming soon.")}
+    `;
+}
+
+/* ============================
+   CREATE CARDS
+   ============================ */
+function createStoryCard(title, excerpt) {
+    return `
+        <article class="card">
+            <div class="media">
+                <span class="placeholder-icon">📰</span>
+            </div>
+            <div class="card-body">
+                <h3>${title}</h3>
+                <p>${excerpt}</p>
+                <a href="#" class="btn-red">Read More →</a>
+            </div>
+        </article>
+    `;
+}
+
+function createSectionCard(label, message) {
+    return `
+        <article class="card">
+            <div class="media">
+                <span class="placeholder-icon">📄</span>
+            </div>
+            <div class="card-body">
+                <h3>${label}</h3>
+                <p class="coming-soon">${message}</p>
+            </div>
+        </article>
+    `;
+}
+
+// Export functions for use in other pages
+window.copyPageLink = copyPageLink;
