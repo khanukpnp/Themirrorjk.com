@@ -143,7 +143,6 @@ function updateBikrami(){
   const day = (diff % 30) + 1;
 
   const year = today.getFullYear() + 57;
-
   el.textContent = `${day} ${months[monthIndex]} ${year} BK`;
 
 }
