@@ -5,6 +5,7 @@
     <title>THE MIRROR JAMMU KASHMIR</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- LOADER -->
@@ -25,27 +26,27 @@
             <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
         </header>
 
-        <!-- DATE/TIME BAR - WITH FULL DATE FORMAT -->
-        <div class="datetime-bar">
-            <ul class="datetime-list">
-                <li id="clock-cest"><span>Loading date...</span></li>
-                <li class="separator">•</li>
-                <li id="cal-hijri"><span>Loading Hijri...</span></li>
-                <li class="separator">•</li>
-                <li id="cal-bikrami"><span>Loading Bikrami...</span></li>
-                <li class="separator">•</li>
-                <li id="tz-ist">IST (Jammu-Kashmir-Ladakh): <span>--:--:--</span></li>
-                <li class="separator">•</li>
-                <li id="tz-pkt">PKT (Gilgit-Baltistan & AJK): <span>--:--:--</span></li>
-            </ul>
+        <!-- CLOCKS AND CALENDARS - HORIZONTAL LINE -->
+        <div class="info-bar clocks-calendars">
+            <div class="info-items">
+                <span id="clock-cest"></span>
+                <span class="separator">•</span>
+                <span id="cal-hijri"></span>
+                <span class="separator">•</span>
+                <span id="cal-bikrami"></span>
+                <span class="separator">•</span>
+                <span id="tz-ist">IST: <span>--:--:--</span></span>
+                <span class="separator">•</span>
+                <span id="tz-pkt">PKT: <span>--:--:--</span></span>
+            </div>
         </div>
 
-        <!-- WEATHER BAR - ALL REGIONS -->
-        <div class="weather-bar">
-            <ul class="weather-list" id="weather-bar"></ul>
+        <!-- WEATHER BAR - HORIZONTAL LINE -->
+        <div class="info-bar weather-bar">
+            <div class="info-items" id="weather-bar"></div>
         </div>
 
-        <!-- BREAKING TICKER - ANIMATED -->
+        <!-- BREAKING TICKER -->
         <div class="ticker-wrap">
             <div class="ticker">
                 <span class="ticker-label">🆕 BREAKING</span>
@@ -76,7 +77,15 @@
         <nav class="navbar">
             <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
             <ul class="nav-list" id="nav-list">
-                <li class="nav-item"><a href="index.html" class="nav-btn">🏠 Home</a></li>
+                <li class="nav-item has-sub">
+                    <a href="#" class="nav-btn">🏠 Home</a>
+                    <div class="dropdown">
+                        <a href="about.html">About</a>
+                        <a href="chief-editor.html">Chief Editor</a>
+                        <a href="our-team.html">Our Team</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </li>
                 <li class="nav-item"><a href="breaking.html" class="nav-btn">🆕 Breaking News</a></li>
                 <li class="nav-item has-sub">
                     <a href="#" class="nav-btn">📝 Blog</a>
@@ -103,7 +112,7 @@
                     </div>
                 </li>
                 <li class="nav-item has-sub">
-                    <a href="#" class="nav-btn">🕊️ UN & Human Rights</a>
+                    <a href="#" class="nav-btn">🕊️ UN & HR</a>
                     <div class="dropdown">
                         <a href="#unhrc">UNHRC</a>
                         <a href="#reports">Reports</a>
@@ -116,48 +125,48 @@
 
         <!-- MAIN CONTENT -->
         <main class="home-main">
-            <!-- TOP STORIES SECTION - 3 CARDS -->
+            <!-- TOP STORIES SECTION -->
             <section id="top-stories">
-                <h2 class="section-title">⭐ Top Stories</h2>
+                <h2 class="section-title modern-title">⭐ Top Stories</h2>
                 <div class="cards three" id="top-stories-grid"></div>
             </section>
 
-            <!-- LATEST / EDITORIAL / HISTORICAL - 3 CARDS -->
+            <!-- LATEST / EDITORIAL / HISTORICAL -->
             <section id="latest-editorial-historical">
-                <h2 class="section-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</h2>
+                <h2 class="section-title modern-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</h2>
                 <div class="cards three" id="leh-grid"></div>
             </section>
 
-            <!-- JAMMU KASHMIR - 2 CARDS -->
+            <!-- JAMMU KASHMIR -->
             <section id="jammu-kashmir">
-                <h2 class="section-title">📍 Jammu Kashmir</h2>
+                <h2 class="section-title modern-title">📍 Jammu Kashmir</h2>
                 <div class="cards two" id="jk-grid"></div>
             </section>
 
-            <!-- VLOGS SECTION - 3 CARDS -->
+            <!-- VLOGS SECTION -->
             <section id="vlogs">
-                <h2 class="section-title">🎥 Video Reports & Vlogs</h2>
+                <h2 class="section-title modern-title">🎥 Video Reports & Vlogs</h2>
                 <div class="vlog-toolbar">
                     <button class="btn-red" id="vlog-visit-channel">🎥 Visit Channel</button>
                 </div>
                 <div class="cards three vlogs-grid" id="vlogs-grid"></div>
             </section>
 
-            <!-- INTERNATIONAL NEWS - 2 CARDS -->
+            <!-- INTERNATIONAL NEWS -->
             <section id="international">
-                <h2 class="section-title">🌍 International News</h2>
+                <h2 class="section-title modern-title">🌍 International News</h2>
                 <div class="cards two" id="intl-grid"></div>
             </section>
 
-            <!-- HUMAN RIGHTS - 2 CARDS -->
+            <!-- HUMAN RIGHTS -->
             <section id="human-rights">
-                <h2 class="section-title">❤️ Human Rights</h2>
+                <h2 class="section-title modern-title">❤️ Human Rights</h2>
                 <div class="cards two" id="hr-grid"></div>
             </section>
 
-            <!-- ARCHIVE SECTION -->
+            <!-- ARCHIVE -->
             <section id="archive">
-                <h2 class="section-title">📁 Archive</h2>
+                <h2 class="section-title modern-title">📁 Archive</h2>
                 <div id="archive-list" class="archive-content">
                     <p>Archive will appear here.</p>
                 </div>
@@ -165,9 +174,9 @@
 
             <!-- E-PAPER UPLOAD -->
             <section id="epaper">
-                <h2 class="section-title">📰 E-Paper Upload</h2>
+                <h2 class="section-title modern-title">📰 E-Paper Upload</h2>
                 <form class="epaper-form">
-                    <input type="file" id="file-upload" accept="application/pdf">
+                    <input type="file" id="file-upload" accept=".pdf,.jpg,.jpeg,.png">
                     <label for="file-upload" class="file-label">Choose File</label>
                     <span class="file-name">No file chosen</span>
                     <button type="submit" class="btn-red">Upload</button>
@@ -176,16 +185,16 @@
 
             <!-- NEWSLETTER -->
             <section id="newsletter">
-                <h2 class="section-title">✉️ Newsletter</h2>
+                <h2 class="section-title modern-title">✉️ Newsletter</h2>
                 <form class="newsletter-form">
-                    <input id="subscribeEmail" type="email" placeholder="your@email.com">
+                    <input id="subscribeEmail" type="email" placeholder="your@email.com" required>
                     <button id="subscribeBtn" class="btn-red">Subscribe</button>
                 </form>
             </section>
 
             <!-- CONTACT -->
             <section id="contact">
-                <h2 class="section-title">📞 Contact</h2>
+                <h2 class="section-title modern-title">📞 Contact</h2>
                 <p>Email: themirrorjk@gmail.com<br>Phone: +41 783 13 12 13</p>
                 <button id="contact-open" class="btn-red">Open Contact Form</button>
             </section>
@@ -199,17 +208,39 @@
             </div>
         </main>
 
-        <!-- CONTACT MODAL -->
+        <!-- CONTACT MODAL - ENHANCED -->
         <div id="contact-modal" class="modal hidden">
             <div class="modal-content">
                 <span id="contact-close" class="close">&times;</span>
                 <h3>Contact The Mirror Jammu Kashmir</h3>
-                <p>Email: themirrorjk@gmail.com</p>
-                <p>Phone: +41 783 13 12 13</p>
+                <form id="contact-form" class="contact-form">
+                    <div class="form-row">
+                        <input type="text" id="contact-name" placeholder="Name" required>
+                        <input type="text" id="contact-family" placeholder="Family Name" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="tel" id="contact-phone" placeholder="Phone Number" required>
+                        <input type="email" id="contact-email" placeholder="Email" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="contact-subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-row">
+                        <textarea id="contact-message" placeholder="Message" rows="5" required></textarea>
+                    </div>
+                    <div class="form-row file-attachment">
+                        <label for="contact-attachment">Attach File (PDF, JPG, PNG):</label>
+                        <input type="file" id="contact-attachment" accept=".pdf,.jpg,.jpeg,.png">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-red">Submit</button>
+                        <button type="button" class="btn-red btn-cancel" id="modal-cancel">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
 
-        <!-- FOOTER - MODERNIZED -->
+        <!-- FOOTER - MODERN -->
         <footer class="modern-footer">
             <div class="footer-content">
                 <div class="footer-section">
