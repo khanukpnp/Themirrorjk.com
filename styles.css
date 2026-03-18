@@ -1,6 +1,7 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
    FULL WIDTH - NO GREY AREAS - COMPACT CALENDARS
+   FOOTER WITH CLICK DROPDOWNS - BIGGER FONTS
    ============================================================ */
 
 /* ============================
@@ -15,7 +16,7 @@
 html, body {
     width: 100%;
     min-height: 100%;
-    background: white; /* Pure white background - no grey */
+    background: white;
 }
 
 body {
@@ -35,12 +36,12 @@ h1, h2, h3, h4, h5 {
    PAGE SHELL - FULL WIDTH
    ============================ */
 .page-shell {
-    max-width: 1400px; /* Increased from 1200px for wider layout */
+    max-width: 1400px;
     margin: 0 auto;
     background: white;
     box-shadow: none;
     width: 100%;
-    padding: 0; /* No padding to eliminate grey areas */
+    padding: 0;
 }
 
 /* ============================
@@ -115,7 +116,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .site-title {
-    font-size: 3rem; /* Larger for full screen */
+    font-size: 3rem;
     font-weight: 900;
     letter-spacing: -0.5px;
     color: #000;
@@ -136,25 +137,25 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   INFO BAR - COMPACT CALENDARS (SINGLE LINE)
+   INFO BAR - COMPACT CALENDARS
    ============================ */
 .info-bar {
     background: #f8f8f8;
-    padding: 6px 20px; /* Reduced padding */
+    padding: 6px 20px;
     border-bottom: 1px solid #ddd;
-    font-size: 0.8rem; /* Smaller font for single line */
+    font-size: 0.8rem;
     width: 100%;
 }
 
 .info-items {
     display: flex;
-    flex-wrap: nowrap; /* Force single line */
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    gap: 8px; /* Smaller gap */
+    gap: 8px;
     max-width: 1400px;
     margin: 0 auto;
-    overflow-x: auto; /* Allow scrolling on very small screens */
+    overflow-x: auto;
     padding: 2px 0;
     white-space: nowrap;
 }
@@ -162,7 +163,7 @@ h1, h2, h3, h4, h5 {
 .info-items span {
     color: #333;
     white-space: nowrap;
-    font-size: 0.8rem; /* Smaller font */
+    font-size: 0.8rem;
 }
 
 .info-items .separator {
@@ -179,12 +180,12 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   WEATHER BAR - COMPACT (SINGLE LINE)
+   WEATHER BAR
    ============================ */
 .weather-bar {
     background: #fff;
     border-bottom: 2px solid #b30000;
-    padding: 5px 20px; /* Reduced padding */
+    padding: 5px 20px;
 }
 
 .weather-bar .info-items span {
@@ -439,7 +440,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   MAIN CONTENT - REDUCED GAP
+   MAIN CONTENT
    ============================ */
 .home-main {
     max-width: 1400px;
@@ -476,7 +477,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   CARD GRID - WIDER LAYOUT
+   CARD GRID
    ============================ */
 .cards {
     display: grid;
@@ -812,14 +813,14 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   FOOTER - ULTRA COMPACT WITH DROPDOWN STYLE
+   FOOTER - WITH CLICK DROPDOWNS - BIGGER FONTS
    ============================ */
 .modern-footer {
     background: #800000;
     color: white;
-    padding: 8px 20px 4px; /* Extremely compact */
+    padding: 15px 20px 8px; /* Increased padding for bigger fonts */
     border-top: 2px solid #b30000;
-    font-size: 0.7rem;
+    font-size: 0.85rem; /* Bigger base font */
     width: 100%;
 }
 
@@ -828,8 +829,8 @@ h1, h2, h3, h4, h5 {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    padding-bottom: 4px;
+    gap: 15px; /* Increased gap */
+    padding-bottom: 10px;
     border-bottom: 1px solid #993333;
 }
 
@@ -838,83 +839,143 @@ h1, h2, h3, h4, h5 {
     flex-direction: column;
 }
 
+/* EXCLUDED from dropdown - THE MIRROR section */
+.footer-section:first-child h4,
+.footer-section:first-child ul,
+.footer-section:first-child p {
+    cursor: default;
+}
+
+.footer-section:first-child h4::after {
+    display: none; /* Remove dropdown arrow */
+}
+
+.footer-section:first-child ul {
+    display: block; /* Always visible */
+}
+
+/* EXCLUDED from dropdown - Copyright section (handled separately) */
+.footer-bottom {
+    cursor: default;
+}
+
+.footer-bottom span {
+    cursor: default;
+}
+
+/* Dropdown sections - Click to toggle */
 .footer-section h4 {
     color: white;
-    margin-bottom: 2px;
-    font-size: 0.75rem;
+    margin-bottom: 6px;
+    font-size: 0.95rem; /* Bigger headings */
     font-family: 'Playfair Display', serif;
     font-weight: 600;
     letter-spacing: 0.3px;
     text-transform: uppercase;
     cursor: pointer;
     position: relative;
+    display: inline-block;
+    transition: opacity 0.2s;
 }
 
 .footer-section h4:hover {
+    opacity: 0.9;
     text-decoration: underline;
 }
 
-/* Dropdown indicator */
-.footer-section h4::after {
-    content: '▼';
-    font-size: 0.5rem;
-    margin-left: 4px;
-    opacity: 0.7;
+/* Dropdown indicator - only for clickable sections */
+.footer-section:nth-child(2) h4::after,
+.footer-section:nth-child(3) h4::after,
+.footer-section:nth-child(4) h4::after {
+    content: '▶'; /* Right arrow for closed state */
+    font-size: 0.6rem;
+    margin-left: 6px;
+    opacity: 0.8;
     display: inline-block;
+    transition: transform 0.2s;
+}
+
+/* Rotate arrow when dropdown is open */
+.footer-section:nth-child(2) h4.open::after,
+.footer-section:nth-child(3) h4.open::after,
+.footer-section:nth-child(4) h4.open::after {
+    transform: rotate(90deg);
+    content: '▼';
+}
+
+/* Dropdown content - hidden by default */
+.footer-section:nth-child(2) ul,
+.footer-section:nth-child(3) ul,
+.footer-section:nth-child(4) ul,
+.footer-section:nth-child(2) .social-icons,
+.footer-section:nth-child(3) .social-icons,
+.footer-section:nth-child(4) .social-icons {
+    display: none;
+    margin-top: 5px;
+}
+
+/* When open class is added, show the content */
+.footer-section:nth-child(2).open ul,
+.footer-section:nth-child(3).open ul,
+.footer-section:nth-child(4).open ul,
+.footer-section:nth-child(2).open .social-icons,
+.footer-section:nth-child(3).open .social-icons,
+.footer-section:nth-child(4).open .social-icons {
+    display: block;
 }
 
 .footer-section ul {
     list-style: none;
-    margin-top: 2px;
     padding-left: 2px;
 }
 
 .footer-section ul li {
-    margin-bottom: 1px;
-    line-height: 1.2;
+    margin-bottom: 4px; /* Increased spacing */
+    line-height: 1.4;
 }
 
 .footer-section ul li a {
     color: white;
     text-decoration: none;
-    font-size: 0.65rem;
+    font-size: 0.85rem; /* Bigger link text */
     transition: opacity 0.2s;
     opacity: 0.9;
     display: block;
-    padding: 1px 0;
+    padding: 3px 0;
 }
 
 .footer-section ul li a:hover {
     opacity: 1;
     text-decoration: underline;
-    padding-left: 2px;
+    padding-left: 5px;
 }
 
 .footer-section p {
     color: white;
-    font-size: 0.65rem;
-    line-height: 1.2;
+    font-size: 0.85rem; /* Bigger text */
+    line-height: 1.4;
     opacity: 0.9;
-    margin: 1px 0;
+    margin: 3px 0;
 }
 
+/* Social icons in footer */
 .social-icons {
     display: flex;
-    gap: 4px;
-    margin-top: 2px;
+    gap: 8px;
+    margin-top: 5px;
 }
 
 .social-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
+    width: 28px; /* Bigger icons */
+    height: 28px; /* Bigger icons */
     background: #993333;
     color: white;
     border-radius: 50%;
     text-decoration: none;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     transition: background 0.2s;
 }
 
@@ -922,13 +983,14 @@ h1, h2, h3, h4, h5 {
     background: #b30000;
 }
 
+/* Footer bottom - always visible, no dropdown */
 .footer-bottom {
     max-width: 1400px;
-    margin: 4px auto 0;
+    margin: 10px auto 0;
     text-align: center;
     color: white;
-    font-size: 0.6rem;
-    padding-top: 4px;
+    font-size: 0.8rem; /* Bigger copyright */
+    padding-top: 8px;
     opacity: 0.8;
 }
 
@@ -1006,8 +1068,15 @@ h1, h2, h3, h4, h5 {
         justify-content: center;
     }
     
-    .footer-section h4::after {
+    .footer-section h4 {
+        display: inline-block;
+    }
+    
+    .footer-section:nth-child(2) h4::after,
+    .footer-section:nth-child(3) h4::after,
+    .footer-section:nth-child(4) h4::after {
         content: '▼';
+        font-size: 0.7rem;
     }
 }
 
