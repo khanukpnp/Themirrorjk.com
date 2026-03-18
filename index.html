@@ -6,6 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Force body to have no background color */
+        body {
+            background-color: white !important;
+        }
+        /* Make page-shell full width with no margins */
+        .page-shell {
+            max-width: 100% !important;
+            margin: 0 !important;
+            border-left: 1px solid #e0e0e0;
+            border-right: 1px solid #e0e0e0;
+            box-shadow: none;
+        }
+        /* Center the content inside page-shell */
+        .home-main, .navbar .nav-list, .info-items, .ticker, .tools-bar {
+            max-width: 1200px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+    </style>
 </head>
 <body>
     <!-- LOADER -->
@@ -18,6 +38,9 @@
             <p>Loading newsroom, clocks, calendars and headlines...</p>
         </div>
     </div>
+
+    <div class="page-shell">
+        <!-- rest of your content remains exactly the same -->
 
     <div class="page-shell">
         <!-- HEADER - ORIGINAL STYLE -->
