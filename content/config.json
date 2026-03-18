@@ -1,0 +1,132 @@
+{
+  "site": {
+    "name": "THE MIRROR JAMMU KASHMIR",
+    "tagline": "CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD",
+    "url": "https://themirrorjk.com",
+    "language": "en"
+  },
+  
+  "sections": {
+    "topStories": {
+      "enabled": true,
+      "title": "⭐ Top Stories",
+      "columns": 3,
+      "content": ["article-001", "breaking-001", "blog-001"]
+    },
+    "latestEditorialHistorical": {
+      "enabled": true,
+      "title": "🕒 Latest · 🖋️ Editorial · 🏛️ Historical",
+      "columns": 3,
+      "content": ["latest-001", "editorial-001", "historical-001"]
+    },
+    "jammuKashmir": {
+      "enabled": true,
+      "title": "📍 Jammu Kashmir",
+      "columns": 2,
+      "content": ["jk-001", null]
+    },
+    "vlogs": {
+      "enabled": true,
+      "title": "🎥 Video Reports & Vlogs",
+      "columns": 3,
+      "source": "youtube.json"
+    },
+    "international": {
+      "enabled": true,
+      "title": "🌍 International News",
+      "columns": 2,
+      "content": ["international-001", null]
+    },
+    "humanRights": {
+      "enabled": true,
+      "title": "❤️ Human Rights",
+      "columns": 2,
+      "content": ["humanrights-001", null]
+    }
+  },
+  
+  "navigation": {
+    "home": {
+      "label": "🏠 Home",
+      "dropdown": ["about.html", "chief-editor.html", "our-team.html", "#contact"]
+    },
+    "breakingNews": "🆕 Breaking News",
+    "blog": {
+      "label": "📝 Blog",
+      "dropdown": ["editorial.html", "opinion.html", "#latest"]
+    },
+    "vlog": {
+      "label": "🎥 Vlog",
+      "dropdown": ["#vlogs", "archive.html"]
+    },
+    "ePaper": "📰 E-Paper",
+    "jammuKashmir": {
+      "label": "📍 Jammu Kashmir",
+      "dropdown": ["#regions", "#history", "#culture"]
+    },
+    "unHR": {
+      "label": "🕊️ UN & HR",
+      "dropdown": ["#unhrc", "#reports", "#advocacy"]
+    }
+  },
+  
+  "weather": {
+    "cities": [
+      { "name": "Zurich", "temp": "6°C" },
+      { "name": "Rawalakot", "temp": "9°C" },
+      { "name": "Jammu", "temp": "18°C" },
+      { "name": "Kashmir", "temp": "4°C" },
+      { "name": "Ladakh", "temp": "-2°C" },
+      { "name": "Gilgit", "temp": "3°C" },
+      { "name": "Baltistan", "temp": "-1°C" },
+      { "name": "Muzaffarabad", "temp": "10°C" }
+    ]
+  },
+  
+  "ticker": {
+    "speed": 40,
+    "items": [
+      "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
+      "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
+      "OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR",
+      "HOPE BECOMES REAL THROUGH ACTION, PERSISTENCE AND PRINCIPLED JOURNALISM",
+      "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS --- UDHR ARTICLE 1",
+      "EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE"
+    ]
+  },
+  
+  "footer": {
+    "sections": [
+      {
+        "title": "THE MIRROR",
+        "content": "<p>Champion Justice & Amplify the Unheard</p>"
+      },
+      {
+        "title": "Quick Links",
+        "type": "dropdown",
+        "links": [
+          { "label": "Top Stories", "url": "#top-stories" },
+          { "label": "Vlogs", "url": "#vlogs" },
+          { "label": "International", "url": "#international" },
+          { "label": "Human Rights", "url": "#human-rights" }
+        ]
+      },
+      {
+        "title": "Contact",
+        "type": "dropdown",
+        "content": "<p>themirrorjk@gmail.com<br>+41 783 13 12 13</p>"
+      },
+      {
+        "title": "Follow",
+        "type": "dropdown",
+        "social": [
+          { "icon": "📘", "url": "#" },
+          { "icon": "🐦", "url": "#" },
+          { "icon": "📷", "url": "#" },
+          { "icon": "▶️", "url": "#" }
+        ]
+      }
+    ],
+    "copyright": "© {year} THE MIRROR JAMMU KASHMIR"
+  }
+}
