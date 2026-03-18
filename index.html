@@ -19,110 +19,97 @@
     </div>
 
     <div class="page-shell">
-        <!-- HEADER -->
+        <!-- HEADER - ORIGINAL STYLE FROM PNG -->
         <header class="site-header">
             <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
             <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
         </header>
 
-        <!-- DATE/TIME BAR -->
+        <!-- DATE/TIME BAR - MATCHING ORIGINAL PNG -->
         <div class="datetime-bar">
-            <ul class="datetime-list">
-                <li id="clock-cest">🕒 <span>Loading CEST...</span></li>
+            <ul class="datetime-list" id="datetime-list">
+                <li id="clock-cest"><span>Loading CEST...</span></li>
                 <li class="separator">•</li>
-                <li id="cal-hijri">📅 <span>Loading Hijri...</span></li>
+                <li id="cal-hijri"><span>Loading Hijri...</span></li>
                 <li class="separator">•</li>
-                <li id="cal-bikrami">📅 <span>Loading Bikrami...</span></li>
+                <li id="cal-bikrami"><span>Loading Bikrami...</span></li>
                 <li class="separator">•</li>
-                <li id="tz-ist">🕒 IST (Jammu-Kashmir-Ladakh): <span>--:--:--</span></li>
+                <li id="tz-ist">IST (Jammu-Kashmir-Ladakh): <span>--:--:--</span></li>
                 <li class="separator">•</li>
-                <li id="tz-pkt">🕒 PKT (Gilgit-Baltistan & AJK): <span>--:--:--</span></li>
+                <li id="tz-pkt">PKT (Gilgit-Baltistan & AJK): <span>--:--:--</span></li>
             </ul>
         </div>
 
-        <!-- WEATHER BAR -->
+        <!-- WEATHER BAR - ALL REGIONS FROM PNG -->
         <div class="weather-bar">
-            <ul class="weather-list" id="weather-bar"></ul>
+            <ul class="weather-list" id="weather-bar">
+                <!-- Populated by JavaScript -->
+            </ul>
         </div>
 
-        <!-- TICKER -->
+        <!-- BREAKING TICKER - ORIGINAL STYLE -->
         <div class="ticker-wrap">
             <div class="ticker">
                 <span class="ticker-label">🆕 BREAKING</span>
-                <ul class="ticker-items" id="ticker-items"></ul>
+                <div class="ticker-items" id="ticker-items"></div>
             </div>
         </div>
 
-        <!-- TOOLS BAR -->
+        <!-- LANGUAGE & SEARCH TOOLS -->
         <div class="tools-bar">
-            <label class="lang-select">
+            <div class="lang-select">
                 🌍
                 <select id="language-select">
                     <option value="en" selected>English</option>
                     <option value="de">German</option>
                     <option value="fr">French</option>
-                    <option value="ru">Russian</option>
-                    <option value="he">Hebrew</option>
-                    <option value="es">Spanish</option>
-                    <option value="nl">Dutch</option>
                     <option value="ur">Urdu</option>
                     <option value="hi">Hindi</option>
                     <option value="ar">Arabic</option>
                 </select>
-            </label>
+            </div>
             <form class="search" onsubmit="event.preventDefault();">
                 <input id="search-input" type="search" placeholder="Search...">
                 <button type="submit">🔍</button>
             </form>
         </div>
 
-        <!-- NAVIGATION -->
-        <nav class="modern-nav">
+        <!-- NAVIGATION - ORIGINAL STYLE -->
+        <nav class="navbar">
             <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
             <ul class="nav-list" id="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-btn">🏠 Home</a></li>
+                <li class="nav-item"><a href="breaking.html" class="nav-btn">🆕 Breaking News</a></li>
                 <li class="nav-item has-sub">
-                    <button class="nav-btn">🏠 Home</button>
+                    <a href="#" class="nav-btn">📝 Blog</a>
                     <div class="dropdown">
-                        <a href="about.html">About</a>
-                        <a href="chief-editor.html">Chief Editor</a>
-                        <a href="#contact">Contact</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-btn" href="breaking.html">🆕 Breaking News</a>
-                </li>
-                <li class="nav-item has-sub">
-                    <button class="nav-btn">📝 Blog</button>
-                    <div class="dropdown wide">
                         <a href="editorial.html">Editorial</a>
-                        <a href="blog.html">Opinion</a>
-                        <a href="#latest-editorial-historical">Latest Updates</a>
+                        <a href="opinion.html">Opinion</a>
+                        <a href="#latest">Latest Updates</a>
                     </div>
                 </li>
                 <li class="nav-item has-sub">
-                    <button class="nav-btn">🎥 Vlog</button>
+                    <a href="#" class="nav-btn">🎥 Vlog</a>
                     <div class="dropdown">
                         <a href="#vlogs">Latest Vlogs</a>
-                        <a href="vlog-archive.html">Archive</a>
+                        <a href="archive.html">Archive</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-btn" href="#epaper">📰 E-Paper</a>
-                </li>
+                <li class="nav-item"><a href="#epaper" class="nav-btn">📰 E-Paper</a></li>
                 <li class="nav-item has-sub">
-                    <button class="nav-btn">📍 Jammu Kashmir</button>
+                    <a href="#" class="nav-btn">📍 Jammu Kashmir</a>
                     <div class="dropdown wide">
-                        <a href="#jammu-kashmir">Regions</a>
-                        <a href="#jammu-kashmir">History</a>
-                        <a href="#jammu-kashmir">Culture</a>
+                        <a href="#regions">Regions</a>
+                        <a href="#history">History</a>
+                        <a href="#culture">Culture</a>
                     </div>
                 </li>
                 <li class="nav-item has-sub">
-                    <button class="nav-btn">🕊️ UN & Human Rights</button>
+                    <a href="#" class="nav-btn">🕊️ UN & Human Rights</a>
                     <div class="dropdown">
-                        <a href="#human-rights">UNHRC</a>
-                        <a href="#human-rights">Reports</a>
-                        <a href="#human-rights">Advocacy</a>
+                        <a href="#unhrc">UNHRC</a>
+                        <a href="#reports">Reports</a>
+                        <a href="#advocacy">Advocacy</a>
                     </div>
                 </li>
             </ul>
@@ -131,55 +118,84 @@
 
         <!-- MAIN CONTENT -->
         <main class="home-main">
-            <!-- TOP STORIES -->
+            <!-- TOP STORIES SECTION - EXACTLY AS PNG -->
             <section id="top-stories">
-                <div class="section-title">⭐ Top Stories</div>
-                <div class="cards three">
-                    <article class="card">
-                        <div class="media placeholder" id="lead-media">
-                            <img src="https://via.placeholder.com/400x200?text=Lead+Story" alt="Lead Story">
-                        </div>
-                        <div class="card-body" id="lead-body">
-                            <h3>Complete Shutter Down Paralyses Rawalakot Poonch</h3>
-                            <p>Thousands shut down Rawalakot in protest against prolonged electricity outages...</p>
-                            <a class="btn-red" href="article.html?id=lead">Read More →</a>
-                        </div>
-                    </article>
-                    <article class="card">
-                        <div class="media placeholder" id="breaking-media">
-                            <img src="https://via.placeholder.com/400x200?text=Breaking+News" alt="Breaking News">
-                        </div>
-                        <div class="card-body" id="breaking-body">
-                            <h3>UKPNP Delegation Meets Baroness Emma Nicholson</h3>
-                            <p>High level delegation discusses Kashmir crisis in London House of Lords...</p>
-                            <a class="btn-red" href="article.html?id=breaking">Read More →</a>
-                        </div>
-                    </article>
-                    <article class="card">
-                        <div class="media placeholder" id="opinion-media">
-                            <img src="https://via.placeholder.com/400x200?text=Opinion" alt="Opinion">
-                        </div>
-                        <div class="card-body" id="opinion-body">
-                            <h3>UKPNP Delegation Briefs British MPs</h3>
-                            <p>Delegation briefs MPs on historical roots of Kashmir conflict...</p>
-                            <a class="btn-red" href="article.html?id=opinion">Read More →</a>
-                        </div>
-                    </article>
+                <h2 class="section-title">⭐ Top Stories</h2>
+                <div class="cards three" id="top-stories-grid">
+                    <!-- Will be populated by JavaScript -->
                 </div>
             </section>
 
-            <!-- VLOGS -->
+            <!-- LATEST / EDITORIAL / HISTORICAL SECTION -->
+            <section id="latest-editorial-historical">
+                <h2 class="section-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</h2>
+                <div class="cards three" id="leh-grid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- JAMMU KASHMIR SECTION -->
+            <section id="jammu-kashmir">
+                <h2 class="section-title">📍 Jammu Kashmir</h2>
+                <div class="cards two" id="jk-grid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- VLOGS SECTION - MATCHING PNG -->
             <section id="vlogs">
-                <div class="section-title">🎥 Video Reports & Vlogs</div>
+                <h2 class="section-title">🎥 Video Reports & Vlogs</h2>
                 <div class="vlog-toolbar">
                     <button class="btn-red" id="vlog-visit-channel">🎥 Visit Channel</button>
                 </div>
-                <div class="cards three vlogs-grid" id="vlogs-grid"></div>
+                <div class="cards three vlogs-grid" id="vlogs-grid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
             </section>
 
-            <!-- CONTACT -->
+            <!-- INTERNATIONAL SECTION -->
+            <section id="international">
+                <h2 class="section-title">🌍 International News</h2>
+                <div class="cards two" id="intl-grid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- HUMAN RIGHTS SECTION -->
+            <section id="human-rights">
+                <h2 class="section-title">❤️ Human Rights</h2>
+                <div class="cards two" id="hr-grid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- ARCHIVE SECTION -->
+            <section id="archive">
+                <h2 class="section-title">📁 Archive</h2>
+                <div id="archive-list"></div>
+            </section>
+
+            <!-- EPAPER SECTION -->
+            <section id="epaper">
+                <h2 class="section-title">📰 E-Paper Upload</h2>
+                <form class="epaper-form">
+                    <input type="file" accept="application/pdf">
+                    <button class="btn-red">Upload</button>
+                </form>
+            </section>
+
+            <!-- NEWSLETTER SECTION -->
+            <section id="newsletter">
+                <h2 class="section-title">✉️ Newsletter</h2>
+                <form class="newsletter-form">
+                    <input id="subscribeEmail" type="email" placeholder="your@email.com">
+                    <button id="subscribeBtn" class="btn-red">Subscribe</button>
+                </form>
+            </section>
+
+            <!-- CONTACT SECTION -->
             <section id="contact">
-                <div class="section-title">📞 Contact</div>
+                <h2 class="section-title">📞 Contact</h2>
                 <p>Email: themirrorjk@gmail.com<br>Phone: +41 783 13 12 13</p>
                 <button id="contact-open" class="btn-red">Open Contact Form</button>
             </section>
@@ -197,7 +213,7 @@
         <div id="contact-modal" class="modal hidden">
             <div class="modal-content">
                 <span id="contact-close" class="close">&times;</span>
-                <h2>Contact The Mirror Jammu Kashmir</h2>
+                <h3>Contact The Mirror Jammu Kashmir</h3>
                 <p>Email: themirrorjk@gmail.com</p>
                 <p>Phone: +41 783 13 12 13</p>
             </div>
