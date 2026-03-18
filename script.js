@@ -1071,13 +1071,4 @@ function renderAboutPage(data) {
                     itemsHtml += '<li>' + item + '</li>';
                 });
                 itemsHtml += '</ul></div>';
-                html += itemsHtml;
-            }
-        });
-        contentEl.innerHTML = html;
-    }
-}
-
-/* ============================
-   CHIEF EDITOR PAGE LOADER
-  
+                html
