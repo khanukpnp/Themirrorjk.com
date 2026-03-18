@@ -1,6 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT
-   FIXED WITH PROPER CALENDAR DISPLAY
+   FINAL VERSION WITH ALL FIXES
    ============================================================ */
 
 // Wait for DOM to be fully loaded
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
     initFileUpload();
     initNewsletter();
     
-    // Load homepage content with fallback
+    // Load homepage content
     loadHomepageContent();
     
     // Set up clock to update every second
@@ -38,7 +38,6 @@ function initLoader() {
     const loader = document.getElementById("site-loader");
     if (!loader) return;
     
-    // Force hide loader after 2 seconds maximum
     setTimeout(function() {
         loader.style.opacity = "0";
         setTimeout(function() {
@@ -58,7 +57,7 @@ function initYear() {
 }
 
 /* ============================
-   CLOCKS - MATCHING ORIGINAL PNG FORMAT
+   CLOCKS - SINGLE LINE
    ============================ */
 function initClocks() {
     updateClocks();
@@ -68,7 +67,6 @@ function initClocks() {
 function updateClocks() {
     const now = new Date();
     
-    // Format: Wednesday, 18 March 2026 at 07:18:39
     const options = {
         weekday: 'long',
         year: 'numeric',
@@ -76,7 +74,7 @@ function updateClocks() {
         day: 'numeric'
     };
     
-    // CEST Clock (Zurich) with full date
+    // CEST Clock with full date
     const cestEl = document.getElementById("clock-cest");
     if (cestEl) {
         const zurichTime = now.toLocaleTimeString("en-GB", {
@@ -89,7 +87,7 @@ function updateClocks() {
         cestEl.textContent = fullDate + " at " + zurichTime;
     }
     
-    // IST (Jammu-Kashmir-Ladakh)
+    // IST
     const istSpan = document.querySelector("#tz-ist span");
     if (istSpan) {
         const istTime = now.toLocaleTimeString("en-IN", {
@@ -98,13 +96,12 @@ function updateClocks() {
             minute: "2-digit",
             second: "2-digit"
         });
-        // Add am/pm
         const hours = now.getHours();
         const ampm = hours >= 12 ? 'pm' : 'am';
         istSpan.textContent = istTime + ' ' + ampm;
     }
     
-    // PKT (Gilgit-Baltistan & Azad Kashmir)
+    // PKT
     const pktSpan = document.querySelector("#tz-pkt span");
     if (pktSpan) {
         const pktTime = now.toLocaleTimeString("en-PK", {
@@ -113,7 +110,6 @@ function updateClocks() {
             minute: "2-digit",
             second: "2-digit"
         });
-        // Add am/pm
         const hours = now.getHours();
         const ampm = hours >= 12 ? 'pm' : 'am';
         pktSpan.textContent = pktTime + ' ' + ampm;
@@ -129,7 +125,6 @@ function updateHijri() {
     
     try {
         const now = new Date();
-        // Format: Ramadan 27, 1447 AH
         const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
             day: "numeric",
             month: "long",
@@ -137,7 +132,6 @@ function updateHijri() {
         }).format(now);
         hijriEl.textContent = hijriDate + " AH";
     } catch(e) {
-        // Fallback to fixed date matching original screenshot
         hijriEl.textContent = "Ramadan 27, 1447 AH";
     }
 }
@@ -149,38 +143,33 @@ function updateBikrami() {
     const vsEl = document.getElementById("cal-bikrami");
     if (!vsEl) return;
     
-    // Proper Bikrami Punjabi Desi calendar - using "Iyeshtha" not "Jeth"
-    // Match original screenshot: "16 Iyeshtha 2083 VS"
-    
-    // You can make this dynamic, but for now use the exact date from screenshot
     const today = new Date();
     const day = today.getDate();
     
-    // Bikrami month mapping - using Iyeshtha (correct spelling)
+    // Correct Bikrami months with Iyeshtha
     const months = [
         "Chet", "Vaisakh", "Iyeshtha", "Harh", "Sawan", "Bhadon",
         "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"
     ];
     
-    // Use the correct month based on current date
-    // For March, it should be Iyeshtha (month index 2)
-    const monthIndex = 2; // Iyeshtha for March
+    // Use current month
+    const monthIndex = today.getMonth();
     const monthName = months[monthIndex];
     
-    // Bikrami year = Gregorian + 57
+    // Bikrami year
     const bikramiYear = today.getFullYear() + 57;
     
-    // Format: 16 Iyeshtha 2083 VS
     vsEl.textContent = day + " " + monthName + " " + bikramiYear + " VS";
 }
 
 /* ============================
-   WEATHER BAR - ALL REGIONS IN ONE LINE
+   WEATHER BAR - FIXED DUPLICATES
    ============================ */
 function initWeatherBar() {
     const bar = document.getElementById("weather-bar");
     if (!bar) return;
     
+    // Unique cities - no duplicates
     const cities = [
         { name: "Zurich", temp: "6°C" },
         { name: "Rawalakot", temp: "9°C" },
@@ -204,7 +193,7 @@ function initWeatherBar() {
 }
 
 /* ============================
-   TICKER - USING HARDCODED VALUES
+   TICKER
    ============================ */
 const TICKER_ITEMS = [
     "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
@@ -235,7 +224,6 @@ function initTicker() {
     const tickerItems = document.getElementById("ticker-items");
     if (!tickerItems) return;
     
-    // Use hardcoded items
     renderTickerItems(TICKER_ITEMS);
 }
 
@@ -243,7 +231,6 @@ function renderTickerItems(items) {
     const tickerItems = document.getElementById("ticker-items");
     if (!tickerItems) return;
     
-    // Duplicate items for seamless scrolling
     const allItems = items.concat(items);
     let html = '';
     allItems.forEach(function(t) {
@@ -252,4 +239,103 @@ function renderTickerItems(items) {
     tickerItems.innerHTML = html;
 }
 
-// ... (rest of the JavaScript functions remain the same as in the previous version) 
+/* ============================
+   NAVIGATION
+   ============================ */
+function initNav() {
+    const hamburger = document.getElementById("hamburger");
+    const navList = document.getElementById("nav-list");
+    const mobileMenu = document.getElementById("mobile-menu");
+    
+    if (!hamburger || !navList || !mobileMenu) return;
+    
+    hamburger.addEventListener("click", function() {
+        const expanded = hamburger.getAttribute("aria-expanded") === "true";
+        hamburger.setAttribute("aria-expanded", String(!expanded));
+        
+        if (expanded) {
+            mobileMenu.hidden = true;
+            mobileMenu.innerHTML = "";
+        } else {
+            mobileMenu.hidden = false;
+            const items = navList.querySelectorAll(".nav-item");
+            let mobileHTML = '<ul class="nav-list">';
+            items.forEach(function(item) {
+                const link = item.querySelector(".nav-btn");
+                if (link) {
+                    const href = link.getAttribute('href') || '#';
+                    const text = link.textContent;
+                    mobileHTML += '<li class="nav-item"><a href="' + href + '" class="nav-btn">' + text + '</a></li>';
+                }
+            });
+            mobileHTML += '</ul>';
+            mobileMenu.innerHTML = mobileHTML;
+        }
+    });
+    
+    // Dropdown handling
+    const dropdowns = document.querySelectorAll(".has-sub");
+    dropdowns.forEach(function(item) {
+        const btn = item.querySelector(".nav-btn");
+        const dropdown = item.querySelector(".dropdown");
+        
+        if (btn && dropdown) {
+            btn.addEventListener("click", function(e) {
+                e.preventDefault();
+                document.querySelectorAll(".dropdown").forEach(function(d) {
+                    if (d !== dropdown) d.style.display = "none";
+                });
+                dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+            });
+        }
+    });
+    
+    document.addEventListener("click", function(e) {
+        if (!e.target.closest(".has-sub")) {
+            document.querySelectorAll(".dropdown").forEach(function(d) {
+                d.style.display = "none";
+            });
+        }
+    });
+}
+
+/* ============================
+   CONTACT MODAL
+   ============================ */
+function initContactModal() {
+    const openBtn = document.getElementById("contact-open");
+    const closeBtn = document.getElementById("contact-close");
+    const modal = document.getElementById("contact-modal");
+    const cancelBtn = document.getElementById("modal-cancel");
+    const contactForm = document.getElementById("contact-form");
+    
+    if (!openBtn || !closeBtn || !modal) return;
+    
+    openBtn.addEventListener("click", function() {
+        modal.classList.remove("hidden");
+    });
+    
+    closeBtn.addEventListener("click", function() {
+        modal.classList.add("hidden");
+    });
+    
+    if (cancelBtn) {
+        cancelBtn.addEventListener("click", function() {
+            modal.classList.add("hidden");
+        });
+    }
+    
+    modal.addEventListener("click", function(e) {
+        if (e.target === modal) {
+            modal.classList.add("hidden");
+        }
+    });
+    
+    if (contactForm) {
+        contactForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            alert("Thank you for your message. We will get back to you soon!");
+            modal.classList.add("hidden");
+            contactForm.reset();
+        });
+    } 
