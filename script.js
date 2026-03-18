@@ -1,6 +1,7 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT
    RESTORED CALENDARS, WEATHER, AND ALL CONTENT
+   WITH WORKING TICKER AND FOOTER DROPDOWNS
    ============================================================ */
 
 // Wait for DOM to be fully loaded
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
     initSocialButtons();
     initFileUpload();
     initNewsletter();
+    initFooterDropdowns(); // Add footer dropdown initialization
     
     // Load all content from JSON files
     loadHomepageContent();
@@ -200,52 +202,63 @@ function initWeatherBar() {
 }
 
 /* ============================
-   TICKER - LOAD FROM JSON
+   TICKER - FIXED SCROLLING
    ============================ */
+const TICKER_ITEMS = [
+    "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
+    "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
+    "OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR",
+    "HOPE BECOMES REAL THROUGH ACTION, PERSISTENCE AND PRINCIPLED JOURNALISM",
+    "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS --- UDHR ARTICLE 1",
+    "EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE",
+    "DEMOCRACY DERIVES LEGITIMACY FROM THE WILL AND PARTICIPATION OF THE PEOPLE",
+    "DEMOCRACY CANNOT SURVIVE WHERE HUMAN RIGHTS ARE VIOLATED OR POPULATIONS EXCLUDED",
+    "THE MIRROR JAMMU KASHMIR STANDS AGAINST THE GLOBAL EROSION OF HUMAN RIGHTS",
+    "NEO-COLONIAL PRACTICES AND MODERN FORMS OF SLAVERY REMAIN PRESENT-DAY REALITIES",
+    "JAMMU KASHMIR --- A MULTI-RELIGIOUS, MULTI-CULTURAL, MULTI-LINGUAL AND MULTI-ETHNIC SOCIETY",
+    "SINCE 1947 THE PEOPLE OF JAMMU KASHMIR HAVE REMAINED FORCIBLY DIVIDED",
+    "FREEDOM OF MOVEMENT ACROSS DIFFERENT PARTS OF THE STATE OF JAMMU KASHMIR HAS BEEN DENIED SINCE 1947",
+    "FREEDOM OF EXPRESSION, PEACEFUL ASSEMBLY AND ASSOCIATION ARE RESTRICTED",
+    "INDEPENDENT JOURNALISM IS INCREASINGLY MARGINALIZED --- FREEDOM OF THE PRESS IS ESSENTIAL",
+    "WE PRESENT VERIFIED FACTS, TREATIES AND GROUND REALITIES",
+    "WE REMIND STATES OF THEIR RESPONSIBILITIES UNDER INTERNATIONAL LAW AND UN OBLIGATIONS",
+    "WE ASSESS POLICIES AGAINST PROMISES AND ACTIONS AGAINST PLEDGES",
+    "WE DO NOT MANUFACTURE NARRATIVES --- WE REFLECT REALITY",
+    "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH",
+    "GOT NEWS, FEEDBACK OR URGENT UPDATES? CONTACT THE MIRROR JAMMU KASHMIR",
+    "FOLLOW US ON YOUTUBE --- THE MIRROR JAMMU KASHMIR --- SUBSCRIBE, LIKE AND SHARE"
+];
+
 function initTicker() {
     const tickerItems = document.getElementById("ticker-items");
     if (!tickerItems) return;
     
-    // Try to load from ticker.json
-    fetch("content/ticker.json")
-        .then(function(response) {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("Ticker JSON not found");
-        })
-        .then(function(data) {
-            const items = data.items || data;
-            renderTickerItems(items);
-        })
-        .catch(function() {
-            // Fallback to default ticker items
-            const defaultItems = [
-                "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
-                "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
-                "OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR",
-                "HOPE BECOMES REAL THROUGH ACTION, PERSISTENCE AND PRINCIPLED JOURNALISM",
-                "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS --- UDHR ARTICLE 1",
-                "EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE"
-            ];
-            renderTickerItems(defaultItems);
-        });
-}
-
-function renderTickerItems(items) {
-    const tickerItems = document.getElementById("ticker-items");
-    if (!tickerItems) return;
+    // Clear existing content
+    tickerItems.innerHTML = '';
     
-    // Ensure items is an array
-    const itemArray = Array.isArray(items) ? items : [items];
-    
-    // Duplicate for seamless scrolling
-    const allItems = itemArray.concat(itemArray);
+    // Create ticker content with duplication for seamless scrolling
     let html = '';
-    allItems.forEach(function(t) {
-        html += '<span>' + t + ' • </span>';
-    });
+    
+    // Add items twice for seamless loop
+    for (let i = 0; i < 2; i++) {
+        TICKER_ITEMS.forEach(function(item) {
+            html += '<span>' + item + ' • </span>';
+        });
+    }
+    
     tickerItems.innerHTML = html;
+    
+    // Ensure animation is applied
+    tickerItems.style.animation = 'ticker-scroll 40s linear infinite';
+    
+    // Pause animation on hover (optional)
+    tickerItems.addEventListener('mouseenter', function() {
+        this.style.animationPlayState = 'paused';
+    });
+    
+    tickerItems.addEventListener('mouseleave', function() {
+        this.style.animationPlayState = 'running';
+    });
 }
 
 /* ============================
@@ -553,6 +566,63 @@ function initNewsletter() {
             emailInput.value = "";
         } else {
             alert("Please enter a valid email address.");
+        }
+    });
+}
+
+/* ============================
+   FOOTER DROPDOWNS - CLICK TO TOGGLE
+   ============================ */
+function initFooterDropdowns() {
+    // Get all footer sections
+    const footerSections = document.querySelectorAll('.footer-section');
+    
+    footerSections.forEach(function(section, index) {
+        // Skip the first section (THE MIRROR) - index 0
+        if (index === 0) return;
+        
+        const heading = section.querySelector('h4');
+        if (!heading) return;
+        
+        heading.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Toggle open class on the section
+            section.classList.toggle('open');
+            
+            // Toggle arrow direction
+            if (section.classList.contains('open')) {
+                heading.classList.add('open');
+            } else {
+                heading.classList.remove('open');
+            }
+            
+            // Close other dropdowns (optional - comment out if you want multiple open)
+            footerSections.forEach(function(otherSection, otherIndex) {
+                if (otherIndex !== index && otherIndex !== 0) {
+                    otherSection.classList.remove('open');
+                    const otherHeading = otherSection.querySelector('h4');
+                    if (otherHeading) {
+                        otherHeading.classList.remove('open');
+                    }
+                }
+            });
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.footer-section')) {
+            footerSections.forEach(function(section, index) {
+                if (index !== 0) {
+                    section.classList.remove('open');
+                    const heading = section.querySelector('h4');
+                    if (heading) {
+                        heading.classList.remove('open');
+                    }
+                }
+            });
         }
     });
 }
