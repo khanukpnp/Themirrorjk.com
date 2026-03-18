@@ -1,7 +1,7 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT
    RESTORED CALENDARS, WEATHER, AND ALL CONTENT
-   WITH WORKING TICKER AND FOOTER DROPDOWNS
+   WITH WORKING TICKER, FOOTER DROPDOWNS, AND ARTICLE PAGE
    ============================================================ */
 
 // Wait for DOM to be fully loaded
@@ -24,10 +24,30 @@ document.addEventListener("DOMContentLoaded", function() {
     initSocialButtons();
     initFileUpload();
     initNewsletter();
-    initFooterDropdowns(); // Add footer dropdown initialization
+    initFooterDropdowns();
     
     // Load all content from JSON files
     loadHomepageContent();
+    
+    // Check if we're on article page and load article
+    if (window.location.pathname.includes("article.html") || window.location.search.includes("id=")) {
+        initArticlePage();
+    }
+    
+    // Check if we're on about page
+    if (window.location.pathname.includes("about.html")) {
+        loadAboutPage();
+    }
+    
+    // Check if we're on chief editor page
+    if (window.location.pathname.includes("chief-editor.html")) {
+        loadChiefEditorPage();
+    }
+    
+    // Check if we're on our team page
+    if (window.location.pathname.includes("our-team.html")) {
+        loadOurTeamPage();
+    }
     
     // Set up clock to update every second
     setInterval(updateClocks, 1000);
@@ -1095,5 +1115,13 @@ function createArticleCard(article, label) {
     `;
 }
 
-// Export functions for use in other pages
-window.copyPageLink = copyPageLink;
+/* ============================
+   ABOUT PAGE LOADER
+   ============================ */
+function loadAboutPage() {
+    fetch("content/about-001.json")
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error
