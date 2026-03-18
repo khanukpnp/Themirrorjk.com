@@ -1071,4 +1071,7 @@ function renderAboutPage(data) {
                     itemsHtml += '<li>' + item + '</li>';
                 });
                 itemsHtml += '</ul></div>';
-                html
+                html += itemsHtml;
+            }
+        });
+        content
