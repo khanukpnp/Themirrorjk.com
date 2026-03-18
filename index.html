@@ -6,26 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Force body to have no background color */
-        body {
-            background-color: white !important;
-        }
-        /* Make page-shell full width with no margins */
-        .page-shell {
-            max-width: 100% !important;
-            margin: 0 !important;
-            border-left: 1px solid #e0e0e0;
-            border-right: 1px solid #e0e0e0;
-            box-shadow: none;
-        }
-        /* Center the content inside page-shell */
-        .home-main, .navbar .nav-list, .info-items, .ticker, .tools-bar {
-            max-width: 1200px !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
-    </style>
 </head>
 <body>
     <!-- LOADER -->
@@ -40,16 +20,13 @@
     </div>
 
     <div class="page-shell">
-        <!-- rest of your content remains exactly the same -->
-
-    <div class="page-shell">
-        <!-- HEADER - ORIGINAL STYLE -->
+        <!-- HEADER -->
         <header class="site-header">
             <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
             <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
         </header>
 
-        <!-- CLOCKS AND CALENDARS - SINGLE LINE WITH REGION NAMES -->
+        <!-- CLOCKS AND CALENDARS -->
         <div class="info-bar clocks-calendars">
             <div class="info-items">
                 <span id="clock-cest"></span>
@@ -64,7 +41,7 @@
             </div>
         </div>
 
-        <!-- WEATHER BAR - SINGLE LINE WITH ALL REGIONS (NO DUPLICATES) -->
+        <!-- WEATHER BAR -->
         <div class="info-bar weather-bar">
             <div class="info-items" id="weather-bar"></div>
         </div>
@@ -96,7 +73,7 @@
             </form>
         </div>
 
-        <!-- NAVIGATION BAR - MAROON WITH BLACK CORNERS -->
+        <!-- NAVIGATION BAR -->
         <nav class="navbar">
             <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
             <ul class="nav-list" id="nav-list">
@@ -146,30 +123,24 @@
             <div id="mobile-menu" class="mobile-menu" hidden></div>
         </nav>
 
-        <!-- MAIN CONTENT - WITH ALL WINDOWS RESTORED -->
+        <!-- MAIN CONTENT - ALL WINDOWS STRUCTURED -->
         <main class="home-main">
             <!-- TOP STORIES SECTION - 3 WINDOWS -->
             <section id="top-stories">
                 <h2 class="section-title modern-title">⭐ Top Stories</h2>
-                <div class="cards three" id="top-stories-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards three" id="top-stories-grid"></div>
             </section>
 
             <!-- LATEST / EDITORIAL / HISTORICAL - 3 WINDOWS -->
             <section id="latest-editorial-historical">
                 <h2 class="section-title modern-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</h2>
-                <div class="cards three" id="leh-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards three" id="leh-grid"></div>
             </section>
 
             <!-- JAMMU KASHMIR - 2 WINDOWS -->
             <section id="jammu-kashmir">
                 <h2 class="section-title modern-title">📍 Jammu Kashmir</h2>
-                <div class="cards two" id="jk-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards two" id="jk-grid"></div>
             </section>
 
             <!-- VLOGS SECTION - 3 WINDOWS -->
@@ -178,25 +149,19 @@
                 <div class="vlog-toolbar">
                     <button class="btn-red" id="vlog-visit-channel">🎥 Visit Channel</button>
                 </div>
-                <div class="cards three vlogs-grid" id="vlogs-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards three vlogs-grid" id="vlogs-grid"></div>
             </section>
 
             <!-- INTERNATIONAL NEWS - 2 WINDOWS -->
             <section id="international">
                 <h2 class="section-title modern-title">🌍 International News</h2>
-                <div class="cards two" id="intl-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards two" id="intl-grid"></div>
             </section>
 
             <!-- HUMAN RIGHTS - 2 WINDOWS -->
             <section id="human-rights">
                 <h2 class="section-title modern-title">❤️ Human Rights</h2>
-                <div class="cards two" id="hr-grid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
+                <div class="cards two" id="hr-grid"></div>
             </section>
 
             <!-- ARCHIVE -->
@@ -243,7 +208,7 @@
             </div>
         </main>
 
-        <!-- CONTACT MODAL - ENHANCED -->
+        <!-- CONTACT MODAL -->
         <div id="contact-modal" class="modal hidden">
             <div class="modal-content">
                 <span id="contact-close" class="close">&times;</span>
@@ -275,7 +240,7 @@
             </div>
         </div>
 
-        <!-- FOOTER - COMPACT (50% HEIGHT) -->
+        <!-- FOOTER -->
         <footer class="modern-footer">
             <div class="footer-content">
                 <div class="footer-section">
