@@ -54,59 +54,44 @@ function initYear() {
 // CLOCKS
 // ============================
 
-function initClocks() {
-  updateClocks();
-  setInterval(updateClocks, 1000);
-}
+function updateClocks(){
 
-function updateClocks() {
+  const cest = document.getElementById("clock-cest");
+  const ist = document.getElementById("ist-time");
+  const pkt = document.getElementById("pkt-time");
+
   const now = new Date();
 
-  // Optional Gregorian full date/time (if element exists)
-  const gregEl = document.querySelector("#cal-gregorian span");
-  if (gregEl) {
-    gregEl.textContent = now.toLocaleString("en-GB", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+  if(cest){
+    const time = now.toLocaleTimeString("en-GB", {
+      timeZone: "Europe/Zurich",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit"
     });
+    cest.textContent = `CET (Geneva): ${time}`;
   }
 
-  // CEST (Zurich / Central Europe)
-  const cestEl = document.querySelector("#clock-cest span");
-  if (cestEl) {
-    cestEl.textContent = now.toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    });
-  }
-
-  // IST — Jammu, Kashmir, Ladakh
-  const istEl = document.querySelector("#tz-ist span");
-  if (istEl) {
-    istEl.textContent = new Date().toLocaleTimeString("en-IN", {
+  if(ist){
+    const time = now.toLocaleTimeString("en-GB", {
       timeZone: "Asia/Kolkata",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit"
     });
+    ist.textContent = `IST (Jammu-Kashmir-Ladakh): ${time}`;
   }
 
-  // PKT — Gilgit-Baltistan & Azad Kashmir
-  const pktEl = document.querySelector("#tz-pkt span");
-  if (pktEl) {
-    pktEl.textContent = new Date().toLocaleTimeString("en-PK", {
+  if(pkt){
+    const time = now.toLocaleTimeString("en-GB", {
       timeZone: "Asia/Karachi",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit"
     });
+    pkt.textContent = `PKT (Gilgit-Baltistan & Azad Kashmir): ${time}`;
   }
+
 }
 
 // ============================
