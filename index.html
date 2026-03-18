@@ -1,1040 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>THE MIRROR JAMMU KASHMIR</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    /* ===== RESET & BASE ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-      background: #f5f5f5;
-      line-height: 1.6;
-    }
-
-    .page-shell {
-      max-width: 1200px;
-      margin: 0 auto;
-      background: white;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    }
-
-    /* ===== LOADER ===== */
-    #site-loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.3s;
-    }
-
-    .loader-inner {
-      text-align: center;
-    }
-
-    .loader-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .loader-bar {
-      width: 300px;
-      height: 4px;
-      background: #eee;
-      margin: 10px auto;
-    }
-
-    .loader-progress {
-      width: 0%;
-      height: 100%;
-      background: #c00;
-      animation: load 0.8s ease forwards;
-    }
-
-    @keyframes load {
-      to { width: 100%; }
-    }
-
-    /* ===== HEADER ===== */
-    .site-header {
-      text-align: center;
-      padding: 30px 20px 20px;
-      border-bottom: 2px solid #c00;
-    }
-
-    .site-title {
-      font-size: 42px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #000;
-      margin-bottom: 5px;
-      text-transform: uppercase;
-    }
-
-    .subheading {
-      font-size: 16px;
-      color: #c00;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      margin-bottom: 20px;
-    }
-
-    /* ===== DATE/TIME BAR (ORIGINAL STYLE) ===== */
-    .datetime-bar {
-      background: #f8f8f8;
-      padding: 12px 20px;
-      border-bottom: 1px solid #ddd;
-      font-size: 14px;
-    }
-
-    .datetime-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-      list-style: none;
-    }
-
-    .datetime-list li {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      color: #333;
-    }
-
-    .datetime-list .separator {
-      color: #999;
-      font-weight: 300;
-    }
-
-    /* ===== WEATHER BAR (ORIGINAL STYLE) ===== */
-    .weather-bar {
-      background: #fff;
-      padding: 12px 20px;
-      border-bottom: 2px solid #c00;
-      font-size: 14px;
-    }
-
-    .weather-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-      list-style: none;
-    }
-
-    .weather-list li {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .weather-list strong {
-      color: #c00;
-      font-weight: 600;
-    }
-
-    /* ===== TICKER (ORIGINAL STYLE) ===== */
-    .ticker-wrap {
-      background: #111;
-      color: white;
-      padding: 10px 0;
-      border-bottom: 2px solid #c00;
-      overflow: hidden;
-    }
-
-    .ticker {
-      display: flex;
-      align-items: center;
-      animation: ticker 40s linear infinite;
-      white-space: nowrap;
-    }
-
-    .ticker-label {
-      background: #c00;
-      padding: 5px 15px;
-      font-weight: bold;
-      margin-right: 20px;
-      display: inline-block;
-    }
-
-    .ticker-items {
-      display: flex;
-      gap: 40px;
-      list-style: none;
-    }
-
-    .ticker-items li {
-      display: inline;
-      font-size: 14px;
-    }
-
-    @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* ===== TOOLS BAR (LANG + SEARCH) ===== */
-    .tools-bar {
-      display: flex;
-      justify-content: flex-end;
-      gap: 15px;
-      padding: 10px 20px;
-      background: #f8f8f8;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .lang-select select {
-      padding: 5px;
-      border: 1px solid #ddd;
-    }
-
-    .search {
-      display: flex;
-    }
-
-    .search input {
-      padding: 5px;
-      border: 1px solid #ddd;
-      border-right: none;
-    }
-
-    .search button {
-      padding: 5px 10px;
-      background: #c00;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* ===== NAVIGATION ===== */
-    .modern-nav {
-      background: #fff;
-      border-bottom: 2px solid #c00;
-      position: relative;
-    }
-
-    .nav-list {
-      display: flex;
-      list-style: none;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .nav-item {
-      position: relative;
-    }
-
-    .nav-btn {
-      display: block;
-      padding: 15px 20px;
-      color: #333;
-      text-decoration: none;
-      font-weight: 500;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .nav-btn:hover {
-      background: #f0f0f0;
-      color: #c00;
-    }
-
-    .dropdown {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: white;
-      border: 1px solid #ddd;
-      min-width: 200px;
-      z-index: 100;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .dropdown a {
-      display: block;
-      padding: 10px 15px;
-      color: #333;
-      text-decoration: none;
-    }
-
-    .dropdown a:hover {
-      background: #f5f5f5;
-      color: #c00;
-    }
-
-    .nav-item:hover .dropdown {
-      display: block;
-    }
-
-    .hamburger {
-      display: none;
-      width: 100%;
-      padding: 15px;
-      background: #c00;
-      color: white;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    /* ===== MAIN CONTENT ===== */
-    .home-main {
-      padding: 30px 20px;
-    }
-
-    .section-title {
-      font-size: 24px;
-      font-weight: bold;
-      color: #c00;
-      margin: 40px 0 20px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #c00;
-    }
-
-    .cards {
-      display: grid;
-      gap: 25px;
-    }
-
-    .cards.three {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .cards.two {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .card {
-      background: white;
-      border: 1px solid #ddd;
-      transition: box-shadow 0.3s;
-    }
-
-    .card:hover {
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .media {
-      height: 200px;
-      background: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-    }
-
-    .media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .card-body {
-      padding: 15px;
-    }
-
-    .card-body h3 {
-      margin-bottom: 10px;
-      font-size: 18px;
-    }
-
-    .btn-red {
-      display: inline-block;
-      padding: 8px 15px;
-      background: #c00;
-      color: white;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    .btn-red:hover {
-      background: #900;
-    }
-
-    /* ===== VLOGS ===== */
-    .vlog-toolbar {
-      margin-bottom: 20px;
-    }
-
-    .vlog-card-thumb {
-      position: relative;
-      height: 180px;
-      background: #000;
-    }
-
-    .vlog-card-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.8;
-    }
-
-    .vlog-play-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 50px;
-      height: 50px;
-      background: #c00;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 20px;
-    }
-
-    .vlog-duration {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(0,0,0,0.8);
-      color: white;
-      padding: 3px 8px;
-      font-size: 12px;
-      border-radius: 3px;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      border-top: 2px solid #c00;
-    }
-
-    /* ===== MODAL ===== */
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .modal.hidden {
-      display: none;
-    }
-
-    .modal-content {
-      background: white;
-      padding: 30px;
-      max-width: 500px;
-      width: 90%;
-      position: relative;
-    }
-
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .cards.three,
-      .cards.two {
-        grid-template-columns: 1fr;
-      }
-
-      .datetime-list,
-      .weather-list {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .nav-list {
-        display: none;
-      }
-
-      .hamburger {
-        display: block;
-      }
-
-      .mobile-menu {
-        background: white;
-        border-top: 1px solid #ddd;
-      }
-
-      .mobile-menu .nav-list {
-        display: block;
-      }
-
-      .site-title {
-        font-size: 28px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>THE MIRROR JAMMU KASHMIR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- LOADER -->
-  <div id="site-loader">
-    <div class="loader-inner">
-      <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
-      <div class="loader-bar">
-        <div class="loader-progress"></div>
-      </div>
-      <p>Loading newsroom, clocks, calendars and headlines...</p>
-    </div>
-  </div>
-
-  <div class="page-shell">
-    <!-- HEADER (ORIGINAL STYLE) -->
-    <header class="site-header">
-      <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-      <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
-    </header>
-
-    <!-- DATE/TIME BAR (ORIGINAL STYLE) -->
-    <div class="datetime-bar">
-      <ul class="datetime-list">
-        <li id="clock-cest">🕒 <span>Loading CEST...</span></li>
-        <li class="separator">•</li>
-        <li id="cal-hijri">📅 <span>Hijri...</span></li>
-        <li class="separator">•</li>
-        <li id="cal-bikrami">📅 <span>Bikrami...</span></li>
-        <li class="separator">•</li>
-        <li id="tz-ist">🕒 IST (Jammu-Kashmir-Ladakh): <span>---:---</span></li>
-        <li class="separator">•</li>
-        <li id="tz-pkt">🕒 PKT (Gilgit-Baltistan & AJK): <span>---:---</span></li>
-      </ul>
-    </div>
-
-    <!-- WEATHER BAR (ORIGINAL STYLE) -->
-    <div class="weather-bar">
-      <ul class="weather-list" id="weather-bar">
-        <!-- Will be populated by JS -->
-      </ul>
-    </div>
-
-    <!-- TICKER (ORIGINAL STYLE) -->
-    <div class="ticker-wrap">
-      <div class="ticker">
-        <span class="ticker-label">🆕 BREAKING</span>
-        <ul class="ticker-items" id="ticker-items"></ul>
-      </div>
-    </div>
-
-    <!-- TOOLS BAR (LANG + SEARCH) -->
-    <div class="tools-bar">
-      <label class="lang-select">
-        🌍
-        <select id="language-select">
-          <option value="en" selected>English</option>
-          <option value="de">German</option>
-          <option value="fr">French</option>
-          <option value="ru">Russian</option>
-          <option value="he">Hebrew</option>
-          <option value="es">Spanish</option>
-          <option value="nl">Dutch</option>
-          <option value="ur">Urdu</option>
-          <option value="hi">Hindi</option>
-          <option value="ar">Arabic</option>
-        </select>
-      </label>
-      <form class="search" onsubmit="event.preventDefault();">
-        <input id="search-input" type="search" placeholder="Search...">
-        <button type="submit">🔍</button>
-      </form>
-    </div>
-
-    <!-- NAVIGATION -->
-    <nav class="modern-nav">
-      <button class="hamburger" aria-expanded="false" id="hamburger">☰ Menu</button>
-      <ul class="nav-list" id="nav-list">
-        <li class="nav-item has-sub">
-          <button class="nav-btn">🏠 Home</button>
-          <div class="dropdown">
-            <a href="about.html">About</a>
-            <a href="chief-editor.html">Chief Editor</a>
-            <a href="#contact">Contact</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-btn" href="breaking.html">🆕 Breaking News</a>
-        </li>
-        <li class="nav-item has-sub">
-          <button class="nav-btn">📝 Blog</button>
-          <div class="dropdown wide">
-            <a href="editorial.html">Editorial</a>
-            <a href="blog.html">Opinion</a>
-            <a href="#latest-editorial-historical">Latest Updates</a>
-          </div>
-        </li>
-        <li class="nav-item has-sub">
-          <button class="nav-btn">🎥 Vlog</button>
-          <div class="dropdown">
-            <a href="#vlogs">Latest Vlogs</a>
-            <a href="vlog-archive.html">Archive</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-btn" href="#epaper">📰 E-Paper</a>
-        </li>
-        <li class="nav-item has-sub">
-          <button class="nav-btn">📍 Jammu Kashmir</button>
-          <div class="dropdown wide">
-            <a href="#jammu-kashmir">Regions</a>
-            <a href="#jammu-kashmir">History</a>
-            <a href="#jammu-kashmir">Culture</a>
-          </div>
-        </li>
-        <li class="nav-item has-sub">
-          <button class="nav-btn">🕊️ UN & Human Rights</button>
-          <div class="dropdown">
-            <a href="#human-rights">UNHRC</a>
-            <a href="#human-rights">Reports</a>
-            <a href="#human-rights">Advocacy</a>
-          </div>
-        </li>
-      </ul>
-      <div id="mobile-menu" class="mobile-menu" hidden></div>
-    </nav>
-
-    <!-- MAIN CONTENT -->
-    <main class="home-main">
-      <!-- TOP STORIES -->
-      <section id="top-stories">
-        <div class="section-title">⭐ Top Stories</div>
-        <div class="cards three">
-          <article class="card">
-            <div class="media placeholder" id="lead-media">Lead</div>
-            <div class="card-body" id="lead-body">
-              <h3>Complete Shutter Down Paralyses Rawalakot Poonch as Thousands Protest Against Punitive Measures, Power Cuts and Communication Blackouts</h3>
-              <p>Thousands shut down Rawalakot in protest against prolonged electricity outages, low voltage supply and communication blackouts across District Poonch.</p>
-              <a class="btn-red" href="article.html?id=lead">Read More →</a>
+    <!-- LOADER -->
+    <div id="site-loader">
+        <div class="loader-inner">
+            <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
             </div>
-          </article>
-          <article class="card">
-            <div class="media placeholder" id="breaking-media">Breaking</div>
-            <div class="card-body" id="breaking-body">
-              <h3>UKPNP Delegation Meets Baroness Emma Nicholson in London House of Lords to Discuss Kashmir Crisis</h3>
-              <p>A high level UKPNP delegation led by Sardar Shaukat Ali Kashmiri met Baroness Emma Nicholson in London to discuss the Kashmir conflict, regional developments, and prospects for international engagement.</p>
-              <a class="btn-red" href="article.html?id=breaking">Read More →</a>
-            </div>
-          </article>
-          <article class="card">
-            <div class="media placeholder" id="opinion-media">Opinion</div>
-            <div class="card-body" id="opinion-body">
-              <h3>UKPNP Delegation Briefs British MPs on Kashmir Crisis at the House of Parliament in London</h3>
-              <p>A high level delegation of the United Kashmir People's National Party briefed British Members of Parliament in London on the historical roots of the Kashmir conflict and the current political and human rights situation.</p>
-              <a class="btn-red" href="article.html?id=opinion">Read More →</a>
-            </div>
-          </article>
+            <p>Loading newsroom, clocks, calendars and headlines...</p>
         </div>
-      </section>
-
-      <!-- LATEST / EDITORIAL / HISTORICAL -->
-      <section id="latest-editorial-historical">
-        <div class="section-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</div>
-        <div class="cards three">
-          <article class="card">
-            <div class="media placeholder" id="leh1-media">Latest</div>
-            <div class="card-body" id="leh1-body"></div>
-          </article>
-          <article class="card">
-            <div class="media placeholder" id="leh2-media">Editorial</div>
-            <div class="card-body" id="leh2-body"></div>
-          </article>
-          <article class="card">
-            <div class="media placeholder" id="leh3-media">Historical</div>
-            <div class="card-body" id="leh3-body"></div>
-          </article>
-        </div>
-      </section>
-
-      <!-- JAMMU KASHMIR -->
-      <section id="jammu-kashmir">
-        <div class="section-title">📍 Jammu Kashmir</div>
-        <div class="cards two">
-          <article class="card">
-            <div class="media placeholder" id="jk1-media">JK</div>
-            <div class="card-body" id="jk1-body"></div>
-          </article>
-          <article class="card">
-            <div class="media placeholder" id="jk2-media">JK</div>
-            <div class="card-body" id="jk2-body"></div>
-          </article>
-        </div>
-      </section>
-
-      <!-- VLOGS -->
-      <section id="vlogs">
-        <div class="section-title">🎥 Video Reports & Vlogs</div>
-        <div class="vlog-toolbar">
-          <button class="btn-red" id="vlog-visit-channel">🎥 Visit Channel</button>
-        </div>
-        <div class="cards three vlogs-grid" id="vlogs-grid"></div>
-      </section>
-
-      <!-- INTERNATIONAL -->
-      <section id="international">
-        <div class="section-title">🌍 International News</div>
-        <div class="cards two">
-          <article class="card">
-            <div class="media placeholder" id="intl1-media">Intl</div>
-            <div class="card-body" id="intl1-body"></div>
-          </article>
-          <article class="card">
-            <div class="media placeholder" id="intl2-media">Intl</div>
-            <div class="card-body" id="intl2-body"></div>
-          </article>
-        </div>
-      </section>
-
-      <!-- HUMAN RIGHTS -->
-      <section id="human-rights">
-        <div class="section-title">❤️ Human Rights</div>
-        <div class="cards two">
-          <article class="card">
-            <div class="media placeholder" id="hr1-media">HR</div>
-            <div class="card-body" id="hr1-body"></div>
-          </article>
-          <article class="card">
-            <div class="media placeholder" id="hr2-media">HR</div>
-            <div class="card-body" id="hr2-body"></div>
-          </article>
-        </div>
-      </section>
-
-      <!-- ARCHIVE -->
-      <section id="archive">
-        <div class="section-title">📁 Archive</div>
-        <div id="archive-list">
-          <p>Archive will appear here.</p>
-        </div>
-      </section>
-
-      <!-- EPAPER -->
-      <section id="epaper">
-        <div class="section-title">📰 E-Paper Upload</div>
-        <form class="epaper-form">
-          <input type="file" accept="application/pdf">
-          <button class="btn-red">Upload</button>
-        </form>
-      </section>
-
-      <!-- NEWSLETTER -->
-      <section id="newsletter">
-        <div class="section-title">✉️ Newsletter</div>
-        <form class="newsletter-form">
-          <input id="subscribeEmail" type="email" placeholder="your@email.com">
-          <button id="subscribeBtn" class="btn-red">Subscribe</button>
-        </form>
-      </section>
-
-      <!-- CONTACT -->
-      <section id="contact">
-        <div class="section-title">📞 Contact</div>
-        <p>
-          Email themirrorjk@gmail.com<br>
-          Phone +41 783 13 12 13
-        </p>
-        <button id="contact-open" class="btn-red">Open Contact Form</button>
-      </section>
-
-      <!-- SOCIAL ACTIONS -->
-      <div class="social-actions">
-        <button class="btn-red">👍 Like</button>
-        <button class="btn-red">🔔 Subscribe</button>
-        <button class="btn-red">📤 Share</button>
-        <button class="btn-red" onclick="copyPageLink()">🔗 Copy Link</button>
-      </div>
-    </main>
-
-    <!-- CONTACT MODAL -->
-    <div id="contact-modal" class="modal hidden">
-      <div class="modal-content">
-        <span id="contact-close" class="close">&times;</span>
-        <h2>Contact The Mirror Jammu Kashmir</h2>
-        <p>Email: themirrorjk@gmail.com</p>
-        <p>Phone: +41 783 13 12 13</p>
-      </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-      © <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.
-    </footer>
-  </div>
+    <div class="page-shell">
+        <!-- HEADER -->
+        <header class="site-header">
+            <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+            <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
+        </header>
 
-  <script>
-    // ===== LOADER =====
-    document.addEventListener('DOMContentLoaded', () => {
-      const loader = document.getElementById('site-loader');
-      if (loader) {
-        setTimeout(() => {
-          loader.style.opacity = '0';
-          setTimeout(() => loader.style.display = 'none', 300);
-        }, 800);
-      }
+        <!-- DATE/TIME BAR -->
+        <div class="datetime-bar">
+            <ul class="datetime-list">
+                <li id="clock-cest">🕒 <span>Loading CEST...</span></li>
+                <li class="separator">•</li>
+                <li id="cal-hijri">📅 <span>Loading Hijri...</span></li>
+                <li class="separator">•</li>
+                <li id="cal-bikrami">📅 <span>Loading Bikrami...</span></li>
+                <li class="separator">•</li>
+                <li id="tz-ist">🕒 IST (Jammu-Kashmir-Ladakh): <span>--:--:--</span></li>
+                <li class="separator">•</li>
+                <li id="tz-pkt">🕒 PKT (Gilgit-Baltistan & AJK): <span>--:--:--</span></li>
+            </ul>
+        </div>
 
-      // Footer year
-      const yearEl = document.getElementById('year');
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
+        <!-- WEATHER BAR -->
+        <div class="weather-bar">
+            <ul class="weather-list" id="weather-bar"></ul>
+        </div>
 
-      // Initialize everything
-      updateClocks();
-      updateHijri();
-      updateBikrami();
-      initWeatherBar();
-      initTicker();
-      initNav();
-      initContactModal();
-      initVlogsFromYoutube();
-    });
+        <!-- TICKER -->
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <span class="ticker-label">🆕 BREAKING</span>
+                <ul class="ticker-items" id="ticker-items"></ul>
+            </div>
+        </div>
 
-    // ===== CLOCKS =====
-    function updateClocks() {
-      const cest = document.getElementById('clock-cest');
-      const ist = document.getElementById('tz-ist');
-      const pkt = document.getElementById('tz-pkt');
-      const now = new Date();
+        <!-- TOOLS BAR -->
+        <div class="tools-bar">
+            <label class="lang-select">
+                🌍
+                <select id="language-select">
+                    <option value="en" selected>English</option>
+                    <option value="de">German</option>
+                    <option value="fr">French</option>
+                    <option value="ru">Russian</option>
+                    <option value="he">Hebrew</option>
+                    <option value="es">Spanish</option>
+                    <option value="nl">Dutch</option>
+                    <option value="ur">Urdu</option>
+                    <option value="hi">Hindi</option>
+                    <option value="ar">Arabic</option>
+                </select>
+            </label>
+            <form class="search" onsubmit="event.preventDefault();">
+                <input id="search-input" type="search" placeholder="Search...">
+                <button type="submit">🔍</button>
+            </form>
+        </div>
 
-      if (cest) {
-        const time = now.toLocaleTimeString('en-GB', {
-          timeZone: 'Europe/Zurich',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        });
-        const span = cest.querySelector('span');
-        if (span) span.textContent = time;
-      }
+        <!-- NAVIGATION -->
+        <nav class="modern-nav">
+            <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
+            <ul class="nav-list" id="nav-list">
+                <li class="nav-item has-sub">
+                    <button class="nav-btn">🏠 Home</button>
+                    <div class="dropdown">
+                        <a href="about.html">About</a>
+                        <a href="chief-editor.html">Chief Editor</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-btn" href="breaking.html">🆕 Breaking News</a>
+                </li>
+                <li class="nav-item has-sub">
+                    <button class="nav-btn">📝 Blog</button>
+                    <div class="dropdown wide">
+                        <a href="editorial.html">Editorial</a>
+                        <a href="blog.html">Opinion</a>
+                        <a href="#latest-editorial-historical">Latest Updates</a>
+                    </div>
+                </li>
+                <li class="nav-item has-sub">
+                    <button class="nav-btn">🎥 Vlog</button>
+                    <div class="dropdown">
+                        <a href="#vlogs">Latest Vlogs</a>
+                        <a href="vlog-archive.html">Archive</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-btn" href="#epaper">📰 E-Paper</a>
+                </li>
+                <li class="nav-item has-sub">
+                    <button class="nav-btn">📍 Jammu Kashmir</button>
+                    <div class="dropdown wide">
+                        <a href="#jammu-kashmir">Regions</a>
+                        <a href="#jammu-kashmir">History</a>
+                        <a href="#jammu-kashmir">Culture</a>
+                    </div>
+                </li>
+                <li class="nav-item has-sub">
+                    <button class="nav-btn">🕊️ UN & Human Rights</button>
+                    <div class="dropdown">
+                        <a href="#human-rights">UNHRC</a>
+                        <a href="#human-rights">Reports</a>
+                        <a href="#human-rights">Advocacy</a>
+                    </div>
+                </li>
+            </ul>
+            <div id="mobile-menu" class="mobile-menu" hidden></div>
+        </nav>
 
-      if (ist) {
-        const time = now.toLocaleTimeString('en-GB', {
-          timeZone: 'Asia/Kolkata',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        });
-        const span = ist.querySelector('span');
-        if (span) span.textContent = time;
-      }
+        <!-- MAIN CONTENT -->
+        <main class="home-main">
+            <!-- TOP STORIES -->
+            <section id="top-stories">
+                <div class="section-title">⭐ Top Stories</div>
+                <div class="cards three">
+                    <article class="card">
+                        <div class="media placeholder" id="lead-media">
+                            <img src="https://via.placeholder.com/400x200?text=Lead+Story" alt="Lead Story">
+                        </div>
+                        <div class="card-body" id="lead-body">
+                            <h3>Complete Shutter Down Paralyses Rawalakot Poonch</h3>
+                            <p>Thousands shut down Rawalakot in protest against prolonged electricity outages...</p>
+                            <a class="btn-red" href="article.html?id=lead">Read More →</a>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <div class="media placeholder" id="breaking-media">
+                            <img src="https://via.placeholder.com/400x200?text=Breaking+News" alt="Breaking News">
+                        </div>
+                        <div class="card-body" id="breaking-body">
+                            <h3>UKPNP Delegation Meets Baroness Emma Nicholson</h3>
+                            <p>High level delegation discusses Kashmir crisis in London House of Lords...</p>
+                            <a class="btn-red" href="article.html?id=breaking">Read More →</a>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <div class="media placeholder" id="opinion-media">
+                            <img src="https://via.placeholder.com/400x200?text=Opinion" alt="Opinion">
+                        </div>
+                        <div class="card-body" id="opinion-body">
+                            <h3>UKPNP Delegation Briefs British MPs</h3>
+                            <p>Delegation briefs MPs on historical roots of Kashmir conflict...</p>
+                            <a class="btn-red" href="article.html?id=opinion">Read More →</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
 
-      if (pkt) {
-        const time = now.toLocaleTimeString('en-GB', {
-          timeZone: 'Asia/Karachi',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        });
-        const span = pkt.querySelector('span');
-        if (span) span.textContent = time;
-      }
+            <!-- VLOGS -->
+            <section id="vlogs">
+                <div class="section-title">🎥 Video Reports & Vlogs</div>
+                <div class="vlog-toolbar">
+                    <button class="btn-red" id="vlog-visit-channel">🎥 Visit Channel</button>
+                </div>
+                <div class="cards three vlogs-grid" id="vlogs-grid"></div>
+            </section>
 
-      // Update every second
-      setTimeout(updateClocks, 1000);
-    }
+            <!-- CONTACT -->
+            <section id="contact">
+                <div class="section-title">📞 Contact</div>
+                <p>Email: themirrorjk@gmail.com<br>Phone: +41 783 13 12 13</p>
+                <button id="contact-open" class="btn-red">Open Contact Form</button>
+            </section>
 
-    // ===== HIJRI CALENDAR =====
-    function updateHijri() {
-      const hijriEl = document.querySelector('#cal-hijri span');
-      if (!hijriEl) return;
+            <!-- SOCIAL ACTIONS -->
+            <div class="social-actions">
+                <button class="sa-btn">👍 Like</button>
+                <button class="sa-btn">🔔 Subscribe</button>
+                <button class="sa-btn">📤 Share</button>
+                <button class="sa-btn" onclick="copyPageLink()">🔗 Copy Link</button>
+            </div>
+        </main>
 
-      try {
-        const now = new Date();
-        const hijriDate = new Intl.DateTimeFormat('en-u-ca-islamic', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        }).format(now);
-        hijriEl.textContent = hijriDate;
-      } catch {
-        hijriEl.textContent = 'Hijri unavailable';
-      }
-    }
+        <!-- CONTACT MODAL -->
+        <div id="contact-modal" class="modal hidden">
+            <div class="modal-content">
+                <span id="contact-close" class="close">&times;</span>
+                <h2>Contact The Mirror Jammu Kashmir</h2>
+                <p>Email: themirrorjk@gmail.com</p>
+                <p>Phone: +41 783 13 12 13</p>
+            </div>
+        </div>
 
-    // ===== BIKRAMI CALENDAR =====
-    function updateBikrami() {
-      const el = document.querySelector('#cal-bikrami span');
-      if (!el) return;
+        <!-- FOOTER -->
+        <footer>
+            © <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.
+        </footer>
+    </div>
 
-      const today = new Date();
-      const start = new Date(today.getFullYear(), 2, 14);
-      const months = ['Chet', 'Vaisakh', 'Jeth', 'Harh', 'Sawan', 'Bhadon', 'Assu', 'Kattak', 'Maghar', 'Poh', 'Magh', 'Phagun'];
-
-      let diff = Math.floor((today - start) / (1000 * 60 * 60 * 24));
-      let bikramYear = today.getFullYear() + 57;
-
-      if (diff < 0) {
-        diff += 365;
-        bikramYear -= 1;
-      }
-
-      const monthIndex = Math.floor(diff / 30) % 12;
-      const day = (diff % 30) + 1;
-      const formatted = `${day} ${months[monthIndex]} ${bikramYear} BK`;
-      el.textContent = formatted;
-    }
-
-    // ===== WEATHER BAR =====
-    function initWeatherBar() {
-      const bar = document.getElementById('weather-bar');
-      if (!bar) return;
-
-      const cities = [
-        { name: 'Zurich', temp: '6°C' },
-        { name: 'Rawalakot', temp: '9°C' },
-        { name: 'Jammu', temp: '18°C' },
-        { name: 'Kashmir', temp: '4°C' },
-        { name: 'Ladakh', temp: '-2°C' },
-        { name: 'Gilgit', temp: '3°C' },
-        { name: 'Baltistan', temp: '-1°C' },
-        { name: 'Muzaffarabad', temp: '10°C' }
-      ];
-
-      bar.innerHTML = cities
-        .map(c => `<li>🌡️ ${c.name}: <strong>${c.temp}</strong></li>`)
-        .join('');
-    }
-
-    // ===== TICKER =====
-    const TICKER_ITEMS = [
-      'THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY',
-      'WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES',
-      'OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR',
-      'HOPE BECOMES REAL THROUGH ACTION, PERSISTENCE AND PRINCIPLED JOURNALISM',
-      'ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS --- UDHR ARTICLE 1',
-      'EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE',
-      'DEMOCRACY DERIVES LEGITIMACY FROM THE WILL AND PARTICIPATION OF THE PEOPLE',
-      'DEMOCRACY CANNOT SURVIVE WHERE HUMAN RIGHTS ARE VIOLATED OR POPULATIONS EXCLUDED',
-      'THE MIRROR JAMMU KASHMIR STANDS AGAINST THE GLOBAL EROSION OF HUMAN RIGHTS',
-      'NEO-COLONIAL PRACTICES AND MODERN FORMS OF SLAVERY REMAIN PRESENT-DAY REALITIES',
-      'JAMMU KASHMIR --- A MULTI-RELIGIOUS, MULTI-CULTURAL, MULTI-LINGUAL AND MULTI-ETHNIC SOCIETY',
-      'SINCE 1947 THE PEOPLE OF JAMMU KASHMIR HAVE REMAINED FORCIBLY DIVIDED',
-      'FREEDOM OF MOVEMENT ACROSS DIFFERENT PARTS OF THE STATE OF JAMMU KASHMIR HAS BEEN DENIED SINCE 1947',
-      'FREEDOM OF EXPRESSION, PEACEFUL ASSEMBLY AND ASSOCIATION ARE RESTRICTED',
-      'INDEPENDENT JOURNALISM IS INCREASINGLY MARGINALIZED --- FREEDOM OF THE PRESS IS ESSENTIAL',
-      'WE PRESENT VERIFIED FACTS, TREATIES AND GROUND REALITIES',
-      'WE REMIND STATES OF THEIR RESPONSIBILITIES UNDER INTERNATIONAL LAW AND UN OBLIGATIONS',
-      'WE ASSESS POLICIES AGAINST PROMISES AND ACTIONS AGAINST PLEDGES',
-      'WE DO NOT MANUFACTURE NARRATIVES --- WE REFLECT REALITY',
-      'THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH',
-      'GOT NEWS, FEEDBACK OR URGENT UPDATES? CONTACT THE MIRROR JAMMU KASHMIR',
-      'FOLLOW US ON YOUTUBE --- THE MIRROR JAMMU KASHMIR --- SUBSCRIBE, LIKE AND SHARE'
-    ];
-
-    function initTicker() {
-      const ul = document.getElementById('ticker-items');
-      if (!ul) return;
-      ul.innerHTML = TICKER_ITEMS.map(t => `<li>${t}</li>`).join('');
-    }
-
-    // ===== NAVIGATION =====
-    function initNav() {
-      const hamburger = document.getElementById('hamburger');
-      const navList = document.getElementById('nav-list');
-      const mobileMenu = document.getElementById('mobile-menu');
-
-      if (!hamburger || !navList || !mobileMenu) return;
-
-      hamburger.addEventListener('click', () => {
-        const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-        hamburger.setAttribute('aria-expanded', String(!expanded));
-
-        if (expanded) {
-          mobileMenu.hidden = true;
-          mobileMenu.innerHTML = '';
-        } else {
-          mobileMenu.hidden = false;
-          mobileMenu.innerHTML = navList.innerHTML;
-        }
-      });
-    }
-
-    // ===== CONTACT MODAL =====
-    function initContactModal() {
-      const openBtn = document.getElementById('contact-open');
-      const closeBtn = document.getElementById('contact-close');
-      const modal = document.getElementById('contact-modal');
-
-      if (!openBtn || !closeBtn || !modal) return;
-
-      openBtn.addEventListener('click', () => modal.classList.remove('hidden'));
-      closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
-
-      modal.addEventListener('click', e => {
-        if (e.target === modal) modal.classList.add('hidden');
-      });
-    }
-
-    // ===== VLOGS =====
-    function initVlogsFromYoutube() {
-      const grid = document.getElementById('vlogs-grid');
-      const visitBtn = document.getElementById('vlog-visit-channel');
-
-      if (!grid) return;
-
-      // Sample vlog data (replace with your actual YouTube JSON)
-      const sampleVideos = [
-        {
-          youtubeId: 'sample1',
-          title: 'Exclusive Interview | The Mirror Jammu Kashmir',
-          description: 'In-depth interview on peace, justice, and human rights.',
-          duration: '15:32'
-        },
-        {
-          youtubeId: 'sample2',
-          title: 'Ground Report | Community Voices',
-          description: 'Voices from the ground. Real stories. Real people.',
-          duration: '12:45'
-        },
-        {
-          youtubeId: 'sample3',
-          title: 'Analysis | Human Rights Framework',
-          description: 'Legal and political analysis of ongoing human rights issues.',
-          duration: '18:20'
-        }
-      ];
-
-      if (visitBtn) {
-        visitBtn.addEventListener('click', () => {
-          window.open('https://youtube.com/@yourchannel', '_blank');
-        });
-      }
-
-      grid.innerHTML = sampleVideos
-        .map(v => {
-          const thumb = `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`;
-          return `
-            <article class="card">
-              <div class="vlog-card-thumb">
-                <img src="${thumb}" alt="${v.title}">
-                <div class="vlog-play-icon">▶</div>
-                <div class="vlog-duration">${v.duration}</div>
-              </div>
-              <div class="card-body">
-                <h3>${v.title}</h3>
-                <p>${v
+    <script src="script.js"></script>
+</body>
+</html>
