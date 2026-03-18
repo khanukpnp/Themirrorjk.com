@@ -15,12 +15,12 @@
 html, body {
     width: 100%;
     min-height: 100%;
-    background: #fff; /* White background to minimize grey */
+    background: white;
 }
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    background: #fff; /* White background */
+    background: white;
     color: #222;
     line-height: 1.5;
     overflow-x: hidden;
@@ -32,77 +32,54 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   PAGE SHELL - WITH THIN GREY BORDER
+   PAGE SHELL - FULL WIDTH WITH THIN BORDERS
    ============================ */
 .page-shell {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
     background: white;
-    border-left: 1px solid #e0e0e0;  /* Very thin light grey border */
-    border-right: 1px solid #e0e0e0; /* Very thin light grey border */
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
     box-shadow: none;
     position: relative;
-    width: 100%;
 }
 
 /* ============================
-   LOADER
+   CONTENT CONTAINERS - CENTERED
    ============================ */
-#site-loader {
-    position: fixed;
-    top: 0;
-    left: 0;
+.home-main,
+.navbar .nav-list,
+.info-items,
+.ticker,
+.tools-bar {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
-    height: 100%;
-    background: #111;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    transition: opacity 0.3s ease;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.loader-inner {
-    text-align: center;
-    width: 300px;
+/* Adjust for elements that already have padding */
+.home-main {
+    padding: 20px 20px 20px;
 }
 
-.loader-title {
-    font-size: 1.8rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    letter-spacing: 0.5px;
-    color: #fff;
-    font-family: 'Playfair Display', serif;
+.info-bar {
+    padding: 8px 0;
 }
 
-.loader-bar {
-    width: 100%;
-    height: 3px;
-    background: #333;
-    border-radius: 2px;
-    overflow: hidden;
-    margin-bottom: 12px;
+.info-items {
+    padding: 0 20px;
 }
 
-.loader-progress {
-    width: 0%;
-    height: 100%;
-    background: #b30000;
-    animation: loader-progress 1.5s ease forwards;
+.ticker {
+    padding: 0 20px;
 }
 
-@keyframes loader-progress {
-    0% { width: 0%; }
-    100% { width: 100%; }
-}
-
-#site-loader p {
-    font-size: 0.85rem;
-    opacity: 0.9;
-    margin-top: 8px;
-    color: #ccc;
+.tools-bar {
+    padding: 6px 20px;
 }
 
 /* ============================
@@ -113,6 +90,9 @@ h1, h2, h3, h4, h5 {
     padding: 25px 20px 15px;
     background: white;
     border-bottom: 2px solid #b30000;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .site-title {
@@ -141,7 +121,6 @@ h1, h2, h3, h4, h5 {
    ============================ */
 .info-bar {
     background: #f8f8f8;
-    padding: 8px 20px;
     border-bottom: 1px solid #ddd;
     font-size: 0.85rem;
 }
@@ -152,8 +131,6 @@ h1, h2, h3, h4, h5 {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .info-items span {
@@ -192,7 +169,6 @@ h1, h2, h3, h4, h5 {
 .weather-bar {
     background: #fff;
     border-bottom: 2px solid #b30000;
-    padding: 6px 20px;
 }
 
 .weather-bar .info-items span {
@@ -224,8 +200,6 @@ h1, h2, h3, h4, h5 {
     display: flex;
     align-items: center;
     white-space: nowrap;
-    max-width: 1200px;
-    margin: 0 auto;
     position: relative;
 }
 
@@ -266,7 +240,6 @@ h1, h2, h3, h4, h5 {
     display: flex;
     justify-content: flex-end;
     gap: 15px;
-    padding: 6px 20px;
     background: #f8f8f8;
     border-bottom: 1px solid #ddd;
 }
@@ -329,8 +302,7 @@ h1, h2, h3, h4, h5 {
     list-style: none;
     justify-content: center;
     flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .nav-item {
@@ -445,8 +417,6 @@ h1, h2, h3, h4, h5 {
    MAIN CONTENT
    ============================ */
 .home-main {
-    max-width: 1200px;
-    margin: 0 auto;
     padding: 20px 20px 20px;
 }
 
