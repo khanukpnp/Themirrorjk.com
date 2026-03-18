@@ -1198,7 +1198,12 @@ function renderHistoricalPage(data) {
     }
     
     if (data.heroImage && data.heroImage.src && heroImg) {
-        heroImg.src = data.heroImage.src;
+        let imageSrc = data.heroImage.src;
+        // Fix GitHub image URLs if needed
+        if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+            imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+        }
+        heroImg.src = imageSrc;
         heroImg.alt = data.heroImage.caption || '';
         if (heroCaption) heroCaption.textContent = data.heroImage.caption || '';
         if (heroWrap) heroWrap.style.display = 'block';
@@ -1223,10 +1228,15 @@ function renderHistoricalPage(data) {
                 itemsHtml += '</ul></div>';
                 html += itemsHtml;
             } else if (block.type === "image" && block.src) {
+                let imageSrc = block.src;
+                // Fix GitHub image URLs if needed
+                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
                 const alignClass = block.align === "left" ? "float-left" : "float-right";
                 html += `
                     <figure class="${alignClass}">
-                        <img src="${block.src}" alt="${block.caption || ''}">
+                        <img src="${imageSrc}" alt="${block.caption || ''}">
                         <figcaption>${block.caption || ''}</figcaption>
                     </figure>
                 `;
@@ -1263,9 +1273,187 @@ function initArticlePage() {
         });
 }
 
+/* ============================
+   RENDER FULL ARTICLE PAGE
+   ============================ */
 function renderFullArticlePage(article) {
-    // This function would need the article.html structure
-    console.log("Article data:", article);
+    // Set page title
+    const pageTitle = document.getElementById("page-title");
+    if (pageTitle) {
+        pageTitle.textContent = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
+    }
+    
+    // Set section label
+    const sectionLabel = document.getElementById("section-label");
+    if (sectionLabel) {
+        sectionLabel.textContent = article.sectionLabel || article.category || "ARTICLE";
+    }
+    
+    // Set title
+    const titleEl = document.getElementById("title");
+    if (titleEl) {
+        titleEl.textContent = article.title || "Untitled";
+    }
+    
+    // Set meta information
+    const metaEl = document.getElementById("meta");
+    if (metaEl) {
+        let metaHtml = '';
+        
+        if (article.location) {
+            metaHtml += '<strong>' + article.location + '</strong>';
+        }
+        
+        if (article.date) {
+            const dateObj = new Date(article.date);
+            const formattedDate = dateObj.toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+            metaHtml += (metaHtml ? ' — ' : '') + formattedDate;
+        }
+        
+        if (article.author) {
+            metaHtml += '<br>By <em>' + article.author + '</em>';
+        }
+        
+        if (article.readTime) {
+            metaHtml += ' · ' + article.readTime;
+        }
+        
+        metaEl.innerHTML = metaHtml;
+    }
+    
+    // Set hero image
+    const heroWrap = document.getElementById("heroWrap");
+    const heroImg = document.getElementById("heroImg");
+    const heroCaption = document.getElementById("heroCaption");
+    
+    if (article.heroImage && article.heroImage.src && heroImg) {
+        let imageSrc = article.heroImage.src;
+        // Fix GitHub image URLs if needed
+        if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+            imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+        }
+        heroImg.src = imageSrc;
+        heroImg.alt = article.heroImage.caption || article.title || '';
+        
+        if (heroCaption) {
+            heroCaption.textContent = article.heroImage.caption || '';
+        }
+        
+        if (heroWrap) {
+            heroWrap.style.display = 'block';
+        }
+    } else if (heroWrap) {
+        heroWrap.style.display = 'none';
+    }
+    
+    // Render body content
+    const contentEl = document.getElementById("content");
+    if (!contentEl) return;
+    
+    contentEl.innerHTML = '';
+    
+    if (article.body && Array.isArray(article.body)) {
+        article.body.forEach(function(block) {
+            // Paragraph
+            if (block.type === "paragraph") {
+                contentEl.innerHTML += '<p>' + block.text + '</p>';
+            }
+            
+            // Subheading
+            else if (block.type === "subheading") {
+                contentEl.innerHTML += '<h2 class="mid-subheading">' + block.text + '</h2>';
+            }
+            
+            // Pull Quote
+            else if (block.type === "pullquote") {
+                contentEl.innerHTML += '<div class="pull-quote">' + block.text + '</div>';
+            }
+            
+            // Points / Bullet List
+            else if (block.type === "points" && block.items) {
+                let listHtml = '<div class="important-points"><ul>';
+                block.items.forEach(function(item) {
+                    listHtml += '<li>' + item + '</li>';
+                });
+                listHtml += '</ul></div>';
+                contentEl.innerHTML += listHtml;
+            }
+            
+            // Image with floating
+            else if (block.type === "image" && block.src) {
+                let imageSrc = block.src;
+                // Fix GitHub image URLs if needed
+                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                
+                const alignClass = block.align === "right" ? "img-right" : 
+                                  block.align === "left" ? "img-left" : "img-center";
+                
+                contentEl.innerHTML += `
+                    <figure class="${alignClass}">
+                        <img src="${imageSrc}" alt="${block.caption || ''}">
+                        <figcaption>${block.caption || ''}</figcaption>
+                    </figure>
+                `;
+            }
+        });
+    }
+    
+    // Initialize article action buttons
+    initArticleActions();
+}
+
+/* ============================
+   ARTICLE ACTION BUTTONS
+   ============================ */
+function initArticleActions() {
+    const likeBtn = document.getElementById("btn-like");
+    const subscribeBtn = document.getElementById("btn-subscribe");
+    const shareBtn = document.getElementById("btn-share");
+    const copyBtn = document.getElementById("btn-copy");
+    const yearEl = document.getElementById("year");
+    
+    if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+    }
+    
+    if (likeBtn) {
+        let likes = 0;
+        likeBtn.addEventListener("click", function() {
+            likes++;
+            likeBtn.innerHTML = '<span>👍</span> Like (' + likes + ')';
+        });
+    }
+    
+    if (subscribeBtn) {
+        subscribeBtn.addEventListener("click", function() {
+            alert("Thank you for subscribing!");
+        });
+    }
+    
+    if (shareBtn) {
+        shareBtn.addEventListener("click", function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                }).catch(function() {});
+            } else {
+                alert("Share this article: " + window.location.href);
+            }
+        });
+    }
+    
+    if (copyBtn) {
+        copyBtn.addEventListener("click", function() {
+            copyPageLink();
+        });
+    }
 }
 
 // Make copyPageLink globally available
