@@ -55,10 +55,12 @@ function initYear() {
 // ============================
 
 function updateClocks(){
-
+   
   const cest = document.getElementById("clock-cest");
-  const ist = document.getElementById("ist-time");
-  const pkt = document.getElementById("pkt-time");
+
+  // support BOTH ids (old + new)
+  const ist = document.getElementById("ist-time") || document.getElementById("tz-ist");
+  const pkt = document.getElementById("pkt-time") || document.getElementById("tz-pkt");
 
   const now = new Date();
 
@@ -69,7 +71,13 @@ function updateClocks(){
       minute: "2-digit",
       second: "2-digit"
     });
-    cest.textContent = `CET (Geneva): ${time}`;
+
+    const span = cest.querySelector("span");
+    if(span){
+      span.textContent = time;
+    } else {
+      cest.textContent = `CET (Geneva): ${time}`;
+    }
   }
 
   if(ist){
@@ -79,7 +87,13 @@ function updateClocks(){
       minute: "2-digit",
       second: "2-digit"
     });
-    ist.textContent = `IST (Jammu-Kashmir-Ladakh): ${time}`;
+
+    const span = ist.querySelector("span");
+    if(span){
+      span.textContent = time;
+    } else {
+      ist.textContent = `IST (Jammu-Kashmir-Ladakh): ${time}`;
+    }
   }
 
   if(pkt){
@@ -89,9 +103,14 @@ function updateClocks(){
       minute: "2-digit",
       second: "2-digit"
     });
-    pkt.textContent = `PKT (Gilgit-Baltistan & Azad Kashmir): ${time}`;
-  }
 
+    const span = pkt.querySelector("span");
+    if(span){
+      span.textContent = time;
+    } else {
+      pkt.textContent = `PKT (Gilgit-Baltistan & Azad Kashmir): ${time}`;
+    }
+  }
 }
 
 // ============================
