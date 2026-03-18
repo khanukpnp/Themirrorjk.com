@@ -1,5 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
+   RESTORED TO ORIGINAL DESIGN FROM PNG SCREENSHOTS
    ============================================================ */
 
 /* ============================
@@ -97,39 +98,40 @@ img {
 }
 
 /* ============================
-   HEADER
+   HEADER - ORIGINAL STYLE FROM PNG
    ============================ */
 .site-header {
     text-align: center;
-    padding: 40px 20px 30px;
+    padding: 30px 20px 20px;
     background: white;
-    border-bottom: 3px solid #b30000;
+    border-bottom: 2px solid #b30000;
 }
 
 .site-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 800;
     letter-spacing: -0.5px;
     color: #000;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     text-transform: uppercase;
     line-height: 1.2;
 }
 
 .subheading {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #b30000;
     font-weight: 500;
     letter-spacing: 0.5px;
     text-transform: uppercase;
+    margin-bottom: 15px;
 }
 
 /* ============================
-   DATE/TIME BAR
+   DATE/TIME BAR - ORIGINAL FORMAT FROM PNG
    ============================ */
 .datetime-bar {
     background: #f8f8f8;
-    padding: 15px 20px;
+    padding: 12px 20px;
     border-bottom: 1px solid #ddd;
     font-size: 0.9rem;
 }
@@ -157,21 +159,17 @@ img {
     font-weight: 300;
 }
 
-#clock-cest span,
-#cal-hijri span,
-#cal-bikrami span,
-#tz-ist span,
-#tz-pkt span {
+.datetime-list li span {
     font-weight: 600;
     color: #b30000;
 }
 
 /* ============================
-   WEATHER BAR
+   WEATHER BAR - ALL REGIONS FROM PNG
    ============================ */
 .weather-bar {
     background: #fff;
-    padding: 12px 20px;
+    padding: 10px 20px;
     border-bottom: 2px solid #b30000;
     font-size: 0.9rem;
 }
@@ -194,18 +192,18 @@ img {
     white-space: nowrap;
 }
 
-.weather-list strong {
+.weather-list li strong {
     color: #b30000;
     font-weight: 700;
 }
 
 /* ============================
-   TICKER
+   TICKER - ORIGINAL STYLE FROM PNG
    ============================ */
 .ticker-wrap {
     background: #111;
     color: white;
-    padding: 10px 0;
+    padding: 8px 0;
     border-bottom: 2px solid #b30000;
     overflow: hidden;
 }
@@ -220,24 +218,21 @@ img {
 
 .ticker-label {
     background: #b30000;
-    padding: 5px 15px;
+    padding: 4px 12px;
     font-weight: bold;
-    margin-right: 20px;
+    margin-right: 15px;
     display: inline-block;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    z-index: 2;
 }
 
 .ticker-items {
     display: inline-flex;
     gap: 40px;
-    list-style: none;
     animation: ticker-scroll 40s linear infinite;
-    padding-left: 20px;
 }
 
-.ticker-items li {
+.ticker-items span {
     display: inline;
     font-size: 0.85rem;
     color: #fff;
@@ -251,13 +246,13 @@ img {
 }
 
 /* ============================
-   TOOLS BAR
+   TOOLS BAR (LANGUAGE + SEARCH)
    ============================ */
 .tools-bar {
     display: flex;
     justify-content: flex-end;
     gap: 15px;
-    padding: 10px 20px;
+    padding: 8px 20px;
     background: #f8f8f8;
     border-bottom: 1px solid #ddd;
 }
@@ -270,7 +265,7 @@ img {
 }
 
 .lang-select select {
-    padding: 5px 8px;
+    padding: 4px 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 0.85rem;
@@ -283,23 +278,22 @@ img {
 }
 
 .search input {
-    padding: 5px 10px;
+    padding: 4px 10px;
     border: 1px solid #ddd;
     border-right: none;
     border-radius: 4px 0 0 4px;
     font-size: 0.85rem;
-    width: 200px;
+    width: 180px;
 }
 
 .search button {
-    padding: 5px 12px;
+    padding: 4px 10px;
     background: #b30000;
     color: white;
     border: none;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
     font-size: 0.85rem;
-    transition: background 0.2s;
 }
 
 .search button:hover {
@@ -307,11 +301,12 @@ img {
 }
 
 /* ============================
-   NAVIGATION
+   NAVIGATION - ORIGINAL STYLE FROM PNG
    ============================ */
-.modern-nav {
-    background: #fff;
-    border-bottom: 2px solid #b30000;
+.navbar {
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+    padding: 0;
     position: relative;
 }
 
@@ -322,7 +317,6 @@ img {
     flex-wrap: wrap;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 10px;
 }
 
 .nav-item {
@@ -331,13 +325,10 @@ img {
 
 .nav-btn {
     display: block;
-    padding: 15px 18px;
+    padding: 12px 18px;
     color: #333;
     text-decoration: none;
     font-weight: 600;
-    background: none;
-    border: none;
-    cursor: pointer;
     font-size: 0.9rem;
     transition: color 0.2s;
     white-space: nowrap;
@@ -347,6 +338,7 @@ img {
     color: #b30000;
 }
 
+/* Dropdown Menus */
 .dropdown {
     display: none;
     position: absolute;
@@ -354,23 +346,22 @@ img {
     left: 0;
     background: white;
     border: 1px solid #ddd;
-    min-width: 220px;
+    min-width: 200px;
     z-index: 1000;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .dropdown.wide {
-    min-width: 280px;
+    min-width: 250px;
 }
 
 .dropdown a {
     display: block;
-    padding: 12px 18px;
+    padding: 10px 16px;
     color: #333;
     text-decoration: none;
     border-bottom: 1px solid #f0f0f0;
-    font-size: 0.9rem;
-    transition: all 0.2s;
+    font-size: 0.85rem;
 }
 
 .dropdown a:last-child {
@@ -380,7 +371,6 @@ img {
 .dropdown a:hover {
     background: #f8f8f8;
     color: #b30000;
-    padding-left: 22px;
 }
 
 .nav-item:hover .dropdown {
@@ -391,7 +381,7 @@ img {
 .hamburger {
     display: none;
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     background: #b30000;
     color: white;
     border: none;
@@ -415,32 +405,17 @@ img {
     display: none;
 }
 
-.mobile-menu .nav-list {
+.mobile-menu a {
     display: block;
-    padding: 0;
-}
-
-.mobile-menu .nav-item {
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
     border-bottom: 1px solid #f0f0f0;
 }
 
-.mobile-menu .nav-btn {
-    width: 100%;
-    text-align: left;
-    padding: 12px 15px;
-}
-
-.mobile-menu .dropdown {
-    position: static;
-    display: none;
-    box-shadow: none;
-    border: none;
-    border-top: 1px solid #f0f0f0;
-    background: #f9f9f9;
-}
-
-.mobile-menu .dropdown a {
-    padding-left: 30px;
+.mobile-menu a:hover {
+    background: #f8f8f8;
+    color: #b30000;
 }
 
 /* ============================
@@ -453,8 +428,358 @@ img {
 }
 
 /* ============================
-   SECTION TITLES
+   SECTION TITLES - ORIGINAL STYLE
    ============================ */
 .section-title {
     font-size: 1.8rem;
-    font-weight: 
+    font-weight: 700;
+    color: #b30000;
+    margin: 40px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #b30000;
+}
+
+/* ============================
+   CARD GRID SYSTEM
+   ============================ */
+.cards {
+    display: grid;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.cards.three {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.cards.two {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* ============================
+   CARD STYLES
+   ============================ */
+.card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.media {
+    height: 180px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #eee;
+}
+
+.media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 16px;
+}
+
+.card-body h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    color: #222;
+}
+
+.card-body p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+/* ============================
+   RED BUTTON
+   ============================ */
+.btn-red {
+    display: inline-block;
+    background: #b30000;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-red:hover {
+    background: #8a0000;
+    text-decoration: none;
+    color: white;
+}
+
+/* ============================
+   VLOGS SECTION - MATCHING PNG
+   ============================ */
+.vlog-toolbar {
+    margin-bottom: 20px;
+}
+
+.vlog-card-thumb {
+    position: relative;
+    height: 160px;
+    background: #000;
+    overflow: hidden;
+}
+
+.vlog-card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+}
+
+.vlog-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: #b30000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.vlog-duration {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    border-radius: 3px;
+}
+
+/* ============================
+   FORMS
+   ============================ */
+.epaper-form,
+.newsletter-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.epaper-form input[type="file"],
+.newsletter-form input[type="email"] {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.newsletter-form input[type="email"] {
+    width: 250px;
+}
+
+/* ============================
+   SOCIAL ACTIONS
+   ============================ */
+.social-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 40px 0 20px;
+    padding: 20px 0;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    flex-wrap: wrap;
+}
+
+.sa-btn {
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sa-btn:hover {
+    background: #f5f5f5;
+    border-color: #b30000;
+    color: #b30000;
+}
+
+/* ============================
+   CONTACT MODAL
+   ============================ */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    border-radius: 6px;
+    position: relative;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.close:hover {
+    color: #b30000;
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+    color: #b30000;
+}
+
+.modal-content p {
+    margin-bottom: 10px;
+}
+
+/* ============================
+   FOOTER
+   ============================ */
+footer {
+    background: #111;
+    color: #999;
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #b30000;
+    font-size: 0.85rem;
+}
+
+footer span {
+    color: #b30000;
+    font-weight: 600;
+}
+
+/* ============================
+   RESPONSIVE DESIGN
+   ============================ */
+@media (max-width: 992px) {
+    .site-title {
+        font-size: 2.2rem;
+    }
+    
+    .cards.three {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .site-title {
+        font-size: 1.8rem;
+    }
+    
+    .subheading {
+        font-size: 0.9rem;
+    }
+    
+    .cards.three,
+    .cards.two {
+        grid-template-columns: 1fr;
+    }
+    
+    .datetime-list,
+    .weather-list {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .nav-list {
+        display: none;
+    }
+    
+    .hamburger {
+        display: block;
+    }
+    
+    .tools-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    
+    .search input {
+        width: 100%;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
+    
+    .newsletter-form input[type="email"] {
+        width: 100%;
+    }
+    
+    .social-actions {
+        flex-direction: column;
+    }
+    
+    .sa-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-title {
+        font-size: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+    }
+}
