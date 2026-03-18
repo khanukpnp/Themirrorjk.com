@@ -1,6 +1,7 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
    FIXED: REMOVED GREY AREAS, RESTORED CALENDARS, REDUCED GAP
+   MAROON FOOTER WITH WHITE TEXT - 30% SHRUNK
    ============================================================ */
 
 /* ============================
@@ -15,12 +16,12 @@
 html, body {
     width: 100%;
     min-height: 100%;
-    background: white; /* Changed to white to remove grey areas */
+    background: white; /* Pure white background */
 }
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    background: white; /* Changed to white */
+    background: white;
     color: #222;
     line-height: 1.5;
     overflow-x: hidden;
@@ -32,15 +33,14 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   PAGE SHELL - NO GREY BORDERS
+   PAGE SHELL - FULL WIDTH
    ============================ */
 .page-shell {
     max-width: 1200px;
     margin: 0 auto;
     background: white;
-    border-left: none; /* Removed grey border */
-    border-right: none; /* Removed grey border */
-    box-shadow: 0 0 10px rgba(0,0,0,0.05); /* Very subtle shadow only */
+    box-shadow: none; /* No shadows */
+    width: 100%;
 }
 
 /* ============================
@@ -104,28 +104,29 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   HEADER
+   HEADER - EXPANDED FOR FULL SCREEN
    ============================ */
 .site-header {
     text-align: center;
-    padding: 25px 20px 15px;
+    padding: 30px 20px 20px;
     background: white;
     border-bottom: 2px solid #b30000;
+    width: 100%;
 }
 
 .site-title {
-    font-size: 2.5rem;
+    font-size: 2.8rem; /* Slightly larger for full screen */
     font-weight: 900;
     letter-spacing: -0.5px;
     color: #000;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     text-transform: uppercase;
     line-height: 1.2;
     font-family: 'Playfair Display', serif;
 }
 
 .subheading {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: #b30000;
     font-weight: 600;
     letter-spacing: 0.3px;
@@ -135,13 +136,14 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   INFO BAR
+   INFO BAR - CALENDARS RESTORED
    ============================ */
 .info-bar {
     background: #f8f8f8;
     padding: 8px 20px;
     border-bottom: 1px solid #ddd;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    width: 100%;
 }
 
 .info-items {
@@ -149,7 +151,7 @@ h1, h2, h3, h4, h5 {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -157,37 +159,46 @@ h1, h2, h3, h4, h5 {
 .info-items span {
     color: #333;
     white-space: nowrap;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
 .info-items .separator {
     color: #999;
     font-weight: 300;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     margin: 0 2px;
 }
 
+#clock-cest, #cal-hijri, #cal-bikrami {
+    font-weight: 500;
+}
+
+#tz-ist span, #tz-pkt span {
+    font-weight: 600;
+    color: #b30000;
+}
+
 /* ============================
-   WEATHER BAR
+   WEATHER BAR - RESTORED
    ============================ */
 .weather-bar {
     background: #fff;
     border-bottom: 2px solid #b30000;
-    padding: 6px 20px;
+    padding: 8px 20px;
 }
 
 .weather-bar .info-items span {
     display: inline-flex;
     align-items: center;
     gap: 3px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
 .weather-bar .info-items strong {
     color: #b30000;
     font-weight: 700;
     margin-left: 2px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
 /* ============================
@@ -196,9 +207,10 @@ h1, h2, h3, h4, h5 {
 .ticker-wrap {
     background: #111;
     color: white;
-    padding: 6px 0;
+    padding: 8px 0;
     border-bottom: 2px solid #b30000;
     overflow: hidden;
+    width: 100%;
 }
 
 .ticker {
@@ -208,15 +220,16 @@ h1, h2, h3, h4, h5 {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
+    padding: 0 20px;
 }
 
 .ticker-label {
     background: #b30000;
-    padding: 3px 12px;
+    padding: 4px 14px;
     font-weight: bold;
     margin-right: 15px;
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     z-index: 2;
 }
@@ -224,12 +237,12 @@ h1, h2, h3, h4, h5 {
 .ticker-items {
     display: inline-flex;
     gap: 40px;
-    animation: ticker-scroll 380s linear infinite;
+    animation: ticker-scroll 40s linear infinite;
 }
 
 .ticker-items span {
     display: inline;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #fff;
     opacity: 0.95;
     white-space: nowrap;
@@ -247,23 +260,24 @@ h1, h2, h3, h4, h5 {
     display: flex;
     justify-content: flex-end;
     gap: 15px;
-    padding: 6px 20px;
+    padding: 8px 20px;
     background: #f8f8f8;
     border-bottom: 1px solid #ddd;
+    width: 100%;
 }
 
 .lang-select {
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
 .lang-select select {
-    padding: 3px 8px;
+    padding: 4px 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     background: white;
     cursor: pointer;
 }
@@ -273,22 +287,22 @@ h1, h2, h3, h4, h5 {
 }
 
 .search input {
-    padding: 3px 10px;
+    padding: 4px 10px;
     border: 1px solid #ddd;
     border-right: none;
     border-radius: 4px 0 0 4px;
-    font-size: 0.8rem;
-    width: 180px;
+    font-size: 0.85rem;
+    width: 200px;
 }
 
 .search button {
-    padding: 3px 10px;
+    padding: 4px 12px;
     background: #b30000;
     color: white;
     border: none;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
 }
 
 .search button:hover {
@@ -303,6 +317,7 @@ h1, h2, h3, h4, h5 {
     border-bottom: 2px solid #b30000;
     padding: 0;
     position: relative;
+    width: 100%;
 }
 
 .nav-list {
@@ -312,6 +327,7 @@ h1, h2, h3, h4, h5 {
     flex-wrap: wrap;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 .nav-item {
@@ -329,7 +345,7 @@ h1, h2, h3, h4, h5 {
     color: white;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     transition: background-color 0.2s;
     white-space: nowrap;
     background: #800000;
@@ -363,7 +379,7 @@ h1, h2, h3, h4, h5 {
     color: white;
     text-decoration: none;
     border-bottom: 1px solid #444;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     transition: all 0.2s;
 }
 
@@ -428,7 +444,7 @@ h1, h2, h3, h4, h5 {
 .home-main {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 10px 20px 20px; /* Reduced top padding from 20px to 10px */
+    padding: 5px 20px 20px; /* Significantly reduced top padding */
 }
 
 /* ============================
@@ -438,7 +454,7 @@ h1, h2, h3, h4, h5 {
     font-size: 1.5rem;
     font-weight: 700;
     color: #b30000;
-    margin: 15px 0 15px; /* Reduced top margin from 25px to 15px */
+    margin: 10px 0 15px; /* Reduced top margin */
     padding-bottom: 8px;
     border-bottom: 2px solid #b30000;
     position: relative;
@@ -455,9 +471,9 @@ h1, h2, h3, h4, h5 {
     background: #b30000;
 }
 
-/* First section title (Top Stories) should have even smaller margin */
+/* First section title (Top Stories) should have minimal margin */
 #top-stories .modern-title {
-    margin-top: 5px; /* Minimal margin after navigation */
+    margin-top: 0; /* No margin after navigation */
 }
 
 /* ============================
@@ -797,14 +813,15 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   FOOTER
+   FOOTER - MAROON WITH WHITE TEXT - 30% SHRUNK
    ============================ */
 .modern-footer {
-    background: #1a1a1a;
-    color: #f0f0f0;
-    padding: 15px 20px 8px;
+    background: #800000; /* Maroon background */
+    color: white; /* White text */
+    padding: 12px 20px 6px; /* Reduced by 30% from original 18px/8px */
     border-top: 2px solid #b30000;
-    font-size: 0.8rem;
+    font-size: 0.75rem; /* Smaller font */
+    width: 100%;
 }
 
 .footer-content {
@@ -812,15 +829,24 @@ h1, h2, h3, h4, h5 {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #333;
+    gap: 10px; /* Reduced gap */
+    padding-bottom: 6px; /* Reduced padding */
+    border-bottom: 1px solid #993333; /* Lighter maroon border */
 }
 
 .footer-section h4 {
-    color: #b30000;
-    margin-bottom: 6px;
-    font-size: 0.9rem;
+    color: white; /* White headings */
+    margin-bottom: 4px; /* Reduced margin */
+    font-size: 0.8rem; /* Smaller font */
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+.footer-section p {
+    color: white; /* White text */
+    font-size: 0.7rem; /* Smaller font */
+    line-height: 1.3;
+    opacity: 0.9;
 }
 
 .footer-section ul {
@@ -828,50 +854,58 @@ h1, h2, h3, h4, h5 {
 }
 
 .footer-section ul li {
-    margin-bottom: 3px;
+    margin-bottom: 2px; /* Reduced margin */
 }
 
 .footer-section ul li a {
-    color: #ccc;
+    color: white; /* White links */
     text-decoration: none;
-    font-size: 0.75rem;
-    transition: color 0.2s;
+    font-size: 0.7rem; /* Smaller font */
+    transition: opacity 0.2s;
+    opacity: 0.9;
 }
 
 .footer-section ul li a:hover {
-    color: #b30000;
+    opacity: 1;
+    text-decoration: underline;
 }
 
 .social-icons {
     display: flex;
-    gap: 8px;
+    gap: 6px; /* Reduced gap */
 }
 
 .social-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
-    background: #333;
+    width: 24px; /* Smaller icons */
+    height: 24px; /* Smaller icons */
+    background: #993333; /* Lighter maroon */
     color: white;
     border-radius: 50%;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     transition: background 0.2s;
 }
 
 .social-icon:hover {
-    background: #b30000;
+    background: #b30000; /* Brighter maroon on hover */
 }
 
 .footer-bottom {
     max-width: 1200px;
-    margin: 8px auto 0;
+    margin: 6px auto 0; /* Reduced margin */
     text-align: center;
-    color: #999;
-    font-size: 0.7rem;
-    padding-top: 8px;
+    color: white; /* White text */
+    font-size: 0.65rem; /* Smaller font */
+    padding-top: 6px; /* Reduced padding */
+    opacity: 0.8;
+}
+
+.footer-bottom span {
+    color: white;
+    font-weight: 600;
 }
 
 /* ============================
@@ -889,7 +923,7 @@ h1, h2, h3, h4, h5 {
 
 @media (max-width: 768px) {
     .site-title {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
     
     .cards.three,
@@ -931,10 +965,10 @@ h1, h2, h3, h4, h5 {
 
 @media (max-width: 480px) {
     .site-title {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
     
     .modern-title {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 }
