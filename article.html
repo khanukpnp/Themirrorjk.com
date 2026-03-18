@@ -1,242 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title id="page-title">THE MIRROR JAMMU KASHMIR</title>
-  <link rel="stylesheet" href="styles.css?v=26">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">THE MIRROR JAMMU KASHMIR</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Article Page Specific Styles - BBC/Reuters Style */
+        .article-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
 
-  <style>
-  /* ============================
-     ARTICLE PAGE LAYOUT
-     ============================ */
-  .article-container {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 30px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    display: flex;
-    gap: 30px;
-  }
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-  .article-body {
-    width: 72%;
-  }
+        /* Category Label */
+        .category-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #b30000;
+            letter-spacing: 0.5px;
+        }
 
-  .sidebar {
-    width: 28%;
-    border-left: 1px solid #eee;
-    padding-left: 25px;
-  }
+        /* Headline - Above Hero Image (BBC Style) */
+        .article-headline {
+            margin-bottom: 20px;
+        }
 
-  /* ============================
-     HERO IMAGE
-     ============================ */
-  #heroWrap {
-    margin-bottom: 25px;
-  }
+        #title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+        }
 
-  #heroImg {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 4px;
-  }
+        /* Meta Information */
+        .article-meta {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
 
-  #heroCaption {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 6px;
-  }
+        #meta strong {
+            color: #b30000;
+            font-weight: 600;
+        }
 
-  /* ============================
-     HEADLINE + STANDFIRST
-     ============================ */
-  #title {
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin: 20px 0 10px 0;
-    font-family: "Georgia", "Times New Roman", serif;
-    line-height: 1.2;
-  }
+        /* Hero Image - Below Headline */
+        .hero-image-container {
+            margin-bottom: 30px;
+            width: 100%;
+        }
 
-  .standfirst {
-    font-size: 1.25rem;
-    color: #555;
-    margin: 20px 0;
-    line-height: 1.6;
-    font-family: "Georgia", "Times New Roman", serif;
-  }
+        #heroImg {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
 
-  /* ============================
-     META LINE
-     ============================ */
-  #meta {
-    font-size: 0.95rem;
-    color: #444;
-    margin-bottom: 25px;
-    line-height: 1.5;
-  }
+        #heroCaption {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
 
-  /* ============================
-     BODY CONTENT
-     ============================ */
-  #content p {
-    font-size: 1.125rem;
-    line-height: 1.8;
-    margin-bottom: 18px;
-    font-family: "Georgia", "Times New Roman", serif;
-    color: #111;
-  }
+        /* Article Content */
+        #content {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+        }
 
-  /* Inline images */
-  .img-left {
-    float: left;
-    width: 45%;
-    margin: 10px 20px 20px 0;
-  }
+        /* Paragraphs */
+        #content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Georgia', serif;
+        }
 
-  .img-right {
-    float: right;
-    width: 45%;
-    margin: 10px 0 20px 20px;
-  }
+        /* Subheadings */
+        #content .mid-subheading {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+        }
 
-  figure img {
-    width: 100%;
-    border-radius: 4px;
-  }
+        /* Pull Quotes */
+        #content .pull-quote {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.6;
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            background: #f9f9f9;
+            border-left: 4px solid #b30000;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+            font-style: italic;
+        }
 
-  figure figcaption {
-    font-size: 0.85rem;
-    color: #666;
-    margin-top: 4px;
-  }
+        /* Important Points / Bullet Points */
+        #content .important-points {
+            background: #f5f5f5;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
 
-  /* ============================
-     IMPORTANT POINTS
-     ============================ */
-  .important-points {
-    background: #f7f7f7;
-    padding: 15px 20px;
-    border-left: 4px solid #c00;
-    margin: 25px 0;
-  }
+        #content .important-points ul {
+            list-style: none;
+            padding: 0;
+        }
 
-  .important-points ul {
-    margin: 0;
-    padding-left: 20px;
-  }
+        #content .important-points li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 1.1rem;
+        }
 
-  .pull-quote {
-    background: #f7f7f7;
-    border-left: 4px solid #c00;
-    padding: 20px;
-    margin: 30px 0;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-  }
+        #content .important-points li:before {
+            content: "•";
+            color: #b30000;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
 
-  /* ============================
-     CATEGORY LABEL COLORS
-     ============================ */
-  .category-label {
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
+        /* Inline Images - 38% width floating */
+        #content figure {
+            margin: 1.5rem 0;
+            max-width: 100%;
+        }
 
-  .cat-breaking { color: #c00; }
-  .cat-blog { color: #005bbb; }
-  .cat-editorial { color: #b8860b; }
-  .cat-historical { color: #555; }
-  .cat-humanrights { color: #800000; }
-  .cat-international { color: #0a7d32; }
-  .cat-latest { color: #6a0dad; }
-  .cat-jk { color: #0b7c7c; }
-  .cat-vlog { color: #d35400; }
-  .cat-default { color: #900; }
+        #content .img-left {
+            float: left;
+            width: 38%;
+            margin: 0.5rem 1.5rem 1rem 0;
+        }
 
-  /* ============================
-     SIDEBAR
-     ============================ */
-  .sidebar h3 {
-    font-size: 1.2rem;
-    margin-bottom: 12px;
-  }
+        #content .img-right {
+            float: right;
+            width: 38%;
+            margin: 0.5rem 0 1rem 1.5rem;
+        }
 
-  .sidebar .related-item {
-    margin-bottom: 18px;
-  }
+        #content .img-center {
+            width: 100%;
+            margin: 2rem 0;
+            text-align: center;
+        }
 
-  .sidebar .related-item a {
-    font-weight: 600;
-    color: #900;
-    text-decoration: none;
-  }
+        #content figure img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
 
-  .sidebar .related-item p {
-    font-size: 0.9rem;
-    color: #555;
-  }
+        #content figcaption {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+            font-style: italic;
+            text-align: left;
+        }
 
-  /* Clear floats */
-  .clearfix::after {
-    content: "";
-    display: block;
-    clear: both;
-  }
-  </style>
+        /* Clear floats */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Article Actions */
+        .article-actions {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e0e0e0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #b30000;
+            color: white;
+            border-color: #b30000;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            #title {
+                font-size: 2rem;
+            }
+            
+            #content .img-left,
+            #content .img-right {
+                float: none;
+                width: 100%;
+                margin: 1.5rem 0;
+            }
+            
+            #content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
-
-<body class="article-page theme-maroon">
-  <!-- ============================
-       ARTICLE CONTAINER
-       ============================ -->
-  <div class="article-container">
-    <!-- MAIN ARTICLE BODY -->
-    <div class="article-body">
-      <!-- CATEGORY LABEL -->
-      <div id="section-label" class="category-label"></div>
-
-      <!-- HERO IMAGE -->
-      <div id="heroWrap">
-        <img id="heroImg" src="" alt="">
-        <div id="heroCaption"></div>
-      </div>
-
-      <!-- HEADLINE -->
-      <h1 id="title"></h1>
-
-      <!-- META -->
-      <div id="meta"></div>
-
-      <!-- CONTENT -->
-      <div id="content" class="clearfix"></div>
+<body>
+    <div class="article-page">
+        <div class="article-container">
+            <!-- Category Label -->
+            <div id="section-label" class="category-label"></div>
+            
+            <!-- Headline (Above Hero Image - BBC Style) -->
+            <div class="article-headline">
+                <h1 id="title"></h1>
+            </div>
+            
+            <!-- Meta Information -->
+            <div id="meta" class="article-meta"></div>
+            
+            <!-- Hero Image -->
+            <div id="heroWrap" class="hero-image-container">
+                <img id="heroImg" src="" alt="">
+                <div id="heroCaption"></div>
+            </div>
+            
+            <!-- Article Content -->
+            <div id="content" class="clearfix"></div>
+            
+            <!-- Article Actions -->
+            <div class="article-actions">
+                <button id="btn-like" class="action-btn">
+                    <span>👍</span> Like
+                </button>
+                <button id="btn-subscribe" class="action-btn">
+                    <span>🔔</span> Subscribe
+                </button>
+                <button id="btn-share" class="action-btn">
+                    <span>📤</span> Share
+                </button>
+                <button id="btn-copy" class="action-btn">
+                    <span>🔗</span> Copy Link
+                </button>
+            </div>
+        </div>
     </div>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <h3>Related Articles</h3>
-      <div id="related-articles"></div>
-
-      <h3>Latest Updates</h3>
-      <div id="latest-updates"></div>
-
-      <h3>Share</h3>
-      <p>
-        <button onclick="navigator.share && navigator.share({ title: document.title, url: location.href })">
-          Share this article
-        </button>
-      </p>
-    </aside>
-  </div>
-
-  <script src="script.js?v=26"></script>
+    
+    <script src="script.js"></script>
 </body>
 </html>
