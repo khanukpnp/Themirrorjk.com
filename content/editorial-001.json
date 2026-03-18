@@ -9,15 +9,12 @@
   "location": "Geneva",
   "date": "2026-03-03T09:00:00Z",
   "readTime": "22 min read",
-
   "heroImage": {
-    "src": "content/images/editorial-001-hero.png",
+    "src": "content/images/brief-history-jk-01.png",
     "caption": "Historical flags of the State of Jammu and Kashmir",
     "credit": "The Mirror Jammu Kashmir"
   },
-
   "archive": false,
-
   "body": [
     {
       "type": "paragraph",
@@ -31,20 +28,17 @@
       "type": "paragraph",
       "text": "Throughout the 1820s and 1830s forces under Gulab Singh and his generals extended control into Ladakh and Baltistan. These campaigns laid the territorial foundations of a larger mountain state that would later include Jammu, Kashmir Valley, Ladakh and the northern frontier regions."
     },
-
     {
       "type": "image",
-      "src": "content/images/editorial-001-01.png",
+      "src": "content/images/brief-history-jk-01.png",
       "caption": "Historical flag of Jammu and Kashmir State",
       "credit": "The Mirror Jammu Kashmir",
       "align": "center"
     },
-
     {
       "type": "subheading",
       "text": "The Treaty of Lahore and Treaty of Amritsar"
     },
-
     {
       "type": "paragraph",
       "text": "The First Anglo Sikh War of 1845 to 1846 marked a decisive turning point. The Sikh Empire was defeated by the East India Company resulting in partial subjugation of the Sikh kingdom."
@@ -69,17 +63,14 @@
       "type": "paragraph",
       "text": "Gulab Singh became the legitimate ruler and founding father of the State of Jammu and Kashmir. This Treaty formally created the State of Jammu and Kashmir."
     },
-
     {
       "type": "pullquote",
       "text": "The Treaty of Amritsar of 16 March 1846 formally created the State of Jammu and Kashmir."
     },
-
     {
       "type": "subheading",
       "text": "Rulers of the State"
     },
-
     {
       "type": "points",
       "items": [
@@ -89,20 +80,17 @@
         "Maharaja Hari Singh, 1925 to 1953"
       ]
     },
-
     {
       "type": "image",
-      "src": "content/images/editorial-001-02.png",
+      "src": "content/images/brief-history-jk-02.png",
       "caption": "Flag of Jammu and Kashmir used during Dogra rule",
       "credit": "The Mirror Jammu Kashmir",
       "align": "center"
     },
-
     {
       "type": "subheading",
       "text": "Administrative and Legal Development"
     },
-
     {
       "type": "paragraph",
       "text": "Under Maharaja Ranbir Singh the administration was consolidated and codified. The Ranbir Penal Code became the foundation of criminal law in the State."
@@ -119,20 +107,17 @@
       "type": "paragraph",
       "text": "Under Maharaja Pratap Singh infrastructure expanded. Roads public buildings and communication systems improved and state departments were modernized."
     },
-
     {
       "type": "image",
-      "src": "content/images/editorial-001-03.png",
+      "src": "content/images/brief-history-jk-03.png",
       "caption": "Historic state symbols of Jammu Kashmir",
       "credit": "The Mirror Jammu Kashmir",
       "align": "center"
     },
-
     {
       "type": "subheading",
       "text": "Forest Governance and Land Protection"
     },
-
     {
       "type": "paragraph",
       "text": "Forest conservation was a key feature of governance. Large tracts of land were declared reserved or protected forests."
@@ -145,20 +130,17 @@
       "type": "paragraph",
       "text": "Cutting valuable trees such as maple pine and deodar required prior permission from state authorities and unauthorized felling was punishable by law."
     },
-
     {
       "type": "image",
-      "src": "content/images/editorial-001-04.png",
+      "src": "content/images/brief-history-jk-04.png",
       "caption": "Historical administrative map of the State",
       "credit": "The Mirror Jammu Kashmir",
       "align": "center"
     },
-
     {
       "type": "subheading",
       "text": "State Subject Rule and Constitutional Reforms"
     },
-
     {
       "type": "paragraph",
       "text": "Maharaja Hari Singh who ascended the throne in 1925 introduced major reforms. In 1927 the State Subject Rule was enacted."
@@ -183,22 +165,83 @@
       "type": "paragraph",
       "text": "In 1939 the Praja Sabha was expanded increasing elected representation and strengthening legislative functions."
     },
-
     {
       "type": "image",
-      "src": "content/images/editorial-001-05.png",
+      "src": "content/images/brief-history-jk-05.png",
       "caption": "Historical state emblems and political symbols",
       "credit": "The Mirror Jammu Kashmir",
       "align": "center"
     },
-
     {
       "type": "subheading",
       "text": "Events of 1947"
     },
-
     {
       "type": "paragraph",
       "text": "In 1947 during the partition of British India into India and Pakistan more than 580 princely states were given the option to join either dominion or remain independent."
     },
     {
+      "type": "paragraph",
+      "text": "Given the State's complex demography and geography Maharaja Hari Singh chose independence."
+    },
+    {
+      "type": "paragraph",
+      "text": "On 22 October 1947 Pakistani backed tribal forces entered the State from the northwest and advanced toward Srinagar."
+    },
+    {
+      "type": "paragraph",
+      "text": "Maharaja Hari Singh approached India for military assistance and signed the Instrument of Provisional Accession limited to defence foreign affairs and communications."
+    },
+    {
+      "type": "paragraph",
+      "text": "Indian troops were airlifted into Srinagar with assurances to protect life liberty and property of the people of Jammu and Kashmir and repel the invaders."
+    },
+    {
+      "type": "image",
+      "src": "content/images/brief-history-jk-06.png",
+      "caption": "Historic maps and division of Jammu Kashmir after 1947",
+      "credit": "The Mirror Jammu Kashmir",
+      "align": "center"
+    },
+    {
+      "type": "subheading",
+      "text": "United Nations and International Dimension"
+    },
+    {
+      "type": "paragraph",
+      "text": "The United Nations became involved in 1948. Its resolutions and the UNCIP truce agreement called for Pakistan to withdraw forthwith from the territory of the State of Jammu and Kashmir."
+    },
+    {
+      "type": "paragraph",
+      "text": "India entered Kashmir with promises including protection of life liberty and property and a commitment that the final status would be determined according to the wishes of the people."
+    },
+    {
+      "type": "paragraph",
+      "text": "The entire State of Jammu and Kashmir remains a disputed territory and its future status is yet to be decided."
+    },
+    {
+      "type": "pullquote",
+      "text": "The dispute over Jammu and Kashmir is not merely territorial. It concerns the lives and rights of millions of Kashmiris who remain divided."
+    },
+    {
+      "type": "paragraph",
+      "text": "The European Parliament Resolution on Kashmir adopted on 24 May 2007 was overwhelmingly passed with 522 Members voting in favor."
+    },
+    {
+      "type": "paragraph",
+      "text": "The Office of the United Nations High Commissioner for Human Rights issued two significant reports on the situation of human rights in Kashmir in 2018 and 2019."
+    },
+    {
+      "type": "paragraph",
+      "text": "These international documents confirm that the question of Jammu and Kashmir remains on the global agenda."
+    },
+    {
+      "type": "paragraph",
+      "text": "From 16 March 1846 until the upheavals of October 1947 the State of Jammu and Kashmir existed as a defined political entity with borders citizenship laws courts a High Court a Bar a legislative assembly known as the Praja Sabha protected forests regulated grazing systems water management and structured governance."
+    },
+    {
+      "type": "paragraph",
+      "text": "That historical State remains central to understanding the present and future of Jammu and Kashmir."
+    }
+  ]
+}
