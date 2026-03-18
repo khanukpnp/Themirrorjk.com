@@ -1,6 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
-   WITH PROPER WINDOW GRIDS
+   MATCHING ORIGINAL PNG SCREENSHOTS
    ============================================================ */
 
 /* ============================
@@ -104,7 +104,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ============================
-   HEADER
+   HEADER - MATCHING ORIGINAL PNG
    ============================ */
 .site-header {
     text-align: center;
@@ -164,23 +164,6 @@ h1, h2, h3, h4, h5 {
     color: #999;
     font-weight: 300;
     font-size: 0.8rem;
-}
-
-#clock-cest {
-    font-weight: 500;
-}
-
-#cal-hijri, #cal-bikrami {
-    font-weight: 500;
-}
-
-#tz-ist, #tz-pkt {
-    white-space: nowrap;
-}
-
-#tz-ist span, #tz-pkt span {
-    font-weight: 600;
-    color: #b30000;
 }
 
 /* ============================
