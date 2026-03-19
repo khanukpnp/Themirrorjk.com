@@ -1,6 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT
-   WITH YOUTUBE VIDEOS AND ALL CONTENT LOADING
+   WITH YOUTUBE VIDEOS, ALL CONTENT LOADING, AND MODERN FEATURES
    ============================================================ */
 
 // Wait for DOM to be fully loaded
@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     initFileUpload();
     initNewsletter();
     initFooterDropdowns();
+    initReadingProgress();
     
     // Load homepage content from JSON
     loadHomepageContent();
@@ -215,6 +216,20 @@ function initTicker() {
         });
     }
     tickerItems.innerHTML = html;
+}
+
+/* ============================
+   READING PROGRESS BAR
+   ============================ */
+function initReadingProgress() {
+    const progressBar = document.getElementById('reading-progress');
+    if (!progressBar) return;
+    
+    window.addEventListener('scroll', function() {
+        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+    });
 }
 
 /* ============================
@@ -508,6 +523,94 @@ function initFooterDropdowns() {
             section.classList.toggle('open');
         });
     });
+}
+
+/* ============================
+   SHARE TOOLTIP FUNCTIONALITY
+   ============================ */
+function initShareTooltip() {
+    const shareBtn = document.getElementById('btn-share');
+    const tooltip = document.getElementById('share-tooltip');
+    if (!shareBtn || !tooltip) return;
+    
+    shareBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        tooltip.classList.toggle('show');
+    });
+    
+    document.addEventListener('click', function() {
+        tooltip.classList.remove('show');
+    });
+    
+    tooltip.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+    
+    updateShareLinks();
+}
+
+function updateShareLinks() {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.title);
+    
+    const facebookLink = document.getElementById('share-facebook');
+    if (facebookLink) {
+        facebookLink.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        facebookLink.target = '_blank';
+        facebookLink.rel = 'noopener noreferrer';
+    }
+    
+    const twitterLink = document.getElementById('share-twitter');
+    if (twitterLink) {
+        twitterLink.href = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+        twitterLink.target = '_blank';
+        twitterLink.rel = 'noopener noreferrer';
+    }
+    
+    const whatsappLink = document.getElementById('share-whatsapp');
+    if (whatsappLink) {
+        whatsappLink.href = `https://api.whatsapp.com/send?text=${title}%20${url}`;
+        whatsappLink.target = '_blank';
+        whatsappLink.rel = 'noopener noreferrer';
+    }
+    
+    const linkedinLink = document.getElementById('share-linkedin');
+    if (linkedinLink) {
+        linkedinLink.href = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+        linkedinLink.target = '_blank';
+        linkedinLink.rel = 'noopener noreferrer';
+    }
+}
+
+/* ============================
+   NEXT ARTICLE SUGGESTION
+   ============================ */
+function suggestNextArticle(currentArticleId) {
+    const suggestionDiv = document.getElementById('next-article-suggestion');
+    if (!suggestionDiv) return;
+    
+    // Define article sequence - you can expand this or load from JSON
+    const articleSequence = [
+        { id: 'article-001', title: 'Shutter Down in Rawalakot' },
+        { id: 'breaking-001', title: 'UKPNP Meets Baroness Nicholson' },
+        { id: 'blog-001', title: 'UKPNP Briefs British MPs' },
+        { id: 'editorial-001', title: 'Brief History of Jammu and Kashmir' },
+        { id: 'latest-001', title: 'US-Israel-Iran Escalation' },
+        { id: 'historical-001', title: 'US-Israel-Iran War Risk' }
+    ];
+    
+    // Find current article index
+    const currentIndex = articleSequence.findIndex(a => a.id === currentArticleId);
+    
+    if (currentIndex === -1 || currentIndex === articleSequence.length - 1) {
+        suggestionDiv.style.display = 'none';
+        return;
+    }
+    
+    // Set next article
+    const next = articleSequence[currentIndex + 1];
+    suggestionDiv.innerHTML = `Next: <a href="article.html?id=${next.id}">${next.title} →</a>`;
+    suggestionDiv.style.display = 'block';
 }
 
 /* ============================
@@ -1267,6 +1370,7 @@ function initArticlePage() {
         })
         .then(function(article) {
             renderFullArticlePage(article);
+            initShareTooltip();
         })
         .catch(function() {
             document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Article not found</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
@@ -1330,13 +1434,15 @@ function renderFullArticlePage(article) {
     const heroImg = document.getElementById("heroImg");
     const heroCaption = document.getElementById("heroCaption");
     
+    let heroImageUrl = '';
     if (article.heroImage && article.heroImage.src && heroImg) {
         let imageSrc = article.heroImage.src;
         // Fix GitHub image URLs if needed
         if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
             imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
         }
-        heroImg.src = imageSrc;
+        heroImageUrl = imageSrc.startsWith('http') ? imageSrc : 'https://themirrorjk.com/' + imageSrc;
+        heroImg.src = heroImageUrl;
         heroImg.alt = article.heroImage.caption || article.title || '';
         
         if (heroCaption) {
@@ -1350,7 +1456,43 @@ function renderFullArticlePage(article) {
         heroWrap.style.display = 'none';
     }
     
-    // Render body content
+    // --- SET SOCIAL MEDIA META TAGS ---
+    const fullUrl = window.location.href;
+    const articleTitle = article.title || 'THE MIRROR JAMMU KASHMIR';
+    const articleExcerpt = article.excerpt || article.summary || 'Read the latest from THE MIRROR JAMMU KASHMIR.';
+    
+    // Open Graph tags
+    const ogUrl = document.getElementById('og-url');
+    if (ogUrl) ogUrl.setAttribute('content', fullUrl);
+    
+    const ogTitle = document.getElementById('og-title');
+    if (ogTitle) ogTitle.setAttribute('content', articleTitle);
+    
+    const ogDescription = document.getElementById('og-description');
+    if (ogDescription) ogDescription.setAttribute('content', articleExcerpt);
+    
+    const ogImage = document.getElementById('og-image');
+    if (ogImage && heroImageUrl) {
+        ogImage.setAttribute('content', heroImageUrl);
+    }
+    
+    // Twitter Card tags
+    const twitterTitle = document.getElementById('twitter-title');
+    if (twitterTitle) twitterTitle.setAttribute('content', articleTitle);
+    
+    const twitterDescription = document.getElementById('twitter-description');
+    if (twitterDescription) twitterDescription.setAttribute('content', articleExcerpt);
+    
+    const twitterImage = document.getElementById('twitter-image');
+    if (twitterImage && heroImageUrl) {
+        twitterImage.setAttribute('content', heroImageUrl);
+    }
+    
+    // Standard meta description
+    const metaDescription = document.getElementById('meta-description');
+    if (metaDescription) metaDescription.setAttribute('content', articleExcerpt);
+    
+    // --- RENDER BODY CONTENT ---
     const contentEl = document.getElementById("content");
     if (!contentEl) return;
     
@@ -1406,10 +1548,13 @@ function renderFullArticlePage(article) {
     
     // Initialize article action buttons
     initArticleActions();
+    
+    // Suggest next article
+    suggestNextArticle(article.id);
 }
 
 /* ============================
-   ARTICLE ACTION BUTTONS
+   ENHANCED ARTICLE ACTION BUTTONS
    ============================ */
 function initArticleActions() {
     const likeBtn = document.getElementById("btn-like");
@@ -1417,41 +1562,58 @@ function initArticleActions() {
     const shareBtn = document.getElementById("btn-share");
     const copyBtn = document.getElementById("btn-copy");
     const yearEl = document.getElementById("year");
+    const likeCountSpan = document.getElementById("like-count");
     
     if (yearEl) {
         yearEl.textContent = new Date().getFullYear();
     }
     
+    // Like button with persistent counter
     if (likeBtn) {
-        let likes = 0;
+        const articleId = window.location.search;
+        let likes = localStorage.getItem('article-likes-' + articleId) || 0;
+        if (likeCountSpan) likeCountSpan.textContent = likes ? ' (' + likes + ')' : '';
+        
         likeBtn.addEventListener("click", function() {
-            likes++;
-            likeBtn.innerHTML = '<span>👍</span> Like (' + likes + ')';
+            let currentLikes = parseInt(localStorage.getItem('article-likes-' + articleId) || 0);
+            currentLikes++;
+            localStorage.setItem('article-likes-' + articleId, currentLikes);
+            if (likeCountSpan) likeCountSpan.textContent = ' (' + currentLikes + ')';
+            
+            // Visual feedback
+            likeBtn.style.backgroundColor = '#b30000';
+            likeBtn.style.color = 'white';
+            setTimeout(() => {
+                likeBtn.style.backgroundColor = '';
+                likeBtn.style.color = '';
+            }, 200);
         });
     }
     
+    // Subscribe button
     if (subscribeBtn) {
         subscribeBtn.addEventListener("click", function() {
-            alert("Thank you for subscribing!");
-        });
-    }
-    
-    if (shareBtn) {
-        shareBtn.addEventListener("click", function() {
-            if (navigator.share) {
-                navigator.share({
-                    title: document.title,
-                    url: window.location.href
-                }).catch(function() {});
-            } else {
-                alert("Share this article: " + window.location.href);
+            const email = prompt("Enter your email to subscribe:", "your@email.com");
+            if (email && email.includes('@')) {
+                alert("Thank you for subscribing! You'll receive notifications about new articles.");
+            } else if (email) {
+                alert("Please enter a valid email address.");
             }
         });
     }
     
+    // Copy link button with visual feedback
     if (copyBtn) {
         copyBtn.addEventListener("click", function() {
             copyPageLink();
+            
+            // Visual feedback
+            copyBtn.style.backgroundColor = '#b30000';
+            copyBtn.style.color = 'white';
+            setTimeout(() => {
+                copyBtn.style.backgroundColor = '';
+                copyBtn.style.color = '';
+            }, 200);
         });
     }
 }
