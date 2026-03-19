@@ -34,6 +34,9 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     
     <style>
+        /* ============================
+           ARTICLE PAGE STYLES
+           ============================ */
         .article-page {
             max-width: 900px;
             margin: 40px auto;
@@ -193,6 +196,55 @@
             clear: both;
         }
         
+        /* Read More Section */
+        .read-more-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: #f9f9f9;
+            border-radius: 4px;
+            border-left: 4px solid #b30000;
+        }
+        
+        .read-more-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #b30000;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+        }
+        
+        .read-more-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #b30000;
+        }
+        
+        .read-more-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        .read-more-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .read-more-content a {
+            color: #b30000;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .read-more-content a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Article Actions */
         .article-actions {
             margin-top: 3rem;
             padding-top: 2rem;
@@ -222,6 +274,7 @@
             border-color: #b30000;
         }
         
+        /* Article Navigation */
         .article-navigation-bottom {
             margin-top: 30px;
             padding: 20px 0;
@@ -281,6 +334,30 @@
             background-color: #8a0000;
         }
         
+        /* Next Article Suggestion */
+        .next-article-text {
+            font-size: 1rem;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .next-article-text a {
+            color: #b30000;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+        
+        .next-article-text a:hover {
+            text-decoration: underline;
+            transform: translateX(2px);
+        }
+        
+        /* Share Tooltip - ENHANCED */
         .share-tooltip {
             position: fixed;
             bottom: 30px;
@@ -292,7 +369,9 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             display: none;
             z-index: 1000;
-            min-width: 200px;
+            min-width: 220px;
+            max-height: 400px;
+            overflow-y: auto;
             animation: slideUp 0.2s ease;
         }
         
@@ -312,12 +391,19 @@
         }
         
         .share-tooltip a {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             padding: 10px 16px;
             color: #333;
             text-decoration: none;
             transition: all 0.2s ease;
             font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .share-tooltip a:last-child {
+            border-bottom: none;
         }
         
         .share-tooltip a:hover {
@@ -326,6 +412,12 @@
             padding-left: 20px;
         }
         
+        .share-tooltip a i, .share-tooltip a span {
+            font-size: 1.1rem;
+            min-width: 24px;
+        }
+        
+        /* Reading Progress Bar */
         .reading-progress {
             position: fixed;
             top: 0;
@@ -337,6 +429,7 @@
             transition: width 0.1s ease;
         }
         
+        /* Footer */
         .footer {
             text-align: center;
             padding: 20px;
@@ -345,6 +438,30 @@
             color: #666;
         }
         
+        /* Loading State */
+        .loading-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .loading-state .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #b30000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
             #title {
                 font-size: 2rem;
@@ -371,13 +488,32 @@
                 flex: 1;
                 justify-content: center;
             }
+            
+            .share-tooltip {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+                width: auto;
+                max-height: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .article-actions {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Reading Progress Bar -->
     <div class="reading-progress" id="reading-progress"></div>
-
+    
     <main class="article-page">
         <!-- Category Label -->
         <div id="section-label" class="category-label"></div>
@@ -408,6 +544,7 @@
         <!-- Article Navigation Bottom - Return to Main and Next/Prev -->
         <div class="article-navigation-bottom">
             <a href="index.html" class="nav-btn nav-btn-home">← Back to Homepage</a>
+            
             <div class="nav-buttons">
                 <a href="#" id="prev-article" class="nav-btn nav-btn-prev" style="display: none;">← Previous</a>
                 <a href="#" id="next-article" class="nav-btn nav-btn-next" style="display: none;">Next →</a>
@@ -418,19 +555,31 @@
         <div class="next-article-text" id="next-article-suggestion" style="text-align: center; margin-top: 15px; display: none;"></div>
     </main>
     
-    <!-- Share Tooltip (hidden by default) -->
+    <!-- ENHANCED Share Tooltip with 10+ Platforms -->
     <div class="share-tooltip" id="share-tooltip">
-        <a href="#" id="share-facebook" target="_blank" rel="noopener noreferrer">📘 Share on Facebook</a>
-        <a href="#" id="share-twitter" target="_blank" rel="noopener noreferrer">🐦 Share on Twitter</a>
-        <a href="#" id="share-whatsapp" target="_blank" rel="noopener noreferrer">📱 Share on WhatsApp</a>
-        <a href="#" id="share-linkedin" target="_blank" rel="noopener noreferrer">🔗 Share on LinkedIn</a>
+        <a href="#" id="share-facebook" target="_blank" rel="noopener noreferrer"><span>📘</span> Facebook</a>
+        <a href="#" id="share-twitter" target="_blank" rel="noopener noreferrer"><span>🐦</span> X (Twitter)</a>
+        <a href="#" id="share-whatsapp" target="_blank" rel="noopener noreferrer"><span>📱</span> WhatsApp</a>
+        <a href="#" id="share-linkedin" target="_blank" rel="noopener noreferrer"><span>🔗</span> LinkedIn</a>
+        <a href="#" id="share-telegram" target="_blank" rel="noopener noreferrer"><span>✈️</span> Telegram</a>
+        <a href="#" id="share-reddit" target="_blank" rel="noopener noreferrer"><span>🤖</span> Reddit</a>
+        <a href="#" id="share-pinterest" target="_blank" rel="noopener noreferrer"><span>📌</span> Pinterest</a>
+        <a href="#" id="share-truth"><span>🤠</span> Truth Social</a>
+        <a href="#" id="share-bluesky"><span>🦋</span> BlueSky</a>
+        <a href="#" id="share-threads"><span>🧵</span> Threads</a>
+        <a href="#" id="share-email" target="_blank" rel="noopener noreferrer"><span>📧</span> Email</a>
+        <a href="#" id="share-messenger" target="_blank" rel="noopener noreferrer"><span>💬</span> Messenger</a>
+        <a href="#" id="share-snapchat"><span>👻</span> Snapchat</a>
+        <a href="#" id="share-tiktok"><span>🎵</span> TikTok</a>
+        <a href="#" id="share-youtube"><span>▶️</span> YouTube</a>
+        <a href="#" id="share-instagram"><span>📷</span> Instagram</a>
     </div>
     
     <!-- Footer -->
     <footer class="footer">
         <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
     </footer>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
