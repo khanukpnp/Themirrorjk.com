@@ -1828,6 +1828,342 @@ function initArticleActions() {
         });
     }
 }
+/* ============================
+   FIXED: CREATE HOMEPAGE CARD WITH PROPER IMAGE HANDLING
+   ============================ */
+function createHomepageCard(article, label) {
+    if (!article) return '';
+    
+    const title = article.title || 'Untitled';
+    const excerpt = article.excerpt || article.summary || 'Click to read more about this story.';
+    
+    let imageUrl = '';
+    let imageExists = false;
+    
+    // Check for hero image in various possible locations
+    if (article.heroImage) {
+        if (typeof article.heroImage === 'string') {
+            imageUrl = article.heroImage;
+            imageExists = true;
+        } else if (article.heroImage.src) {
+            imageUrl = article.heroImage.src;
+            imageExists = true;
+        }
+    }
+    
+    // If no hero image, try to get first image from body
+    if (!imageExists && article.body && Array.isArray(article.body)) {
+        for (let i = 0; i < article.body.length; i++) {
+            if (article.body[i].type === 'image' && article.body[i].src) {
+                imageUrl = article.body[i].src;
+                imageExists = true;
+                break;
+            }
+        }
+    }
+    
+    // Fix image path
+    if (imageUrl) {
+        // Remove leading slash if present
+        if (imageUrl.startsWith('/')) {
+            imageUrl = imageUrl.substring(1);
+        }
+        
+        // Ensure it points to the correct directory
+        if (!imageUrl.startsWith('http') && !imageUrl.startsWith('content/images/')) {
+            imageUrl = 'content/images/' + imageUrl.split('/').pop();
+        }
+    } else {
+        // Create a placeholder with the first letter of the title
+        const firstLetter = title.charAt(0).toUpperCase();
+        imageUrl = 'https://via.placeholder.com/640x360?text=' + encodeURIComponent(firstLetter);
+    }
+    
+    const id = article.id || '';
+    const category = article.category || '';
+    
+    // Truncate title if too long
+    let displayTitle = title;
+    if (title.length > 80) {
+        displayTitle = title.substring(0, 80) + '...';
+    }
+    
+    // Truncate excerpt if too long
+    let displayExcerpt = excerpt;
+    if (excerpt.length > 120) {
+        displayExcerpt = excerpt.substring(0, 120) + '...';
+    }
+    
+    return `
+        <article class="card" data-category="${category}">
+            <div class="media">
+                <img src="${imageUrl}" 
+                     alt="${displayTitle}" 
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/640x360?text=' + '${encodeURIComponent(title.charAt(0).toUpperCase())}'"
+                     loading="lazy">
+            </div>
+            <div class="card-body">
+                <h3>${displayTitle}</h3>
+                <p>${displayExcerpt}</p>
+                <a href="article.html?id=${id}" class="btn-red">Read More →</a>
+            </div>
+        </article>
+    `;
+}
 
+/* ============================
+   FIXED: RENDER FULL ARTICLE PAGE WITH PROPER IMAGE HANDLING
+   ============================ */
+function renderFullArticlePage(article) {
+    // Set page title
+    const pageTitle = document.getElementById("page-title");
+    if (pageTitle) {
+        pageTitle.textContent = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
+    }
+    
+    // Set section label
+    const sectionLabel = document.getElementById("section-label");
+    if (sectionLabel) {
+        sectionLabel.textContent = article.sectionLabel || article.category || "ARTICLE";
+    }
+    
+    // Set title
+    const titleEl = document.getElementById("title");
+    if (titleEl) {
+        titleEl.textContent = article.title || "Untitled";
+    }
+    
+    // Set meta information
+    const metaEl = document.getElementById("meta");
+    if (metaEl) {
+        let metaHtml = '';
+        
+        if (article.location) {
+            metaHtml += '<strong>' + article.location + '</strong>';
+        }
+        
+        if (article.date) {
+            const dateObj = new Date(article.date);
+            const formattedDate = dateObj.toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+            metaHtml += (metaHtml ? ' — ' : '') + formattedDate;
+        }
+        
+        if (article.author) {
+            metaHtml += '<br>By <em>' + article.author + '</em>';
+        }
+        
+        if (article.readTime) {
+            metaHtml += ' · ' + article.readTime;
+        }
+        
+        metaEl.innerHTML = metaHtml;
+    }
+    
+    // Set hero image
+    const heroWrap = document.getElementById("heroWrap");
+    const heroImg = document.getElementById("heroImg");
+    const heroCaption = document.getElementById("heroCaption");
+    
+    if (article.heroImage && heroImg) {
+        let imageSrc = '';
+        
+        if (typeof article.heroImage === 'string') {
+            imageSrc = article.heroImage;
+        } else if (article.heroImage.src) {
+            imageSrc = article.heroImage.src;
+        }
+        
+        if (imageSrc) {
+            // Clean up the path
+            imageSrc = imageSrc.replace(/^\/+/, '');
+            
+            // Fix GitHub image URLs if needed
+            if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+                imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+            }
+            
+            // Ensure path is correct
+            if (!imageSrc.startsWith('http') && !imageSrc.startsWith('content/images/')) {
+                imageSrc = 'content/images/' + imageSrc.split('/').pop();
+            }
+            
+            heroImg.src = imageSrc;
+            heroImg.alt = article.heroImage.caption || article.title || '';
+            
+            // Add error handler
+            heroImg.onerror = function() {
+                this.onerror = null;
+                this.src = 'https://via.placeholder.com/1280x720?text=' + encodeURIComponent(article.title?.charAt(0) || 'J');
+            };
+            
+            if (heroCaption) {
+                heroCaption.textContent = article.heroImage.caption || '';
+            }
+            
+            heroWrap.style.display = 'block';
+        } else {
+            heroWrap.style.display = 'none';
+        }
+    } else if (heroWrap) {
+        heroWrap.style.display = 'none';
+    }
+    
+    // --- SET SOCIAL MEDIA META TAGS ---
+    const fullUrl = window.location.href;
+    const articleTitle = article.title || 'THE MIRROR JAMMU KASHMIR';
+    const articleExcerpt = article.excerpt || article.summary || 'Read the latest from THE MIRROR JAMMU KASHMIR.';
+    
+    // Open Graph tags
+    const ogUrl = document.getElementById('og-url');
+    if (ogUrl) ogUrl.setAttribute('content', fullUrl);
+    
+    const ogTitle = document.getElementById('og-title');
+    if (ogTitle) ogTitle.setAttribute('content', articleTitle);
+    
+    const ogDescription = document.getElementById('og-description');
+    if (ogDescription) ogDescription.setAttribute('content', articleExcerpt);
+    
+    // Standard meta description
+    const metaDescription = document.getElementById('meta-description');
+    if (metaDescription) metaDescription.setAttribute('content', articleExcerpt);
+    
+    // --- RENDER BODY CONTENT WITH PROPER IMAGE HANDLING ---
+    const contentEl = document.getElementById("content");
+    if (!contentEl) return;
+    
+    contentEl.innerHTML = '';
+    
+    if (article.body && Array.isArray(article.body)) {
+        article.body.forEach(function(block) {
+            // Paragraph
+            if (block.type === "paragraph") {
+                contentEl.innerHTML += '<p>' + (block.text || '') + '</p>';
+            }
+            // Subheading / Header
+            else if (block.type === "subheading" || block.type === "header") {
+                contentEl.innerHTML += '<h2 class="mid-subheading" style="font-size: 1.8rem; color: #b30000; margin: 2rem 0 1.5rem;">' + (block.text || '') + '</h2>';
+            }
+            // Pull Quote
+            else if (block.type === "pullquote") {
+                contentEl.innerHTML += '<div class="pull-quote">' + (block.text || '') + '</div>';
+            }
+            // Points / Bullet List
+            else if (block.type === "points" && block.items) {
+                let listHtml = '<div class="important-points"><ul>';
+                block.items.forEach(function(item) {
+                    listHtml += '<li>' + item + '</li>';
+                });
+                listHtml += '</ul></div>';
+                contentEl.innerHTML += listHtml;
+            }
+            // Image with floating
+            else if (block.type === "image" && block.src) {
+                let imageSrc = block.src;
+                
+                // Clean up the path
+                imageSrc = imageSrc.replace(/^\/+/, '');
+                
+                // Fix GitHub image URLs if needed
+                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                
+                // Ensure path is correct
+                if (!imageSrc.startsWith('http') && !imageSrc.startsWith('content/images/')) {
+                    imageSrc = 'content/images/' + imageSrc.split('/').pop();
+                }
+                
+                const alignClass = block.align === "right" ? "img-right" :
+                                   block.align === "left" ? "img-left" : "img-center";
+                
+                // Create caption with credit
+                let captionText = block.caption || '';
+                if (block.credit && !captionText.includes(block.credit)) {
+                    captionText += captionText ? ' — ' + block.credit : block.credit;
+                }
+                
+                contentEl.innerHTML += `
+                    <figure class="${alignClass}">
+                        <img src="${imageSrc}" 
+                             alt="${block.caption || 'Historical image'}" 
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/640x360?text=Historical+Flag'"
+                             loading="lazy">
+                        ${captionText ? '<figcaption>' + captionText + '</figcaption>' : ''}
+                    </figure>
+                `;
+            }
+        });
+    } else {
+        contentEl.innerHTML = '<p>No content available for this article.</p>';
+    }
+    
+    // --- ADD READ MORE SECTION IF EXISTS ---
+    if (article.readMore && article.readMore.trim() !== '') {
+        const readMoreSection = document.createElement('div');
+        readMoreSection.className = 'read-more-section';
+        readMoreSection.innerHTML = `
+            <h3 class="read-more-title">Read More</h3>
+            <div class="read-more-content">
+                ${article.readMore}
+            </div>
+        `;
+        contentEl.appendChild(readMoreSection);
+    }
+    
+    // Initialize article action buttons
+    initArticleActions();
+    
+    // SUGGEST NEXT ARTICLE
+    if (typeof suggestNextArticle === 'function') {
+        suggestNextArticle(article.id);
+    }
+}
+
+/* ============================
+   FIXED: UPDATE LEH SECTION TO HANDLE IMAGES
+   ============================ */
+function loadLehSection(ids) {
+    const grid = document.getElementById("leh-grid");
+    if (!grid) return;
+    
+    Promise.all(
+        ids.map(function(id) {
+            if (!id) return Promise.resolve(null);
+            return fetch("content/" + id + ".json")
+                .then(function(r) {
+                    if (r.ok) return r.json();
+                    return null;
+                })
+                .catch(function() {
+                    return null;
+                });
+        })
+    ).then(function(articles) {
+        let html = '';
+        const labels = ["LATEST", "EDITORIAL", "HISTORICAL"];
+        
+        articles.forEach(function(article, index) {
+            if (article) {
+                // Handle the items wrapper if present
+                let processedArticle = article;
+                if (article.items && Array.isArray(article.items) && article.items.length > 0) {
+                    processedArticle = article.items[0];
+                } else if (Array.isArray(article) && article.length > 0) {
+                    processedArticle = article[0];
+                }
+                
+                html += createHomepageCard(processedArticle, labels[index]);
+            } else {
+                html += createEmptyCard(labels[index]);
+            }
+        });
+        
+        grid.innerHTML = html;
+    });
+}
 // Make copyPageLink globally available
 window.copyPageLink = copyPageLink;
