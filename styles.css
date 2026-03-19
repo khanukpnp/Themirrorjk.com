@@ -1880,3 +1880,134 @@ h1, h2, h3, h4, h5 {
     width: 100%;
     height: 100%;
 }
+/* ============================
+   FIXED: IMAGE STYLES FOR CARDS AND ARTICLES
+   ============================ */
+
+/* Card Media - Ensure images display properly */
+.media {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.media img[src*="placeholder"] {
+    object-fit: contain;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+}
+
+/* Article Images */
+#content figure {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+#content figure.img-left,
+#content figure.img-right {
+    max-width: 38%;
+}
+
+#content figure.img-center {
+    width: 100%;
+}
+
+#content figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#content figcaption {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* Read More Section */
+.read-more-section {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #b30000;
+    clear: both;
+}
+
+.read-more-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #b30000;
+    margin-bottom: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+}
+
+.read-more-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #b30000;
+}
+
+.read-more-content {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #333;
+}
+
+.read-more-content p {
+    margin-bottom: 1rem;
+}
+
+.read-more-content p:last-child {
+    margin-bottom: 0;
+}
+
+.read-more-content a {
+    color: #b30000;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.read-more-content a:hover {
+    text-decoration: underline;
+}
+
+/* Loading State for Images */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+img.loaded {
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #content figure.img-left,
+    #content figure.img-right {
+        float: none;
+        max-width: 100%;
+        margin: 1.5rem 0;
+    }
+}
