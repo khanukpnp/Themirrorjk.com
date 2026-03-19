@@ -3,9 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Dynamic Meta Tags for Social Media -->
+    <meta property="og:url" content="" id="og-url">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="" id="og-title">
+    <meta property="og:description" content="" id="og-description">
+    <meta property="og:image" content="" id="og-image">
+    <meta property="og:site_name" content="THE MIRROR JAMMU KASHMIR">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="" id="twitter-title">
+    <meta name="twitter:description" content="" id="twitter-description">
+    <meta name="twitter:image" content="" id="twitter-image">
+    <meta name="twitter:site" content="@TheMirrorJK">
+    
+    <!-- Standard Meta Tags -->
+    <meta name="description" content="" id="meta-description">
+    <meta name="keywords" content="Jammu Kashmir, news, editorial, history, human rights">
+    <meta name="author" content="THE MIRROR JAMMU KASHMIR">
+    
     <title id="page-title">THE MIRROR JAMMU KASHMIR</title>
+    
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
     <style>
         .article-page {
             max-width: 900px;
@@ -173,6 +200,7 @@
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+            justify-content: center;
         }
         
         .action-btn {
@@ -194,6 +222,121 @@
             border-color: #b30000;
         }
         
+        .article-navigation-bottom {
+            margin-top: 30px;
+            padding: 20px 0;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background-color: #555;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        .nav-btn:hover {
+            background-color: #333;
+            transform: translateX(-2px);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .nav-btn.next:hover {
+            transform: translateX(2px);
+        }
+        
+        .nav-btn-home {
+            background-color: #555;
+        }
+        
+        .nav-btn-prev {
+            background-color: #666;
+        }
+        
+        .nav-btn-next {
+            background-color: #b30000;
+        }
+        
+        .nav-btn-next:hover {
+            background-color: #8a0000;
+        }
+        
+        .share-tooltip {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 8px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+            min-width: 200px;
+            animation: slideUp 0.2s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .share-tooltip.show {
+            display: block;
+        }
+        
+        .share-tooltip a {
+            display: block;
+            padding: 10px 16px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+        
+        .share-tooltip a:hover {
+            background: #f5f5f5;
+            color: #b30000;
+            padding-left: 20px;
+        }
+        
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: #b30000;
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+        
         .footer {
             text-align: center;
             padding: 20px;
@@ -213,36 +356,81 @@
                 width: 100%;
                 margin: 1.5rem 0;
             }
+            
+            .article-navigation-bottom {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .nav-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .nav-btn {
+                flex: 1;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="reading-progress"></div>
+
     <main class="article-page">
+        <!-- Category Label -->
         <div id="section-label" class="category-label"></div>
         
+        <!-- Article Title -->
         <h1 id="title"></h1>
         
+        <!-- Article Meta Information -->
         <div id="meta" class="article-meta"></div>
         
+        <!-- Hero Image Container -->
         <div id="heroWrap" class="hero-image-container">
             <img id="heroImg" src="" alt="">
             <div id="heroCaption"></div>
         </div>
         
+        <!-- Article Content -->
         <div id="content" class="clearfix"></div>
         
+        <!-- Article Action Buttons -->
         <div class="article-actions">
-            <button id="btn-like" class="action-btn"><span>👍</span> Like</button>
+            <button id="btn-like" class="action-btn"><span>👍</span> Like <span id="like-count" class="like-count"></span></button>
             <button id="btn-subscribe" class="action-btn"><span>🔔</span> Subscribe</button>
             <button id="btn-share" class="action-btn"><span>📤</span> Share</button>
             <button id="btn-copy" class="action-btn"><span>🔗</span> Copy Link</button>
         </div>
+        
+        <!-- Article Navigation Bottom - Return to Main and Next/Prev -->
+        <div class="article-navigation-bottom">
+            <a href="index.html" class="nav-btn nav-btn-home">← Back to Homepage</a>
+            <div class="nav-buttons">
+                <a href="#" id="prev-article" class="nav-btn nav-btn-prev" style="display: none;">← Previous</a>
+                <a href="#" id="next-article" class="nav-btn nav-btn-next" style="display: none;">Next →</a>
+            </div>
+        </div>
+        
+        <!-- Next Article Suggestion Text (for mobile) -->
+        <div class="next-article-text" id="next-article-suggestion" style="text-align: center; margin-top: 15px; display: none;"></div>
     </main>
     
+    <!-- Share Tooltip (hidden by default) -->
+    <div class="share-tooltip" id="share-tooltip">
+        <a href="#" id="share-facebook" target="_blank" rel="noopener noreferrer">📘 Share on Facebook</a>
+        <a href="#" id="share-twitter" target="_blank" rel="noopener noreferrer">🐦 Share on Twitter</a>
+        <a href="#" id="share-whatsapp" target="_blank" rel="noopener noreferrer">📱 Share on WhatsApp</a>
+        <a href="#" id="share-linkedin" target="_blank" rel="noopener noreferrer">🔗 Share on LinkedIn</a>
+    </div>
+    
+    <!-- Footer -->
     <footer class="footer">
         <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
     </footer>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
