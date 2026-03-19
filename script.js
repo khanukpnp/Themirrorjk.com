@@ -583,13 +583,18 @@ function updateShareLinks() {
 }
 
 /* ============================
-   NEXT ARTICLE SUGGESTION
+   NEXT ARTICLE SUGGESTION - FIXED VERSION
    ============================ */
 function suggestNextArticle(currentArticleId) {
     const suggestionDiv = document.getElementById('next-article-suggestion');
-    if (!suggestionDiv) return;
+    if (!suggestionDiv) {
+        console.log("Next article suggestion div not found");
+        return;
+    }
     
-    // Define article sequence - you can expand this or load from JSON
+    console.log("Current article ID:", currentArticleId);
+    
+    // Define article sequence - matching your actual JSON files
     const articleSequence = [
         { id: 'article-001', title: 'Shutter Down in Rawalakot' },
         { id: 'breaking-001', title: 'UKPNP Meets Baroness Nicholson' },
@@ -601,16 +606,26 @@ function suggestNextArticle(currentArticleId) {
     
     // Find current article index
     const currentIndex = articleSequence.findIndex(a => a.id === currentArticleId);
+    console.log("Current index:", currentIndex);
     
-    if (currentIndex === -1 || currentIndex === articleSequence.length - 1) {
+    if (currentIndex === -1) {
+        console.log("Article not found in sequence");
+        suggestionDiv.innerHTML = ''; // Clear any existing content
         suggestionDiv.style.display = 'none';
         return;
     }
     
-    // Set next article
-    const next = articleSequence[currentIndex + 1];
-    suggestionDiv.innerHTML = `Next: <a href="article.html?id=${next.id}">${next.title} →</a>`;
-    suggestionDiv.style.display = 'block';
+    // Check if there is a next article
+    if (currentIndex < articleSequence.length - 1) {
+        const next = articleSequence[currentIndex + 1];
+        suggestionDiv.innerHTML = `<a href="article.html?id=${next.id}">Next: ${next.title} →</a>`;
+        suggestionDiv.style.display = 'block';
+        console.log("Next article set:", next);
+    } else {
+        console.log("No next article available (last in sequence)");
+        suggestionDiv.innerHTML = ''; // Clear any existing content
+        suggestionDiv.style.display = 'none';
+    }
 }
 
 /* ============================
@@ -1549,7 +1564,8 @@ function renderFullArticlePage(article) {
     // Initialize article action buttons
     initArticleActions();
     
-    // Suggest next article
+    // SUGGEST NEXT ARTICLE - THIS IS CRITICAL
+    console.log("Calling suggestNextArticle with ID:", article.id);
     suggestNextArticle(article.id);
 }
 
