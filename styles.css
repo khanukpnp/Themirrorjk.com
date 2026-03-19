@@ -1657,3 +1657,64 @@ h1, h2, h3, h4, h5 {
         justify-content: center !important;
     }
 }
+
+/* ============================================================
+   ULTIMATE FIX FOR ARTICLE NAVIGATION - ADD AT THE VERY END
+   ============================================================ */
+
+/* Force the navigation container to be visible */
+.article-navigation {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    margin-top: 40px !important;
+    padding-top: 20px !important;
+    border-top: 2px solid #e0e0e0 !important;
+}
+
+/* Force the home button to be visible */
+.btn-home {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background-color: #555 !important;
+    color: white !important;
+    padding: 12px 24px !important;
+    border-radius: 4px !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+}
+
+/* Force the next article container to be visible when it has content */
+.next-article {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.next-article a {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #b30000 !important;
+    padding: 8px 16px !important;
+    background-color: #f8f8f8 !important;
+    border-radius: 4px !important;
+    border: 1px solid #ddd !important;
+    text-decoration: none !important;
+}
+
+.next-article a:hover {
+    background-color: #b30000 !important;
+    color: white !important;
+}
+
+.next-article a::after {
+    content: " →" !important;
+}
+
+/* Hide when empty */
+.next-article:empty {
+    display: none !important;
+}
