@@ -1,7 +1,7 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT
-   WITH YOUTUBE VIDEOS, ALL CONTENT LOADING, AND MODERN FEATURES
-   ============================================================ */
+   WITH FIXED HERO IMAGES, READ MORE SECTION, AND NAVIGATION
+   =========================================================== */
 
 // Wait for DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", function() {
@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Check current page and load appropriate content
     const path = window.location.pathname;
-    
     if (path.includes("article.html") || window.location.search.includes("id=")) {
         initArticlePage();
     }
@@ -82,7 +81,6 @@ function initClocks() {
 
 function updateClocks() {
     const now = new Date();
-    
     const options = {
         weekday: 'long',
         year: 'numeric',
@@ -99,6 +97,7 @@ function updateClocks() {
         minute: "2-digit",
         second: "2-digit"
     });
+    
     const fullDate = now.toLocaleDateString("en-GB", options);
     const cestText = fullDate + " at " + zurichTime;
     
@@ -108,6 +107,7 @@ function updateClocks() {
         minute: "2-digit",
         second: "2-digit"
     });
+    
     const istHours = now.getHours();
     const istAmpm = istHours >= 12 ? 'pm' : 'am';
     const istFull = istTime + ' ' + istAmpm;
@@ -118,6 +118,7 @@ function updateClocks() {
         minute: "2-digit",
         second: "2-digit"
     });
+    
     const pktHours = now.getHours();
     const pktAmpm = pktHours >= 12 ? 'pm' : 'am';
     const pktFull = pktTime + ' ' + pktAmpm;
@@ -215,6 +216,7 @@ function initTicker() {
             html += '<span>' + item + ' • </span>';
         });
     }
+    
     tickerItems.innerHTML = html;
 }
 
@@ -246,6 +248,7 @@ function initNav() {
         const expanded = hamburger.getAttribute("aria-expanded") === "true";
         hamburger.setAttribute("aria-expanded", String(!expanded));
         mobileMenu.hidden = expanded;
+        
         if (!expanded) {
             mobileMenu.innerHTML = navList.innerHTML;
         }
@@ -427,6 +430,7 @@ function initSocialButtons() {
     buttons.forEach(function(btn) {
         btn.addEventListener("click", function() {
             const text = btn.textContent.trim();
+            
             if (text.includes("Like")) {
                 alert("Thank you for liking!");
             } else if (text.includes("Subscribe")) {
@@ -496,6 +500,7 @@ function initNewsletter() {
     subscribeBtn.addEventListener("click", function(e) {
         e.preventDefault();
         const email = emailInput.value.trim();
+        
         if (email && email.includes("@") && email.includes(".")) {
             alert("Thank you for subscribing!");
             emailInput.value = "";
@@ -513,7 +518,6 @@ function initFooterDropdowns() {
     
     sections.forEach(function(section, index) {
         if (index === 0) return;
-        
         const heading = section.querySelector('h4');
         if (!heading) return;
         
@@ -531,6 +535,7 @@ function initFooterDropdowns() {
 function initShareTooltip() {
     const shareBtn = document.getElementById('btn-share');
     const tooltip = document.getElementById('share-tooltip');
+    
     if (!shareBtn || !tooltip) return;
     
     shareBtn.addEventListener('click', function(e) {
@@ -583,10 +588,11 @@ function updateShareLinks() {
 }
 
 /* ============================
-   NEXT ARTICLE SUGGESTION - FIXED VERSION
+   FIXED: NEXT ARTICLE SUGGESTION
    ============================ */
 function suggestNextArticle(currentArticleId) {
     const suggestionDiv = document.getElementById('next-article-suggestion');
+    
     if (!suggestionDiv) {
         console.log("Next article suggestion div not found");
         return;
@@ -618,7 +624,14 @@ function suggestNextArticle(currentArticleId) {
     // Check if there is a next article
     if (currentIndex < articleSequence.length - 1) {
         const next = articleSequence[currentIndex + 1];
-        suggestionDiv.innerHTML = `<a href="article.html?id=${next.id}">Next: ${next.title} →</a>`;
+        suggestionDiv.innerHTML = `
+            <div class="next-suggestion-content">
+                <span class="suggestion-label">Up Next:</span>
+                <a href="article.html?id=${next.id}" class="suggestion-link">
+                    ${next.title} →
+                </a>
+            </div>
+        `;
         suggestionDiv.style.display = 'block';
         console.log("Next article set:", next);
     } else {
@@ -1061,10 +1074,12 @@ function createHomepageCard(article, label) {
     
     const title = article.title || 'Untitled';
     const excerpt = article.excerpt || article.summary || 'Click to read more about this story.';
+    
     let image = 'https://via.placeholder.com/640x360?text=No+Image';
     
     if (article.heroImage && article.heroImage.src) {
         image = article.heroImage.src;
+        
         // Fix GitHub image URLs if needed
         if (image.includes('github.com') && !image.includes('raw')) {
             image = image.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
@@ -1157,11 +1172,12 @@ function renderAboutPage(data) {
             month: "long",
             day: "numeric"
         });
-        metaEl.innerHTML = `<strong>${data.location || 'Switzerland'}</strong> — ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
+        metaEl.innerHTML = `<strong>${data.location || 'Switzerland'}</strong> --- ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
     }
     
     if (contentEl && data.body) {
         let html = '';
+        
         data.body.forEach(function(block, index) {
             if (block.type === "paragraph") {
                 // Handle first paragraph with floating logo
@@ -1192,6 +1208,7 @@ function renderAboutPage(data) {
                 html += itemsHtml;
             }
         });
+        
         contentEl.innerHTML = html;
     }
 }
@@ -1233,11 +1250,12 @@ function renderChiefEditorPage(data) {
             month: "long",
             day: "numeric"
         });
-        metaEl.innerHTML = `<strong>${data.location || 'Switzerland'}</strong> — ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
+        metaEl.innerHTML = `<strong>${data.location || 'Switzerland'}</strong> --- ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
     }
     
     if (contentEl && data.body) {
         let html = '';
+        
         data.body.forEach(function(block, index) {
             if (block.type === "paragraph") {
                 // Handle first paragraph with floating image
@@ -1268,6 +1286,7 @@ function renderChiefEditorPage(data) {
                 html += itemsHtml;
             }
         });
+        
         contentEl.innerHTML = html;
     }
 }
@@ -1312,15 +1331,17 @@ function renderHistoricalPage(data) {
             month: "long",
             day: "numeric"
         });
-        metaEl.innerHTML = `<strong>${data.location || 'Geneva'}</strong> — ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
+        metaEl.innerHTML = `<strong>${data.location || 'Geneva'}</strong> --- ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
     }
     
     if (data.heroImage && data.heroImage.src && heroImg) {
         let imageSrc = data.heroImage.src;
+        
         // Fix GitHub image URLs if needed
         if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
             imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
         }
+        
         heroImg.src = imageSrc;
         heroImg.alt = data.heroImage.caption || '';
         if (heroCaption) heroCaption.textContent = data.heroImage.caption || '';
@@ -1331,6 +1352,7 @@ function renderHistoricalPage(data) {
     
     if (contentEl && data.body) {
         let html = '';
+        
         data.body.forEach(function(block, index) {
             if (block.type === "paragraph") {
                 html += '<p>' + block.text + '</p>';
@@ -1347,10 +1369,12 @@ function renderHistoricalPage(data) {
                 html += itemsHtml;
             } else if (block.type === "image" && block.src) {
                 let imageSrc = block.src;
+                
                 // Fix GitHub image URLs if needed
                 if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
                     imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
                 }
+                
                 const alignClass = block.align === "left" ? "float-left" : "float-right";
                 html += `
                     <figure class="${alignClass}">
@@ -1360,12 +1384,13 @@ function renderHistoricalPage(data) {
                 `;
             }
         });
+        
         contentEl.innerHTML = html;
     }
 }
 
 /* ============================
-   ARTICLE PAGE INITIALIZATION
+   FIXED: ARTICLE PAGE INITIALIZATION
    ============================ */
 function initArticlePage() {
     const params = new URLSearchParams(window.location.search);
@@ -1386,6 +1411,23 @@ function initArticlePage() {
         .then(function(article) {
             renderFullArticlePage(article);
             initShareTooltip();
+            
+            // Force navigation visibility
+            setTimeout(function() {
+                const nav = document.querySelector('.article-navigation');
+                if (nav) {
+                    nav.style.display = 'flex';
+                    nav.style.visibility = 'visible';
+                    nav.style.opacity = '1';
+                }
+                
+                const homeBtn = document.querySelector('.btn-home');
+                if (homeBtn) {
+                    homeBtn.style.display = 'inline-flex';
+                    homeBtn.style.visibility = 'visible';
+                    homeBtn.style.opacity = '1';
+                }
+            }, 100);
         })
         .catch(function() {
             document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Article not found</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
@@ -1393,7 +1435,7 @@ function initArticlePage() {
 }
 
 /* ============================
-   RENDER FULL ARTICLE PAGE
+   FIXED: RENDER FULL ARTICLE PAGE WITH READ MORE SECTION
    ============================ */
 function renderFullArticlePage(article) {
     // Set page title
@@ -1430,7 +1472,7 @@ function renderFullArticlePage(article) {
                 month: "long",
                 day: "numeric"
             });
-            metaHtml += (metaHtml ? ' — ' : '') + formattedDate;
+            metaHtml += (metaHtml ? ' --- ' : '') + formattedDate;
         }
         
         if (article.author) {
@@ -1450,12 +1492,15 @@ function renderFullArticlePage(article) {
     const heroCaption = document.getElementById("heroCaption");
     
     let heroImageUrl = '';
+    
     if (article.heroImage && article.heroImage.src && heroImg) {
         let imageSrc = article.heroImage.src;
+        
         // Fix GitHub image URLs if needed
         if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
             imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
         }
+        
         heroImageUrl = imageSrc.startsWith('http') ? imageSrc : 'https://themirrorjk.com/' + imageSrc;
         heroImg.src = heroImageUrl;
         heroImg.alt = article.heroImage.caption || article.title || '';
@@ -1468,7 +1513,13 @@ function renderFullArticlePage(article) {
             heroWrap.style.display = 'block';
         }
     } else if (heroWrap) {
-        heroWrap.style.display = 'none';
+        // Create a placeholder if no hero image
+        heroWrap.style.display = 'block';
+        heroImg.src = 'https://via.placeholder.com/1280x720?text=' + encodeURIComponent(article.title?.charAt(0) || 'J');
+        heroImg.alt = article.title || 'Article';
+        if (heroCaption) {
+            heroCaption.textContent = '';
+        }
     }
     
     // --- SET SOCIAL MEDIA META TAGS ---
@@ -1519,17 +1570,14 @@ function renderFullArticlePage(article) {
             if (block.type === "paragraph") {
                 contentEl.innerHTML += '<p>' + block.text + '</p>';
             }
-            
             // Subheading
             else if (block.type === "subheading") {
                 contentEl.innerHTML += '<h2 class="mid-subheading">' + block.text + '</h2>';
             }
-            
             // Pull Quote
             else if (block.type === "pullquote") {
                 contentEl.innerHTML += '<div class="pull-quote">' + block.text + '</div>';
             }
-            
             // Points / Bullet List
             else if (block.type === "points" && block.items) {
                 let listHtml = '<div class="important-points"><ul>';
@@ -1539,17 +1587,17 @@ function renderFullArticlePage(article) {
                 listHtml += '</ul></div>';
                 contentEl.innerHTML += listHtml;
             }
-            
             // Image with floating
             else if (block.type === "image" && block.src) {
                 let imageSrc = block.src;
+                
                 // Fix GitHub image URLs if needed
                 if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
                     imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
                 }
                 
-                const alignClass = block.align === "right" ? "img-right" : 
-                                  block.align === "left" ? "img-left" : "img-center";
+                const alignClass = block.align === "right" ? "img-right" :
+                                   block.align === "left" ? "img-left" : "img-center";
                 
                 contentEl.innerHTML += `
                     <figure class="${alignClass}">
@@ -1561,10 +1609,23 @@ function renderFullArticlePage(article) {
         });
     }
     
+    // --- FIXED: ADD READ MORE SECTION IF EXISTS ---
+    if (article.readMore && article.readMore.trim() !== '') {
+        const readMoreSection = document.createElement('div');
+        readMoreSection.className = 'read-more-section';
+        readMoreSection.innerHTML = `
+            <h3 class="read-more-title">Read More</h3>
+            <div class="read-more-content">
+                ${article.readMore}
+            </div>
+        `;
+        contentEl.appendChild(readMoreSection);
+    }
+    
     // Initialize article action buttons
     initArticleActions();
     
-    // SUGGEST NEXT ARTICLE - THIS IS CRITICAL
+    // SUGGEST NEXT ARTICLE
     console.log("Calling suggestNextArticle with ID:", article.id);
     suggestNextArticle(article.id);
     
@@ -1605,12 +1666,14 @@ function initArticleActions() {
     if (likeBtn) {
         const articleId = window.location.search;
         let likes = localStorage.getItem('article-likes-' + articleId) || 0;
+        
         if (likeCountSpan) likeCountSpan.textContent = likes ? ' (' + likes + ')' : '';
         
         likeBtn.addEventListener("click", function() {
             let currentLikes = parseInt(localStorage.getItem('article-likes-' + articleId) || 0);
             currentLikes++;
             localStorage.setItem('article-likes-' + articleId, currentLikes);
+            
             if (likeCountSpan) likeCountSpan.textContent = ' (' + currentLikes + ')';
             
             // Visual feedback
@@ -1652,4 +1715,4 @@ function initArticleActions() {
 }
 
 // Make copyPageLink globally available
-window.copyPageLink = copyPageLink; 
+window.copyPageLink = copyPageLink;
