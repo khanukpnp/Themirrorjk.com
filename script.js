@@ -1,7 +1,8 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT
-   WITH FIXED HERO IMAGES, READ MORE SECTION, AND NAVIGATION
-   =========================================================== */
+   WITH YOUTUBE VIDEOS, ALL CONTENT LOADING, AND MODERN FEATURES
+   FIXED: Editorial Loading, Bikram Calendar, Enhanced Share Icons
+   ============================================================ */
 
 // Wait for DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", function() {
@@ -72,7 +73,7 @@ function initYear() {
 }
 
 /* ============================
-   CLOCKS
+   CLOCKS - FIXED BIKRAMI CALENDAR
    ============================ */
 function initClocks() {
     updateClocks();
@@ -151,16 +152,37 @@ function getHijriDate() {
 }
 
 function getBikramiDate() {
-    const today = new Date();
-    const day = today.getDate();
-    const months = [
-        "Chet", "Vaisakh", "Iyeshtha", "Harh", "Sawan", "Bhadon",
-        "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"
-    ];
-    const monthIndex = today.getMonth();
-    const monthName = months[monthIndex];
-    const bikramiYear = today.getFullYear() + 57;
-    return day + " " + monthName + " " + bikramiYear + " VS";
+    try {
+        const today = new Date();
+        const day = today.getDate();
+        
+        // Bikrami months
+        const months = [
+            "Chet", "Vaisakh", "Jeth", "Harh", "Sawan", "Bhadon",
+            "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"
+        ];
+        
+        // Calculate Bikrami year (add 57 years to Gregorian year)
+        let gregorianYear = today.getFullYear();
+        let gregorianMonth = today.getMonth() + 1; // 1-12
+        
+        // Bikrami year starts in March/April
+        // If current date is before Bikrami New Year (usually mid-April), subtract 1
+        let bikramiYear;
+        if (gregorianMonth < 4 || (gregorianMonth === 4 && today.getDate() < 13)) {
+            bikramiYear = gregorianYear + 56; // Before Bikrami New Year
+        } else {
+            bikramiYear = gregorianYear + 57; // After Bikrami New Year
+        }
+        
+        // Get month index (0-11) - adjust for Bikrami calendar
+        let monthIndex = (gregorianMonth + 9) % 12; // This maps Gregorian to Bikrami months
+        
+        return day + " " + months[monthIndex] + " " + bikramiYear + " VS";
+    } catch(e) {
+        console.error("Bikrami date error:", e);
+        return "Chet 15, 2082 VS"; // Fallback date
+    }
 }
 
 /* ============================
@@ -530,7 +552,7 @@ function initFooterDropdowns() {
 }
 
 /* ============================
-   SHARE TOOLTIP FUNCTIONALITY
+   SHARE TOOLTIP FUNCTIONALITY - ENHANCED
    ============================ */
 function initShareTooltip() {
     const shareBtn = document.getElementById('btn-share');
@@ -557,7 +579,9 @@ function initShareTooltip() {
 function updateShareLinks() {
     const url = encodeURIComponent(window.location.href);
     const title = encodeURIComponent(document.title);
+    const text = encodeURIComponent("Check this article from THE MIRROR JAMMU KASHMIR");
     
+    // Facebook
     const facebookLink = document.getElementById('share-facebook');
     if (facebookLink) {
         facebookLink.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
@@ -565,6 +589,7 @@ function updateShareLinks() {
         facebookLink.rel = 'noopener noreferrer';
     }
     
+    // X (Twitter)
     const twitterLink = document.getElementById('share-twitter');
     if (twitterLink) {
         twitterLink.href = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
@@ -572,6 +597,7 @@ function updateShareLinks() {
         twitterLink.rel = 'noopener noreferrer';
     }
     
+    // WhatsApp
     const whatsappLink = document.getElementById('share-whatsapp');
     if (whatsappLink) {
         whatsappLink.href = `https://api.whatsapp.com/send?text=${title}%20${url}`;
@@ -579,16 +605,79 @@ function updateShareLinks() {
         whatsappLink.rel = 'noopener noreferrer';
     }
     
+    // LinkedIn
     const linkedinLink = document.getElementById('share-linkedin');
     if (linkedinLink) {
         linkedinLink.href = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
         linkedinLink.target = '_blank';
         linkedinLink.rel = 'noopener noreferrer';
     }
+    
+    // Telegram
+    const telegramLink = document.getElementById('share-telegram');
+    if (telegramLink) {
+        telegramLink.href = `https://t.me/share/url?url=${url}&text=${title}`;
+        telegramLink.target = '_blank';
+        telegramLink.rel = 'noopener noreferrer';
+    }
+    
+    // Reddit
+    const redditLink = document.getElementById('share-reddit');
+    if (redditLink) {
+        redditLink.href = `https://www.reddit.com/submit?url=${url}&title=${title}`;
+        redditLink.target = '_blank';
+        redditLink.rel = 'noopener noreferrer';
+    }
+    
+    // Pinterest
+    const pinterestLink = document.getElementById('share-pinterest');
+    if (pinterestLink) {
+        pinterestLink.href = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+        pinterestLink.target = '_blank';
+        pinterestLink.rel = 'noopener noreferrer';
+    }
+    
+    // Email
+    const emailLink = document.getElementById('share-email');
+    if (emailLink) {
+        emailLink.href = `mailto:?subject=${title}&body=Check this article: ${url}`;
+        emailLink.target = '_blank';
+        emailLink.rel = 'noopener noreferrer';
+    }
+    
+    // Truth Social - Note: Truth Social doesn't have a direct share API yet, so we use copy link
+    const truthLink = document.getElementById('share-truth');
+    if (truthLink) {
+        truthLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            copyPageLink();
+            alert("Link copied! You can paste it on Truth Social.");
+        });
+    }
+    
+    // BlueSky - Note: BlueSky doesn't have a direct share API yet
+    const blueskyLink = document.getElementById('share-bluesky');
+    if (blueskyLink) {
+        blueskyLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            copyPageLink();
+            alert("Link copied! You can paste it on BlueSky.");
+        });
+    }
+    
+    // Threads - Note: Threads doesn't have a direct share API yet
+    const threadsLink = document.getElementById('share-threads');
+    if (threadsLink) {
+        threadsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            copyPageLink();
+            alert("Link copied! You can paste it on Threads.");
+        });
+    }
 }
 
 /* ============================
-   FIXED: NEXT ARTICLE SUGGESTION
+   NEXT ARTICLE SUGGESTION
    ============================ */
 function suggestNextArticle(currentArticleId) {
     const suggestionDiv = document.getElementById('next-article-suggestion');
@@ -624,14 +713,7 @@ function suggestNextArticle(currentArticleId) {
     // Check if there is a next article
     if (currentIndex < articleSequence.length - 1) {
         const next = articleSequence[currentIndex + 1];
-        suggestionDiv.innerHTML = `
-            <div class="next-suggestion-content">
-                <span class="suggestion-label">Up Next:</span>
-                <a href="article.html?id=${next.id}" class="suggestion-link">
-                    ${next.title} →
-                </a>
-            </div>
-        `;
+        suggestionDiv.innerHTML = `<a href="article.html?id=${next.id}">Next: ${next.title} →</a>`;
         suggestionDiv.style.display = 'block';
         console.log("Next article set:", next);
     } else {
@@ -1390,7 +1472,7 @@ function renderHistoricalPage(data) {
 }
 
 /* ============================
-   FIXED: ARTICLE PAGE INITIALIZATION
+   ARTICLE PAGE INITIALIZATION - FIXED FOR EDITORIAL-001
    ============================ */
 function initArticlePage() {
     const params = new URLSearchParams(window.location.search);
@@ -1401,41 +1483,64 @@ function initArticlePage() {
         return;
     }
     
+    // Show loading state
+    const titleEl = document.getElementById("title");
+    if (titleEl) titleEl.textContent = "Loading...";
+    
     fetch("content/" + id + ".json")
         .then(function(response) {
             if (response.ok) {
                 return response.json();
             }
-            throw new Error("Article not found");
+            throw new Error("Article not found in content directory");
         })
-        .then(function(article) {
+        .then(function(data) {
+            // Handle the items wrapper
+            let article = data;
+            if (data.items && Array.isArray(data.items) && data.items.length > 0) {
+                console.log("Found items wrapper, extracting first article");
+                article = data.items[0];
+            }
+            // Handle array directly
+            else if (Array.isArray(data) && data.length > 0) {
+                console.log("Data is array, using first item");
+                article = data[0];
+            }
+            
+            console.log("Article loaded:", article);
             renderFullArticlePage(article);
             initShareTooltip();
-            
-            // Force navigation visibility
-            setTimeout(function() {
-                const nav = document.querySelector('.article-navigation');
-                if (nav) {
-                    nav.style.display = 'flex';
-                    nav.style.visibility = 'visible';
-                    nav.style.opacity = '1';
-                }
-                
-                const homeBtn = document.querySelector('.btn-home');
-                if (homeBtn) {
-                    homeBtn.style.display = 'inline-flex';
-                    homeBtn.style.visibility = 'visible';
-                    homeBtn.style.opacity = '1';
-                }
-            }, 100);
         })
-        .catch(function() {
-            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Article not found</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        .catch(function(error) {
+            console.error("Failed to load article:", error);
+            
+            // Try root directory as fallback
+            fetch(id + ".json")
+                .then(function(response) {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error("Article not found in root directory");
+                })
+                .then(function(data) {
+                    let article = data;
+                    if (data.items && Array.isArray(data.items) && data.items.length > 0) {
+                        article = data.items[0];
+                    } else if (Array.isArray(data) && data.length > 0) {
+                        article = data[0];
+                    }
+                    
+                    renderFullArticlePage(article);
+                    initShareTooltip();
+                })
+                .catch(function() {
+                    document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Article not found</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+                });
         });
 }
 
 /* ============================
-   FIXED: RENDER FULL ARTICLE PAGE WITH READ MORE SECTION
+   RENDER FULL ARTICLE PAGE - FIXED FOR HEADER TYPE
    ============================ */
 function renderFullArticlePage(article) {
     // Set page title
@@ -1472,7 +1577,7 @@ function renderFullArticlePage(article) {
                 month: "long",
                 day: "numeric"
             });
-            metaHtml += (metaHtml ? ' --- ' : '') + formattedDate;
+            metaHtml += (metaHtml ? ' — ' : '') + formattedDate;
         }
         
         if (article.author) {
@@ -1501,9 +1606,12 @@ function renderFullArticlePage(article) {
             imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
         }
         
-        heroImageUrl = imageSrc.startsWith('http') ? imageSrc : 'https://themirrorjk.com/' + imageSrc;
+        heroImageUrl = imageSrc.startsWith('http') ? imageSrc : '/' + imageSrc;
         heroImg.src = heroImageUrl;
         heroImg.alt = article.heroImage.caption || article.title || '';
+        heroImg.onerror = function() {
+            this.src = 'https://via.placeholder.com/1280x720?text=' + encodeURIComponent(article.title?.charAt(0) || 'J');
+        };
         
         if (heroCaption) {
             heroCaption.textContent = article.heroImage.caption || '';
@@ -1513,13 +1621,11 @@ function renderFullArticlePage(article) {
             heroWrap.style.display = 'block';
         }
     } else if (heroWrap) {
-        // Create a placeholder if no hero image
-        heroWrap.style.display = 'block';
+        // Placeholder
         heroImg.src = 'https://via.placeholder.com/1280x720?text=' + encodeURIComponent(article.title?.charAt(0) || 'J');
         heroImg.alt = article.title || 'Article';
-        if (heroCaption) {
-            heroCaption.textContent = '';
-        }
+        heroCaption.textContent = '';
+        heroWrap.style.display = 'block';
     }
     
     // --- SET SOCIAL MEDIA META TAGS ---
@@ -1568,15 +1674,19 @@ function renderFullArticlePage(article) {
         article.body.forEach(function(block) {
             // Paragraph
             if (block.type === "paragraph") {
-                contentEl.innerHTML += '<p>' + block.text + '</p>';
+                contentEl.innerHTML += '<p>' + (block.text || '') + '</p>';
+            }
+            // Header (for editorial-001)
+            else if (block.type === "header") {
+                contentEl.innerHTML += '<h2 class="mid-subheading" style="font-size: 1.8rem; color: #b30000; text-align: center; margin: 2rem 0 1.5rem;">' + (block.text || '') + '</h2>';
             }
             // Subheading
             else if (block.type === "subheading") {
-                contentEl.innerHTML += '<h2 class="mid-subheading">' + block.text + '</h2>';
+                contentEl.innerHTML += '<h2 class="mid-subheading">' + (block.text || '') + '</h2>';
             }
             // Pull Quote
             else if (block.type === "pullquote") {
-                contentEl.innerHTML += '<div class="pull-quote">' + block.text + '</div>';
+                contentEl.innerHTML += '<div class="pull-quote">' + (block.text || '') + '</div>';
             }
             // Points / Bullet List
             else if (block.type === "points" && block.items) {
@@ -1596,20 +1706,25 @@ function renderFullArticlePage(article) {
                     imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
                 }
                 
+                // Handle relative paths
+                if (!imageSrc.startsWith('http')) {
+                    imageSrc = '/' + imageSrc;
+                }
+                
                 const alignClass = block.align === "right" ? "img-right" :
                                    block.align === "left" ? "img-left" : "img-center";
                 
                 contentEl.innerHTML += `
                     <figure class="${alignClass}">
-                        <img src="${imageSrc}" alt="${block.caption || ''}">
-                        <figcaption>${block.caption || ''}</figcaption>
+                        <img src="${imageSrc}" alt="${block.caption || ''}" onerror="this.src='https://via.placeholder.com/640x360?text=Image'">
+                        <figcaption>${block.caption || ''} ${block.credit ? '— ' + block.credit : ''}</figcaption>
                     </figure>
                 `;
             }
         });
     }
     
-    // --- FIXED: ADD READ MORE SECTION IF EXISTS ---
+    // Add Read More section if exists
     if (article.readMore && article.readMore.trim() !== '') {
         const readMoreSection = document.createElement('div');
         readMoreSection.className = 'read-more-section';
@@ -1631,7 +1746,7 @@ function renderFullArticlePage(article) {
     
     // Force navigation to be visible
     setTimeout(function() {
-        const nav = document.querySelector('.article-navigation');
+        const nav = document.querySelector('.article-navigation-bottom');
         if (nav) {
             nav.style.display = 'flex';
             nav.style.visibility = 'visible';
@@ -1690,7 +1805,7 @@ function initArticleActions() {
     if (subscribeBtn) {
         subscribeBtn.addEventListener("click", function() {
             const email = prompt("Enter your email to subscribe:", "your@email.com");
-            if (email && email.includes('@')) {
+            if (email && email.includes('@') && email.includes('.')) {
                 alert("Thank you for subscribing! You'll receive notifications about new articles.");
             } else if (email) {
                 alert("Please enter a valid email address.");
