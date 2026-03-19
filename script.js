@@ -1064,4 +1064,397 @@ function renderAboutPage(data) {
             } else if (block.type === "subheading") {
                 html += '<h2>' + block.text + '</h2>';
             } else if (block.type === "pullquote") {
-                html
+                html += '<div class="pull-quote">' + block.text + '</div>';
+            } else if (block.type === "points" && block.items) {
+                let itemsHtml = '<div class="important-points"><ul>';
+                block.items.forEach(item => {
+                    itemsHtml += '<li>' + item + '</li>';
+                });
+                itemsHtml += '</ul></div>';
+                html += itemsHtml;
+            }
+        });
+        contentEl.innerHTML = html;
+    }
+}
+
+/* ============================
+   CHIEF EDITOR PAGE LOADER
+   ============================ */
+function loadChiefEditorPage() {
+    fetch("content/chief-editor-001.json")
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Chief Editor content not found");
+        })
+        .then(function(data) {
+            renderChiefEditorPage(data);
+        })
+        .catch(function(error) {
+            console.error("Failed to load chief editor page:", error);
+            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Chief Editor content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        });
+}
+
+function renderChiefEditorPage(data) {
+    // Set page title
+    document.title = (data.title || "Chief Editor") + " | THE MIRROR JAMMU KASHMIR";
+    
+    const titleEl = document.getElementById("editor-title");
+    const metaEl = document.getElementById("editor-meta");
+    const contentEl = document.getElementById("editor-content");
+    
+    if (titleEl) titleEl.textContent = data.title || "Chief Editor";
+    
+    if (metaEl && data.date) {
+        const dateObj = new Date(data.date);
+        const formattedDate = dateObj.toLocaleDateString("en-GB", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+        metaEl.innerHTML = `<strong>${data.location || 'Switzerland'}</strong> — ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
+    }
+    
+    if (contentEl && data.body) {
+        let html = '';
+        data.body.forEach(function(block, index) {
+            if (block.type === "paragraph") {
+                // Handle first paragraph with floating image
+                if (index === 0 && data.heroImage) {
+                    const alignClass = data.heroImage.align === "left" ? "float-left" : "float-right";
+                    html += `
+                        <p>
+                            <figure class="${alignClass}">
+                                <img src="${data.heroImage.src}" alt="${data.heroImage.caption || 'Chief Editor'}">
+                                <figcaption>${data.heroImage.caption || ''}</figcaption>
+                            </figure>
+                            ${block.text}
+                        </p>
+                    `;
+                } else {
+                    html += '<p>' + block.text + '</p>';
+                }
+            } else if (block.type === "subheading") {
+                html += '<h2>' + block.text + '</h2>';
+            } else if (block.type === "pullquote") {
+                html += '<div class="pull-quote">' + block.text + '</div>';
+            } else if (block.type === "points" && block.items) {
+                let itemsHtml = '<div class="important-points"><ul>';
+                block.items.forEach(item => {
+                    itemsHtml += '<li>' + item + '</li>';
+                });
+                itemsHtml += '</ul></div>';
+                html += itemsHtml;
+            }
+        });
+        contentEl.innerHTML = html;
+    }
+}
+
+/* ============================
+   HISTORICAL PAGE LOADER
+   ============================ */
+function loadHistoricalPage() {
+    fetch("content/historical-001.json")
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Historical content not found");
+        })
+        .then(function(data) {
+            renderHistoricalPage(data);
+        })
+        .catch(function(error) {
+            console.error("Failed to load historical page:", error);
+            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Historical content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        });
+}
+
+function renderHistoricalPage(data) {
+    // Set page title
+    document.title = (data.title || "Historical") + " | THE MIRROR JAMMU KASHMIR";
+    
+    const titleEl = document.getElementById("historical-title");
+    const metaEl = document.getElementById("historical-meta");
+    const heroImg = document.getElementById("heroImg");
+    const heroCaption = document.getElementById("heroCaption");
+    const heroWrap = document.getElementById("heroWrap");
+    const contentEl = document.getElementById("historical-content");
+    
+    if (titleEl) titleEl.textContent = data.title || "Historical Article";
+    
+    if (metaEl && data.date) {
+        const dateObj = new Date(data.date);
+        const formattedDate = dateObj.toLocaleDateString("en-GB", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+        metaEl.innerHTML = `<strong>${data.location || 'Geneva'}</strong> — ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
+    }
+    
+    if (data.heroImage && data.heroImage.src && heroImg) {
+        let imageSrc = data.heroImage.src;
+        // Fix GitHub image URLs if needed
+        if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+            imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+        }
+        heroImg.src = imageSrc;
+        heroImg.alt = data.heroImage.caption || '';
+        if (heroCaption) heroCaption.textContent = data.heroImage.caption || '';
+        if (heroWrap) heroWrap.style.display = 'block';
+    } else if (heroWrap) {
+        heroWrap.style.display = 'none';
+    }
+    
+    if (contentEl && data.body) {
+        let html = '';
+        data.body.forEach(function(block, index) {
+            if (block.type === "paragraph") {
+                html += '<p>' + block.text + '</p>';
+            } else if (block.type === "subheading") {
+                html += '<h2>' + block.text + '</h2>';
+            } else if (block.type === "pullquote") {
+                html += '<div class="pull-quote">' + block.text + '</div>';
+            } else if (block.type === "points" && block.items) {
+                let itemsHtml = '<div class="important-points"><ul>';
+                block.items.forEach(item => {
+                    itemsHtml += '<li>' + item + '</li>';
+                });
+                itemsHtml += '</ul></div>';
+                html += itemsHtml;
+            } else if (block.type === "image" && block.src) {
+                let imageSrc = block.src;
+                // Fix GitHub image URLs if needed
+                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                const alignClass = block.align === "left" ? "float-left" : "float-right";
+                html += `
+                    <figure class="${alignClass}">
+                        <img src="${imageSrc}" alt="${block.caption || ''}">
+                        <figcaption>${block.caption || ''}</figcaption>
+                    </figure>
+                `;
+            }
+        });
+        contentEl.innerHTML = html;
+    }
+}
+
+/* ============================
+   ARTICLE PAGE INITIALIZATION
+   ============================ */
+function initArticlePage() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    
+    if (!id) {
+        document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>No article specified</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        return;
+    }
+    
+    fetch("content/" + id + ".json")
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Article not found");
+        })
+        .then(function(article) {
+            renderFullArticlePage(article);
+        })
+        .catch(function() {
+            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Article not found</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        });
+}
+
+/* ============================
+   RENDER FULL ARTICLE PAGE
+   ============================ */
+function renderFullArticlePage(article) {
+    // Set page title
+    const pageTitle = document.getElementById("page-title");
+    if (pageTitle) {
+        pageTitle.textContent = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
+    }
+    
+    // Set section label
+    const sectionLabel = document.getElementById("section-label");
+    if (sectionLabel) {
+        sectionLabel.textContent = article.sectionLabel || article.category || "ARTICLE";
+    }
+    
+    // Set title
+    const titleEl = document.getElementById("title");
+    if (titleEl) {
+        titleEl.textContent = article.title || "Untitled";
+    }
+    
+    // Set meta information
+    const metaEl = document.getElementById("meta");
+    if (metaEl) {
+        let metaHtml = '';
+        
+        if (article.location) {
+            metaHtml += '<strong>' + article.location + '</strong>';
+        }
+        
+        if (article.date) {
+            const dateObj = new Date(article.date);
+            const formattedDate = dateObj.toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+            metaHtml += (metaHtml ? ' — ' : '') + formattedDate;
+        }
+        
+        if (article.author) {
+            metaHtml += '<br>By <em>' + article.author + '</em>';
+        }
+        
+        if (article.readTime) {
+            metaHtml += ' · ' + article.readTime;
+        }
+        
+        metaEl.innerHTML = metaHtml;
+    }
+    
+    // Set hero image
+    const heroWrap = document.getElementById("heroWrap");
+    const heroImg = document.getElementById("heroImg");
+    const heroCaption = document.getElementById("heroCaption");
+    
+    if (article.heroImage && article.heroImage.src && heroImg) {
+        let imageSrc = article.heroImage.src;
+        // Fix GitHub image URLs if needed
+        if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+            imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+        }
+        heroImg.src = imageSrc;
+        heroImg.alt = article.heroImage.caption || article.title || '';
+        
+        if (heroCaption) {
+            heroCaption.textContent = article.heroImage.caption || '';
+        }
+        
+        if (heroWrap) {
+            heroWrap.style.display = 'block';
+        }
+    } else if (heroWrap) {
+        heroWrap.style.display = 'none';
+    }
+    
+    // Render body content
+    const contentEl = document.getElementById("content");
+    if (!contentEl) return;
+    
+    contentEl.innerHTML = '';
+    
+    if (article.body && Array.isArray(article.body)) {
+        article.body.forEach(function(block) {
+            // Paragraph
+            if (block.type === "paragraph") {
+                contentEl.innerHTML += '<p>' + block.text + '</p>';
+            }
+            
+            // Subheading
+            else if (block.type === "subheading") {
+                contentEl.innerHTML += '<h2 class="mid-subheading">' + block.text + '</h2>';
+            }
+            
+            // Pull Quote
+            else if (block.type === "pullquote") {
+                contentEl.innerHTML += '<div class="pull-quote">' + block.text + '</div>';
+            }
+            
+            // Points / Bullet List
+            else if (block.type === "points" && block.items) {
+                let listHtml = '<div class="important-points"><ul>';
+                block.items.forEach(function(item) {
+                    listHtml += '<li>' + item + '</li>';
+                });
+                listHtml += '</ul></div>';
+                contentEl.innerHTML += listHtml;
+            }
+            
+            // Image with floating
+            else if (block.type === "image" && block.src) {
+                let imageSrc = block.src;
+                // Fix GitHub image URLs if needed
+                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
+                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                
+                const alignClass = block.align === "right" ? "img-right" : 
+                                  block.align === "left" ? "img-left" : "img-center";
+                
+                contentEl.innerHTML += `
+                    <figure class="${alignClass}">
+                        <img src="${imageSrc}" alt="${block.caption || ''}">
+                        <figcaption>${block.caption || ''}</figcaption>
+                    </figure>
+                `;
+            }
+        });
+    }
+    
+    // Initialize article action buttons
+    initArticleActions();
+}
+
+/* ============================
+   ARTICLE ACTION BUTTONS
+   ============================ */
+function initArticleActions() {
+    const likeBtn = document.getElementById("btn-like");
+    const subscribeBtn = document.getElementById("btn-subscribe");
+    const shareBtn = document.getElementById("btn-share");
+    const copyBtn = document.getElementById("btn-copy");
+    const yearEl = document.getElementById("year");
+    
+    if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+    }
+    
+    if (likeBtn) {
+        let likes = 0;
+        likeBtn.addEventListener("click", function() {
+            likes++;
+            likeBtn.innerHTML = '<span>👍</span> Like (' + likes + ')';
+        });
+    }
+    
+    if (subscribeBtn) {
+        subscribeBtn.addEventListener("click", function() {
+            alert("Thank you for subscribing!");
+        });
+    }
+    
+    if (shareBtn) {
+        shareBtn.addEventListener("click", function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                }).catch(function() {});
+            } else {
+                alert("Share this article: " + window.location.href);
+            }
+        });
+    }
+    
+    if (copyBtn) {
+        copyBtn.addEventListener("click", function() {
+            copyPageLink();
+        });
+    }
+}
+
+// Make copyPageLink globally available
+window.copyPageLink = copyPageLink;
