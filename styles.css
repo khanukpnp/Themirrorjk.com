@@ -1,6 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
-   16:9 RATIO FOR ALL CARDS AND HERO IMAGES
+   WITH FIXED READ MORE SECTION AND HERO IMAGES
    ============================================================ */
 
 /* ============================
@@ -818,6 +818,51 @@ h1, h2, h3, h4, h5 {
     clear: both;
 }
 
+/* ============================
+   FIXED: READ MORE SECTION
+   ============================ */
+.read-more-section {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 4px;
+    border-left: 4px solid #b30000;
+}
+
+.read-more-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #b30000;
+    margin-bottom: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+}
+
+.read-more-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #b30000;
+}
+
+.read-more-content {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #333;
+}
+
+.read-more-content p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.read-more-content p:last-child {
+    margin-bottom: 0;
+}
+
 /* Article Actions */
 .article-actions {
     margin-top: 3rem;
@@ -1529,7 +1574,6 @@ h1, h2, h3, h4, h5 {
 /* ============================================================
    FIXED ARTICLE NAVIGATION - FORCE VISIBILITY
    ============================================================ */
-
 .article-navigation {
     margin-top: 40px !important;
     padding-top: 20px !important;
@@ -1623,17 +1667,6 @@ h1, h2, h3, h4, h5 {
     z-index: 1 !important;
 }
 
-/* Debug styles - remove after fixing */
-.article-navigation::before {
-    content: "Navigation Section" !important;
-    display: block !important;
-    color: #b30000 !important;
-    font-size: 0.8rem !important;
-    margin-bottom: 5px !important;
-    font-weight: normal !important;
-    opacity: 0.7 !important;
-}
-
 /* Mobile responsive */
 @media (max-width: 768px) {
     .article-navigation {
@@ -1657,6 +1690,7 @@ h1, h2, h3, h4, h5 {
         justify-content: center !important;
     }
 }
+
 /* ============================================================
    ULTIMATE FIX FOR ARTICLE NAVIGATION - ADD AT THE VERY END
    ============================================================ */
