@@ -610,7 +610,7 @@ function suggestNextArticle(currentArticleId) {
     
     if (currentIndex === -1) {
         console.log("Article not found in sequence");
-        suggestionDiv.innerHTML = ''; // Clear any existing content
+        suggestionDiv.innerHTML = '';
         suggestionDiv.style.display = 'none';
         return;
     }
@@ -623,7 +623,7 @@ function suggestNextArticle(currentArticleId) {
         console.log("Next article set:", next);
     } else {
         console.log("No next article available (last in sequence)");
-        suggestionDiv.innerHTML = ''; // Clear any existing content
+        suggestionDiv.innerHTML = '';
         suggestionDiv.style.display = 'none';
     }
 }
@@ -1567,6 +1567,23 @@ function renderFullArticlePage(article) {
     // SUGGEST NEXT ARTICLE - THIS IS CRITICAL
     console.log("Calling suggestNextArticle with ID:", article.id);
     suggestNextArticle(article.id);
+    
+    // Force navigation to be visible
+    setTimeout(function() {
+        const nav = document.querySelector('.article-navigation');
+        if (nav) {
+            nav.style.display = 'flex';
+            nav.style.visibility = 'visible';
+            nav.style.opacity = '1';
+        }
+        
+        const homeBtn = document.querySelector('.btn-home');
+        if (homeBtn) {
+            homeBtn.style.display = 'inline-flex';
+            homeBtn.style.visibility = 'visible';
+            homeBtn.style.opacity = '1';
+        }
+    }, 100);
 }
 
 /* ============================
