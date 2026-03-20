@@ -1,250 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>THE MIRROR JAMMU KASHMIR</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ===========================
-           GLOBAL RESET & BASE
-        ============================ */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        html, body {
-            height: 100%;
-        }
-        
-        body {
-            font-family: 'Source Sans Pro', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #f4f4f4;
-            color: #222;
-            line-height: 1.6;
-        }
-        
-        a {
-            color: #b30000;
-            text-decoration: none;
-        }
-        
-        a:hover {
-            text-decoration: underline;
-        }
-        
-        img {
-            max-width: 100%;
-            display: block;
-        }
-        
-        /* ===========================
-           LAYOUT WRAPPER
-        ============================ */
-        .page-wrapper {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        main {
-            flex: 1 0 auto;
-        }
-        
-        footer {
-            flex-shrink: 0;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px;
-        }
-        
-        /* ===========================
-           HEADER / MASTHEAD
-        ============================ */
-        .site-header {
-            background: #000;
-            color: #fff;
-            padding: 20px 0 10px;
-            border-bottom: 4px solid #b30000;
-        }
-        
-        .site-title-block {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        
-        .site-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.4rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-        
-        .site-tagline {
-            font-size: 0.9rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-top: 6px;
-            color: #f0f0f0;
-        }
-        
-        /* ===========================
-           CLOCKS & CALENDARS
-        ============================ */
-        .time-calendar-bar {
-            margin-top: 12px;
-            padding: 10px 0 4px;
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
-            font-size: 0.9rem;
-        }
-        
-        .time-calendar-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px 24px;
-            margin-bottom: 4px;
-            text-align: center;
-        }
-        
-        .time-calendar-row span {
-            white-space: nowrap;
-        }
-        
-        .time-label {
-            font-weight: 600;
-            color: #ffcccc;
-        }
-        
-        .calendar-label {
-            font-weight: 600;
-            color: #ffd9b3;
-        }
-        
-        /* ===========================
-           WEATHER BAR
-        ============================ */
-        .weather-bar {
-            background: #111;
-            color: #eee;
-            padding: 6px 0;
-            font-size: 0.85rem;
-            border-top: 1px solid #333;
-        }
-        
-        .weather-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px 20px;
-        }
-        
-        .weather-item {
-            white-space: nowrap;
-        }
-        
-        .weather-city {
-            font-weight: 600;
-            color: #ffebcc;
-        }
-        
-        /* ===========================
-           TICKER
-        ============================ */
-        .ticker-bar {
-            background: #b30000;
-            color: #fff;
-            padding: 6px 0;
-            overflow: hidden;
-            position: relative;
-            font-size: 0.9rem;
-        }
-        
-        .ticker-inner {
-            white-space: nowrap;
-            display: inline-block;
-            animation: ticker-scroll 40s linear infinite;
-        }
-        
-        @keyframes ticker-scroll {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        
-        /* ===========================
-           NAVIGATION
-        ============================ */
-        .main-nav {
-            background: #111;
-            border-bottom: 2px solid #b30000;
-        }
-        
-        .nav-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 8px 0;
-            flex-wrap: wrap;
-        }
-        
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        
-        .nav-link {
-            color: #fff;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            background: #333;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .nav-link:hover {
-            background: #b30000;
-            text-decoration: none;
-        }
-        
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .lang-select {
-            padding: 4px 8px;
-            border-radius: 4px;
-            border: 1px solid #555;
-            background: #000;
-            color: #fff;
-            font-size: 0.85rem;
-        }
-        
-        .search-input {
-            padding: 4px 8px;
-            border-radius: 4px;
-            border: 1px solid #555;
-            background: #000;
-            color: #fff;
-            font-size: 0.85rem;
-            min-width: 160px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="./">
+  <title>THE MIRROR JAMMU KASHMIR</title>
+  <meta name="description" content="The Mirror Jammu Kashmir — Champion justice & amplify the voices of the unheard.">
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="stylesheet" href="styles.css?v=26">
+</head>
+<body class="theme-maroon" id="top">
+
+  <!-- LOADER -->
+  <div id="site-loader">
+    <div class="loader-inner">
+      <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+      <p>Loading newsroom…</p>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header modern-header">
+    <div class="header-center">
+      <h1 class="site-title">
+        THE MIRROR JAMMU KASHMIR
+      </h1>
+      <div class="subheading">
+        CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD
+      </div>
+    </div>
+  </header>
+
+  <!-- CLOCKS + CALENDARS -->
+  <section class="bar clocks-line">
+    <div class="row tight nowrap center">
+      <div id="clock-cest" class="chip tiny">
+        🕒 <span>Loading CEST…</span>
+      </div>
+      <div id="cal-hijri" class="chip tiny">
+        🗓️ <span>Hijri…</span>
+      </div>
+      <div id="cal-hindi" class="chip tiny">
+        🗓️ <span>VS…</span>
+      </div>
+      <div id="tz-ist" class="chip tiny">
+        🕒 IST (Jammu-Kashmir-Ladakh): <span>—:—</span>
+      </div>
+      <div id="tz-pkt" class="chip tiny">
+        🕒 PKT (Gilgit-Baltistan & Azad Kashmir): <span>—:—</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEATHER BAR -->
+  <section class="bar weather-line">
+    <div class="row nowrap super-tight center" id="weather-bar"></div>
+  </section>
+
+  <!-- BREAKING TICKER -->
+  <section class="ticker-wrap">
+    <div class="ticker">
+      <span class="ticker-label">🆕 BREAKING</span>
+      <ul id="ticker-items"></ul>
+      <div class="tools">
+        <label class="lang-select">
+          🌍
+          <select id="language-select">
+            <option value="en" selected>English</option>
+            <option value="de">German</option>
+            <option value="fr">French</option>
+            <option value="ur">Urdu</option>
+            <option value="hi">Hindi</option>
+            <option value="ar">Arabic</option>
+          </select>
+        </label>
+        <form class="search" onsubmit="event.preventDefault();">
+          <input id="search-input" type="search" placeholder="Search…">
+          <button type="submit">🔍</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar modern-nav">
+    <button class="hamburger" aria-expanded="false" id="hamburger">
+      ☰ Menu
+    </button>
+    <ul class="nav-list" id="nav-list">
+      <li class="nav-item has-sub">
+        <button class="nav-btn">🏠 Home</button>
+        <div class="dropdown">
+          <a href="about.html">About</a>
+          <a href="chief-editor.html">Chief Editor</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-btn" href="breaking.html">🆕 Breaking News</a>
+      </li>
+      <li class="nav-item has-sub">
+        <button class="nav-btn">📝 Blog</button>
+        <div class="dropdown wide">
+          <a href="editorial.html">Editorial</a>
+          <a href="blog.html">Opinion</a>
+          <a href="#latest-editorial-historical">Latest Updates</a>
+        </div>
+      </li>
+      <li class="nav-item has-sub">
+        <button class="nav-btn">🎥 Vlog</button>
+        <div class="dropdown">
+          <a href="#vlogs">Latest Vlogs</a>
+          <a href="vlog-archive.html">Archive</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-btn" href="#epaper">📰 E-Paper</a>
+      </li>
+      <li class="nav-item has-sub">
+        <button class="nav-btn">📍 Jammu Kashmir</button>
+        <div class="dropdown wide">
+          <a href="#jammu-kashmir">Regions</a>
+          <a href="#jammu-kashmir">History</a>
+          <a href="#jammu-kashmir">Culture</a>
+        </div>
+      </li>
+      <li class="nav-item has-sub">
+        <button class="nav-btn">🕊️ UN & Human Rights</button>
+        <div class="dropdown">
+          <a href="#human-rights">UNHRC</a>
+          <a href="#human-rights">Reports</a>
+          <a href="#human-rights">Advocacy</a>
+        </div>
+      </li>
+    </ul>
+    <div id="mobile-menu" class="mobile-menu" hidden></div>
+  </nav>
+
+
         
         /* ===========================
            SECTION WRAPPERS
