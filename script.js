@@ -1393,116 +1393,153 @@ function initArticlePage() {
 }
 
 /* ============================
-   RENDER FULL ARTICLE PAGE
+   RENDER FULL ARTICLE PAGE (UPDATED CLEAN VERSION)
    ============================ */
 function renderFullArticlePage(article) {
-    // Set page title
+
+    /* ============================
+       PAGE TITLE
+    ============================ */
     const pageTitle = document.getElementById("page-title");
     if (pageTitle) {
         pageTitle.textContent = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
     }
-    
-    // Set section label
+
+    /* ============================
+       SECTION LABEL (LEFT STYLE)
+    ============================ */
     const sectionLabel = document.getElementById("section-label");
     if (sectionLabel) {
-        sectionLabel.textContent = article.sectionLabel || article.category || "ARTICLE";
+        sectionLabel.innerHTML = "📰 " + (article.sectionLabel || article.category || "ARTICLE");
     }
-    
-    // Set title
+
+    /* ============================
+       TITLE
+    ============================ */
     const titleEl = document.getElementById("title");
     if (titleEl) {
         titleEl.textContent = article.title || "Untitled";
     }
-    
-    // Set meta information
+
+    /* ============================
+       META (INLINE FIXED)
+    ============================ */
     const metaEl = document.getElementById("meta");
     if (metaEl) {
-        let metaHtml = '';
-        
+
+        let parts = [];
+
         if (article.location) {
-            metaHtml += '<strong>' + article.location + '</strong>';
+            parts.push('<span class="meta-location">' + article.location + '</span>');
         }
-        
+
         if (article.date) {
-            const dateObj = new Date(article.date);
-            const formattedDate = dateObj.toLocaleDateString("en-GB", {
-                year: "numeric",
+            const d = new Date(article.date);
+            parts.push('<span class="meta-date">' + d.toLocaleDateString("en-GB", {
+                day: "numeric",
                 month: "long",
-                day: "numeric"
-            });
-            metaHtml += (metaHtml ? ' — ' : '') + formattedDate;
+                year: "numeric"
+            }) + '</span>');
         }
-        
+
         if (article.author) {
-            metaHtml += '<br>By <em>' + article.author + '</em>';
+            parts.push('<span class="meta-author">By ' + article.author + '</span>');
         }
-        
+
         if (article.readTime) {
-            metaHtml += ' · ' + article.readTime;
+            parts.push('<span class="meta-read">' + article.readTime + '</span>');
         }
-        
-        metaEl.innerHTML = metaHtml;
+
+        metaEl.innerHTML = parts.join(" • ");
     }
-    
-    // Set hero image
+
+    /* ============================
+       HERO IMAGE FIX
+    ============================ */
     const heroWrap = document.getElementById("heroWrap");
     const heroImg = document.getElementById("heroImg");
     const heroCaption = document.getElementById("heroCaption");
-    
-    let heroImageUrl = '';
+
+    let heroImageUrl = "";
+
     if (article.heroImage && article.heroImage.src && heroImg) {
-        let imageSrc = article.heroImage.src;
-        // Fix GitHub image URLs if needed
-        if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
-            imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+
+        let src = article.heroImage.src;
+
+        if (src.includes("github.com") && !src.includes("raw")) {
+            src = src.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/");
         }
-        heroImageUrl = imageSrc.startsWith('http') ? imageSrc : 'https://themirrorjk.com/' + imageSrc;
+
+        heroImageUrl = src.startsWith("http") ? src : "https://themirrorjk.com/" + src;
+
         heroImg.src = heroImageUrl;
-        heroImg.alt = article.heroImage.caption || article.title || '';
-        
+        heroImg.alt = article.title || "";
+
         if (heroCaption) {
-            heroCaption.textContent = article.heroImage.caption || '';
+            heroCaption.textContent = article.heroImage.caption || "";
         }
-        
-        if (heroWrap) {
-            heroWrap.style.display = 'block';
-        }
+
+        if (heroWrap) heroWrap.style.display = "block";
+
     } else if (heroWrap) {
-        heroWrap.style.display = 'none';
+        heroWrap.style.display = "none";
     }
-    
-    // --- SET SOCIAL MEDIA META TAGS ---
+
+    /* ============================
+       CONTENT + INLINE IMAGE FIX
+    ============================ */
+    const contentEl = document.getElementById("content");
+
+    if (contentEl && article.content) {
+
+        let content = article.content;
+
+        // FIX INLINE IMAGES SIZE + FLOAT
+        content = content.replaceAll("<img", `<img class="article-inline-img"`);
+
+        contentEl.innerHTML = content;
+    }
+
+    /* ============================
+       BREADCRUMB
+    ============================ */
+    const breadcrumb = document.getElementById("breadcrumb");
+    if (breadcrumb) {
+        breadcrumb.innerHTML = `
+        🏠 Home > 
+        ${article.category || "News"} > 
+        <strong>${article.title}</strong>
+        `;
+    }
+
+    /* ============================
+       SOCIAL META TAGS
+    ============================ */
     const fullUrl = window.location.href;
-    const articleTitle = article.title || 'THE MIRROR JAMMU KASHMIR';
-    const articleExcerpt = article.excerpt || article.summary || 'Read the latest from THE MIRROR JAMMU KASHMIR.';
-    
-    // Open Graph tags
-    const ogUrl = document.getElementById('og-url');
-    if (ogUrl) ogUrl.setAttribute('content', fullUrl);
-    
-    const ogTitle = document.getElementById('og-title');
-    if (ogTitle) ogTitle.setAttribute('content', articleTitle);
-    
-    const ogDescription = document.getElementById('og-description');
-    if (ogDescription) ogDescription.setAttribute('content', articleExcerpt);
-    
-    const ogImage = document.getElementById('og-image');
-    if (ogImage && heroImageUrl) {
-        ogImage.setAttribute('content', heroImageUrl);
-    }
-    
-    // Twitter Card tags
-    const twitterTitle = document.getElementById('twitter-title');
-    if (twitterTitle) twitterTitle.setAttribute('content', articleTitle);
-    
-    const twitterDescription = document.getElementById('twitter-description');
-    if (twitterDescription) twitterDescription.setAttribute('content', articleExcerpt);
-    
-    const twitterImage = document.getElementById('twitter-image');
-    if (twitterImage && heroImageUrl) {
-        twitterImage.setAttribute('content', heroImageUrl);
-    }
-    
+    const articleTitle = article.title || "";
+    const articleExcerpt = article.excerpt || article.summary || "";
+
+    const setMeta = (id, value) => {
+        const el = document.getElementById(id);
+        if (el && value) el.setAttribute("content", value);
+    };
+
+    setMeta("og-url", fullUrl);
+    setMeta("og-title", articleTitle);
+    setMeta("og-description", articleExcerpt);
+    if (heroImageUrl) setMeta("og-image", heroImageUrl);
+
+    setMeta("twitter-title", articleTitle);
+    setMeta("twitter-description", articleExcerpt);
+    if (heroImageUrl) setMeta("twitter-image", heroImageUrl);
+
+    /* ============================
+       EXTRA SYSTEMS
+    ============================ */
+    setupArticleNavigation(article.id);
+    setupShareLinks();
+    renderRecommendationsFromJSON(article.id);
+}
     // Standard meta description
     const metaDescription = document.getElementById('meta-description');
     if (metaDescription) metaDescription.setAttribute('content', articleExcerpt);
