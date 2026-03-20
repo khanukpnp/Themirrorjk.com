@@ -3,6 +3,7 @@
     "name": "The Mirror Jammu Kashmir",
     "url": "https://www.youtube.com/@TheMirrorJammuKashmir"
   },
+
   "videos": [
     {
       "title": "Exclusive Interview | The Mirror Jammu Kashmir",
@@ -22,6 +23,32 @@
       "title": "Analysis | Human Rights Framework",
       "description": "Legal and political analysis of ongoing human rights issues.",
       "youtubeId": "pOEQeRhYbec",
+      "category": "Analysis",
+      "duration": "18:20"
+    },
+
+    /* ============================
+       NEW LINKS YOU REQUESTED
+       ============================ */
+
+    {
+      "title": "Exclusive Interview | The Mirror Jammu Kashmir",
+      "description": "Exclusive interview on regional justice, rights and political realities.",
+      "youtubeId": "SNANYXoJxu0",
+      "category": "Interview",
+      "duration": "15:32"
+    },
+    {
+      "title": "Ground Report | SCO Summit 2025",
+      "description": "Community voices and geopolitical shifts shaping the new world order.",
+      "youtubeId": "hr1ATz8E39M",
+      "category": "Ground Report",
+      "duration": "12:45"
+    },
+    {
+      "title": "Analysis | UKPNP Intra Kashmir Conference",
+      "description": "Legal and political analysis of forced division and human rights issues.",
+      "youtubeId": "gXHOWzoEv8Q",
       "category": "Analysis",
       "duration": "18:20"
     }
