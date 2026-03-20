@@ -1,1553 +1,967 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>THE MIRROR JAMMU KASHMIR</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    /* ===========================
-       GLOBAL RESET & BASE
-    ============================ */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      height: 100%;
-    }
-
-    body {
-      font-family: 'Source Sans Pro', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f4f4f4;
-      color: #222;
-      line-height: 1.6;
-    }
-
-    a {
-      color: #b30000;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    /* ===========================
-       LAYOUT WRAPPER
-    ============================ */
-    .page-wrapper {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    main {
-      flex: 1 0 auto;
-    }
-
-    footer {
-      flex-shrink: 0;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
-
-    /* ===========================
-       HEADER / MASTHEAD
-    ============================ */
-    .site-header {
-      background: #000;
-      color: #fff;
-      padding: 20px 0 10px;
-      border-bottom: 4px solid #b30000;
-    }
-
-    .site-title-block {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .site-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.4rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .site-tagline {
-      font-size: 0.9rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-top: 6px;
-      color: #f0f0f0;
-    }
-
-    /* ===========================
-       CLOCKS & CALENDARS
-    ============================ */
-    .time-calendar-bar {
-      margin-top: 12px;
-      padding: 10px 0 4px;
-      border-top: 1px solid #333;
-      border-bottom: 1px solid #333;
-      font-size: 0.9rem;
-    }
-
-    .time-calendar-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px 24px;
-      margin-bottom: 4px;
-      text-align: center;
-    }
-
-    .time-calendar-row span {
-      white-space: nowrap;
-    }
-
-    .time-label {
-      font-weight: 600;
-      color: #ffcccc;
-    }
-
-    .calendar-label {
-      font-weight: 600;
-      color: #ffd9b3;
-    }
-
-    /* ===========================
-       WEATHER BAR
-    ============================ */
-    .weather-bar {
-      background: #111;
-      color: #eee;
-      padding: 6px 0;
-      font-size: 0.85rem;
-      border-top: 1px solid #333;
-    }
-
-    .weather-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px 20px;
-    }
-
-    .weather-item {
-      white-space: nowrap;
-    }
-
-    .weather-city {
-      font-weight: 600;
-      color: #ffebcc;
-    }
-
-    /* ===========================
-       TICKER
-    ============================ */
-    .ticker-bar {
-      background: #b30000;
-      color: #fff;
-      padding: 6px 0;
-      overflow: hidden;
-      position: relative;
-      font-size: 0.9rem;
-    }
-
-    .ticker-inner {
-      white-space: nowrap;
-      display: inline-block;
-      animation: ticker-scroll 40s linear infinite;
-    }
-
-    @keyframes ticker-scroll {
-      0% {
-        transform: translateX(100%);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-
-    /* ===========================
-       NAVIGATION
-    ============================ */
-    .main-nav {
-      background: #111;
-      border-bottom: 2px solid #b30000;
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 8px 0;
-      flex-wrap: wrap;
-    }
-
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .nav-link {
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      background: #333;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .nav-link:hover {
-      background: #b30000;
-      text-decoration: none;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .lang-select {
-      padding: 4px 8px;
-      border-radius: 4px;
-      border: 1px solid #555;
-      background: #000;
-      color: #fff;
-      font-size: 0.85rem;
-    }
-
-    .search-input {
-      padding: 4px 8px;
-      border-radius: 4px;
-      border: 1px solid #555;
-      background: #000;
-      color: #fff;
-      font-size: 0.85rem;
-      min-width: 160px;
-    }
-
-    /* ===========================
-       SECTION WRAPPERS
-    ============================ */
-    .section {
-      padding: 28px 0;
-      background: #f4f4f4;
-    }
-
-    .section:nth-of-type(even) {
-      background: #ffffff;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #1a1a1a;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .section-subtitle {
-      font-size: 0.95rem;
-      color: #666;
-      margin-top: 4px;
-    }
-
-    /* ===========================
-       CARD GRID (16:9)
-    ============================ */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .card-grid.two-cols {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 4px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .card-hero {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #ddd;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card-hero img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .card-hero-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #555;
-      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
-    }
-
-    .card-body {
-      padding: 14px 16px 16px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .card-kicker {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #b30000;
-      margin-bottom: 4px;
-      font-weight: 700;
-    }
-
-    .card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #111;
-    }
-
-    .card-meta {
-      font-size: 0.8rem;
-      color: #777;
-      margin-bottom: 8px;
-    }
-
-    .card-excerpt {
-      font-size: 0.9rem;
-      color: #444;
-      margin-bottom: 10px;
-      flex: 1;
-    }
-
-    .card-footer {
-      margin-top: auto;
-      text-align: right;
-    }
-
-    .btn-read-more {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 6px 10px;
-      border-radius: 4px;
-      background: #b30000;
-      color: #fff;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .btn-read-more:hover {
-      background: #8a0000;
-      text-decoration: none;
-    }
-
-    /* ===========================
-       COMING SOON CARDS
-    ============================ */
-    .coming-soon-text {
-      text-align: center;
-      font-size: 0.95rem;
-      color: #555;
-      margin-top: 8px;
-    }
-
-    /* ===========================
-       VIDEO / VLOG CARDS
-    ============================ */
-    .video-duration {
-      position: absolute;
-      right: 8px;
-      bottom: 8px;
-      background: rgba(0,0,0,0.75);
-      color: #fff;
-      font-size: 0.75rem;
-      padding: 2px 6px;
-      border-radius: 3px;
-    }
-
-    .btn-visit-channel {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: 4px;
-      background: #b30000;
-      color: #fff;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-top: 10px;
-    }
-
-    .btn-visit-channel:hover {
-      background: #8a0000;
-      text-decoration: none;
-    }
-
-    .section-header-with-button {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    /* ===========================
-       ARCHIVE / E-PAPER / NEWSLETTER / CONTACT
-    ============================ */
-    .utility-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .utility-card {
-      background: #fff;
-      border-radius: 4px;
-      border: 1px solid #ddd;
-      padding: 14px 16px 16px;
-      text-align: center;
-    }
-
-    .utility-title {
-      font-weight: 700;
-      margin-bottom: 8px;
-      font-size: 1rem;
-      color: #b30000;
-    }
-
-    .utility-body {
-      font-size: 0.9rem;
-      color: #444;
-    }
-
-    .utility-input {
-      width: 100%;
-      padding: 6px 8px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      font-size: 0.9rem;
-      margin-bottom: 8px;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 7px 12px;
-      border-radius: 4px;
-      border: none;
-      background: #b30000;
-      color: #fff;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover {
-      background: #8a0000;
-    }
-
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 7px 12px;
-      border-radius: 4px;
-      border: 1px solid #b30000;
-      background: #fff;
-      color: #b30000;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn-outline:hover {
-      background: #b30000;
-      color: #fff;
-    }
-
-    /* ===========================
-       BOTTOM INTERACTION BLOCK
-       (MAIN PAGE ONLY)
-    ============================ */
-    .bottom-interaction {
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 2px solid #e0e0e0;
-      text-align: center;
-    }
-
-    .interaction-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .interaction-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: 4px;
-      border: 1px solid #ddd;
-      background: #f7f7f7;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .interaction-btn:hover {
-      background: #b30000;
-      color: #fff;
-      border-color: #b30000;
-    }
-
-    .bottom-nav-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-
-    .nav-btn-home {
-      background-color: #555;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.95rem;
-    }
-
-    .nav-btn-home:hover {
-      background-color: #333;
-      text-decoration: none;
-    }
-
-    .nav-btn-prev,
-    .nav-btn-next {
-      background-color: #666;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.95rem;
-    }
-
-    .nav-btn-next {
-      background-color: #b30000;
-    }
-
-    .nav-btn-prev:hover {
-      background-color: #444;
-      text-decoration: none;
-    }
-
-    .nav-btn-next:hover {
-      background-color: #8a0000;
-      text-decoration: none;
-    }
-
-    .bottom-note {
-      font-size: 0.8rem;
-      color: #777;
-      margin-top: 4px;
-    }
-
-    /* ===========================
-       FOOTER
-    ============================ */
-    .site-footer {
-      background: #111;
-      color: #eee;
-      padding: 20px 0 14px;
-      margin-top: 30px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 20px;
-      font-size: 0.9rem;
-    }
-
-    .footer-title {
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #ffcccc;
-    }
-
-    .footer-tagline {
-      font-size: 0.9rem;
-      color: #ddd;
-    }
-
-    .footer-links a {
-      display: block;
-      color: #eee;
-      margin-bottom: 4px;
-      font-size: 0.85rem;
-    }
-
-    .footer-links a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-
-    .footer-contact p {
-      margin-bottom: 4px;
-      font-size: 0.85rem;
-    }
-
-    .footer-social {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 1.1rem;
-    }
-
-    .footer-bottom {
-      text-align: center;
-      margin-top: 14px;
-      font-size: 0.8rem;
-      color: #aaa;
-      border-top: 1px solid #333;
-      padding-top: 8px;
-    }
-
-    /* ===========================
-       RESPONSIVE
-    ============================ */
-    @media (max-width: 992px) {
-      .card-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .utility-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .footer-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 768px) {
-      .card-grid,
-      .card-grid.two-cols {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .utility-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .footer-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .nav-inner {
-        justify-content: center;
-      }
-
-      .nav-right {
-        justify-content: center;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>THE MIRROR JAMMU KASHMIR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===========================
+           GLOBAL RESET & BASE
+        ============================ */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html, body {
+            height: 100%;
+        }
+        
+        body {
+            font-family: 'Source Sans Pro', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f4f4f4;
+            color: #222;
+            line-height: 1.6;
+        }
+        
+        a {
+            color: #b30000;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        
+        /* ===========================
+           LAYOUT WRAPPER
+        ============================ */
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        main {
+            flex: 1 0 auto;
+        }
+        
+        footer {
+            flex-shrink: 0;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* ===========================
+           HEADER / MASTHEAD
+        ============================ */
+        .site-header {
+            background: #000;
+            color: #fff;
+            padding: 20px 0 10px;
+            border-bottom: 4px solid #b30000;
+        }
+        
+        .site-title-block {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .site-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        
+        .site-tagline {
+            font-size: 0.9rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-top: 6px;
+            color: #f0f0f0;
+        }
+        
+        /* ===========================
+           CLOCKS & CALENDARS
+        ============================ */
+        .time-calendar-bar {
+            margin-top: 12px;
+            padding: 10px 0 4px;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            font-size: 0.9rem;
+        }
+        
+        .time-calendar-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px 24px;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+        
+        .time-calendar-row span {
+            white-space: nowrap;
+        }
+        
+        .time-label {
+            font-weight: 600;
+            color: #ffcccc;
+        }
+        
+        .calendar-label {
+            font-weight: 600;
+            color: #ffd9b3;
+        }
+        
+        /* ===========================
+           WEATHER BAR
+        ============================ */
+        .weather-bar {
+            background: #111;
+            color: #eee;
+            padding: 6px 0;
+            font-size: 0.85rem;
+            border-top: 1px solid #333;
+        }
+        
+        .weather-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 20px;
+        }
+        
+        .weather-item {
+            white-space: nowrap;
+        }
+        
+        .weather-city {
+            font-weight: 600;
+            color: #ffebcc;
+        }
+        
+        /* ===========================
+           TICKER
+        ============================ */
+        .ticker-bar {
+            background: #b30000;
+            color: #fff;
+            padding: 6px 0;
+            overflow: hidden;
+            position: relative;
+            font-size: 0.9rem;
+        }
+        
+        .ticker-inner {
+            white-space: nowrap;
+            display: inline-block;
+            animation: ticker-scroll 40s linear infinite;
+        }
+        
+        @keyframes ticker-scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* ===========================
+           NAVIGATION
+        ============================ */
+        .main-nav {
+            background: #111;
+            border-bottom: 2px solid #b30000;
+        }
+        
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 8px 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .nav-link {
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: #333;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .nav-link:hover {
+            background: #b30000;
+            text-decoration: none;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .lang-select {
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background: #000;
+            color: #fff;
+            font-size: 0.85rem;
+        }
+        
+        .search-input {
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background: #000;
+            color: #fff;
+            font-size: 0.85rem;
+            min-width: 160px;
+        }
+        
+        /* ===========================
+           SECTION WRAPPERS
+        ============================ */
+        .section {
+            padding: 40px 0;
+        }
+        
+        .section:nth-of-type(even) {
+            background: #ffffff;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #b30000;
+            margin-bottom: 8px;
+        }
+        
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* ===========================
+           CARD GRID (16:9)
+        ============================ */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+        
+        .card-grid.two-cols {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .card-hero {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #e0e0e0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .card-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover .card-hero img {
+            transform: scale(1.03);
+        }
+        
+        .card-hero-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            font-size: 2rem;
+            font-weight: bold;
+            color: #999;
+        }
+        
+        .card-body {
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-kicker {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #b30000;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            color: #111;
+        }
+        
+        .card-meta {
+            font-size: 0.7rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        
+        .card-excerpt {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            flex: 1;
+        }
+        
+        .card-footer {
+            margin-top: auto;
+            text-align: right;
+        }
+        
+        .btn-read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #b30000;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+        
+        .btn-read-more:hover {
+            background: #8a0000;
+            text-decoration: none;
+        }
+        
+        /* ===========================
+           VIDEO / VLOG CARDS
+        ============================ */
+        .video-duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.75);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .btn-visit-channel {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 4px;
+            background: #b30000;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .btn-visit-channel:hover {
+            background: #8a0000;
+            text-decoration: none;
+        }
+        
+        .section-header-with-button {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* ===========================
+           ARCHIVE / E-PAPER / NEWSLETTER / CONTACT
+        ============================ */
+        .utility-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 20px;
+        }
+        
+        .utility-card {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+            transition: box-shadow 0.2s ease;
+        }
+        
+        .utility-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .utility-title {
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            color: #b30000;
+        }
+        
+        .utility-body {
+            font-size: 0.85rem;
+            color: #444;
+        }
+        
+        .utility-input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 7px 12px;
+            border-radius: 4px;
+            border: none;
+            background: #b30000;
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background: #8a0000;
+        }
+        
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 7px 12px;
+            border-radius: 4px;
+            border: 1px solid #b30000;
+            background: #fff;
+            color: #b30000;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .btn-outline:hover {
+            background: #b30000;
+            color: #fff;
+        }
+        
+        /* ===========================
+           BOTTOM INTERACTION BLOCK
+        ============================ */
+        .bottom-interaction {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+        }
+        
+        .interaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        
+        .interaction-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background: #f7f7f7;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .interaction-btn:hover {
+            background: #b30000;
+            color: #fff;
+            border-color: #b30000;
+        }
+        
+        .bottom-nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+        
+        .nav-btn-home {
+            background-color: #555;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .nav-btn-home:hover {
+            background-color: #333;
+            text-decoration: none;
+        }
+        
+        .bottom-note {
+            font-size: 0.7rem;
+            color: #777;
+            margin-top: 8px;
+        }
+        
+        /* ===========================
+           FOOTER
+        ============================ */
+        .site-footer {
+            background: #111;
+            color: #eee;
+            padding: 40px 0 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-title {
+            font-weight: 700;
+            color: #b30000;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        
+        .footer-tagline {
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+        
+        .footer-links a {
+            display: block;
+            color: #ddd;
+            text-decoration: none;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+        
+        .footer-links a:hover {
+            color: #b30000;
+            text-decoration: underline;
+        }
+        
+        .footer-contact p {
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            color: #ddd;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.75rem;
+            color: #777;
+        }
+        
+        /* ===========================
+           RESPONSIVE
+        ============================ */
+        @media (max-width: 992px) {
+            .card-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .utility-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .footer-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .card-grid,
+            .card-grid.two-cols {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .utility-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: minmax(0, 1fr);
+                text-align: center;
+            }
+            .nav-inner {
+                justify-content: center;
+            }
+            .nav-right {
+                justify-content: center;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="page-wrapper">
-
-  <!-- =========================
-       HEADER
-  ========================== -->
-  <header class="site-header">
-    <div class="container">
-      <div class="site-title-block">
-        <div class="site-title">THE MIRROR JAMMU KASHMIR</div>
-        <div class="site-tagline">CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD</div>
-      </div>
-
-      <!-- Clocks & Calendars -->
-      <div class="time-calendar-bar">
-        <div class="time-calendar-row" id="gregorian-row">
-          <span class="time-label">Date &amp; Time:</span>
-          <span id="gregorian-display"></span>
-        </div>
-        <div class="time-calendar-row" id="timezones-row">
-          <span class="time-label">IST (Jammu–Kashmir–Ladakh):</span>
-          <span id="time-ist"></span>
-          <span class="time-label">PKT (Gilgit–Baltistan &amp; Azad Kashmir):</span>
-          <span id="time-pkt"></span>
-          <span class="time-label">CET (Zurich):</span>
-          <span id="time-cet"></span>
-        </div>
-        <div class="time-calendar-row" id="calendars-row-1">
-          <span class="calendar-label">Hijri (AH):</span>
-          <span id="hijri-display"></span>
-        </div>
-        <div class="time-calendar-row" id="calendars-row-2">
-          <span class="calendar-label">Vikram Samvat (VS):</span>
-          <span id="vikram-display"></span>
-          <span class="calendar-label">Punjabi Desi Bikrami:</span>
-          <span id="bikrami-display"></span>
-        </div>
-      </div>
+    <div class="page-wrapper">
+        <!-- =========================
+             HEADER
+        ========================== -->
+        <header class="site-header">
+            <div class="container">
+                <div class="site-title-block">
+                    <div class="site-title">THE MIRROR JAMMU KASHMIR</div>
+                    <div class="site-tagline">CHAMPION JUSTICE &amp; AMPLIFY THE VOICES OF THE UNHEARD</div>
+                </div>
+                
+                <!-- Clocks & Calendars -->
+                <div class="time-calendar-bar">
+                    <div class="time-calendar-row" id="gregorian-row">
+                        <span class="time-label">Date &amp; Time:</span>
+                        <span id="gregorian-display"></span>
+                    </div>
+                    <div class="time-calendar-row" id="timezones-row">
+                        <span class="time-label">IST (Jammu-Kashmir-Ladakh):</span>
+                        <span id="time-ist"></span>
+                        <span class="time-label">PKT (Gilgit-Baltistan &amp; Azad Kashmir):</span>
+                        <span id="time-pkt"></span>
+                        <span class="time-label">CET (Zurich):</span>
+                        <span id="time-cet"></span>
+                    </div>
+                    <div class="time-calendar-row" id="calendars-row-1">
+                        <span class="calendar-label">Hijri (AH):</span>
+                        <span id="hijri-display"></span>
+                    </div>
+                    <div class="time-calendar-row" id="calendars-row-2">
+                        <span class="calendar-label">Vikram Samvat (VS):</span>
+                        <span id="vikram-display"></span>
+                        <span class="calendar-label">Punjabi Desi Bikrami:</span>
+                        <span id="bikrami-display"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Weather -->
+            <div class="weather-bar">
+                <div class="container">
+                    <div class="weather-row" id="weather-row"></div>
+                </div>
+            </div>
+            
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="container">
+                    <div class="ticker-inner" id="ticker-inner"></div>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <div class="container">
+                    <div class="nav-inner">
+                        <div class="nav-links">
+                            <a href="#" class="nav-link">🏠 Home</a>
+                            <a href="#top-stories" class="nav-link">🆕 Breaking News</a>
+                            <a href="#latest-editorial-historical" class="nav-link">📝 Blog</a>
+                            <a href="#vlogs" class="nav-link">🎥 Vlog</a>
+                            <a href="#archive-epaper" class="nav-link">📰 E-Paper</a>
+                            <a href="#jammu-kashmir" class="nav-link">📍 Jammu Kashmir</a>
+                            <a href="#human-rights" class="nav-link">🕊️ UN &amp; HR</a>
+                        </div>
+                        <div class="nav-right">
+                            <select class="lang-select" id="lang-select">
+                                <option value="en">English</option>
+                                <option value="ur">اردو</option>
+                                <option value="de">Deutsch</option>
+                                <option value="ru">Русский</option>
+                                <option value="es">Español</option>
+                                <option value="nl">Nederlands</option>
+                            </select>
+                            <input type="text" class="search-input" placeholder="Search..." id="search-input">
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        <!-- =========================
+             MAIN CONTENT
+        ========================== -->
+        <main>
+            <!-- TOP STORIES -->
+            <section class="section" id="top-stories">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">⭐ Top Stories</div>
+                        <div class="section-subtitle">Lead coverage from Jammu &amp; Kashmir and beyond</div>
+                    </div>
+                    <div class="card-grid" id="top-stories-grid">
+                        <!-- Dynamic content loaded by JS -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- LATEST · EDITORIAL · HISTORICAL -->
+            <section class="section" id="latest-editorial-historical">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</div>
+                        <div class="section-subtitle">Context, analysis and history behind today's headlines</div>
+                    </div>
+                    <div class="card-grid" id="leh-grid">
+                        <!-- Dynamic content loaded by JS -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- JAMMU KASHMIR -->
+            <section class="section" id="jammu-kashmir">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">📍 Jammu Kashmir</div>
+                        <div class="section-subtitle">Regional focus on politics, society and daily life</div>
+                    </div>
+                    <div class="card-grid two-cols" id="jk-grid">
+                        <!-- Dynamic content loaded by JS -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- VIDEO REPORTS & VLOGS -->
+            <section class="section" id="vlogs">
+                <div class="container">
+                    <div class="section-header-with-button">
+                        <div>
+                            <div class="section-title">🎥 Video Reports &amp; Vlogs</div>
+                            <div class="section-subtitle">Ground reports, interviews and analysis</div>
+                        </div>
+                        <a href="https://www.youtube.com" target="_blank" class="btn-visit-channel">📺 Visit Channel</a>
+                    </div>
+                    <div class="card-grid" id="vlogs-grid">
+                        <!-- Dynamic content loaded by JS -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- INTERNATIONAL NEWS -->
+            <section class="section" id="international">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">🌐 International News</div>
+                        <div class="section-subtitle">Global developments that shape our region</div>
+                    </div>
+                    <div class="card-grid two-cols" id="intl-grid">
+                        <!-- Dynamic content loaded by JS -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- HUMAN RIGHTS -->
+            <section class="section" id="human-rights">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">❤️ Human Rights</div>
+                        <div class="section-subtitle">Documenting violations, defending dignity</div>
+                    </div>
+                    <div class="card-grid two-cols" id="hr-grid">
+                        <!-- Dynamic content loaded by JS -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ARCHIVE / E-PAPER / NEWSLETTER / CONTACT -->
+            <section class="section" id="archive-epaper">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">🗂️ Archive · 📰 E-Paper · ✉️ Newsletter · 📞 Contact</div>
+                        <div class="section-subtitle">Stay connected with The Mirror Jammu Kashmir</div>
+                    </div>
+                    <div class="utility-grid">
+                        <!-- Archive -->
+                        <div class="utility-card">
+                            <div class="utility-title">Archive</div>
+                            <div class="utility-body">
+                                <p>Archive will appear here.</p>
+                            </div>
+                        </div>
+                        <!-- E-Paper Upload -->
+                        <div class="utility-card">
+                            <div class="utility-title">E-Paper Upload</div>
+                            <div class="utility-body">
+                                <input type="file" class="utility-input" id="epaper-file">
+                                <button class="btn-primary" id="epaper-upload-btn">Upload</button>
+                            </div>
+                        </div>
+                        <!-- Newsletter -->
+                        <div class="utility-card">
+                            <div class="utility-title">Newsletter</div>
+                            <div class="utility-body">
+                                <input type="email" class="utility-input" id="newsletter-email" placeholder="your@email.com">
+                                <button class="btn-primary" id="newsletter-subscribe-btn">Subscribe</button>
+                            </div>
+                        </div>
+                        <!-- Contact -->
+                        <div class="utility-card">
+                            <div class="utility-title">Contact</div>
+                            <div class="utility-body">
+                                <p>Email: themirrorjk@gmail.com</p>
+                                <p>Phone: +41 783 13 12 13</p>
+                                <button class="btn-outline" id="open-contact-form-btn">Open Contact Form</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- BOTTOM INTERACTION BLOCK -->
+                    <div class="bottom-interaction">
+                        <div class="interaction-buttons">
+                            <button class="interaction-btn" id="btn-like-main">👍 Like</button>
+                            <button class="interaction-btn" id="btn-subscribe-main">🔔 Subscribe</button>
+                            <button class="interaction-btn" id="btn-share-main">📤 Share</button>
+                            <button class="interaction-btn" id="btn-copy-main">🔗 Copy Link</button>
+                        </div>
+                        <div class="bottom-nav-buttons">
+                            <a href="#top" class="nav-btn-home" id="btn-back-home-main">🏠 Back to Homepage</a>
+                        </div>
+                        <div class="bottom-note">
+                            Like / Subscribe / Share / Copy Link block is universal across the platform.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- =========================
+             FOOTER
+        ========================== -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div>
+                        <div class="footer-title">THE MIRROR</div>
+                        <div class="footer-tagline">Champion Justice &amp; Amplify the Unheard</div>
+                    </div>
+                    <div>
+                        <div class="footer-title">Quick Links</div>
+                        <div class="footer-links">
+                            <a href="#top-stories">Top Stories</a>
+                            <a href="#vlogs">Vlogs</a>
+                            <a href="#international">International</a>
+                            <a href="#human-rights">Human Rights</a>
+                        </div>
+                    </div>
+                    <div class="footer-contact">
+                        <div class="footer-title">Contact</div>
+                        <p>themirrorjk@gmail.com</p>
+                        <p>+41 783 13 12 13</p>
+                    </div>
+                    <div>
+                        <div class="footer-title">Follow</div>
+                        <div class="footer-social">
+                            <span>📘</span>
+                            <span>🐦</span>
+                            <span>📷</span>
+                            <span>▶️</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    © <span id="footer-year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.
+                </div>
+            </div>
+        </footer>
     </div>
-
-    <!-- Weather -->
-    <div class="weather-bar">
-      <div class="container">
-        <div class="weather-row" id="weather-row">
-          <!-- Filled by JS from config -->
-        </div>
-      </div>
-    </div>
-
-    <!-- Ticker -->
-    <div class="ticker-bar">
-      <div class="container">
-        <div class="ticker-inner" id="ticker-inner">
-          <!-- Filled by JS from config -->
-        </div>
-      </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="main-nav">
-      <div class="container">
-        <div class="nav-inner">
-          <div class="nav-links">
-            <a href="#" class="nav-link">🏠 Home</a>
-            <a href="#top-stories" class="nav-link">🆕 Breaking News</a>
-            <a href="#latest-editorial-historical" class="nav-link">📝 Blog</a>
-            <a href="#vlogs" class="nav-link">🎥 Vlog</a>
-            <a href="#archive-epaper" class="nav-link">📰 E-Paper</a>
-            <a href="#jammu-kashmir" class="nav-link">📍 Jammu Kashmir</a>
-            <a href="#human-rights" class="nav-link">🕊️ UN &amp; HR</a>
-          </div>
-          <div class="nav-right">
-            <select class="lang-select" id="lang-select">
-              <option value="en">English</option>
-              <option value="ur">اردو</option>
-              <option value="de">Deutsch</option>
-              <option value="ru">Русский</option>
-              <option value="es">Español</option>
-              <option value="nl">Nederlands</option>
-            </select>
-            <input type="text" class="search-input" placeholder="Search…" id="search-input">
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- =========================
-       MAIN CONTENT
-  ========================== -->
-  <main>
-
-    <!-- TOP STORIES -->
-    <section class="section" id="top-stories">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-title">⭐ Top Stories</div>
-          <div class="section-subtitle">Lead coverage from Jammu &amp; Kashmir and beyond</div>
-        </div>
-
-        <div class="card-grid" id="top-stories-grid">
-          <!-- Example cards (you can replace with dynamic content) -->
-          <article class="card">
-            <div class="card-hero">
-              <img src="content/images/latest-001-hero.jpg" alt="Punitive Load Shedding">
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Azad Kashmir · Crisis</div>
-              <h3 class="card-title">Punitive Load Shedding, Power Shortages, and Communication Blackouts in Azad Kashmir</h3>
-              <div class="card-meta">Rawalakot · Special Correspondent · Updated</div>
-              <p class="card-excerpt">
-                Thousands shut down Rawalakot in protest against prolonged electricity outages, low voltage supply and communication blackouts that have paralyzed daily life…
-              </p>
-              <div class="card-footer">
-                <a href="article.html?id=article-001" class="btn-read-more">Read More →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-hero">
-              <img src="content/images/rawalakot-01.jpg" alt="UKPNP Delegation">
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Diplomacy · UK Parliament</div>
-              <h3 class="card-title">UKPNP High Level Delegation Briefs British MPs on Kashmir Crisis and Current Situation</h3>
-              <div class="card-meta">London · The Mirror JK Desk</div>
-              <p class="card-excerpt">
-                A high-level UKPNP delegation led by Sardar Shaukat Ali Kashmiri briefed British MPs in the House of Parliament on the Kashmir crisis and the urgent need for peaceful resolution…
-              </p>
-              <div class="card-footer">
-                <a href="article.html?id=breaking-001" class="btn-read-more">Read More →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-hero">
-              <img src="content/images/rawalakot-02.jpg" alt="UKPNP Delegation Briefing">
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Advocacy · International</div>
-              <h3 class="card-title">UKPNP Delegation Briefs British MPs on Kashmir Crisis at the House of Parliament</h3>
-              <div class="card-meta">London · Reporter</div>
-              <p class="card-excerpt">
-                United Kashmir People's National Party representatives met cross-party British MPs, highlighting human rights violations, political repression and communication blackouts across the region…
-              </p>
-              <div class="card-footer">
-                <a href="article.html?id=blog-001" class="btn-read-more">Read More →</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- LATEST · EDITORIAL · HISTORICAL -->
-    <section class="section" id="latest-editorial-historical">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</div>
-          <div class="section-subtitle">Context, analysis and history behind today’s headlines</div>
-        </div>
-
-        <div class="card-grid" id="leh-grid">
-          <!-- Latest / Editorial / Historical sample cards -->
-          <article class="card">
-            <div class="card-hero">
-              <img src="content/images/latest-001-hero.jpg" alt="Dangerous Escalation">
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Latest · Geopolitics</div>
-              <h3 class="card-title">Dangerous Escalation: US–Israel Strikes on Iran and Iran’s Retaliation Raise Fears of Wider War</h3>
-              <div class="card-meta">Global · The Mirror JK Desk</div>
-              <p class="card-excerpt">
-                A sharp escalation between the United States, Israel and Iran has triggered global alarm, raising fears of a wider regional conflict and potential world war if diplomacy fails…
-              </p>
-              <div class="card-footer">
-                <a href="article.html?id=latest-001" class="btn-read-more">Read More →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-hero">
-              <img src="content/images/historical-001-hero.jpg" alt="Brief History of Jammu Kashmir">
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Editorial · History</div>
-              <h3 class="card-title">Brief History of the State of Jammu and Kashmir, 1819–1953</h3>
-              <div class="card-meta">Jammu &amp; Kashmir · Sardar Nasir Aziz Khan</div>
-              <p class="card-excerpt">
-                A historical overview of the formation, governance and political evolution of the State of Jammu and Kashmir from the Sikh rule to the Dogra dynasty and post-Partition changes…
-              </p>
-              <div class="card-footer">
-                <a href="article.html?id=historical-001" class="btn-read-more">Read More →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-hero">
-              <img src="content/images/editorial-001-hero.png" alt="Regional War to World War 3">
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Editorial · Warning</div>
-              <h3 class="card-title">US and Israel Strikes on Iran and Iran’s Retaliatory Attacks Raise Fears of World War 3</h3>
-              <div class="card-meta">Global · Sardar Shaukat Ali Kashmiri</div>
-              <p class="card-excerpt">
-                Sardar Shaukat Ali Kashmiri warns that recent joint strikes and retaliatory attacks could transform a regional conflict into a catastrophic global war if diplomacy is sidelined…
-              </p>
-              <div class="card-footer">
-                <a href="article.html?id=editorial-001" class="btn-read-more">Read More →</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- JAMMU KASHMIR (COMING SOON CARDS) -->
-    <section class="section" id="jammu-kashmir">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-title">📍 Jammu Kashmir</div>
-          <div class="section-subtitle">Regional focus on politics, society and daily life</div>
-        </div>
-
-        <div class="card-grid two-cols" id="jk-grid">
-          <!-- Coming soon placeholders (16:9) -->
-          <article class="card">
-            <div class="card-hero">
-              <div class="card-hero-placeholder">JK</div>
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Jammu Kashmir</div>
-              <h3 class="card-title">Content Coming Soon</h3>
-              <p class="coming-soon-text">
-                Content coming soon. Please check back later.
-              </p>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-hero">
-              <div class="card-hero-placeholder">JK</div>
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Jammu Kashmir</div>
-              <h3 class="card-title">Content Coming Soon</h3>
-              <p class="coming-soon-text">
-                Content coming soon. Please check back later.
-              </p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- VIDEO REPORTS & VLOGS -->
-    <section class="section" id="vlogs">
-      <div class="container">
-        <div class="section-header-with-button">
-          <div>
-            <div class="section-title">🎥 Video Reports &amp; Vlogs</div>
-            <div class="section-subtitle">Ground reports, interviews and analysis</div>
-          </div>
-          <a href="https://www.youtube.com" target="_blank" class="btn-visit-channel">
-            📺 Visit Channel
-          </a>
-        </div>
-
-        <div class="card-grid" id="vlogs-grid">
-          <article class="card">
-            <div class="card-hero">
-              <img src="content/images/london-ukpnp-01.jpg" alt="Azad Kashmir POJK">
-              <div class="video-duration">15:32</div>
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Exclusive Interview</div>
-              <h3 class="card-title">Azad Kashmir / POJK: Denial of Rights &amp; Self Rule</h3>
-              <div class="card-meta">The Mirror Jammu Kashmir</div>
-              <p class="card-excerpt">
-                In-depth interview on peace, justice and human rights, exploring political engineering and denial of self-rule in Azad Kashmir / POJK…
-              </p>
-              <div class="card-footer">
-                <a href="#" class="btn-read-more">Watch →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-hero">
-              <img src="content/images/london-ukpnp-02.jpg" alt="SCO Summit 2025">
-              <div class="video-duration">12:45</div>
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Ground Report</div>
-              <h3 class="card-title">SCO Summit 2025: New World Order?</h3>
-              <div class="card-meta">Community Voices</div>
-              <p class="card-excerpt">
-                Voices from the ground on BRICS, RIC and the West, and how shifting alliances are reshaping global power structures…
-              </p>
-              <div class="card-footer">
-                <a href="#" class="btn-read-more">Watch →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-hero">
-              <img src="content/images/rawalakot-03.jpg" alt="UKPNP Intra Kashmir Conference">
-              <div class="video-duration">18:20</div>
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Analysis</div>
-              <h3 class="card-title">UKPNP Intra Kashmir Virtual Conference: Forced Division is Unacceptable</h3>
-              <div class="card-meta">Human Rights Framework</div>
-              <p class="card-excerpt">
-                Legal and political analysis of ongoing human rights issues and the forced division of Jammu and Kashmir…
-              </p>
-              <div class="card-footer">
-                <a href="#" class="btn-read-more">Watch →</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- INTERNATIONAL NEWS (COMING SOON) -->
-    <section class="section" id="international">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-title">🌐 International News</div>
-          <div class="section-subtitle">Global developments that shape our region</div>
-        </div>
-
-        <div class="card-grid two-cols" id="intl-grid">
-          <article class="card">
-            <div class="card-hero">
-              <div class="card-hero-placeholder">INTL</div>
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">International</div>
-              <h3 class="card-title">Content Coming Soon</h3>
-              <p class="coming-soon-text">
-                Content coming soon. Please check back later.
-              </p>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-hero">
-              <div class="card-hero-placeholder">INTL</div>
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">International</div>
-              <h3 class="card-title">Content Coming Soon</h3>
-              <p class="coming-soon-text">
-                Content coming soon. Please check back later.
-              </p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- HUMAN RIGHTS (COMING SOON) -->
-    <section class="section" id="human-rights">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-title">❤️ Human Rights</div>
-          <div class="section-subtitle">Documenting violations, defending dignity</div>
-        </div>
-
-        <div class="card-grid two-cols" id="hr-grid">
-          <article class="card">
-            <div class="card-hero">
-              <div class="card-hero-placeholder">HR</div>
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Human Rights</div>
-              <h3 class="card-title">Content Coming Soon</h3>
-              <p class="coming-soon-text">
-                Content coming soon. Please check back later.
-              </p>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-hero">
-              <div class="card-hero-placeholder">HR</div>
-            </div>
-            <div class="card-body">
-              <div class="card-kicker">Human Rights</div>
-              <h3 class="card-title">Content Coming Soon</h3>
-              <p class="coming-soon-text">
-                Content coming soon. Please check back later.
-              </p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ARCHIVE / E-PAPER / NEWSLETTER / CONTACT -->
-    <section class="section" id="archive-epaper">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-title">🗂️ Archive · 📰 E-Paper · ✉️ Newsletter · 📞 Contact</div>
-          <div class="section-subtitle">Stay connected with The Mirror Jammu Kashmir</div>
-        </div>
-
-        <div class="utility-grid">
-          <!-- Archive -->
-          <div class="utility-card">
-            <div class="utility-title">Archive</div>
-            <div class="utility-body">
-              <p>Archive will appear here.</p>
-            </div>
-          </div>
-
-          <!-- E-Paper Upload -->
-          <div class="utility-card">
-            <div class="utility-title">E-Paper Upload</div>
-            <div class="utility-body">
-              <input type="file" class="utility-input" id="epaper-file">
-              <button class="btn-primary" id="epaper-upload-btn">Upload</button>
-            </div>
-          </div>
-
-          <!-- Newsletter -->
-          <div class="utility-card">
-            <div class="utility-title">Newsletter</div>
-            <div class="utility-body">
-              <input type="email" class="utility-input" id="newsletter-email" placeholder="your@email.com">
-              <button class="btn-primary" id="newsletter-subscribe-btn">Subscribe</button>
-            </div>
-          </div>
-
-          <!-- Contact -->
-          <div class="utility-card">
-            <div class="utility-title">Contact</div>
-            <div class="utility-body">
-              <p>Email: themirrorjk@gmail.com</p>
-              <p>Phone: +41 783 13 12 13</p>
-              <button class="btn-outline" id="open-contact-form-btn">Open Contact Form</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- MAIN PAGE BOTTOM INTERACTION BLOCK -->
-        <div class="bottom-interaction">
-          <div class="interaction-buttons">
-            <button class="interaction-btn" id="btn-like-main">👍 Like</button>
-            <button class="interaction-btn" id="btn-subscribe-main">🔔 Subscribe</button>
-            <button class="interaction-btn" id="btn-share-main">📤 Share</button>
-            <button class="interaction-btn" id="btn-copy-main">🔗 Copy Link</button>
-          </div>
-
-          <div class="bottom-nav-buttons">
-            <a href="#top" class="nav-btn-home" id="btn-back-home-main">🏠 Back to Homepage</a>
-            <!-- On main page, previous/next article are not needed; kept here as optional disabled examples -->
-            <a href="article.html?id=latest-001" class="nav-btn-prev" id="btn-prev-article-main" style="display:none;">⬅️ Previous Article</a>
-            <a href="article.html?id=editorial-001" class="nav-btn-next" id="btn-next-article-main" style="display:none;">Next Article ➡️</a>
-          </div>
-
-          <div class="bottom-note">
-            Like / Subscribe / Share / Copy Link block is universal across the platform. Back to Homepage is centered and styled to match your navigation identity.
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- =========================
-       FOOTER
-  ========================== -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-title">THE MIRROR</div>
-          <div class="footer-tagline">Champion Justice &amp; Amplify the Unheard</div>
-        </div>
-        <div>
-          <div class="footer-title">Quick Links</div>
-          <div class="footer-links">
-            <a href="#top-stories">Top Stories</a>
-            <a href="#vlogs">Vlogs</a>
-            <a href="#international">International</a>
-            <a href="#human-rights">Human Rights</a>
-          </div>
-        </div>
-        <div class="footer-contact">
-          <div class="footer-title">Contact</div>
-          <p>themirrorjk@gmail.com</p>
-          <p>+41 783 13 12 13</p>
-        </div>
-        <div>
-          <div class="footer-title">Follow</div>
-          <div class="footer-social">
-            <span>📘</span>
-            <span>🐦</span>
-            <span>📷</span>
-            <span>▶️</span>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        © <span id="footer-year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.
-      </div>
-    </div>
-  </footer>
-
-</div>
-
-<!-- =========================
-     JAVASCRIPT
-========================== -->
-<script>
-  // ==========================
-  // CONFIG (from your JSON)
-  // ==========================
-  const SITE_CONFIG = {
-    site: {
-      name: "THE MIRROR JAMMU KASHMIR",
-      tagline: "CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD",
-      url: "https://themirrorjk.com",
-      language: "en"
-    },
-    weather: {
-      cities: [
-        { name: "Zurich", temp: "6°C" },
-        { name: "Rawalakot", temp: "9°C" },
-        { name: "Jammu", temp: "18°C" },
-        { name: "Kashmir", temp: "4°C" },
-        { name: "Ladakh", temp: "-2°C" },
-        { name: "Gilgit", temp: "3°C" },
-        { name: "Baltistan", temp: "-1°C" },
-        { name: "Muzaffarabad", temp: "10°C" }
-      ]
-    },
-    ticker: {
-      speed: 40,
-      items: [
-        "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
-        "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
-        "OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR",
-        "HOPE BECOMES REAL THROUGH ACTION, PERSISTENCE AND PRINCIPLED JOURNALISM",
-        "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS --- UDHR ARTICLE 1",
-        "EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE"
-      ]
-    }
-  };
-
-  // ==========================
-  // WEATHER RENDER
-  // ==========================
-  function renderWeather() {
-    const row = document.getElementById('weather-row');
-    if (!row) return;
-    row.innerHTML = '';
-    SITE_CONFIG.weather.cities.forEach(city => {
-      const span = document.createElement('span');
-      span.className = 'weather-item';
-      span.innerHTML = '<span class="weather-city">' + city.name + ':</span> ' + city.temp;
-      row.appendChild(span);
-    });
-  }
-
-  // ==========================
-  // TICKER RENDER
-  // ==========================
-  function renderTicker() {
-    const tickerInner = document.getElementById('ticker-inner');
-    if (!tickerInner) return;
-    tickerInner.textContent = '';
-    const text = SITE_CONFIG.ticker.items.join(' • ');
-    tickerInner.textContent = text;
-  }
-
-  // ==========================
-  // CLOCKS & CALENDARS
-  // ==========================
-  function pad2(n) {
-    return n < 10 ? '0' + n : '' + n;
-  }
-
-  function formatGregorian(date) {
-    const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    const dayName = days[date.getDay()];
-    const day = date.getDate();
-    const monthName = months[date.getMonth()];
-    const year = date.getFullYear();
-    const hours = pad2(date.getHours());
-    const minutes = pad2(date.getMinutes());
-    const seconds = pad2(date.getSeconds());
-    return dayName + ", " + day + " " + monthName + " " + year + " · " + hours + ":" + minutes + ":" + seconds;
-  }
-
-  function getTimeInOffset(baseDate, offsetHours) {
-    const utc = baseDate.getTime() + (baseDate.getTimezoneOffset() * 60000);
-    const local = new Date(utc + offsetHours * 3600000);
-    const h = pad2(local.getHours());
-    const m = pad2(local.getMinutes());
-    const s = pad2(local.getSeconds());
-    return h + ":" + m + ":" + s;
-  }
-
-  // Tabular Hijri (approximate, good enough for display)
-  function gregorianToHijri(date) {
-    // Algorithm based on Umm al-Qura / tabular approximation
-    const day = date.getDate();
-    const month = date.getMonth();
-    const year = date.getFullYear();
-
-    let jd = Math.floor((1461 * (year + 4800 + Math.floor((month - 14) / 12))) / 4) +
-             Math.floor((367 * (month - 2 - 12 * Math.floor((month - 14) / 12))) / 12) -
-             Math.floor((3 * Math.floor((year + 4900 + Math.floor((month - 14) / 12)) / 100)) / 4) +
-             day - 32075;
-
-    const l = jd - 1948440 + 10632;
-    const n = Math.floor((l - 1) / 10631);
-    const l2 = l - 10631 * n + 354;
-    const j = (Math.floor((10985 - l2) / 5316)) * (Math.floor((50 * l2) / 17719)) +
-              (Math.floor(l2 / 5670)) * (Math.floor((43 * l2) / 15238));
-    const l3 = l2 - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) -
-               (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
-    const m = Math.floor((24 * l3) / 709);
-    const d = l3 - Math.floor((709 * m) / 24);
-    const y = 30 * n + j - 30;
-
-    const months = ["Muharram","Safar","Rabi al-Awwal","Rabi al-Thani","Jumada al-Ula","Jumada al-Thani","Rajab","Sha'ban","Ramadan","Shawwal","Dhu al-Qadah","Dhu al-Hijjah"];
-    return { day: d, month: months[m - 1], year: y };
-  }
-
-  // Vikram Samvat (approximate: Gregorian + 57 years, month mapping)
-  function gregorianToVikram(date) {
-    const gYear = date.getFullYear();
-    const gMonth = date.getMonth(); // 0-11
-    const gDay = date.getDate();
-
-    const vsYear = gYear + 57; // simple approximation
-
-    const vsMonths = [
-      "Chaitra","Vaishakha","Jyeshtha","Ashadha","Shravana","Bhadrapada",
-      "Ashwin","Kartika","Margashirsha","Pausha","Magha","Phalguna"
-    ];
-
-    // Rough mapping: April=Chaitra, May=Vaishakha, etc.
-    const mapping = [ // index = Gregorian month
-      10, // Jan -> Magha
-      11, // Feb -> Phalguna
-      0,  // Mar -> Chaitra
-      0,  // Apr -> Chaitra
-      1,  // May -> Vaishakha
-      2,  // Jun -> Jyeshtha
-      3,  // Jul -> Ashadha
-      4,  // Aug -> Shravana
-      5,  // Sep -> Bhadrapada
-      6,  // Oct -> Ashwin
-      7,  // Nov -> Kartika
-      8   // Dec -> Margashirsha
-    ];
-
-    const vsMonthIndex = mapping[gMonth];
-    const vsMonthName = vsMonths[vsMonthIndex];
-
-    return { day: gDay, month: vsMonthName, year: vsYear };
-  }
-
-  // Punjabi Desi Bikrami (approximate, month names + offset)
-  function gregorianToBikrami(date) {
-    const gYear = date.getFullYear();
-    const gMonth = date.getMonth(); // 0-11
-    const gDay = date.getDate();
-
-    // Bikrami year approx: Gregorian + 57 (similar to VS)
-    const bkYear = gYear + 57;
-
-    const bkMonths = [
-      "Chet","Vaisakh","Jeth","Harh","Sawan","Bhadon",
-      "Assu","Kattak","Maghar","Poh","Magh","Phagan"
-    ];
-
-    // Rough mapping: mid-March = Chet, mid-April = Vaisakh, etc.
-    const mapping = [
-      9,  // Jan -> Poh
-      10, // Feb -> Magh
-      11, // Mar -> Phagan / Chet (approx)
-      0,  // Apr -> Chet / Vaisakh
-      1,  // May -> Vaisakh
-      2,  // Jun -> Jeth
-      3,  // Jul -> Harh
-      4,  // Aug -> Sawan
-      5,  // Sep -> Bhadon
-      6,  // Oct -> Assu
-      7,  // Nov -> Kattak
-      8   // Dec -> Maghar
-    ];
-
-    const bkMonthIndex = mapping[gMonth];
-    const bkMonthName = bkMonths[bkMonthIndex];
-
-    return { day: gDay, month: bkMonthName, year: bkYear };
-  }
-
-  function updateClocksAndCalendars() {
-    const now = new Date();
-
-    // Gregorian
-    const gregDisplay = document.getElementById('gregorian-display');
-    if (gregDisplay) {
-      gregDisplay.textContent = formatGregorian(now);
-    }
-
-    // Time zones
-    const timeIST = document.getElementById('time-ist');
-    const timePKT = document.getElementById('time-pkt');
-    const timeCET = document.getElementById('time-cet');
-
-    if (timeIST) timeIST.textContent = getTimeInOffset(now, 5.5); // IST UTC+5:30
-    if (timePKT) timePKT.textContent = getTimeInOffset(now, 5);   // PKT UTC+5
-    if (timeCET) timeCET.textContent = getTimeInOffset(now, 1);   // CET UTC+1 (no DST handling here)
-
-    // Hijri
-    const hijri = gregorianToHijri(now);
-    const hijriDisplay = document.getElementById('hijri-display');
-    if (hijriDisplay) {
-      hijriDisplay.textContent = hijri.day + " " + hijri.month + " " + hijri.year + " AH";
-    }
-
-    // Vikram Samvat
-    const vs = gregorianToVikram(now);
-    const vikramDisplay = document.getElementById('vikram-display');
-    if (vikramDisplay) {
-      vikramDisplay.textContent = vs.day + " " + vs.month + " " + vs.year + " VS";
-    }
-
-    // Punjabi Desi Bikrami
-    const bk = gregorianToBikrami(now);
-    const bikramiDisplay = document.getElementById('bikrami-display');
-    if (bikramiDisplay) {
-      bikramiDisplay.textContent = bk.day + " " + bk.month + " " + bk.year + " (Desi Bikrami)";
-    }
-  }
-
-  // ==========================
-  // INTERACTION BUTTONS
-  // ==========================
-  function setupInteractionButtons() {
-    const likeBtn = document.getElementById('btn-like-main');
-    const subscribeBtn = document.getElementById('btn-subscribe-main');
-    const shareBtn = document.getElementById('btn-share-main');
-    const copyBtn = document.getElementById('btn-copy-main');
-    const backHomeBtn = document.getElementById('btn-back-home-main');
-
-    if (likeBtn) {
-      likeBtn.addEventListener('click', () => {
-        alert('Thank you for liking THE MIRROR JAMMU KASHMIR.');
-      });
-    }
-
-    if (subscribeBtn) {
-      subscribeBtn.addEventListener('click', () => {
-        alert('Subscription feature will be integrated with your newsletter system.');
-      });
-    }
-
-    if (shareBtn) {
-      shareBtn.addEventListener('click', () => {
-        const shareData = {
-          title: SITE_CONFIG.site.name,
-          text: SITE_CONFIG.site.tagline,
-          url: SITE_CONFIG.site.url
-        };
-        if (navigator.share) {
-          navigator.share(shareData).catch(() => {});
-        } else {
-          alert('Sharing is not supported in this browser. You can copy the link instead.');
-        }
-      });
-    }
-
-    if (copyBtn) {
-      copyBtn.addEventListener('click', () => {
-        const url = SITE_CONFIG.site.url || window.location.href;
-        navigator.clipboard.writeText(url).then(() => {
-          alert('Link copied to clipboard: ' + url);
-        }).catch(() => {
-          alert('Unable to copy link. Please copy manually: ' + url);
-        });
-      });
-    }
-
-    if (backHomeBtn) {
-      backHomeBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-  }
-
-  // ==========================
-  // FOOTER YEAR
-  // ==========================
-  function updateFooterYear() {
-    const yearSpan = document.getElementById('footer-year');
-    if (yearSpan) {
-      yearSpan.textContent = new Date().getFullYear();
-    }
-  }
-
-  // ==========================
-  // INIT
-  // ==========================
-  document.addEventListener('DOMContentLoaded', () => {
-    renderWeather();
-    renderTicker();
-    updateClocksAndCalendars();
-    setInterval(updateClocksAndCalendars, 1000);
-    setupInteractionButtons();
-    updateFooterYear();
-  });
-</script>
+    
+    <script src="script.js"></script>
 </body>
 </html>
