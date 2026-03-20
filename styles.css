@@ -1692,3 +1692,46 @@ h1, h2, h3, h4, h5 {
     display: none !important;
 }
 
+   /* ===== ARTICLE IMAGE FIX (SAFE PATCH) ===== */
+
+#content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+}
+
+#content .img-left {
+    float: left;
+    width: 38%;
+    margin: 0.6rem 1.6rem 1rem 0;
+}
+
+#content .img-right {
+    float: right;
+    width: 38%;
+    margin: 0.6rem 0 1rem 1.6rem;
+}
+
+#content .img-center {
+    display: block;
+    width: 38%;
+    margin: 1.5rem auto;
+    float: none;
+}
+
+#content::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+@media (max-width: 768px) {
+    #content .img-left,
+    #content .img-right,
+    #content .img-center {
+        float: none;
+        width: 100%;
+        margin: 1rem 0;
+    }
+}
