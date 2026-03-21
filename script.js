@@ -1,549 +1,520 @@
-/* ============================================================
-   THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT (VS10 FINAL)
-   Fully synchronized with JSON repo + images repo
-   ============================================================ */
+// script.js
+// THE MIRROR JAMMU KASHMIR – Front page logic (Top Stories, sections, footer, contact, uploads, vlogs)
 
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM loaded - initializing...");
+const CONTENT_BASE = 'content/';
+const IMAGES_BASE = 'content/images/';
 
-    initLoader();
-    initYear();
-    initClocks();
-    initWeatherBar();
-    initTicker();
-    initNav();
-    initContactModal();
-    initVlogs();
-    initLanguageSelector();
-    initSearch();
-    initSocialButtons();
-    initFileUpload();
-    initNewsletter();
-    initFooterDropdowns();
-    initReadingProgress();
+// ---------- Helpers ----------
 
-    loadHomepageContent();
+async function loadJSON(path) {
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`Failed to load ${path}`);
+  return res.json();
+}
 
-    // Archive page support
-    if (window.location.pathname.includes("archive.html")) {
-        initArchivePage();
+function formatDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  });
+}
+
+function createEl(tag, className, text) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (text) el.textContent = text;
+  return el;
+}
+
+function setHeroImage(imgEl, captionEl, hero) {
+  if (!hero) return;
+  if (imgEl) {
+    imgEl.src = hero.src;
+    imgEl.alt = hero.caption || '';
+  }
+  if (captionEl) {
+    captionEl.textContent = hero.caption || '';
+  }
+}
+
+// ---------- Card builders ----------
+
+function buildArticleCard(item, sectionLabelOverride) {
+  const card = createEl('article', 'tm-card');
+
+  const imgWrap = createEl('div', 'tm-card-image');
+  if (item.heroImage && item.heroImage.src) {
+    const img = createEl('img');
+    img.src = item.heroImage.src;
+    img.alt = item.heroImage.caption || item.title || '';
+    imgWrap.appendChild(img);
+  }
+  card.appendChild(imgWrap);
+
+  const body = createEl('div', 'tm-card-body');
+
+  const label = createEl('div', 'tm-card-label',
+    sectionLabelOverride || item.sectionLabel || ''
+  );
+  body.appendChild(label);
+
+  const title = createEl('h3', 'tm-card-title');
+  const link = createEl('a');
+  link.href = `${item.slug || item.id}.html`;
+  link.textContent = item.title || '';
+  title.appendChild(link);
+  body.appendChild(title);
+
+  if (item.excerpt) {
+    const excerpt = createEl('p', 'tm-card-excerpt', item.excerpt);
+    body.appendChild(excerpt);
+  }
+
+  const meta = createEl('div', 'tm-card-meta');
+  const leftMeta = [];
+  if (item.author) leftMeta.push(item.author);
+  if (item.location) leftMeta.push(item.location);
+  if (leftMeta.length) {
+    meta.appendChild(createEl('span', 'tm-card-meta-author', leftMeta.join(' · ')));
+  }
+  if (item.date || item.readTime) {
+    const rightMeta = [];
+    if (item.date) rightMeta.push(formatDate(item.date));
+    if (item.readTime) rightMeta.push(item.readTime);
+    meta.appendChild(createEl('span', 'tm-card-meta-date', rightMeta.join(' · ')));
+  }
+  body.appendChild(meta);
+
+  const readMore = createEl('a', 'tm-card-readmore', 'Read More →');
+  readMore.href = `${item.slug || item.id}.html`;
+  body.appendChild(readMore);
+
+  card.appendChild(body);
+  return card;
+}
+
+// ---------- Section renderers ----------
+
+async function renderTopStories(config, indexMap) {
+  const container = document.getElementById('top-stories');
+  if (!container || !config.sections.topStories?.enabled) return;
+
+  const { lead, breaking, opinion } = indexMap.topStories;
+  const ids = [lead, breaking, opinion].filter(Boolean);
+
+  const data = await Promise.all(
+    ids.map(id => loadJSON(`${CONTENT_BASE}${id}.json`))
+  );
+
+  container.innerHTML = '';
+  container.classList.add('tm-grid-3');
+
+  data.forEach(item => {
+    const card = buildArticleCard(item);
+    container.appendChild(card);
+  });
+}
+
+async function renderLatestEditorialHistorical(config, indexMap) {
+  const container = document.getElementById('latest-editorial-historical');
+  if (!container || !config.sections.latestEditorialHistorical?.enabled) return;
+
+  const { latest, editorial, historical } = indexMap.latestEditorialHistorical;
+  const ids = [latest, editorial, historical].filter(Boolean);
+
+  const data = await Promise.all(
+    ids.map(id => loadJSON(`${CONTENT_BASE}${id}.json`))
+  );
+
+  container.innerHTML = '';
+  container.classList.add('tm-grid-3');
+
+  data.forEach(item => {
+    const card = buildArticleCard(item);
+    container.appendChild(card);
+  });
+}
+
+async function renderSimpleSection(sectionKey, config, indexMap, containerId, gridCols = 2) {
+  const container = document.getElementById(containerId);
+  if (!container || !config.sections[sectionKey]?.enabled) return;
+
+  const ids = indexMap[sectionKey] || [];
+  const validIds = ids.filter(Boolean);
+  if (!validIds.length) return;
+
+  const data = await Promise.all(
+    validIds.map(id => loadJSON(`${CONTENT_BASE}${id}.json`))
+  );
+
+  container.innerHTML = '';
+  container.classList.add(`tm-grid-${gridCols}`);
+
+  data.forEach(item => {
+    const card = buildArticleCard(item);
+    container.appendChild(card);
+  });
+}
+
+async function renderInternational(config, indexMap) {
+  await renderSimpleSection('international', config, indexMap, 'international', 2);
+}
+
+async function renderHumanRights(config, indexMap) {
+  await renderSimpleSection('humanRights', config, indexMap, 'human-rights', 2);
+}
+
+async function renderJammuKashmir(config, indexMap) {
+  await renderSimpleSection('jammuKashmir', config, indexMap, 'jammu-kashmir', 2);
+}
+
+// ---------- Vlogs / YouTube ----------
+
+async function renderVlogs() {
+  const container = document.getElementById('vlogs');
+  if (!container) return;
+
+  const yt = await loadJSON(`${CONTENT_BASE}youtube.json`);
+  const videos = yt.videos || [];
+
+  container.innerHTML = '';
+  container.classList.add('tm-grid-3');
+
+  videos.forEach(video => {
+    const card = createEl('article', 'tm-card tm-card-video');
+
+    const thumbWrap = createEl('div', 'tm-card-image');
+    const iframe = createEl('iframe');
+    iframe.src = `https://www.youtube.com/embed/${video.youtubeId}`;
+    iframe.title = video.title;
+    iframe.allow =
+      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    thumbWrap.appendChild(iframe);
+    card.appendChild(thumbWrap);
+
+    const body = createEl('div', 'tm-card-body');
+    const label = createEl('div', 'tm-card-label', video.category || 'Video');
+    body.appendChild(label);
+
+    const title = createEl('h3', 'tm-card-title', video.title || '');
+    body.appendChild(title);
+
+    if (video.description) {
+      body.appendChild(createEl('p', 'tm-card-excerpt', video.description));
     }
 
-    // About page
-    if (window.location.pathname.includes("about.html")) {
-        loadAboutPage();
+    if (video.duration) {
+      body.appendChild(createEl('div', 'tm-card-meta', `Duration: ${video.duration}`));
     }
 
-    // Chief Editor page
-    if (window.location.pathname.includes("chief-editor.html")) {
-        loadChiefEditorPage();
+    card.appendChild(body);
+    container.appendChild(card);
+  });
+
+  const visitBtn = document.getElementById('visit-channel-btn');
+  if (visitBtn && yt.channel?.url) {
+    visitBtn.addEventListener('click', () => {
+      window.open(yt.channel.url, '_blank', 'noopener');
+    });
+  }
+}
+
+// ---------- Weather & Ticker ----------
+
+function renderWeather(config) {
+  const bar = document.getElementById('weather-bar');
+  if (!bar || !config.weather?.cities) return;
+
+  bar.innerHTML = '';
+  config.weather.cities.forEach(city => {
+    const item = createEl('div', 'weather-item');
+    const name = createEl('span', 'weather-city', city.name);
+    const temp = createEl('span', 'weather-temp', city.temp);
+    item.appendChild(name);
+    item.appendChild(temp);
+    bar.appendChild(item);
+  });
+}
+
+function renderTicker(config, indexMap) {
+  const tickerEl = document.getElementById('ticker');
+  if (!tickerEl) return;
+
+  const items = config.ticker?.items || indexMap.ticker || [];
+  if (!items.length) return;
+
+  const inner = createEl('div', 'ticker-inner');
+  items.forEach(text => {
+    const span = createEl('span', 'ticker-item', text);
+    inner.appendChild(span);
+  });
+  tickerEl.innerHTML = '';
+  tickerEl.appendChild(inner);
+}
+
+// ---------- Navigation ----------
+
+function initNavigation(config) {
+  // Example: fill dropdowns if you have <ul> placeholders
+  // Adjust selectors to your HTML structure
+  const homeDropdown = document.getElementById('nav-home-dropdown');
+  if (homeDropdown && config.navigation.home?.dropdown) {
+    config.navigation.home.dropdown.forEach(link => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = link;
+      a.textContent = link.replace('#', '').replace('.html', '').replace('-', ' ').toUpperCase();
+      li.appendChild(a);
+      homeDropdown.appendChild(li);
+    });
+  }
+  // Repeat similarly for blog, vlog, jammuKashmir, unHR if needed
+}
+
+// ---------- Footer ----------
+
+function renderFooter(config) {
+  const footerContainer = document.getElementById('footer-sections');
+  const yearSpan = document.getElementById('footer-year');
+  if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+  if (!footerContainer || !config.footer?.sections) return;
+
+  footerContainer.innerHTML = '';
+
+  config.footer.sections.forEach(section => {
+    const col = createEl('div', 'footer-col');
+    const title = createEl('h4', 'footer-title', section.title || '');
+    col.appendChild(title);
+
+    if (section.content) {
+      const contentDiv = createEl('div', 'footer-content');
+      contentDiv.innerHTML = section.content;
+      col.appendChild(contentDiv);
     }
-});
 
-/* ============================
-   LOADER
-============================ */
-function initLoader() {
-    const loader = document.getElementById("site-loader");
-    if (!loader) return;
-
-    setTimeout(() => {
-        loader.style.opacity = "0";
-        setTimeout(() => loader.style.display = "none", 300);
-    }, 1500);
-}
-
-/* ============================
-   FOOTER YEAR
-============================ */
-function initYear() {
-    const yearEl = document.getElementById("year");
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
-}
-
-/* ============================
-   CLOCKS + CALENDARS
-============================ */
-function initClocks() {
-    updateClocks();
-    setInterval(updateClocks, 1000);
-}
-
-function updateClocks() {
-    const now = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
-    const datetimeBar = document.getElementById("datetime-bar");
-    if (!datetimeBar) return;
-
-    const zurichTime = now.toLocaleTimeString("en-GB", {
-        timeZone: "Europe/Zurich",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-    });
-
-    const fullDate = now.toLocaleDateString("en-GB", options);
-
-    const istTime = now.toLocaleTimeString("en-IN", {
-        timeZone: "Asia/Kolkata",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-    });
-
-    const pktTime = now.toLocaleTimeString("en-PK", {
-        timeZone: "Asia/Karachi",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-    });
-
-    datetimeBar.innerHTML = `
-        <span>${fullDate} at ${zurichTime}</span>
-        <span class="separator">•</span>
-        <span>${getHijriDate()}</span>
-        <span class="separator">•</span>
-        <span>${getBikramiDate()}</span>
-        <span class="separator">•</span>
-        <span>IST (Jammu-Kashmir-Ladakh): <strong>${istTime}</strong></span>
-        <span class="separator">•</span>
-        <span>PKT (GB & AJK): <strong>${pktTime}</strong></span>
-    `;
-}
-
-function getHijriDate() {
-    try {
-        const now = new Date();
-        return new Intl.DateTimeFormat("en-u-ca-islamic", {
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-        }).format(now) + " AH";
-    } catch {
-        return "Ramadan 27, 1447 AH";
+    if (section.links) {
+      const ul = createEl('ul', 'footer-links');
+      section.links.forEach(l => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = l.url;
+        a.textContent = l.label;
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      col.appendChild(ul);
     }
+
+    if (section.social) {
+      const ul = createEl('ul', 'footer-social');
+      section.social.forEach(s => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = s.url;
+        a.textContent = s.icon;
+        a.setAttribute('aria-label', 'Social link');
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      col.appendChild(ul);
+    }
+
+    footerContainer.appendChild(col);
+  });
 }
 
-function getBikramiDate() {
-    const today = new Date();
-    const months = [
-        "Chet", "Vaisakh", "Iyeshtha", "Harh", "Sawan", "Bhadon",
-        "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"
-    ];
-    return `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear() + 57} VS`;
-}
+// ---------- Contact form & uploads ----------
 
-/* ============================
-   WEATHER BAR
-============================ */
-function initWeatherBar() {
-    const bar = document.getElementById("weather-bar");
-    if (!bar) return;
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
 
-    const cities = [
-        { name: "Zurich", temp: "6°C" },
-        { name: "Rawalakot", temp: "9°C" },
-        { name: "Jammu", temp: "18°C" },
-        { name: "Kashmir", temp: "4°C" },
-        { name: "Ladakh", temp: "-2°C" },
-        { name: "Gilgit", temp: "3°C" },
-        { name: "Baltistan", temp: "-1°C" },
-        { name: "Muzaffarabad", temp: "10°C" }
-    ];
+  const fileInput = form.querySelector('input[type="file"]');
+  const statusEl = document.getElementById('contact-status');
 
-    bar.innerHTML = cities
-        .map((c, i) =>
-            `${c.name}: <strong>${c.temp}</strong>${i < cities.length - 1 ? '<span class="separator">•</span>' : ''}`
-        )
-        .join("");
-}
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!statusEl) return;
 
-/* ============================
-   TICKER (from ticker.json)
-============================ */
-function initTicker() {
-    const tickerItems = document.getElementById("ticker-items");
-    if (!tickerItems) return;
+    const formData = new FormData(form);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const message = formData.get('message');
 
-    fetch("content/ticker.json")
-        .then(r => r.ok ? r.json() : [])
-        .then(data => {
-            const items = data.items || [];
-            tickerItems.innerHTML = items.concat(items).map(t => `<span>${t} • </span>`).join("");
-        })
-        .catch(() => {
-            tickerItems.innerHTML = "<span>THE MIRROR JAMMU KASHMIR — Independent Digital Media Platform • </span>";
-        });
-}
+    if (!name || !email || !message) {
+      statusEl.textContent = 'Please fill in all required fields.';
+      statusEl.className = 'form-status error';
+      return;
+    }
 
-/* ============================
-   NAVIGATION
-============================ */
-function initNav() {
-    const hamburger = document.getElementById("hamburger");
-    const navList = document.getElementById("nav-list");
-    const mobileMenu = document.getElementById("mobile-menu");
-
-    if (!hamburger || !navList || !mobileMenu) return;
-
-    hamburger.addEventListener("click", () => {
-        const expanded = hamburger.getAttribute("aria-expanded") === "true";
-        hamburger.setAttribute("aria-expanded", !expanded);
-        mobileMenu.hidden = expanded;
-        if (!expanded) mobileMenu.innerHTML = navList.innerHTML;
-    });
-
-    document.addEventListener("click", e => {
-        if (!e.target.closest(".has-sub")) {
-            document.querySelectorAll(".dropdown").forEach(d => d.style.display = "none");
-        }
-    });
-}
-
-/* ============================
-   CONTACT MODAL
-============================ */
-function initContactModal() {
-    const openBtn = document.getElementById("contact-open");
-    const closeBtn = document.getElementById("contact-close");
-    const modal = document.getElementById("contact-modal");
-    const cancelBtn = document.getElementById("modal-cancel");
-    const form = document.getElementById("contact-form");
-
-    if (!modal) return;
-
-    openBtn?.addEventListener("click", () => modal.classList.remove("hidden"));
-    closeBtn?.addEventListener("click", () => modal.classList.add("hidden"));
-    cancelBtn?.addEventListener("click", () => modal.classList.add("hidden"));
-
-    modal.addEventListener("click", e => {
-        if (e.target === modal) modal.classList.add("hidden");
-    });
-
-    form?.addEventListener("submit", e => {
-        e.preventDefault();
-        alert("Thank you for your message. We will get back to you soon!");
-        modal.classList.add("hidden");
-        form.reset();
-    });
-}
-
-/* ============================
-   VLOGS (YouTube JSON)
-============================ */
-function initVlogs() {
-    const grid = document.getElementById("vlogs-grid");
-    const visitBtn = document.getElementById("vlog-visit-channel");
-
-    if (!grid) return;
-
-    fetch("content/youtube.json")
-        .then(r => r.ok ? r.json() : null)
-        .then(data => {
-            if (!data) throw new Error();
-
-            if (visitBtn && data.channel?.url) {
-                visitBtn.addEventListener("click", () => window.open(data.channel.url, "_blank"));
-                visitBtn.style.display = "inline-block";
-            }
-
-            renderVlogs(data.videos || []);
-        })
-        .catch(() => {
-            grid.innerHTML = '<p class="coming-soon">Videos will appear here.</p>';
-            if (visitBtn) visitBtn.style.display = "none";
-        });
-}
-
-function renderVlogs(videos) {
-    const grid = document.getElementById("vlogs-grid");
-    if (!grid) return;
-
-    if (!videos.length) {
-        grid.innerHTML = '<p class="coming-soon">Videos will appear here.</p>';
+    if (fileInput && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      const allowed = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+      if (!allowed.includes(file.type)) {
+        statusEl.textContent = 'Only PDF, JPG, and PNG files are allowed.';
+        statusEl.className = 'form-status error';
         return;
+      }
     }
 
-    grid.innerHTML = videos.map(v => {
-        const thumb = v.youtubeId
-            ? `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`
-            : "https://via.placeholder.com/640x360?text=Video";
-
-        return `
-            <article class="card">
-                <div class="vlog-card-thumb">
-                    <img src="${thumb}" alt="${v.title || 'Video'}">
-                    <div class="vlog-play-icon">▶</div>
-                    <div class="vlog-duration">${v.duration || "00:00"}</div>
-                </div>
-                <div class="card-body">
-                    <h3>${v.title || "Video"}</h3>
-                    <p>${v.description || ""}</p>
-                </div>
-            </article>
-        `;
-    }).join("");
+    // Here you would send to your backend / email service
+    // For now, just simulate success:
+    statusEl.textContent = 'Thank you. Your message has been received.';
+    statusEl.className = 'form-status success';
+    form.reset();
+  });
 }
 
-/* ============================
-   LANGUAGE SELECTOR
-============================ */
-function initLanguageSelector() {
-    const select = document.getElementById("language-select");
-    if (!select) return;
+function initEPaperUpload() {
+  const form = document.getElementById('epaper-form');
+  if (!form) return;
 
-    select.addEventListener("change", e => {
-        alert("Language changed to " + e.target.options[e.target.selectedIndex].text);
-    });
+  const fileInput = form.querySelector('input[type="file"]');
+  const statusEl = document.getElementById('epaper-status');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!statusEl) return;
+
+    if (!fileInput || fileInput.files.length === 0) {
+      statusEl.textContent = 'Please choose a file to upload.';
+      statusEl.className = 'form-status error';
+      return;
+    }
+
+    const file = fileInput.files[0];
+    const allowed = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+    if (!allowed.includes(file.type)) {
+      statusEl.textContent = 'Only PDF, JPG, and PNG files are allowed.';
+      statusEl.className = 'form-status error';
+      return;
+    }
+
+    // Simulate upload
+    statusEl.textContent = 'File uploaded successfully (demo).';
+    statusEl.className = 'form-status success';
+    form.reset();
+  });
 }
 
-/* ============================
-   SEARCH
-============================ */
-function initSearch() {
-    const form = document.querySelector(".search");
-    const input = document.getElementById("search-input");
-
-    if (!form || !input) return;
-
-    form.addEventListener("submit", e => {
-        e.preventDefault();
-        if (input.value.trim()) alert("Searching for: " + input.value.trim());
-    });
-}
-
-/* ============================
-   SOCIAL BUTTONS
-============================ */
-function initSocialButtons() {
-    document.querySelectorAll(".sa-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const text = btn.textContent.trim();
-            if (text.includes("Like")) alert("Thank you for liking!");
-            else if (text.includes("Subscribe")) alert("Thank you for subscribing!");
-            else if (text.includes("Share")) {
-                if (navigator.share) {
-                    navigator.share({ title: document.title, url: window.location.href });
-                } else alert("Share this page!");
-            }
-        });
-    });
-}
-
-/* ============================
-   COPY LINK
-============================ */
-function copyPageLink() {
-    navigator.clipboard.writeText(window.location.href)
-        .then(() => alert("Link copied to clipboard!"))
-        .catch(() => alert("Failed to copy link"));
-}
-
-/* ============================
-   FILE UPLOAD
-============================ */
-function initFileUpload() {
-    const fileInput = document.getElementById("file-upload");
-    const fileNameSpan = document.querySelector(".file-name");
-
-    if (!fileInput || !fileNameSpan) return;
-
-    fileInput.addEventListener("change", () => {
-        fileNameSpan.textContent = fileInput.files.length
-            ? fileInput.files[0].name
-            : "No file chosen";
-    });
-
-    const form = document.querySelector(".epaper-form");
-    form?.addEventListener("submit", e => {
-        e.preventDefault();
-        if (fileInput.files.length) {
-            alert(`File '${fileInput.files[0].name}' ready for upload.`);
-        } else alert("Please select a file first.");
-    });
-}
-
-/* ============================
-   NEWSLETTER
-============================ */
 function initNewsletter() {
-    const btn = document.getElementById("subscribeBtn");
-    const email = document.getElementById("subscribeEmail");
+  const form = document.getElementById('newsletter-form');
+  const statusEl = document.getElementById('newsletter-status');
+  if (!form) return;
 
-    if (!btn || !email) return;
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = new FormData(form).get('email');
+    if (!email) {
+      if (statusEl) {
+        statusEl.textContent = 'Please enter your email.';
+        statusEl.className = 'form-status error';
+      }
+      return;
+    }
+    if (statusEl) {
+      statusEl.textContent = 'Subscribed successfully (demo).';
+      statusEl.className = 'form-status success';
+    }
+    form.reset();
+  });
+}
 
-    btn.addEventListener("click", e => {
-        e.preventDefault();
-        const val = email.value.trim();
-        if (val && val.includes("@") && val.includes(".")) {
-            alert("Thank you for subscribing!");
-            email.value = "";
-        } else alert("Please enter a valid email address.");
+// ---------- Engagement buttons (like / subscribe / share / copy) ----------
+
+function initEngagementButtons() {
+  const likeBtn = document.getElementById('likeBtn');
+  const likeCount = document.getElementById('likeCount');
+  const subBtn = document.getElementById('subBtn');
+  const shareBtn = document.getElementById('shareBtn');
+  const copyBtn = document.getElementById('copyBtn');
+
+  if (likeBtn && likeCount) {
+    let count = 0;
+    likeBtn.addEventListener('click', () => {
+      count += 1;
+      likeCount.textContent = count.toString();
     });
-}
+  }
 
-/* ============================
-   FOOTER DROPDOWNS
-============================ */
-function initFooterDropdowns() {
-    document.querySelectorAll(".footer-section").forEach((section, i) => {
-        if (i === 0) return;
-        const h = section.querySelector("h4");
-        h?.addEventListener("click", () => section.classList.toggle("open"));
+  if (subBtn) {
+    subBtn.addEventListener('click', () => {
+      alert('Thank you for subscribing (demo).');
     });
-}
+  }
 
-/* ============================
-   READING PROGRESS BAR
-============================ */
-function initReadingProgress() {
-    const bar = document.getElementById("reading-progress");
-    if (!bar) return;
-
-    window.addEventListener("scroll", () => {
-        const height = document.documentElement.scrollHeight - window.innerHeight;
-        bar.style.width = (window.scrollY / height) * 100 + "%";
+  if (shareBtn) {
+    shareBtn.addEventListener('click', async () => {
+      const shareData = {
+        title: document.title,
+        text: 'Check out this article from THE MIRROR JAMMU KASHMIR',
+        url: window.location.href
+      };
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+        } catch (e) {
+          console.warn('Share cancelled', e);
+        }
+      } else {
+        alert('Sharing is not supported in this browser.');
+      }
     });
-}
+  }
 
-/* ============================================================
-   HOMEPAGE CONTENT LOADER
-============================================================ */
-function loadHomepageContent() {
-    fetch("content/index.json")
-        .then(r => r.ok ? r.json() : null)
-        .then(index => {
-            if (!index) throw new Error();
-
-            /* TOP STORIES */
-            if (index.topStories) {
-                const ts = index.topStories;
-                loadTopStories({
-                    article: ts.article || ts.lead || null,
-                    breaking: ts.breaking || null,
-                    blog: ts.blog || ts.opinion || null
-                });
-            }
-
-            /* LATEST / EDITORIAL / HISTORICAL */
-            if (index.latestEditorialHistorical) {
-                const leh = index.latestEditorialHistorical;
-                loadLehSection([leh.latest, leh.editorial, leh.historical]);
-            }
-
-            /* JAMMU KASHMIR */
-            if (index.jammuKashmir) {
-                loadJammuKashmir(index.jammuKashmir);
-            }
-
-            /* INTERNATIONAL */
-            if (index.international) {
-                loadInternational(index.international);
-            }
-
-            /* HUMAN RIGHTS */
-            if (index.humanRights) {
-                loadHumanRights(index.humanRights);
-            }
-        })
-        .catch(() => {
-            loadTopStoriesFallback();
-            loadLehFallback();
-            loadJammuKashmirFallback();
-            loadInternationalFallback();
-            loadHumanRightsFallback();
-        });
-}
-
-/* ============================================================
-   TOP STORIES (Article + Breaking + Blog)
-============================================================ */
-function loadTopStories(ids) {
-    const grid = document.getElementById("top-stories-grid");
-    if (!grid) return;
-
-    const ordered = [ids.article, ids.breaking, ids.blog];
-
-    Promise.all(
-        ordered.map(id =>
-            id
-                ? fetch(`content/${id}.json`)
-                      .then(r => (r.ok ? r.json() : null))
-                      .catch(() => null)
-                : Promise.resolve(null)
-        )
-    ).then(articles => {
-        let html = "";
-        let hasContent = false;
-
-        articles.forEach(article => {
-            if (article) {
-                html += createHomepageCard(article, true);
-                hasContent = true;
-            }
-        });
-
-        grid.innerHTML = hasContent ? html : loadTopStoriesFallback();
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('Link copied to clipboard.');
+      } catch (e) {
+        alert('Unable to copy link.');
+      }
     });
+  }
 }
 
-function loadTopStoriesFallback() {
-    const grid = document.getElementById("top-stories-grid");
-    if (!grid) return;
+// ---------- Init ----------
 
-    grid.innerHTML = `
-        <article class="card">
-            <div class="media">
-                <img src="https://via.placeholder.com/640x360?text=Rawalakot+Protest">
-            </div>
-            <div class="card-body">
-                <h3>Complete Shutter Down Paralyses Rawalakot Poonch</h3>
-                <p>Thousands shut down Rawalakot in protest against electricity outages and communication blackouts.</p>
-                <a href="article.html?id=article-001" class="btn-red">Read More →</a>
-            </div>
-        </article>
-    `;
-}
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const [config, indexMap] = await Promise.all([
+      loadJSON(`${CONTENT_BASE}config.json`),
+      loadJSON(`${CONTENT_BASE}index.json`)
+    ]);
 
-/* ============================================================
-   LATEST / EDITORIAL / HISTORICAL
-============================================================ */
-function loadLehSection(ids) {
-    const grid = document.getElementById("leh-grid");
-    if (!grid) return;
+    // Site title / tagline
+    if (config.site) {
+      const titleEl = document.getElementById('site-title');
+      const taglineEl = document.getElementById('site-tagline');
+      if (titleEl) titleEl.textContent = config.site.name;
+      if (taglineEl) taglineEl.textContent = config.site.tagline;
+    }
 
-    Promise.all(
-        ids.map(id =>
-            id
-                ? fetch(`content/${id}.json`)
-                      .then(r => (r.ok ? r.json() : null))
-                      .catch(() => null)
-                : Promise.resolve(null)
-        )
-    ).then(articles => {
-        grid.innerHTML = articles
-            .map((a, i) =>
-                a ? createHomepageCard(a) : createEmptyCard(["LATEST", "EDITORIAL", "HISTORICAL"][i])
-            )
-            .join("");
-    });
-}
+    renderWeather(config);
+    renderTicker(config, indexMap);
+    initNavigation(config);
+    renderFooter(config);
 
-function loadLehFallback() {
-    const grid = document.getElementById("leh-grid");
-    if (!grid) return;
+    await Promise.all([
+      renderTopStories(config, indexMap),
+      renderLatestEditorialHistorical(config, indexMap),
+      renderJammuKashmir(config, indexMap),
+      renderInternational(config, indexMap),
+      renderHumanRights(config, indexMap),
+      renderVlogs()
+    ]);
 
-    grid.innerHTML = `
-        <article class="card"><div class="media"></div><div class="card-body"><h3>LATEST</h3><p>Coming soon.</p></div></article>
-        <article class="card"><div class="media"></div><div class="card-body"><h3>EDITORIAL</h3><p>Coming soon.</p></div></article>
-        <article class="card"><div class="media"></div><div class="card-body"><h3>HISTORICAL</h3><p>Coming soon.</p></div></article>
-    `;
-}
-
-/* ============================================================
-   JAMMU KASHMIR
-============================================================ */
-function loadJammuKashmir(ids) {
-    const grid = document.getElementById("jk-grid");
-    if
+    initContactForm();
+    initEPaperUpload();
+    initNewsletter();
+    initEngagementButtons();
+  } catch (err) {
+    console.error('Initialization error:', err);
+  }
+});
