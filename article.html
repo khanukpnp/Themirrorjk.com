@@ -1,110 +1,124 @@
-Article html updated 24th March
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title id="page-title">THE MIRROR JAMMU KASHMIR</title>
+    <!-- Dynamic Meta Tags -->
+    <meta property="og:url" content="" id="og-url">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="" id="og-title">
+    <meta property="og:description" content="" id="og-description">
+    <meta property="og:image" content="" id="og-image">
+    <meta property="og:site_name" content="THE MIRROR JAMMU KASHMIR">
 
-<link rel="stylesheet" href="styles.css">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="" id="twitter-title">
+    <meta name="twitter:description" content="" id="twitter-description">
+    <meta name="twitter:image" content="" id="twitter-image">
+    <meta name="twitter:site" content="@TheMirrorJK">
 
+    <meta name="description" content="" id="meta-description">
+    <meta name="keywords" content="Jammu Kashmir, news, editorial, history, human rights">
+
+    <title id="page-title">THE MIRROR JAMMU KASHMIR</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="article.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 
 <body>
 
-<!-- PROGRESS BAR -->
+<!-- Reading Progress Bar -->
 <div class="reading-progress" id="reading-progress"></div>
 
-<!-- HEADER (IDENTICAL STYLE) -->
-<header class="site-header">
-  <div class="container">
-    <div class="site-title-block">
-      <div class="site-title">THE MIRROR JAMMU KASHMIR</div>
-      <div class="site-tagline">
-        CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD
-      </div>
+<main class="article-page" data-default-id="article-001">
+
+    <!-- CATEGORY LABEL -->
+    <div id="section-label" class="category-label"></div>
+
+    <!-- TITLE -->
+    <h1 id="title"></h1>
+
+    <!-- METADATA -->
+    <div id="meta" class="article-meta"></div>
+
+    <!-- HERO IMAGE (TOP PLACEHOLDER CARD) -->
+    <div id="heroWrap" class="hero-image-container" style="display:none;">
+        <img id="heroImg" src="" alt="">
+        <div id="heroCaption"></div>
     </div>
-  </div>
-</header>
 
+    <!-- LOADING STATE -->
+    <div id="loading-state" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading article, clocks, calendars and headlines...</p>
+    </div>
 
-<main class="article-page">
+    <!-- MAIN CONTENT -->
+    <div id="content" class="clearfix" style="display:none;"></div>
 
-<div class="article-shell">
+    <!-- READ MORE SECTION -->
+    <section id="read-more-section" class="read-more-section" style="display:none;">
+        <h2 class="read-more-title">Read More</h2>
 
-<div id="section-label" class="category-label"></div>
+        <!-- HERO IMAGE AGAIN BELOW HEADING -->
+        <div class="hero-image-container read-more-hero">
+            <img id="readMoreHeroImg" src="" alt="">
+            <div id="readMoreHeroCaption"></div>
+        </div>
 
-<h1 id="title"></h1>
+        <div id="read-more-content" class="read-more-content"></div>
+    </section>
 
-<div id="meta" class="article-meta"></div>
+    <!-- ACTION BUTTONS -->
+    <div class="article-actions" id="article-actions" style="display:none;">
+        <button id="btn-like" class="action-btn"><span>👍</span> Like <span id="like-count"></span></button>
+        <button id="btn-subscribe" class="action-btn"><span>🔔</span> Subscribe</button>
+        <button id="btn-share" class="action-btn"><span>📤</span> Share</button>
+        <button id="btn-copy" class="action-btn"><span>🔗</span> Copy Link</button>
+    </div>
 
-<!-- HERO -->
-<div id="heroWrap" class="hero-image-container">
-    <img id="heroImg">
-    <div id="heroCaption"></div>
-</div>
+    <!-- NAVIGATION -->
+    <div class="article-navigation-bottom" id="article-nav" style="display:none;">
+        <a href="index.html" class="nav-btn nav-btn-home">← Back to Homepage</a>
 
-<!-- CONTENT -->
-<div id="content" class="clearfix"></div>
+        <div class="nav-buttons">
+            <a href="#" id="prev-article" class="nav-btn nav-btn-prev" style="display:none;">← Previous</a>
+            <a href="#" id="next-article" class="nav-btn nav-btn-next" style="display:none;">Next →</a>
+        </div>
+    </div>
 
-
-<!-- ACTIONS -->
-<div class="article-actions">
-
-<button id="btn-like" class="action-btn">👍 Like</button>
-<button id="btn-subscribe" class="action-btn">🔔 Subscribe</button>
-<button id="btn-share" class="action-btn">📤 Share</button>
-<button id="btn-copy" class="action-btn">🔗 Copy Link</button>
-
-</div>
-
-
-<!-- NAVIGATION -->
-<div class="article-navigation-bottom">
-
-<a href="index.html" class="nav-btn nav-btn-home">
-🏠 Back to Homepage
-</a>
-
-<div class="nav-buttons">
-
-<a href="#" id="prev-article" class="nav-btn nav-btn-prev" style="display:none;">
-⬅ Previous
-</a>
-
-<a href="#" id="next-article" class="nav-btn nav-btn-next" style="display:none;">
-Next ➡
-</a>
-
-</div>
-
-</div>
-
-</div>
+    <!-- MOBILE NEXT ARTICLE SUGGESTION -->
+    <div class="next-article-text" id="next-article-suggestion" style="display:none;"></div>
 
 </main>
 
-
 <!-- SHARE TOOLTIP -->
 <div class="share-tooltip" id="share-tooltip">
-
-<a id="share-facebook" target="_blank">📘 Facebook</a>
-<a id="share-twitter" target="_blank">🐦 X</a>
-<a id="share-whatsapp" target="_blank">📱 WhatsApp</a>
-<a id="share-linkedin" target="_blank">🔗 LinkedIn</a>
-<a id="share-telegram" target="_blank">✈️ Telegram</a>
-<a id="share-email" target="_blank">📧 Email</a>
-
+    <a href="#" id="share-facebook"><span>📘</span> Facebook</a>
+    <a href="#" id="share-twitter"><span>🐦</span> X (Twitter)</a>
+    <a href="#" id="share-whatsapp"><span>📱</span> WhatsApp</a>
+    <a href="#" id="share-linkedin"><span>🔗</span> LinkedIn</a>
+    <a href="#" id="share-telegram"><span>✈️</span> Telegram</a>
+    <a href="#" id="share-reddit"><span>🤖</span> Reddit</a>
+    <a href="#" id="share-pinterest"><span>📌</span> Pinterest</a>
+    <a href="#" id="share-email"><span>📧</span> Email</a>
 </div>
 
-
+<!-- FOOTER -->
 <footer class="footer">
-© <span id="year"></span> THE MIRROR JAMMU KASHMIR
+    <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
-<script src="script.js"></script>
+<!-- SCRIPT -->
+<script src="article.js"></script>
 
 </body>
 </html>
