@@ -1361,6 +1361,9 @@ function tryLoadArticle(paths, index, id) {
             
             console.log("Processed article:", article);
             
+            // Update meta tags for social sharing BEFORE rendering
+            updateSocialMetaTags(article);
+            
             renderFullArticlePage(article);
             initShareTooltip();
         })
@@ -1456,9 +1459,6 @@ function renderFullArticlePage(article) {
     } else if (heroWrap) {
         heroWrap.style.display = 'none';
     }
-    
-    // Update social meta tags
-    updateSocialMetaTags(article);
     
     // Render body content
     const contentEl = document.getElementById("content");
@@ -1675,7 +1675,7 @@ function addArticlePagination(article) {
 }
 
 /* ============================
-   UPDATE SOCIAL META TAGS
+   UPDATE SOCIAL META TAGS - CRITICAL FOR SOCIAL MEDIA SHARING
    ============================ */
 function updateSocialMetaTags(article) {
     const fullUrl = window.location.href;
@@ -1688,29 +1688,38 @@ function updateSocialMetaTags(article) {
         if (!imageUrl.startsWith('http')) {
             imageUrl = window.location.origin + '/' + imageUrl;
         }
+    } else {
+        imageUrl = window.location.origin + '/content/images/logo.png';
     }
     
-    const metaTags = [
-        { id: 'og-url', content: fullUrl },
-        { id: 'og-title', content: title },
-        { id: 'og-description', content: excerpt },
-        { id: 'twitter-title', content: title },
-        { id: 'twitter-description', content: excerpt },
-        { id: 'meta-description', content: excerpt }
-    ];
+    // Update Open Graph tags
+    const ogUrl = document.getElementById('og-url');
+    if (ogUrl) ogUrl.setAttribute('content', fullUrl);
     
-    metaTags.forEach(tag => {
-        const el = document.getElementById(tag.id);
-        if (el && tag.content) el.setAttribute('content', tag.content);
-    });
+    const ogTitle = document.getElementById('og-title');
+    if (ogTitle) ogTitle.setAttribute('content', title);
     
-    if (imageUrl) {
-        const ogImage = document.getElementById('og-image');
-        if (ogImage) ogImage.setAttribute('content', imageUrl);
-        
-        const twitterImage = document.getElementById('twitter-image');
-        if (twitterImage) twitterImage.setAttribute('content', imageUrl);
-    }
+    const ogDescription = document.getElementById('og-description');
+    if (ogDescription) ogDescription.setAttribute('content', excerpt);
+    
+    const ogImage = document.getElementById('og-image');
+    if (ogImage) ogImage.setAttribute('content', imageUrl);
+    
+    // Update Twitter Card tags
+    const twitterTitle = document.getElementById('twitter-title');
+    if (twitterTitle) twitterTitle.setAttribute('content', title);
+    
+    const twitterDescription = document.getElementById('twitter-description');
+    if (twitterDescription) twitterDescription.setAttribute('content', excerpt);
+    
+    const twitterImage = document.getElementById('twitter-image');
+    if (twitterImage) twitterImage.setAttribute('content', imageUrl);
+    
+    // Update standard meta description
+    const metaDescription = document.getElementById('meta-description');
+    if (metaDescription) metaDescription.setAttribute('content', excerpt);
+    
+    console.log("Social meta tags updated:", { title, excerpt, imageUrl, fullUrl });
 }
 
 /* ============================
