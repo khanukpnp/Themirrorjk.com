@@ -21,11 +21,7 @@
         "next": "latest-001",
         "home": "index.html"
     },
-    "archive": false,
-    "readMore": "<p>For further reading on the history of Jammu and Kashmir, see our related articles on the Dogra dynasty and the accession of 1947. Additional resources include the comprehensive study <em>'Kashmir: A History'</em> by Christopher Snedden and the archival documents available through the National Archives of India.</p><p>Upcoming editorials will explore the post-1953 period, including the constitutional crises of the 1980s and the abrogation of Article 370 in 2019. The historical State remains central to understanding the present and future of Jammu and Kashmir.</p><p>Recommended reading: <strong>State Subject Rule 1927</strong> — The original document defining hereditary state subjects; <strong>Treaty of Amritsar (1846)</strong> — The foundational treaty that created the State; <strong>Ranbir Penal Code</strong> — The codified criminal law framework; <strong>Praja Sabha Proceedings (1934-1947)</strong> — Legislative records of the State assembly.</p>",
-    "tags": ["History", "Jammu and Kashmir", "Editorial", "Dogra Dynasty", "Treaty of Amritsar", "1947 Accession", "Article 370", "UN Resolutions", "State Subject Rule", "Praja Sabha"],
-    "body": [
-        {
+    
             "type": "subheading",
             "text": "BRIEF HISTORY OF THE STATE OF JAMMU AND KASHMIR, 1819 TO 1953"
         },
@@ -48,7 +44,7 @@
         {
             "type": "image",
             "src": "content/images/editorial-001-01.png",
-            "align": "center",
+            "align": "right",
             "caption": "Flag of Historical State of Jammu Kashmir (1846-1936) — The original flag of the Dogra dynasty",
             "credit": "The Mirror Jammu Kashmir"
         },
@@ -59,7 +55,7 @@
         {
             "type": "image",
             "src": "content/images/editorial-001-02.png",
-            "align": "center",
+            "align": "left",
             "caption": "Flag of Historical State of Jammu Kashmir (1936-1947) — Modified flag under Maharaja Hari Singh",
             "credit": "The Mirror Jammu Kashmir"
         },
@@ -87,7 +83,7 @@
         {
             "type": "image",
             "src": "content/images/editorial-001-03.png",
-            "align": "center",
+            "align": "right",
             "caption": "Flag of Jammu-Kashmir-Ladakh After Forced Division in 1947 — Indian administered region",
             "credit": "The Mirror Jammu Kashmir"
         },
@@ -106,7 +102,7 @@
         {
             "type": "image",
             "src": "content/images/editorial-001-04.png",
-            "align": "center",
+            "align": "left",
             "caption": "Flag of Azad Kashmir After Forced Division in 1947 — Pakistani administered region",
             "credit": "The Mirror Jammu Kashmir"
         },
@@ -125,7 +121,7 @@
         {
             "type": "image",
             "src": "content/images/editorial-001-05.png",
-            "align": "center",
+            "align": "right",
             "caption": "Flag of Gilgit Baltistan After Forced Division in 1947 — Pakistani administered northern region",
             "credit": "The Mirror Jammu Kashmir"
         },
@@ -172,7 +168,7 @@
         {
             "type": "image",
             "src": "content/images/editorial-001-06.png",
-            "align": "center",
+            "align": "left",
             "caption": "Flags of The Historical State of Jammu Kashmir Before & After Partition — A visual history of the divided State",
             "credit": "The Mirror Jammu Kashmir"
         },
