@@ -1,108 +1,120 @@
 {
-  "id": "about-001",
-  "slug": "about-the-mirror-jammu-kashmir",
-  "title": "About The Mirror Jammu Kashmir",
-  "subtitle": "Independent Digital Media Platform · Truth · Justice · Human Dignity",
-  "category": "about",
-  "sectionLabel": "👤 ABOUT",
-  "author": "The Mirror Jammu Kashmir",
-  "location": "Switzerland",
-  "date": "2026-03-08T10:00:00Z",
-  "readTime": "10 min read",
-  "heroImage": {
-    "src": "content/images/logo.png",
-    "caption": "The Mirror Jammu Kashmir Logo",
-    "credit": "The Mirror Jammu Kashmir",
-    "width": "40%"
-  },
-  "archive": false,
-  "body": [
-    {
-      "type": "paragraph",
-      "text": "The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity. We exist to challenge silence, expose injustice, and amplify voices that are ignored or deliberately suppressed. Our work is rooted in facts, international law, and lived realities, not in narratives shaped by power or propaganda."
+    "id": "about-001",
+    "title": "About Us",
+    "subtitle": "The Mirror Jammu Kashmir — Champion Justice & Amplify the Voices of the Unheard",
+    "category": "about",
+    "sectionLabel": "📖 ABOUT US",
+    "excerpt": "The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity. We exist to challenge silence, expose injustice, and amplify voices that are ignored or deliberately suppressed.",
+    "summary": "The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity. Our work is rooted in facts, international law, and lived realities, not in narratives shaped by power or propaganda.",
+    "author": "Editorial Desk",
+    "location": "Geneva, Switzerland",
+    "date": "2026-03-22T09:00:00Z",
+    "readTime": "8 min read",
+    "heroImage": {
+        "src": "content/images/logo.png",
+        "caption": "The Mirror Jammu Kashmir — Champion Justice & Amplify the Voices of the Unheard",
+        "credit": "The Mirror Jammu Kashmir",
+        "align": "center"
     },
-    {
-      "type": "paragraph",
-      "text": "Our mission is simple and uncompromising. To champion justice. To speak the truth without fear. To bring forward voices from the margins. To document realities that others choose to ignore. We believe hope must never be abandoned. Hope only becomes real through action. Through persistence. Through principled journalism that refuses to give up."
-    },
-    {
-      "type": "paragraph",
-      "text": "We are guided by the belief that all human beings are born free and equal in dignity and rights. These rights are universal, indivisible, and non-negotiable. No state, institution, or ideology has the authority to deny them. Equality without discrimination is not a privilege. It is a right."
-    },
-    {
-      "type": "paragraph",
-      "text": "We believe democracy derives its legitimacy from the will of the people. From their voices. Their choices. Their free and equal participation. Democracy cannot survive where human rights are violated or where entire populations are excluded. A democracy that excludes is no democracy at all. It thrives only when fundamental freedoms are protected, especially for the most vulnerable."
-    },
-    {
-      "type": "paragraph",
-      "text": "The Mirror Jammu Kashmir stands against the global erosion of human rights. We recognize the rise of neo colonial practices and modern forms of slavery. Forced occupation. Forced migration. Forced labor. Debt bondage. These are not relics of the past. They are present day realities."
-    },
-    {
-      "type": "subheading",
-      "text": "Historical Foundation"
-    },
-    {
-      "type": "paragraph",
-      "text": "Our work is grounded in the historical and political reality of the State of Jammu and Kashmir. Founded on 16 March 1846 through the Treaty of Amritsar, the state remained independent for 101 years. At the time of the partition of British India, princely states were given the option to join India, join Pakistan, or remain independent. The last legitimate ruler, Maharaja Hari Singh, chose independence."
-    },
-    {
-      "type": "paragraph",
-      "text": "Jammu and Kashmir has always been a multi religious, multi-cultural, multi lingual, and multi ethnic society, with a long tradition of coexistence, harmony, and peace."
-    },
-    {
-      "type": "pullquote",
-      "text": "On 22 October 1947, invasion-initiated violence, bloodshed, and forced division."
-    },
-    {
-      "type": "paragraph",
-      "text": "On 22 October 1947, invasion-initiated violence, bloodshed, and forced division. This compelled the Maharaja to seek military assistance from India. India demanded a provisional Instrument of Accession, signed on 26 October 1947. Indian forces entered Kashmir on 27 October 1947 with assurances to protect the life, liberty, and property of the people and to reunite the entire state. These promises were never fulfilled. More than 78 years have passed. Instead of reunification, the Government of India dismembered and bifurcated Jammu and Kashmir and Ladakh into two Union Territories without the consent of the people."
-    },
-    {
-      "type": "paragraph",
-      "text": "Under United Nations resolutions and the 1948 ceasefire agreement, Pakistan was required to vacate the territory of Jammu and Kashmir. This obligation was never fulfilled. Areas under Pakistan's control, including Azad Kashmir and Gilgit Baltistan, continue to be treated as colonies, deprived of genuine political autonomy and fundamental rights."
-    },
-    {
-      "type": "paragraph",
-      "text": "Since 1947, the people of the historical State of Jammu and Kashmir have remained forcibly divided. Their freedom of movement is restricted within their own homeland. Rights guaranteed under the Universal Declaration of Human Rights are routinely denied, including freedom of expression, freedom of the press, freedom of peaceful assembly, and freedom of association."
-    },
-    {
-      "type": "subheading",
-      "text": "Our Role in Media"
-    },
-    {
-      "type": "paragraph",
-      "text": "We recognize that much of today's global media landscape is dominated by oligarchs and powerful interests. Many outlets serve state narratives rather than public truth. Fabricated stories, selective reporting, and distorted history have become normalized. Independent journalism is increasingly marginalized."
-    },
-    {
-      "type": "pullquote",
-      "text": "Freedom of the press, as enshrined in the Universal Declaration of Human Rights, is essential to any just society."
-    },
-    {
-      "type": "paragraph",
-      "text": "Freedom of the press, as enshrined in the Universal Declaration of Human Rights, is essential to any just society. An impartial and independent media is not optional. It is a democratic necessity."
-    },
-    {
-      "type": "paragraph",
-      "text": "This is why The Mirror Jammu Kashmir exists. Our role is to present verified historical facts, treaties, and ground realities. To inform the public and the international community. To remind states of their responsibilities and international obligations as members of the United Nations."
-    },
-    {
-      "type": "points",
-      "items": [
-        "We assess policies against promises",
-        "We evaluate actions against pledges",
-        "We measure conduct against international law",
-        "Our work is guided by United Nations resolutions on Kashmir",
-        "We reference the European Parliament report of 2007",
-        "We draw from UN Human Rights Commissioner reports of 2018 and 2019"
-      ]
-    },
-    {
-      "type": "pullquote",
-      "text": "We do not manufacture narratives. We reflect reality."
-    },
-    {
-      "type": "paragraph",
-      "text": "The Mirror Jammu Kashmir holds up a mirror to power, to policy, to history, and to truth."
-    }
-  ]
+    "body": [
+        {
+            "type": "subheading",
+            "text": "About The Mirror Jammu Kashmir"
+        },
+        {
+            "type": "image",
+            "src": "content/images/logo.png",
+            "align": "right",
+            "caption": "The Mirror Jammu Kashmir — Champion Justice & Amplify the Unheard",
+            "credit": "The Mirror Jammu Kashmir"
+        },
+        {
+            "type": "paragraph",
+            "text": "The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity. We exist to challenge silence, expose injustice, and amplify voices that are ignored or deliberately suppressed. Our work is rooted in facts, international law, and lived realities, not in narratives shaped by power or propaganda."
+        },
+        {
+            "type": "paragraph",
+            "text": "Our mission is simple and uncompromising. To champion justice. To speak the truth without fear. To bring forward voices from the margins. To document realities that others choose to ignore. We believe hope must never be abandoned. Hope only becomes real through action. Through persistence. Through principled journalism that refuses to give up."
+        },
+        {
+            "type": "pullquote",
+            "text": "We are guided by the belief that all human beings are born free and equal in dignity and rights. These rights are universal, indivisible, and non-negotiable. No state, institution, or ideology has the authority to deny them. Equality without discrimination is not a privilege. It is a right."
+        },
+        {
+            "type": "paragraph",
+            "text": "We are guided by the belief that all human beings are born free and equal in dignity and rights. These rights are universal, indivisible, and non-negotiable. No state, institution, or ideology has the authority to deny them. Equality without discrimination is not a privilege. It is a right."
+        },
+        {
+            "type": "paragraph",
+            "text": "We believe democracy derives its legitimacy from the will of the people. From their voices. Their choices. Their free and equal participation. Democracy cannot survive where human rights are violated or where entire populations are excluded. A democracy that excludes is no democracy at all. It thrives only when fundamental freedoms are protected, especially for the most vulnerable."
+        },
+        {
+            "type": "paragraph",
+            "text": "The Mirror Jammu Kashmir stands against the global erosion of human rights. We recognize the rise of neo colonial practices and modern forms of slavery. Forced occupation. Forced migration. Forced labor. Debt bondage. These are not relics of the past. They are present day realities."
+        },
+        {
+            "type": "subheading",
+            "text": "Our Commitment to Jammu and Kashmir"
+        },
+        {
+            "type": "paragraph",
+            "text": "Our work is grounded in the historical and political reality of the State of Jammu and Kashmir. Founded on 16 March 1846 through the Treaty of Amritsar, the state remained independent for 101 years. At the time of the partition of British India, princely states were given the option to join India, join Pakistan, or remain independent. The last legitimate ruler, Maharaja Hari Singh, chose independence."
+        },
+        {
+            "type": "paragraph",
+            "text": "Jammu and Kashmir has always been a multi-religious, multi-cultural, multi-lingual, and multi-ethnic society, with a long tradition of coexistence, harmony, and peace."
+        },
+        {
+            "type": "pullquote",
+            "text": "On 22 October 1947, invasion-initiated violence, bloodshed, and forced division. This compelled the Maharaja to seek military assistance from India. India demanded a provisional Instrument of Accession, signed on 26 October 1947. Indian forces entered Kashmir on 27 October 1947 with assurances to protect the life, liberty, and property of the people and to reunite the entire state. These promises were never fulfilled."
+        },
+        {
+            "type": "paragraph",
+            "text": "On 22 October 1947, invasion-initiated violence, bloodshed, and forced division. This compelled the Maharaja to seek military assistance from India. India demanded a provisional Instrument of Accession, signed on 26 October 1947. Indian forces entered Kashmir on 27 October 1947 with assurances to protect the life, liberty, and property of the people and to reunite the entire state. These promises were never fulfilled. More than 78 years have passed. Instead of reunification, the Government of India dismembered and bifurcated Jammu and Kashmir and Ladakh into two Union Territories without the consent of the people."
+        },
+        {
+            "type": "paragraph",
+            "text": "Under United Nations resolutions and the 1948 ceasefire agreement, Pakistan was required to vacate the territory of Jammu and Kashmir. This obligation was never fulfilled. Areas under Pakistan's control, including Azad Kashmir and Gilgit Baltistan, continue to be treated as colonies, deprived of genuine political autonomy and fundamental rights."
+        },
+        {
+            "type": "paragraph",
+            "text": "Since 1947, the people of the historical State of Jammu and Kashmir have remained forcibly divided. Their freedom of movement is restricted within their own homeland. Rights guaranteed under the Universal Declaration of Human Rights are routinely denied, including freedom of expression, freedom of the press, freedom of peaceful assembly, and freedom of association."
+        },
+        {
+            "type": "subheading",
+            "text": "Independent Journalism in a Changing World"
+        },
+        {
+            "type": "paragraph",
+            "text": "We recognize that much of today's global media landscape is dominated by oligarchs and powerful interests. Many outlets serve state narratives rather than public truth. Fabricated stories, selective reporting, and distorted history have become normalized. Independent journalism is increasingly marginalized."
+        },
+        {
+            "type": "pullquote",
+            "text": "Freedom of the press, as enshrined in the Universal Declaration of Human Rights, is essential to any just society. An impartial and independent media is not optional. It is a democratic necessity."
+        },
+        {
+            "type": "paragraph",
+            "text": "Freedom of the press, as enshrined in the Universal Declaration of Human Rights, is essential to any just society. An impartial and independent media is not optional. It is a democratic necessity."
+        },
+        {
+            "type": "paragraph",
+            "text": "This is why The Mirror Jammu Kashmir exists. Our role is to present verified historical facts, treaties, and ground realities. To inform the public and the international community. To remind states of their responsibilities and international obligations as members of the United Nations."
+        },
+        {
+            "type": "paragraph",
+            "text": "We assess policies against promises. Actions against pledges. Conduct against international law. Our work is guided by United Nations resolutions on Kashmir, the European Parliament report of 2007, and the reports of the United Nations High Commissioner for Human Rights from 2018 and 2019."
+        },
+        {
+            "type": "pullquote",
+            "text": "We do not manufacture narratives. We reflect reality. The Mirror Jammu Kashmir holds up a mirror to power, to policy, to history, and to truth."
+        },
+        {
+            "type": "paragraph",
+            "text": "We do not manufacture narratives. We reflect reality. The Mirror Jammu Kashmir holds up a mirror to power, to policy, to history, and to truth."
+        },
+        {
+            "type": "paragraph",
+            "text": "For inquiries, contributions, or to share your story, contact us at themirrorjk@gmail.com or call +41 783 13 12 13. Follow us on X at @NasirKhanUKPNP for the latest updates and announcements."
+        }
+    ]
 }
