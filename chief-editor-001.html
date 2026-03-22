@@ -9,10 +9,9 @@
     <style>
         .editor-page {
             max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
-        
         .editor-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -20,65 +19,27 @@
             margin-bottom: 10px;
             font-family: 'Playfair Display', serif;
         }
-        
+        .editor-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
         .editor-meta {
-            font-size: 1rem;
             color: #666;
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 1px solid #e0e0e0;
         }
-        
         .editor-content {
             font-family: 'Georgia', serif;
             line-height: 1.8;
             color: #333;
         }
-        
         .editor-content p {
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
         }
-        
-        .editor-content .float-right {
-            float: right;
-            width: 40%;
-            margin: 0 0 1rem 1.5rem;
-        }
-        
-        .editor-content .float-left {
-            float: left;
-            width: 40%;
-            margin: 0 1.5rem 1rem 0;
-        }
-        
-        .editor-content figure {
-            margin: 0;
-        }
-        
-        .editor-content figure img {
-            width: 100%;
-            height: auto;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .editor-content figcaption {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 0.5rem;
-            font-style: italic;
-            text-align: center;
-        }
-        
-        .editor-content h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 2.5rem 0 1rem;
-            font-family: 'Playfair Display', serif;
-            color: #b30000;
-        }
-        
         .editor-content .pull-quote {
             font-size: 1.3rem;
             font-weight: 600;
@@ -87,224 +48,51 @@
             background: #f9f9f9;
             border-left: 4px solid #b30000;
             font-style: italic;
-            font-family: 'Playfair Display', serif;
         }
-        
-        .editor-content .important-points {
-            background: #f5f5f5;
-            padding: 1.5rem 2rem;
-            margin: 2rem 0;
-            border-radius: 4px;
+        .editor-content .img-right {
+            float: right;
+            width: 38%;
+            margin: 0 0 1rem 1.5rem;
         }
-        
-        .editor-content .important-points ul {
-            list-style: none;
-            padding: 0;
+        .editor-content .img-left {
+            float: left;
+            width: 38%;
+            margin: 0 1.5rem 1rem 0;
         }
-        
-        .editor-content .important-points li {
-            margin-bottom: 0.75rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-        
-        .editor-content .important-points li:before {
-            content: "•";
-            color: #b30000;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-        
-        .clearfix::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        
-        .page-actions {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e0e0e0;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .page-actions button {
-            padding: 0.75rem 1.5rem;
-            background: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .page-actions button:hover {
-            background: #b30000;
-            color: white;
-            border-color: #b30000;
-        }
-        
-        .page-actions button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .footer {
+        .editor-content .img-center {
+            display: block;
+            margin: 2rem auto;
             text-align: center;
-            padding: 20px;
-            background: #f5f5f5;
-            margin-top: 40px;
-            color: #666;
         }
-        
+        .editor-content figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .editor-content figcaption {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+            font-style: italic;
+            text-align: center;
+        }
         @media (max-width: 768px) {
-            .editor-content .float-right,
-            .editor-content .float-left {
+            .editor-content .img-right,
+            .editor-content .img-left {
                 float: none;
                 width: 100%;
                 margin: 1.5rem 0;
-            }
-            
-            .editor-title {
-                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <main class="page-shell editor-page">
-        <h1 class="editor-title" id="editor-title">Loading...</h1>
-        <div class="editor-meta" id="editor-meta"></div>
-        
-        <div class="editor-content clearfix" id="editor-content"></div>
-        
-        <div class="page-actions">
-            <button id="likeBtn">❤️ Like <span id="likeCount">0</span></button>
-            <button id="subBtn">🔔 Subscribe</button>
-            <button id="shareBtn">📣 Share</button>
-            <button id="copyBtn">🔗 Copy Link</button>
-        </div>
+    <main class="editor-page">
+        <h1 id="editor-title" class="editor-title"></h1>
+        <div id="editor-subtitle" class="editor-subtitle"></div>
+        <div id="editor-meta" class="editor-meta"></div>
+        <div id="editor-content" class="editor-content"></div>
     </main>
-    
-    <footer class="footer">
-        <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-    </footer>
-    
-    <script>
-        // Year
-        document.getElementById("year").textContent = new Date().getFullYear();
-        
-        // Like button
-        let likes = 0;
-        document.getElementById("likeBtn").addEventListener("click", function() {
-            document.getElementById("likeCount").textContent = ++likes;
-        });
-        
-        // Subscribe button
-        document.getElementById("subBtn").addEventListener("click", function() {
-            this.textContent = "🔔 Subscribed";
-            this.disabled = true;
-        });
-        
-        // Share button
-        document.getElementById("shareBtn").addEventListener("click", function() {
-            if (navigator.share) {
-                navigator.share({
-                    title: document.title,
-                    url: window.location.href
-                }).catch(() => {});
-            } else {
-                alert("Share this page: " + window.location.href);
-            }
-        });
-        
-        // Copy link button
-        document.getElementById("copyBtn").addEventListener("click", function() {
-            navigator.clipboard.writeText(window.location.href)
-                .then(() => alert("Link copied to clipboard!"))
-                .catch(() => alert("Failed to copy link"));
-        });
-        
-        // Load Chief Editor content from JSON
-        async function loadChiefEditor() {
-            try {
-                const response = await fetch("content/chief-editor-001.json");
-                if (!response.ok) throw new Error("Failed to load");
-                
-                const data = await response.json();
-                
-                // Set title
-                document.getElementById("editor-title").textContent = data.title || "Chief Editor";
-                
-                // Set meta
-                const metaEl = document.getElementById("editor-meta");
-                if (data.date) {
-                    const dateObj = new Date(data.date);
-                    const formattedDate = dateObj.toLocaleDateString("en-GB", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric"
-                    });
-                    metaEl.innerHTML = `<strong>${data.location || 'Switzerland'}</strong> — ${formattedDate}<br>By <em>${data.author || 'Editorial Desk'}</em> · ${data.readTime || ''}`;
-                }
-                
-                const container = document.getElementById("editor-content");
-                container.innerHTML = "";
-                
-                // Process body content
-                if (data.body && Array.isArray(data.body)) {
-                    data.body.forEach((block, index) => {
-                        // Handle first paragraph with floating image
-                        if (index === 0 && data.heroImage && block.type === "paragraph") {
-                            const alignClass = data.heroImage.align === "left" ? "float-left" : "float-right";
-                            container.innerHTML += `
-                                <p>
-                                    <figure class="${alignClass}">
-                                        <img src="${data.heroImage.src}" alt="${data.heroImage.caption || 'Chief Editor'}">
-                                        <figcaption>${data.heroImage.caption || ''}</figcaption>
-                                    </figure>
-                                    ${block.text}
-                                </p>
-                            `;
-                        }
-                        // Paragraph
-                        else if (block.type === "paragraph") {
-                            container.innerHTML += `<p>${block.text}</p>`;
-                        }
-                        // Subheading
-                        else if (block.type === "subheading") {
-                            container.innerHTML += `<h2>${block.text}</h2>`;
-                        }
-                        // Pull quote
-                        else if (block.type === "pullquote") {
-                            container.innerHTML += `<div class="pull-quote">${block.text}</div>`;
-                        }
-                        // Points / bullet list
-                        else if (block.type === "points" && block.items) {
-                            let itemsHtml = '<div class="important-points"><ul>';
-                            block.items.forEach(item => {
-                                itemsHtml += `<li>${item}</li>`;
-                            });
-                            itemsHtml += '</ul></div>';
-                            container.innerHTML += itemsHtml;
-                        }
-                    });
-                }
-                
-            } catch (error) {
-                console.error("Failed to load chief editor content", error);
-                document.getElementById("editor-title").textContent = "Error loading content";
-                document.getElementById("editor-content").innerHTML = '<p class="error">Unable to load chief editor page. Please try again later.</p>';
-            }
-        }
-        
-        loadChiefEditor();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
