@@ -1,6 +1,6 @@
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT
-   FIXED: Read More, Vlogs, Calendar, Share Buttons, Contact Form
+   FIXED: Read More, Vlogs, Calendar, Share Buttons, Pagination, Footer
    ============================================================ */
 
 // Wait for DOM to be fully loaded
@@ -73,7 +73,7 @@ function initYear() {
 }
 
 /* ============================
-   CLOCKS & CALENDARS - FIXED FOR BIKRAMI
+   CLOCKS & CALENDARS - FIXED BIKRAMI
    ============================ */
 function initClocks() {
     updateClocks();
@@ -124,12 +124,15 @@ function updateClocks() {
     const pktAmpm = pktHours >= 12 ? 'pm' : 'am';
     const pktFull = pktTime + ' ' + pktAmpm;
     
+    // Get updated Bikrami date
+    const bikramiDate = getBikramiDate();
+    
     datetimeBar.innerHTML = `
         <span>${cestText}</span>
         <span class="separator">•</span>
         <span id="cal-hijri">${getHijriDate()}</span>
         <span class="separator">•</span>
-        <span id="cal-bikrami">${getBikramiDate()}</span>
+        <span id="cal-bikrami">${bikramiDate}</span>
         <span class="separator">•</span>
         <span>IST (Jammu-Kashmir-Ladakh): <strong>${istFull}</strong></span>
         <span class="separator">•</span>
@@ -147,49 +150,158 @@ function getHijriDate() {
         }).format(now);
         return hijriDate + " AH";
     } catch(e) {
-        return "Ramadan 27, 1447 AH";
+        return "Ramadan, 1447 AH";
     }
 }
 
+/* ============================
+   BIKRAMI (DESI PUNJABI) CALENDAR - FIXED
+   ============================ */
 function getBikramiDate() {
     const today = new Date();
     const day = today.getDate();
-    const months = [
+    const month = today.getMonth(); // 0-11
+    const year = today.getFullYear();
+    
+    // Bikrami months in order
+    const bikramiMonths = [
         "Chet", "Vaisakh", "Jeth", "Harh", "Sawan", "Bhadon",
         "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"
     ];
     
-    const gregorianYear = today.getFullYear();
-    const gregorianMonth = today.getMonth(); // 0-11
-    
-    // Calculate Bikrami year (add 57 years, adjust based on month)
-    let bikramiYear = gregorianYear + 57;
-    
-    // Bikrami year starts in mid-March (around March 14-15)
-    if (gregorianMonth < 2 || (gregorianMonth === 2 && today.getDate() < 14)) {
-        bikramiYear = gregorianYear + 56;
-    }
-    
-    // Map Gregorian month to Bikrami month
-    const monthMapping = [
-        9,  // January -> Magh
-        10, // February -> Phagun
-        11, // March -> Chet
-        0,  // April -> Chet/Vaisakh
-        1,  // May -> Vaisakh
-        2,  // June -> Jeth
-        3,  // July -> Harh
-        4,  // August -> Sawan
-        5,  // September -> Bhadon
-        6,  // October -> Assu
-        7,  // November -> Kattak
-        8   // December -> Maghar
+    // Days of week in Punjabi/Desi
+    const bikramiDays = [
+        "Aitvaar", "Somvaar", "Mangalvaar", "Budhvaar", "Veervaar", "Shukarvaar", "Shanivaar"
     ];
     
-    const bikramiMonthIndex = monthMapping[gregorianMonth];
-    const monthName = months[bikramiMonthIndex];
+    // Get day of week
+    const dayOfWeek = today.getDay(); // 0 = Sunday
+    const dayName = bikramiDays[dayOfWeek];
     
-    return day + " " + monthName + " " + bikramiYear + " VS";
+    // Calculate Bikrami year and month
+    let bikramiYear = year + 57;
+    let bikramiMonth = 0;
+    let bikramiDay = day;
+    
+    // Bikrami year starts around March 14-15 (Chet 1)
+    if (month === 2) { // March
+        if (day >= 14) {
+            bikramiMonth = 0; // Chet
+            bikramiYear = year + 57;
+            bikramiDay = day - 13;
+        } else {
+            bikramiMonth = 11; // Phagun
+            bikramiYear = year + 56;
+            bikramiDay = day + 18;
+        }
+    }
+    else if (month === 3) { // April
+        bikramiMonth = 0; // Chet
+        bikramiYear = year + 57;
+        bikramiDay = day + 17;
+        if (bikramiDay > 31) {
+            bikramiDay = bikramiDay - 31;
+            bikramiMonth = 1; // Vaisakh
+        }
+    }
+    else if (month === 4) { // May
+        bikramiMonth = 1; // Vaisakh
+        bikramiYear = year + 57;
+        bikramiDay = day + 16;
+        if (bikramiDay > 31) {
+            bikramiDay = bikramiDay - 31;
+            bikramiMonth = 2; // Jeth
+        }
+    }
+    else if (month === 5) { // June
+        bikramiMonth = 2; // Jeth
+        bikramiYear = year + 57;
+        bikramiDay = day + 16;
+        if (bikramiDay > 31) {
+            bikramiDay = bikramiDay - 31;
+            bikramiMonth = 3; // Harh
+        }
+    }
+    else if (month === 6) { // July
+        bikramiMonth = 3; // Harh
+        bikramiYear = year + 57;
+        bikramiDay = day + 17;
+        if (bikramiDay > 31) {
+            bikramiDay = bikramiDay - 31;
+            bikramiMonth = 4; // Sawan
+        }
+    }
+    else if (month === 7) { // August
+        bikramiMonth = 4; // Sawan
+        bikramiYear = year + 57;
+        bikramiDay = day + 17;
+        if (bikramiDay > 31) {
+            bikramiDay = bikramiDay - 31;
+            bikramiMonth = 5; // Bhadon
+        }
+    }
+    else if (month === 8) { // September
+        bikramiMonth = 5; // Bhadon
+        bikramiYear = year + 57;
+        bikramiDay = day + 16;
+        if (bikramiDay > 30) {
+            bikramiDay = bikramiDay - 30;
+            bikramiMonth = 6; // Assu
+        }
+    }
+    else if (month === 9) { // October
+        bikramiMonth = 6; // Assu
+        bikramiYear = year + 57;
+        bikramiDay = day + 16;
+        if (bikramiDay > 30) {
+            bikramiDay = bikramiDay - 30;
+            bikramiMonth = 7; // Kattak
+        }
+    }
+    else if (month === 10) { // November
+        bikramiMonth = 7; // Kattak
+        bikramiYear = year + 57;
+        bikramiDay = day + 16;
+        if (bikramiDay > 30) {
+            bikramiDay = bikramiDay - 30;
+            bikramiMonth = 8; // Maghar
+        }
+    }
+    else if (month === 11) { // December
+        bikramiMonth = 8; // Maghar
+        bikramiYear = year + 57;
+        bikramiDay = day + 16;
+        if (bikramiDay > 30) {
+            bikramiDay = bikramiDay - 30;
+            bikramiMonth = 9; // Poh
+        }
+    }
+    else if (month === 0) { // January
+        bikramiMonth = 9; // Poh
+        bikramiYear = year + 56;
+        bikramiDay = day + 16;
+        if (bikramiDay > 30) {
+            bikramiDay = bikramiDay - 30;
+            bikramiMonth = 10; // Magh
+        }
+    }
+    else if (month === 1) { // February
+        bikramiMonth = 10; // Magh
+        bikramiYear = year + 56;
+        bikramiDay = day + 16;
+        if (bikramiDay > 30) {
+            bikramiDay = bikramiDay - 30;
+            bikramiMonth = 11; // Phagun
+        }
+    }
+    
+    // Ensure day is within valid range
+    if (bikramiDay < 1) bikramiDay = 1;
+    if (bikramiDay > 31) bikramiDay = 31;
+    
+    const monthName = bikramiMonths[bikramiMonth];
+    
+    return dayName + ", " + bikramiDay + " " + monthName + " " + bikramiYear + " VS";
 }
 
 /* ============================
@@ -310,7 +422,7 @@ function initNav() {
 }
 
 /* ============================
-   CONTACT MODAL - UPDATED WITH SIMPLE FORM
+   CONTACT MODAL
    ============================ */
 function initContactModal() {
     const openBtn = document.getElementById("contact-open");
@@ -360,7 +472,7 @@ function initContactModal() {
 }
 
 /* ============================
-   VLOGS - FIXED FROM YOUTUBE JSON
+   VLOGS - LOAD FROM YOUTUBE JSON
    ============================ */
 function initVlogs() {
     const grid = document.getElementById("vlogs-grid");
@@ -393,7 +505,6 @@ function initVlogs() {
             if (visitBtn) {
                 visitBtn.style.display = 'none';
             }
-            // Use fallback vlogs
             renderVlogsFallback();
         });
 }
@@ -592,10 +703,9 @@ function initNewsletter() {
 }
 
 /* ============================
-   FOOTER DROPDOWNS - UPDATED WITH NEW CONTENT
+   FOOTER DROPDOWNS - FIXED WITH CENTERED TEXT
    ============================ */
 function initFooterDropdowns() {
-    // Update footer content
     updateFooterContent();
     
     const sections = document.querySelectorAll('.footer-section');
@@ -617,8 +727,10 @@ function updateFooterContent() {
     
     footerContent.innerHTML = `
         <div class="footer-section">
-            <h4>THE MIRROR JAMMU KASHMIR</h4>
-            <p>THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, TO POLICY, TO HISTORY, AND TO TRUTH.</p>
+            <h4 style="text-align: center;">THE MIRROR JAMMU KASHMIR</h4>
+            <p style="text-align: center; max-width: 90%; margin: 0 auto;">
+                THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, TO POLICY, TO HISTORY, AND TO TRUTH.
+            </p>
         </div>
         <div class="footer-section">
             <h4>Quick Links</h4>
@@ -648,7 +760,7 @@ function updateFooterContent() {
 }
 
 /* ============================
-   SHARE TOOLTIP - ENHANCED
+   SHARE TOOLTIP
    ============================ */
 function initShareTooltip() {
     const shareBtn = document.getElementById('btn-share');
@@ -721,8 +833,6 @@ function loadHomepageContent() {
             
             if (index.latestEditorialHistorical) {
                 loadLehSection([index.latestEditorialHistorical.latest, index.latestEditorialHistorical.editorial, index.latestEditorialHistorical.historical]);
-            } else if (index.latest || index.editorial || index.historical) {
-                loadLehSection([index.latest ? index.latest[0] : null, index.editorial ? index.editorial[0] : null, index.historical ? index.historical[0] : null]);
             } else {
                 loadLehFallback();
             }
@@ -1212,51 +1322,112 @@ function initArticlePage() {
         return;
     }
     
-    fetch("content/" + id + ".json")
+    const pathsToTry = [
+        "content/" + id + ".json",
+        "./content/" + id + ".json",
+        "/content/" + id + ".json",
+        id + ".json"
+    ];
+    
+    tryLoadArticle(pathsToTry, 0, id);
+}
+
+function tryLoadArticle(paths, index, id) {
+    if (index >= paths.length) {
+        console.error("All paths failed for article:", id);
+        document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Article not found: ' + id + '</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        return;
+    }
+    
+    const path = paths[index];
+    console.log("Trying path:", path);
+    
+    fetch(path)
         .then(function(response) {
-            if (response.ok) return response.json();
-            throw new Error("Article not found");
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Failed to load from " + path);
         })
-        .then(function(article) {
-            let processed = article;
-            if (article.items && Array.isArray(article.items) && article.items.length > 0) processed = article.items[0];
-            else if (Array.isArray(article) && article.length > 0) processed = article[0];
-            renderFullArticlePage(processed);
+        .then(function(data) {
+            console.log("Raw data loaded:", data);
+            
+            let article = data;
+            if (data.items && Array.isArray(data.items) && data.items.length > 0) {
+                article = data.items[0];
+            } else if (Array.isArray(data) && data.length > 0) {
+                article = data[0];
+            }
+            
+            console.log("Processed article:", article);
+            
+            renderFullArticlePage(article);
             initShareTooltip();
         })
-        .catch(function() {
-            document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Article not found</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        .catch(function(error) {
+            console.error("Error loading from", path, ":", error);
+            tryLoadArticle(paths, index + 1, id);
         });
 }
 
 /* ============================
-   RENDER FULL ARTICLE PAGE - WITH READ MORE & PAGINATION
+   RENDER FULL ARTICLE PAGE
    ============================ */
 function renderFullArticlePage(article) {
+    console.log("Rendering article:", article.title);
+    
+    // Hide loading, show content
+    const loadingDiv = document.getElementById('loading-state');
+    if (loadingDiv) loadingDiv.style.display = 'none';
+    
+    const contentDiv = document.getElementById('content');
+    if (contentDiv) contentDiv.style.display = 'block';
+    
     // Set page title
     const pageTitle = document.getElementById("page-title");
-    if (pageTitle) pageTitle.textContent = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
+    if (pageTitle) {
+        pageTitle.textContent = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
+    }
     
     // Set section label
     const sectionLabel = document.getElementById("section-label");
-    if (sectionLabel) sectionLabel.textContent = article.sectionLabel || article.category || "ARTICLE";
+    if (sectionLabel) {
+        sectionLabel.textContent = article.sectionLabel || article.category || "ARTICLE";
+    }
     
     // Set title
     const titleEl = document.getElementById("title");
-    if (titleEl) titleEl.textContent = article.title || "Untitled";
+    if (titleEl) {
+        titleEl.textContent = article.title || "Untitled";
+    }
     
     // Set meta information
     const metaEl = document.getElementById("meta");
     if (metaEl) {
         let metaHtml = '';
-        if (article.location) metaHtml += '<strong>' + article.location + '</strong>';
+        
+        if (article.location) {
+            metaHtml += '<strong>' + article.location + '</strong>';
+        }
+        
         if (article.date) {
             const dateObj = new Date(article.date);
-            const formattedDate = dateObj.toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" });
+            const formattedDate = dateObj.toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
             metaHtml += (metaHtml ? ' — ' : '') + formattedDate;
         }
-        if (article.author) metaHtml += '<br>By <em>' + article.author + '</em>';
-        if (article.readTime) metaHtml += ' · ' + article.readTime;
+        
+        if (article.author) {
+            metaHtml += '<br>By <em>' + article.author + '</em>';
+        }
+        
+        if (article.readTime) {
+            metaHtml += ' · ' + article.readTime;
+        }
+        
         metaEl.innerHTML = metaHtml;
     }
     
@@ -1267,11 +1438,19 @@ function renderFullArticlePage(article) {
     
     if (article.heroImage && article.heroImage.src && heroImg) {
         let imageSrc = article.heroImage.src;
-        if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
-            imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+        
+        if (imageSrc.startsWith('/')) imageSrc = imageSrc.substring(1);
+        if (!imageSrc.startsWith('http') && !imageSrc.startsWith('content/images/')) {
+            imageSrc = 'content/images/' + imageSrc.split('/').pop();
         }
+        
         heroImg.src = imageSrc;
         heroImg.alt = article.heroImage.caption || article.title || '';
+        heroImg.onerror = function() {
+            this.onerror = null;
+            this.src = 'https://via.placeholder.com/1280x720?text=' + encodeURIComponent(article.title?.charAt(0) || 'J');
+        };
+        
         if (heroCaption) heroCaption.textContent = article.heroImage.caption || '';
         if (heroWrap) heroWrap.style.display = 'block';
     } else if (heroWrap) {
@@ -1286,75 +1465,88 @@ function renderFullArticlePage(article) {
     if (!contentEl) return;
     contentEl.innerHTML = '';
     
-    if (article.body && Array.isArray(article.body)) {
+    if (article.body && Array.isArray(article.body) && article.body.length > 0) {
         article.body.forEach(function(block) {
             if (block.type === "paragraph") {
                 contentEl.innerHTML += '<p>' + (block.text || '') + '</p>';
-            } else if (block.type === "header") {
+            }
+            else if (block.type === "header") {
                 contentEl.innerHTML += '<h2 class="mid-subheading" style="font-size: 1.8rem; color: #b30000; margin: 2rem 0 1.5rem;">' + (block.text || '') + '</h2>';
-            } else if (block.type === "subheading") {
+            }
+            else if (block.type === "subheading") {
                 contentEl.innerHTML += '<h2 class="mid-subheading">' + (block.text || '') + '</h2>';
-            } else if (block.type === "pullquote") {
+            }
+            else if (block.type === "pullquote") {
                 contentEl.innerHTML += '<div class="pull-quote">' + (block.text || '') + '</div>';
-            } else if (block.type === "points" && block.items) {
+            }
+            else if (block.type === "points" && block.items) {
                 let listHtml = '<div class="important-points"><ul>';
-                block.items.forEach(function(item) { listHtml += '<li>' + item + '</li>'; });
+                block.items.forEach(function(item) {
+                    listHtml += '<li>' + item + '</li>';
+                });
                 listHtml += '</ul></div>';
                 contentEl.innerHTML += listHtml;
-            } else if (block.type === "image" && block.src) {
+            }
+            else if (block.type === "image" && block.src) {
                 let imageSrc = block.src;
-                if (imageSrc.includes('github.com') && !imageSrc.includes('raw')) {
-                    imageSrc = imageSrc.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                
+                if (imageSrc.startsWith('/')) imageSrc = imageSrc.substring(1);
+                if (!imageSrc.startsWith('http') && !imageSrc.startsWith('content/images/')) {
+                    imageSrc = 'content/images/' + imageSrc.split('/').pop();
                 }
-                const alignClass = block.align === "right" ? "img-right" : block.align === "left" ? "img-left" : "img-center";
+                
+                const alignClass = block.align === "right" ? "img-right" :
+                                   block.align === "left" ? "img-left" : "img-center";
+                
                 let captionText = block.caption || '';
-                if (block.credit && !captionText.includes(block.credit)) captionText += captionText ? ' — ' + block.credit : block.credit;
-                contentEl.innerHTML += `<figure class="${alignClass}"><img src="${imageSrc}" alt="${block.caption || 'Image'}" onerror="this.src='https://via.placeholder.com/640x360?text=Image'">${captionText ? '<figcaption>' + captionText + '</figcaption>' : ''}</figure>`;
+                if (block.credit && !captionText.includes(block.credit)) {
+                    captionText += captionText ? ' — ' + block.credit : block.credit;
+                }
+                
+                contentEl.innerHTML += `
+                    <figure class="${alignClass}">
+                        <img src="${imageSrc}" alt="${block.caption || 'Image'}" onerror="this.src='https://via.placeholder.com/640x360?text=Image'">
+                        ${captionText ? '<figcaption>' + captionText + '</figcaption>' : ''}
+                    </figure>
+                `;
             }
         });
+    } else {
+        contentEl.innerHTML = '<p>No content available for this article.</p>';
     }
     
-    // ADD READ MORE SECTION
+    // Add Read More section
     if (article.readMore && article.readMore.trim() !== '') {
         const readMoreSection = document.createElement('div');
         readMoreSection.className = 'read-more-section';
-        readMoreSection.innerHTML = `<h3 class="read-more-title">Read More</h3><div class="read-more-content">${article.readMore}</div>`;
+        readMoreSection.innerHTML = `
+            <h3 class="read-more-title">Read More</h3>
+            <div class="read-more-content">
+                ${article.readMore}
+            </div>
+        `;
         contentEl.appendChild(readMoreSection);
     }
     
-    // ADD ARTICLE ACTION BUTTONS
+    // Add article action buttons
     addArticleActionButtons(article);
     
-    // ADD PAGINATION
+    // Add article pagination
     addArticlePagination(article);
     
-    // SUGGEST NEXT ARTICLE
+    // Suggest next article
     suggestNextArticle(article.id);
 }
 
-function updateSocialMetaTags(article) {
-    const fullUrl = window.location.href;
-    const title = article.title || 'THE MIRROR JAMMU KASHMIR';
-    const excerpt = article.excerpt || article.summary || 'Read the latest from THE MIRROR JAMMU KASHMIR.';
-    let imageUrl = '';
-    if (article.heroImage && article.heroImage.src) {
-        imageUrl = article.heroImage.src.startsWith('http') ? article.heroImage.src : window.location.origin + '/' + article.heroImage.src;
-    }
-    
-    const tags = ['og-url', 'og-title', 'og-description', 'og-image', 'twitter-title', 'twitter-description', 'twitter-image', 'meta-description'];
-    const values = [fullUrl, title, excerpt, imageUrl, title, excerpt, imageUrl, excerpt];
-    
-    tags.forEach(function(tag, i) {
-        const el = document.getElementById(tag);
-        if (el && values[i]) el.setAttribute('content', values[i]);
-    });
-}
-
+/* ============================
+   ADD ARTICLE ACTION BUTTONS
+   ============================ */
 function addArticleActionButtons(article) {
     let actionsDiv = document.querySelector('.article-actions-bottom');
+    
     if (!actionsDiv) {
         const contentEl = document.getElementById("content");
-        if (contentEl) {
+        if (contentEl && contentEl.parentNode) {
             actionsDiv = document.createElement('div');
             actionsDiv.className = 'article-actions-bottom';
             contentEl.parentNode.insertBefore(actionsDiv, contentEl.nextSibling);
@@ -1362,22 +1554,22 @@ function addArticleActionButtons(article) {
     }
     
     if (actionsDiv) {
+        const articleId = article.id || window.location.search;
+        const storageKey = 'article-likes-' + articleId;
+        let likes = localStorage.getItem(storageKey) || 0;
+        
         actionsDiv.innerHTML = `
             <div class="article-action-buttons">
-                <button id="article-like-btn" class="action-btn">👍 Like <span id="article-like-count"></span></button>
+                <button id="article-like-btn" class="action-btn">👍 Like <span id="article-like-count">${likes ? ' (' + likes + ')' : ''}</span></button>
                 <button id="article-subscribe-btn" class="action-btn">🔔 Subscribe</button>
                 <button id="article-share-btn" class="action-btn">📤 Share</button>
                 <button id="article-copy-btn" class="action-btn">🔗 Copy Link</button>
             </div>
         `;
         
-        // Like button
         const likeBtn = document.getElementById('article-like-btn');
         const likeCountSpan = document.getElementById('article-like-count');
         if (likeBtn) {
-            const storageKey = 'article-likes-' + (article.id || window.location.search);
-            let likes = localStorage.getItem(storageKey) || 0;
-            if (likeCountSpan) likeCountSpan.textContent = likes ? ' (' + likes + ')' : '';
             likeBtn.addEventListener('click', function() {
                 let currentLikes = parseInt(localStorage.getItem(storageKey) || 0);
                 currentLikes++;
@@ -1385,49 +1577,68 @@ function addArticleActionButtons(article) {
                 if (likeCountSpan) likeCountSpan.textContent = ' (' + currentLikes + ')';
                 likeBtn.style.backgroundColor = '#b30000';
                 likeBtn.style.color = 'white';
-                setTimeout(() => { likeBtn.style.backgroundColor = ''; likeBtn.style.color = ''; }, 200);
+                setTimeout(() => {
+                    likeBtn.style.backgroundColor = '';
+                    likeBtn.style.color = '';
+                }, 200);
             });
         }
         
-        // Subscribe button
         const subscribeBtn = document.getElementById('article-subscribe-btn');
         if (subscribeBtn) {
             subscribeBtn.addEventListener('click', function() {
                 const email = prompt("Enter your email to subscribe:", "your@email.com");
-                if (email && email.includes('@') && email.includes('.')) alert("Thank you for subscribing!");
-                else if (email) alert("Please enter a valid email address.");
+                if (email && email.includes('@') && email.includes('.')) {
+                    alert("Thank you for subscribing!");
+                } else if (email) {
+                    alert("Please enter a valid email address.");
+                }
             });
         }
         
-        // Share button
         const shareBtn = document.getElementById('article-share-btn');
         if (shareBtn) {
             shareBtn.addEventListener('click', function() {
                 const tooltip = document.getElementById('share-tooltip');
-                if (tooltip) tooltip.classList.toggle('show');
-                else if (navigator.share) navigator.share({ title: document.title, url: window.location.href });
-                else alert("Share this page: " + window.location.href);
+                if (tooltip) {
+                    tooltip.classList.toggle('show');
+                } else if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        url: window.location.href
+                    }).catch(() => {});
+                } else {
+                    alert("Share this page: " + window.location.href);
+                }
             });
         }
         
-        // Copy button
         const copyBtn = document.getElementById('article-copy-btn');
         if (copyBtn) {
             copyBtn.addEventListener('click', function() {
-                navigator.clipboard.writeText(window.location.href).then(() => alert("Link copied!")).catch(() => alert("Failed to copy link"));
+                navigator.clipboard.writeText(window.location.href)
+                    .then(() => alert("Link copied!"))
+                    .catch(() => alert("Failed to copy link"));
                 copyBtn.style.backgroundColor = '#b30000';
                 copyBtn.style.color = 'white';
-                setTimeout(() => { copyBtn.style.backgroundColor = ''; copyBtn.style.color = ''; }, 200);
+                setTimeout(() => {
+                    copyBtn.style.backgroundColor = '';
+                    copyBtn.style.color = '';
+                }, 200);
             });
         }
     }
 }
 
+/* ============================
+   ADD ARTICLE PAGINATION - UNIFIED MAROON BUTTONS
+   ============================ */
 function addArticlePagination(article) {
     let paginationDiv = document.querySelector('.article-pagination');
+    
     if (!paginationDiv) {
         const contentEl = document.getElementById("content");
-        if (contentEl) {
+        if (contentEl && contentEl.parentNode) {
             paginationDiv = document.createElement('div');
             paginationDiv.className = 'article-pagination';
             contentEl.parentNode.insertBefore(paginationDiv, contentEl.nextSibling);
@@ -1460,6 +1671,45 @@ function addArticlePagination(article) {
             <a href="index.html" class="pagination-btn home-btn">← Back to Homepage</a>
             <div class="pagination-nav">${prevHtml} ${nextHtml}</div>
         `;
+    }
+}
+
+/* ============================
+   UPDATE SOCIAL META TAGS
+   ============================ */
+function updateSocialMetaTags(article) {
+    const fullUrl = window.location.href;
+    const title = article.title || 'THE MIRROR JAMMU KASHMIR';
+    const excerpt = article.excerpt || article.summary || 'Read the latest from THE MIRROR JAMMU KASHMIR.';
+    
+    let imageUrl = '';
+    if (article.heroImage && article.heroImage.src) {
+        imageUrl = article.heroImage.src;
+        if (!imageUrl.startsWith('http')) {
+            imageUrl = window.location.origin + '/' + imageUrl;
+        }
+    }
+    
+    const metaTags = [
+        { id: 'og-url', content: fullUrl },
+        { id: 'og-title', content: title },
+        { id: 'og-description', content: excerpt },
+        { id: 'twitter-title', content: title },
+        { id: 'twitter-description', content: excerpt },
+        { id: 'meta-description', content: excerpt }
+    ];
+    
+    metaTags.forEach(tag => {
+        const el = document.getElementById(tag.id);
+        if (el && tag.content) el.setAttribute('content', tag.content);
+    });
+    
+    if (imageUrl) {
+        const ogImage = document.getElementById('og-image');
+        if (ogImage) ogImage.setAttribute('content', imageUrl);
+        
+        const twitterImage = document.getElementById('twitter-image');
+        if (twitterImage) twitterImage.setAttribute('content', imageUrl);
     }
 }
 
