@@ -1,69 +1,156 @@
 {
-  "id": "breaking-001",
-  "slug": "ukpnp-delegation-briefs-british-mps-london-parliament-kashmir-crisis",
-  "title": "UKPNP High Level Delegation Briefs British MPs on Kashmir Crisis and Current Situation in London House of Parliament",
-  "category": "breaking",
-  "sectionLabel": "🆕 BREAKING NEWS",
-  "excerpt": "A high-level UKPNP delegation led by Sardar Shaukat Ali Kashmiri briefed British MPs in the House of Parliament on the Kashmir crisis, human rights concerns, and the current political situation.",
-  "author": "London Correspondent",
-  "location": "London, United Kingdom",
-  "date": "2026-02-10T14:00:00Z",
-  "readTime": "6 min read",
-  "heroImage": {
-    "src": "content/images/london-ukpnp-01.jpg",
-    "caption": "UKPNP delegation meeting British MPs inside the UK Parliament.",
-    "credit": "The Mirror Jammu Kashmir"
-  },
-  "archive": false,
-  "body": [
-    {
-      "type": "paragraph",
-      "text": "A high-level delegation of the United Kashmir People's National Party (UKPNP) met British Members of Parliament in the House of Commons to brief them on the ongoing Kashmir crisis and the deteriorating human rights situation across the region."
+    "id": "breaking-001",
+    "slug": "ukpnp-delegation-meets-baroness-emma-nicholson-house-of-lords-london",
+    "title": "High Level UKPNP Delegation Led by Sardar Shaukat Ali Kashmiri Meets Baroness Emma Nicholson, Member of the House of Lords, United Kingdom",
+    "category": "breaking",
+    "sectionLabel": "🆕 BREAKING NEWS",
+    "excerpt": "A high level delegation of the United Kashmir People's National Party (UKPNP) led by its Exiled Chairman Sardar Shaukat Ali Kashmiri held a formal meeting and briefing with Baroness Emma Nicholson, Member of the House of Lords of the United Kingdom.",
+    "author": "Special Correspondent",
+    "location": "London, United Kingdom",
+    "date": "2025-11-26T14:00:00Z",
+    "readTime": "12 min read",
+    "heroImage": {
+        "src": "content/images/london-ukpnp-01.jpg",
+        "caption": "UKPNP delegation meeting Baroness Emma Nicholson at the House of Lords, London — The Mirror Jammu Kashmir",
+        "credit": "The Mirror Jammu Kashmir",
+        "align": "center"
     },
-    {
-      "type": "paragraph",
-      "text": "The delegation, led by Sardar Shaukat Ali Kashmiri, included senior party members who presented a detailed briefing on the historical context of the Kashmir conflict, the current political situation, and the humanitarian challenges faced by civilians in the region."
+    "navigation": {
+        "prev": "article-001",
+        "next": "blog-001",
+        "home": "index.html"
     },
-    {
-      "type": "pullquote",
-      "text": "The people of Jammu and Kashmir cannot be silenced. Their voices must be heard in the corridors of power, and their rights must be protected under international law."
-    },
-    {
-      "type": "paragraph",
-      "text": "During the meeting, the delegation highlighted concerns regarding political repression, arbitrary detentions, and the frequent communication blackouts that have severed contact between families and their loved ones abroad. They emphasized that such measures constitute collective punishment and violate fundamental human rights."
-    },
-    {
-      "type": "image",
-      "src": "content/images/london-ukpnp-02.jpg",
-      "align": "right",
-      "caption": "Delegation members presenting documents to MPs.",
-      "credit": "UKPNP Media Cell"
-    },
-    {
-      "type": "paragraph",
-      "text": "The delegation also raised the issue of prolonged public protests over electricity shortages, lack of basic services, and the targeting of journalists and peaceful activists. They called for an immediate end to what they described as the militarization of civilian life."
-    },
-    {
-      "type": "pullquote",
-      "text": "There is no military solution to the Kashmir conflict. Only dialogue, democratic participation, and respect for human dignity can lead to a just and lasting peace."
-    },
-    {
-      "type": "paragraph",
-      "text": "British MPs expressed serious concern over the human rights situation and called for renewed international attention to the region. They emphasized the importance of democratic rights, freedom of expression, and the protection of civilians under international humanitarian law."
-    },
-    {
-      "type": "paragraph",
-      "text": "The meeting concluded with a mutual commitment to continue diplomatic engagement and to work together in raising the Kashmir issue at international forums, including the United Nations Human Rights Council and the European Parliament."
-    },
-    {
-      "type": "points",
-      "items": [
-        "UKPNP delegation met with multiple British MPs across party lines",
-        "Discussions focused on human rights violations and political repression",
-        "Concerns raised over communication blackouts affecting millions",
-        "British MPs pledged to raise the issue in Parliament",
-        "Both sides agreed on the need for peaceful dialogue and international mediation"
-      ]
-    }
-  ]
+    "archive": false,
+    "readMore": "<p>For more information on the 2007 European Parliament Report on Kashmir and its recommendations, please refer to the full document A6-0158/2007. The report was adopted by 522 votes in favor, 9 against, and 19 abstentions, marking a historic moment for the Kashmir cause in international diplomacy.</p><p>UKPNP continues to engage with international stakeholders, including members of the European Parliament, the United Nations Human Rights Council, and diplomatic missions across Europe and North America. The party remains committed to peaceful dialogue, democratic principles, and the protection of fundamental human rights for all Kashmiris.</p><p>Follow us on X (Twitter) at @UKPNP_Official for the latest updates and announcements.</p>",
+    "tags": ["UKPNP", "Baroness Emma Nicholson", "House of Lords", "Kashmir", "Human Rights", "European Parliament", "Diplomacy", "London"],
+    "body": [
+        {
+            "type": "subheading",
+            "text": "UKPNP Delegation Meets Baroness Emma Nicholson at the House of Lords"
+        },
+        {
+            "type": "paragraph",
+            "text": "A high level delegation of the United Kashmir People's National Party (UKPNP), led by its Exiled Chairman Sardar Shaukat Ali Kashmiri, held a formal meeting and briefing with Baroness Emma Nicholson, Member of the House of Lords of the United Kingdom. Baroness Nicholson has been a life peer since 1997. She served as Member of the European Parliament, Rapporteur on Kashmir, and Former Vice President of the European Parliament's Committee on Foreign Affairs, Human Rights, Common Defense, and Security Policy."
+        },
+        {
+            "type": "paragraph",
+            "text": "Her Report on Kashmir, adopted in May 2007 by 522 votes to 9, remains one of the most important documents ever produced on the issue. The meeting took place in London and focused on political conditions in all regions of the historical State of Jammu and Kashmir, human rights challenges, changes since 2007, and possible steps for international follow up."
+        },
+        {
+            "type": "image",
+            "src": "content/images/london-ukpnp-02.jpg",
+            "align": "right",
+            "caption": "Delegation members presenting documents to Baroness Nicholson at the House of Lords — UKPNP Media Cell",
+            "credit": "UKPNP Media Cell"
+        },
+        {
+            "type": "paragraph",
+            "text": "The delegation included Sardar Nasir Aziz Khan, Central Spokesperson UKPNP; Mahmood Kashmiri, Member Central Committee UKPNP; Sardar Tikka Khan Tahir, Central Secretary Information UKPNP; Sardar Amjad Yousaf, President UKPNP Europe Zone; Sardar Tariq Khan, President UKPNP UK Zone; Raja Sarfraz, General Secretary UKPNP UK Zone; and Sajjad Hussain, President UKPNP London."
+        },
+        {
+            "type": "pullquote",
+            "text": "The 2007 European Parliament Report on Kashmir confirmed that the entire State of Jammu and Kashmir is a single entity, reaffirmed the right to self determination, right to free movement, and stressed that neither India nor Pakistan can decide the future of any part of the region without the consent of its people."
+        },
+        {
+            "type": "paragraph",
+            "text": "Sardar Shaukat Ali Kashmiri thanked Baroness Emma Nicholson for her longstanding engagement on Jammu and Kashmir. He said UKPNP values her leadership as Rapporteur on Kashmir and her work in the 2007 European Parliament Report, which confirmed that the entire State of Jammu and Kashmir is a single entity, reaffirmed the right to self determination, right to free movement and stressed that neither India nor Pakistan can decide the future of any part of the region without the consent of its people."
+        },
+        {
+            "type": "paragraph",
+            "text": "The delegation compared the findings of the 2007 report with current developments. Indian administered Jammu and Kashmir and Ladakh held a special status until August 2019 when the Government of India abrogated special status Article 370 and Article 35A, dismembered the historical state, stripped Ladakh from Jammu and Kashmir, demoted the State, and created two union territories. In 2020, Pakistan declared Gilgit Baltistan a province without granting genuine political and economic rights."
+        },
+        {
+            "type": "paragraph",
+            "text": "The delegation stated that suffering in all regions continues, that people remain divided, and that civic rights remain restricted. They also noted the rise of extremist groups and shrinking space for secular, democratic, and pro-peace voices. The delegation reaffirmed that Jammu, Kashmir, Ladakh, Gilgit Baltistan, and Azad Jammu and Kashmir together form one historical and political entity. Its final status remains unresolved and must be determined according to the United Nations Resolutions and through the will of its people and relevant international commitments."
+        },
+        {
+            "type": "paragraph",
+            "text": "The delegation outlined historical context. The State of Jammu and Kashmir was established on 16 March 1846 through the Treaty of Amritsar and existed until 1947, when it was invaded by Pakistan and forcibly divided following the partition of British India. Since then not only land but thousands of families are divided and millions displaced, restricting free movement, freedom of expression, association, and peaceful assembly have affected people in all regions."
+        },
+        {
+            "type": "pullquote",
+            "text": "There is no military solution to the Kashmir conflict. Only dialogue, democratic participation, and respect for human dignity can lead to a just and lasting peace."
+        },
+        {
+            "type": "paragraph",
+            "text": "Lord Baroness Nicholson welcomed the briefing and stressed the need for Kashmiri youth in the diaspora to be well integrated, well educated, and active in politics. The delegation agreed and noted that Kashmiri youth can drive change and can be catalyst to achieve rights. They also explained how governments and institutions have used religious narratives to divide people and weaken the national question."
+        },
+        {
+            "type": "paragraph",
+            "text": "They said that misinformation and distorted history have been taught in Azad Kashmir and Gilgit Baltistan and also circulated in diaspora communities. In the United Kingdom some groups used religious platforms to discourage participation in UKPNP events and labelled party members as anti-religion, anti-Pakistan, anti-Islam, and foreign agents. They approached MPs, Councillors, and the Kashmiri and South Asian Community to boycott United Kashmir People's National Party UKPNP conferences and events."
+        },
+        {
+            "type": "paragraph",
+            "text": "Sardar Shaukat Kashmiri, Sardar Nasir Aziz Khan, Mahmood Kashmiri, Sajjad Hussain and others said that first and second generation Kashmiris in the region and diaspora still face confusion due to decades of propaganda. The third generation is more educated, more aware, and active in politics, though they still face pressure from families and society. Sardar Shaukat Ali Kashmiri said UKPNP has a strong presence in Europe and North America. Officials from Pakistan and Azad Kashmir face questions from diaspora communities about rights, restrictions, and governance."
+        },
+        {
+            "type": "paragraph",
+            "text": "Lord Baroness Nicholson asked for an assessment of each region. The delegation said that under the provisional accession and United Nations resolutions, India has a legal claim to Jammu and Kashmir based on the request of Maharaja Hari Singh. Indian administered regions have more development, better infrastructure, stronger institutions, a more vibrant media, and representation in the Lok Sabha and Rajya Sabha. However, the 2019 abrogation of Article 370 and 35A was a setback for democracy, civic rights, and political representation."
+        },
+        {
+            "type": "paragraph",
+            "text": "The delegation stated that Pakistan has no legal locus standi on Jammu and Kashmir. Pakistan invaded the State on 22 October 1947 which resulted in deaths of thousands, displacement of millions, and forced division and bloodshed. Azad Kashmir and Gilgit Baltistan remain under the control of Islamabad despite being rich in natural resources and receiving large remittances sent by Kashmiris from abroad."
+        },
+        {
+            "type": "pullquote",
+            "text": "From 28 September to 4 October 2025, Pakistan imposed a blackout in Azad Kashmir, cutting mobile and internet services. Three million people were under siege, cut off, and two million abroad could not reach their families. Twelve peaceful protesters including policemen were killed by Pakistani Rangers."
+        },
+        {
+            "type": "paragraph",
+            "text": "The 1949 Karachi Agreement separated Gilgit Baltistan from Azad Kashmir. There were no elections in Azad Kashmir until 1970, and people in Gilgit Baltistan had no right to vote until 2009. Both regions are treated as colonies and restricted governance through the AJK Interim Constitution Act 1974 and powerful Pakistani lent officers, GOC Murree, and intelligence agencies."
+        },
+        {
+            "type": "paragraph",
+            "text": "Extremist groups are roaming freely without any restrictions. While pro-peace, pro-people, and pro-Kashmir parties and groups face discrimination. UKPNP and other nationalist parties are barred from elections unless they sign an affidavit declaring loyalty to Pakistan and support of accession to Pakistan. The delegation explained that people in Azad Kashmir and Gilgit Baltistan have protested for more than two and a half years for rights, ownership of resources, and self-rule."
+        },
+        {
+            "type": "paragraph",
+            "text": "In May 2024, Pakistani Rangers killed three peaceful protesters in Muzaffarabad, Azad Kashmir. One police officer died after being shot by an unknown bullet. From 28 September to 4 October 2025, Pakistan imposed a blackout in Azad Kashmir, cutting mobile and internet services. Three million people were under siege, cut off, and two million abroad could not reach families. Twelve peaceful protesters including policemen were killed by Pakistani Rangers. The blackout ended after diaspora protests and international interventions."
+        },
+        {
+            "type": "paragraph",
+            "text": "UKPNP mobilised demonstrations in front of the United Nations, at Pakistan High Commission and Consulates in United Kingdom, embassies and consulates, and in several countries. Written and oral statements and interventions were made and memorandums submitted urging the United Nations and International community to intervene to save lives of millions of Kashmiris under siege in Azad Kashmir."
+        },
+        {
+            "type": "points",
+            "items": [
+                "India and Pakistan should reduce military presence in civilian areas and take steps toward demilitarisation",
+                "Both governments should end all human rights violations and allow full access to independent monitors",
+                "Pakistan should end support, assistance, and safe havens for all militant groups operating in or from its territory",
+                "India should review and repeal laws that grant broad immunity to security forces, including the Armed Forces Special Powers Act",
+                "Cross Line of Control travel and trade should be expanded to allow free movement for divided families",
+                "Civil society, political groups, and media in all regions should be allowed to operate freely without restrictions",
+                "Both countries should respect the right to self determination as outlined in international commitments",
+                "The people of Jammu and Kashmir must remain central to any political process regarding the future of the region"
+            ]
+        },
+        {
+            "type": "subheading",
+            "text": "Recommendations from the 2007 European Parliament Report on Kashmir"
+        },
+        {
+            "type": "paragraph",
+            "text": "The delegation underlined that Azad Kashmir and Gilgit Baltistan have no representation in the National Assembly or Senate of Pakistan. Provinces of Pakistan receive funds through the National Finance Commission Award, but Azad Kashmir and Gilgit Baltistan are excluded from development allocations and included only when resources are extracted. Hilltops, land, and tourist areas are occupied without permission. Both regions are treated as colonies."
+        },
+        {
+            "type": "paragraph",
+            "text": "The delegation said that Indian administered regions are more developed and have broader political rights, but the 2019 changes created serious concerns. UKPNP asked India to restore special status and statehood and to reunite the State of Jammu and Kashmir. People in Ladakh are protesting and demand fulfilment of promises made to them."
+        },
+        {
+            "type": "pullquote",
+            "text": "The Jammu and Kashmir conflict is not a religious, territorial, bilateral, or unfinished agenda of the partition of the subcontinent or so-called two nations theory. The root causes must be addressed. There is no military solution to the conflict."
+        },
+        {
+            "type": "paragraph",
+            "text": "Lord Baroness Nicholson said the United Kingdom holds influence and stressed the need for more meetings at high levels. She expressed readiness to continue discussions. The delegation thanked Lord Baroness Nicholson for her work on the 2007 Kashmir Report. They stressed that major changes have taken place since 2007, which makes follow up critical."
+        },
+        {
+            "type": "paragraph",
+            "text": "Sardar Shaukat Ali Kashmiri said that Jammu and Kashmir is a multi-religious, multi-cultural, multi-lingual, and multi-ethnic state. The Jammu and Kashmir conflict is not a religious, territorial, bilateral, or unfinished agenda of the partition of the subcontinent or so-called two nations theory. He said the root causes must be addressed. Delegation said there is no military solution to the conflict. They said the right to free movement, freedom of expression, and fundamental human rights must be respected. People of Jammu and Kashmir deserve their right to self-determination. The conflict must be resolved according to UN resolutions and as per the wishes of the people."
+        },
+        {
+            "type": "paragraph",
+            "text": "For further information, contact the UKPNP Media Office at themirrorjk@gmail.com or follow on X at @NasirKhanUKPNP."
+        }
+    ]
 }
