@@ -1427,7 +1427,6 @@ h1, h2, h3, h4, h5 {
         font-size: 1.8rem;
     }
 }
-
 /* ============================================================
    ADDITIONAL STYLES - ARTICLE PAGE & NEW FEATURES
    Add these at the very end of your styles.css file
@@ -1914,5 +1913,76 @@ h1, h2, h3, h4, h5 {
     
     .read-more-title {
         font-size: 1.2rem;
+    }
+}
+/* ============================================================
+   INLINE IMAGE STYLES - ADD AT THE END OF YOUR CSS FILE
+   ============================================================ */
+
+/* Image floating left - 38% width */
+#content .img-left {
+    float: left;
+    width: 38%;
+    margin: 0.5rem 1.5rem 1rem 0;
+    clear: none;
+}
+
+/* Image floating right - 38% width */
+#content .img-right {
+    float: right;
+    width: 38%;
+    margin: 0.5rem 0 1rem 1.5rem;
+    clear: none;
+}
+
+/* Center image - 100% width */
+#content .img-center {
+    width: 100%;
+    margin: 2rem 0;
+    text-align: center;
+    float: none;
+    clear: both;
+}
+
+/* Figure styling */
+#content figure {
+    margin: 1.5rem 0;
+    display: block;
+}
+
+#content figure img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#content figcaption {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+    font-style: italic;
+    text-align: center;
+}
+
+/* Clearfix */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Ensure paragraphs don't get stuck next to images */
+#content p {
+    overflow: hidden;
+}
+
+/* Responsive: Stack images on mobile */
+@media (max-width: 768px) {
+    #content .img-left,
+    #content .img-right {
+        float: none;
+        width: 100%;
+        margin: 1.5rem 0;
     }
 }
