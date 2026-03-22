@@ -21,7 +21,7 @@
         "home": "index.html"
     },
     "archive": false,
-    "readMore": "<p>For more information on the 2007 European Parliament Report on Kashmir and its recommendations, please refer to the full document A6-0158/2007. The report was adopted by 522 votes in favor, 9 against, and 19 abstentions, marking a historic moment for the Kashmir cause in international diplomacy.</p><p>UKPNP continues to engage with international stakeholders, including members of the European Parliament, the United Nations Human Rights Council, and diplomatic missions across Europe and North America. The party remains committed to peaceful dialogue, democratic principles, and the protection of fundamental human rights for all Kashmiris.</p><p>Follow us on X (Twitter) at @UKPNP_Official for the latest updates and announcements.</p>",
+    "readMore": "<p>For more information on the 2007 European Parliament Report on Kashmir and its recommendations, please refer to the full document <a href=\"https://www.europarl.europa.eu/doceo/document/A-6-2007-0158_EN.html\" target=\"_blank\" rel=\"noopener noreferrer\"><strong>REPORT on Kashmir: present situation and future prospects (2005/2242(INI))</strong></a>. The report was adopted on 25 April 2007 by 522 votes in favor, 9 against, and 19 abstentions, marking a historic moment for the Kashmir cause in international diplomacy.</p><p>UKPNP continues to engage with international stakeholders, including members of the European Parliament, the United Nations Human Rights Council, and diplomatic missions across Europe and North America. The party remains committed to peaceful dialogue, democratic principles, and the protection of fundamental human rights for all Kashmiris.</p><p>Follow us on X (Twitter) at <strong>@NasirKhanUKPNP</strong> for the latest updates and announcements.</p>",
     "tags": ["UKPNP", "Baroness Emma Nicholson", "House of Lords", "Kashmir", "Human Rights", "European Parliament", "Diplomacy", "London"],
     "body": [
         {
@@ -34,7 +34,7 @@
         },
         {
             "type": "paragraph",
-            "text": "Her Report on Kashmir, adopted in May 2007 by 522 votes to 9, remains one of the most important documents ever produced on the issue. The meeting took place in London and focused on political conditions in all regions of the historical State of Jammu and Kashmir, human rights challenges, changes since 2007, and possible steps for international follow up."
+            "text": "Her <a href=\"https://www.europarl.europa.eu/doceo/document/A-6-2007-0158_EN.html\" target=\"_blank\" rel=\"noopener noreferrer\"><strong>Report on Kashmir: present situation and future prospects (2005/2242(INI))</strong></a>, adopted on 25 April 2007 by 522 votes to 9, remains one of the most important documents ever produced on the issue. The meeting took place in London and focused on political conditions in all regions of the historical State of Jammu and Kashmir, human rights challenges, changes since 2007, and possible steps for international follow up."
         },
         {
             "type": "image",
