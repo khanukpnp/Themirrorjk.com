@@ -8,12 +8,13 @@
     "summary": "A comprehensive historical analysis of the formation, governance, legal evolution, and political transformation of the State of Jammu and Kashmir from 1819 to 1953.",
     "author": "Sardar Nasir Aziz Khan",
     "location": "Geneva, Switzerland",
-    "date": "2026-03-03T09:00:00Z",
-    "readTime": "22 min read",
+    "date": "2026-03-22T09:00:00Z",
+    "readTime": "28 min read",
     "heroImage": {
-        "src": "content/images/brief-history-jk-hero.png",
-        "caption": "Historical evolution of the State of Jammu and Kashmir",
-        "credit": "The Mirror Jammu Kashmir"
+        "src": "content/images/editorial-001-hero.png",
+        "caption": "Historical evolution of the State of Jammu and Kashmir — The Mirror Jammu Kashmir",
+        "credit": "The Mirror Jammu Kashmir",
+        "align": "center"
     },
     "navigation": {
         "prev": "blog-001",
@@ -21,8 +22,8 @@
         "home": "index.html"
     },
     "archive": false,
-    "readMore": "<p>For further reading on the history of Jammu and Kashmir, see our related articles on the Dogra dynasty and the accession of 1947. Additional resources include the comprehensive study 'Kashmir: A History' by Christopher Snedden and the archival documents available through the National Archives of India.</p><p>Upcoming editorials will explore the post-1953 period, including the constitutional crises of the 1980s and the abrogation of Article 370 in 2019.</p>",
-    "tags": ["History", "Jammu and Kashmir", "Editorial", "Dogra Dynasty", "Treaty of Amritsar", "1947 Accession", "Article 370", "UN Resolutions"],
+    "readMore": "<p>For further reading on the history of Jammu and Kashmir, see our related articles on the Dogra dynasty and the accession of 1947. Additional resources include the comprehensive study <em>'Kashmir: A History'</em> by Christopher Snedden and the archival documents available through the National Archives of India.</p><p>Upcoming editorials will explore the post-1953 period, including the constitutional crises of the 1980s and the abrogation of Article 370 in 2019. The historical State remains central to understanding the present and future of Jammu and Kashmir.</p><p>Recommended reading: <strong>State Subject Rule 1927</strong> — The original document defining hereditary state subjects; <strong>Treaty of Amritsar (1846)</strong> — The foundational treaty that created the State; <strong>Ranbir Penal Code</strong> — The codified criminal law framework; <strong>Praja Sabha Proceedings (1934-1947)</strong> — Legislative records of the State assembly.</p>",
+    "tags": ["History", "Jammu and Kashmir", "Editorial", "Dogra Dynasty", "Treaty of Amritsar", "1947 Accession", "Article 370", "UN Resolutions", "State Subject Rule", "Praja Sabha"],
     "body": [
         {
             "type": "subheading",
@@ -30,7 +31,15 @@
         },
         {
             "type": "paragraph",
+            "text": "The formation of the modern State of Jammu and Kashmir on 16th March 1846 is a landmark historical event which gave statehood, identity, and the status of first-class citizens of the State of Jammu and Kashmir to all its citizens without any discrimination. The formation of the State of Jammu and Kashmir is a historical reality which must not be misinterpreted, distorted, or exploited."
+        },
+        {
+            "type": "paragraph",
             "text": "Before the establishment of the State of Jammu and Kashmir in 1846, Kashmir Valley had already experienced major political change. In 1819, the Sikh Empire under Maharaja Ranjit Singh defeated the Afghan Durrani rulers and took control of Kashmir. From 1819 until 1846, Srinagar and the Kashmir Valley remained under Sikh rule. During this period, Gulab Singh served as a prominent Dogra military officer within the Sikh Empire and gradually expanded his authority over Jammu and adjoining hill territories."
+        },
+        {
+            "type": "paragraph",
+            "text": "Those who claim that Kashmiris were \"sold out\" to Maharaja Gulab Singh are distorting historical facts. Kashmir Valley was not an independent political entity in 1846. Since 1819, it had already been under Sikh rule after the end of Afghan control."
         },
         {
             "type": "paragraph",
@@ -38,29 +47,29 @@
         },
         {
             "type": "image",
-            "src": "content/images/brief-history-jk-01.png",
+            "src": "content/images/editorial-001-01.png",
             "align": "center",
-            "caption": "Flag of Historical State of Jammu Kashmir (1846-1936)",
+            "caption": "Flag of Historical State of Jammu Kashmir (1846-1936) — The original flag of the Dogra dynasty",
             "credit": "The Mirror Jammu Kashmir"
         },
         {
             "type": "paragraph",
-            "text": "The First Anglo Sikh War of 1845 to 1846 marked a decisive turning point. The Sikh Empire was defeated by the East India Company resulting in partial subjugation of the Sikh kingdom. Under the Treaty of Lahore dated 9 March 1846, the Sikh government ceded territories to the British as part of war indemnity arrangements. The British demanded payment of 15 million Nanakshahi rupees as reparations for the cost of the war. The Lahore Darbar was unable to pay the full amount. Raja of Jammu Gulab Singh agreed to pay seventy five lakh Nanakshahi rupees to the British government. Fifty lakh Nanakshahi were to be paid on ratification of the Treaty and twenty five lakh Nanakshahi before 1 October 1846."
+            "text": "The First Anglo Sikh War of 1845 to 1846 marked a decisive turning point. The Sikh Empire was defeated by the East India Company resulting in partial subjugation of the Sikh kingdom. Under the Treaty of Lahore dated 9 March 1846, the Sikh government ceded territories to the British as part of war indemnity arrangements. The British demanded payment of 15 million Nanakshahi (currency of Sikh Kingdom) as reparations for the cost of the war. The Lahore Darbar was unable to pay the full amount. Raja of Jammu Gulab Singh agreed to pay seventy five lakh Nanakshahi to the British government. Fifty lakh Nanakshahi were to be paid on ratification of the Treaty and twenty five lakh Nanakshahi before 1 October 1846."
         },
         {
             "type": "image",
-            "src": "content/images/brief-history-jk-02.png",
+            "src": "content/images/editorial-001-02.png",
             "align": "center",
-            "caption": "Flag of Historical State of Jammu Kashmir (1936-1947)",
+            "caption": "Flag of Historical State of Jammu Kashmir (1936-1947) — Modified flag under Maharaja Hari Singh",
             "credit": "The Mirror Jammu Kashmir"
         },
         {
             "type": "paragraph",
-            "text": "One week later, on 16 March 1846, the Treaty of Amritsar was signed between the British Government and Maharaja Gulab Singh. Through this Treaty, the British transferred to Maharaja Gulab Singh all the hilly or mountainous country with its dependencies situated to the eastward of the River Indus and westward of the River Ravi including Chamba. Gulab Singh became the legitimate ruler and founding father of the State of Jammu and Kashmir. This Treaty formally created the State of Jammu and Kashmir."
+            "text": "One week later, on 16 March 1846, the Treaty of Amritsar was signed between the British Government and Maharaja Gulab Singh. Through this Treaty, the British transferred to Maharaja Gulab Singh all the hilly or mountainous country with its dependencies. Gulab Singh became the legitimate ruler and founding father of the State of Jammu and Kashmir. This Treaty formally created the State of Jammu and Kashmir."
         },
         {
             "type": "pullquote",
-            "text": "The Treaty of Amritsar of 16 March 1846 formally created the State of Jammu and Kashmir."
+            "text": "The Treaty of Amritsar of 16 March 1846 formally created the State of Jammu and Kashmir. At that time, more than 580 princely states existed across the subcontinent."
         },
         {
             "type": "subheading",
@@ -77,14 +86,14 @@
         },
         {
             "type": "image",
-            "src": "content/images/brief-history-jk-03.png",
+            "src": "content/images/editorial-001-03.png",
             "align": "center",
-            "caption": "Flag of Jammu-Kashmir-Ladakh After Forced Division in 1947",
+            "caption": "Flag of Jammu-Kashmir-Ladakh After Forced Division in 1947 — Indian administered region",
             "credit": "The Mirror Jammu Kashmir"
         },
         {
             "type": "subheading",
-            "text": "Administrative and Legal Development"
+            "text": "Governance, Law, and Institutional Development"
         },
         {
             "type": "paragraph",
@@ -96,9 +105,9 @@
         },
         {
             "type": "image",
-            "src": "content/images/brief-history-jk-04.png",
+            "src": "content/images/editorial-001-04.png",
             "align": "center",
-            "caption": "Flag of Azad Kashmir After Forced Division in 1947",
+            "caption": "Flag of Azad Kashmir After Forced Division in 1947 — Pakistani administered region",
             "credit": "The Mirror Jammu Kashmir"
         },
         {
@@ -115,14 +124,14 @@
         },
         {
             "type": "image",
-            "src": "content/images/brief-history-jk-05.png",
+            "src": "content/images/editorial-001-05.png",
             "align": "center",
-            "caption": "Flag of Gilgit Baltistan After Forced Division in 1947",
+            "caption": "Flag of Gilgit Baltistan After Forced Division in 1947 — Pakistani administered northern region",
             "credit": "The Mirror Jammu Kashmir"
         },
         {
             "type": "subheading",
-            "text": "State Subject Rule and Constitutional Reforms"
+            "text": "Reforms and Representation"
         },
         {
             "type": "paragraph",
@@ -134,23 +143,23 @@
         },
         {
             "type": "paragraph",
-            "text": "Education in state schools was made free. Legal reforms prohibited marriage of minor girls below sixteen years of age. Administrative measures aimed to improve revenue management and public services. While no monarchy can be idealized as fully democratic, if compared with many other princely states in the region, the State of Jammu and Kashmir had an assembly, courts, codified laws, defined citizenship, and structured governance which were comparatively advanced."
+            "text": "Education in state schools was made free. Legal reforms prohibited marriage of minor girls below sixteen years of age. Administrative measures aimed to improve revenue management and public services. While no monarchy can be idealized as fully democratic, if compared with many other princely states in the region, the State of Jammu and Kashmir had an assembly, courts, codified laws, defined citizenship, and structured governance which were comparatively advanced and pro people."
         },
         {
             "type": "pullquote",
-            "text": "The State of Jammu and Kashmir was marked by religious and regional diversity. Muslims, Hindus, Buddhists, and Sikhs lived across the State with long traditions of coexistence, peace, and shared economic and social life."
+            "text": "The State of Jammu and Kashmir was marked by religious and regional diversity. Muslims, Hindus, Buddhists, and Sikhs lived across the State with long traditions of coexistence, peace, and shared economic and social life. Diversity was and is the beauty of the historical State of Jammu and Kashmir."
         },
         {
             "type": "paragraph",
-            "text": "The State of Jammu and Kashmir was marked by religious and regional diversity. Overall, it had a Muslim majority population. Jammu region had a Hindu majority. Ladakh was Buddhist majority. Muslims, Hindus, Buddhists, and Sikhs lived across the State with long traditions of coexistence, peace, and shared economic and social life. Diversity was the beauty of the historical State of Jammu and Kashmir."
+            "text": "The State of Jammu and Kashmir was marked by religious and regional diversity. Overall, it had a Muslim majority population. Jammu region had a Hindu majority. Ladakh was Buddhist majority. Muslims, Hindus, Buddhists, and Sikhs lived across the State with long traditions of coexistence, peace, and shared economic and social life. Diversity was and is the beauty of the historical State of Jammu and Kashmir."
+        },
+        {
+            "type": "paragraph",
+            "text": "There is no country in the world with only one language or one religion. India itself is a diverse country with more than 22 officially recognized languages and hundreds of spoken languages. Many Indians do not speak Hindi, yet they remain proud Indians. Similarly, Pakistan is a multi-linguistic and multi-ethnic country with several major languages including Urdu, Punjabi, Sindhi, Pashto, and Balochi. Many Pakistanis do not speak Urdu as their first language, yet they remain proud Pakistanis. However, when it comes to the State of Jammu and Kashmir, regional, ethnic, linguistic, and tribal identities are often weaponized, misinterpreted, or deliberately exploited to create division, mistrust, and confusion among the people."
         },
         {
             "type": "subheading",
-            "text": "Events of 1947"
-        },
-        {
-            "type": "paragraph",
-            "text": "In 1947, at the time of partition of British India into India and Pakistan, more than 580 princely states were given the option to join either dominion or remain independent. Given the State's complex demography and geography, Maharaja Hari Singh chose independence."
+            "text": "1947, War, and Its Consequences"
         },
         {
             "type": "paragraph",
@@ -161,15 +170,15 @@
             "text": "The invasion forced the Maharaja to leave Srinagar for Jammu. He remained there until 1949, hoping that the situation would improve and that he would return to Srinagar. Instead, the situation worsened and the State was divided by a ceasefire line. He later went into exile in Delhi. In 1953 he moved to Bombay, now Mumbai, where he died. According to his will, his ashes were immersed in the Tawi River and spread over the mountains of Jammu and Kashmir, reflecting his nationalism, patriotism, and attachment to the land."
         },
         {
-            "type": "pullquote",
-            "text": "The dispute over Jammu and Kashmir is not merely territorial. It concerns the lives and rights of millions of Kashmiris who remain divided."
+            "type": "image",
+            "src": "content/images/editorial-001-06.png",
+            "align": "center",
+            "caption": "Flags of The Historical State of Jammu Kashmir Before & After Partition — A visual history of the divided State",
+            "credit": "The Mirror Jammu Kashmir"
         },
         {
-            "type": "image",
-            "src": "content/images/brief-history-jk-06.png",
-            "align": "center",
-            "caption": "Flags of The Historical State of Jammu Kashmir Before & After Partition",
-            "credit": "The Mirror Jammu Kashmir"
+            "type": "pullquote",
+            "text": "The dispute over Jammu and Kashmir is not merely territorial. It concerns the lives and rights of millions of Kashmiris who remain forcibly divided. Not only the land, but thousands of families have been separated."
         },
         {
             "type": "subheading",
@@ -177,7 +186,11 @@
         },
         {
             "type": "paragraph",
-            "text": "The United Nations became involved in 1948. Its resolutions and the UNCIP truce agreement called for Pakistan to withdraw forthwith from the territory of the State of Jammu and Kashmir. That requirement was never fully complied with. India entered Kashmir with promises and pledges, including protection of life, liberty, and property and a commitment that the final status would be determined in accordance with the wishes of the people. Those promises were never fully realized."
+            "text": "The United Nations became involved in 1948. Its resolutions and the UNCIP truce agreement called for Pakistan to withdraw forthwith from the territory of the State of Jammu and Kashmir. That requirement was never fully complied with. India entered Kashmir with promises and pledges, including protection of life, liberty, and property and a commitment that the final status would be determined in accordance with the wishes of the people."
+        },
+        {
+            "type": "paragraph",
+            "text": "Those promises were never fully realized. Instead, in 2019 the historical State of Jammu and Kashmir was dismembered and demoted from statehood into two union territories, stripping Ladakh from Jammu and Kashmir. Once a region with special status and greater autonomy, Jammu and Kashmir is now ruled by a Lieutenant Governor holding absolute powers. Even the Jammu and Kashmir Police is no longer under the control of the Chief Minister."
         },
         {
             "type": "paragraph",
@@ -196,11 +209,11 @@
         },
         {
             "type": "paragraph",
-            "text": "Such restrictions raise serious concerns under the Universal Declaration of Human Rights. Article 1 affirms equality in dignity and rights. Article 3 guarantees the right to life, liberty, and security. Article 9 prohibits arbitrary exile. Article 13 guarantees freedom of movement. Article 17 protects the right to own property. Article 21 affirms the right of people to participate in governance."
+            "text": "Such unilateral decisions and restrictions raise serious concerns under the Universal Declaration of Human Rights. Article 1 affirms equality in dignity and rights. Article 3 guarantees the right to life, liberty, and security. Article 9 prohibits arbitrary exile. Article 13 guarantees freedom of movement. Article 17 protects the right to own property. Article 21 affirms the right of people to participate in governance."
         },
         {
             "type": "paragraph",
-            "text": "The State Subject Rule of 1927 did not allow outsiders to buy land, property, or permanently settle in the State of Jammu and Kashmir. This crucial protection has been altered or violated in different regions of the divided State, raising deep legal and political concerns."
+            "text": "The State Subject Rule of 1927 does not allow outsiders to buy land, property, or permanently settle in the State of Jammu and Kashmir. This crucial protection has been altered or violated in different regions of the divided State, raising deep legal and political concerns."
         },
         {
             "type": "paragraph",
@@ -212,15 +225,19 @@
         },
         {
             "type": "paragraph",
-            "text": "The European Parliament Resolution on Kashmir adopted on 24 May 2007 was overwhelmingly passed. 522 Members voted in favor, 9 voted against, and 19 abstained."
+            "text": "The European Parliament Resolution on Kashmir adopted on 24 May 2007 was overwhelmingly passed. 522 Members voted in favor, 9 voted against, and 19 abstained. The Office of the United Nations High Commissioner for Human Rights issued two significant reports: Report on the Situation of Human Rights in Kashmir (14 June 2018) and Update of the Situation of Human Rights in Kashmir (8 July 2019). These international documents confirm that the question of Jammu and Kashmir remains on the global agenda."
         },
         {
-            "type": "paragraph",
-            "text": "The Office of the United Nations High Commissioner for Human Rights issued two significant reports: Report on the Situation of Human Rights in Kashmir (14 June 2018) and Update of the Situation of Human Rights in Kashmir (8 July 2019). These international documents confirm that the question of Jammu and Kashmir remains on the global agenda."
+            "type": "pullquote",
+            "text": "Those who do not celebrate the national day of Jammu and Kashmir, those who hesitate to hold the national flag of the modern State of Jammu and Kashmir, do not hesitate to claim the entire State of Jammu and Kashmir."
         },
         {
             "type": "paragraph",
             "text": "It is contradictory for political actors to claim the legacy of the State formed on 16 March 1846 while refusing to acknowledge or commemorate its foundation day. Those who deny its formation yet continue to claim its territory are living in illusion and distortion of history."
+        },
+        {
+            "type": "paragraph",
+            "text": "Whether someone likes it or not, the modern State of Jammu and Kashmir was formed on 16th March 1846. It had approximately 2,22,000 square kilometers of area. It had defined borders, a flag, and treaties and agreements with neighboring states and the British East India Company. The entire State of Jammu and Kashmir, including Kashmir, Jammu, Ladakh, Azad Kashmir, and Gilgit Baltistan, is one political entity. It remains disputed. It has United Nations resolutions which are still relevant, and United Nations observers are stationed on both sides of the ceasefire line. The future of the State of Jammu and Kashmir will be decided in accordance with United Nations resolutions and the wishes and aspirations of its people."
         },
         {
             "type": "pullquote",
@@ -228,11 +245,15 @@
         },
         {
             "type": "paragraph",
-            "text": "From 16 March 1846 until the upheavals of October 1947, the State of Jammu and Kashmir existed as a defined political entity with borders, citizenship laws, courts, a High Court, a Bar, a legislative assembly known as the Praja Sabha, protected forests, regulated grazing systems, water management, and structured governance. That historical State remains central to understanding the present and future of Jammu and Kashmir."
+            "text": "From 16 March 1846 until the invasion of 22 October 1947, the State of Jammu and Kashmir existed as a defined political entity with borders, citizenship laws, courts, a High Court, a Bar, a legislative assembly known as the Praja Sabha, protected forests, regulated grazing systems, water management, and structured governance. That historical State remains central to understanding the present and future of Jammu and Kashmir."
         },
         {
             "type": "paragraph",
-            "text": "Sardar Nasir Aziz Khan can be reached at themirrorjk@gmail.com or by phone at +41 783 13 12 13. On X, he can be followed at @NasirKhanUKPNP."
+            "text": "Until and unless Jammu and Kashmir is united and the conflict is resolved peacefully, there can be no lasting peace, development, or progress in the region. This region remains a nuclear flashpoint, where even a small-scale event can result in a nuclear catastrophe."
+        },
+        {
+            "type": "paragraph",
+            "text": "Sardar Nasir Aziz Khan is a progressive secular political and human rights activist from the State of Jammu Kashmir based in Switzerland. He can be reached at themirrorjk@gmail.com or by phone at +41 783 13 12 13. On X, he can be followed at @NasirKhanUKPNP."
         }
     ]
 }
