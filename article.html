@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <!-- Dynamic Meta Tags -->
     <meta property="og:url" content="" id="og-url">
     <meta property="og:type" content="article">
@@ -11,114 +11,558 @@
     <meta property="og:description" content="" id="og-description">
     <meta property="og:image" content="" id="og-image">
     <meta property="og:site_name" content="THE MIRROR JAMMU KASHMIR">
-
+    
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="" id="twitter-title">
     <meta name="twitter:description" content="" id="twitter-description">
     <meta name="twitter:image" content="" id="twitter-image">
     <meta name="twitter:site" content="@TheMirrorJK">
-
+    
+    <!-- Standard Meta Tags -->
     <meta name="description" content="" id="meta-description">
     <meta name="keywords" content="Jammu Kashmir, news, editorial, history, human rights">
-
+    <meta name="author" content="THE MIRROR JAMMU KASHMIR">
+    
     <title id="page-title">THE MIRROR JAMMU KASHMIR</title>
-
+    
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-
+    
     <!-- Styles -->
-    <link rel="stylesheet" href="article.css">
-
+    <link rel="stylesheet" href="styles.css">
+    
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <style>
+        /* Article Page Specific Styles */
+        .article-page {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background: white;
+        }
+        
+        .category-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #b30000;
+            letter-spacing: 0.5px;
+        }
+        
+        #title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+        }
+        
+        .article-meta {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .article-meta strong {
+            color: #b30000;
+            font-weight: 600;
+        }
+        
+        .hero-image-container {
+            margin-bottom: 30px;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        
+        #heroImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        #heroCaption {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        #content {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        #content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Georgia', serif;
+        }
+        
+        #content .mid-subheading {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+        }
+        
+        #content .pull-quote {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.6;
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            background: #f9f9f9;
+            border-left: 4px solid #b30000;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+            font-style: italic;
+        }
+        
+        #content .important-points {
+            background: #f5f5f5;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+        
+        #content .important-points ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        #content .important-points li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        
+        #content .important-points li:before {
+            content: "•";
+            color: #b30000;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        #content .img-left {
+            float: left;
+            width: 38%;
+            margin: 0.5rem 1.5rem 1rem 0;
+        }
+        
+        #content .img-right {
+            float: right;
+            width: 38%;
+            margin: 0.5rem 0 1rem 1.5rem;
+        }
+        
+        #content .img-center {
+            width: 100%;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        #content figure {
+            margin: 1.5rem 0;
+        }
+        
+        #content figure img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        
+        #content figcaption {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        
+        /* Read More Section */
+        .read-more-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: #f9f9f9;
+            border-radius: 4px;
+            border-left: 4px solid #b30000;
+        }
+        
+        .read-more-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #b30000;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+        }
+        
+        .read-more-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #b30000;
+        }
+        
+        .read-more-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        .read-more-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .read-more-content a {
+            color: #b30000;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .read-more-content a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Article Action Buttons */
+        .article-actions-bottom {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e0e0e0;
+        }
+        
+        .article-action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .action-btn:hover {
+            background: #b30000;
+            color: white;
+            border-color: #b30000;
+        }
+        
+        /* Article Pagination */
+        .article-pagination {
+            margin-top: 2rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .pagination-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        
+        .pagination-btn:hover {
+            background-color: #333;
+            transform: translateX(-2px);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .pagination-btn.next-btn:hover {
+            transform: translateX(2px);
+        }
+        
+        .home-btn {
+            background-color: #555;
+        }
+        
+        .prev-btn {
+            background-color: #666;
+        }
+        
+        .next-btn {
+            background-color: #b30000;
+        }
+        
+        .next-btn:hover {
+            background-color: #8a0000;
+        }
+        
+        .pagination-nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        /* Next Article Suggestion */
+        .next-article-text {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1rem;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .next-article-text a {
+            color: #b30000;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .next-article-text a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Loading State */
+        .loading-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .loading-state .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #b30000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Share Tooltip */
+        .share-tooltip {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 8px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 1000;
+            min-width: 200px;
+            animation: slideUp 0.2s ease;
+        }
+        
+        .share-tooltip.show {
+            display: block;
+        }
+        
+        .share-tooltip a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .share-tooltip a:last-child {
+            border-bottom: none;
+        }
+        
+        .share-tooltip a:hover {
+            background: #f5f5f5;
+            color: #b30000;
+            padding-left: 20px;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            margin-top: 40px;
+            color: #666;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            #title {
+                font-size: 2rem;
+            }
+            
+            #content .img-left,
+            #content .img-right {
+                float: none;
+                width: 100%;
+                margin: 1.5rem 0;
+            }
+            
+            .article-pagination {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .pagination-nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .pagination-btn {
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .article-action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .share-tooltip {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+                width: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        /* Reading Progress Bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: #b30000;
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+    </style>
 </head>
-
 <body>
-
-<!-- Reading Progress Bar -->
-<div class="reading-progress" id="reading-progress"></div>
-
-<main class="article-page" data-default-id="article-001">
-
-    <!-- CATEGORY LABEL -->
-    <div id="section-label" class="category-label"></div>
-
-    <!-- TITLE -->
-    <h1 id="title"></h1>
-
-    <!-- METADATA -->
-    <div id="meta" class="article-meta"></div>
-
-    <!-- HERO IMAGE (TOP PLACEHOLDER CARD) -->
-    <div id="heroWrap" class="hero-image-container" style="display:none;">
-        <img id="heroImg" src="" alt="">
-        <div id="heroCaption"></div>
-    </div>
-
-    <!-- LOADING STATE -->
-    <div id="loading-state" class="loading-state">
-        <div class="spinner"></div>
-        <p>Loading article, clocks, calendars and headlines...</p>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="content" class="clearfix" style="display:none;"></div>
-
-    <!-- READ MORE SECTION -->
-    <section id="read-more-section" class="read-more-section" style="display:none;">
-        <h2 class="read-more-title">Read More</h2>
-
-        <!-- HERO IMAGE AGAIN BELOW HEADING -->
-        <div class="hero-image-container read-more-hero">
-            <img id="readMoreHeroImg" src="" alt="">
-            <div id="readMoreHeroCaption"></div>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="reading-progress"></div>
+    
+    <main class="article-page">
+        <!-- Category Label -->
+        <div id="section-label" class="category-label"></div>
+        
+        <!-- Article Title -->
+        <h1 id="title"></h1>
+        
+        <!-- Article Meta Information -->
+        <div id="meta" class="article-meta"></div>
+        
+        <!-- Hero Image Container -->
+        <div id="heroWrap" class="hero-image-container" style="display: none;">
+            <img id="heroImg" src="" alt="">
+            <div id="heroCaption"></div>
         </div>
-
-        <div id="read-more-content" class="read-more-content"></div>
-    </section>
-
-    <!-- ACTION BUTTONS -->
-    <div class="article-actions" id="article-actions" style="display:none;">
-        <button id="btn-like" class="action-btn"><span>👍</span> Like <span id="like-count"></span></button>
-        <button id="btn-subscribe" class="action-btn"><span>🔔</span> Subscribe</button>
-        <button id="btn-share" class="action-btn"><span>📤</span> Share</button>
-        <button id="btn-copy" class="action-btn"><span>🔗</span> Copy Link</button>
-    </div>
-
-    <!-- NAVIGATION -->
-    <div class="article-navigation-bottom" id="article-nav" style="display:none;">
-        <a href="index.html" class="nav-btn nav-btn-home">← Back to Homepage</a>
-
-        <div class="nav-buttons">
-            <a href="#" id="prev-article" class="nav-btn nav-btn-prev" style="display:none;">← Previous</a>
-            <a href="#" id="next-article" class="nav-btn nav-btn-next" style="display:none;">Next →</a>
+        
+        <!-- Loading State -->
+        <div id="loading-state" class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading article, clocks, calendars and headlines...</p>
         </div>
+        
+        <!-- Article Content -->
+        <div id="content" class="clearfix" style="display: none;"></div>
+        
+        <!-- Article Action Buttons will be added here by JS -->
+        <!-- Article Pagination will be added here by JS -->
+        
+        <!-- Next Article Suggestion -->
+        <div class="next-article-text" id="next-article-suggestion" style="display: none;"></div>
+    </main>
+    
+    <!-- Share Tooltip -->
+    <div class="share-tooltip" id="share-tooltip">
+        <a href="#" id="share-facebook"><span>📘</span> Facebook</a>
+        <a href="#" id="share-twitter"><span>🐦</span> X (Twitter)</a>
+        <a href="#" id="share-whatsapp"><span>📱</span> WhatsApp</a>
+        <a href="#" id="share-linkedin"><span>🔗</span> LinkedIn</a>
+        <a href="#" id="share-telegram"><span>✈️</span> Telegram</a>
+        <a href="#" id="share-reddit"><span>🤖</span> Reddit</a>
+        <a href="#" id="share-pinterest"><span>📌</span> Pinterest</a>
+        <a href="#" id="share-email"><span>📧</span> Email</a>
     </div>
-
-    <!-- MOBILE NEXT ARTICLE SUGGESTION -->
-    <div class="next-article-text" id="next-article-suggestion" style="display:none;"></div>
-
-</main>
-
-<!-- SHARE TOOLTIP -->
-<div class="share-tooltip" id="share-tooltip">
-    <a href="#" id="share-facebook"><span>📘</span> Facebook</a>
-    <a href="#" id="share-twitter"><span>🐦</span> X (Twitter)</a>
-    <a href="#" id="share-whatsapp"><span>📱</span> WhatsApp</a>
-    <a href="#" id="share-linkedin"><span>🔗</span> LinkedIn</a>
-    <a href="#" id="share-telegram"><span>✈️</span> Telegram</a>
-    <a href="#" id="share-reddit"><span>🤖</span> Reddit</a>
-    <a href="#" id="share-pinterest"><span>📌</span> Pinterest</a>
-    <a href="#" id="share-email"><span>📧</span> Email</a>
-</div>
-
-<!-- FOOTER -->
-<footer class="footer">
-    <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-</footer>
-
-<!-- SCRIPT -->
-<script src="article.js"></script>
-
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+    </footer>
+    
+    <script src="script.js"></script>
 </body>
 </html>
