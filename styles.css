@@ -1986,3 +1986,91 @@ h1, h2, h3, h4, h5 {
         margin: 1.5rem 0;
     }
 }
+
+/* ============================================================
+SOCIAL SHARING FIX - ADDITIONAL STYLES
+Ensures share buttons and meta tags work properly
+============================================================ */
+
+/* Ensure share tooltip links are clickable */
+.share-tooltip a {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.share-tooltip a:hover {
+    background: #f5f5f5;
+    color: #b30000;
+    padding-left: 20px;
+}
+
+/* Fix for social action buttons */
+.sa-btn[data-share-url],
+.sa-btn[data-share-title] {
+    cursor: pointer;
+}
+
+/* Ensure meta tags are properly hidden but functional */
+meta[property^="og:"],
+meta[name^="twitter:"] {
+    display: none;
+}
+
+/* Reading progress bar fix */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: #b30000;
+    z-index: 9999;
+    transition: width 0.1s ease;
+}
+
+/* Ensure article action buttons work */
+.article-action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: #b30000;
+    color: white;
+    border-color: #b30000;
+}
+
+/* Fix for copy link button */
+.copy-link-btn {
+    cursor: pointer;
+}
+
+/* Ensure social media preview image is properly sized */
+#og-image, #twitter-image {
+    display: none;
+}
+
+/* Debug helper - remove in production */
+/* .debug-share { border: 2px solid red; } */
