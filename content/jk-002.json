@@ -20,7 +20,7 @@
 
   "navigation": {
     "prev": "jk-001",
-    "next": "latest-002",
+    "next": "jk-003",
     "home": "index.html"
   },
 
@@ -37,22 +37,18 @@
   ],
 
   "body": [
-
     {
       "type": "subheading",
       "text": "UN Human Rights Council – Item 4 Intervention"
     },
-
     {
       "type": "paragraph",
       "text": "During the 61st Session of the United Nations Human Rights Council, held from 23 February to 2 April 2026, Sardar Shaukat Ali Kashmiri delivered a significant intervention under Item 4: General Debate on human rights situations requiring the Council’s urgent attention."
     },
-
     {
       "type": "pullquote",
       "text": "“The forcibly divided people of Jammu and Kashmir continue to suffer, and the United Nations must act.”"
     },
-
     {
       "type": "paragraph",
       "text": "Representing CIRAC and serving as Chairman of the United Kashmir People’s National Party (UKPNP), he addressed the Council with deep concern over escalating global conflicts and the deteriorating human rights situation in the historical State of Jammu and Kashmir."
@@ -62,25 +58,14 @@
       "type": "subheading",
       "text": "Global Escalation and the Need for Restraint"
     },
-
-    {
-      "type": "image",
-      "src": "content/images/jk-002-shaukat-ali-kashmiri-item4-left.jpg",
-      "align": "left",
-      "caption": "Sardar Shaukat Ali Kashmiri speaking during Item 4 General Debate",
-      "credit": "The Mirror Jammu Kashmir"
-    },
-
     {
       "type": "paragraph",
       "text": "He expressed grave concern over the ongoing conflict involving the United States, Israel, and Iran, warning that such confrontations rarely remain contained and often inflict disproportionate suffering on civilian populations."
     },
-
     {
       "type": "paragraph",
       "text": "He commended the United Nations Secretary-General for efforts to reduce global tensions and urged all parties to exercise maximum restraint to prevent further destabilization."
     },
-
     {
       "type": "pullquote",
       "text": "“We call for the immediate cessation of hostilities and for all parties to prioritize civilian protection.”"
@@ -90,25 +75,14 @@
       "type": "subheading",
       "text": "Human Rights in the Forcibly Divided State of Jammu & Kashmir"
     },
-
-    {
-      "type": "image",
-      "src": "content/images/jk-002-shaukat-ali-kashmiri-item4-right.jpg",
-      "align": "right",
-      "caption": "Delegates listening to the intervention at Palais des Nations",
-      "credit": "The Mirror Jammu Kashmir"
-    },
-
     {
       "type": "paragraph",
       "text": "He reminded the Council that the people of Jammu and Kashmir have lived under forced division for decades, with the Line of Control separating families and restricting social, cultural, and economic interaction."
     },
-
     {
       "type": "paragraph",
       "text": "He emphasized that the Jammu and Kashmir issue remains one of the longest unresolved matters on the UN agenda and must be addressed in accordance with relevant UN resolutions."
     },
-
     {
       "type": "pullquote",
       "text": "“This is fundamentally a human rights issue affecting the dignity, safety, and future of millions.”"
@@ -118,17 +92,14 @@
       "type": "subheading",
       "text": "Extrajudicial Killings and Impunity"
     },
-
     {
       "type": "paragraph",
       "text": "He drew attention to the extrajudicial killing of two educated brothers, Zarnosh Nasim and Jibran Nasim, from Bagh, Azad Kashmir, who were killed during an operation in Rawalakot, Poonch, on 28 May 2025."
     },
-
     {
       "type": "paragraph",
       "text": "He noted that despite public demands for justice, no FIR was registered, no arrests were made, and no judicial commission was established. He called this a grave failure of accountability."
     },
-
     {
       "type": "pullquote",
       "text": "“Those responsible must be brought before the law. Justice delayed is justice denied.”"
@@ -138,12 +109,10 @@
       "type": "subheading",
       "text": "Call for UN Fact-Finding Mechanisms"
     },
-
     {
       "type": "paragraph",
       "text": "He urged the United Nations to establish independent fact-finding mechanisms to monitor the situation and protect the rights and lives of the people of Jammu and Kashmir."
     },
-
     {
       "type": "paragraph",
       "text": "He stressed that the OHCHR reports of 2018 and 2019 remain highly relevant and require meaningful follow-up consistent with international law."
@@ -153,18 +122,9 @@
       "type": "subheading",
       "text": "Watch the Full Intervention"
     },
-
     {
       "type": "paragraph",
       "text": "Watch the full intervention on YouTube: https://youtu.be/unYMlQrQJ1Y"
-    },
-
-    {
-      "type": "image",
-      "src": "content/images/jk-002-panel-group.jpg",
-      "align": "center",
-      "caption": "Delegates attending the HRC61 Item 4 session",
-      "credit": "The Mirror Jammu Kashmir"
     }
   ]
 }
