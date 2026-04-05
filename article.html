@@ -793,7 +793,133 @@
 
 <!-- Main Scripts -->
 <script src="script.js"></script>
-<script src="social-fix.js"></script>
+
+<!-- SOCIAL SHARING FIX - Inline fix that ensures share buttons and meta tags work -->
+<script>
+(function() {
+    console.log("Social sharing fix loaded - v2");
+    
+    function fixAllShares() {
+        const currentUrl = encodeURIComponent(window.location.href);
+        const currentTitle = encodeURIComponent(document.title || 'THE MIRROR JAMMU KASHMIR');
+        const description = encodeURIComponent('Read the latest from THE MIRROR JAMMU KASHMIR');
+        const imageUrl = encodeURIComponent(window.location.origin + '/content/images/logo.png');
+        
+        // Get dynamic article data if available
+        const articleTitle = document.getElementById('title')?.textContent || 'THE MIRROR JAMMU KASHMIR';
+        const articleExcerpt = document.querySelector('#content p')?.textContent?.substring(0, 160) || 'Read the latest news from THE MIRROR JAMMU KASHMIR';
+        const articleImage = document.getElementById('heroImg')?.src || window.location.origin + '/content/images/logo.png';
+        
+        // Fix share tooltip links
+        const shareButtons = {
+            'share-facebook': `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`,
+            'share-twitter': `https://twitter.com/intent/tweet?url=${currentUrl}&text=${currentTitle}`,
+            'share-whatsapp': `https://api.whatsapp.com/send?text=${currentTitle}%20${currentUrl}`,
+            'share-linkedin': `https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`,
+            'share-telegram': `https://t.me/share/url?url=${currentUrl}&text=${currentTitle}`,
+            'share-reddit': `https://www.reddit.com/submit?url=${currentUrl}&title=${currentTitle}`,
+            'share-pinterest': `https://pinterest.com/pin/create/button/?url=${currentUrl}&media=${imageUrl}&description=${description}`,
+            'share-email': `mailto:?subject=${currentTitle}&body=${description}%0A${decodeURIComponent(currentUrl)}`
+        };
+        
+        for (const [id, url] of Object.entries(shareButtons)) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.href = url;
+                element.target = '_blank';
+                element.rel = 'noopener noreferrer';
+                console.log(`Fixed share button: ${id} -> ${url.substring(0, 50)}...`);
+            }
+        }
+        
+        // Update meta tags for social media preview (CRITICAL for link previews)
+        const metaUpdates = {
+            'og-title': articleTitle,
+            'og-description': articleExcerpt,
+            'og-url': window.location.href,
+            'og-image': articleImage,
+            'twitter-title': articleTitle,
+            'twitter-description': articleExcerpt,
+            'twitter-image': articleImage,
+            'meta-description': articleExcerpt
+        };
+        
+        for (const [id, content] of Object.entries(metaUpdates)) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.setAttribute('content', content);
+                console.log(`Updated meta: ${id} -> ${content.substring(0, 50)}...`);
+            }
+        }
+        
+        // Also update the page title
+        const pageTitle = document.getElementById('page-title');
+        if (pageTitle && articleTitle !== 'THE MIRROR JAMMU KASHMIR') {
+            pageTitle.textContent = articleTitle + ' | THE MIRROR JAMMU KASHMIR';
+        }
+        
+        // Fix article share button to toggle tooltip
+        const articleShareBtn = document.getElementById('article-share-btn');
+        if (articleShareBtn) {
+            // Remove any existing listeners by cloning
+            const newShareBtn = articleShareBtn.cloneNode(true);
+            articleShareBtn.parentNode.replaceChild(newShareBtn, articleShareBtn);
+            newShareBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const tooltip = document.getElementById('share-tooltip');
+                if (tooltip) {
+                    const isVisible = tooltip.classList.contains('show');
+                    // Hide all other tooltips first
+                    document.querySelectorAll('.share-tooltip.show').forEach(t => {
+                        if (t !== tooltip) t.classList.remove('show');
+                    });
+                    if (isVisible) {
+                        tooltip.classList.remove('show');
+                    } else {
+                        tooltip.classList.add('show');
+                    }
+                } else {
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${decodeURIComponent(currentUrl)}`, '_blank');
+                }
+            });
+            console.log("Fixed article share button");
+        }
+        
+        // Close tooltip when clicking outside
+        document.addEventListener('click', function(e) {
+            const tooltip = document.getElementById('share-tooltip');
+            if (tooltip && !tooltip.contains(e.target) && e.target.id !== 'article-share-btn') {
+                tooltip.classList.remove('show');
+            }
+        });
+        
+        console.log("Social sharing fix completed successfully!");
+    }
+    
+    // Run when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixAllShares);
+    } else {
+        fixAllShares();
+    }
+    
+    // Also run after dynamic content loads (for article pages)
+    setTimeout(fixAllShares, 500);
+    setTimeout(fixAllShares, 1500);
+    setTimeout(fixAllShares, 3000);
+    
+    // Watch for article content loading
+    const observer = new MutationObserver(function(mutations) {
+        const title = document.getElementById('title');
+        if (title && title.textContent && title.textContent !== '') {
+            fixAllShares();
+            observer.disconnect();
+        }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+})();
+</script>
 
 </body>
 </html>
