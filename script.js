@@ -1752,3 +1752,61 @@ function suggestNextArticle(currentArticleId) {
 // Make functions globally available
 window.copyPageLink = copyPageLink;
 window.playVideo = playVideo;
+
+// SHARE BUTTON FIX — SAFE, NO LAYOUT CHANGE
+function setupShareButtons(articleData) {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(articleData.title);
+    const description = encodeURIComponent(articleData.excerpt);
+    const image = encodeURIComponent(window.location.origin + "/" + articleData.heroImage.src);
+
+    // Facebook
+    document.getElementById("share-facebook").href =
+        `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+
+    // Twitter / X
+    document.getElementById("share-twitter").href =
+        `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+
+    // WhatsApp
+    document.getElementById("share-whatsapp").href =
+        `https://api.whatsapp.com/send?text=${title}%20${url}`;
+
+    // LinkedIn
+    document.getElementById("share-linkedin").href =
+        `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+
+    // Telegram
+    document.getElementById("share-telegram").href =
+        `https://t.me/share/url?url=${url}&text=${title}`;
+
+    // Reddit
+    document.getElementById("share-reddit").href =
+        `https://www.reddit.com/submit?url=${url}&title=${title}`;
+
+    // Pinterest
+    document.getElementById("share-pinterest").href =
+        `https://pinterest.com/pin/create/button/?url=${url}&media=${image}&description=${description}`;
+
+    // Email
+    document.getElementById("share-email").href =
+        `mailto:?subject=${title}&body=${description}%0A${url}`;
+}
+
+
+// OG + TWITTER META TAG FIX — SAFE, NO LAYOUT CHANGE
+function setupMetaTags(articleData) {
+    const url = window.location.href;
+
+    document.getElementById("og-title").content = articleData.title;
+    document.getElementById("og-description").content = articleData.excerpt;
+    document.getElementById("og-image").content = window.location.origin + "/" + articleData.heroImage.src;
+    document.getElementById("og-url").content = url;
+
+    document.getElementById("twitter-title").content = articleData.title;
+    document.getElementById("twitter-description").content = articleData.excerpt;
+    document.getElementById("twitter-image").content = window.location.origin + "/" + articleData.heroImage.src;
+
+    document.getElementById("meta-description").content = articleData.excerpt;
+    document.getElementById("page-title").innerText = articleData.title;
+}
