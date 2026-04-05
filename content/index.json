@@ -4,14 +4,28 @@
     "breaking": "breaking-001",
     "opinion": "blog-001"
   },
+
   "latestEditorialHistorical": {
     "latest": "latest-001",
     "editorial": "editorial-001",
     "historical": "historical-001"
   },
-  "jammuKashmir": ["jk-001", null],
-  "international": ["international-001", null],
-  "humanRights": ["humanrights-001", null],
+
+  "jammuKashmir": [
+    "jk-001",
+    "jk-002"
+  ],
+
+  "international": [
+    "international-001",
+    null
+  ],
+
+  "humanRights": [
+    "humanrights-001",
+    null
+  ],
+
   "ticker": [
     "WE DO NOT MANUFACTURE NARRATIVES --- WE REFLECT REALITY",
     "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH",
