@@ -12,7 +12,7 @@
   "readTime": "12 min read",
 
   "heroImage": {
-    "/content/images/jk-002-hero-shaukat-ali-kashmiri-unhrc61.png",
+    "src": "content/images/jk-002-hero-shaukat-ali-kashmiri-unhrc61.png",
     "caption": "Sardar Shaukat Ali Kashmiri addressing the UN Human Rights Council, Geneva",
     "credit": "The Mirror Jammu Kashmir",
     "align": "center"
