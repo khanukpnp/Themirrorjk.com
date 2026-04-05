@@ -1,31 +1,27 @@
 {
   "id": "jk-002",
   "slug": "hrc61-item4-sardar-shaukat-ali-kashmiri-intervention",
-  "title": "UN Human Rights Council 61st Session – Sardar Shaukat Ali Kashmiri Calls for De-escalation and Justice in Jammu & Kashmir",
+  "title": "UN Human Rights Council 61st Session -- Sardar Shaukat Ali Kashmiri Calls for De-escalation and Justice in Jammu & Kashmir",
   "category": "jammu-kashmir",
   "sectionLabel": "🕊️ JAMMU & KASHMIR",
-  "excerpt": "At the UN Human Rights Council’s 61st Session, Sardar Shaukat Ali Kashmiri delivered a powerful intervention under Item 4, urging global de-escalation and justice for the forcibly divided people of Jammu and Kashmir.",
-  "summary": "A detailed account of Sardar Shaukat Ali Kashmiri’s Item 4 intervention at HRC61, highlighting global conflict escalation, human rights violations, extrajudicial killings, and the urgent need for UN fact-finding mechanisms in Jammu and Kashmir.",
-  "author": "The Mirror Jammu Kashmir – Geneva Desk",
+  "excerpt": "At the UN Human Rights Council's 61st Session, Sardar Shaukat Ali Kashmiri delivered a powerful intervention under Item 4, urging global de-escalation and justice for the forcibly divided people of Jammu and Kashmir.",
+  "summary": "A detailed account of Sardar Shaukat Ali Kashmiri's Item 4 intervention at HRC61, highlighting global conflict escalation, human rights violations, extrajudicial killings, and the urgent need for UN fact-finding mechanisms in Jammu and Kashmir.",
+  "author": "The Mirror Jammu Kashmir -- Geneva Desk",
   "location": "United Nations, Geneva",
   "date": "2026-03-16T09:00:00Z",
   "readTime": "12 min read",
-
   "heroImage": {
     "src": "content/images/jk-002-hero-shaukat.png",
     "caption": "Sardar Shaukat Ali Kashmiri addressing the UN Human Rights Council, Geneva",
     "credit": "The Mirror Jammu Kashmir",
     "align": "center"
   },
-
   "navigation": {
     "prev": "jk-001",
     "next": "jk-003",
     "home": "index.html"
   },
-
   "archive": false,
-
   "tags": [
     "Jammu and Kashmir",
     "Human Rights",
@@ -35,25 +31,23 @@
     "Geneva",
     "Item 4"
   ],
-
   "body": [
     {
       "type": "subheading",
-      "text": "UN Human Rights Council – Item 4 Intervention"
+      "text": "UN Human Rights Council -- Item 4 Intervention"
     },
     {
       "type": "paragraph",
-      "text": "During the 61st Session of the United Nations Human Rights Council, held from 23 February to 2 April 2026, Sardar Shaukat Ali Kashmiri delivered a significant intervention under Item 4: General Debate on human rights situations requiring the Council’s urgent attention."
+      "text": "During the 61st Session of the United Nations Human Rights Council, held from 23 February to 2 April 2026, Sardar Shaukat Ali Kashmiri delivered a significant intervention under Item 4: General Debate on human rights situations requiring the Council's urgent attention."
     },
     {
       "type": "pullquote",
-      "text": "“The forcibly divided people of Jammu and Kashmir continue to suffer, and the United Nations must act.”"
+      "text": "\"The forcibly divided people of Jammu and Kashmir continue to suffer, and the United Nations must act.\""
     },
     {
       "type": "paragraph",
-      "text": "Representing CIRAC and serving as Chairman of the United Kashmir People’s National Party (UKPNP), he addressed the Council with deep concern over escalating global conflicts and the deteriorating human rights situation in the historical State of Jammu and Kashmir."
+      "text": "Representing CIRAC and serving as Chairman of the United Kashmir People's National Party (UKPNP), he addressed the Council with deep concern over escalating global conflicts and the deteriorating human rights situation in the historical State of Jammu and Kashmir."
     },
-
     {
       "type": "subheading",
       "text": "Global Escalation and the Need for Restraint"
@@ -68,9 +62,8 @@
     },
     {
       "type": "pullquote",
-      "text": "“We call for the immediate cessation of hostilities and for all parties to prioritize civilian protection.”"
+      "text": "\"We call for the immediate cessation of hostilities and for all parties to prioritize civilian protection.\""
     },
-
     {
       "type": "subheading",
       "text": "Human Rights in the Forcibly Divided State of Jammu & Kashmir"
@@ -85,9 +78,8 @@
     },
     {
       "type": "pullquote",
-      "text": "“This is fundamentally a human rights issue affecting the dignity, safety, and future of millions.”"
+      "text": "\"This is fundamentally a human rights issue affecting the dignity, safety, and future of millions.\""
     },
-
     {
       "type": "subheading",
       "text": "Extrajudicial Killings and Impunity"
@@ -102,9 +94,8 @@
     },
     {
       "type": "pullquote",
-      "text": "“Those responsible must be brought before the law. Justice delayed is justice denied.”"
+      "text": "\"Those responsible must be brought before the law. Justice delayed is justice denied.\""
     },
-
     {
       "type": "subheading",
       "text": "Call for UN Fact-Finding Mechanisms"
@@ -117,14 +108,21 @@
       "type": "paragraph",
       "text": "He stressed that the OHCHR reports of 2018 and 2019 remain highly relevant and require meaningful follow-up consistent with international law."
     },
-
     {
       "type": "subheading",
       "text": "Watch the Full Intervention"
     },
     {
       "type": "paragraph",
-      "text": "Watch the full intervention on YouTube: https://youtu.be/unYMlQrQJ1Y"
+      "text": "Watch the full intervention on YouTube:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a href=\"https://youtu.be/unYMlQrQJ1Y\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color: #b30000; font-weight: 600; text-decoration: none;\">🎥 Click here to watch on YouTube →</a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Or copy this link: https://youtu.be/unYMlQrQJ1Y"
     }
   ]
 }
