@@ -1,6 +1,19 @@
 {
   "items": [
     {
+      "id": "jk-002",
+      "title": "UN Human Rights Council 61st Session – Sardar Shaukat Ali Kashmiri Calls for De-escalation and Justice in Jammu & Kashmir",
+      "excerpt": "Sardar Shaukat Ali Kashmiri addresses the UNHRC, urging global restraint and justice for the forcibly divided people of Jammu & Kashmir.",
+      "heroImage": {
+        "src": "/content/images/jk-002-hero-shaukat.png",
+        "caption": "Sardar Shaukat Ali Kashmiri at the UN Human Rights Council",
+        "credit": "The Mirror Jammu Kashmir"
+      },
+      "body": [
+        { "type": "paragraph", "text": "Click to read the full article." }
+      ]
+    },
+    {
       "id": "jk-coming-001",
       "title": "Jammu & Kashmir — Coverage Coming Soon",
       "excerpt": "In-depth reporting from across Jammu & Kashmir will be added shortly.",
