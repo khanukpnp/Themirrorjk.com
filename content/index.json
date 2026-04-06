@@ -1,43 +1,36 @@
+Old Index json 
 {
   "topStories": {
-    "lead": "article-002",
+    "lead": "article-001",
     "breaking": "breaking-001",
     "opinion": "blog-001"
   },
+
   "latestEditorialHistorical": {
     "latest": "latest-001",
     "editorial": "editorial-001",
     "historical": "historical-001"
   },
+
   "jammuKashmir": [
     "jk-001",
     "jk-002"
   ],
+
   "international": [
     "international-001",
-    "international-002"
+    null
   ],
+
   "humanRights": [
     "humanrights-001",
-    "humanrights-002"
+    null
   ],
-  "archive": [
-    {
-      "id": "article-001",
-      "title": "Complete Shutter Down Paralyses Rawalakot Poonch",
-      "excerpt": "Thousands shut down Rawalakot in protest against prolonged electricity outages, low voltage supply and communication blackouts.",
-      "date": "2025-05-28",
-      "category": "top-stories",
-      "heroImage": "content/images/article-001-hero.jpg"
-    }
-  ],
+
   "ticker": [
     "WE DO NOT MANUFACTURE NARRATIVES --- WE REFLECT REALITY",
     "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH",
     "GOT NEWS, FEEDBACK OR URGENT UPDATES? CONTACT THE MIRROR JAMMU KASHMIR",
-    "FOLLOW US ON YOUTUBE --- THE MIRROR JAMMU KASHMIR --- SUBSCRIBE, LIKE AND SHARE",
-    "UKPNP HOLDS HISTORIC KASHMIR CONFERENCE IN HOUSE OF COMMONS, LONDON",
-    "JUSTICE FOR ZARNOSH NASIM & JIBRAN NASIM — EXTRAJUDICIALLY KILLED IN AZAD KASHMIR",
-    "THERE IS NO MILITARY SOLUTION TO THE KASHMIR CONFLICT — ONLY DIALOGUE AND JUSTICE"
+    "FOLLOW US ON YOUTUBE --- THE MIRROR JAMMU KASHMIR --- SUBSCRIBE, LIKE AND SHARE"
   ]
 }
