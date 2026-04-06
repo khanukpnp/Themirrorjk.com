@@ -1,4 +1,3 @@
-Old Index json 
 {
   "topStories": {
     "lead": "article-001",
@@ -14,17 +13,16 @@ Old Index json
 
   "jammuKashmir": [
     "jk-001",
-    "jk-002"
+    "jk-002",
+    "article-002"
   ],
 
   "international": [
-    "international-001",
-    null
+    "international-001"
   ],
 
   "humanRights": [
-    "humanrights-001",
-    null
+    "humanrights-001"
   ],
 
   "ticker": [
