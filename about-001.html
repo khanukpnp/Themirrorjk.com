@@ -25,7 +25,6 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     
     <style>
-        /* Additional styles for about page */
         .about-page-container {
             max-width: 900px;
             margin: 40px auto;
@@ -173,6 +172,7 @@
             <li class="nav-item"><a href="index.html" class="nav-btn">🏠 Home</a></li>
             <li class="nav-item"><a href="about-001.html" class="nav-btn" style="background: #b30000;">📖 About</a></li>
             <li class="nav-item"><a href="chief-editor-001.html" class="nav-btn">✍️ Chief Editor</a></li>
+            <li class="nav-item"><a href="our-team.html" class="nav-btn">👥 Our Team</a></li>
             <li class="nav-item"><a href="breaking.html" class="nav-btn">🆕 Breaking News</a></li>
             <li class="nav-item has-sub">
                 <a href="#" class="nav-btn">📝 Blog</a>
@@ -241,8 +241,8 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about-001.html">About Us</a></li>
                     <li><a href="chief-editor-001.html">Chief Editor</a></li>
+                    <li><a href="our-team.html">Our Team</a></li>
                     <li><a href="#vlogs">Vlogs</a></li>
-                    <li><a href="#international">International</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -268,21 +268,33 @@
 
 <script src="script.js"></script>
 
-<!-- Initialize about page after script loads -->
 <script>
-    // Wait for script.js to load then load about content
-    setTimeout(function() {
+    // Initialize page components and load about content
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize all components
+        if (typeof initLoader === 'function') initLoader();
+        if (typeof initYear === 'function') initYear();
+        if (typeof initClocks === 'function') initClocks();
+        if (typeof initWeatherBar === 'function') initWeatherBar();
+        if (typeof initTicker === 'function') initTicker();
+        if (typeof initNav === 'function') initNav();
+        if (typeof initLanguageSelector === 'function') initLanguageSelector();
+        if (typeof initSearch === 'function') initSearch();
+        if (typeof initSocialButtons === 'function') initSocialButtons();
+        if (typeof initFooterDropdowns === 'function') initFooterDropdowns();
+        
+        // Load about page content
         if (typeof loadAboutPage === 'function') {
             loadAboutPage();
         } else {
-            console.log("Waiting for script.js to load...");
+            console.log("loadAboutPage not found, waiting...");
             setTimeout(function() {
                 if (typeof loadAboutPage === 'function') {
                     loadAboutPage();
                 }
-            }, 1000);
+            }, 500);
         }
-    }, 100);
+    });
 </script>
 
 </body>
