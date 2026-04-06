@@ -2076,10 +2076,10 @@ meta[name^="twitter:"] {
 /* .debug-share { border: 2px solid red; } */
 
 /* ============================================================
-FIXED: IMAGE FLOATING AND WRAPPING - NO EMPTY GAPS
+FIXED: IMAGE FLOATING, NO EMPTY GAPS, PROPER CLEARFIX
 ============================================================ */
 
-/* Hero image container - 16:9 ratio */
+/* Hero image container */
 .hero-image-container {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -2102,22 +2102,28 @@ FIXED: IMAGE FLOATING AND WRAPPING - NO EMPTY GAPS
     text-align: center;
 }
 
-/* FLOATING IMAGES - 40% width, proper wrapping */
-#content .img-left {
+/* FLOATING IMAGES - 40% width */
+#content .img-left,
+.about-content .img-left,
+.editor-content .img-left {
     float: left;
     width: 40%;
     margin: 0.5rem 1.5rem 1rem 0;
     clear: none;
 }
 
-#content .img-right {
+#content .img-right,
+.about-content .img-right,
+.editor-content .img-right {
     float: right;
     width: 40%;
     margin: 0.5rem 0 1rem 1.5rem;
     clear: none;
 }
 
-#content .img-center {
+#content .img-center,
+.about-content .img-center,
+.editor-content .img-center {
     width: 100%;
     margin: 2rem 0;
     text-align: center;
@@ -2125,20 +2131,26 @@ FIXED: IMAGE FLOATING AND WRAPPING - NO EMPTY GAPS
     clear: both;
 }
 
-/* Figure and image styling */
-#content figure {
+/* Figure styling */
+#content figure,
+.about-content figure,
+.editor-content figure {
     margin: 1.5rem 0;
     display: block;
 }
 
-#content figure img {
+#content figure img,
+.about-content figure img,
+.editor-content figure img {
     width: 100%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-#content figcaption {
+#content figcaption,
+.about-content figcaption,
+.editor-content figcaption {
     font-size: 0.8rem;
     color: #666;
     margin-top: 0.5rem;
@@ -2154,52 +2166,47 @@ FIXED: IMAGE FLOATING AND WRAPPING - NO EMPTY GAPS
     clear: both;
 }
 
-#content {
+#content,
+.about-content,
+.editor-content {
     overflow: visible;
 }
 
-/* Ensure paragraphs don't get stuck next to images */
-#content p {
+/* Ensure paragraphs wrap properly around floated images */
+#content p,
+.about-content p,
+.editor-content p {
     overflow: visible;
     margin-bottom: 1.5rem;
     line-height: 1.8;
 }
 
-/* Prevent large empty gaps between floated images */
-#content .img-left + p,
-#content .img-right + p,
-#content .img-left + .img-right,
-#content .img-right + .img-left {
-    margin-top: 0;
-}
-
-/* For any element after floated images */
-#content .clear-both {
-    clear: both;
-    display: block;
-}
-
-/* Subheadings after floated images */
-#content .mid-subheading {
+/* Clear floats before subheadings and pullquotes */
+#content .mid-subheading,
+#content .pull-quote,
+#content .subheading,
+.about-content h2,
+.editor-content h2 {
     clear: both;
     padding-top: 1rem;
 }
 
-/* Responsive: Stack images on mobile */
-@media (max-width: 768px) {
-    #content .img-left,
-    #content .img-right {
-        float: none;
-        width: 100%;
-        margin: 1.5rem 0;
-    }
+/* Remove extra margins after floated elements */
+#content .img-left + p,
+#content .img-right + p,
+.about-content .img-left + p,
+.about-content .img-right + p,
+.editor-content .img-left + p,
+.editor-content .img-right + p {
+    margin-top: 0;
 }
 
-/* Homepage card images - 16:9 */
+/* Homepage card images - ensure they show */
 .cards .media {
     width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
+    background: #f5f5f5;
 }
 
 .cards .media img {
@@ -2208,7 +2215,6 @@ FIXED: IMAGE FLOATING AND WRAPPING - NO EMPTY GAPS
     object-fit: cover;
 }
 
-/* Ensure cards have no empty gaps */
 .card {
     display: flex;
     flex-direction: column;
@@ -2219,7 +2225,16 @@ FIXED: IMAGE FLOATING AND WRAPPING - NO EMPTY GAPS
     flex: 1;
 }
 
-/* Fix for pullquotes */
-.pull-quote {
-    clear: both;
+/* Responsive: Stack images on mobile */
+@media (max-width: 768px) {
+    #content .img-left,
+    #content .img-right,
+    .about-content .img-left,
+    .about-content .img-right,
+    .editor-content .img-left,
+    .editor-content .img-right {
+        float: none;
+        width: 100%;
+        margin: 1.5rem 0;
+    }
 }
