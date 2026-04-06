@@ -1089,23 +1089,28 @@ function loadHumanRightsFallback() {
 }
 
 /* ============================
-   CREATE HOMEPAGE CARD
-   ============================ */
+CREATE HOMEPAGE CARD - FIXED HERO IMAGE
+============================ */
 function createHomepageCard(article, label) {
     if (!article) return '';
     
     const title = article.title || 'Untitled';
     const excerpt = article.excerpt || article.summary || 'Click to read more about this story.';
     
-    let image = 'https://via.placeholder.com/640x360?text=No+Image';
-    if (article.heroImage && article.heroImage.src) {
-        image = article.heroImage.src;
-        if (image.includes('github.com') && !image.includes('raw')) {
-            image = image.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+    // FIXED: Properly get hero image from article
+    let image = 'https://via.placeholder.com/640x360?text=News';
+    
+    if (article.heroImage) {
+        if (typeof article.heroImage === 'string') {
+            image = article.heroImage;
+        } else if (article.heroImage.src) {
+            image = article.heroImage.src;
         }
-        if (!image.startsWith('http') && !image.startsWith('content/images/')) {
-            image = 'content/images/' + image.split('/').pop();
-        }
+    }
+    
+    // Fix relative paths
+    if (image && !image.startsWith('http') && !image.startsWith('content/images/') && !image.startsWith('/')) {
+        image = 'content/images/' + image.split('/').pop();
     }
     
     const id = article.id || '';
@@ -1114,17 +1119,14 @@ function createHomepageCard(article, label) {
     
     return `
         <article class="card">
-            <div class="media"><img src="${image}" alt="${displayTitle}" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
-            <div class="card-body"><h3>${displayTitle}</h3><p>${displayExcerpt}</p><a href="article.html?id=${id}" class="btn-red">Read More →</a></div>
-        </article>
-    `;
-}
-
-function createEmptyCard(label) {
-    return `
-        <article class="card">
-            <div class="media"><img src="https://via.placeholder.com/640x360?text=${label}" alt="${label}"></div>
-            <div class="card-body"><h3>${label}</h3><p>Content coming soon. Please check back later.</p><a href="#" class="btn-red">Read More →</a></div>
+            <div class="media">
+                <img src="${image}" alt="${displayTitle}" onerror="this.src='https://via.placeholder.com/640x360?text=News'">
+            </div>
+            <div class="card-body">
+                <h3>${displayTitle}</h3>
+                <p>${displayExcerpt}</p>
+                <a href="article.html?id=${id}" class="btn-red">Read More →</a>
+            </div>
         </article>
     `;
 }
