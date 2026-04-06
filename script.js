@@ -1133,14 +1133,19 @@ function createEmptyCard(label) {
    ABOUT PAGE LOADER
    ============================ */
 function loadAboutPage() {
-    fetch("content/about-001.json").then(function(response) {
+    fetch("content/about.json").then(function(response) {
         if (response.ok) return response.json();
         throw new Error("About content not found");
     }).then(function(data) {
         renderAboutPage(data);
     }).catch(function(error) {
         console.error("Failed to load about page:", error);
-        document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>About content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        const aboutTitle = document.getElementById("about-title");
+        const aboutContent = document.getElementById("about-content");
+        if (aboutTitle) aboutTitle.innerHTML = "About content coming soon";
+        if (aboutContent) {
+            aboutContent.innerHTML = '<div style="text-align:center; padding:50px;"><h2>About content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        }
     });
 }
 
@@ -1165,13 +1170,13 @@ function renderAboutPage(data) {
         data.body.forEach(function(block, index) {
             if (block.type === "paragraph") {
                 if (index === 0 && data.heroImage) {
-                    const alignClass = data.heroImage.align === "left" ? "float-left" : "float-right";
+                    const alignClass = data.heroImage.align === "left" ? "img-left" : "img-right";
                     html += `<p><figure class="${alignClass}"><img src="${data.heroImage.src}" alt="${data.heroImage.caption || 'Logo'}"><figcaption>${data.heroImage.caption || ''}</figcaption></figure>${block.text}</p>`;
                 } else {
                     html += '<p>' + block.text + '</p>';
                 }
             } else if (block.type === "subheading") {
-                html += '<h2>' + block.text + '</h2>';
+                html += '<h2 class="mid-subheading">' + block.text + '</h2>';
             } else if (block.type === "pullquote") {
                 html += '<div class="pull-quote">' + block.text + '</div>';
             } else if (block.type === "points" && block.items) {
@@ -1179,6 +1184,9 @@ function renderAboutPage(data) {
                 block.items.forEach(item => { itemsHtml += '<li>' + item + '</li>'; });
                 itemsHtml += '</ul></div>';
                 html += itemsHtml;
+            } else if (block.type === "image" && block.src) {
+                const alignClass = block.align === "left" ? "img-left" : (block.align === "right" ? "img-right" : "img-center");
+                html += `<figure class="${alignClass}"><img src="${block.src}" alt="${block.caption || 'Image'}"><figcaption>${block.caption || ''} ${block.credit ? '--- ' + block.credit : ''}</figcaption></figure>`;
             }
         });
         contentEl.innerHTML = html;
@@ -1189,14 +1197,19 @@ function renderAboutPage(data) {
    CHIEF EDITOR PAGE LOADER
    ============================ */
 function loadChiefEditorPage() {
-    fetch("content/chief-editor-001.json").then(function(response) {
+    fetch("content/chief-editor.json").then(function(response) {
         if (response.ok) return response.json();
         throw new Error("Chief Editor content not found");
     }).then(function(data) {
         renderChiefEditorPage(data);
     }).catch(function(error) {
         console.error("Failed to load chief editor page:", error);
-        document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Chief Editor content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        const editorTitle = document.getElementById("editor-title");
+        const editorContent = document.getElementById("editor-content");
+        if (editorTitle) editorTitle.innerHTML = "Chief Editor content coming soon";
+        if (editorContent) {
+            editorContent.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Chief Editor content coming soon</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        }
     });
 }
 
@@ -1218,13 +1231,13 @@ function renderChiefEditorPage(data) {
         data.body.forEach(function(block, index) {
             if (block.type === "paragraph") {
                 if (index === 0 && data.heroImage) {
-                    const alignClass = data.heroImage.align === "left" ? "float-left" : "float-right";
+                    const alignClass = data.heroImage.align === "left" ? "img-left" : "img-right";
                     html += `<p><figure class="${alignClass}"><img src="${data.heroImage.src}" alt="${data.heroImage.caption || 'Chief Editor'}"><figcaption>${data.heroImage.caption || ''}</figcaption></figure>${block.text}</p>`;
                 } else {
                     html += '<p>' + block.text + '</p>';
                 }
             } else if (block.type === "subheading") {
-                html += '<h2>' + block.text + '</h2>';
+                html += '<h2 class="mid-subheading">' + block.text + '</h2>';
             } else if (block.type === "pullquote") {
                 html += '<div class="pull-quote">' + block.text + '</div>';
             } else if (block.type === "points" && block.items) {
@@ -1232,6 +1245,9 @@ function renderChiefEditorPage(data) {
                 block.items.forEach(item => { itemsHtml += '<li>' + item + '</li>'; });
                 itemsHtml += '</ul></div>';
                 html += itemsHtml;
+            } else if (block.type === "image" && block.src) {
+                const alignClass = block.align === "left" ? "img-left" : (block.align === "right" ? "img-right" : "img-center");
+                html += `<figure class="${alignClass}"><img src="${block.src}" alt="${block.caption || 'Image'}"><figcaption>${block.caption || ''} ${block.credit ? '--- ' + block.credit : ''}</figcaption></figure>`;
             }
         });
         contentEl.innerHTML = html;
@@ -1752,61 +1768,3 @@ function suggestNextArticle(currentArticleId) {
 // Make functions globally available
 window.copyPageLink = copyPageLink;
 window.playVideo = playVideo;
-
-// SHARE BUTTON FIX — SAFE, NO LAYOUT CHANGE
-function setupShareButtons(articleData) {
-    const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent(articleData.title);
-    const description = encodeURIComponent(articleData.excerpt);
-    const image = encodeURIComponent(window.location.origin + "/" + articleData.heroImage.src);
-
-    // Facebook
-    document.getElementById("share-facebook").href =
-        `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-
-    // Twitter / X
-    document.getElementById("share-twitter").href =
-        `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
-
-    // WhatsApp
-    document.getElementById("share-whatsapp").href =
-        `https://api.whatsapp.com/send?text=${title}%20${url}`;
-
-    // LinkedIn
-    document.getElementById("share-linkedin").href =
-        `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-
-    // Telegram
-    document.getElementById("share-telegram").href =
-        `https://t.me/share/url?url=${url}&text=${title}`;
-
-    // Reddit
-    document.getElementById("share-reddit").href =
-        `https://www.reddit.com/submit?url=${url}&title=${title}`;
-
-    // Pinterest
-    document.getElementById("share-pinterest").href =
-        `https://pinterest.com/pin/create/button/?url=${url}&media=${image}&description=${description}`;
-
-    // Email
-    document.getElementById("share-email").href =
-        `mailto:?subject=${title}&body=${description}%0A${url}`;
-}
-
-
-// OG + TWITTER META TAG FIX — SAFE, NO LAYOUT CHANGE
-function setupMetaTags(articleData) {
-    const url = window.location.href;
-
-    document.getElementById("og-title").content = articleData.title;
-    document.getElementById("og-description").content = articleData.excerpt;
-    document.getElementById("og-image").content = window.location.origin + "/" + articleData.heroImage.src;
-    document.getElementById("og-url").content = url;
-
-    document.getElementById("twitter-title").content = articleData.title;
-    document.getElementById("twitter-description").content = articleData.excerpt;
-    document.getElementById("twitter-image").content = window.location.origin + "/" + articleData.heroImage.src;
-
-    document.getElementById("meta-description").content = articleData.excerpt;
-    document.getElementById("page-title").innerText = articleData.title;
-}
