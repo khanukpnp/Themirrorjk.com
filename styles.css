@@ -2054,3 +2054,6 @@ SIMPLE FIX: REMOVE EMPTY GAPS & FIX IMAGE FLOATING
     height: 100%;
     object-fit: cover;
 }
+
+/* Fix empty gaps - ONE LINE */
+#content .mid-subheading, #content .pull-quote, .about-content h2, .editor-content h2 { clear: both; }
