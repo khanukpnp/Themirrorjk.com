@@ -4,13 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | THE MIRROR JAMMU KASHMIR</title>
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:url" content="https://themirrorjk.com/about-001.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="About Us | THE MIRROR JAMMU KASHMIR">
+    <meta property="og:description" content="The Mirror Jammu Kashmir is an independent digital media platform dedicated to truth, justice, and human dignity.">
+    <meta property="og:image" content="https://themirrorjk.com/content/images/logo.png">
+    <meta property="og:site_name" content="THE MIRROR JAMMU KASHMIR">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About Us | THE MIRROR JAMMU KASHMIR">
+    <meta name="twitter:description" content="Independent digital media platform dedicated to truth, justice, and human dignity.">
+    <meta name="twitter:image" content="https://themirrorjk.com/content/images/logo.png">
+    <meta name="twitter:site" content="@TheMirrorJK">
+    
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
     <style>
-        .about-page {
+        /* Additional styles for about page */
+        .about-page-container {
             max-width: 900px;
             margin: 40px auto;
             padding: 0 20px;
+            background: white;
         }
         .about-title {
             font-size: 2.5rem;
@@ -83,16 +103,187 @@
                 width: 100%;
                 margin: 1.5rem 0;
             }
+            .about-title {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    <main class="about-page">
+
+<!-- LOADER -->
+<div id="site-loader">
+    <div class="loader-inner">
+        <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+        <p>Loading newsroom, clocks, calendars and headlines...</p>
+    </div>
+</div>
+
+<div class="page-shell">
+    <!-- HEADER -->
+    <header class="site-header">
+        <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+        <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
+    </header>
+
+    <!-- CLOCKS AND CALENDARS -->
+    <div class="info-bar clocks-calendars">
+        <div class="info-items" id="datetime-bar"></div>
+    </div>
+
+    <!-- WEATHER BAR -->
+    <div class="info-bar weather-bar">
+        <div class="info-items" id="weather-bar"></div>
+    </div>
+
+    <!-- BREAKING TICKER -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span class="ticker-label">🆕 BREAKING</span>
+            <div class="ticker-items" id="ticker-items"></div>
+        </div>
+    </div>
+
+    <!-- LANGUAGE & SEARCH TOOLS -->
+    <div class="tools-bar">
+        <div class="lang-select">
+            🌍
+            <select id="language-select">
+                <option value="en" selected>English</option>
+                <option value="de">German</option>
+                <option value="fr">French</option>
+                <option value="ur">Urdu</option>
+                <option value="hi">Hindi</option>
+                <option value="ar">Arabic</option>
+            </select>
+        </div>
+        <form class="search" onsubmit="event.preventDefault();">
+            <input id="search-input" type="search" placeholder="Search...">
+            <button type="submit">🔍</button>
+        </form>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
+        <ul class="nav-list" id="nav-list">
+            <li class="nav-item"><a href="index.html" class="nav-btn">🏠 Home</a></li>
+            <li class="nav-item"><a href="about-001.html" class="nav-btn" style="background: #b30000;">📖 About</a></li>
+            <li class="nav-item"><a href="chief-editor-001.html" class="nav-btn">✍️ Chief Editor</a></li>
+            <li class="nav-item"><a href="breaking.html" class="nav-btn">🆕 Breaking News</a></li>
+            <li class="nav-item has-sub">
+                <a href="#" class="nav-btn">📝 Blog</a>
+                <div class="dropdown">
+                    <a href="editorial.html">Editorial</a>
+                    <a href="opinion.html">Opinion</a>
+                    <a href="#latest">Latest Updates</a>
+                </div>
+            </li>
+            <li class="nav-item has-sub">
+                <a href="#" class="nav-btn">🎥 Vlog</a>
+                <div class="dropdown">
+                    <a href="#vlogs">Latest Vlogs</a>
+                    <a href="archive.html">Archive</a>
+                </div>
+            </li>
+            <li class="nav-item"><a href="#epaper" class="nav-btn">📰 E-Paper</a></li>
+            <li class="nav-item has-sub">
+                <a href="#" class="nav-btn">📍 Jammu Kashmir</a>
+                <div class="dropdown wide">
+                    <a href="#regions">Regions</a>
+                    <a href="#history">History</a>
+                    <a href="#culture">Culture</a>
+                </div>
+            </li>
+            <li class="nav-item has-sub">
+                <a href="#" class="nav-btn">🕊️ UN & HR</a>
+                <div class="dropdown">
+                    <a href="#unhrc">UNHRC</a>
+                    <a href="#reports">Reports</a>
+                    <a href="#advocacy">Advocacy</a>
+                </div>
+            </li>
+        </ul>
+        <div id="mobile-menu" class="mobile-menu" hidden></div>
+    </nav>
+
+    <!-- MAIN ABOUT CONTENT -->
+    <main class="about-page-container">
         <h1 id="about-title" class="about-title"></h1>
         <div id="about-subtitle" class="about-subtitle"></div>
         <div id="about-meta" class="about-meta"></div>
         <div id="about-content" class="about-content"></div>
     </main>
-    <script src="script.js"></script>
+
+    <!-- SOCIAL ACTIONS -->
+    <div class="social-actions">
+        <button class="sa-btn">👍 Like</button>
+        <button class="sa-btn">🔔 Subscribe</button>
+        <button class="sa-btn">📤 Share</button>
+        <button class="sa-btn" onclick="copyPageLink()">🔗 Copy Link</button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="modern-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4 style="text-align: center;">THE MIRROR JAMMU KASHMIR</h4>
+                <p style="text-align: center; max-width: 90%; margin: 0 auto;">
+                    THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, TO POLICY, TO HISTORY, AND TO TRUTH.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-001.html">About Us</a></li>
+                    <li><a href="chief-editor-001.html">Chief Editor</a></li>
+                    <li><a href="#vlogs">Vlogs</a></li>
+                    <li><a href="#international">International</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>themirrorjk@gmail.com</p>
+                <p>+41 783 13 12 13</p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">📘</a>
+                    <a href="#" class="social-icon">🐦</a>
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">▶️</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © <span id="year"></span> THE MIRROR JAMMU KASHMIR
+        </div>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+
+<!-- Initialize about page after script loads -->
+<script>
+    // Wait for script.js to load then load about content
+    setTimeout(function() {
+        if (typeof loadAboutPage === 'function') {
+            loadAboutPage();
+        } else {
+            console.log("Waiting for script.js to load...");
+            setTimeout(function() {
+                if (typeof loadAboutPage === 'function') {
+                    loadAboutPage();
+                }
+            }, 1000);
+        }
+    }, 100);
+</script>
+
 </body>
 </html>
