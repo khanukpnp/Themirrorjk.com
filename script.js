@@ -1089,16 +1089,18 @@ function loadHumanRightsFallback() {
 }
 
 /* ============================
-CREATE HOMEPAGE CARD - FIXED HERO IMAGE
+CREATE HOMEPAGE CARD - FIXED
 ============================ */
 function createHomepageCard(article, label) {
     if (!article) return '';
     
+    console.log("Creating card for:", article.id, article.title);
+    
     const title = article.title || 'Untitled';
     const excerpt = article.excerpt || article.summary || 'Click to read more about this story.';
     
-    // FIXED: Properly get hero image from article
-    let image = 'https://via.placeholder.com/640x360?text=News';
+    // Get hero image - MULTIPLE FALLBACKS
+    let image = 'https://via.placeholder.com/640x360?text=No+Image';
     
     if (article.heroImage) {
         if (typeof article.heroImage === 'string') {
@@ -1108,10 +1110,19 @@ function createHomepageCard(article, label) {
         }
     }
     
+    // If still no image, try article.image
+    if (image === 'https://via.placeholder.com/640x360?text=No+Image' && article.image) {
+        image = article.image;
+    }
+    
     // Fix relative paths
-    if (image && !image.startsWith('http') && !image.startsWith('content/images/') && !image.startsWith('/')) {
+    if (image && image.startsWith('content/')) {
+        image = image;
+    } else if (image && !image.startsWith('http') && !image.startsWith('/')) {
         image = 'content/images/' + image.split('/').pop();
     }
+    
+    console.log("Final image path:", image);
     
     const id = article.id || '';
     let displayTitle = title.length > 80 ? title.substring(0, 80) + '...' : title;
