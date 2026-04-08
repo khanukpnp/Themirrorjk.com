@@ -1781,3 +1781,21 @@ function suggestNextArticle(currentArticleId) {
 // Make functions globally available
 window.copyPageLink = copyPageLink;
 window.playVideo = playVideo;
+
+... your last function here ...
+
+// ⬇️ Paste the placeholder card function here
+function createEmptyCard(label = "COMING SOON") {
+    return `
+    <article class="card">
+        <div class="media">
+            <img src="https://via.placeholder.com/640x360?text=${label}" alt="${label}">
+        </div>
+        <div class="card-body">
+            <h3>${label}</h3>
+            <p>Content coming soon. Please check back later.</p>
+            <a href="#" class="btn-red">Read More →</a>
+        </div>
+    </article>
+    `;
+}
