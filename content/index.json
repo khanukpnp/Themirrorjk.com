@@ -17,11 +17,13 @@
   ],
 
   "international": [
-    "international-001"
+    "international-001",
+    "international-placeholder"
   ],
 
   "humanRights": [
-    "humanrights-001"
+    "humanrights-001",
+    "humanrights-placeholder"
   ],
 
   "ticker": [
