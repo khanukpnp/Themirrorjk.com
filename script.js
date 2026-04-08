@@ -1782,8 +1782,6 @@ function suggestNextArticle(currentArticleId) {
 window.copyPageLink = copyPageLink;
 window.playVideo = playVideo;
 
-... your last function here ...
-
 // ⬇️ Paste the placeholder card function here
 function createEmptyCard(label = "COMING SOON") {
     return `
