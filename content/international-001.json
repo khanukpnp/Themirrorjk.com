@@ -13,7 +13,7 @@
   "heroImage": {
     "src": "content/images/international-001-hero.jpg",
     "caption": "Sardar Shaukat Ali Kashmiri, Exiled Chairman of UKPNP, addressing the International Kashmir Conference at the Houses of Parliament, London — 8 July 2025",
-    "credit": "The Mirror Jammu Kashmir / UKPNP Media Cell",
+    "credit": "The Mirror Jammu Kashmir International Media Cell",
     "align": "center"
   },
   "navigation": {
@@ -78,7 +78,7 @@
       "type": "image",
       "src": "content/images/international-001-panel-2.jpg",
       "align": "left",
-      "caption": "Justice for Zarnosh Nasim & Jibran Nasim — extrajudicially killed in Azad Kashmir, demanding independent judicial inquiry",
+      "caption": "      "caption": "Panelists at the UKPNP International Kashmir Conference, House of Commons, London",
       "credit": "UKPNP Media Cell"
     },
     {
@@ -101,7 +101,7 @@
       "type": "image",
       "src": "content/images/international-001-Richard-Burgon-MP.jpg",
       "align": "right",
-      "caption": "Richard Burgon MP, Labour MP for Leeds East and Former Shadow Secretary of State for Justice — Conference Host",
+      "caption": "Richard Burgon MP, Labour MP for Leeds East and Former Shadow Secretary of State for Justice  Conference Host",
       "credit": "The Mirror Jammu Kashmir"
     },
     {
@@ -110,7 +110,7 @@
     },
     {
       "type": "image",
-      "src": "content/images/international-001-Fabian-Hamilton_MP.jpg",
+      "src": "content/images/international-001-Fabian-Hamilton-MP.jpg",
       "align": "left",
       "caption": "Fabian Hamilton MP addressing the conference, reaffirming commitment to Kashmiris' right to self-determination",
       "credit": "The Mirror Jammu Kashmir"
@@ -132,7 +132,7 @@
     },
     {
       "type": "image",
-      "src": "content/images/international-001-lan-Byrne.jpg",
+      "src": "content/images/international-001-lan-Byrne-mp.jpg",
       "align": "left",
       "caption": "Ian Byrne MP reaffirming that self-determination is a fundamental right which Kashmiris deserve",
       "credit": "The Mirror Jammu Kashmir"
@@ -145,7 +145,8 @@
       "type": "image",
       "src": "content/images/international-001-panel-3.jpg",
       "align": "right",
-      "caption": "Sardar Nasir Aziz Khan, Central Spokesperson UKPNP — Moderator of the Conference",
+      "caption": ""Panelists & Participants at the UKPNP International Kashmir Conference, House of Commons, London",
+",
       "credit": "The Mirror Jammu Kashmir"
     },
     {
@@ -160,7 +161,7 @@
       "type": "image",
       "src": "content/images/international-001-panel1.jpg",
       "align": "left",
-      "caption": "Mahmood Ahmed Kashmiri, Chairman JKNIA and UKPNP Senior Leader, addressing the conference",
+      "caption": ""Panelists at the UKPNP International Kashmir Conference, House of Commons, London",
       "credit": "The Mirror Jammu Kashmir"
     },
     {
@@ -182,7 +183,7 @@
       "type": "image",
       "src": "content/images/international-001-participants-2.jpg",
       "align": "right",
-      "caption": "Diaspora Kashmiris attending the historic conference in London",
+      "caption": "UKPNP Activists & Diaspora Kashmiris attending the historic conference in London",
       "credit": "The Mirror Jammu Kashmir"
     },
     {
@@ -233,7 +234,7 @@
       "type": "image",
       "src": "content/images/international-001-participants-5.jpg",
       "align": "left",
-      "caption": "Delegates from various regions at the conference",
+      "caption": "Delegates of UKPNP  from various regions at the conference",
       "credit": "The Mirror Jammu Kashmir"
     },
     {
@@ -275,7 +276,8 @@
       "type": "image",
       "src": "content/images/international-001-participants-7.jpg",
       "align": "left",
-      "caption": "Group photo of UKPNP delegation at the conference",
+      "caption": ""Panelists & Participants at the UKPNP International Kashmir Conference, House of Commons, London",
+",
       "credit": "The Mirror Jammu Kashmir"
     },
     {
@@ -290,7 +292,7 @@
       "type": "image",
       "src": "content/images/international-001-zarnosh.jpg",
       "align": "right",
-      "caption": "Diaspora community participating in the conference at House of Commons",
+      "caption": " UKPNP Activists & Diaspora community demanding Justice for Zarnosh Nasim & Jibran Nasim with banner in the front of the  House of Commons",
       "credit": "The Mirror Jammu Kashmir"
     },
     {
@@ -301,7 +303,7 @@
       "type": "image",
       "src": "content/images/international-001-participants-8.jpg",
       "align": "left",
-      "caption": "UKPNP leadership with participants at House of Commons",
+      "caption": "UKPNP Delegates & Participants at House of Commons United Kingdom",
       "credit": "The Mirror Jammu Kashmir"
     },
     {
