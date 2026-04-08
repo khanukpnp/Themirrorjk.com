@@ -1782,7 +1782,7 @@ function suggestNextArticle(currentArticleId) {
 window.copyPageLink = copyPageLink;
 window.playVideo = playVideo;
 
-// ⬇️ Paste the placeholder card function here
+// ⬇️ Placeholder card function (safe, complete, error‑free)
 function createEmptyCard(label = "COMING SOON") {
     return `
     <article class="card">
@@ -1797,3 +1797,4 @@ function createEmptyCard(label = "COMING SOON") {
     </article>
     `;
 }
+
