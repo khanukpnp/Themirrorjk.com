@@ -30,12 +30,10 @@
       "type": "subheading",
       "text": "UKPNP International Conference on Jammu & Kashmir – House of Commons, London"
     },
-
     {
       "type": "paragraph",
-      "text": "The United Kashmir People’s National Party (UKPNP) convened a major international conference in the Boothroyd Room of the Houses of Parliament, London, focusing on peace, security, and fundamental rights in Jammu and Kashmir. The event brought together Members of Parliament, human rights defenders, legal experts, academics, media professionals, and diaspora representatives."
+      "text": "The United Kashmir People’s National Party (UKPNP) convened a major international conference in the Boothroyd Room of the Houses of Parliament, London, focusing on peace, security, and fundamental rights in Jammu and Kashmir."
     },
-
     {
       "type": "pullquote",
       "text": "“Kashmir is not a territorial or bilateral issue. It is an international issue.” – Sardar Shaukat Ali Kashmiri"
@@ -43,7 +41,7 @@
 
     {
       "type": "paragraph",
-      "text": "The conference was hosted by Richard Burgon MP, Labour MP for Leeds East and former Shadow Secretary of State for Justice. The keynote address was delivered by Sardar Shaukat Ali Kashmiri, Exiled Chairman of UKPNP and Administrative Director of CIRAC to the United Nations. The session was presided over by Sardar Tariq Khan, President UKPNP UK, and moderated by Sardar Nasir Aziz Khan, Central Spokesperson of UKPNP and Main Representative to the UN in Geneva and New York."
+      "text": "The conference was hosted by Richard Burgon MP, Labour MP for Leeds East and former Shadow Secretary of State for Justice."
     },
 
     {
@@ -54,6 +52,7 @@
     {
       "type": "image",
       "src": "content/images/international-001-panel-1.jpg",
+      "align": "right",
       "caption": "Panel session during the UKPNP International Kashmir Conference",
       "credit": "The Mirror Jammu Kashmir"
     },
@@ -62,10 +61,9 @@
       "type": "subheading",
       "text": "Distinguished Parliamentarians and Speakers"
     },
-
     {
       "type": "paragraph",
-      "text": "The conference featured participation from Fabian Hamilton MP, Imran Hussain MP, and Ian Byrne MP, alongside senior UKPNP leaders and representatives of oppressed nations. Speakers included Dr. Shabir Chaudhry, Mahmood Ahmed Kashmiri, Mrs. Faria Attique, Raja Sarfraz Khan, Sajjad Hussain, Sohail Talat, Syeda Mahroona Bukhari, Syed Barkatul Hasan, Mushahid Manzoor, and many others."
+      "text": "The conference featured participation from Fabian Hamilton MP, Imran Hussain MP, Ian Byrne MP, and senior UKPNP leadership."
     },
 
     {
@@ -79,15 +77,16 @@
     },
 
     {
-      "type": "paragraph",
-      "text": "Speakers condemned the Pahalgam terror attack that claimed the lives of at least 26 civilians. They honored Adil Shah, a Kashmiri who sacrificed his life protecting tourists. The conference also condemned the extrajudicial killings of Zarnosh Nasim and Jibran Nasim in Rawalakot, calling for an independent judicial inquiry."
+      "type": "image",
+      "src": "content/images/international-001-zarnosh.jpg",
+      "align": "left",
+      "caption": "Zarnosh Nasim, victim of extrajudicial killing in Rawalakot",
+      "credit": "The Mirror Jammu Kashmir"
     },
 
     {
-      "type": "image",
-      "src": "content/images/international-001-zarnosh.jpg",
-      "caption": "Zarnosh Nasim, one of the victims of extrajudicial killings in Rawalakot",
-      "credit": "The Mirror Jammu Kashmir"
+      "type": "paragraph",
+      "text": "Speakers condemned the Pahalgam terror attack and the extrajudicial killings of Zarnosh Nasim and Jibran Nasim."
     },
 
     {
@@ -101,8 +100,16 @@
     },
 
     {
+      "type": "image",
+      "src": "content/images/international-001-panel-2.jpg",
+      "align": "right",
+      "caption": "Delegates discussing human rights and regional security",
+      "credit": "The Mirror Jammu Kashmir"
+    },
+
+    {
       "type": "paragraph",
-      "text": "The conference demanded the release of political prisoners across Jammu and Kashmir, including Mumtaz Nagari, Advocate Ehsan Ali, Advocate Taaruf Abbas, Sher Nadir Shahi, and Muhammad Nafees. Speakers highlighted the alarming rise in enforced disappearances and kidnapping of minors, urging accountability and recovery of missing children."
+      "text": "The conference demanded the release of political prisoners across all regions of Jammu and Kashmir."
     },
 
     {
@@ -111,85 +118,62 @@
     },
 
     {
-      "type": "image",
-      "src": "content/images/international-001-panel-2.jpg",
-      "caption": "Delegates discussing human rights and regional security",
-      "credit": "The Mirror Jammu Kashmir"
-    },
-
-    {
-      "type": "subheading",
-      "text": "28-Point Resolution Adopted Unanimously"
-    },
-
-    {
-      "type": "paragraph",
-      "text": "UKPNP adopted a comprehensive 28-point resolution addressing human rights, reunification, international intervention
-    ,
-    {
-      "type": "subheading",
-      "text": "Human Rights, Civil Liberties, and Rule of Law"
-    },
-
-    {
-      "type": "paragraph",
-      "text": "The conference reaffirmed its commitment to the Universal Declaration of Human Rights and called for an end to arbitrary arrests, enforced disappearances, extrajudicial killings, and restrictions on freedoms across all regions of Jammu and Kashmir. Delegates highlighted the cases of Zarnosh Nasim and Jibran Nasim, whose deaths raised serious concerns about accountability and rule of law."
-    },
-
-    {
-      "type": "pullquote",
-      "text": "“We demand a judicial inquiry into extrajudicial killings and the alarming rise in enforced disappearances.”"
-    },
-
-    {
       "type": "subheading",
       "text": "Participants and Delegates"
     },
 
     {
-      "type": "paragraph",
-      "text": "The conference was attended by a wide range of activists, community leaders, journalists, and diaspora members including Sardar Amjad Yousaf, Sardar Tikka Khan Tahir, Yasir Arfat Qureshi, Naveed Khan, Aftan Hussain, Jamil Latif, Farooq Nazir, Muhammad Ramzan, Ishaq Khan, Muhammad Gaffar Hussain, Irfan Ashfaq, Hamza Shakeel, Muhammad Nisar, Muhammad Anis, Shafique ur Rehman, Syed Altaf Hussain, Abdul Rehman, Gul Zaman, Muhammad Ijaz Khan, Mahmood Ahmed, Qamar Khalil, Abdul Satar, Zarak Aftab, Usman Khan, Muhammad Adnan Khan, Qamar Farooq, Iftikhar Waqas, Arif Ajakia, Syed Taqdees Ali Gilani, Mehtab Subhani, Muhammad Shehbaz, Syed Farzad Gilani, Saiq Shah, Abdul Aziz Sheen, Sohail Aqeel, Haidher Aftab, Ashfaq Sadiq, Raja Yasir Sayab, Ishtiaq Sadiq, Musa Sadiq, Salar Saeed, Maqsood Kiyani, Waqar Aziz, Shezad Afzal, Syeda Tousifa Haider Gilani, Malik Sajid Hussain, Maria Mehwish, Zohaib Khan, Hina Javaid, Raja Muhammad Habib, Moseeb Khan, Zaheer Ahmed Kiyani, Saqib Khan, Akash Khan, Hashir Abbasi, Muhammad Rukshad Khan, and Naqeer Ahmed."
+      "type": "image",
+      "src": "content/images/international-001-participants-1.jpg",
+      "align": "left",
+      "caption": "Participants of the UKPNP International Kashmir Conference",
+      "credit": "The Mirror Jammu Kashmir"
     },
 
     {
       "type": "image",
-      "src": "content/images/international-001-participants-1.jpg",
-      "caption": "Participants of the UKPNP International Kashmir Conference",
-      "credit": "The Mirror Jammu Kashmir"
-    },
-    {
-      "type": "image",
       "src": "content/images/international-001-participants-3.jpg",
+      "align": "right",
       "caption": "Delegates and community leaders attending the conference",
       "credit": "The Mirror Jammu Kashmir"
     },
+
     {
       "type": "image",
       "src": "content/images/international-001-participants-4.jpg",
+      "align": "left",
       "caption": "UKPNP leadership and diaspora representatives",
       "credit": "The Mirror Jammu Kashmir"
     },
+
     {
       "type": "image",
       "src": "content/images/international-001-participants-5.jpg",
+      "align": "right",
       "caption": "Speakers addressing human rights concerns",
       "credit": "The Mirror Jammu Kashmir"
     },
+
     {
       "type": "image",
       "src": "content/images/international-001-participants-6.jpg",
+      "align": "left",
       "caption": "Panelists discussing regional peace and security",
       "credit": "The Mirror Jammu Kashmir"
     },
+
     {
       "type": "image",
       "src": "content/images/international-001-participants-7.jpg",
+      "align": "right",
       "caption": "Diaspora members showing solidarity",
       "credit": "The Mirror Jammu Kashmir"
     },
+
     {
       "type": "image",
       "src": "content/images/international-001-participants-8.jpg",
+      "align": "left",
       "caption": "Audience during the UKPNP conference session",
       "credit": "The Mirror Jammu Kashmir"
     },
@@ -198,10 +182,9 @@
       "type": "subheading",
       "text": "Democratic Governance and Political Participation"
     },
-
     {
       "type": "paragraph",
-      "text": "Speakers stressed the need for democratic freedoms across all regions of Jammu and Kashmir, calling for the restoration of constitutional safeguards, protection of civil liberties, and an end to the suppression of political dissent. The conference demanded the immediate release of all political prisoners and the cessation of intimidation and harassment of activists and journalists."
+      "text": "Speakers stressed the need for democratic freedoms across all regions of Jammu and Kashmir."
     },
 
     {
@@ -211,22 +194,11 @@
 
     {
       "type": "subheading",
-      "text": "Terrorism, Extremism, and Regional Stability"
+      "text": "International Engagement and Working Group"
     },
-
     {
       "type": "paragraph",
-      "text": "The conference condemned all forms of terrorism and extremism, urging authorities to prevent radicalization and violence. Delegates emphasized the need to protect cultural, linguistic, and religious identities across all regions, and called for sustainable development policies that respect local rights and resources."
-    },
-
-    {
-      "type": "subheading",
-      "text": "International Engagement and Diaspora Involvement"
-    },
-
-    {
-      "type": "paragraph",
-      "text": "The conference appealed to the United Kingdom, United Nations, European Union, and other international institutions to support a peaceful and rights-based resolution of the Kashmir conflict. It recommended the appointment of a UN Special Rapporteur and encouraged multi-stakeholder dialogue involving all regions and communities."
+      "text": "The conference called for international engagement and proposed the creation of an International Kashmir Peace and Human Rights Working Group."
     },
 
     {
@@ -236,53 +208,11 @@
 
     {
       "type": "subheading",
-      "text": "Monitoring, Implementation, and Working Group"
-    },
-
-    {
-      "type": "paragraph",
-      "text": "UKPNP proposed the creation of an International Kashmir Peace and Human Rights Working Group to monitor developments, propose peaceful solutions, and submit annual reports to the British Parliament and international forums."
-    },
-
-    {
-      "type": "subheading",
-      "text": "Reunification, Buffer State, and No Military Solution"
-    },
-
-    {
-      "type": "paragraph",
-      "text": "The conference reiterated that Jammu and Kashmir must be reunified as a peaceful, autonomous buffer state between India, Pakistan, and China. Delegates emphasized that there is no military solution to the conflict and that forced divisions and unilateral decisions have only deepened suffering."
-    },
-
-    {
-      "type": "pullquote",
-      "text": "“The historical State of Jammu and Kashmir should be reunified and declared a buffer state between three nuclear powers.”"
-    },
-
-    {
-      "type": "subheading",
       "text": "Concluding Remarks"
     },
-
     {
       "type": "paragraph",
-      "text": "UKPNP leadership thanked MP Richard Burgon and all participating MPs for their support. Moderator Sardar Nasir Aziz Khan highlighted that this was the fourth consecutive UKPNP international conference held in the House of Commons. The party reaffirmed its peaceful and democratic mission for reunification and fundamental rights."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "British MPs reiterated that Jammu and Kashmir is an international issue, not a bilateral dispute, and that UN resolutions remain relevant. They emphasized that the future of the region must be determined in accordance with international law and the aspirations of the people."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "For the complete video of the conference, viewers may visit the official YouTube link."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "YouTube: https://youtu.be/36kt84I3HMc?si=Tell9PAzolE-S3gL"
+      "text": "UKPNP leadership thanked MP Richard Burgon and all participating MPs for their support."
     }
-
   ]
 }
