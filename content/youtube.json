@@ -3,54 +3,30 @@
     "name": "The Mirror Jammu Kashmir",
     "url": "https://www.youtube.com/@TheMirrorJammuKashmir"
   },
-
   "videos": [
     {
-      "title": "Exclusive Interview | The Mirror Jammu Kashmir",
-      "description": "In-depth interview on peace, justice, and human rights.",
-      "youtubeId": "yEnXu1M-dlo",
-      "category": "Interview",
-      "duration": "15:32"
-    },
-    {
-      "title": "Ground Report | Community Voices",
-      "description": "Voices from the ground. Real stories. Real people.",
-      "youtubeId": "hr1ATz8E39M",
-      "category": "Documentary",
-      "duration": "12:45"
-    },
-    {
-      "title": "Analysis | Human Rights Framework",
-      "description": "Legal and political analysis of ongoing human rights issues.",
-      "youtubeId": "pOEQeRhYbec",
-      "category": "Analysis",
-      "duration": "18:20"
-    },
-
-    /* ============================
-       NEW LINKS YOU REQUESTED
-       ============================ */
-
-    {
-      "title": "Exclusive Interview | The Mirror Jammu Kashmir",
-      "description": "Exclusive interview on regional justice, rights and political realities.",
+      "title": "USA-IRAN Peace Deal Likely in Days in Islamabad 10 Days Ceasefire in Lebonan",
+      "description": "Current Affairs, News, Updates, Analysis & Uncovering the Truth.",
       "youtubeId": "SNANYXoJxu0",
-      "category": "Interview",
-      "duration": "15:32"
+      "category": "News Analysis",
+      "duration": "47:11",
+      "thumbnail": "https://img.youtube.com/vi/SNANYXoJxu0/maxresdefault.jpg"
     },
     {
-      "title": "Ground Report | SCO Summit 2025",
-      "description": "Community voices and geopolitical shifts shaping the new world order.",
-      "youtubeId": "hr1ATz8E39M",
-      "category": "Ground Report",
-      "duration": "12:45"
-    },
-    {
-      "title": "Analysis | UKPNP Intra Kashmir Conference",
-      "description": "Legal and political analysis of forced division and human rights issues.",
+      "title": "9th June Azad Kashmir Shutter Down Call By Joint Awami Action Committee Dialogues Must Continue",
+      "description": "Ground report on shutdown call and ongoing dialogues in Azad Kashmir.",
       "youtubeId": "gXHOWzoEv8Q",
+      "category": "Ground Report",
+      "duration": "39:37",
+      "thumbnail": "https://img.youtube.com/vi/gXHOWzoEv8Q/maxresdefault.jpg"
+    },
+    {
+      "title": "UNHRC61 Parallel UKPNP Conference On Right to Free Movement & Self Determination of Jammmu Kashmir",
+      "description": "Legal and political analysis from the UNHRC session in Geneva.",
+      "youtubeId": "hr1ATz8E39M",
       "category": "Analysis",
-      "duration": "18:20"
+      "duration": "2:20:23",
+      "thumbnail": "https://img.youtube.com/vi/hr1ATz8E39M/maxresdefault.jpg"
     }
   ]
 }
