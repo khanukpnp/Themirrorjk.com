@@ -1,8 +1,7 @@
-,,
 {
   "id": "international-001",
   "slug": "ukpnp-historic-international-kashmir-conference-house-of-commons-london-2025",
-  "title": "UKPNP Historic International Kashmir Conference in House of Commons, London — 'Kashmir Conflict: Peace, Security and Fundamental Rights in Jammu and Kashmir'",
+  "title": "UKPNP Historic International Kashmir Conference in House of Commons, London --- 'Kashmir Conflict: Peace, Security and Fundamental Rights in Jammu and Kashmir'",
   "category": "top-stories",
   "sectionLabel": "⭐ TOP STORY",
   "excerpt": "The United Kashmir People's National Party (UKPNP) held a landmark International Kashmir Conference in the Boothroyd Room of the Houses of Parliament, London, under the theme: 'Kashmir Conflict: Peace, Security and Fundamental Rights in Jammu and Kashmir'. The conference saw extensive participation from Members of the British Parliament, international human rights activists, legal experts, academics, Kashmiri and oppressed nations' leaders, media professionals, and diaspora representatives.",
@@ -11,9 +10,12 @@
   "location": "London, United Kingdom",
   "date": "2025-07-08T10:00:00Z",
   "readTime": "30 min read",
+  "youtubeUrl": "https://youtu.be/36kt84I3HMc",
+  "youtubeId": "36kt84I3HMc",
+  "thumbnail": "https://img.youtube.com/vi/36kt84I3HMc/hqdefault.jpg",
   "heroImage": {
     "src": "content/images/international-001-hero.jpg",
-    "caption": "Sardar Shaukat Ali Kashmiri, Exiled Chairman of UKPNP, addressing the International Kashmir Conference at the Houses of Parliament, London — 8 July 2025",
+    "caption": "Sardar Shaukat Ali Kashmiri, Exiled Chairman of UKPNP, addressing the International Kashmir Conference at the Houses of Parliament, London --- 8 July 2025",
     "credit": "The Mirror Jammu Kashmir International Media Cell",
     "align": "center"
   },
@@ -35,15 +37,26 @@
     "London",
     "International Conference"
   ],
+  "pressRelease": {
+    "date": "July 8th, 2025",
+    "source": "Special Correspondent The Mirror Jammu Kashmir London UK",
+    "fullText": "UKPNP International Conference on Jammu Kashmir in House of Commons UK 8th July 2025. Houses of Parliament, London, under the theme: 'Kashmir Conflict: Peace, Security and Fundamental Rights in Jammu and Kashmir'. UKPNP Historic International Kashmir Conference in the House of Commons, London United Kingdom on 8th July 2025. London, 8 July 2025 — The United Kashmir People's National Party (UKPNP) held a landmark International Kashmir Conference in the Boothroyd Room of the Houses of Parliament, London, under the theme: 'Kashmir Conflict: Peace, Security and Fundamental Rights in Jammu and Kashmir'. The conference saw extensive participation from Members of the British Parliament, international human rights activists, legal experts, academics, Kashmiri and oppressed nations' leaders, media professionals, and diaspora representatives."
+  },
   "readMore": "<p>For more information on UKPNP's international advocacy efforts, please visit our official channels or contact the UKPNP Media Office at themirrorjk@gmail.com. Follow us on X (Twitter) at <strong>@NasirKhanUKPNP</strong> for the latest updates and announcements.</p><p>The UKPNP remains committed to peaceful dialogue, democratic principles, and the protection of fundamental human rights for all Kashmiris. The party continues to engage with international stakeholders, including members of the British Parliament, the European Parliament, the United Nations Human Rights Council, and diplomatic missions across Europe and North America.</p><p><strong>Watch the Full Conference:</strong> <a href='https://youtu.be/36kt84I3HMc' target='_blank' rel='noopener noreferrer'>https://youtu.be/36kt84I3HMc</a></p>",
   "body": [
     {
       "type": "subheading",
-      "text": "UKPNP International Conference on Jammu Kashmir in House of Commons UK — 8th July 2025"
+      "text": "UKPNP International Conference on Jammu Kashmir in House of Commons UK --- 8th July 2025"
     },
     {
       "type": "paragraph",
       "text": "London, 8 July 2025 — The United Kashmir People's National Party (UKPNP) held a landmark International Kashmir Conference in the Boothroyd Room of the Houses of Parliament, London, under the theme: 'Kashmir Conflict: Peace, Security and Fundamental Rights in Jammu and Kashmir'. The conference saw extensive participation from Members of the British Parliament, international human rights activists, legal experts, academics, Kashmiri and oppressed nations' leaders, media professionals, and diaspora representatives."
+    },
+    {
+      "type": "youtube",
+      "text": "Complete Video of the Conference",
+      "url": "https://youtu.be/36kt84I3HMc",
+      "embed": "https://www.youtube.com/embed/36kt84I3HMc"
     },
     {
       "type": "image",
@@ -289,3 +302,6 @@
     }
   ]
 }
+```
+
+
