@@ -75,7 +75,7 @@
       "type": "image",
       "src": "content/images/international-001-zarnosh.jpg",
       "align": "center",
-      "caption": "Zarnosh Nasim and Jibran Nasim – victims of extrajudicial killing in Rawalakot, Azad Kashmir",
+      "caption": "Zarnosh Nasim and Jibran Nasim -- victims of extrajudicial killing in Rawalakot, Azad Kashmir",
       "credit": "The Mirror Jammu Kashmir"
     },
     {
@@ -107,7 +107,7 @@
     },
     {
       "type": "paragraph",
-      "text": "The resolutions further demanded full, unrestricted access for international human rights observers, journalists, and humanitarian agencies to all parts of the historical State of Jammu and Kashmir, including Ladakh, Gilgit-Baltistan, and so-called Azad Kashmir. The conference affirmed that the people of Jammu and Kashmir in all its regions — Jammu, the Kashmir Valley, Ladakh, Gilgit-Baltistan, and so-called Azad Kashmir — are the primary stakeholders in the conflict and must be included in all dialogue and decision-making processes concerning the future status of the erstwhile princely state. It called for the gradual and complete withdrawal of armed forces from civilian areas on both sides of the Line of Control to protect lives, dignity, and fundamental freedoms."
+      "text": "The resolutions further demanded full, unrestricted access for international human rights observers, journalists, and humanitarian agencies to all parts of the historical State of Jammu and Kashmir, including Ladakh, Gilgit-Baltistan, and so-called Azad Kashmir. The conference affirmed that the people of Jammu and Kashmir in all its regions --- Jammu, the Kashmir Valley, Ladakh, Gilgit-Baltistan, and so-called Azad Kashmir --- are the primary stakeholders in the conflict and must be included in all dialogue and decision-making processes concerning the future status of the erstwhile princely state. It called for the gradual and complete withdrawal of armed forces from civilian areas on both sides of the Line of Control to protect lives, dignity, and fundamental freedoms."
     },
     {
       "type": "pullquote",
@@ -184,16 +184,13 @@
       "caption": "Sardar Nasir Aziz Khan moderating the conference session",
       "credit": "The Mirror Jammu Kashmir"
     },
-{
-  "type": "link",
-  "text": "▶️ Watch the Complete Video of the Conference on YouTube",
-  "url": "https://youtu.be/36kt84I3HMc?si=4Dz0OjULDllwaDLl",
-  "align": "center"
-},
+    {
+      "type": "html",
+      "text": "<div style=\"text-align: center; margin: 40px 0 30px 0;\"><a href=\"https://youtu.be/36kt84I3HMc?si=4Dz0OjULDllwaDLl\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"display: inline-block; background-color: #cc0000; color: #ffffff; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 16px; font-family: inherit; transition: background-color 0.3s ease;\">▶️ Watch the Complete Video of the Conference on YouTube</a></div>"
+    },
     {
       "type": "paragraph",
       "text": "Special Correspondent The Mirror Jammu Kashmir can be reached at themirrorjk@gmail.com."
     }
   ]
 }
-
