@@ -1,142 +1,198 @@
-,,
+```json
 {
   "id": "international-001",
-  "slug": "ukpnp-conference-house-of-commons-2025",
-  "title": "UKPNP International Conference on Jammu Kashmir at House of Commons, London",
+  "slug": "ukpnp-kashmir-conference-house-of-commons-2025",
+  "title": "Kashmir Is Not a Territorial Dispute: UKPNP Demands Reunification as Buffer State at Historic House of Commons Conference",
   "category": "international",
   "sectionLabel": "🌍 INTERNATIONAL",
-  "excerpt": "A landmark international conference by UKPNP at the House of Commons highlighting Kashmir as a human rights issue and calling for reunification and self-determination.",
+  "excerpt": "UKPNP held its 4th International Kashmir Conference in the British Parliament, declaring that Kashmir is not a territorial or bilateral issue between India and Pakistan but an international question of life, identity, and dignity for millions, while demanding reunification as a buffer state between India, Pakistan, and China.",
   "author": "Special Correspondent",
   "location": "London, United Kingdom",
-  "date": "2025-07-08T10:00:00Z",
-  "readTime": "25 min read",
-
+  "date": "2025-07-08T09:00:00Z",
+  "readTime": "18 min read",
   "heroImage": {
     "src": "content/images/international-001-hero.jpg",
-    "caption": "UKPNP International Conference at House of Commons London",
+    "caption": "UKPNP International Kashmir Conference in the House of Commons, London",
     "credit": "The Mirror Jammu Kashmir"
   },
-
   "navigation": {
     "prev": "editorial-001",
     "next": "latest-001",
     "home": "index.html"
   },
-
   "archive": false,
-
   "body": [
-
     {
       "type": "subheading",
-      "text": "UKPNP International Conference on Jammu Kashmir in House of Commons UK"
+      "text": "UKPNP INTERNATIONAL CONFERENCE ON JAMMU AND KASHMIR IN HOUSE OF COMMONS, LONDON"
     },
-
     {
       "type": "paragraph",
-      "text": "Press Release London UK July 8th, 2025. Special Correspondent The Mirror Jammu Kashmir London UK. UKPNP International Conference on Jammu Kashmir in House of Commons UK 8th July 2025. Houses of Parliament, London, under the theme: Kashmir Conflict: Peace, Security and Fundamental Rights in Jammu and Kashmir."
+      "text": "LONDON, July 8, 2025 -- The United Kashmir People's National Party (UKPNP) today declared that Kashmir is not a territorial or bilateral issue between India and Pakistan but an international question of life, identity, and dignity for millions, as it held its landmark 4th International Kashmir Conference inside the British Parliament under the theme \"Kashmir Conflict: Peace, Security and Fundamental Rights in Jammu and Kashmir.\""
     },
-
     {
       "type": "paragraph",
-      "text": "LONDON, July 8, 2025 The United Kashmir People’s National Party (UKPNP) held a landmark International Kashmir Conference in the Boothroyd Room of the Houses of Parliament, London, under the theme Kashmir Conflict: Peace, Security and Fundamental Rights in Jammu and Kashmir, where exiled Chairman Sardar Shaukat Ali Kashmiri declared that Kashmir is not a territorial dispute between India and Pakistan but a matter of life, identity, and dignity for millions of Kashmiris, demanding the reunification of the forcibly divided state as a peaceful, autonomous buffer zone between three nuclear powers."
+      "text": "The historic conference, which took place in the Boothroyd Room of the Houses of Parliament in London, saw extensive participation from British MPs, international human rights activists, legal experts, academics, Kashmiri and oppressed nations' leaders, media professionals, and diaspora representatives. The chief guest and keynote speaker was Sardar Shaukat Ali Kashmiri, exiled Chairman of UKPNP and Administrative Director of CIRAC to the United Nations in Geneva and New York, who delivered a powerful address urging Great Britain and the international community to support the establishment of a unified, independent buffer state of Jammu and Kashmir that would serve peace and development in South Asia while denying its land for use in aggression against any neighbor."
     },
-
-    {
-      "type": "pullquote",
-      "text": "Kashmir is not a territorial or bilateral issue. It is an international issue. The future of Jammu and Kashmir must be determined by its people not by force or external diktats."
-    },
-
     {
       "type": "image",
       "src": "content/images/international-001-panel-1.jpg",
-      "align": "right",
-      "caption": "Panel discussion at House of Commons",
+      "align": "center",
+      "caption": "Chief Guest Sardar Shaukat Ali Kashmiri addressing the House of Commons conference",
       "credit": "The Mirror Jammu Kashmir"
     },
-
     {
       "type": "paragraph",
-      "text": "The conference, hosted by Labour MP for Leeds East and former Shadow Secretary of State for Justice Richard Burgon, saw extensive participation from Members of the British Parliament, international human rights activists, legal experts, academics, Kashmiri and oppressed nations leaders, media professionals, and diaspora representatives. The chief guest and keynote speaker was Sardar Shaukat Ali Kashmiri, Exiled Chairman of UKPNP and Administrative Director of CIRAC to the United Nations in Geneva and New York. The event was presided over by Sardar Tariq Khan, President of UKPNP United Kingdom, and moderated by Sardar Nasir Aziz Khan, Central Spokesperson of UKPNP and Main Representative to the UN in Geneva and New York."
+      "text": "The conference was hosted by Labour MP for Leeds East and former Shadow Secretary of State for Justice, Richard Burgon MP, who emphasized that Kashmir remains one of the world's longest unresolved conflicts and must be resolved peacefully according to the will of the Kashmiri people. Other distinguished MPs present included Fabian Hamilton MP, Labour MP for Leeds North East and former Shadow Minister for Peace and Disarmament, who stated that this conference should ideally be the last if it leads to peace and committed continued support to Kashmiris' right to self-determination; Imran Hussain MP, Labour MP for Bradford East and Chair of the All-Party Parliamentary Group on Kashmir, who declared the Kashmir conflict as an international not bilateral issue while rejecting the relevance of the Shimla Agreement; and Ian Byrne MP, Labour MP for Liverpool West Derby, who reaffirmed that self-determination is a fundamental right which Kashmiris deserve. The conference was moderated by Sardar Nasir Aziz Khan, Central Spokesperson of UKPNP and Main Representative to the UN in Geneva and New York, and presided over by Sardar Tariq Khan, President of UKPNP United Kingdom."
     },
-
     {
       "type": "pullquote",
-      "text": "UKPNP has consistently and categorically opposed all forms of violence, terrorism, religious extremism, and the dangerous weaponization of faith."
+      "text": "Kashmir is not a territorial dispute between India and Pakistan. It is a matter of life, identity, and dignity for millions of Kashmiris."
     },
-
+    {
+      "type": "paragraph",
+      "text": "Speakers and Representatives Included: Dr. Shabir Chaudhry, Writer and Senior UKPNP Leader, Representative of Mehran Marri, Prominent Baloch Leader and Human Rights Defender; Mahmood Ahmed Kashmiri, Chairman, Jammu Kashmir National Independent Alliance (JKNIA), UKPNP Senior Leader; Mrs. Faria Attique, Secretary, Foreign Affairs Committee, UKPNP; Raja Sarfraz Khan, Secretary General, UKPNP; Sajjad Hussain, President, UKPNP London Unit; Sohail Talat, President, UKPNP Bradford Unit; Syeda Mahroona Bukhari, Vice President, UKPNP Bradford Unit; Syed Barkatul Hasan, Deputy General Secretary, UKPNP UK; Mushahid Manzoor, Deputy General Secretary, UKPNP Leeds Unit; and others."
+    },
+    {
+      "type": "paragraph",
+      "text": "Notable Participants Included: Sardar Amjad Yousaf, Sardar Tikka Khan Tahir, Yasir Arfat Qureshi, Naveed Khan, Aftan Hussain, Jamil Latif, Farooq Nazir, Muhammad Ramzan, Ishaq Khan, Muhammad Gaffar Hussain, Irfan Ashfaq, Hamza Shakeel, Muhammad Nisar, Muhammad Anis, Shafique ur Rehman, Syed Altaf Hussain, Abdul Rehman, Gul Zaman, Muhammad Ijaz Khan, Mahmood Ahmed, Qamar Khalil, Abdul Satar, Zarak Aftab, Usman Khan, Muhammad Adnan Khan, Qamar Farooq, Iftikhar Waqas, Arif Ajakia, Syed Taqdees Ali Gilani, Mehtab Subhani, Muhamad Shehbaz, Syed Farzad Gilani, Saiq Shah, Abdul Aziz Sheen, Sohail Aqeel, Haidher Aftab, Ashfaq Sadiq, Raja Yasir Sayab, Ishtiaq Sadiq, Musa Sadiq, Salar Saeed, Maqsood Kiyani, Waqar Aziz, Shezad Afzal, Syeda Tousifa Haider Gilani, Malik Sajid Hussain, Maria Mehwish, Zohaib Khan, Hina Javaid, Raja Muhammad Habib, Moseeb Khan, Zaheer Ahmed Kiyani, Saqib Khan, Akash Khan, Hashir Abbasi, Muhammad Rukshad Khan, Naqeer Ahmed, and others."
+    },
+    {
+      "type": "image",
+      "src": "content/images/international-001-panel-2.jpg",
+      "align": "center",
+      "caption": "British MPs Richard Burgon, Fabian Hamilton, Imran Hussain, and Ian Byrne at the conference",
+      "credit": "The Mirror Jammu Kashmir"
+    },
+    {
+      "type": "subheading",
+      "text": "KEYNOTE SPEECH: SARDAR SHAUKAT ALI KASHMIRI"
+    },
+    {
+      "type": "paragraph",
+      "text": "In his keynote speech, Sardar Shaukat Ali Kashmiri expressed sincere gratitude to Richard Burgon for hosting the conference and to Fabian Hamilton for initiating the platform, while congratulating UKPNP United Kingdom for their continued efforts in organizing these impactful conferences. He stated that from its outset, UKPNP has championed secularism, peace, democracy, and reunification of the historical State of Jammu and Kashmir while categorically rejecting the use of religion as a weapon, all forms of extremism, terrorism, and proxy politics. Due to this pro-people and pro-peace ideology, he noted that the party has faced state persecution and forced exile but remains committed to its cause."
+    },
+    {
+      "type": "image",
+      "src": "content/images/international-001-zarnosh.jpg",
+      "align": "center",
+      "caption": "Zarnosh Nasim and Jibran Nasim – victims of extrajudicial killing in Rawalakot, Azad Kashmir",
+      "credit": "The Mirror Jammu Kashmir"
+    },
+    {
+      "type": "paragraph",
+      "text": "He strongly condemned the extrajudicial killings of Zarnosh Nasim and Jibran Nasim, two educated brothers from Bagh, Azad Kashmir, who were reportedly killed in a police operation in Rawalakot, and demanded an independent judicial inquiry and full accountability for this grave human rights violation. He also demanded the immediate and unconditional release of all peaceful political prisoners from across the entire State of Jammu and Kashmir, including Gilgit-Baltistan, naming among those unjustly imprisoned human rights defenders such as Mumtaz Nagari, Advocate Ehsan Ali, Advocate Taaruf Abbas, Sher Nadir Shahi, and Muhammad Nafees and others, whose continued detention under fabricated charges he called a blatant violation of democratic and human rights principles. Furthermore, he urged Pakistan and India to refrain from imposing unilateral decisions on the people of Jammu and Kashmir, insisting that the future of the region must be decided by its people through inclusive, democratic, and peaceful processes, not through force or external diktats."
+    },
+    {
+      "type": "pullquote",
+      "text": "We demand freedom of expression, movement, reunification, and the right to self-determination for all Kashmiris."
+    },
+    {
+      "type": "subheading",
+      "text": "RESOLUTIONS ADOPTED UNANIMOUSLY"
+    },
+    {
+      "type": "paragraph",
+      "text": "Numerous resolutions were presented by Sardar Shaukat Ali Kashmiri and unanimously adopted. The conference strongly condemned the heinous act of terror in Pahalgam Kashmir, which claimed the lives of at least 26 innocent civilians and left many others injured, offering heartfelt condolences and unwavering solidarity to the families of the victims. The conference held in high regard and expressed pride in the local Kashmiris who did their utmost to protect the lives of tourists and who organized candlelight vigils to pay tribute to the victims of terror, especially honoring Adil Shah, who sacrificed his life while protecting tourists. It urged that common Kashmiris must not be humiliated and victimized in the name of terrorism and counter-terrorism, demanding a transparent and independent investigation to ensure that the perpetrators of this crime against humanity are brought to justice."
+    },
+    {
+      "type": "paragraph",
+      "text": "Regarding recent crises between India and Pakistan, the conference noted that dozens of innocent Kashmiris lost their lives on both sides of the so-called Line of Control, with homes and properties destroyed or severely damaged and thousands displaced. Despite the declared ceasefire, violations continue, killing and displacing civilians, especially women, children, and the elderly. The conference urged the United Kingdom, United Nations, and international community to ask both countries to take immediate steps to reinstate all displaced persons, provide financial support for reconstruction, and compensate the families of victims. On the specific incident of April 28, 2025, involving the two educated brothers from Bagh, Azad Kashmir, the conference demanded a judicial inquiry into this and other incidents of extrajudicial killings."
+    },
     {
       "type": "image",
       "src": "content/images/international-001-participants-1.jpg",
-      "align": "left",
-      "caption": "Participants of the international conference",
+      "align": "center",
+      "caption": "Conference participants and diaspora representatives at the Houses of Parliament",
       "credit": "The Mirror Jammu Kashmir"
     },
-
     {
       "type": "paragraph",
-      "text": "Distinguished MPs present included Fabian Hamilton MP, Imran Hussain MP, and Ian Byrne MP along with leading international speakers, legal experts, activists, and representatives."
+      "text": "The resolutions further demanded full, unrestricted access for international human rights observers, journalists, and humanitarian agencies to all parts of the historical State of Jammu and Kashmir, including Ladakh, Gilgit-Baltistan, and so-called Azad Kashmir. The conference affirmed that the people of Jammu and Kashmir in all its regions — Jammu, the Kashmir Valley, Ladakh, Gilgit-Baltistan, and so-called Azad Kashmir — are the primary stakeholders in the conflict and must be included in all dialogue and decision-making processes concerning the future status of the erstwhile princely state. It called for the gradual and complete withdrawal of armed forces from civilian areas on both sides of the Line of Control to protect lives, dignity, and fundamental freedoms."
     },
-
     {
       "type": "pullquote",
-      "text": "Kashmir is one of the world’s longest unresolved conflicts, which must be resolved peacefully according to the will of the Kashmiri people."
+      "text": "The entire State of Jammu and Kashmir remains a disputed territory. Its future status is yet to be decided."
     },
-
+    {
+      "type": "paragraph",
+      "text": "In a strong condemnation, the conference expressed deep concern over the alarming rise in enforced disappearances and the kidnapping of minors, noting that numerous Kashmiri children including Saad Haroon aged eight, Arslan Zubair aged two, and Muhammad Tabish Khan aged three have been abducted. Despite families providing clear evidence, authorities have made no serious efforts to recover the missing children. On May 26, 2025, Zaffar Hussain, the father of Muhammad Tabish Khan, was forcibly taken to the Tarnol Police Station in Islamabad where he was beaten and coerced into signing documents. The United Kingdom was asked to pressure Pakistan to recover these kidnapped children and hold perpetrators accountable. The conference also demanded an end to the arbitrary use of anti-terrorism and sedition laws to silence political dissent and suppress human rights activism, strongly condemning the policy of intimidation, harassment, and surveillance of political leaders, civil society actors, and journalists. It called for the protection of freedom of expression, assembly, and speech in line with international human rights standards in Azad Jammu and Kashmir and Gilgit-Baltistan, urging the immediate and unconditional release of peaceful political and human rights defenders including Mumtaz Nagari, Advocate Ehsan Ali, Advocate Taaruf Abbas, Sher Nadir Shahi, and Muhammad Nafees."
+    },
+    {
+      "type": "image",
+      "src": "content/images/international-001-participants-4.jpg",
+      "align": "center",
+      "caption": "UKPNP leadership and international human rights activists at the conference",
+      "credit": "The Mirror Jammu Kashmir"
+    },
     {
       "type": "subheading",
-      "text": "Condemnation of Pahalgam Attack and Extrajudicial Killings"
+      "text": "REUNIFICATION AS BUFFER STATE"
     },
-
     {
       "type": "paragraph",
-      "text": "Statements from MPs emphasized peaceful resolution and human rights. Numerous resolutions were presented by Sardar Shaukat Ali Kashmiri and unanimously adopted, including demands for investigation into the Pahalgam attack, an end to extrajudicial killings, release of political prisoners, reunification of Jammu and Kashmir, and international monitoring."
+      "text": "The conference emphasized that the Kashmir conflict is fundamentally about human rights, identity, future, and dignity of the people of Jammu and Kashmir, especially the right to self-determination, access to natural resources, and reunification of families divided since October 1947. It called upon India and Pakistan to jointly establish humanitarian corridors and enable cross-border trade and travel to reunite families, promote regional peace, and foster people-to-people ties. It stressed that all regions of Jammu and Kashmir must be allowed to function within open, democratic, and secure environments where political parties, human rights defenders, and civil society organizations can operate without fear. The conference unequivocally condemned all forms of terrorism and religious extremism, whether perpetrated by state or non-state actors, and called on all authorities to take effective measures against groups or individuals that promote violence, radicalization, sectarianism, or hatred in the name of religion or nationalism. It asserted that no part of Jammu and Kashmir should be used to conduct proxy wars or to spread ideological radicalization, urging the Government of Pakistan to abandon the decades-old policy of using extremism and jihad as instruments of state policy and to dismantle all jihadi infrastructure in the interest of regional and global peace."
     },
-
+    {
+      "type": "image",
+      "src": "content/images/international-001-participants-5.jpg",
+      "align": "center",
+      "caption": "Delegates from various regions of the divided State of Jammu and Kashmir",
+      "credit": "The Mirror Jammu Kashmir"
+    },
     {
       "type": "paragraph",
-      "text": "Sardar Shaukat Ali Kashmiri strongly condemned the Pahalgam terror attack and the extrajudicial killings of Zarnosh Nasim and Jibran Nasim, demanding accountability and judicial inquiry."
+      "text": "The conference noted with concern that on February 5, on Pakistan's so-called solidarity day with the people of Jammu and Kashmir, banned extremist groups including Hamas leaders gathered in Rawalakot, Azad Kashmir, wielding sophisticated weapons in public gatherings and targeting UKPNP leadership and members with false accusations and intimidation as anti-religion, anti-state, and foreign agents. It also cited that on January 5, 2025, Azad Jammu Kashmir Prime Minister Chaudhry Anwar-ul-Haq chanted \"Al-Jihad, Al-Jihad\" slogans in Muzaffarabad, instigating violence in Kashmir, and assured that the AJK budget would be allocated for jihad. The conference called upon both India and Pakistan to protect and promote the cultural, linguistic, and religious identities of all ethnic groups under their administration, including recognition of native languages as compulsory subjects in schools, promotion of local languages in offices and administration, preservation of cultural heritage, and protection of religious freedoms and practices."
     },
-
     {
       "type": "pullquote",
-      "text": "UKPNP demands an immediate end to extrajudicial killings, torture, enforced disappearances, and arbitrary use of anti-terrorism laws."
+      "text": "The historical State of Jammu and Kashmir should be reunified and declared as a buffer state between India, Pakistan, and China."
     },
-
+    {
+      "type": "paragraph",
+      "text": "The conference appealed to the British Government, the United Nations, the European Union, and other international institutions to acknowledge the urgency of a just and peaceful resolution to the Kashmir conflict, play a proactive role in supporting inclusive and rights-based peace processes, and recommend the appointment of a UN Special Rapporteur or independent international envoy to monitor and report on the situation across both sides of the Line of Control. It called for the facilitation of multi-stakeholder dialogue, confidence-building measures, and people-to-people diplomacy involving voices from all regions and communities. The conference recommended the creation of an International Kashmir Peace and Human Rights Working Group, coordinated by UKPNP and supported by British Parliamentarians and international human rights organizations, to monitor developments, propose practical and peaceful solutions for people-to-people contact and free movement, and submit annual reports to the British Parliament and relevant international forums."
+    },
+    {
+      "type": "image",
+      "src": "content/images/international-001-participants-6.jpg",
+      "align": "center",
+      "caption": "Group photograph of UKPNP leadership, British MPs, and international delegates",
+      "credit": "The Mirror Jammu Kashmir"
+    },
+    {
+      "type": "paragraph",
+      "text": "Since its inception, the conference reiterated, UKPNP has upheld a peaceful and democratic struggle for the reunification of the forcibly divided historical State of Jammu and Kashmir, consistently and categorically opposing all forms of violence, terrorism, religious extremism, and the dangerous weaponization of faith. The party emphasized the urgent need for the reunification of the erstwhile state of Jammu and Kashmir as a critical step toward sustainable peace, security, fundamental human rights, and stability in South Asia, asserting that forced divisions, annexations, and unilateral decisions have only intensified suffering and hostility. The conference declared that the historical State of Jammu and Kashmir should be reunified and declared as a buffer state between the three nuclear powers of India, Pakistan, and China, with a just and peaceful resolution based on UN resolutions on Kashmir and the democratic will of the people of Jammu and Kashmir."
+    },
+    {
+      "type": "image",
+      "src": "content/images/international-001-participants-7.jpg",
+      "align": "center",
+      "caption": "Media professionals and international observers at the House of Commons conference",
+      "credit": "The Mirror Jammu Kashmir"
+    },
     {
       "type": "subheading",
-      "text": "Resolutions and International Engagement"
+      "text": "CONCLUDING REMARKS"
     },
-
     {
       "type": "paragraph",
-      "text": "The conference adopted a comprehensive 28 point resolution declaring the Kashmir conflict a human rights issue and calling for reunification as a buffer state between India, Pakistan, and China. It urged the United Nations and international community to take active steps."
+      "text": "In concluding remarks, the UKPNP leadership thanked MP Richard Burgon for hosting the impactful conference and all MPs for their insights. Moderator Sardar Nasir Aziz Khan noted that this was the 4th consecutive international conference on Kashmir organized by UKPNP in the House of Commons, and special congratulations were extended to the United Kingdom Chapter of UKPNP for their remarkable efforts, dedicated coordination, and powerful presence. The conference reaffirmed that Jammu and Kashmir is not a territorial or bilateral issue between India and Pakistan but an international issue, that United Nations resolutions on Kashmir remain relevant and take precedence over the Tashkent and Shimla Agreements or any other bilateral arrangements, that the entire State of Jammu and Kashmir including the Kashmir Valley, Jammu, Ladakh, Azad Kashmir, and Gilgit-Baltistan constitutes one historical and political entity and remains disputed, that India and Pakistan have no legal right to annex, merge, or unilaterally determine the status of any part of the historical state, that the people of Jammu and Kashmir deserve their fundamental rights including free movement, reunification of divided families, and the right to self-determination in accordance with international law and UN resolutions, and that any decision imposed on the basis of majoritarianism or military force is illegal, constitutes a clear violation of UN resolutions and international law, and is unacceptable to the people of the disputed State of Jammu and Kashmir."
     },
-
     {
-      "type": "pullquote",
-      "text": "There is no military solution to this conflict. Only justice, dialogue, and international law can ensure peace."
+      "type": "image",
+      "src": "content/images/international-001-participants-8.jpg",
+      "align": "center",
+      "caption": "Sardar Nasir Aziz Khan moderating the conference session",
+      "credit": "The Mirror Jammu Kashmir"
     },
-
-    {
-      "type": "paragraph",
-      "text": "The conference reaffirmed commitment to democracy, human rights, freedom of expression, and peaceful resolution, calling for global cooperation and monitoring mechanisms."
-    },
-
-    {
-      "type": "subheading",
-      "text": "Conclusion"
-    },
-
     {
       "type": "paragraph",
-      "text": "The UKPNP reaffirmed its peaceful democratic struggle for reunification. The conference marked a major milestone in uniting global voices for justice, peace, and fundamental rights in Jammu and Kashmir."
+      "text": "The complete video of the conference is available at: https://youtu.be/36kt84I3HMc?si=Tell9PAzolE-S3gL"
     },
-
     {
       "type": "paragraph",
-      "text": "Visit YouTube for complete video of the conference: https://youtu.be/36kt84I3HMc?si=Tell9PAzolE-S3gL"
+      "text": "Special Correspondent The Mirror Jammu Kashmir can be reached at themirrorjk@gmail.com."
     }
-
   ]
 }
+
