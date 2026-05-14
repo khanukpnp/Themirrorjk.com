@@ -184,10 +184,12 @@
       "caption": "Sardar Nasir Aziz Khan moderating the conference session",
       "credit": "The Mirror Jammu Kashmir"
     },
-    {
-      "type": "paragraph",
-      "text": "The complete video of the conference is available at: https://youtu.be/36kt84I3HMc?si=Tell9PAzolE-S3gL"
-    },
+{
+  "type": "link",
+  "text": "▶️ Watch the Complete Video of the Conference on YouTube",
+  "url": "https://youtu.be/36kt84I3HMc?si=4Dz0OjULDllwaDLl",
+  "align": "center"
+},
     {
       "type": "paragraph",
       "text": "Special Correspondent The Mirror Jammu Kashmir can be reached at themirrorjk@gmail.com."
