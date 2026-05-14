@@ -185,8 +185,8 @@
       "credit": "The Mirror Jammu Kashmir"
     },
     {
-      "type": "html",
-      "text": "<div style=\"text-align: center; margin: 40px 0 30px 0;\"><a href=\"https://youtu.be/36kt84I3HMc?si=4Dz0OjULDllwaDLl\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"display: inline-block; background-color: #cc0000; color: #ffffff; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 16px; font-family: inherit; transition: background-color 0.3s ease;\">▶️ Watch the Complete Video of the Conference on YouTube</a></div>"
+      "type": "paragraph",
+      "text": "The complete video of the conference is available at: https://youtu.be/36kt84I3HMc?si=4Dz0OjULDllwaDLl"
     },
     {
       "type": "paragraph",
