@@ -12,7 +12,8 @@
   "heroImage": {
     "src": "content/images/article-002-hero.jpg",
     "caption": "UKPNP Public Gathering on the Occasion of Event on the Karachi Agreement, 28th April 2026 Rawalakot Poonch",
-    "credit": "The Mirror Jammu Kashmir"
+    "credit": "The Mirror Jammu Kashmir",
+    "width": "100%"
   },
   "navigation": {
     "prev": "editorial-001",
@@ -33,7 +34,8 @@
       "type": "heroImage",
       "src": "content/images/article-002-01.jpg",
       "caption": "UKPNP leadership addressing the Rawalakot gathering",
-      "credit": "The Mirror Jammu Kashmir"
+      "credit": "The Mirror Jammu Kashmir",
+      "width": "100%"
     },
     {
       "type": "paragraph",
@@ -51,7 +53,8 @@
       "type": "heroImage",
       "src": "content/images/article-002-02.jpg",
       "caption": "Delegates and participants during the rally",
-      "credit": "The Mirror Jammu Kashmir"
+      "credit": "The Mirror Jammu Kashmir",
+      "width": "100%"
     },
     {
       "type": "paragraph",
@@ -73,7 +76,8 @@
       "type": "heroImage",
       "src": "content/images/Article-002-03.jpg",
       "caption": "Chairman Shaukat Ali Kashmiri addressing via video link",
-      "credit": "The Mirror Jammu Kashmir"
+      "credit": "The Mirror Jammu Kashmir",
+      "width": "100%"
     },
     {
       "type": "paragraph",
@@ -95,7 +99,8 @@
       "type": "heroImage",
       "src": "content/images/article-002-04.jpg",
       "caption": "UKPNP flags and banners at Akbar Hotel Rawalakot",
-      "credit": "The Mirror Jammu Kashmir"
+      "credit": "The Mirror Jammu Kashmir",
+      "width": "100%"
     },
     {
       "type": "paragraph",
@@ -113,7 +118,8 @@
       "type": "heroImage",
       "src": "content/images/article-002-06.jpg",
       "caption": "Participants from across Azad Kashmir and Punjab Zone",
-      "credit": "The Mirror Jammu Kashmir"
+      "credit": "The Mirror Jammu Kashmir",
+      "width": "100%"
     },
     {
       "type": "paragraph",
@@ -123,7 +129,8 @@
       "type": "heroImage",
       "src": "content/images/article-002-07.jpg",
       "caption": "Women and youth participation at the event",
-      "credit": "The Mirror Jammu Kashmir"
+      "credit": "The Mirror Jammu Kashmir",
+      "width": "100%"
     },
     {
       "type": "subheading",
@@ -153,7 +160,8 @@
       "type": "heroImage",
       "src": "content/images/article-002-08.jpg",
       "caption": "Public concerns raised regarding State Subject Rule violations",
-      "credit": "The Mirror Jammu Kashmir"
+      "credit": "The Mirror Jammu Kashmir",
+      "width": "100%"
     },
     {
       "type": "paragraph",
@@ -179,7 +187,8 @@
       "type": "heroImage",
       "src": "content/images/article-002-11.jpg",
       "caption": "Poetic tribute by Hameed Kamran",
-      "credit": "The Mirror Jammu Kashmir"
+      "credit": "The Mirror Jammu Kashmir",
+      "width": "100%"
     },
     {
       "type": "paragraph",
@@ -197,7 +206,8 @@
       "type": "heroImage",
       "src": "content/images/article-002-12.jpg",
       "caption": "UKPNP leadership honoured for international advocacy",
-      "credit": "The Mirror Jammu Kashmir"
+      "credit": "The Mirror Jammu Kashmir",
+      "width": "100%"
     },
     {
       "type": "subheading",
