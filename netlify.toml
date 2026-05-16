@@ -2,11 +2,19 @@
   publish = "/"
   command = ""
 
+# ✅ Redirect article requests to the Netlify Function
 [[redirects]]
-  from = "/article.html"
-  to = "/article.html"
+  from = "/article"
+  to = "/.netlify/functions/article"
   status = 200
 
+# ✅ Optional: keep compatibility with old URLs
+[[redirects]]
+  from = "/article.html"
+  to = "/.netlify/functions/article"
+  status = 200
+
+# ✅ Other static pages (you can keep these)
 [[redirects]]
   from = "/blog-001.html"
   to = "/blog-001.html"
@@ -17,6 +25,7 @@
   to = "/breaking-001.html"
   status = 200
 
+# ✅ Catch‑all fallback for SPA routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
