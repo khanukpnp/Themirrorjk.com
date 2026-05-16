@@ -2,19 +2,20 @@
   publish = "/"
   command = ""
 
-# ✅ Redirect article requests to the Netlify Function
+# 1️⃣ Route ALL article requests to the Netlify Function
 [[redirects]]
   from = "/article"
   to = "/.netlify/functions/article"
   status = 200
+  query = { id = ":id" }
 
-# ✅ Optional: keep compatibility with old URLs
 [[redirects]]
   from = "/article.html"
   to = "/.netlify/functions/article"
   status = 200
+  query = { id = ":id" }
 
-# ✅ Other static pages (you can keep these)
+# 2️⃣ Keep your static pages
 [[redirects]]
   from = "/blog-001.html"
   to = "/blog-001.html"
@@ -25,7 +26,7 @@
   to = "/breaking-001.html"
   status = 200
 
-# ✅ Catch‑all fallback for SPA routing
+# 3️⃣ Catch-all fallback (MUST be last)
 [[redirects]]
   from = "/*"
   to = "/index.html"
