@@ -1340,231 +1340,166 @@ function renderHistoricalPage(data) {
 }
 
 /* ============================
-   ARTICLE PAGE INITIALIZATION
-   ============================ */
+   ARTICLE PAGE INITIALIZATION (FIXED)
+============================ */
+
 function initArticlePage() {
+    console.log("Loading article page...");
+
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
-    
+
     if (!id) {
-        document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>No article specified</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
+        document.getElementById("loading-state").innerHTML = "<p>Invalid article ID.</p>";
         return;
     }
-    
-    const pathsToTry = [
-        "content/" + id + ".json",
-        "./content/" + id + ".json",
-        "/content/" + id + ".json",
-        id + ".json"
-    ];
-    
-    tryLoadArticle(pathsToTry, 0, id);
-}
 
-function tryLoadArticle(paths, index, id) {
-    if (index >= paths.length) {
-        console.error("All paths failed for article:", id);
-        document.body.innerHTML = '<div style="text-align:center; padding:50px;"><h2>Article not found: ' + id + '</h2><a href="index.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#b30000; color:white; text-decoration:none; border-radius:4px;">Return to Homepage</a></div>';
-        return;
-    }
-    
-    const path = paths[index];
-    console.log("Trying path:", path);
-    
-    fetch(path)
-        .then(function(response) {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("Failed to load from " + path);
+    // Load JSON directly from /content
+    fetch(`/content/${id}.json`)
+        .then(res => {
+            if (!res.ok) throw new Error("JSON not found");
+            return res.json();
         })
-        .then(function(data) {
-            console.log("Raw data loaded:", data);
-            
-            let article = data;
-            if (data.items && Array.isArray(data.items) && data.items.length > 0) {
-                article = data.items[0];
-            } else if (Array.isArray(data) && data.length > 0) {
-                article = data[0];
-            }
-            
-            console.log("Processed article:", article);
-            
-            // Update meta tags for social sharing BEFORE rendering
-            updateSocialMetaTags(article);
-            
-            renderFullArticlePage(article);
-            initShareTooltip();
-        })
-        .catch(function(error) {
-            console.error("Error loading from", path, ":", error);
-            tryLoadArticle(paths, index + 1, id);
-        });
-}
+        .then(data => {
+            console.log("Article JSON loaded:", data);
 
-/* ============================
-   RENDER FULL ARTICLE PAGE
-   ============================ */
-function renderFullArticlePage(article) {
-    console.log("Rendering article:", article.title);
-    
-    // Hide loading, show content
-    const loadingDiv = document.getElementById('loading-state');
-    if (loadingDiv) loadingDiv.style.display = 'none';
-    
-    const contentDiv = document.getElementById('content');
-    if (contentDiv) contentDiv.style.display = 'block';
-    
-    // Set page title
-    const pageTitle = document.getElementById("page-title");
-    if (pageTitle) {
-        pageTitle.textContent = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
-    }
-    
-    // Set section label
-    const sectionLabel = document.getElementById("section-label");
-    if (sectionLabel) {
-        sectionLabel.textContent = article.sectionLabel || article.category || "ARTICLE";
-    }
-    
-    // Set title
-    const titleEl = document.getElementById("title");
-    if (titleEl) {
-        titleEl.textContent = article.title || "Untitled";
-    }
-    
-    // Set meta information
-    const metaEl = document.getElementById("meta");
-    if (metaEl) {
-        let metaHtml = '';
-        
-        if (article.location) {
-            metaHtml += '<strong>' + article.location + '</strong>';
-        }
-        
-        if (article.date) {
-            const dateObj = new Date(article.date);
-            const formattedDate = dateObj.toLocaleDateString("en-GB", {
-                year: "numeric",
-                month: "long",
-                day: "numeric"
+            // Header
+            document.getElementById("section-label").textContent = data.sectionLabel || "";
+            document.getElementById("title").textContent = data.title;
+
+            document.getElementById("meta").innerHTML = `
+                <strong>${data.author}</strong> — ${data.location} — 
+                ${new Date(data.date).toLocaleDateString()}
+            `;
+
+            // Hero image
+            if (data.heroImage) {
+                document.getElementById("heroImg").src = data.heroImage.src;
+                document.getElementById("heroCaption").textContent = data.heroImage.caption || "";
+                document.getElementById("heroWrap").style.display = "block";
+            }
+
+            // Body
+            const contentDiv = document.getElementById("content");
+            contentDiv.innerHTML = "";
+
+            data.body.forEach(block => {
+                if (block.type === "paragraph") {
+                    contentDiv.innerHTML += `<p>${block.text}</p>`;
+                }
+                if (block.type === "subheading") {
+                    contentDiv.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
+                }
+                if (block.type === "pullquote") {
+                    contentDiv.innerHTML += `<div class="pull-quote">${block.text}</div>`;
+                }
+                if (block.type === "image") {
+                    contentDiv.innerHTML += `
+                        <figure class="img-center">
+                            <img src="${block.src}" alt="">
+                            <figcaption>${block.caption || ""}</figcaption>
+                        </figure>
+                    `;
+                }
             });
-            metaHtml += (metaHtml ? ' — ' : '') + formattedDate;
-        }
-        
-        if (article.author) {
-            metaHtml += '<br>By <em>' + article.author + '</em>';
-        }
-        
-        if (article.readTime) {
-            metaHtml += ' · ' + article.readTime;
-        }
-        
-        metaEl.innerHTML = metaHtml;
-    }
-    
-    // Set hero image
-    const heroWrap = document.getElementById("heroWrap");
-    const heroImg = document.getElementById("heroImg");
-    const heroCaption = document.getElementById("heroCaption");
-    
-    if (article.heroImage && article.heroImage.src && heroImg) {
-        let imageSrc = article.heroImage.src;
-        
-        if (imageSrc.startsWith('/')) imageSrc = imageSrc.substring(1);
-        if (!imageSrc.startsWith('http') && !imageSrc.startsWith('content/images/')) {
-            imageSrc = 'content/images/' + imageSrc.split('/').pop();
-        }
-        
-        heroImg.src = imageSrc;
-        heroImg.alt = article.heroImage.caption || article.title || '';
-        heroImg.onerror = function() {
-            this.onerror = null;
-            this.src = 'https://via.placeholder.com/1280x720?text=' + encodeURIComponent(article.title?.charAt(0) || 'J');
-        };
-        
-        if (heroCaption) heroCaption.textContent = article.heroImage.caption || '';
-        if (heroWrap) heroWrap.style.display = 'block';
-    } else if (heroWrap) {
-        heroWrap.style.display = 'none';
-    }
-    
-    // Render body content
-    const contentEl = document.getElementById("content");
-    if (!contentEl) return;
-    contentEl.innerHTML = '';
-    
-    if (article.body && Array.isArray(article.body) && article.body.length > 0) {
-        article.body.forEach(function(block) {
-            if (block.type === "paragraph") {
-                contentEl.innerHTML += '<p>' + (block.text || '') + '</p>';
-            }
-            else if (block.type === "header") {
-                contentEl.innerHTML += '<h2 class="mid-subheading" style="font-size: 1.8rem; color: #b30000; margin: 2rem 0 1.5rem;">' + (block.text || '') + '</h2>';
-            }
-            else if (block.type === "subheading") {
-                contentEl.innerHTML += '<h2 class="mid-subheading">' + (block.text || '') + '</h2>';
-            }
-            else if (block.type === "pullquote") {
-                contentEl.innerHTML += '<div class="pull-quote">' + (block.text || '') + '</div>';
-            }
-            else if (block.type === "points" && block.items) {
-                let listHtml = '<div class="important-points"><ul>';
-                block.items.forEach(function(item) {
-                    listHtml += '<li>' + item + '</li>';
-                });
-                listHtml += '</ul></div>';
-                contentEl.innerHTML += listHtml;
-            }
-            else if (block.type === "image" && block.src) {
-                let imageSrc = block.src;
-                
-                if (imageSrc.startsWith('/')) imageSrc = imageSrc.substring(1);
-                if (!imageSrc.startsWith('http') && !imageSrc.startsWith('content/images/')) {
-                    imageSrc = 'content/images/' + imageSrc.split('/').pop();
-                }
-                
-                const alignClass = block.align === "right" ? "img-right" :
-                                   block.align === "left" ? "img-left" : "img-center";
-                
-                let captionText = block.caption || '';
-                if (block.credit && !captionText.includes(block.credit)) {
-                    captionText += captionText ? ' — ' + block.credit : block.credit;
-                }
-                
-                contentEl.innerHTML += `
-                    <figure class="${alignClass}">
-                        <img src="${imageSrc}" alt="${block.caption || 'Image'}" onerror="this.src='https://via.placeholder.com/640x360?text=Image'">
-                        ${captionText ? '<figcaption>' + captionText + '</figcaption>' : ''}
-                    </figure>
+
+            // Show content
+            document.getElementById("loading-state").style.display = "none";
+            contentDiv.style.display = "block";
+
+            // Read More
+            if (data.navigation?.next) {
+                const next = document.getElementById("next-article-suggestion");
+                next.innerHTML = `
+                    <div class="read-more-section">
+                        <div class="read-more-title">Read More</div>
+                        <div class="read-more-content">
+                            <a href="article.html?id=${data.navigation.next}">
+                                Continue to next article →
+                            </a>
+                        </div>
+                    </div>
                 `;
+                next.style.display = "block";
             }
+
+            // Update social share meta tags
+            updateShareLinks();
+        })
+        .catch(err => {
+            console.error(err);
+            document.getElementById("loading-state").innerHTML = "<p>Article not found.</p>";
         });
-    } else {
-        contentEl.innerHTML = '<p>No content available for this article.</p>';
+}
+
+   /* ============================
+   RENDER FULL ARTICLE PAGE (UPDATED)
+============================ */
+
+function renderFullArticlePage(data) {
+
+    // Section label
+    document.getElementById("section-label").textContent = data.sectionLabel || "";
+
+    // Title
+    document.getElementById("title").textContent = data.title;
+
+    // Meta info
+    document.getElementById("meta").innerHTML = `
+        <strong>${data.author}</strong> — ${data.location} — 
+        ${new Date(data.date).toLocaleDateString()}
+    `;
+
+    // Hero image
+    if (data.heroImage) {
+        document.getElementById("heroImg").src = data.heroImage.src;
+        document.getElementById("heroCaption").textContent = data.heroImage.caption || "";
+        document.getElementById("heroWrap").style.display = "block";
     }
-    
-    // Add Read More section
-    if (article.readMore && article.readMore.trim() !== '') {
-        const readMoreSection = document.createElement('div');
-        readMoreSection.className = 'read-more-section';
-        readMoreSection.innerHTML = `
-            <h3 class="read-more-title">Read More</h3>
-            <div class="read-more-content">
-                ${article.readMore}
+
+    // Body content
+    const contentDiv = document.getElementById("content");
+    contentDiv.innerHTML = "";
+
+    data.body.forEach(block => {
+        if (block.type === "paragraph") {
+            contentDiv.innerHTML += `<p>${block.text}</p>`;
+        }
+        if (block.type === "subheading") {
+            contentDiv.innerHTML += `<h2 class="mid-subheading">${block.text}</h2>`;
+        }
+        if (block.type === "pullquote") {
+            contentDiv.innerHTML += `<div class="pull-quote">${block.text}</div>`;
+        }
+        if (block.type === "image") {
+            contentDiv.innerHTML += `
+                <figure class="img-center">
+                    <img src="${block.src}" alt="">
+                    <figcaption>${block.caption || ""}</figcaption>
+                </figure>
+            `;
+        }
+    });
+
+    // Show content
+    document.getElementById("loading-state").style.display = "none";
+    contentDiv.style.display = "block";
+
+    // Read More / Next Article
+    if (data.navigation?.next) {
+        const next = document.getElementById("next-article-suggestion");
+        next.innerHTML = `
+            <div class="read-more-section">
+                <div class="read-more-title">Read More</div>
+                <div class="read-more-content">
+                    <a href="article.html?id=${data.navigation.next}">
+                        Continue to next article →
+                    </a>
+                </div>
             </div>
         `;
-        contentEl.appendChild(readMoreSection);
+        next.style.display = "block";
     }
-    
-    // Add article action buttons
-    addArticleActionButtons(article);
-    
-    // Add article pagination
-    addArticlePagination(article);
-    
-    // Suggest next article
-    suggestNextArticle(article.id);
 }
 
 /* ============================
