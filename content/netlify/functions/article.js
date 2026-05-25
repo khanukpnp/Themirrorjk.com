@@ -12,39 +12,52 @@ export async function handler(event, context) {
 
   const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
-  // Build absolute image URL
-  const imageUrl = `https://themirrorjk.com/${data.heroImage.src}`;
+  // Build absolute hero image URL
+  const imageUrl = `https://themirrorjk.com/${data.heroImage?.src || "content/images/default.jpg"}`;
+
+  const canonicalUrl = `https://themirrorjk.com/article.html?id=${id}`;
 
   const html = `
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="${data.title}">
-    <meta property="og:description" content="${data.excerpt}">
-    <meta property="og:image" content="${imageUrl}">
-    <meta property="og:url" content="https://themirrorjk.com/article.html?id=${id}">
-    <meta property="og:site_name" content="The Mirror Jammu Kashmir">
+<title>${data.title}</title>
+<link rel="canonical" href="${canonicalUrl}" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="${data.title}">
-    <meta name="twitter:description" content="${data.excerpt}">
-    <meta name="twitter:image" content="${imageUrl}">
+<!-- Primary Meta -->
+<meta name="title" content="${data.title}">
+<meta name="description" content="${data.excerpt}">
 
-    <title>${data.title}</title>
-  </head>
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="${data.title}">
+<meta property="og:description" content="${data.excerpt}">
+<meta property="og:image" content="${imageUrl}">
+<meta property="og:url" content="${canonicalUrl}">
+<meta property="og:site_name" content="The Mirror Jammu Kashmir">
 
-  <body>
-    <script>
-      window.location.href = "/article.html?id=${id}";
-    </script>
-  </body>
-  </html>
-  `;
+<!-- Article Metadata -->
+<meta property="article:published_time" content="${data.date}">
+<meta property="article:author" content="${data.author}">
+<meta property="article:section" content="${data.category}">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${data.title}">
+<meta name="twitter:description" content="${data.excerpt}">
+<meta name="twitter:image" content="${imageUrl}">
+
+<!-- Redirect -->
+<meta http-equiv="refresh" content="0; url=${canonicalUrl}" />
+
+</head>
+<body>
+Redirecting...
+</body>
+</html>
+`;
 
   return {
     statusCode: 200,
