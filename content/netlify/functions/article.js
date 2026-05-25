@@ -4,25 +4,26 @@ import path from "path";
 export async function handler(event, context) {
   const id = event.queryStringParameters.id;
 
+  // Locate JSON file
   const filePath = path.join(process.cwd(), "content", `${id}.json`);
 
   if (!fs.existsSync(filePath)) {
     return { statusCode: 404, body: "Article not found" };
   }
 
+  // Read JSON data
   const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
   // Build absolute hero image URL
   const imageUrl = `https://themirrorjk.com/${data.heroImage?.src || "content/images/default.jpg"}`;
-
   const canonicalUrl = `https://themirrorjk.com/article.html?id=${id}`;
 
+  // Generate HTML for social media crawlers
   const html = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
 <title>${data.title}</title>
 <link rel="canonical" href="${canonicalUrl}" />
 
@@ -51,10 +52,9 @@ export async function handler(event, context) {
 
 <!-- Redirect -->
 <meta http-equiv="refresh" content="0; url=${canonicalUrl}" />
-
 </head>
 <body>
-Redirecting...
+Redirecting to article...
 </body>
 </html>
 `;
