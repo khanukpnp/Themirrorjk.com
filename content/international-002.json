@@ -43,16 +43,7 @@
       "type": "subheading",
       "text": "Historic House of Commons Gathering Demands Diplomatic Intervention"
     },
-
-    {
-      "type": "image",
-      "src": "content/images/international-002-1.jpg",
-      "align": "center",
-      "caption": "Delegates gathered at Portcullis House for the 5th International Conference on Jammu and Kashmir.",
-      "credit": "The Mirror Jammu Kashmir"
-    },
-
-    {
+ {
       "type": "paragraph",
       "text": "The United Kashmir People's National Party (UKPNP) convened its 5th International Conference on Jammu and Kashmir at the House of Commons under the title 'The Jammu Kashmir Conflict and the Role of the British Government.' In a landmark gathering that filled the conference Room of Portcullis House, the conference passed 20 resolutions and issued a direct appeal to the British Government to honour its own historical principles including a little-known warning from 1848 and take a leading role in resolving the oldest unresolved conflict on the United Nations agenda."
     },
@@ -60,7 +51,7 @@
     {
       "type": "image",
       "src": "content/images/international-002-2.jpg",
-      "align": "right",
+      "align": "center",
       "caption": "Sardar Shaukat Ali Kashmiri addressing the conference.",
       "credit": "The Mirror Jammu Kashmir"
     },
@@ -91,7 +82,7 @@
     {
       "type": "image",
       "src": "content/images/international-002-4.jpg",
-      "align": "right",
+      "align": "center",
       "caption": "Delegates and youth activists participating in the conference.",
       "credit": "The Mirror Jammu Kashmir"
     },
@@ -122,7 +113,7 @@
     {
       "type": "image",
       "src": "content/images/international-002-6.jpg",
-      "align": "left",
+      "align": "center",
       "caption": "Conference audience listening to keynote speeches.",
       "credit": "The Mirror Jammu Kashmir"
     },
@@ -140,7 +131,7 @@
     {
       "type": "image",
       "src": "content/images/international-002-7.jpg",
-      "align": "right",
+      "align": "center",
       "caption": "Delegates reviewing historical documents and resolutions.",
       "credit": "The Mirror Jammu Kashmir"
     },
@@ -173,7 +164,7 @@
     {
       "type": "image",
       "src": "content/images/international-002-9.jpg",
-      "align": "left",
+      "align": "center",
       "caption": "Delegates exchanging views on human rights monitoring.",
       "credit": "The Mirror Jammu Kashmir"
     },
@@ -193,7 +184,7 @@
     {
       "type": "image",
       "src": "content/images/international-002-10.jpg",
-      "align": "right",
+      "align": "center",
       "caption": "UKPNP members discussing resolutions on peaceful dialogue.",
       "credit": "The Mirror Jammu Kashmir"
     },
@@ -317,6 +308,14 @@
       "text": "Imran Hussain thanked all participants for their continued commitment and activism. He stressed that meetings such as this, combined with grassroots mobilisation and political engagement, can make a real difference. He strongly rejected the argument repeatedly advanced by successive governments that Kashmir is merely a bilateral issue between India and Pakistan. Reaffirming his position, he declared that Kashmir is an unresolved international issue that requires international attention and resolution."
     },
     {
+      "type": "image",
+      "src": "content/images/international-002-1.jpg",
+      "align": "center",
+      "caption": "Delegates gathered at Portcullis House for the 5th International Conference on Jammu and Kashmir.",
+      "credit": "The Mirror Jammu Kashmir"
+    },
+
+    {
       "type": "paragraph",
       "text": "He pledged that the All-Party Parliamentary Group on Kashmir would continue pressing the British Government to recognise this reality and to take meaningful steps toward justice, accountability, and the protection of fundamental rights for the people of Jammu and Kashmir."
     }
@@ -373,5 +372,4 @@
       "type": "paragraph",
       "text": "The United Kashmir People's National Party (UKPNP) is a leading representative organisation of the Kashmiri diaspora, advocating for the political and human rights of the Kashmiri people through democratic and parliamentary channels across the United Kingdom, Europe, the United States and across the globe."
     }
-    ]
-}
+
