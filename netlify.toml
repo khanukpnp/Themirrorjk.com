@@ -1,14 +1,9 @@
+[functions]
+directory = "content/netlify/functions"
+
 [build]
   publish = "/"
   command = ""
-
-# 1️⃣ Route ALL article requests to the Netlify Function
-[[redirects]]
-  from = "/article"
-  to = "/.netlify/functions/article"
-  status = 200
-  force = true
-  query = { id = ":id" }
 
 [[redirects]]
   from = "/article.html"
@@ -17,18 +12,13 @@
   force = true
   query = { id = ":id" }
 
-# 2️⃣ Keep your static pages
 [[redirects]]
-  from = "/blog-001.html"
-  to = "/blog-001.html"
+  from = "/article"
+  to = "/.netlify/functions/article"
   status = 200
+  force = true
+  query = { id = ":id" }
 
-[[redirects]]
-  from = "/breaking-001.html"
-  to = "/breaking-001.html"
-  status = 200
-
-# 3️⃣ Catch-all fallback (MUST be last)
 [[redirects]]
   from = "/*"
   to = "/index.html"
