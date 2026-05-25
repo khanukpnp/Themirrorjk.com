@@ -1485,21 +1485,20 @@ function renderFullArticlePage(data) {
     document.getElementById("loading-state").style.display = "none";
     contentDiv.style.display = "block";
 
-    // Read More / Next Article
-    if (data.navigation?.next) {
-        const next = document.getElementById("next-article-suggestion");
-        next.innerHTML = `
-            <div class="read-more-section">
-                <div class="read-more-title">Read More</div>
-                <div class="read-more-content">
-                    <a href="article.html?id=${data.navigation.next}">
-                        Continue to next article →
-                    </a>
-                </div>
+// Read More / Next Article
+if (data.navigation?.next) {
+    const next = document.getElementById("next-article-suggestion");
+    next.innerHTML = `
+        <div class="read-more-section">
+            <div class="read-more-title">Read More</div>
+            <div class="read-more-content">
+                <a href="article.html?id=${data.navigation.next}">
+                    Continue to next article →
+                </a>
             </div>
-        `;
-        next.style.display = "block";
-    }
+        </div>
+    `;
+    next.style.display = "block";
 }
 
 /* ============================
