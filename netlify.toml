@@ -7,12 +7,14 @@
   from = "/article"
   to = "/.netlify/functions/article"
   status = 200
+  force = true
   query = { id = ":id" }
 
 [[redirects]]
   from = "/article.html"
   to = "/.netlify/functions/article"
   status = 200
+  force = true
   query = { id = ":id" }
 
 # 2️⃣ Keep your static pages
