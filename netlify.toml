@@ -5,7 +5,9 @@
   publish = "."
   command = ""
 
-# CRITICAL: Social media crawlers route to function for meta tags
+# IMPORTANT: Social media redirect MUST come before catch-all
+
+# Route all article.html requests through the function for meta tags
 [[redirects]]
   from = "/article.html"
   to = "/.netlify/functions/article-social"
@@ -13,7 +15,15 @@
   force = true
   query = { id = ":id" }
 
-# Catch-all for SPA - keep this LAST
+# Also handle direct /article requests
+[[redirects]]
+  from = "/article"
+  to = "/.netlify/functions/article-social"
+  status = 200
+  force = true
+  query = { id = ":id" }
+
+# SPA fallback - keep this LAST
 [[redirects]]
   from = "/*"
   to = "/index.html"
