@@ -61,7 +61,7 @@
       "type": "image",
       "src": "content/images/international-002-2.jpg",
       "align": "center",
-      "caption": "Sardar Shaukat Ali Kashmiri addressing the conference.",
+      "caption": "Sardar Shaukat Kashmiri Chairman UKPNP addressing the conference.",
       "credit": "The Mirror Jammu Kashmir"
     },
 
@@ -110,13 +110,13 @@
       "type": "image",
       "src": "content/images/international-002-5.jpg",
       "align": "center",
-      "caption": "Sardar Shaukat Ali Kashmiri delivering his keynote address.",
+      "caption": "Sardar Shaukat Ali Kashmiri & UKPNP Activists at House of Commons.",
       "credit": "The Mirror Jammu Kashmir"
     },
 
     {
       "type": "paragraph",
-      "text": "In his keynote address, Sardar Shaukat Ali Kashmiri delivered a detailed historical indictment of British colonial policies that shaped the tragedy of Jammu and Kashmir. He reminded the audience that the partition of the Indian subcontinent in 1947 was 'a hurried and deeply flawed process' whose consequences continue to haunt generations. He specifically named Lord Mountbatten, arguing that the last Viceroy exercised 'considerable influence upon Maharajah Hari Singh regarding the future of Jammu and Kashmir'—an influence that prevented a free and independent decision."
+      "text": "In his keynote address, Sardar Shaukat Ali Kashmiri delivered a detailed historical indictment of British colonial policies that shaped the tragedy of Jammu and Kashmir. He reminded the audience that the partition of the Indian subcontinent in 1947 was 'a hurried and deeply flawed process' whose consequences continue to haunt generations. He specifically named Lord Mountbatten, arguing that the last Viceroy exercised 'considerable influence upon Maharajah Hari Singh regarding the future of Jammu and Kashmir' an influence that prevented a free and independent decision."
     },
 
     {
@@ -152,7 +152,7 @@
 
     {
       "type": "paragraph",
-      "text": "Kashmiri argued that this historical principle—that governance must be accountable to the welfare of the people and that external powers cannot ignore oppression—remains binding on today's British Government. 'These historical legacies require serious reflection and responsible engagement from today's British Government and leadership—not to revisit the past with bitterness, but to help correct its consequences and contribute toward a peaceful and just future,' he said."
+      "text": "Kashmiri argued that this historical principle that governance must be accountable to the welfare of the people and that external powers cannot ignore oppression remains binding on today's British Government. 'These historical legacies require serious reflection and responsible engagement from today's British Government and leadership not to revisit the past with bitterness, but to help correct its consequences and contribute toward a peaceful and just future,' he said."
     },
 
     {
@@ -164,7 +164,7 @@
       "type": "image",
       "src": "content/images/international-002-8.jpg",
       "align": "center",
-      "caption": "British MPs and UKPNP leadership during resolution discussions.",
+      "caption": "British MPs , UKPNP  Leadership & Members at British Parliament.",
       "credit": "The Mirror Jammu Kashmir"
     },
 
@@ -177,7 +177,7 @@
       "type": "image",
       "src": "content/images/international-002-9.jpg",
       "align": "center",
-      "caption": "Delegates exchanging views on human rights monitoring.",
+      "caption": "UKPNP Delegates at UKPNP 5th International Conference on Jammu Kashmir.",
       "credit": "The Mirror Jammu Kashmir"
     },
 
@@ -211,7 +211,7 @@
 
     {
       "type": "subheading",
-      "text": "Full Speech of Host MP Richard Burgon"
+      "text": "Speech of Host MP Richard Burgon"
     },
 
     {
@@ -256,7 +256,7 @@
       "type": "image",
       "src": "content/images/international-002-12.jpg",
       "align": "center",
-      "caption": "Fabian Hamilton MP sent a special message to the conference.",
+      "caption": "Huge Gathering Of UKPNP Activists in The Front Of British Parliament.",
       "credit": "The Mirror Jammu Kashmir"
     }
 ,
@@ -277,14 +277,14 @@
 
     {
       "type": "subheading",
-      "text": "Full Speech of MP Tahir Ali"
+      "text": "Speech of MP Tahir Ali"
     },
 
     {
       "type": "image",
       "src": "content/images/international-002-13.jpg",
       "align": "center",
-      "caption": "Tahir Ali MP addressing the conference.",
+      "caption": "UKPNP Delegates at International Conference on Jammu Kashmir .",
       "credit": "The Mirror Jammu Kashmir"
     },
 
@@ -310,7 +310,7 @@
 
     {
       "type": "subheading",
-      "text": "Full Speech of MP Imran Hussain"
+      "text": "Speech of MP Imran Hussain"
     },
 
     {
@@ -380,126 +380,104 @@
       "type": "paragraph",
       "text": "The MP further connected the Kashmir issue to wider global crises and the weakening of the international rules-based order. He referenced the continuing war and humanitarian crisis in Gaza, the persecution of the Rohingya people, and other international conflicts as examples of failures to uphold international law and justice. He argued that the Kashmir conflict cannot continue to be ignored if peace, stability, and prosperity are to be achieved in South Asia. Referring to India and Pakistan as two nuclear powers, he stressed that Kashmir remains the central unresolved issue between them and therefore must be brought to the forefront of the international agenda. Concluding his address, Imran Hussain said that the large turnout at the conference demonstrated the strong and continuing support for the Kashmiri cause. He thanked attendees, including members of his own constituency who had travelled to participate, and expressed his gratitude to everyone involved in organising and supporting the event. He ended by reaffirming his commitment to continue raising the voice of the Kashmiri people in Parliament and beyond."
     },
+{
+  "type": "pullquote",
+  "text": "The 20 Resolutions: Free Movement, Expression, Self-Determination and a United Secular State"
+},
+{
+  "type": "pullquote",
+  "text": "The conference unanimously passed 20 detailed resolutions. Among the most significant:"
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 1 commits to a peaceful, democratic struggle, rejecting violence, terrorism and religious extremism."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 2 declares the conflict a human tragedy, not a mere bilateral territorial dispute."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 3 demands transparent investigation of crimes against humanity."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 4 calls on Pakistan and local authorities to restrain force and fulfil promises to Awami Action Committees, and urges the committees to remain peaceful."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 5 demands fair proportional representation for Jammu and Kashmir refugees in the Azad Kashmir Legislative Assembly and cancellation of fake domicile certificates."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 6 supports the Jammu and Kashmir Assembly's demand to restore special status and full statehood of Jammu and Kashmir."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 7 demands the immediate and unconditional release of all peaceful political activists and human rights defenders, and strongly opposes restrictions on freedom of expression, assembly, speech, and free movement."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 8 calls for repeal of repressive laws that exclude pro-Kashmir parties, including UKPNP, from elections."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 9 demands justice for the extrajudicial killing of brothers Zarnosh and Jibran Nasim in Rawalakot."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 10 condemns the abduction of children (Saad Haroon, 8; Arslan Zubair, 2; Muhammad Tabish Khan, 3) and police harassment of their families."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 11 warns against demographic changes violating the 1927 State Subject Rule."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 15 declares that freedom of movement is a fundamental right and demands that all State Subject Certificate holders be allowed to travel freely across all regions of the State of Jammu and Kashmir. It also calls for reopening historic trade and travel routes to reunite divided families."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 16 reaffirms the right to self-determination of the Kashmiri people, as enshrined in Article 1 of the International Covenant on Civil and Political Rights, stressing that 'their political future must be determined freely and without coercion.'"
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 17 urges the British Government to monitor human rights across all parts of the divided state."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 18 appreciates peace dialogues (e.g. US-Iran in Pakistan) and calls for peaceful resolution of all international conflicts."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 19 requests continued engagement of the British Parliament."
+},
+{
+  "type": "pullquote",
+  "text": "• Resolution 20 declares a continued struggle for 'a united, secular and independent State of Jammu and Kashmir for all people.'"
+},
 
-    {
-      "type": "subheading",
-      "text": "The 20 Resolutions: Free Movement, Expression, Self-Determination and a United Secular State"
-    }
-,
-    {
-      "type": "paragraph",
-      "text": "The conference unanimously passed 20 detailed resolutions. Among the most significant:"
-    },
+{
+  "type": "subheading",
+  "text": "Closing Declaration: Justice, Not Sympathy"
+},
 
-    {
-      "type": "paragraph",
-      "text": "• Resolution 1 commits to a peaceful, democratic struggle, rejecting violence, terrorism and religious extremism."
-    },
+{
+  "type": "paragraph",
+  "text": "Sardar Tariq Khan, presiding over the conference, underlined the unity of the Kashmiri diaspora and their commitment to lawful, persistent advocacy. Raja Sarfraz noted that the strong presence of women and youth signalled a generational shift in the movement."
+},
 
-    {
-      "type": "paragraph",
-      "text": "• Resolution 2 declares the conflict a human tragedy, not a mere bilateral territorial dispute."
-    },
+{
+  "type": "paragraph",
+  "text": "Chairman Sardar Shaukat Ali Kashmiri closed with these words: 'The people of Jammu and Kashmir do not seek sympathy. They seek recognition of their humanity. History ultimately judges nations and leaders not by the power they possess, but by the justice they uphold. Let us work together for a future where South Asia becomes a region of peace rather than confrontation; cooperation rather than hostility; and hope rather than despair.'"
+},
 
-    {
-      "type": "paragraph",
-      "text": "• Resolution 3 demands transparent investigation of crimes against humanity."
-    },
+{
+  "type": "subheading",
+  "text": "About UKPNP"
+},
 
-    {
-      "type": "paragraph",
-      "text": "• Resolution 4 calls on Pakistan and local authorities to restrain force and fulfil promises to Awami Action Committees, and urges the committees to remain peaceful."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 5 demands fair proportional representation for Jammu and Kashmir refugees in the Azad Kashmir Legislative Assembly and cancellation of fake domicile certificates."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 6 supports the Jammu and Kashmir Assembly's demand to restore special status and full statehood of Jammu and Kashmir."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 7 demands the immediate and unconditional release of all peaceful political activists and human rights defenders, and strongly opposes restrictions on freedom of expression, assembly, speech, and free movement."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 8 calls for repeal of repressive laws that exclude pro-Kashmir parties, including UKPNP, from elections."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 9 demands justice for the extrajudicial killing of brothers Zarnosh and Jibran Nasim in Rawalakot."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 10 condemns the abduction of children (Saad Haroon, 8; Arslan Zubair, 2; Muhammad Tabish Khan, 3) and police harassment of their families."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 11 warns against demographic changes violating the 1927 State Subject Rule."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 15 declares that freedom of movement is a fundamental right and demands that all State Subject Certificate holders be allowed to travel freely across all regions of the State of Jammu and Kashmir. It also calls for reopening historic trade and travel routes to reunite divided families."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 16 reaffirms the right to self-determination of the Kashmiri people, as enshrined in Article 1 of the International Covenant on Civil and Political Rights, stressing that 'their political future must be determined freely and without coercion.'"
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 17 urges the British Government to monitor human rights across all parts of the divided state."
-    }
-,
-    {
-      "type": "paragraph",
-      "text": "• Resolution 18 appreciates peace dialogues (e.g. US-Iran in Pakistan) and calls for peaceful resolution of all international conflicts."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 19 requests continued engagement of the British Parliament."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "• Resolution 20 declares a continued struggle for 'a united, secular and independent State of Jammu and Kashmir for all people.'"
-    },
-
-    {
-      "type": "subheading",
-      "text": "Closing Declaration: Justice, Not Sympathy"
-    },
-
-    {
-      "type": "paragraph",
-      "text": "Sardar Tariq Khan, presiding over the conference, underlined the unity of the Kashmiri diaspora and their commitment to lawful, persistent advocacy. Raja Sarfraz noted that the strong presence of women and youth signalled a generational shift in the movement."
-    },
-
-    {
-      "type": "paragraph",
-      "text": "Chairman Sardar Shaukat Ali Kashmiri closed with these words: 'The people of Jammu and Kashmir do not seek sympathy. They seek recognition of their humanity. History ultimately judges nations and leaders not by the power they possess, but by the justice they uphold. Let us work together for a future where South Asia becomes a region of peace rather than confrontation; cooperation rather than hostility; and hope rather than despair.'"
-    },
-
-    {
-      "type": "subheading",
-      "text": "About UKPNP"
-    },
-
-    {
-      "type": "paragraph",
-      "text": "The United Kashmir People's National Party (UKPNP) is a leading representative organisation of the Kashmiri diaspora, advocating for the political and human rights of the Kashmiri people through democratic and parliamentary channels across the United Kingdom, Europe, the United States and across the globe."
-    }
-
-  ]
+{
+  "type": "paragraph",
+  "text": "The United Kashmir People's National Party (UKPNP) is a leading representative organisation of the Kashmiri diaspora, advocating for the political and human rights of the Kashmiri people through democratic and parliamentary channels across the United Kingdom, Europe, the United States and across the globe."
 }
