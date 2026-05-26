@@ -48,7 +48,7 @@ export async function handler(event, context) {
     return { statusCode: 500, body: "<html><body><h1>Error reading article data</h1></body></html>" };
   }
 
-  // Build absolute image URL - FIXED with better handling
+  // Build absolute image URL
   let imageUrl = "https://themirrorjk.com/content/images/logo.png";
   if (data.heroImage) {
     if (typeof data.heroImage === 'string') {
@@ -58,7 +58,7 @@ export async function handler(event, context) {
     }
   }
   
-  // Clean up image URL - remove any double slashes
+  // Clean up image URL
   imageUrl = imageUrl.replace(/([^:]\/)\/+/g, "$1");
 
   const canonicalUrl = `https://themirrorjk.com/article.html?id=${id}`;
@@ -76,7 +76,7 @@ export async function handler(event, context) {
       .replace(/'/g, '&#39;');
   };
 
-  // Generate HTML for social media crawlers - IMPROVED VERSION
+  // Generate HTML with ONLY meta tags - NO redirect (crawlers will read this)
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,7 +98,6 @@ export async function handler(event, context) {
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="THE MIRROR JAMMU KASHMIR">
-  <meta property="og:locale" content="en_US">
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
@@ -106,22 +105,17 @@ export async function handler(event, context) {
   <meta name="twitter:description" content="${escapeHtml(excerpt.substring(0, 200))}">
   <meta name="twitter:image" content="${imageUrl}">
   <meta name="twitter:site" content="@TheMirrorJK">
-  <meta name="twitter:creator" content="@TheMirrorJK">
   
   <!-- Article Metadata -->
   <meta property="article:published_time" content="${data.date || ''}">
   <meta property="article:author" content="${escapeHtml(data.author || 'Editorial Desk')}">
   <meta property="article:section" content="${escapeHtml(data.category || 'News')}">
   
-  <!-- Additional Meta Tags -->
+  <!-- Robots - allow indexing -->
   <meta name="robots" content="index, follow">
-  <meta name="language" content="English">
   
-  <!-- Image dimensions for better preview -->
-  <meta property="og:image:alt" content="${escapeHtml(title)}">
-  
-  <!-- Force refresh for crawlers -->
-  <meta http-equiv="last-modified" content="${new Date().toUTCString()}">
+  <!-- Tell crawlers the real URL -->
+  <link rel="alternate" href="${canonicalUrl}">
   
   <style>
     body {
@@ -178,21 +172,15 @@ export async function handler(event, context) {
       font-size: 0.8rem;
       word-break: break-all;
     }
-    .redirect-note {
-      text-align: center;
-      margin-top: 30px;
-      padding: 15px;
-      background: #f5f5f5;
-      border-radius: 8px;
-      font-size: 0.9rem;
-    }
-    .redirect-note a {
-      color: #b30000;
+    .view-article {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #b30000;
+      color: white;
       text-decoration: none;
+      border-radius: 4px;
       font-weight: 600;
-    }
-    .redirect-note a:hover {
-      text-decoration: underline;
     }
     hr {
       margin: 30px 0 20px;
@@ -216,29 +204,13 @@ export async function handler(event, context) {
       <div class="preview-title">${escapeHtml(title)}</div>
       <div class="preview-description">${escapeHtml(excerpt.substring(0, 300))}</div>
       <div class="preview-url">${canonicalUrl}</div>
+      <a href="${canonicalUrl}" class="view-article">Read Full Article →</a>
     </div>
-  </div>
-  <div class="redirect-note">
-    ⏳ Redirecting to full article... <a href="${canonicalUrl}">Click here</a> if not redirected automatically.
   </div>
   <hr>
   <div class="footer-text">
     THE MIRROR JAMMU KASHMIR — Champion Justice & Amplify the Voices of the Unheard
   </div>
-  
-  <script>
-    // Immediate redirect for non-crawler user agents
-    (function() {
-      const userAgent = navigator.userAgent.toLowerCase();
-      const isCrawler = /bot|crawler|spider|facebook|twitter|whatsapp|slack|discord|telegram|linkedin|pinterest|reddit|skype|viber|wechat|curl|wget|python|java|php|perl|ruby|go|node|phantom|headless/i.test(userAgent);
-      const isPreviewBot = /facebot|facebookexternalhit|twitterbot|whatsapp|slack|linkedinbot|pinterest|telegrambot|discordbot/i.test(userAgent);
-      
-      // Redirect if not a crawler and not already on the article page
-      if (!isCrawler && !isPreviewBot && !window.location.href.includes('article-social')) {
-        window.location.href = '${canonicalUrl}';
-      }
-    })();
-  </script>
 </body>
 </html>`;
 
@@ -246,7 +218,7 @@ export async function handler(event, context) {
     statusCode: 200,
     headers: { 
       "Content-Type": "text/html",
-      "Cache-Control": "public, max-age=3600" // Cache for 1 hour
+      "Cache-Control": "public, max-age=3600"
     },
     body: html
   };
