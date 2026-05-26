@@ -21,9 +21,6 @@
 <title id="page-title">THE MIRROR JAMMU KASHMIR</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-/* ===== YOUR COMPLETE ORIGINAL CSS HERE ===== */
-/* (Keep all your existing CSS from article html master.docx) */
-
 * {
   margin: 0;
   padding: 0;
@@ -955,7 +952,7 @@ h1, h2, h3, h4, h5 {
 </footer>
 
 <script>
-// ===== COMPLETE SCRIPT.JS (All functions from your original, plus fixed article loader) =====
+// ===== COMPLETE UPDATED SCRIPT WITH ARTICLE-002 SUPPORT =====
 
 // Wait for DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", function() {
@@ -970,7 +967,6 @@ document.addEventListener("DOMContentLoaded", function() {
   initNav();
   initLanguageSelector();
   initSearch();
-  initShareTooltip();
   initReadingProgress();
   
   // Set up clock to update every second
@@ -984,9 +980,13 @@ document.addEventListener("DOMContentLoaded", function() {
     loadArticle(articleId);
   } else {
     // No article ID - show error
-    document.getElementById('loading-state').style.display = 'none';
-    document.getElementById('content').style.display = 'block';
-    document.getElementById('content').innerHTML = '<p style="text-align:center; padding:50px;">No article specified. <a href="index.html">Return to homepage</a></p>';
+    const loadingDiv = document.getElementById('loading-state');
+    const contentDiv = document.getElementById('content');
+    if (loadingDiv) loadingDiv.style.display = 'none';
+    if (contentDiv) {
+      contentDiv.style.display = 'block';
+      contentDiv.innerHTML = '<p style="text-align:center; padding:50px;">No article specified. <a href="index.html">Return to homepage</a></p>';
+    }
   }
 });
 
@@ -1060,8 +1060,7 @@ function getBikramiDate() {
   let bikramiMonth = 0;
   let bikramiDay = day;
   
-  // Simplified Bikrami calculation
-  if (month === 2) { // March
+  if (month === 2) {
     if (day >= 14) { bikramiMonth = 0; bikramiYear = year + 57; bikramiDay = day - 13; }
     else { bikramiMonth = 11; bikramiYear = year + 56; bikramiDay = day + 18; }
   } else if (month === 3) { bikramiMonth = 0; bikramiYear = year + 57; bikramiDay = day + 17; if (bikramiDay > 31) { bikramiDay -= 31; bikramiMonth = 1; } }
@@ -1165,46 +1164,7 @@ function initSearch() {
   });
 }
 
-// Share Tooltip
-function initShareTooltip() {
-  const shareBtn = document.getElementById('article-share-btn');
-  const tooltip = document.getElementById('share-tooltip');
-  
-  // Update share links with current URL
-  const url = encodeURIComponent(window.location.href);
-  const title = encodeURIComponent(document.title);
-  
-  const platforms = {
-    'share-facebook': `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-    'share-twitter': `https://twitter.com/intent/tweet?url=${url}&text=${title}`,
-    'share-whatsapp': `https://api.whatsapp.com/send?text=${title}%20${url}`,
-    'share-linkedin': `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-    'share-telegram': `https://t.me/share/url?url=${url}&text=${title}`,
-    'share-reddit': `https://www.reddit.com/submit?url=${url}&title=${title}`,
-    'share-pinterest': `https://pinterest.com/pin/create/button/?url=${url}`,
-    'share-email': `mailto:?subject=${title}&body=Check this article: ${decodeURIComponent(url)}`
-  };
-  
-  for (const [id, href] of Object.entries(platforms)) {
-    const link = document.getElementById(id);
-    if (link) { link.href = href; link.target = '_blank'; link.rel = 'noopener noreferrer'; }
-  }
-  
-  if (shareBtn && tooltip) {
-    shareBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      tooltip.classList.toggle('show');
-    });
-  }
-  
-  document.addEventListener('click', function(e) {
-    if (tooltip && !tooltip.contains(e.target) && e.target !== shareBtn) {
-      tooltip.classList.remove('show');
-    }
-  });
-}
-
-// ===== CORE ARTICLE LOADING FUNCTION - FIXED =====
+// ===== CORE ARTICLE LOADING FUNCTION =====
 async function loadArticle(articleId) {
   console.log("Loading article:", articleId);
   
@@ -1212,12 +1172,10 @@ async function loadArticle(articleId) {
   const contentDiv = document.getElementById('content');
   const heroWrap = document.getElementById('heroWrap');
   
-  // Show loading
   if (loadingDiv) loadingDiv.style.display = 'flex';
   if (contentDiv) contentDiv.style.display = 'none';
   if (heroWrap) heroWrap.style.display = 'none';
   
-  // Try to fetch the article JSON
   const pathsToTry = [
     `content/${articleId}.json`,
     `./content/${articleId}.json`,
@@ -1232,7 +1190,6 @@ async function loadArticle(articleId) {
       const response = await fetch(path);
       if (response.ok) {
         let data = await response.json();
-        // Handle nested data structures
         if (data.items && Array.isArray(data.items) && data.items.length > 0) {
           articleData = data.items[0];
         } else if (Array.isArray(data) && data.length > 0) {
@@ -1259,10 +1216,7 @@ async function loadArticle(articleId) {
   
   console.log("Article data loaded:", articleData.title);
   
-  // Update meta tags for social sharing
   updateSocialMetaTags(articleData, articleId);
-  
-  // Render the article
   renderFullArticlePage(articleData);
 }
 
@@ -1312,17 +1266,11 @@ function renderFullArticlePage(article) {
   const sectionLabel = document.getElementById('section-label');
   const metaEl = document.getElementById('meta');
   
-  // Hide loading, show content
   if (loadingDiv) loadingDiv.style.display = 'none';
   if (contentDiv) contentDiv.style.display = 'block';
-  
-  // Set title
   if (titleEl) titleEl.textContent = article.title || 'Untitled';
+  if (sectionLabel) sectionLabel.textContent = article.sectionLabel || article.category || 'ARTICLE';
   
-  // Set section label
-  if (sectionLabel) sectionLabel.textContent = article.category || article.sectionLabel || 'ARTICLE';
-  
-  // Set meta info
   if (metaEl) {
     let metaHtml = '';
     if (article.location) metaHtml += `<strong>${article.location}</strong>`;
@@ -1336,7 +1284,6 @@ function renderFullArticlePage(article) {
     metaEl.innerHTML = metaHtml;
   }
   
-  // Set hero image
   if (article.heroImage && article.heroImage.src && heroImg) {
     let imageSrc = article.heroImage.src;
     if (!imageSrc.startsWith('http') && !imageSrc.startsWith('/')) {
@@ -1351,7 +1298,6 @@ function renderFullArticlePage(article) {
     heroWrap.style.display = 'none';
   }
   
-  // Render body content
   if (contentDiv) {
     contentDiv.innerHTML = '';
     
@@ -1361,6 +1307,8 @@ function renderFullArticlePage(article) {
           contentDiv.innerHTML += `<p>${block.text || ''}</p>`;
         } else if (block.type === 'subheading') {
           contentDiv.innerHTML += `<h2 class="mid-subheading">${block.text || ''}</h2>`;
+        } else if (block.type === 'header') {
+          contentDiv.innerHTML += `<h2 class="mid-subheading" style="font-size:1.8rem;color:#b30000;">${block.text || ''}</h2>`;
         } else if (block.type === 'pullquote') {
           contentDiv.innerHTML += `<div class="pull-quote">${block.text || ''}</div>`;
         } else if (block.type === 'points' && block.items) {
@@ -1374,10 +1322,12 @@ function renderFullArticlePage(article) {
             imageSrc = 'content/images/' + imageSrc.split('/').pop();
           }
           const alignClass = block.align === 'right' ? 'img-right' : (block.align === 'left' ? 'img-left' : 'img-center');
+          let captionHtml = '';
+          if (block.caption) captionHtml = `<figcaption>${block.caption}${block.credit ? ' — ' + block.credit : ''}</figcaption>`;
           contentDiv.innerHTML += `
             <figure class="${alignClass}">
               <img src="${imageSrc}" alt="${block.caption || 'Image'}" onerror="this.src='https://via.placeholder.com/640x360?text=Image'">
-              ${block.caption ? `<figcaption>${block.caption}</figcaption>` : ''}
+              ${captionHtml}
             </figure>
           `;
         }
@@ -1386,7 +1336,6 @@ function renderFullArticlePage(article) {
       contentDiv.innerHTML = '<p>No content available for this article.</p>';
     }
     
-    // Add Read More section if present
     if (article.readMore && article.readMore.trim() !== '') {
       contentDiv.innerHTML += `
         <div class="read-more-section">
@@ -1397,14 +1346,10 @@ function renderFullArticlePage(article) {
     }
   }
   
-  // Add article action buttons
   addArticleActionButtons(article);
-  
-  // Add article pagination
   addArticlePagination(article);
-  
-  // Suggest next article
   suggestNextArticle(article.id);
+  initShareTooltipForArticle(article.id);
 }
 
 function addArticleActionButtons(article) {
@@ -1458,11 +1403,19 @@ function addArticleActionButtons(article) {
         navigator.clipboard.writeText(window.location.href).then(() => alert("Link copied!")).catch(() => alert("Failed to copy link"));
       });
     }
-    
-    // Re-initialize share tooltip for the new share button
-    initShareTooltip();
   }
 }
+
+// UPDATED: Complete article sequence with article-002
+const FULL_ARTICLE_SEQUENCE = [
+  { id: 'article-002', title: 'UKPNP Historic Event on Karachi Agreement' },
+  { id: 'article-001', title: 'Complete Shutter Down Paralyzes Rawalakot' },
+  { id: 'breaking-001', title: 'UKPNP Meets Baroness Nicholson' },
+  { id: 'blog-001', title: 'UKPNP Briefs British MPs' },
+  { id: 'editorial-001', title: 'Brief History of Jammu and Kashmir' },
+  { id: 'latest-001', title: 'US-Israel-Iran Escalation' },
+  { id: 'historical-001', title: 'US-Israel-Iran War Risk' }
+];
 
 function addArticlePagination(article) {
   let paginationDiv = document.querySelector('.article-pagination');
@@ -1475,25 +1428,15 @@ function addArticlePagination(article) {
     }
   }
   
-  // Sample article sequence - replace with your actual article IDs
-  const articleSequence = [
-    { id: 'article-001', title: 'Shutter Down in Rawalakot' },
-    { id: 'breaking-001', title: 'UKPNP Meets Baroness Nicholson' },
-    { id: 'blog-001', title: 'UKPNP Briefs British MPs' },
-    { id: 'editorial-001', title: 'Brief History of Jammu and Kashmir' },
-    { id: 'latest-001', title: 'US-Israel-Iran Escalation' },
-    { id: 'historical-001', title: 'US-Israel-Iran War Risk' }
-  ];
-  
-  const currentIndex = articleSequence.findIndex(a => a.id === article.id);
+  const currentIndex = FULL_ARTICLE_SEQUENCE.findIndex(a => a.id === article.id);
   let prevHtml = '', nextHtml = '';
   
   if (currentIndex > 0) {
-    const prev = articleSequence[currentIndex - 1];
+    const prev = FULL_ARTICLE_SEQUENCE[currentIndex - 1];
     prevHtml = `<a href="article.html?id=${prev.id}" class="pagination-btn prev-btn">← Previous: ${prev.title}</a>`;
   }
-  if (currentIndex < articleSequence.length - 1) {
-    const next = articleSequence[currentIndex + 1];
+  if (currentIndex < FULL_ARTICLE_SEQUENCE.length - 1 && currentIndex !== -1) {
+    const next = FULL_ARTICLE_SEQUENCE[currentIndex + 1];
     nextHtml = `<a href="article.html?id=${next.id}" class="pagination-btn next-btn">Next: ${next.title} →</a>`;
   }
   
@@ -1509,23 +1452,55 @@ function suggestNextArticle(currentArticleId) {
   const suggestionDiv = document.getElementById('next-article-suggestion');
   if (!suggestionDiv) return;
   
-  const articleSequence = [
-    { id: 'article-001', title: 'Shutter Down in Rawalakot' },
-    { id: 'breaking-001', title: 'UKPNP Meets Baroness Nicholson' },
-    { id: 'blog-001', title: 'UKPNP Briefs British MPs' },
-    { id: 'editorial-001', title: 'Brief History of Jammu and Kashmir' },
-    { id: 'latest-001', title: 'US-Israel-Iran Escalation' },
-    { id: 'historical-001', title: 'US-Israel-Iran War Risk' }
-  ];
-  
-  const currentIndex = articleSequence.findIndex(a => a.id === currentArticleId);
-  if (currentIndex !== -1 && currentIndex < articleSequence.length - 1) {
-    const next = articleSequence[currentIndex + 1];
-    suggestionDiv.innerHTML = `<a href="article.html?id=${next.id}">Next: ${next.title} →</a>`;
+  const currentIndex = FULL_ARTICLE_SEQUENCE.findIndex(a => a.id === currentArticleId);
+  if (currentIndex !== -1 && currentIndex < FULL_ARTICLE_SEQUENCE.length - 1) {
+    const next = FULL_ARTICLE_SEQUENCE[currentIndex + 1];
+    suggestionDiv.innerHTML = `<a href="article.html?id=${next.id}">Continue Reading: ${next.title} →</a>`;
     suggestionDiv.style.display = 'block';
   } else {
     suggestionDiv.style.display = 'none';
   }
+}
+
+function initShareTooltipForArticle(articleId) {
+  const shareBtn = document.getElementById('article-share-btn');
+  const tooltip = document.getElementById('share-tooltip');
+  
+  // Use preview URL for better social cards
+  const previewUrl = `https://themirrorjk.com/article-preview?id=${articleId}`;
+  const actualUrl = window.location.href;
+  const title = encodeURIComponent(document.title);
+  
+  const platforms = {
+    'share-facebook': `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(previewUrl)}`,
+    'share-twitter': `https://twitter.com/intent/tweet?url=${encodeURIComponent(previewUrl)}&text=${title}`,
+    'share-whatsapp': `https://api.whatsapp.com/send?text=${title}%20${encodeURIComponent(previewUrl)}`,
+    'share-linkedin': `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(previewUrl)}`,
+    'share-telegram': `https://t.me/share/url?url=${encodeURIComponent(previewUrl)}&text=${title}`,
+    'share-reddit': `https://www.reddit.com/submit?url=${encodeURIComponent(previewUrl)}&title=${title}`,
+    'share-pinterest': `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(previewUrl)}`,
+    'share-email': `mailto:?subject=${title}&body=Check this article: ${encodeURIComponent(actualUrl)}`
+  };
+  
+  for (const [id, href] of Object.entries(platforms)) {
+    const link = document.getElementById(id);
+    if (link) { link.href = href; link.target = '_blank'; link.rel = 'noopener noreferrer'; }
+  }
+  
+  if (shareBtn && tooltip) {
+    const newShareBtn = shareBtn.cloneNode(true);
+    shareBtn.parentNode.replaceChild(newShareBtn, shareBtn);
+    newShareBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      tooltip.classList.toggle('show');
+    });
+  }
+  
+  document.addEventListener('click', function(e) {
+    if (tooltip && !tooltip.contains(e.target) && e.target !== shareBtn && e.target !== document.getElementById('article-share-btn')) {
+      tooltip.classList.remove('show');
+    }
+  });
 }
 
 // Global functions
