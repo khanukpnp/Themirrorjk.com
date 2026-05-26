@@ -317,79 +317,79 @@
       "text": "The MP further connected the Kashmir issue to wider global crises and the weakening of the international rules-based order. He referenced the continuing war and humanitarian crisis in Gaza, the persecution of the Rohingya people, and other international conflicts as examples of failures to uphold international law and justice. He argued that the Kashmir conflict cannot continue to be ignored if peace, stability, and prosperity are to be achieved in South Asia. Referring to India and Pakistan as two nuclear powers, he stressed that Kashmir remains the central unresolved issue between them and therefore must be brought to the forefront of the international agenda. Concluding his address, Imran Hussain said that the large turnout at the conference demonstrated the strong and continuing support for the Kashmiri cause. He thanked attendees, including members of his own constituency who had travelled to participate, and expressed his gratitude to everyone involved in organising and supporting the event. He ended by reaffirming his commitment to continue raising the voice of the Kashmiri people in Parliament and beyond."
     },
     {
-      "type": "pullquote",
+      "type": "subheading",
       "text": "The 20 Resolutions: Free Movement, Expression, Self-Determination and a United Secular State"
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "The conference unanimously passed 20 detailed resolutions. Among the most significant:"
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 1 commits to a peaceful, democratic struggle, rejecting violence, terrorism and religious extremism."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 2 declares the conflict a human tragedy, not a mere bilateral territorial dispute."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 3 demands transparent investigation of crimes against humanity."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 4 calls on Pakistan and local authorities to restrain force and fulfil promises to Awami Action Committees, and urges the committees to remain peaceful."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 5 demands fair proportional representation for Jammu and Kashmir refugees in the Azad Kashmir Legislative Assembly and cancellation of fake domicile certificates."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 6 supports the Jammu and Kashmir Assembly's demand to restore special status and full statehood of Jammu and Kashmir."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 7 demands the immediate and unconditional release of all peaceful political activists and human rights defenders, and strongly opposes restrictions on freedom of expression, assembly, speech, and free movement."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 8 calls for repeal of repressive laws that exclude pro-Kashmir parties, including UKPNP, from elections."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 9 demands justice for the extrajudicial killing of brothers Zarnosh and Jibran Nasim in Rawalakot."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 10 condemns the abduction of children (Saad Haroon, 8; Arslan Zubair, 2; Muhammad Tabish Khan, 3) and police harassment of their families."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 11 warns against demographic changes violating the 1927 State Subject Rule."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 15 declares that freedom of movement is a fundamental right and demands that all State Subject Certificate holders be allowed to travel freely across all regions of the State of Jammu and Kashmir. It also calls for reopening historic trade and travel routes to reunite divided families."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 16 reaffirms the right to self-determination of the Kashmiri people, as enshrined in Article 1 of the International Covenant on Civil and Political Rights, stressing that 'their political future must be determined freely and without coercion.'"
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 17 urges the British Government to monitor human rights across all parts of the divided state."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 18 appreciates peace dialogues (e.g. US-Iran in Pakistan) and calls for peaceful resolution of all international conflicts."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 19 requests continued engagement of the British Parliament."
     },
     {
-      "type": "pullquote",
+      "type": "paragraph",
       "text": "• Resolution 20 declares a continued struggle for 'a united, secular and independent State of Jammu and Kashmir for all people.'"
     },
     {
@@ -401,7 +401,7 @@
       "text": "Sardar Tariq Khan, presiding over the conference, underlined the unity of the Kashmiri diaspora and their commitment to lawful, persistent advocacy. Raja Sarfraz noted that the strong presence of women and youth signalled a generational shift in the movement."
     },
     {
-"type": "paragraph",
+      "type": "paragraph",
       "text": "Chairman Sardar Shaukat Ali Kashmiri closed with these words: 'The people of Jammu and Kashmir do not seek sympathy. They seek recognition of their humanity. History ultimately judges nations and leaders not by the power they possess, but by the justice they uphold. Let us work together for a future where South Asia becomes a region of peace rather than confrontation; cooperation rather than hostility; and hope rather than despair.'"
     },
     {
@@ -414,4 +414,3 @@
     }
   ]
 }
-
