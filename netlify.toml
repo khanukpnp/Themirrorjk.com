@@ -5,19 +5,11 @@
   publish = "."
   command = ""
 
-# IMPORTANT: Social media redirect MUST come before catch-all
+# IMPORTANT: Do NOT redirect article.html - let normal users load the actual page
 
-# Route all article.html requests through the function for meta tags
+# Social media crawlers use this special path for meta tags
 [[redirects]]
-  from = "/article.html"
-  to = "/.netlify/functions/article-social"
-  status = 200
-  force = true
-  query = { id = ":id" }
-
-# Also handle direct /article requests
-[[redirects]]
-  from = "/article"
+  from = "/article-preview"
   to = "/.netlify/functions/article-social"
   status = 200
   force = true
