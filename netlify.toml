@@ -5,6 +5,7 @@ directory = "content/netlify/functions"
   publish = "/"
   command = ""
 
+# Handle article.html requests with query parameters
 [[redirects]]
   from = "/article.html"
   to = "/.netlify/functions/article"
@@ -12,6 +13,7 @@ directory = "content/netlify/functions"
   force = true
   query = { id = ":id" }
 
+# Handle /article requests with query parameters
 [[redirects]]
   from = "/article"
   to = "/.netlify/functions/article"
@@ -19,6 +21,14 @@ directory = "content/netlify/functions"
   force = true
   query = { id = ":id" }
 
+# Handle direct article paths (optional, for cleaner URLs)
+[[redirects]]
+  from = "/article/*"
+  to = "/.netlify/functions/article?id=:splat"
+  status = 200
+  force = true
+
+# SPA fallback - this handles all other routes by serving index.html
 [[redirects]]
   from = "/*"
   to = "/index.html"
