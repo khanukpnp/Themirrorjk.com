@@ -5,17 +5,15 @@
   publish = "."
   command = ""
 
-# IMPORTANT: Article redirects MUST come BEFORE the catch-all rule
-
-# Social media crawlers go to Netlify function for meta tags
+# CRITICAL: Social media crawlers route to function for meta tags
 [[redirects]]
-  from = "/article-social"
+  from = "/article.html"
   to = "/.netlify/functions/article-social"
   status = 200
   force = true
   query = { id = ":id" }
 
-# SPA fallback - serve index.html for all other routes
+# Catch-all for SPA - keep this LAST
 [[redirects]]
   from = "/*"
   to = "/index.html"
