@@ -1,34 +1,21 @@
 [functions]
-directory = "content/netlify/functions"
+  directory = "netlify/functions"
 
 [build]
-  publish = "/"
+  publish = "."
   command = ""
 
-# Handle article.html requests with query parameters
+# IMPORTANT: Article redirects MUST come BEFORE the catch-all rule
+
+# Social media crawlers go to Netlify function for meta tags
 [[redirects]]
-  from = "/article.html"
-  to = "/.netlify/functions/article"
+  from = "/article-social"
+  to = "/.netlify/functions/article-social"
   status = 200
   force = true
   query = { id = ":id" }
 
-# Handle /article requests with query parameters
-[[redirects]]
-  from = "/article"
-  to = "/.netlify/functions/article"
-  status = 200
-  force = true
-  query = { id = ":id" }
-
-# Handle direct article paths (optional, for cleaner URLs)
-[[redirects]]
-  from = "/article/*"
-  to = "/.netlify/functions/article?id=:splat"
-  status = 200
-  force = true
-
-# SPA fallback - this handles all other routes by serving index.html
+# SPA fallback - serve index.html for all other routes
 [[redirects]]
   from = "/*"
   to = "/index.html"
