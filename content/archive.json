@@ -1,0 +1,124 @@
+{
+  "items": [
+    {
+      "id": "humanrights-002",
+      "slug": "jammu-kashmir-conflict-historical-roots-contemporary-realities",
+      "title": "Jammu and Kashmir Conflict: Historical Roots and Contemporary Realities",
+      "excerpt": "A comprehensive analysis of the historical foundations, political developments, legal frameworks, and contemporary human rights concerns shaping the Jammu and Kashmir conflict.",
+      "thumbnail": "/content/images/humanrights-002-hero.png",
+      "category": "Human Rights",
+      "date": "2026-05-27",
+      "readTime": "32 min read"
+    },
+    {
+      "id": "humanrights-001",
+      "slug": "refugee-representation-ajk-state-unity-political-disorientation",
+      "title": "Jammu Kashmir Refugee Representation in AJK, State Unity, and Our Political Disorientation.",
+      "excerpt": "A detailed analysis of the debate on refugee representation in AJK, its historical roots, political implications, and the dangers of division within the State of Jammu and Kashmir.",
+      "thumbnail": "/content/images/humanrights-001-hero.jpg",
+      "category": "Human Rights",
+      "date": "2026-05-22",
+      "readTime": "22 min read"
+    },
+    {
+      "id": "international-002",
+      "slug": "ukpnp-5th-international-conference-house-of-commons",
+      "title": "UKPNP Makes History at House of Commons: 'Kashmir Is Neither Bilateral Nor Territorial — It Is a Human Tragedy'",
+      "excerpt": "UKPNP convened its 5th International Conference at the UK Parliament, passing 20 resolutions and urging Britain to support self-determination.",
+      "thumbnail": "content/images/international-002-hero.jpg",
+      "category": "International",
+      "date": "2026-05-19",
+      "readTime": "8 min read"
+    },
+    {
+      "id": "jk-001",
+      "slug": "hrc61-human-rights-south-asia-jammu-kashmir",
+      "title": "UN Human Rights Council 61st Session — CIRAC Side Event on Human Rights in South Asia",
+      "excerpt": "A high-level UNHRC side event examining human rights violations, political repression, and demographic changes in the historical State of Jammu and Kashmir.",
+      "thumbnail": "content/images/jk-001-hero-group-banner.jpg",
+      "category": "Jammu & Kashmir",
+      "date": "2026-03-26",
+      "readTime": "22 min read"
+    },
+    {
+      "id": "jk-002",
+      "slug": "hrc61-item4-sardar-shaukat-ali-kashmiri-intervention",
+      "title": "UN Human Rights Council 61st Session — Sardar Shaukat Ali Kashmiri Calls for De-escalation and Justice",
+      "excerpt": "A detailed account of Sardar Shaukat Ali Kashmiri's Item 4 intervention at HRC61, highlighting global conflict escalation and human rights violations.",
+      "thumbnail": "content/images/jk-002-hero-shaukat.png",
+      "category": "Jammu & Kashmir",
+      "date": "2026-03-16",
+      "readTime": "12 min read"
+    },
+    {
+      "id": "editorial-001",
+      "slug": "brief-history-jammu-kashmir-1819-1953",
+      "title": "Brief History of the State of Jammu and Kashmir, 1819–1953",
+      "excerpt": "A comprehensive historical analysis of the formation, governance, and political evolution of the State of Jammu and Kashmir.",
+      "thumbnail": "content/images/editorial-001-hero.png",
+      "category": "Editorial",
+      "date": "2026-03-16",
+      "readTime": "28 min read"
+    },
+    {
+      "id": "historical-001",
+      "slug": "us-israel-iran-escalation-world-war-risk-march-2026",
+      "title": "US and Israel Strikes on Iran Risk Catastrophic Regional War",
+      "excerpt": "Sardar Shaukat Ali Kashmiri warns that escalating US–Israel–Iran conflict risks global catastrophe.",
+      "thumbnail": "content/images/historical-001-hero.jpg",
+      "category": "Historical Analysis",
+      "date": "2026-03-02",
+      "readTime": "8 min read"
+    },
+    {
+      "id": "article-002",
+      "slug": "ukpnp-karachi-agreement-rawalakot-2026",
+      "title": "UKPNP Holds Historic Event on 28 April 1949 Karachi Agreement in Rawalakot",
+      "excerpt": "A comprehensive press release detailing the UKPNP's landmark Rawalakot event commemorating the Karachi Agreement.",
+      "thumbnail": "content/images/article-002-hero.jpg",
+      "category": "Breaking News",
+      "date": "2026-04-28",
+      "readTime": "18 min read"
+    },
+    {
+      "id": "article-001",
+      "slug": "breaking-complete-shutter-down-rawalakot-poonch-december-16-2025",
+      "title": "Complete Shutter Down Paralyzes Rawalakot Poonch",
+      "excerpt": "Thousands shut down Rawalakot in protest against prolonged electricity outages and communication blackouts.",
+      "thumbnail": "content/images/rawalakot-01.jpg",
+      "category": "Breaking News",
+      "date": "2025-12-16",
+      "readTime": "7 min read"
+    },
+    {
+      "id": "breaking-001",
+      "slug": "ukpnp-delegation-meets-baroness-emma-nicholson-house-of-lords-london",
+      "title": "UKPNP Delegation Meets Baroness Emma Nicholson at the House of Lords",
+      "excerpt": "A high-level UKPNP delegation led by Sardar Shaukat Ali Kashmiri met Baroness Nicholson to discuss Kashmir.",
+      "thumbnail": "content/images/london-ukpnp-01.jpg",
+      "category": "Breaking News",
+      "date": "2025-11-26",
+      "readTime": "12 min read"
+    },
+    {
+      "id": "blog-001",
+      "slug": "blog-ukpnp-briefs-british-mps-london-25-november-2025",
+      "title": "UKPNP Delegation Briefs British MPs on Kashmir Crisis",
+      "excerpt": "A high-level UKPNP delegation briefed British MPs on the historical roots and current human rights situation.",
+      "thumbnail": "content/images/blog-ukpnp-mps-01.jpg",
+      "category": "Opinion & Blog",
+      "date": "2025-11-25",
+      "readTime": "14 min read"
+    },
+    {
+      "id": "international-001",
+      "slug": "ukpnp-kashmir-conference-house-of-commons-2025",
+      "title": "Kashmir Is Not a Territorial Dispute: UKPNP Demands Reunification",
+      "excerpt": "UKPNP held its 4th International Kashmir Conference in the British Parliament.",
+      "thumbnail": "content/images/international-001-hero.jpg",
+      "category": "International",
+      "date": "2025-07-08",
+      "readTime": "18 min read"
+    }
+  ]
+}
