@@ -1,1 +1,30 @@
-
+{
+  "items": [
+    {
+      "id": "humanrights-001",
+      "title": "[Title from your humanrights-001.json]",
+      "excerpt": "[Excerpt from your humanrights-001.json]",
+      "heroImage": {
+        "src": "/content/images/humanrights-001.jpg",
+        "caption": "[Caption]",
+        "credit": "The Mirror Jammu Kashmir"
+      },
+      "body": [
+        { "type": "paragraph", "text": "[Content from humanrights-001.json]" }
+      ]
+    },
+    {
+      "id": "humanrights-002",
+      "title": "[Title from your humanrights-002.json]",
+      "excerpt": "[Excerpt from your humanrights-002.json]",
+      "heroImage": {
+        "src": "/content/images/humanrights-002.jpg",
+        "caption": "[Caption]",
+        "credit": "The Mirror Jammu Kashmir"
+      },
+      "body": [
+        { "type": "paragraph", "text": "[Content from humanrights-002.json]" }
+      ]
+    }
+  ]
+}
