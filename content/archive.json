@@ -2,6 +2,7 @@
   "items": [
     {
       "id": "humanrights-002",
+      "section": "humanrights",
       "slug": "jammu-kashmir-conflict-historical-roots-contemporary-realities",
       "title": "Jammu and Kashmir Conflict: Historical Roots and Contemporary Realities",
       "excerpt": "A comprehensive analysis of the historical foundations, political developments, legal frameworks, and contemporary human rights concerns shaping the Jammu and Kashmir conflict.",
@@ -12,6 +13,7 @@
     },
     {
       "id": "humanrights-001",
+      "section": "humanrights",
       "slug": "refugee-representation-ajk-state-unity-political-disorientation",
       "title": "Jammu Kashmir Refugee Representation in AJK, State Unity, and Our Political Disorientation.",
       "excerpt": "A detailed analysis of the debate on refugee representation in AJK, its historical roots, political implications, and the dangers of division within the State of Jammu and Kashmir.",
@@ -22,8 +24,9 @@
     },
     {
       "id": "international-002",
+      "section": "international",
       "slug": "ukpnp-5th-international-conference-house-of-commons",
-      "title": "UKPNP Makes History at House of Commons: 'Kashmir Is Neither Bilateral Nor Territorial — It Is a Human Tragedy'",
+      "title": "UKPNP Makes History at House of Commons",
       "excerpt": "UKPNP convened its 5th International Conference at the UK Parliament, passing 20 resolutions and urging Britain to support self-determination.",
       "thumbnail": "content/images/international-002-hero.jpg",
       "category": "International",
@@ -32,8 +35,9 @@
     },
     {
       "id": "jk-001",
+      "section": "jammu-kashmir",
       "slug": "hrc61-human-rights-south-asia-jammu-kashmir",
-      "title": "UN Human Rights Council 61st Session — CIRAC Side Event on Human Rights in South Asia",
+      "title": "UN Human Rights Council 61st Session — CIRAC Side Event",
       "excerpt": "A high-level UNHRC side event examining human rights violations, political repression, and demographic changes in the historical State of Jammu and Kashmir.",
       "thumbnail": "content/images/jk-001-hero-group-banner.jpg",
       "category": "Jammu & Kashmir",
@@ -42,8 +46,9 @@
     },
     {
       "id": "jk-002",
+      "section": "jammu-kashmir",
       "slug": "hrc61-item4-sardar-shaukat-ali-kashmiri-intervention",
-      "title": "UN Human Rights Council 61st Session — Sardar Shaukat Ali Kashmiri Calls for De-escalation and Justice",
+      "title": "UN Human Rights Council 61st Session — Sardar Shaukat Ali Kashmiri Calls for De-escalation",
       "excerpt": "A detailed account of Sardar Shaukat Ali Kashmiri's Item 4 intervention at HRC61, highlighting global conflict escalation and human rights violations.",
       "thumbnail": "content/images/jk-002-hero-shaukat.png",
       "category": "Jammu & Kashmir",
@@ -52,6 +57,7 @@
     },
     {
       "id": "editorial-001",
+      "section": "editorial",
       "slug": "brief-history-jammu-kashmir-1819-1953",
       "title": "Brief History of the State of Jammu and Kashmir, 1819–1953",
       "excerpt": "A comprehensive historical analysis of the formation, governance, and political evolution of the State of Jammu and Kashmir.",
@@ -62,6 +68,7 @@
     },
     {
       "id": "historical-001",
+      "section": "historical",
       "slug": "us-israel-iran-escalation-world-war-risk-march-2026",
       "title": "US and Israel Strikes on Iran Risk Catastrophic Regional War",
       "excerpt": "Sardar Shaukat Ali Kashmiri warns that escalating US–Israel–Iran conflict risks global catastrophe.",
@@ -72,8 +79,9 @@
     },
     {
       "id": "article-002",
+      "section": "breaking",
       "slug": "ukpnp-karachi-agreement-rawalakot-2026",
-      "title": "UKPNP Holds Historic Event on 28 April 1949 Karachi Agreement in Rawalakot",
+      "title": "UKPNP Holds Historic Event on 28 April 1949 Karachi Agreement",
       "excerpt": "A comprehensive press release detailing the UKPNP's landmark Rawalakot event commemorating the Karachi Agreement.",
       "thumbnail": "content/images/article-002-hero.jpg",
       "category": "Breaking News",
@@ -82,6 +90,7 @@
     },
     {
       "id": "article-001",
+      "section": "breaking",
       "slug": "breaking-complete-shutter-down-rawalakot-poonch-december-16-2025",
       "title": "Complete Shutter Down Paralyzes Rawalakot Poonch",
       "excerpt": "Thousands shut down Rawalakot in protest against prolonged electricity outages and communication blackouts.",
@@ -92,6 +101,7 @@
     },
     {
       "id": "breaking-001",
+      "section": "breaking",
       "slug": "ukpnp-delegation-meets-baroness-emma-nicholson-house-of-lords-london",
       "title": "UKPNP Delegation Meets Baroness Emma Nicholson at the House of Lords",
       "excerpt": "A high-level UKPNP delegation led by Sardar Shaukat Ali Kashmiri met Baroness Nicholson to discuss Kashmir.",
@@ -102,6 +112,7 @@
     },
     {
       "id": "blog-001",
+      "section": "blog",
       "slug": "blog-ukpnp-briefs-british-mps-london-25-november-2025",
       "title": "UKPNP Delegation Briefs British MPs on Kashmir Crisis",
       "excerpt": "A high-level UKPNP delegation briefed British MPs on the historical roots and current human rights situation.",
@@ -112,6 +123,7 @@
     },
     {
       "id": "international-001",
+      "section": "international",
       "slug": "ukpnp-kashmir-conference-house-of-commons-2025",
       "title": "Kashmir Is Not a Territorial Dispute: UKPNP Demands Reunification",
       "excerpt": "UKPNP held its 4th International Kashmir Conference in the British Parliament.",
