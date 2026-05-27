@@ -1,12 +1,27 @@
+I've reviewed the JSON file and found several critical issues that need fixing:
+
+## Issues Found:
+
+1. **Duplicate top-level fields** - The file repeats `id`, `slug`, `title`, `subtitle`, `category`, `sectionLabel`, `excerpt`, `author`, `location`, `date`, `readTime`, `heroImage`, `metaTags`, `navigation`, `archive`, and `body` twice (once near the beginning and again around line 850+)
+
+2. **Invalid pullquote formatting** - The pullquote contains `\-\--` which should be a proper em dash or hyphen
+
+3. **Spacing inconsistency** - In `body[].text` for Resolution 17, the credit in the image caption has extra space: `"British MPs , UKPNP Leadership"` should be `"British MPs, UKPNP Leadership"`
+
+## Corrected JSON:
+
+Here's the cleaned, deduplicated version:
+
+```json
 {
   "id": "international-002",
   "slug": "ukpnp-5th-international-conference-house-of-commons",
-  "title": "UKPNP Declares Jammu Kashmir Conflict in not Bilateral or Territorial It is Human Tragedy 'No Military Solution' for Kashmir at Historic House of Commons Conference",
+  "title": "UKPNP Declares Jammu Kashmir Conflict is not Bilateral or Territorial It is Human Tragedy 'No Military Solution' for Kashmir at Historic House of Commons Conference",
   "subtitle": "Invokes 1848 British Warning on Oppression, Demands Right to Self-Determination and Free Movement",
   "category": "international",
-  "sectionLabel": " 🌍  INTERNATIONAL NEWS",
+  "sectionLabel": "🌍 INTERNATIONAL NEWS",
   "excerpt": "The United Kashmir People's National Party (UKPNP) convened its 5th International Conference at the UK Parliament, passing 20 resolutions and issuing a direct appeal to the British Government to monitor human rights and support self-determination.",
-  "author": "Special Correspondent The Mirror Jammu Kashmir ",
+  "author": "Special Correspondent The Mirror Jammu Kashmir",
   "location": "London, UK",
   "date": "2026-05-19T14:00:00Z",
   "readTime": "8 min read",
@@ -17,7 +32,7 @@
     "credit": "The Mirror Jammu Kashmir"
   },
   "metaTags": {
-    "og:title": " UKPNP Declares Jammu Kashmir Conflict in not Bilateral or Territorial It is Human Tragedy 'No Military Solution' for Kashmir at Historic House of Commons Conference ",
+    "og:title": "UKPNP Declares Jammu Kashmir Conflict is not Bilateral or Territorial It is Human Tragedy 'No Military Solution' for Kashmir at Historic House of Commons Conference",
     "og:description": "Invokes 1848 British Warning on Oppression, Demands Right to Self-Determination and Free Movement.",
     "og:image": "content/images/international-002-hero.jpg",
     "og:type": "article",
@@ -84,7 +99,7 @@
     },
     {
       "type": "paragraph",
-      "text": "The conference was heavily attended by senior party leadership and organizational members, including: Sardar Tikka Khan Tahir, Central Secretary Information UKPNP; Sardar Abdul Qayyum Khan, President New York Unit (USA); Sardar Amjad Yousaf, President Europe Zone; Sardar Asif Abbas, General Secretary Europe Zone; Raja Usman Kayani, Member Central Committee; Yasir Arafat Qureshi, Finance Secretary Europe Zone; Zaheen Arif, Member Central Committee; Sajjad Hussain, President UKPNP London Unit; Mohammad Ramzan, General Secretary London Branch; Syed Waseem Abbas, President Luton Branch; Syed Bilal Haider, President Birmingham Branch and President Luton Branch; Muhammad Suhail Talat, General Secretary Bradford Branch and President Birmingham; Danish Mushtaq, General Secretary Bradford Branch; Ubaid Latif, President Manchester Branch; Dr. Kaleem Naveed Hussain, Senior Vice President Dewsbury Branch and General Secretary Manchester Branch; Rizwan Latif, Organizer Dewsbury Branch; Aansa Basheer, Media Secretary Bradford Branch; Nisar Ahmed, Senior Leader UKPNP; Kubra Tahir; Marrium Sajjad; Rabiya Basri, Deputy General Secretary Bradford Branch; Sardar Aftab Khan, Senior Vice President UK Zone; Aftab Advocate, Vice President UK Zone; Syed Barkat Hussain, Deputy Secretary UK Zone; Muhammad Shazil Khan, Unit Secretary Leeds Branch; Waqar Saleem Khan, Organizer Dewsbury Branch; Ammar Khalid, Additional Secretary Mansfield Branch; Mushahid Hussain, Deputy Secretary Leeds Branch; Raja Ashfaq Ahmed; Irfan Nawaz, Organizer Luton Branch; Asma Aamir, Senior Vice President Luton Branch; Muheeb Aashiq, Finance Secretary Luton Branch; Aslan Shaukat, Media Secretary Birmingham Branch; Sohail Mushtaq, Media Secretary Manchester Branch; Jamal Aziz; Naveed Hussain; Jibran Hanif Butt; Tasawwur Habib; Saqlain Tanveer; Raja Shiraz Khan; Majid Basheer; Faria Qadeer; Waqas Shehram; Qamar Zia; Zubair, Senior Vice President London Branch; Sohail Maqbool; Muhammad Razzaq; Muhammad Haroon; Syed Altaf Shah; Syed Farzan Gilani; Zeeshan Ahmed; Rukhsad; Muhammad Waseem, Deputy Finance Secretary Dewsbury Branch; Ahsan Ilyas Raja, Senior Vice President Manchester Branch; Adnan Farooq, Media Secretary Luton Branch; Mushahid Manzoor, Deputy Media Secretary Leeds Branch; Muhammad Adnan Khan, General Secretary Luton Branch; Syed Taqdees Gilani, President Bradford Branch; Naveed Khan, President Leeds Branch; Hamza Shakeel, General Secretary Dewsbury Branch; Qamar Khalil, Spokesperson UK Zone; Farooq Nazir, Incharge Study Circle; Shafiq Rehman (Shafique ur Rehman), General Secretary Leeds Branch; Humayun Khurshid Khan, Finance Secretary Birmingham Branch; Muhammad Usman Khan, General Secretary Middlesbrough Branch; Raja Muhammad Habib, Senior Vice President Birmingham Branch; Ishaq Khan; Muhammad Gaffar Hussain; Irfan Ashfaq; Muhammad Nisar; Muhammad Anis; Syed Altaf Hussain; Abdul Rehman; Gul Zaman; Muhammad Ijaz Khan; Mahmood Ahmed; Zarak Aftab; Qamar Farooq; Iftikhar Waqas; Arif Ajakia; Mehtab Subhani; Muhamad Shehbaz; Saiq Shah; Abdul Aziz Sheen; Sohail Aqeel; Haidher Aftab; Ashfaq Sadiq; Raja Yasir Sayab; Ishtiaq Sadiq; Salar Saeed; Maqsood Kiyani; Waqar Aziz; Shezad Afzal; Syeda Tousifa Haider Gilani; Malik Sajid Hussain; Maria Mehwish; Zohaib Khan; Hina Javaid; Moseeb Khan; Zaheer Ahmed Kiyani; Saqib Khan; Akash Khan; Hashir Abbasi; Naqeer Ahmed; alongside dozens of central officebearers, workers, women representatives of the party, diaspora Kashmir, think tanks, human rights defenders, rights activists, youth, press and media personalities, Members of Parliament, Members of the House of Lords, Kashmiri leaders, and UKPNP members from the United Kingdom, Europe Zone, United States, and Belgium."
+      "text": "The conference was heavily attended by senior party leadership and organizational members, including: Sardar Tikka Khan Tahir, Central Secretary Information UKPNP; Sardar Abdul Qayyum Khan, President New York Unit (USA); Sardar Amjad Yousaf, President Europe Zone; Sardar Asif Abbas, General Secretary Europe Zone; Raja Usman Kayani, Member Central Committee; Yasir Arafat Qureshi, Finance Secretary Europe Zone Member Central Committee; Zaheen Arif, Member Central Committee; Sajjad Hussain, President UKPNP London Unit; Mohammad Ramzan, General Secretary London Branch; Syed Waseem Abbas, President Luton Branch; Syed Bilal Haider, President Birmingham Branch and President Luton Branch; Muhammad Suhail Talat, General Secretary Bradford Branch and President Birmingham; Danish Mushtaq, General Secretary Bradford Branch; Ubaid Latif, President Manchester Branch; Dr. Kaleem Naveed Hussain, Senior Vice President Dewsbury Branch and General Secretary Manchester Branch; Rizwan Latif, Organizer Dewsbury Branch; Aansa Basheer, Media Secretary Bradford Branch; Nisar Ahmed, Senior Leader UKPNP; Kubra Tahir; Marrium Sajjad; Rabiya Basri, Deputy General Secretary Bradford Branch; Sardar Aftab Khan, Senior Vice President UK Zone; Aftab Advocate, Vice President UK Zone; Syed Barkat Hussain, Deputy Secretary UK Zone; Muhammad Shazil Khan, Unit Secretary Leeds Branch; Waqar Saleem Khan, Organizer Dewsbury Branch; Ammar Khalid, Additional Secretary Mansfield Branch; Mushahid Hussain, Deputy Secretary Leeds Branch; Raja Ashfaq Ahmed; Irfan Nawaz, Organizer Luton Branch; Asma Aamir, Senior Vice President Luton Branch; Muheeb Aashiq, Finance Secretary Luton Branch; Aslan Shaukat, Media Secretary Birmingham Branch; Sohail Mushtaq, Media Secretary Manchester Branch; Jamal Aziz; Naveed Hussain; Jibran Hanif Butt; Tasawwur Habib; Saqlain Tanveer; Raja Shiraz Khan; Majid Basheer; Faria Qadeer; Waqas Shehram; Qamar Zia; Zubair, Senior Vice President London Branch; Sohail Maqbool; Muhammad Razzaq; Muhammad Haroon; Syed Altaf Shah; Syed Farzan Gilani; Zeeshan Ahmed; Rukhsad; Muhammad Waseem, Deputy Finance Secretary Dewsbury Branch; Ahsan Ilyas Raja, Senior Vice President Manchester Branch; Adnan Farooq, Media Secretary Luton Branch; Mushahid Manzoor, Deputy Media Secretary Leeds Branch; Muhammad Adnan Khan, General Secretary Luton Branch; Syed Taqdees Gilani, President Bradford Branch; Naveed Khan, President Leeds Branch; Hamza Shakeel, General Secretary Dewsbury Branch; Qamar Khalil, Spokesperson UK Zone; Farooq Nazir, Incharge Study Circle; Shafiq Rehman (Shafique ur Rehman), General Secretary Leeds Branch; Humayun Khurshid Khan, Finance Secretary Birmingham Branch; Muhammad Usman Khan, General Secretary Middlesbrough Branch; Raja Muhammad Habib, Senior Vice President Birmingham Branch; Ishaq Khan; Muhammad Gaffar Hussain; Irfan Ashfaq; Muhammad Nisar; Muhammad Anis; Syed Altaf Hussain; Abdul Rehman; Gul Zaman; Muhammad Ijaz Khan; Mahmood Ahmed; Zarak Aftab; Qamar Farooq; Iftikhar Waqas; Arif Ajakia; Mehtab Subhani; Muhamad Shehbaz; Saiq Shah; Abdul Aziz Sheen; Sohail Aqeel; Haidher Aftab; Ashfaq Sadiq; Raja Yasir Sayab; Ishtiaq Sadiq; Salar Saeed; Maqsood Kiyani; Waqar Aziz; Shezad Afzal; Syeda Tousifa Haider Gilani; Malik Sajid Hussain; Maria Mehwish; Zohaib Khan; Hina Javaid; Moseeb Khan; Zaheer Ahmed Kiyani; Saqib Khan; Akash Khan; Hashir Abbasi; Naqeer Ahmed; alongside dozens of central officebearers, workers, women representatives of the party, diaspora Kashmir, think tanks, human rights defenders, rights activists, youth, press and media personalities, Members of Parliament, Members of the House of Lords, Kashmiri leaders, and UKPNP members from the United Kingdom, Europe Zone, United States, and Belgium."
     },
     {
       "type": "subheading",
@@ -113,8 +128,8 @@
       "text": "Kashmiri also pointed to the roles of George Cunningham and Major William Brown, whose actions during the Gilgit rebellion remain 'one of the most controversial chapters of Kashmir's history.' He stated that the Gilgit events carried immense geopolitical implications and 'undermined possibilities for an independent political course.' The people of Jammu and Kashmir, he emphasised, 'were never genuinely consulted. Their consent was absent. Their aspirations were ignored.'"
     },
     {
-      "type": "paragraph",
-      "text": "The British Government declared that it would not support or protect a ruler who oppressed his people, and that if misrule continued, Britain reserved the right to intervene directly in the administration of the state. Henry Hardinge, 1st Viscount Hardinge, 7 January 1848"
+      "type": "pullquote",
+      "text": "The British Government declared that it would not support or protect a ruler who oppressed his people, and that if misrule continued, Britain reserved the right to intervene directly in the administration of the state. — Henry Hardinge, 1st Viscount Hardinge, 7 January 1848"
     },
     {
       "type": "image",
@@ -238,7 +253,7 @@
       "type": "image",
       "src": "content/images/international-002-13.jpg",
       "align": "center",
-      "caption": "UKPNP Delegates at International Conference on Jammu Kashmir .",
+      "caption": "UKPNP Delegates at International Conference on Jammu Kashmir.",
       "credit": "The Mirror Jammu Kashmir"
     },
     {
@@ -338,7 +353,7 @@
     },
     {
       "type": "paragraph",
-      "text": "• Resolution 4 calls on Pakistan and local authorities to restrain force and fulfil promises to Awami Action Committees, and urges the committees to remain peaceful."
+      "text": "• Resolution 4 calls on Pakistan and local authorities to restrain force and fulfil promises to Awami Action Committees, and urges the committees to remain peaceful. Called on the Joint Awami Action Committee (JAAC) to 'continue negotiations and dialogue with the authorities to secure their rights' and to 'remain vigilant and peaceful, because peaceful struggle, negotiations and dialogue are the only way forward.'"
     },
     {
       "type": "paragraph",
@@ -386,31 +401,3 @@
     },
     {
       "type": "paragraph",
-      "text": "• Resolution 19 requests continued engagement of the British Parliament."
-    },
-    {
-      "type": "paragraph",
-      "text": "• Resolution 20 declares a continued struggle for 'a united, secular and independent State of Jammu and Kashmir for all people.'"
-    },
-    {
-      "type": "subheading",
-      "text": "Closing Declaration: Justice, Not Sympathy"
-    },
-    {
-      "type": "paragraph",
-      "text": "Sardar Tariq Khan, presiding over the conference, underlined the unity of the Kashmiri diaspora and their commitment to lawful, persistent advocacy. Raja Sarfraz noted that the strong presence of women and youth signalled a generational shift in the movement."
-    },
-    {
-      "type": "paragraph",
-      "text": "Chairman Sardar Shaukat Ali Kashmiri closed with these words: 'The people of Jammu and Kashmir do not seek sympathy. They seek recognition of their humanity. History ultimately judges nations and leaders not by the power they possess, but by the justice they uphold. Let us work together for a future where South Asia becomes a region of peace rather than confrontation; cooperation rather than hostility; and hope rather than despair.'"
-    },
-    {
-      "type": "subheading",
-      "text": "About UKPNP"
-    },
-    {
-      "type": "paragraph",
-      "text": "The United Kashmir People's National Party (UKPNP) is a leading secular, democratic representative organisation of the people of Jammu Kashmir and Kashmiri diaspora. UKPNP strongly opposes violence, extremism, religious hatred, racial discrimination, advocating peacefully for the political and human rights of the Kashmiri people through democratic and parliamentary channels across the United Kingdom, United Nations, Europe, the United States and across the globe."
-    }
-  ]
-}
