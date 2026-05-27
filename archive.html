@@ -1,89 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Archive – THE MIRROR JAMMU KASHMIR</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="styles.css?v=26" />
+<meta charset="UTF-8" />
+<title>Archive – THE MIRROR JAMMU KASHMIR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="styles.css?v=30" />
 </head>
 
 <body class="theme-maroon">
 
 <header class="archive-header">
   <h1>ARCHIVE</h1>
-  <p class="archive-subtitle">Browse all past coverage by category</p>
+  <p class="archive-subtitle">All past coverage — Breaking, Editorial, Human Rights, International & Jammu Kashmir</p>
 </header>
 
 <main class="archive-main">
 
-  <!-- ================= TOP STORIES ARCHIVE ================= -->
-  <section class="archive-section" id="archive-topstories">
+  <!-- TOP STORIES -->
+  <section class="archive-section">
     <div class="archive-section-header">
       <span class="archive-icon">📰</span>
       <h2>Top Stories</h2>
     </div>
-
-    <div class="archive-grid" id="topstories-archive-grid">
-      <!-- Cards loaded dynamically -->
-    </div>
-
-    <div class="pagination" id="topstories-pagination"></div>
+    <div class="archive-grid" id="topstories-archive-grid"></div>
   </section>
 
-  <!-- ================= LATEST ARCHIVE ================= -->
-  <section class="archive-section" id="archive-latest">
+  <!-- LATEST -->
+  <section class="archive-section">
     <div class="archive-section-header">
       <span class="archive-icon">🕒</span>
       <h2>Latest</h2>
     </div>
-
-    <div class="archive-grid" id="latest-archive-grid">
-      <!-- Cards loaded dynamically -->
-    </div>
-
-    <div class="pagination" id="latest-pagination"></div>
+    <div class="archive-grid" id="latest-archive-grid"></div>
   </section>
 
-  <!-- ================= JAMMU & KASHMIR ARCHIVE ================= -->
-  <section class="archive-section" id="archive-jk">
+  <!-- BREAKING NEWS -->
+  <section class="archive-section">
     <div class="archive-section-header">
-      <span class="archive-icon">📍</span>
-      <h2>Jammu & Kashmir</h2>
+      <span class="archive-icon">⚡</span>
+      <h2>Breaking News</h2>
     </div>
-
-    <div class="archive-grid" id="jk-archive-grid">
-      <!-- Cards loaded dynamically -->
-    </div>
-
-    <div class="pagination" id="jk-pagination"></div>
+    <div class="archive-grid" id="breaking-archive-grid"></div>
   </section>
 
-  <!-- ================= INTERNATIONAL ARCHIVE ================= -->
-  <section class="archive-section" id="archive-international">
+  <!-- EDITORIAL -->
+  <section class="archive-section">
     <div class="archive-section-header">
-      <span class="archive-icon">🌍</span>
-      <h2>International</h2>
+      <span class="archive-icon">✍️</span>
+      <h2>Editorial</h2>
     </div>
-
-    <div class="archive-grid" id="international-archive-grid">
-      <!-- Cards loaded dynamically -->
-    </div>
-
-    <div class="pagination" id="international-pagination"></div>
+    <div class="archive-grid" id="editorial-archive-grid"></div>
   </section>
 
-  <!-- ================= HUMAN RIGHTS ARCHIVE ================= -->
-  <section class="archive-section" id="archive-humanrights">
+  <!-- BLOG -->
+  <section class="archive-section">
+    <div class="archive-section-header">
+      <span class="archive-icon">📝</span>
+      <h2>Opinion & Blog</h2>
+    </div>
+    <div class="archive-grid" id="blog-archive-grid"></div>
+  </section>
+
+  <!-- HUMAN RIGHTS -->
+  <section class="archive-section">
     <div class="archive-section-header">
       <span class="archive-icon">❤️</span>
       <h2>Human Rights</h2>
     </div>
+    <div class="archive-grid" id="humanrights-archive-grid"></div>
+  </section>
 
-    <div class="archive-grid" id="humanrights-archive-grid">
-      <!-- Cards loaded dynamically -->
+  <!-- INTERNATIONAL -->
+  <section class="archive-section">
+    <div class="archive-section-header">
+      <span class="archive-icon">🌍</span>
+      <h2>International</h2>
     </div>
+    <div class="archive-grid" id="international-archive-grid"></div>
+  </section>
 
-    <div class="pagination" id="humanrights-pagination"></div>
+  <!-- JAMMU & KASHMIR -->
+  <section class="archive-section">
+    <div class="archive-section-header">
+      <span class="archive-icon">📍</span>
+      <h2>Jammu & Kashmir</h2>
+    </div>
+    <div class="archive-grid" id="jk-archive-grid"></div>
+  </section>
+
+  <!-- HISTORICAL ANALYSIS -->
+  <section class="archive-section">
+    <div class="archive-section-header">
+      <span class="archive-icon">🏛️</span>
+      <h2>Historical Analysis</h2>
+    </div>
+    <div class="archive-grid" id="historical-archive-grid"></div>
   </section>
 
 </main>
@@ -92,25 +103,22 @@
   <p>&copy; <span id="footer-year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
-<script src="script.js?v=26"></script>
+<script src="script.js?v=30"></script>
 
 <script>
-  // Footer year
-  document.getElementById("footer-year").textContent = new Date().getFullYear();
+document.getElementById("footer-year").textContent = new Date().getFullYear();
 
-  // ===========================
-  // ARCHIVE LOADING HOOKS
-  // ===========================
-  // These functions must exist in script.js:
-  // loadArchiveSection(jsonFile, gridID, paginationID)
-
-  if (window.loadArchiveSection) {
-    window.loadArchiveSection("topstories.json", "#topstories-archive-grid", "#topstories-pagination");
-    window.loadArchiveSection("latest.json", "#latest-archive-grid", "#latest-pagination");
-    window.loadArchiveSection("jk.json", "#jk-archive-grid", "#jk-pagination");
-    window.loadArchiveSection("international.json", "#international-archive-grid", "#international-pagination");
-    window.loadArchiveSection("humanrights.json", "#humanrights-archive-grid", "#humanrights-pagination");
-  }
+if (window.loadArchiveSection) {
+  loadArchiveSection("topstories.json", "#topstories-archive-grid");
+  loadArchiveSection("latest.json", "#latest-archive-grid");
+  loadArchiveSection("breaking.json", "#breaking-archive-grid");
+  loadArchiveSection("editorial.json", "#editorial-archive-grid");
+  loadArchiveSection("blog.json", "#blog-archive-grid");
+  loadArchiveSection("humanrights.json", "#humanrights-archive-grid");
+  loadArchiveSection("international.json", "#international-archive-grid");
+  loadArchiveSection("jk.json", "#jk-archive-grid");
+  loadArchiveSection("historical.json", "#historical-archive-grid");
+}
 </script>
 
 </body>
