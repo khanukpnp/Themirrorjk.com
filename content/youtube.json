@@ -1,56 +1,58 @@
 {
-  "channel": {
-    "name": "The Mirror Jammu Kashmir",
-    "url": "https://www.youtube.com/@TheMirrorJammuKashmir"
-  },
   "videos": [
     {
-      "title": "USA-IRAN Peace Deal Likely in Days in Islamabad 10 Days Ceasefire in Lebanon",
-      "description": "Current Affairs, News, Updates, Analysis & Uncovering the Truth.",
-      "youtubeId": "y1d6TNYNawo",
-      "category": "News Analysis",
-      "duration": "47:11",
-      "thumbnail": "https://img.youtube.com/vi/y1d6TNYNawo/hqdefault.jpg"
+      "id": "v1",
+      "title": "SHAUKAT Nawaz Mir Arrested: Azad Kashmir Under Siege, Communication Blackout, Curfews & Arrests",
+      "description": "Ground updates on the arrest of Shaukat Nawaz Mir, curfews, and communication blackouts in Azad Kashmir.",
+      "category": "News Report",
+      "duration": "00:00",
+      "date": "2026-07-05",
+      "youtubeId": "lRE5cVWbWmA"
     },
     {
-      "title": "9th June Azad Kashmir Shutter Down Call By Joint Awami Action Committee Dialogues Must Continue",
-      "description": "Ground report on shutdown call and ongoing dialogues in Azad Kashmir.",
-      "youtubeId": "9OlwMEu1QX0",
-      "category": "Ground Report",
-      "duration": "39:37",
-      "thumbnail": "https://img.youtube.com/vi/9OlwMEu1QX0/hqdefault.jpg"
-    },
-    {
-      "title": "London UK: UKPNP held historic International Conference on Kashmir in House of Commons UK",
-      "description": "Coverage of the UKPNP international conference held in the UK Parliament.",
-      "youtubeId": "36kt84I3HMc",
+      "id": "v2",
+      "title": "Azad Kashmir Crisis: Kashmiri Leaders Crucial Meeting in Geneva Strongly Condemned Brutalities.",
+      "description": "Coverage of the crucial meeting of Kashmiri leaders in Geneva condemning regional brutalities.",
       "category": "Conference",
-      "duration": "—",
-      "thumbnail": "https://img.youtube.com/vi/36kt84I3HMc/hqdefault.jpg"
+      "duration": "00:00",
+      "date": "2026-07-05",
+      "youtubeId": "1Sbomv3juT4"
     },
     {
+      "id": "v3",
+      "title": "UN Act Now : Azad Kashmir Siege Blockade & Massive Protests | UKPNP International Conference Geneva",
+      "description": "UKPNP International Conference in Geneva calling for UN intervention amidst massive protests and blockades.",
+      "category": "Advocacy",
+      "duration": "00:00",
+      "date": "2026-07-05",
+      "youtubeId": "8ipYncaQNg0"
+    },
+    {
+      "id": "v4",
+      "title": "UN Geneva: Azad Kashmir Under Siege: Protest Exposes Lethal Crackdown & Internet Blackouts in AJK",
+      "description": "Protests at UN Geneva exposing the lethal crackdown and ongoing internet blackouts in AJK.",
+      "category": "News Report",
+      "duration": "00:00",
+      "date": "2026-07-05",
+      "youtubeId": "FE9farW5M18"
+    },
+    {
+      "id": "v5",
+      "title": "Tarana ترانہ Kashmiri Bedar Hoge ترانہ کشمیری بیدار ہو گئے. Kashmiris Stand United",
+      "description": "A unity anthem and cultural video reflecting the solidarity and awakening of the Kashmiri people.",
+      "category": "Cultural",
+      "duration": "00:00",
+      "date": "2026-07-05",
+      "youtubeId": "SCzLOURtCTI"
+    },
+    {
+      "id": "v6",
       "title": "The Mirror Jammu Kashmir. Current Affairs, News , Updates, Analysis & Uncovering the Truth.",
-      "description": "In-depth analysis and updates from The Mirror Jammu Kashmir.",
-      "youtubeId": "SNANYXoJxu0",
+      "description": "Current Affairs, News, Updates, Analysis & Uncovering the Truth from The Mirror Jammu Kashmir.",
       "category": "Analysis",
-      "duration": "47:11",
-      "thumbnail": "https://img.youtube.com/vi/SNANYXoJxu0/hqdefault.jpg"
-    },
-    {
-      "title": "UKPNP Intra Kashmir Jammu Conference. Forced Division Is Unacceptable. Want Right To Free Movement",
-      "description": "UKPNP conference discussing intra-Kashmir issues and right to free movement.",
-      "youtubeId": "pOEQeRhYbec",
-      "category": "Conference",
-      "duration": "—",
-      "thumbnail": "https://img.youtube.com/vi/pOEQeRhYbec/hqdefault.jpg"
-    },
-    {
-      "title": "5th August Kashmiries Demand Restoration of Statehood and Special Status of State of Jammu Kashmir",
-      "description": "Discussion on Kashmiris' demands for restoration of statehood and special status.",
-      "youtubeId": "gXHOWzoEv8Q",
-      "category": "Documentary",
-      "duration": "39:37",
-      "thumbnail": "https://img.youtube.com/vi/gXHOWzoEv8Q/hqdefault.jpg"
+      "duration": "00:00",
+      "date": "2026-07-05",
+      "youtubeId": "SNANYXoJxu0"
     }
   ]
 }
