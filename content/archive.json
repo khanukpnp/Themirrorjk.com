@@ -25,13 +25,24 @@
     {
       "id": "international-002",
       "section": "international",
-      "slug": "ukpnp-5th-international-conference-house-of-commons",
+      "slug": "ukpnp-5th-international-conference-house-of-commons-london",
       "title": "UKPNP Makes History at House of Commons",
       "excerpt": "UKPNP convened its 5th International Conference at the UK Parliament, passing 20 resolutions and urging Britain to support self-determination.",
       "thumbnail": "content/images/international-002-hero.jpg",
       "category": "International",
       "date": "2026-05-19",
       "readTime": "8 min read"
+    },
+    {
+      "id": "article-002",
+      "section": "breaking",
+      "slug": "ukpnp-karachi-agreement-rawalakot-2026",
+      "title": "UKPNP Holds Historic Event on 28 April 1949 Karachi Agreement",
+      "excerpt": "A comprehensive press release detailing the UKPNP's landmark Rawalakot event commemorating the Karachi Agreement.",
+      "thumbnail": "content/images/article-002-hero.jpg",
+      "category": "Breaking News",
+      "date": "2026-04-28",
+      "readTime": "18 min read"
     },
     {
       "id": "jk-001",
@@ -76,17 +87,6 @@
       "category": "Historical Analysis",
       "date": "2026-03-02",
       "readTime": "8 min read"
-    },
-    {
-      "id": "article-002",
-      "section": "breaking",
-      "slug": "ukpnp-karachi-agreement-rawalakot-2026",
-      "title": "UKPNP Holds Historic Event on 28 April 1949 Karachi Agreement",
-      "excerpt": "A comprehensive press release detailing the UKPNP's landmark Rawalakot event commemorating the Karachi Agreement.",
-      "thumbnail": "content/images/article-002-hero.jpg",
-      "category": "Breaking News",
-      "date": "2026-04-28",
-      "readTime": "18 min read"
     },
     {
       "id": "article-001",
