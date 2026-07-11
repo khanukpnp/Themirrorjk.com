@@ -26,16 +26,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get("id");
     
-    if (path.includes("article.html") || articleId) {
-        initArticlePage();
-    } else if (path.includes("about.html") || path.includes("about-001.html")) {
+    if (path.includes("about.html") || path.includes("about-001.html")) {
         loadAboutPage();
-    } else if (path.includes("chief-editor.html")) {
+    } else if (path.includes("chief-editor.html") || path.includes("chief-editor-001.html")) {
         loadChiefEditorPage();
     } else if (path.includes("historical.html")) {
         loadHistoricalPage();
+    } else if (path.includes("article.html") || articleId) {
+        initArticlePage();
     } else {
-        // Fallback or Homepage context
         loadHomepageContent();
     }
     
@@ -650,7 +649,7 @@ function renderJSONBody(bodyData) {
 }
 
 /* ============================
-   FIX: EXPLICITLY RE-MAPPING ABOUT, CHIEF-EDITOR & HISTORICAL JSON LOOKUPS
+   FULLY MAPPED DYNAMIC CONTENT INGESTION PIPELINES
    ============================ */
 function loadAboutPage() {
     const titleEl = document.getElementById("about-title");
@@ -721,6 +720,6 @@ function loadHistoricalPage() {
         });
 }
 
-// Global scope window distribution
+// Global window assignments
 window.copyPageLink = copyPageLink;
 window.playVideo = playVideo;
