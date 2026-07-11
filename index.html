@@ -242,6 +242,73 @@
                 width: auto;
             }
         }
+
+        /* Styles for the combined Spotlight, In Focus & Trending row */
+        .three-window-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .news-card-badge {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+        .card-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+        }
+        .spotlight-badge { border-left: 3px solid #b30000; }
+        .focus-badge { border-left: 3px solid #0056b3; }
+        .trending-badge { border-left: 3px solid #28a745; }
+        
+        .news-card-badge .image-container {
+            width: 100%;
+            height: 210px;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .news-card-badge .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .news-card-badge:hover .image-container img {
+            transform: scale(1.03);
+        }
+        .news-card-badge h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            margin: 12px 0 8px 0;
+            color: #111;
+            line-height: 1.4;
+        }
+        .news-card-badge p {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+        }
+        @media (max-width: 768px) {
+            .three-window-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -255,24 +322,20 @@
             <p>Loading newsroom, clocks, calendars and headlines...</p>
         </div>
     </div>
-
     <div class="page-shell">
         <!-- HEADER -->
         <header class="site-header">
             <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
             <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
         </header>
-
         <!-- CLOCKS AND CALENDARS -->
         <div class="info-bar clocks-calendars">
             <div class="info-items" id="datetime-bar"></div>
         </div>
-
         <!-- WEATHER BAR -->
         <div class="info-bar weather-bar">
             <div class="info-items" id="weather-bar"></div>
         </div>
-
         <!-- BREAKING TICKER -->
         <div class="ticker-wrap">
             <div class="ticker">
@@ -280,7 +343,6 @@
                 <div class="ticker-items" id="ticker-items"></div>
             </div>
         </div>
-
         <!-- LANGUAGE & SEARCH TOOLS -->
         <div class="tools-bar">
             <div class="lang-select">
@@ -299,7 +361,6 @@
                 <button type="submit">🔍</button>
             </form>
         </div>
-
         <!-- NAVIGATION BAR -->
         <nav class="navbar">
             <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
@@ -349,7 +410,6 @@
             </ul>
             <div id="mobile-menu" class="mobile-menu" hidden></div>
         </nav>
-
         <!-- MAIN CONTENT -->
         <main class="home-main">
             <!-- TOP STORIES SECTION -->
@@ -358,18 +418,54 @@
                 <div class="cards three" id="top-stories-grid"></div>
             </section>
 
+            <!-- NEW COMBINED SECTION: SPOTLIGHT, IN FOCUS & TRENDING -->
+            <section id="spotlight-focus-trending" style="margin-top: 40px;">
+                <h2 class="section-title modern-title">
+                    <span class="icon">⚡</span> Spotlight, In Focus &amp; Trending
+                </h2>
+                <div class="three-window-row">
+                    <!-- Window 1: The Spotlight Feature -->
+                    <div class="news-card-badge">
+                        <span class="card-badge spotlight-badge">SPOTLIGHT</span>
+                        <div class="image-container">
+                            <img src="content/images/img1.jpg" alt="Spotlight Feature Image">
+                        </div>
+                        <h3>The Major Investigative Headline</h3>
+                        <p>Deep-dive analysis shining a light on crucial regional issues...</p>
+                    </div>
+                    
+                    <!-- Window 2: The In Focus Feature -->
+                    <div class="news-card-badge">
+                        <span class="card-badge focus-badge">IN FOCUS</span>
+                        <div class="image-container">
+                            <img src="content/images/img2.jpg" alt="In Focus Feature Image">
+                        </div>
+                        <h3>The Hard News &amp; Policy Headline</h3>
+                        <p>A closer, objective look at today's shifting political landscape...</p>
+                    </div>
+                    
+                    <!-- Window 3: The Trending Feature -->
+                    <div class="news-card-badge">
+                        <span class="card-badge trending-badge">TRENDING NOW</span>
+                        <div class="image-container">
+                            <img src="content/images/img3.jpg" alt="Trending Feature Image">
+                        </div>
+                        <h3>The Most Read &amp; Shared Headline</h3>
+                        <p>What readers are actively engaging with and talking about right now...</p>
+                    </div>
+                </div>
+            </section>
+
             <!-- LATEST / EDITORIAL / HISTORICAL -->
             <section id="latest-editorial-historical">
                 <h2 class="section-title modern-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</h2>
                 <div class="cards three" id="leh-grid"></div>
             </section>
-
             <!-- JAMMU KASHMIR -->
             <section id="jammu-kashmir">
                 <h2 class="section-title modern-title">📍 Jammu Kashmir</h2>
                 <div class="cards two" id="jk-grid"></div>
             </section>
-
             <!-- VLOGS SECTION -->
             <section id="vlogs">
                 <h2 class="section-title modern-title">🎥 Video Reports & Vlogs</h2>
@@ -378,19 +474,16 @@
                 </div>
                 <div class="cards three vlogs-grid" id="vlogs-grid"></div>
             </section>
-
             <!-- INTERNATIONAL NEWS -->
             <section id="international">
                 <h2 class="section-title modern-title">🌍 International News</h2>
                 <div class="cards two" id="intl-grid"></div>
             </section>
-
             <!-- HUMAN RIGHTS -->
             <section id="human-rights">
                 <h2 class="section-title modern-title">❤️ Human Rights</h2>
                 <div class="cards two" id="hr-grid"></div>
             </section>
-
             <!-- ARCHIVE -->
             <section id="archive">
                 <h2 class="section-title modern-title">📁 Archive</h2>
@@ -398,7 +491,6 @@
                     <p>Archive will appear here.</p>
                 </div>
             </section>
-
             <!-- E-PAPER UPLOAD -->
             <section id="epaper">
                 <h2 class="section-title modern-title">📰 E-Paper Upload</h2>
@@ -409,7 +501,6 @@
                     <button type="submit" class="btn-red">Upload</button>
                 </form>
             </section>
-
             <!-- NEWSLETTER -->
             <section id="newsletter">
                 <h2 class="section-title modern-title">✉️ Newsletter</h2>
@@ -418,14 +509,12 @@
                     <button id="subscribeBtn" class="btn-red">Subscribe</button>
                 </form>
             </section>
-
             <!-- CONTACT -->
             <section id="contact">
                 <h2 class="section-title modern-title">📞 Contact</h2>
                 <p>Email: themirrorjk@gmail.com<br>Phone: +41 783 13 12 13</p>
                 <button id="contact-open" class="btn-red">Open Contact Form</button>
             </section>
-
             <!-- SOCIAL ACTIONS -->
             <div class="social-actions">
                 <button class="sa-btn">👍 Like</button>
@@ -434,7 +523,6 @@
                 <button class="sa-btn" onclick="copyPageLink()">🔗 Copy Link</button>
             </div>
         </main>
-
         <!-- CONTACT MODAL -->
         <div id="contact-modal" class="modal hidden">
             <div class="modal-content">
@@ -466,7 +554,6 @@
                 </form>
             </div>
         </div>
-
         <!-- FOOTER -->
         <footer class="modern-footer">
             <div class="footer-content">
@@ -503,7 +590,6 @@
             </div>
         </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
