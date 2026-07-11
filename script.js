@@ -301,7 +301,6 @@ function renderVlogs(videos, mainGrid, archiveGrid) {
                 <div class="card-body"><h3>${v.title}</h3><p>${v.description || ''}</p></div>
             </article>`;
     };
-
     mainGrid.innerHTML = activeVlogs.map(mapHtml).join('');
     if (archiveGrid) {
         archiveGrid.innerHTML = archivedVlogs.length ? archivedVlogs.map(mapHtml).join('') : '<p style="padding:15px; color:#666;">No older vlogs archived.</p>';
@@ -335,7 +334,7 @@ function initShareTooltip() {
     if (!shareBtn || !tooltip) return;
     
     shareBtn.onclick = e => { e.stopPropagation(); tooltip.classList.toggle('show'); };
-    document.onclick = () => tooltip.classList.remove('show');
+    document.documentElement.addEventListener('click', () => tooltip.classList.remove('show'));
     tooltip.onclick = e => e.stopPropagation();
     
     updateShareLinks();
@@ -422,7 +421,7 @@ function updateFooterContent() {
         </div>`;
 }
 /* ============================
-   DYNAMIC HOMEPAGE CONTENT LOADING
+   DYNAMIC HOMEPAGE CONTENT LOADING (WITH HISTORICAL ARCHIVES MERGE)
    ============================ */
 function loadHomepageContent() {
     fetch("content/index.json")
@@ -438,31 +437,66 @@ function loadHomepageContent() {
                 loadLehSection([index.latestEditorialHistorical.latest, index.latestEditorialHistorical.editorial, index.latestEditorialHistorical.historical]);
             } else { loadLehFallback(); }
             
-            if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "JK");
-            if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "INTL");
-            if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "HR");
+            // Ingest section groupings linked with master archive item parsing
+            if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "JK", "Jammu Kashmir");
+            if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "INTL", "International");
+            if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "HR", "Human Rights");
         })
         .catch(() => {
             initTicker(null);
             loadAllFallback();
         });
 }
-function loadSectionGroup(gridId, archiveGridId, ids, label) {
+function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
     const grid = document.getElementById(gridId);
     const archiveGrid = document.getElementById(archiveGridId);
     if (!grid || !ids) return;
     
+    // Resolve all specific standalone active json blocks
     Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
-            const validArticles = articles.filter(Boolean);
-            // Splitting logic: Top 2 objects go into standard row view, remainder down below
-            const activeSlice = validArticles.slice(0, 2);
-            const archiveSlice = validArticles.slice(2);
+            let validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
+            
+            // Simultaneously read from full compilation file to append historical context items
+            fetch("content/article.json")
+                .then(res => res.ok ? res.json() : { items: [] })
+                .then(archiveData => {
+                    const archivedItems = archiveData.items || [];
+                    
+                    // Filter down elements belonging to target taxonomy tags
+                    const categoryItems = archivedItems.filter(item => 
+                        item.category === categoryKey || 
+                        item.sectionLabel === categoryKey
+                    );
+                    
+                    // Cross-reference data tracks smoothly to ensure items do not duplicate
+                    let combinedPool = [...validArticles];
+                    categoryItems.forEach(oldItem => {
+                        if (!combinedPool.some(newItem => newItem.id === oldItem.id)) {
+                            combinedPool.push(oldItem);
+                        }
+                    });
 
-            grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('') : createEmptyCard(label);
-            if (archiveGrid) {
-                archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('') : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
-            }
+                    // Splitting slices: First 2 stay upfront inside display card grid arrays
+                    const activeSlice = combinedPool.slice(0, 2);
+                    const archiveSlice = combinedPool.slice(2);
+
+                    grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a)).join('') : createEmptyCard(label);
+                    if (archiveGrid) {
+                        archiveGrid.innerHTML = archiveSlice.length 
+                            ? archiveSlice.map(a => createHomepageCard(a)).join('') 
+                            : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
+                    }
+                })
+                .catch(() => {
+                    // Fallback baseline execution pipeline
+                    const activeSlice = validArticles.slice(0, 2);
+                    const archiveSlice = validArticles.slice(2);
+                    grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a)).join('') : createEmptyCard(label);
+                    if (archiveGrid) {
+                        archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
+                    }
+                });
         });
 }
 function loadAllFallback() {
@@ -507,7 +541,6 @@ function loadLehSection(ids) {
             const validArticles = articles.filter(Boolean);
             const activeSlice = validArticles.slice(0, 3);
             const archiveSlice = validArticles.slice(3);
-
             grid.innerHTML = activeSlice.map((a, i) => createHomepageCard(a.items ? a.items[0] : a, labels[i])).join('');
             if (archiveGrid) {
                 archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('') : '<p style="padding:15px; color:#666;">No older updates archived.</p>';
@@ -552,7 +585,22 @@ function initArticlePage() {
             initShareTooltip();
         })
         .catch(() => {
-            document.body.innerHTML = `<div style="text-align:center; padding:50px;"><h2>Article not found: ${id}</h2></div>`;
+            // Check secondary fallback route directly into the master archive index block arrays 
+            fetch("content/article.json")
+                .then(r => r.json())
+                .then(archiveData => {
+                    const match = (archiveData.items || []).find(item => item.id === id);
+                    if (match) {
+                        updateSocialMetaTags(match);
+                        renderFullArticlePage(match);
+                        initShareTooltip();
+                    } else {
+                        document.body.innerHTML = `<div style="text-align:center; padding:50px;"><h2>Article not found: ${id}</h2></div>`;
+                    }
+                })
+                .catch(() => {
+                    document.body.innerHTML = `<div style="text-align:center; padding:50px;"><h2>Article not found: ${id}</h2></div>`;
+                });
         });
 }
 function renderFullArticlePage(article) {
