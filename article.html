@@ -1,1512 +1,1247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Dynamic Meta Tags -->
-<meta property="og:url" content="" id="og-url">
-<meta property="og:type" content="article">
-<meta property="og:title" content="" id="og-title">
-<meta property="og:description" content="" id="og-description">
-<meta property="og:image" content="" id="og-image">
-<meta property="og:site_name" content="THE MIRROR JAMMU KASHMIR">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="" id="twitter-title">
-<meta name="twitter:description" content="" id="twitter-description">
-<meta name="twitter:image" content="" id="twitter-image">
-<meta name="twitter:site" content="@TheMirrorJK">
-<meta name="description" content="" id="meta-description">
-<meta name="keywords" content="Jammu Kashmir, news, editorial, history, human rights">
-<meta name="author" content="THE MIRROR JAMMU KASHMIR">
-<title id="page-title">THE MIRROR JAMMU KASHMIR</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  width: 100%;
-  min-height: 100%;
-  background: white;
-}
-
-body {
-  font-family: 'Source Sans Pro', sans-serif;
-  background: white;
-  color: #222;
-  line-height: 1.5;
-  overflow-x: hidden;
-}
-
-h1, h2, h3, h4, h5 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-}
-
-.page-shell {
-  max-width: 1400px;
-  margin: 0 auto;
-  background: white;
-  box-shadow: none;
-  width: 100%;
-}
-
-#site-loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #111;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.3s ease;
-}
-
-.loader-inner {
-  text-align: center;
-  width: 300px;
-}
-
-.loader-title {
-  font-size: 1.8rem;
-  font-weight: 800;
-  margin-bottom: 20px;
-  letter-spacing: 0.5px;
-  color: #fff;
-  font-family: 'Playfair Display', serif;
-}
-
-.loader-bar {
-  width: 100%;
-  height: 3px;
-  background: #333;
-  border-radius: 2px;
-  overflow: hidden;
-  margin-bottom: 12px;
-}
-
-.loader-progress {
-  width: 0%;
-  height: 100%;
-  background: #b30000;
-  animation: loader-progress 1.5s ease forwards;
-}
-
-@keyframes loader-progress {
-  0% { width: 0%; }
-  100% { width: 100%; }
-}
-
-#site-loader p {
-  font-size: 0.85rem;
-  opacity: 0.9;
-  margin-top: 8px;
-  color: #ccc;
-}
-
-.site-header {
-  text-align: center;
-  padding: 30px 20px 20px;
-  background: white;
-  border-bottom: 2px solid #b30000;
-  width: 100%;
-}
-
-.site-title {
-  font-size: 3rem;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-  color: #000;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  line-height: 1.2;
-  font-family: 'Playfair Display', serif;
-}
-
-.subheading {
-  font-size: 1.1rem;
-  color: #b30000;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-  font-family: 'Source Sans Pro', sans-serif;
-}
-
-.info-bar {
-  background: #f8f8f8;
-  padding: 6px 20px;
-  border-bottom: 1px solid #ddd;
-  font-size: 0.8rem;
-  width: 100%;
-}
-
-.info-items {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  max-width: 1400px;
-  margin: 0 auto;
-  overflow-x: auto;
-  padding: 2px 0;
-  white-space: nowrap;
-}
-
-.info-items span {
-  color: #333;
-  white-space: nowrap;
-  font-size: 0.8rem;
-}
-
-.info-items .separator {
-  color: #999;
-  font-weight: 300;
-  font-size: 0.7rem;
-  margin: 0 2px;
-}
-
-.info-items strong {
-  font-weight: 600;
-  color: #b30000;
-  font-size: 0.8rem;
-}
-
-.weather-bar {
-  background: #fff;
-  border-bottom: 2px solid #b30000;
-  padding: 5px 20px;
-}
-
-.weather-bar .info-items span {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  font-size: 0.8rem;
-}
-
-.weather-bar .info-items strong {
-  color: #b30000;
-  font-weight: 700;
-  margin-left: 2px;
-  font-size: 0.8rem;
-}
-
-.ticker-wrap {
-  background: #111;
-  color: white;
-  padding: 8px 0;
-  border-bottom: 2px solid #b30000;
-  overflow: hidden;
-  width: 100%;
-}
-
-.ticker {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  max-width: 1400px;
-  margin: 0 auto;
-  position: relative;
-  padding: 0 20px;
-}
-
-.ticker-label {
-  background: #b30000;
-  padding: 4px 14px;
-  font-weight: bold;
-  margin-right: 15px;
-  display: inline-block;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  z-index: 2;
-}
-
-.ticker-items {
-  display: inline-flex;
-  gap: 40px;
-  animation: ticker-scroll 440s linear infinite;
-}
-
-.ticker-items span {
-  display: inline;
-  font-size: 0.85rem;
-  color: #fff;
-  opacity: 0.95;
-  white-space: nowrap;
-}
-
-@keyframes ticker-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.tools-bar {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  padding: 6px 20px;
-  background: #f8f8f8;
-  border-bottom: 1px solid #ddd;
-  width: 100%;
-}
-
-.lang-select {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.85rem;
-}
-
-.lang-select select {
-  padding: 3px 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  background: white;
-  cursor: pointer;
-}
-
-.search {
-  display: flex;
-}
-
-.search input {
-  padding: 3px 10px;
-  border: 1px solid #ddd;
-  border-right: none;
-  border-radius: 4px 0 0 4px;
-  font-size: 0.8rem;
-  width: 180px;
-}
-
-.search button {
-  padding: 3px 12px;
-  background: #b30000;
-  color: white;
-  border: none;
-  border-radius: 0 4px 4px 0;
-  cursor: pointer;
-  font-size: 0.8rem;
-}
-
-.search button:hover {
-  background: #8a0000;
-}
-
-.navbar {
-  background: #800000;
-  border-bottom: 2px solid #b30000;
-  padding: 0;
-  position: relative;
-  width: 100%;
-}
-
-.nav-list {
-  display: flex;
-  list-style: none;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 10px;
-}
-
-.nav-item {
-  position: relative;
-  border-right: 1px solid #660000;
-}
-
-.nav-item:first-child {
-  border-left: 1px solid #660000;
-}
-
-.nav-btn {
-  display: block;
-  padding: 12px 18px;
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: background-color 0.2s;
-  white-space: nowrap;
-  background: #800000;
-}
-
-.nav-btn:hover {
-  background: #990000;
-  color: white;
-}
-
-.dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #222;
-  border: 1px solid #b30000;
-  min-width: 200px;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-.dropdown.wide {
-  min-width: 250px;
-}
-
-.dropdown a {
-  display: block;
-  padding: 10px 16px;
-  color: white;
-  text-decoration: none;
-  border-bottom: 1px solid #444;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-}
-
-.dropdown a:last-child {
-  border-bottom: none;
-}
-
-.dropdown a:hover {
-  background: #b30000;
-  color: white;
-  padding-left: 22px;
-}
-
-.nav-item:hover .dropdown {
-  display: block;
-}
-
-.hamburger {
-  display: none;
-  width: 100%;
-  padding: 12px;
-  background: #800000;
-  color: white;
-  border: none;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: left;
-}
-
-.hamburger:hover {
-  background: #990000;
-}
-
-.mobile-menu {
-  background: #800000;
-  border-top: 1px solid #660000;
-  padding: 10px 0;
-}
-
-.mobile-menu[hidden] {
-  display: none;
-}
-
-.mobile-menu a {
-  display: block;
-  padding: 12px 20px;
-  color: white;
-  text-decoration: none;
-  border-bottom: 1px solid #660000;
-  background: #800000;
-}
-
-.mobile-menu a:hover {
-  background: #990000;
-}
-
-.article-page {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 0 20px;
-  background: white;
-}
-
-.category-label {
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 15px;
-  color: #b30000;
-  letter-spacing: 0.5px;
-}
-
-#title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 15px;
-  font-family: 'Playfair Display', serif;
-  color: #1a1a1a;
-}
-
-.article-meta {
-  font-size: 0.95rem;
-  color: #666;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.article-meta strong {
-  color: #b30000;
-  font-weight: 600;
-}
-
-.hero-image-container {
-  margin-bottom: 30px;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-radius: 4px;
-}
-
-#heroImg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-#heroCaption {
-  font-size: 0.85rem;
-  color: #666;
-  margin-top: 8px;
-  font-style: italic;
-}
-
-#content {
-  font-family: 'Georgia', serif;
-  line-height: 1.8;
-  color: #333;
-}
-
-#content p {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  font-family: 'Georgia', serif;
-}
-
-#content .mid-subheading {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 2rem 0 1rem;
-  font-family: 'Playfair Display', serif;
-  color: #1a1a1a;
-}
-
-#content .pull-quote {
-  font-size: 1.3rem;
-  font-weight: 600;
-  line-height: 1.6;
-  margin: 2rem 0;
-  padding: 1.5rem 2rem;
-  background: #f9f9f9;
-  border-left: 4px solid #b30000;
-  font-family: 'Playfair Display', serif;
-  color: #1a1a1a;
-  font-style: italic;
-}
-
-#content .important-points {
-  background: #f5f5f5;
-  padding: 1.5rem 2rem;
-  margin: 2rem 0;
-  border-radius: 4px;
-}
-
-#content .important-points ul {
-  list-style: none;
-  padding: 0;
-}
-
-#content .important-points li {
-  margin-bottom: 1rem;
-  padding-left: 1.5rem;
-  position: relative;
-  font-size: 1.1rem;
-}
-
-#content .important-points li:before {
-  content: "•";
-  color: #b30000;
-  font-weight: bold;
-  position: absolute;
-  left: 0;
-}
-
-#content .img-left {
-  float: left;
-  width: 38%;
-  margin: 0.5rem 1.5rem 1rem 0;
-}
-
-#content .img-right {
-  float: right;
-  width: 38%;
-  margin: 0.5rem 0 1rem 1.5rem;
-}
-
-#content .img-center {
-  width: 100%;
-  margin: 2rem 0;
-  text-align: center;
-}
-
-#content figure {
-  margin: 1.5rem 0;
-}
-
-#content figure img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-
-#content figcaption {
-  font-size: 0.85rem;
-  color: #666;
-  margin-top: 0.5rem;
-  font-style: italic;
-}
-
-.clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
-  text-align: center;
-  color: #666;
-}
-
-.loading-state .spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #b30000;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 20px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.article-actions-bottom {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 2px solid #e0e0e0;
-}
-
-.article-action-buttons {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.action-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.action-btn:hover {
-  background: #b30000;
-  color: white;
-  border-color: #b30000;
-}
-
-.article-pagination {
-  margin-top: 2rem;
-  padding: 1.5rem 0;
-  border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.pagination-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background-color: #800000;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-}
-
-.pagination-btn:hover {
-  background-color: #b30000;
-  transform: translateX(-2px);
-  color: white;
-  text-decoration: none;
-}
-
-.pagination-btn.next-btn:hover {
-  transform: translateX(2px);
-}
-
-.pagination-nav {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.share-tooltip {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 8px 0;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  display: none;
-  z-index: 1000;
-  min-width: 200px;
-  animation: slideUp 0.2s ease;
-}
-
-.share-tooltip.show {
-  display: block;
-}
-
-.share-tooltip a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  color: #333;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  font-size: 0.9rem;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.share-tooltip a:last-child {
-  border-bottom: none;
-}
-
-.share-tooltip a:hover {
-  background: #f5f5f5;
-  color: #b30000;
-  padding-left: 20px;
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.read-more-section {
-  margin: 3rem 0;
-  padding: 2rem;
-  background: #f9f9f9;
-  border-radius: 4px;
-  border-left: 4px solid #b30000;
-}
-
-.read-more-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #b30000;
-  margin-bottom: 1.5rem;
-  font-family: 'Playfair Display', serif;
-  position: relative;
-}
-
-.read-more-title::after {
-  content: '';
-  position: absolute;
-  bottom: -0.5rem;
-  left: 0;
-  width: 50px;
-  height: 2px;
-  background: #b30000;
-}
-
-.read-more-content {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #333;
-}
-
-.read-more-content a {
-  color: #b30000;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.read-more-content a:hover {
-  text-decoration: underline;
-}
-
-.next-article-text {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 1rem;
-  padding: 12px;
-  background: #f5f5f5;
-  border-radius: 4px;
-}
-
-.next-article-text a {
-  color: #b30000;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.next-article-text a:hover {
-  text-decoration: underline;
-}
-
-.reading-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 3px;
-  background: #b30000;
-  z-index: 9999;
-  transition: width 0.1s ease;
-}
-
-.footer {
-  background: #800000;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
-  font-size: 0.85rem;
-}
-
-@media (max-width: 768px) {
-  .site-title { font-size: 2.2rem; }
-  .info-items { flex-wrap: wrap; white-space: normal; }
-  #title { font-size: 2rem; }
-  #content .img-left, #content .img-right {
-    float: none;
-    width: 100%;
-    margin: 1.5rem 0;
-  }
-  .nav-list { display: none; }
-  .hamburger { display: block; }
-  .tools-bar { flex-direction: column; align-items: stretch; }
-  .search input { width: 100%; }
-  .article-pagination { flex-direction: column; align-items: stretch; }
-  .pagination-nav { width: 100%; justify-content: space-between; }
-  .pagination-btn { flex: 1; justify-content: center; }
-  .article-action-buttons { flex-direction: column; }
-  .action-btn { width: 100%; justify-content: center; }
-  .share-tooltip { bottom: 20px; right: 20px; left: 20px; width: auto; }
-}
-
-@media (max-width: 480px) {
-  .site-title { font-size: 1.8rem; }
-  #title { font-size: 1.8rem; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:url" content="" id="og-url">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="" id="og-title">
+    <meta property="og:description" content="" id="og-description">
+    <meta property="og:image" content="" id="og-image">
+    <meta property="og:site_name" content="THE MIRROR JAMMU KASHMIR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="" id="twitter-title">
+    <meta name="twitter:description" content="" id="twitter-description">
+    <meta name="twitter:image" content="" id="twitter-image">
+    <meta name="twitter:site" content="@TheMirrorJK">
+    <meta name="description" content="" id="meta-description">
+    <meta name="keywords" content="Jammu Kashmir, news, editorial, history, human rights">
+    <meta name="author" content="THE MIRROR JAMMU KASHMIR">
+    <title id="page-title">THE MIRROR JAMMU KASHMIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            background: white;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: white;
+            color: #222;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .page-shell {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: none;
+            width: 100%;
+        }
+
+        #site-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .loader-inner {
+            text-align: center;
+            width: 300px;
+        }
+
+        .loader-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .loader-bar {
+            width: 100%;
+            height: 3px;
+            background: #333;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .loader-progress {
+            width: 0%;
+            height: 100%;
+            background: #b30000;
+            animation: loader-progress 1.5s ease forwards;
+        }
+
+        @keyframes loader-progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        #site-loader p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 8px;
+            color: #ccc;
+        }
+
+        .site-header {
+            text-align: center;
+            padding: 30px 20px 20px;
+            background: white;
+            border-bottom: 2px solid #b30000;
+            width: 100%;
+        }
+
+        .site-title {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: #000;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            line-height: 1.2;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .subheading {
+            font-size: 1.1rem;
+            color: #b30000;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .info-bar {
+            background: #f8f8f8;
+            padding: 6px 20px;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.8rem;
+            width: 100%;
+        }
+
+        .info-items {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow-x: auto;
+            padding: 2px 0;
+            white-space: nowrap;
+        }
+
+        .info-items span {
+            color: #333;
+            white-space: nowrap;
+            font-size: 0.8rem;
+        }
+
+        .info-items .separator {
+            color: #999;
+            font-weight: 300;
+            font-size: 0.7rem;
+            margin: 0 2px;
+        }
+
+        .info-items strong {
+            font-weight: 600;
+            color: #b30000;
+            font-size: 0.8rem;
+        }
+
+        .weather-bar {
+            background: #fff;
+            border-bottom: 2px solid #b30000;
+            padding: 5px 20px;
+        }
+
+        .weather-bar .info-items span {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 0.8rem;
+        }
+
+        .weather-bar .info-items strong {
+            color: #b30000;
+            font-weight: 700;
+            margin-left: 2px;
+            font-size: 0.8rem;
+        }
+
+        .ticker-wrap {
+            background: #111;
+            color: white;
+            padding: 8px 0;
+            border-bottom: 2px solid #b30000;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .ticker {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .ticker-label {
+            background: #b30000;
+            padding: 4px 14px;
+            font-weight: bold;
+            margin-right: 15px;
+            display: inline-block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .ticker-items {
+            display: inline-flex;
+            gap: 40px;
+            animation: ticker-scroll 440s linear infinite;
+        }
+
+        .ticker-items span {
+            display: inline;
+            font-size: 0.85rem;
+            color: #fff;
+            opacity: 0.95;
+            white-space: nowrap;
+        }
+
+        @keyframes ticker-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .tools-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            padding: 6px 20px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+            width: 100%;
+        }
+
+        .lang-select {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+        }
+
+        .lang-select select {
+            padding: 3px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .search {
+            display: flex;
+        }
+
+        .search input {
+            padding: 3px 10px;
+            border: 1px solid #ddd;
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 0.8rem;
+            width: 180px;
+        }
+
+        .search button {
+            padding: 3px 12px;
+            background: #b30000;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .search button:hover {
+            background: #8a0000;
+        }
+
+        .navbar {
+            background: #800000;
+            border-bottom: 2px solid #b30000;
+            padding: 0;
+            position: relative;
+            width: 100%;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .nav-item {
+            position: relative;
+            border-right: 1px solid #660000;
+        }
+
+        .nav-item:first-child {
+            border-left: 1px solid #660000;
+        }
+
+        .nav-btn {
+            display: block;
+            padding: 12px 18px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+            background: #800000;
+        }
+
+        .nav-btn:hover {
+            background: #990000;
+            color: white;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #222;
+            border: 1px solid #b30000;
+            min-width: 200px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .dropdown.wide {
+            min-width: 250px;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px 16px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown a:hover {
+            background: #b30000;
+            color: white;
+            padding-left: 22px;
+        }
+
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+
+        .hamburger {
+            display: none;
+            width: 100%;
+            padding: 12px;
+            background: #800000;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .hamburger:hover {
+            background: #990000;
+        }
+
+        .mobile-menu {
+            background: #800000;
+            border-top: 1px solid #660000;
+            padding: 10px 0;
+        }
+
+        .mobile-menu[hidden] {
+            display: none;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #660000;
+            background: #800000;
+        }
+
+        .mobile-menu a:hover {
+            background: #990000;
+        }
+
+        .article-page {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background: white;
+        }
+
+        .category-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #b30000;
+            letter-spacing: 0.5px;
+        }
+
+        #title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+        }
+
+        .article-meta {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .article-meta strong {
+            color: #b30000;
+            font-weight: 600;
+        }
+
+        .hero-image-container {
+            margin-bottom: 30px;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        #heroImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #heroCaption {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        #content {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        #content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Georgia', serif;
+        }
+
+        #content .mid-subheading {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+        }
+
+        #content .pull-quote {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.6;
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            background: #f9f9f9;
+            border-left: 4px solid #b30000;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+            font-style: italic;
+        }
+
+        #content .important-points {
+            background: #f5f5f5;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        #content .important-points ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #content .important-points li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        #content .important-points li:before {
+            content: "•";
+            color: #b30000;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        #content .img-left {
+            float: left;
+            width: 38%;
+            margin: 0.5rem 1.5rem 1rem 0;
+        }
+
+        #content .img-right {
+            float: right;
+            width: 38%;
+            margin: 0.5rem 0 1rem 1.5rem;
+        }
+
+        #content .img-center {
+            width: 100%;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        #content figure {
+            margin: 1.5rem 0;
+        }
+
+        #content figure img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        #content figcaption {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .loading-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+            color: #666;
+        }
+
+        .loading-state .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #b30000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .article-actions-bottom {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .article-action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #b30000;
+            color: white;
+            border-color: #b30000;
+        }
+
+        .article-pagination {
+            margin-top: 2rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .pagination-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #800000;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover {
+            background-color: #b30000;
+            transform: translateX(-2px);
+            color: white;
+            text-decoration: none;
+        }
+
+        .pagination-btn.next-btn:hover {
+            transform: translateX(2px);
+        }
+
+        .pagination-nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .share-tooltip {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 8px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 1000;
+            min-width: 200px;
+            animation: slideUp 0.2s ease;
+        }
+
+        .share-tooltip.show {
+            display: block;
+        }
+
+        .share-tooltip a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .share-tooltip a:last-child {
+            border-bottom: none;
+        }
+
+        .share-tooltip a:hover {
+            background: #f5f5f5;
+            color: #b30000;
+            padding-left: 20px;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .read-more-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: #f9f9f9;
+            border-radius: 4px;
+            border-left: 4px solid #b30000;
+        }
+
+        .read-more-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #b30000;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+        }
+
+        .read-more-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #b30000;
+        }
+
+        .read-more-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .read-more-content a {
+            color: #b30000;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .read-more-content a:hover {
+            text-decoration: underline;
+        }
+
+        .next-article-text {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1rem;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+
+        .next-article-text a {
+            color: #b30000;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .next-article-text a:hover {
+            text-decoration: underline;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: #b30000;
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+
+        .footer {
+            background: #800000;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .site-title { font-size: 2.2rem; }
+            .info-items { flex-wrap: wrap; white-space: normal; }
+            #title { font-size: 2rem; }
+            #content .img-left, #content .img-right {
+                float: none;
+                width: 100%;
+                margin: 1.5rem 0;
+            }
+            .nav-list { display: none; }
+            .hamburger { display: block; }
+            .tools-bar { flex-direction: column; align-items: stretch; }
+            .search input { width: 100%; }
+            .article-pagination { flex-direction: column; align-items: stretch; }
+            .pagination-nav { width: 100%; justify-content: space-between; }
+            .pagination-btn { flex: 1; justify-content: center; }
+            .article-action-buttons { flex-direction: column; }
+            .action-btn { width: 100%; justify-content: center; }
+            .share-tooltip { bottom: 20px; right: 20px; left: 20px; width: auto; }
+        }
+
+        @media (max-width: 480px) {
+            .site-title { font-size: 1.8rem; }
+            #title { font-size: 1.8rem; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- Reading Progress Bar -->
 <div class="reading-progress" id="reading-progress"></div>
 
-<!-- Site Loader -->
 <div id="site-loader">
-  <div class="loader-inner">
-    <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
-    <div class="loader-bar"><div class="loader-progress"></div></div>
-    <p>Loading article...</p>
-  </div>
+    <div class="loader-inner">
+        <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
+        <div class="loader-bar"><div class="loader-progress"></div></div>
+        <p>Loading article...</p>
+    </div>
 </div>
 
-<!-- Header -->
 <header class="site-header">
-  <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
-  <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+    <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
+    <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
 </header>
 
-<!-- Info Bar -->
 <div class="info-bar">
-  <div class="info-items" id="datetime-bar"></div>
+    <div class="info-items" id="datetime-bar"></div>
 </div>
 
-<!-- Weather Bar -->
 <div class="weather-bar">
-  <div class="info-items" id="weather-bar"></div>
+    <div class="info-items" id="weather-bar"></div>
 </div>
 
-<!-- Ticker -->
 <div class="ticker-wrap">
-  <div class="ticker">
-    <div class="ticker-label">🆕 BREAKING</div>
-    <div class="ticker-items" id="ticker-items"></div>
-  </div>
+    <div class="ticker">
+        <div class="ticker-label">🆕 BREAKING</div>
+        <div class="ticker-items" id="ticker-items"></div>
+    </div>
 </div>
 
-<!-- Tools Bar -->
 <div class="tools-bar">
-  <div class="lang-select">
-    <span>🌐</span>
-    <select id="language-select">
-      <option>English</option>
-      <option>اردو</option>
-      <option>हिंदी</option>
-    </select>
-  </div>
-  <div class="search">
-    <input type="text" id="search-input" placeholder="Search...">
-    <button>🔍</button>
-  </div>
+    <div class="lang-select">
+        <span>🌐</span>
+        <select id="language-select">
+            <option>English</option>
+            <option>اردو</option>
+            <option>हिंदी</option>
+        </select>
+    </div>
+    <form class="search" id="search-form">
+        <input type="text" id="search-input" placeholder="Search...">
+        <button type="submit">🔍</button>
+    </form>
 </div>
 
-<!-- Navigation -->
 <nav class="navbar">
-  <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
-  <ul class="nav-list" id="nav-list">
-    <li class="nav-item"><a href="index.html" class="nav-btn">🏠 Home</a></li>
-    <li class="nav-item"><a href="about.html" class="nav-btn">📖 About Us</a></li>
-    <li class="nav-item"><a href="chief-editor.html" class="nav-btn">✍️ Chief Editor</a></li>
-    <li class="nav-item has-sub">
-      <a href="#" class="nav-btn">📂 Categories ▼</a>
-      <div class="dropdown wide">
-        <a href="#">📍 Jammu Kashmir</a>
-        <a href="#">🌍 International</a>
-        <a href="#">❤️ Human Rights</a>
-        <a href="#">🏛️ Historical</a>
-        <a href="#">✍️ Editorial</a>
-        <a href="#">📹 Vlogs</a>
-      </div>
-    </li>
-    <li class="nav-item"><a href="#" class="nav-btn" id="contact-open">📞 Contact</a></li>
-  </ul>
-  <div class="mobile-menu" id="mobile-menu" hidden></div>
+    <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
+    <ul class="nav-list" id="nav-list">
+        <li class="nav-item"><a href="index.html" class="nav-btn">🏠 Home</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-btn">📖 About Us</a></li>
+        <li class="nav-item"><a href="chief-editor.html" class="nav-btn">✍️ Chief Editor</a></li>
+        <li class="nav-item has-sub">
+            <a href="#" class="nav-btn">📂 Categories ▼</a>
+            <div class="dropdown wide">
+                <a href="index.html#jammu-kashmir">📍 Jammu Kashmir</a>
+                <a href="index.html#international">🌍 International</a>
+                <a href="index.html#human-rights">❤️ Human Rights</a>
+                <a href="index.html#historical">🏛️ Historical</a>
+                <a href="index.html#editorial">✍️ Editorial</a>
+                <a href="index.html#vlogs">📹 Vlogs</a>
+            </div>
+        </li>
+        <li class="nav-item"><a href="#" class="nav-btn" id="contact-open">📞 Contact</a></li>
+    </ul>
+    <div class="mobile-menu" id="mobile-menu" hidden></div>
 </nav>
 
-<!-- Main Article Content -->
 <main class="article-page">
-  <div id="section-label" class="category-label"></div>
-  <h1 id="title"></h1>
-  <div id="meta" class="article-meta"></div>
-  <div id="heroWrap" class="hero-image-container" style="display: none;">
-    <img id="heroImg" src="" alt="">
-    <div id="heroCaption"></div>
-  </div>
-  <div id="loading-state" class="loading-state">
-    <div class="spinner"></div>
-    <p>Loading article...</p>
-  </div>
-  <div id="content" class="clearfix" style="display: none;"></div>
-  <div class="next-article-text" id="next-article-suggestion" style="display: none;"></div>
+    <div id="section-label" class="category-label"></div>
+    <h1 id="title"></h1>
+    <div id="meta" class="article-meta"></div>
+    <div id="heroWrap" class="hero-image-container" style="display: none;">
+        <img id="heroImg" src="" alt="">
+        <div id="heroCaption"></div>
+    </div>
+    <div id="loading-state" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading article...</p>
+    </div>
+    <div id="content" class="clearfix" style="display: none;"></div>
+    <div class="next-article-text" id="next-article-suggestion" style="display: none;"></div>
 </main>
 
-<!-- Share Tooltip -->
 <div class="share-tooltip" id="share-tooltip">
-  <a href="#" id="share-facebook">📘 Facebook</a>
-  <a href="#" id="share-twitter">🐦 X (Twitter)</a>
-  <a href="#" id="share-whatsapp">📱 WhatsApp</a>
-  <a href="#" id="share-linkedin">🔗 LinkedIn</a>
-  <a href="#" id="share-telegram">✈️ Telegram</a>
-  <a href="#" id="share-reddit">🤖 Reddit</a>
-  <a href="#" id="share-pinterest">📌 Pinterest</a>
-  <a href="#" id="share-email">📧 Email</a>
+    <a href="#" id="share-facebook">📘 Facebook</a>
+    <a href="#" id="share-twitter">🐦 X (Twitter)</a>
+    <a href="#" id="share-whatsapp">📱 WhatsApp</a>
+    <a href="#" id="share-linkedin">🔗 LinkedIn</a>
+    <a href="#" id="share-telegram">✈️ Telegram</a>
+    <a href="#" id="share-reddit">🤖 Reddit</a>
+    <a href="#" id="share-pinterest">📌 Pinterest</a>
+    <a href="#" id="share-email">📧 Email</a>
 </div>
 
 <footer class="footer">
-  <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+    <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 
 <script>
-// ===== COMPLETE UPDATED SCRIPT WITH ARTICLE-002 SUPPORT =====
+// ===== COMPLETE FIXED CORE PIPELINE SCRIPT =====
 
-// Wait for DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", function() {
-  console.log("DOM loaded - initializing...");
-  
-  // Initialize components
-  initLoader();
-  initYear();
-  updateClocks();
-  initWeatherBar();
-  initTicker();
-  initNav();
-  initLanguageSelector();
-  initSearch();
-  initReadingProgress();
-  
-  // Set up clock to update every second
-  setInterval(updateClocks, 1000);
-  
-  // Load article if on article page
-  const params = new URLSearchParams(window.location.search);
-  const articleId = params.get("id");
-  
-  if (articleId) {
-    loadArticle(articleId);
-  } else {
-    // No article ID - show error
-    const loadingDiv = document.getElementById('loading-state');
-    const contentDiv = document.getElementById('content');
-    if (loadingDiv) loadingDiv.style.display = 'none';
-    if (contentDiv) {
-      contentDiv.style.display = 'block';
-      contentDiv.innerHTML = '<p style="text-align:center; padding:50px;">No article specified. <a href="index.html">Return to homepage</a></p>';
+    console.log("DOM loaded - initializing...");
+    
+    initLoader();
+    initYear();
+    updateClocks();
+    initWeatherBar();
+    initTicker();
+    initNav();
+    initLanguageSelector();
+    initSearch();
+    initReadingProgress();
+    
+    setInterval(updateClocks, 1000);
+    
+    const params = new URLSearchParams(window.location.search);
+    const articleId = params.get("id");
+    
+    if (articleId) {
+        loadArticle(articleId);
+    } else {
+        const loadingDiv = document.getElementById('loading-state');
+        const contentDiv = document.getElementById('content');
+        if (loadingDiv) loadingDiv.style.display = 'none';
+        if (contentDiv) {
+            contentDiv.style.display = 'block';
+            contentDiv.innerHTML = '<p style="text-align:center; padding:50px;">No article specified. <a href="index.html">Return to homepage</a></p>';
+        }
     }
-  }
 });
 
-// Loader
 function initLoader() {
-  const loader = document.getElementById("site-loader");
-  if (!loader) return;
-  setTimeout(function() {
-    loader.style.opacity = "0";
+    const loader = document.getElementById("site-loader");
+    if (!loader) return;
     setTimeout(function() {
-      loader.style.display = "none";
-    }, 300);
-  }, 1500);
+        loader.style.opacity = "0";
+        setTimeout(function() {
+            loader.style.display = "none";
+        }, 300);
+    }, 1500);
 }
 
-// Footer Year
 function initYear() {
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
-// Clocks
 function updateClocks() {
-  const now = new Date();
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  const datetimeBar = document.getElementById("datetime-bar");
-  if (!datetimeBar) return;
-  
-  const zurichTime = now.toLocaleTimeString("en-GB", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit", second: "2-digit" });
-  const fullDate = now.toLocaleDateString("en-GB", options);
-  const istTime = now.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit" });
-  const pktTime = now.toLocaleTimeString("en-PK", { timeZone: "Asia/Karachi", hour: "2-digit", minute: "2-digit", second: "2-digit" });
-  const hijriDate = getHijriDate();
-  const bikramiDate = getBikramiDate();
-  
-  datetimeBar.innerHTML = `
-    <span>${fullDate} at ${zurichTime}</span>
-    <span class="separator">•</span>
-    <span>${hijriDate}</span>
-    <span class="separator">•</span>
-    <span>${bikramiDate}</span>
-    <span class="separator">•</span>
-    <span>IST (Jammu-Kashmir-Ladakh): <strong>${istTime}</strong></span>
-    <span class="separator">•</span>
-    <span>PKT (Gilgit-Baltistan & Azad Kashmir): <strong>${pktTime}</strong></span>
-  `;
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const datetimeBar = document.getElementById("datetime-bar");
+    if (!datetimeBar) return;
+    
+    const zurichTime = now.toLocaleTimeString("en-GB", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    const fullDate = now.toLocaleDateString("en-GB", options);
+    const istTime = now.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    const pktTime = now.toLocaleTimeString("en-PK", { timeZone: "Asia/Karachi", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    const hijriDate = getHijriDate();
+    const bikramiDate = getBikramiDate();
+    
+    datetimeBar.innerHTML = `
+        <span>${fullDate} at ${zurichTime}</span>
+        <span class="separator">•</span>
+        <span>${hijriDate}</span>
+        <span class="separator">•</span>
+        <span>${bikramiDate}</span>
+        <span class="separator">•</span>
+        <span>IST (Jammu-Kashmir-Ladakh): <strong>${istTime}</strong></span>
+        <span class="separator">•</span>
+        <span>PKT (Gilgit-Baltistan & Azad Kashmir): <strong>${pktTime}</strong></span>
+    `;
 }
 
 function getHijriDate() {
-  try {
-    const now = new Date();
-    const hijriDate = new Intl.DateTimeFormat("en-u-ca-islamic", { day: "numeric", month: "long", year: "numeric" }).format(now);
-    return hijriDate + " AH";
-  } catch(e) {
-    return "Ramadan, 1447 AH";
-  }
+    try {
+        const now = new Date();
+        return new Intl.DateTimeFormat("en-u-ca-islamic", { day: "numeric", month: "long", year: "numeric" }).format(now) + " AH";
+    } catch(e) {
+        return "Ramadan, 1447 AH";
+    }
 }
 
 function getBikramiDate() {
-  const today = new Date();
-  const day = today.getDate();
-  const month = today.getMonth();
-  const year = today.getFullYear();
-  
-  const bikramiMonths = ["Chet", "Vaisakh", "Jeth", "Harh", "Sawan", "Bhadon", "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"];
-  const bikramiDays = ["Aitvaar", "Somvaar", "Mangalvaar", "Budhvaar", "Veervaar", "Shukarvaar", "Shanivaar"];
-  const dayOfWeek = today.getDay();
-  const dayName = bikramiDays[dayOfWeek];
-  
-  let bikramiYear = year + 57;
-  let bikramiMonth = 0;
-  let bikramiDay = day;
-  
-  if (month === 2) {
-    if (day >= 14) { bikramiMonth = 0; bikramiYear = year + 57; bikramiDay = day - 13; }
-    else { bikramiMonth = 11; bikramiYear = year + 56; bikramiDay = day + 18; }
-  } else if (month === 3) { bikramiMonth = 0; bikramiYear = year + 57; bikramiDay = day + 17; if (bikramiDay > 31) { bikramiDay -= 31; bikramiMonth = 1; } }
-  else if (month === 4) { bikramiMonth = 1; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 31) { bikramiDay -= 31; bikramiMonth = 2; } }
-  else if (month === 5) { bikramiMonth = 2; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 31) { bikramiDay -= 31; bikramiMonth = 3; } }
-  else if (month === 6) { bikramiMonth = 3; bikramiYear = year + 57; bikramiDay = day + 17; if (bikramiDay > 31) { bikramiDay -= 31; bikramiMonth = 4; } }
-  else if (month === 7) { bikramiMonth = 4; bikramiYear = year + 57; bikramiDay = day + 17; if (bikramiDay > 31) { bikramiDay -= 31; bikramiMonth = 5; } }
-  else if (month === 8) { bikramiMonth = 5; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 6; } }
-  else if (month === 9) { bikramiMonth = 6; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 7; } }
-  else if (month === 10) { bikramiMonth = 7; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 8; } }
-  else if (month === 11) { bikramiMonth = 8; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 9; } }
-  else if (month === 0) { bikramiMonth = 9; bikramiYear = year + 56; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 10; } }
-  else if (month === 1) { bikramiMonth = 10; bikramiYear = year + 56; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 11; } }
-  
-  if (bikramiDay < 1) bikramiDay = 1;
-  if (bikramiDay > 31) bikramiDay = 31;
-  
-  return `${dayName}, ${bikramiDay} ${bikramiMonths[bikramiMonth]} ${bikramiYear} VS`;
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    
+    const bikramiMonths = ["Chet", "Vaisakh", "Jeth", "Harh", "Sawan", "Bhadon", "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"];
+    const bikramiDays = ["Aitvaar", "Somvaar", "Mangalvaar", "Budhvaar", "Veervaar", "Shukarvaar", "Shanivaar"];
+    const dayName = bikramiDays[today.getDay()];
+    
+    let bikramiYear = year + 57;
+    let bikramiMonth = 0;
+    let bikramiDay = day;
+    
+    if (month === 2) {
+        if (day >= 14) { bikramiMonth = 0; bikramiYear = year + 57; bikramiDay = day - 13; }
+        else { bikramiMonth = 11; bikramiYear = year + 56; bikramiDay = day + 18; }
+    } else if (month === 3) { bikramiMonth = 0; bikramiYear = year + 57; bikramiDay = day + 17; if (bikramiDay > 31) { bikramiDay -= 31; bikramiMonth = 1; } }
+    else if (month === 4) { bikramiMonth = 1; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 31) { bikramiDay -= 31; bikramiMonth = 2; } }
+    else if (month === 5) { bikramiMonth = 2; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 31) { bikramiDay -= 31; bikramiMonth = 3; } }
+    else if (month === 6) { bikramiMonth = 3; bikramiYear = year + 57; bikramiDay = day + 17; if (bikramiDay > 31) { bikramiDay -= 31; bikramiMonth = 4; } }
+    else if (month === 7) { bikramiMonth = 4; bikramiYear = year + 57; bikramiDay = day + 17; if (bikramiDay > 31) { bikramiDay -= 31; bikramiMonth = 5; } }
+    else if (month === 8) { bikramiMonth = 5; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 6; } }
+    else if (month === 9) { bikramiMonth = 6; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 7; } }
+    else if (month === 10) { bikramiMonth = 7; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 8; } }
+    else if (month === 11) { bikramiMonth = 8; bikramiYear = year + 57; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 9; } }
+    else if (month === 0) { bikramiMonth = 9; bikramiYear = year + 56; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 10; } }
+    else if (month === 1) { bikramiMonth = 10; bikramiYear = year + 56; bikramiDay = day + 16; if (bikramiDay > 30) { bikramiDay -= 30; bikramiMonth = 11; } }
+    
+    if (bikramiDay < 1) bikramiDay = 1;
+    if (bikramiDay > 31) bikramiDay = 31;
+    
+    return `${dayName}, ${bikramiDay} ${bikramiMonths[bikramiMonth]} ${bikramiYear} VS`;
 }
 
-// Weather Bar
 function initWeatherBar() {
-  const bar = document.getElementById("weather-bar");
-  if (!bar) return;
-  const cities = [
-    { name: "Zurich", temp: "6°C" }, { name: "Rawalakot", temp: "9°C" },
-    { name: "Jammu", temp: "18°C" }, { name: "Kashmir", temp: "4°C" },
-    { name: "Ladakh", temp: "-2°C" }, { name: "Gilgit", temp: "3°C" },
-    { name: "Baltistan", temp: "-1°C" }, { name: "Muzaffarabad", temp: "10°C" }
-  ];
-  let html = '';
-  cities.forEach(function(c, index) {
-    html += `<span>${c.name}: <strong>${c.temp}</strong></span>`;
-    if (index < cities.length - 1) html += `<span class="separator">•</span>`;
-  });
-  bar.innerHTML = html;
+    const bar = document.getElementById("weather-bar");
+    if (!bar) return;
+    const cities = [
+        { name: "Zurich", temp: "6°C" }, { name: "Rawalakot", temp: "9°C" },
+        { name: "Jammu", temp: "18°C" }, { name: "Kashmir", temp: "4°C" },
+        { name: "Ladakh", temp: "-2°C" }, { name: "Gilgit", temp: "3°C" },
+        { name: "Baltistan", temp: "-1°C" }, { name: "Muzaffarabad", temp: "10°C" }
+    ];
+    let html = '';
+    cities.forEach(function(c, index) {
+        html += `<span>${c.name}: <strong>${c.temp}</strong></span>`;
+        if (index < cities.length - 1) html += `<span class="separator">•</span>`;
+    });
+    bar.innerHTML = html;
 }
 
-// Ticker
 const TICKER_ITEMS = [
-  "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
-  "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
-  "OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR",
-  "HOPE BECOMES REAL THROUGH ACTION, PERSISTENCE AND PRINCIPLED JOURNALISM",
-  "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS --- UDHR ARTICLE 1",
-  "EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE"
+    "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
+    "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
+    "OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR",
+    "HOPE BECOMES REAL THROUGH ACTION, PERSISTENCE AND PRINCIPLED JOURNALISM",
+    "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS --- UDHR ARTICLE 1",
+    "EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE"
 ];
 
 function initTicker() {
-  const tickerItems = document.getElementById("ticker-items");
-  if (!tickerItems) return;
-  let html = '';
-  for (let i = 0; i < 2; i++) {
-    TICKER_ITEMS.forEach(function(item) { html += `<span>${item} • </span>`; });
-  }
-  tickerItems.innerHTML = html;
+    const tickerItems = document.getElementById("ticker-items");
+    if (!tickerItems) return;
+    let html = '';
+    for (let i = 0; i < 2; i++) {
+        TICKER_ITEMS.forEach(function(item) { html += `<span>${item} • </span>`; });
+    }
+    tickerItems.innerHTML = html;
 }
 
-// Reading Progress
 function initReadingProgress() {
-  const progressBar = document.getElementById('reading-progress');
-  if (!progressBar) return;
-  window.addEventListener('scroll', function() {
-    const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = (window.scrollY / windowHeight) * 100;
-    progressBar.style.width = scrolled + '%';
-  });
+    const progressBar = document.getElementById('reading-progress');
+    if (!progressBar) return;
+    window.addEventListener('scroll', function() {
+        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (windowHeight > 0) ? (window.scrollY / windowHeight) * 100 : 0;
+        progressBar.style.width = scrolled + '%';
+    });
 }
 
-// Navigation
 function initNav() {
-  const hamburger = document.getElementById("hamburger");
-  const navList = document.getElementById("nav-list");
-  const mobileMenu = document.getElementById("mobile-menu");
-  if (!hamburger || !navList || !mobileMenu) return;
-  hamburger.addEventListener("click", function() {
-    const expanded = hamburger.getAttribute("aria-expanded") === "true";
-    hamburger.setAttribute("aria-expanded", String(!expanded));
-    mobileMenu.hidden = expanded;
-    if (!expanded) mobileMenu.innerHTML = navList.innerHTML;
-  });
+    const hamburger = document.getElementById("hamburger");
+    const navList = document.getElementById("nav-list");
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (!hamburger || !navList || !mobileMenu) return;
+    hamburger.addEventListener("click", function() {
+        const expanded = hamburger.getAttribute("aria-expanded") === "true";
+        hamburger.setAttribute("aria-expanded", String(!expanded));
+        mobileMenu.hidden = expanded;
+        if (!expanded) mobileMenu.innerHTML = navList.innerHTML;
+    });
 }
 
-// Language Selector
 function initLanguageSelector() {
-  const select = document.getElementById("language-select");
-  if (!select) return;
-  select.addEventListener("change", function(e) {
-    alert("Language changed to " + e.target.options[e.target.selectedIndex].text);
-  });
+    const select = document.getElementById("language-select");
+    if (!select) return;
+    select.addEventListener("change", function(e) {
+        alert("Language changed to " + e.target.options[e.target.selectedIndex].text);
+    });
 }
 
-// Search
 function initSearch() {
-  const searchForm = document.querySelector(".search");
-  const searchInput = document.getElementById("search-input");
-  if (!searchForm || !searchInput) return;
-  searchForm.addEventListener("submit", function(e) {
-    e.preventDefault();
-    if (searchInput.value.trim()) alert("Searching for: " + searchInput.value.trim());
-  });
+    const searchForm = document.getElementById("search-form");
+    const searchInput = document.getElementById("search-input");
+    if (!searchForm || !searchInput) return;
+    searchForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        if (searchInput.value.trim()) alert("Searching for: " + searchInput.value.trim());
+    });
 }
 
-// ===== CORE ARTICLE LOADING FUNCTION =====
 async function loadArticle(articleId) {
-  console.log("Loading article:", articleId);
-  
-  const loadingDiv = document.getElementById('loading-state');
-  const contentDiv = document.getElementById('content');
-  const heroWrap = document.getElementById('heroWrap');
-  
-  if (loadingDiv) loadingDiv.style.display = 'flex';
-  if (contentDiv) contentDiv.style.display = 'none';
-  if (heroWrap) heroWrap.style.display = 'none';
-  
-  const pathsToTry = [
-    `content/${articleId}.json`,
-    `./content/${articleId}.json`,
-    `/content/${articleId}.json`
-  ];
-  
-  let articleData = null;
-  
-  for (const path of pathsToTry) {
-    try {
-      console.log("Trying path:", path);
-      const response = await fetch(path);
-      if (response.ok) {
-        let data = await response.json();
-        if (data.items && Array.isArray(data.items) && data.items.length > 0) {
-          articleData = data.items[0];
-        } else if (Array.isArray(data) && data.length > 0) {
-          articleData = data[0];
-        } else {
-          articleData = data;
+    console.log("Loading article:", articleId);
+    
+    const loadingDiv = document.getElementById('loading-state');
+    const contentDiv = document.getElementById('content');
+    const heroWrap = document.getElementById('heroWrap');
+    
+    if (loadingDiv) loadingDiv.style.display = 'flex';
+    if (contentDiv) contentDiv.style.display = 'none';
+    if (heroWrap) heroWrap.style.display = 'none';
+    
+    const pathsToTry = [
+        `content/${articleId}.json`,
+        `./content/${articleId}.json`,
+        `/content/${articleId}.json`
+    ];
+    
+    let articleData = null;
+    
+    for (const path of pathsToTry) {
+        try {
+            console.log("Trying path:", path);
+            const response = await fetch(path);
+            if (response.ok) {
+                let data = await response.json();
+                if (data.items && Array.isArray(data.items) && data.items.length > 0) {
+                    articleData = data.items[0];
+                } else if (Array.isArray(data) && data.length > 0) {
+                    articleData = data[0];
+                } else {
+                    articleData = data;
+                }
+                break;
+            }
+        } catch (e) {
+            console.log("Failed to load from:", path, e.message);
         }
-        break;
-      }
-    } catch (e) {
-      console.log("Failed to load from:", path, e.message);
     }
-  }
-  
-  if (!articleData) {
-    console.error("Article not found:", articleId);
-    if (loadingDiv) loadingDiv.style.display = 'none';
-    if (contentDiv) {
-      contentDiv.style.display = 'block';
-      contentDiv.innerHTML = `<p style="text-align:center; padding:50px;">Article not found. <a href="index.html">Return to homepage</a></p>`;
+    
+    if (!articleData) {
+        console.error("Article not found:", articleId);
+        if (loadingDiv) loadingDiv.style.display = 'none';
+        if (contentDiv) {
+            contentDiv.style.display = 'block';
+            contentDiv.innerHTML = `<p style="text-align:center; padding:50px;">Article not found. <a href="index.html">Return to homepage</a></p>`;
+        }
+        return;
     }
-    return;
-  }
-  
-  console.log("Article data loaded:", articleData.title);
-  
-  updateSocialMetaTags(articleData, articleId);
-  renderFullArticlePage(articleData);
+    
+    console.log("Article data loaded:", articleData.title);
+    
+    updateSocialMetaTags(articleData, articleId);
+    renderFullArticlePage(articleData);
+    initSocialButtons(articleId, articleData.title);
+    setupPagination(articleId);
 }
 
 function updateSocialMetaTags(article, articleId) {
-  const fullUrl = `https://themirrorjk.com/article.html?id=${articleId}`;
-  const title = article.title || 'THE MIRROR JAMMU KASHMIR';
-  const excerpt = article.excerpt || article.summary || 'Read the latest from THE MIRROR JAMMU KASHMIR.';
-  
-  let imageUrl = '';
-  if (article.heroImage) {
-    if (typeof article.heroImage === 'string') imageUrl = article.heroImage;
-    else if (article.heroImage.src) imageUrl = article.heroImage.src;
-  }
-  if (!imageUrl) imageUrl = 'https://themirrorjk.com/content/images/logo.png';
-  if (!imageUrl.startsWith('http')) imageUrl = 'https://themirrorjk.com/' + imageUrl;
-  
-  const ogUrl = document.getElementById('og-url');
-  if (ogUrl) ogUrl.setAttribute('content', fullUrl);
-  const ogTitle = document.getElementById('og-title');
-  if (ogTitle) ogTitle.setAttribute('content', title);
-  const ogDescription = document.getElementById('og-description');
-  if (ogDescription) ogDescription.setAttribute('content', excerpt);
-  const ogImage = document.getElementById('og-image');
-  if (ogImage) ogImage.setAttribute('content', imageUrl);
-  const twitterTitle = document.getElementById('twitter-title');
-  if (twitterTitle) twitterTitle.setAttribute('content', title);
-  const twitterDescription = document.getElementById('twitter-description');
-  if (twitterDescription) twitterDescription.setAttribute('content', excerpt);
-  const twitterImage = document.getElementById('twitter-image');
-  if (twitterImage) twitterImage.setAttribute('content', imageUrl);
-  const metaDescription = document.getElementById('meta-description');
-  if (metaDescription) metaDescription.setAttribute('content', excerpt);
-  const pageTitle = document.getElementById('page-title');
-  if (pageTitle) pageTitle.textContent = `${title} | THE MIRROR JAMMU KASHMIR`;
-  document.title = `${title} | THE MIRROR JAMMU KASHMIR`;
+    const fullUrl = `https://themirrorjk.com/article.html?id=${articleId}`;
+    const title = article.title || 'THE MIRROR JAMMU KASHMIR';
+    const excerpt = article.excerpt || article.summary || 'Read the latest from THE MIRROR JAMMU KASHMIR.';
+    
+    let imageUrl = '';
+    if (article.heroImage) {
+        if (typeof article.heroImage === 'string') imageUrl = article.heroImage;
+        else if (article.heroImage.src) imageUrl = article.heroImage.src;
+    }
+    if (!imageUrl) imageUrl = 'https://themirrorjk.com/content/images/logo.png';
+    if (!imageUrl.startsWith('http')) imageUrl = 'https://themirrorjk.com/' + imageUrl;
+    
+    const ogUrl = document.getElementById('og-url');
+    if (ogUrl) ogUrl.setAttribute('content', fullUrl);
+    const ogTitle = document.getElementById('og-title');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+    const ogDescription = document.getElementById('og-description');
+    if (ogDescription) ogDescription.setAttribute('content', excerpt);
+    const ogImage = document.getElementById('og-image');
+    if (ogImage) ogImage.setAttribute('content', imageUrl);
+    const twitterTitle = document.getElementById('twitter-title');
+    if (twitterTitle) twitterTitle.setAttribute('content', title);
+    const twitterDescription = document.getElementById('twitter-description');
+    if (twitterDescription) twitterDescription.setAttribute('content', excerpt);
+    const twitterImage = document.getElementById('twitter-image');
+    if (twitterImage) twitterImage.setAttribute('content', imageUrl);
+    const metaDescription = document.getElementById('meta-description');
+    if (metaDescription) metaDescription.setAttribute('content', excerpt);
+    const pageTitle = document.getElementById('page-title');
+    if (pageTitle) pageTitle.textContent = `${title} | THE MIRROR JAMMU KASHMIR`;
 }
 
 function renderFullArticlePage(article) {
-  console.log("Rendering article:", article.title);
-  
-  const loadingDiv = document.getElementById('loading-state');
-  const contentDiv = document.getElementById('content');
-  const heroWrap = document.getElementById('heroWrap');
-  const heroImg = document.getElementById('heroImg');
-  const heroCaption = document.getElementById('heroCaption');
-  const titleEl = document.getElementById('title');
-  const sectionLabel = document.getElementById('section-label');
-  const metaEl = document.getElementById('meta');
-  
-  if (loadingDiv) loadingDiv.style.display = 'none';
-  if (contentDiv) contentDiv.style.display = 'block';
-  if (titleEl) titleEl.textContent = article.title || 'Untitled';
-  if (sectionLabel) sectionLabel.textContent = article.sectionLabel || article.category || 'ARTICLE';
-  
-  if (metaEl) {
-    let metaHtml = '';
-    if (article.location) metaHtml += `<strong>${article.location}</strong>`;
-    if (article.date) {
-      const dateObj = new Date(article.date);
-      const formattedDate = dateObj.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
-      metaHtml += (metaHtml ? ' — ' : '') + formattedDate;
-    }
-    if (article.author) metaHtml += `<br>By <em>${article.author}</em>`;
-    if (article.readTime) metaHtml += ` · ${article.readTime}`;
-    metaEl.innerHTML = metaHtml;
-  }
-  
-  if (article.heroImage && article.heroImage.src && heroImg) {
-    let imageSrc = article.heroImage.src;
-    if (!imageSrc.startsWith('http') && !imageSrc.startsWith('/')) {
-      imageSrc = 'content/images/' + imageSrc.split('/').pop();
-    }
-    heroImg.src = imageSrc;
-    heroImg.alt = article.heroImage.caption || article.title || '';
-    heroImg.onerror = function() { this.src = 'https://via.placeholder.com/1280x720?text=Image'; };
-    if (heroCaption) heroCaption.textContent = article.heroImage.caption || '';
-    if (heroWrap) heroWrap.style.display = 'block';
-  } else if (heroWrap) {
-    heroWrap.style.display = 'none';
-  }
-  
-  if (contentDiv) {
-    contentDiv.innerHTML = '';
+    const contentDiv = document.getElementById('content');
+    const heroWrap = document.getElementById('heroWrap');
+    const heroImg = document.getElementById('heroImg');
+    const heroCaption = document.getElementById('heroCaption');
+    const titleEl = document.getElementById('title');
+    const sectionLabel = document.getElementById('section-label');
+    const metaEl = document.getElementById('meta');
     
-    if (article.body && Array.isArray(article.body) && article.body.length > 0) {
-      article.body.forEach(function(block) {
-        if (block.type === 'paragraph') {
-          contentDiv.innerHTML += `<p>${block.text || ''}</p>`;
-        } else if (block.type === 'subheading') {
-          contentDiv.innerHTML += `<h2 class="mid-subheading">${block.text || ''}</h2>`;
-        } else if (block.type === 'header') {
-          contentDiv.innerHTML += `<h2 class="mid-subheading" style="font-size:1.8rem;color:#b30000;">${block.text || ''}</h2>`;
-        } else if (block.type === 'pullquote') {
-          contentDiv.innerHTML += `<div class="pull-quote">${block.text || ''}</div>`;
-        } else if (block.type === 'points' && block.items) {
-          let listHtml = '<div class="important-points"><ul>';
-          block.items.forEach(item => { listHtml += `<li>${item}</li>`; });
-          listHtml += '</ul></div>';
-          contentDiv.innerHTML += listHtml;
-        } else if (block.type === 'image' && block.src) {
-          let imageSrc = block.src;
-          if (!imageSrc.startsWith('http') && !imageSrc.startsWith('/')) {
-            imageSrc = 'content/images/' + imageSrc.split('/').pop();
-          }
-          const alignClass = block.align === 'right' ? 'img-right' : (block.align === 'left' ? 'img-left' : 'img-center');
-          let captionHtml = '';
-          if (block.caption) captionHtml = `<figcaption>${block.caption}${block.credit ? ' — ' + block.credit : ''}</figcaption>`;
-          contentDiv.innerHTML += `
-            <figure class="${alignClass}">
-              <img src="${imageSrc}" alt="${block.caption || 'Image'}" onerror="this.src='https://via.placeholder.com/640x360?text=Image'">
-              ${captionHtml}
-            </figure>
-          `;
-        }
-      });
-    } else {
-      contentDiv.innerHTML = '<p>No content available for this article.</p>';
-    }
+    if (titleEl) titleEl.textContent = article.title || 'Untitled';
+    if (sectionLabel) sectionLabel.textContent = article.sectionLabel || article.category || 'ARTICLE';
     
-    if (article.readMore && article.readMore.trim() !== '') {
-      contentDiv.innerHTML += `
-        <div class="read-more-section">
-          <h3 class="read-more-title">Read More</h3>
-          <div class="read-more-content">${article.readMore}</div>
-        </div>
-      `;
-    }
-  }
-  
-  addArticleActionButtons(article);
-  addArticlePagination(article);
-  suggestNextArticle(article.id);
-  initShareTooltipForArticle(article.id);
-}
-
-function addArticleActionButtons(article) {
-  let actionsDiv = document.querySelector('.article-actions-bottom');
-  if (!actionsDiv) {
-    const contentEl = document.getElementById('content');
-    if (contentEl && contentEl.parentNode) {
-      actionsDiv = document.createElement('div');
-      actionsDiv.className = 'article-actions-bottom';
-      contentEl.parentNode.insertBefore(actionsDiv, contentEl.nextSibling);
-    }
-  }
-  
-  if (actionsDiv) {
-    const articleId = article.id || window.location.search;
-    const storageKey = 'article-likes-' + articleId;
-    let likes = localStorage.getItem(storageKey) || 0;
-    
-    actionsDiv.innerHTML = `
-      <div class="article-action-buttons">
-        <button id="article-like-btn" class="action-btn">👍 Like <span id="article-like-count">${likes ? ' (' + likes + ')' : ''}</span></button>
-        <button id="article-subscribe-btn" class="action-btn">🔔 Subscribe</button>
-        <button id="article-share-btn" class="action-btn">📤 Share</button>
-        <button id="article-copy-btn" class="action-btn">🔗 Copy Link</button>
-      </div>
-    `;
-    
-    const likeBtn = document.getElementById('article-like-btn');
-    const likeCountSpan = document.getElementById('article-like-count');
-    if (likeBtn) {
-      likeBtn.addEventListener('click', function() {
-        let currentLikes = parseInt(localStorage.getItem(storageKey) || 0);
-        currentLikes++;
-        localStorage.setItem(storageKey, currentLikes);
-        if (likeCountSpan) likeCountSpan.textContent = ' (' + currentLikes + ')';
-      });
-    }
-    
-    const subscribeBtn = document.getElementById('article-subscribe-btn');
-    if (subscribeBtn) {
-      subscribeBtn.addEventListener('click', function() {
-        const email = prompt("Enter your email to subscribe:", "your@email.com");
-        if (email && email.includes('@') && email.includes('.')) alert("Thank you for subscribing!");
-        else if (email) alert("Please enter a valid email address.");
-      });
-    }
-    
-    const copyBtn = document.getElementById('article-copy-btn');
-    if (copyBtn) {
-      copyBtn.addEventListener('click', function() {
-        navigator.clipboard.writeText(window.location.href).then(() => alert("Link copied!")).catch(() => alert("Failed to copy link"));
-      });
-    }
-  }
-}
-
-// UPDATED: Complete article sequence with article-002
-const FULL_ARTICLE_SEQUENCE = [
-  { id: 'article-002', title: 'UKPNP Historic Event on Karachi Agreement' },
-  { id: 'article-001', title: 'Complete Shutter Down Paralyzes Rawalakot' },
-  { id: 'breaking-001', title: 'UKPNP Meets Baroness Nicholson' },
-  { id: 'blog-001', title: 'UKPNP Briefs British MPs' },
-  { id: 'editorial-001', title: 'Brief History of Jammu and Kashmir' },
-  { id: 'latest-001', title: 'US-Israel-Iran Escalation' },
-  { id: 'historical-001', title: 'US-Israel-Iran War Risk' }
-];
-
-function addArticlePagination(article) {
-  let paginationDiv = document.querySelector('.article-pagination');
-  if (!paginationDiv) {
-    const contentEl = document.getElementById('content');
-    if (contentEl && contentEl.parentNode) {
-      paginationDiv = document.createElement('div');
-      paginationDiv.className = 'article-pagination';
-      contentEl.parentNode.insertBefore(paginationDiv, contentEl.nextSibling);
-    }
-  }
-  
-  const currentIndex = FULL_ARTICLE_SEQUENCE.findIndex(a => a.id === article.id);
-  let prevHtml = '', nextHtml = '';
-  
-  if (currentIndex > 0) {
-    const prev = FULL_ARTICLE_SEQUENCE[currentIndex - 1];
-    prevHtml = `<a href="article.html?id=${prev.id}" class="pagination-btn prev-btn">← Previous: ${prev.title}</a>`;
-  }
-  if (currentIndex < FULL_ARTICLE_SEQUENCE.length - 1 && currentIndex !== -1) {
-    const next = FULL_ARTICLE_SEQUENCE[currentIndex + 1];
-    nextHtml = `<a href="article.html?id=${next.id}" class="pagination-btn next-btn">Next: ${next.title} →</a>`;
-  }
-  
-  if (paginationDiv) {
-    paginationDiv.innerHTML = `
-      <a href="index.html" class="pagination-btn home-btn">← Back to Homepage</a>
-      <div class="pagination-nav">${prevHtml} ${nextHtml}</div>
-    `;
-  }
-}
-
-function suggestNextArticle(currentArticleId) {
-  const suggestionDiv = document.getElementById('next-article-suggestion');
-  if (!suggestionDiv) return;
-  
-  const currentIndex = FULL_ARTICLE_SEQUENCE.findIndex(a => a.id === currentArticleId);
-  if (currentIndex !== -1 && currentIndex < FULL_ARTICLE_SEQUENCE.length - 1) {
-    const next = FULL_ARTICLE_SEQUENCE[currentIndex + 1];
-    suggestionDiv.innerHTML = `<a href="article.html?id=${next.id}">Continue Reading: ${next.title} →</a>`;
-    suggestionDiv.style.display = 'block';
-  } else {
-    suggestionDiv.style.display = 'none';
-  }
-}
-
-function initShareTooltipForArticle(articleId) {
-  const shareBtn = document.getElementById('article-share-btn');
-  const tooltip = document.getElementById('share-tooltip');
-  
-  // Use preview URL for better social cards
-  const previewUrl = `https://themirrorjk.com/article-preview?id=${articleId}`;
-  const actualUrl = window.location.href;
-  const title = encodeURIComponent(document.title);
-  
-  const platforms = {
-    'share-facebook': `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(previewUrl)}`,
-    'share-twitter': `https://twitter.com/intent/tweet?url=${encodeURIComponent(previewUrl)}&text=${title}`,
-    'share-whatsapp': `https://api.whatsapp.com/send?text=${title}%20${encodeURIComponent(previewUrl)}`,
-    'share-linkedin': `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(previewUrl)}`,
-    'share-telegram': `https://t.me/share/url?url=${encodeURIComponent(previewUrl)}&text=${title}`,
-    'share-reddit': `https://www.reddit.com/submit?url=${encodeURIComponent(previewUrl)}&title=${title}`,
-    'share-pinterest': `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(previewUrl)}`,
-    'share-email': `mailto:?subject=${title}&body=Check this article: ${encodeURIComponent(actualUrl)}`
-  };
-  
-  for (const [id, href] of Object.entries(platforms)) {
-    const link = document.getElementById(id);
-    if (link) { link.href = href; link.target = '_blank'; link.rel = 'noopener noreferrer'; }
-  }
-  
-  if (shareBtn && tooltip) {
-    const newShareBtn = shareBtn.cloneNode(true);
-    shareBtn.parentNode.replaceChild(newShareBtn, shareBtn);
-    newShareBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      tooltip.classList.toggle('show');
-    });
-  }
-  
-  document.addEventListener('click', function(e) {
-    if (tooltip && !tooltip.contains(e.target) && e.target !== shareBtn && e.target !== document.getElementById('article-share-btn')) {
-      tooltip.classList.remove('show');
-    }
-  });
-}
-
-// Global functions
-window.copyPageLink = function() { navigator.clipboard.writeText(window.location.href).then(() => alert("Link copied!")); };
-window.playVideo = function(youtubeId) { if (youtubeId) window.open('https://www.youtube.com/watch?v=' + youtubeId, '_blank'); };
-</script>
-
-</body>
-</html>
+    if (metaEl) {
+        let metaHtml = '';
+        if (article.location) metaHtml += `<strong>${article.location}</strong>`;
+        if (article.date) {
+            const dateObj = new Date(article.date);
+            const formattedDate = dateObj.toLocaleDateString('en-GB', { year: 'numeric', month: 'long
