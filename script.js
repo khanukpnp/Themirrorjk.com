@@ -1,6 +1,6 @@
-/* ============================================================
+/* ============================
    THE MIRROR JAMMU KASHMIR - COMPLETE SCRIPT ENGINE
-   ============================================================ */
+   ============================ */
 document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM loaded - initializing...");
     
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
     initNewsletter();
     initFooterDropdowns();
     initReadingProgress();
+    initDisclosureAutoScroll();
     
     // Dynamic Content Ingestion Architecture
     loadHomepageContent();
@@ -40,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function() {
     
     setInterval(updateClocks, 1000);
 });
-
 /* ============================
    LOADER & FOOTER YEAR
    ============================ */
@@ -52,24 +52,20 @@ function initLoader() {
         setTimeout(function() { loader.style.display = "none"; }, 300);
     }, 1500);
 }
-
 function initYear() {
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
-
 /* ============================
    PRECISION TIMEBAR ENGINE (FIXED GLOBAL HOURLY BLEED)
    ============================ */
 function initClocks() {
     updateClocks();
 }
-
 function updateClocks() {
     const now = new Date();
     const datetimeBar = document.getElementById("datetime-bar");
     if (!datetimeBar) return;
-
     const fullDate = now.toLocaleDateString("en-GB", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const zurichTime = now.toLocaleTimeString("en-GB", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit", second: "2-digit" });
     const cestText = fullDate + " at " + zurichTime;
@@ -97,7 +93,6 @@ function updateClocks() {
         <span>PKT (Gilgit-Baltistan & Azad Kashmir): <strong>${pktFull}</strong></span>
     `;
 }
-
 function getHijriDate() {
     try {
         return new Intl.DateTimeFormat("en-u-ca-islamic", { day: "numeric", month: "long", year: "numeric" }).format(new Date()) + " AH";
@@ -105,7 +100,6 @@ function getHijriDate() {
         return "Ramadan, 1447 AH";
     }
 }
-
 function getBikramiDate() {
     const today = new Date();
     const day = today.getDate();
@@ -139,7 +133,6 @@ function getBikramiDate() {
     
     return bikramiDays[today.getDay()] + ", " + bikramiDay + " " + bikramiMonths[bikramiMonth] + " " + bikramiYear + " VS";
 }
-
 /* ============================
    WEATHER BAR
    ============================ */
@@ -154,7 +147,6 @@ function initWeatherBar() {
     ];
     bar.innerHTML = cities.map((c, i) => `<span>${c.name}: <strong>${c.temp}</strong></span>`).join('<span class="separator">•</span>');
 }
-
 /* ============================
    DYNAMIC TICKER ENGINE
    ============================ */
@@ -174,7 +166,6 @@ function initTicker(jsonData) {
     }
     tickerItems.innerHTML = html;
 }
-
 /* ============================
    READING PROGRESS BAR
    ============================ */
@@ -187,7 +178,6 @@ function initReadingProgress() {
         progressBar.style.width = scrolled + '%';
     });
 }
-
 /* ============================
    NAVIGATION
    ============================ */
@@ -223,7 +213,6 @@ function initNav() {
         }
     });
 }
-
 /* ============================
    CONTACT MODAL
    ============================ */
@@ -252,12 +241,29 @@ function initContactModal() {
         });
     }
 }
-
 /* ============================
-   VLOGS DATA ARCHITECTURE
+   AUTOMATIC SCROLLING ENGINE FOR DISCLOSURES
+   ============================ */
+function initDisclosureAutoScroll() {
+    document.querySelectorAll('.inline-section-archive').forEach(disclosure => {
+        disclosure.addEventListener('toggle', function() {
+            if (disclosure.open) {
+                setTimeout(() => {
+                    disclosure.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest'
+                    });
+                }, 100);
+            }
+        });
+    });
+}
+/* ============================
+   VLOGS DATA ARCHITECTURE WITH AUTO-ARCHIVE
    ============================ */
 function initVlogs() {
     const grid = document.getElementById("vlogs-grid");
+    const archiveGrid = document.getElementById("vlogs-archive-grid");
     const visitBtn = document.getElementById("vlog-visit-channel");
     if (!grid) return;
     
@@ -268,18 +274,22 @@ function initVlogs() {
                 visitBtn.onclick = () => window.open(data.channel.url, "_blank");
                 visitBtn.style.display = 'inline-block';
             }
-            renderVlogs(data.videos || []);
+            renderVlogs(data.videos || [], grid, archiveGrid);
         })
         .catch(() => {
             if (visitBtn) visitBtn.style.display = 'none';
             renderVlogsFallback();
         });
 }
-
-function renderVlogs(videos) {
-    const grid = document.getElementById("vlogs-grid");
-    if (!grid || !videos.length) { renderVlogsFallback(); return; }
-    grid.innerHTML = videos.map(v => {
+function renderVlogs(videos, mainGrid, archiveGrid) {
+    if (!mainGrid) return;
+    if (!videos.length) { renderVlogsFallback(); return; }
+    
+    // Sort array: newest content on top
+    const activeVlogs = videos.slice(0, 3);
+    const archivedVlogs = videos.slice(3);
+    
+    const mapHtml = v => {
         const thumb = v.youtubeId ? `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg` : 'https://via.placeholder.com/640x360?text=Video';
         return `
             <article class="card">
@@ -290,21 +300,24 @@ function renderVlogs(videos) {
                 </div>
                 <div class="card-body"><h3>${v.title}</h3><p>${v.description || ''}</p></div>
             </article>`;
-    }).join('');
-}
+    };
 
+    mainGrid.innerHTML = activeVlogs.map(mapHtml).join('');
+    if (archiveGrid) {
+        archiveGrid.innerHTML = archivedVlogs.length ? archivedVlogs.map(mapHtml).join('') : '<p style="padding:15px; color:#666;">No older vlogs archived.</p>';
+    }
+}
 function renderVlogsFallback() {
     const grid = document.getElementById("vlogs-grid");
+    const archiveGrid = document.getElementById("vlogs-archive-grid");
     if (!grid) return;
     const fallbacks = [
         { title: "Azad Kashmir Under Siege", description: "Communication blackout, curfews, and widespread leadership actions.", duration: "15:32", youtubeId: "lRE5cVWbWmA" },
         { title: "Kashmiri Leaders Geneva Briefing", description: "Crucial international briefing on human rights developments.", duration: "12:45", youtubeId: "1Sbomv3juT4" }
     ];
-    renderVlogs(fallbacks);
+    renderVlogs(fallbacks, grid, archiveGrid);
 }
-
 function playVideo(id) { if (id) window.open('https://www.youtube.com/watch?v=' + id, '_blank'); }
-
 /* ============================
    INTERFACE CONTROLS & MODULES
    ============================ */
@@ -313,7 +326,6 @@ function initLanguageSelector() {
         alert("Language changed to " + e.target.options[e.target.selectedIndex].text);
     });
 }
-
 /* ============================
    SHARE TOOLTIP ENGINE
    ============================ */
@@ -328,7 +340,6 @@ function initShareTooltip() {
     
     updateShareLinks();
 }
-
 function updateShareLinks() {
     const url = encodeURIComponent(window.location.href);
     const title = encodeURIComponent(document.title);
@@ -343,7 +354,6 @@ function updateShareLinks() {
         if (el) { el.href = href; el.target = '_blank'; }
     }
 }
-
 function initSearch() {
     document.querySelector(".search")?.addEventListener("submit", e => {
         e.preventDefault();
@@ -351,7 +361,6 @@ function initSearch() {
         if (input) alert("Searching for: " + input);
     });
 }
-
 function initSocialButtons() {
     document.querySelectorAll(".sa-btn").forEach(btn => {
         btn.addEventListener("click", function() {
@@ -361,13 +370,11 @@ function initSocialButtons() {
         });
     });
 }
-
 function copyPageLink() {
     navigator.clipboard.writeText(window.location.href)
         .then(() => alert("Link copied to clipboard!"))
         .catch(() => alert("Failed to copy link"));
 }
-
 function initFileUpload() {
     const fileInput = document.getElementById("file-upload");
     const nameSpan = document.querySelector(".file-name");
@@ -377,7 +384,6 @@ function initFileUpload() {
         });
     }
 }
-
 function initNewsletter() {
     document.getElementById("subscribeBtn")?.addEventListener("click", e => {
         e.preventDefault();
@@ -385,7 +391,6 @@ function initNewsletter() {
         if (email && email.includes("@")) { alert("Thank you for subscribing!"); }
     });
 }
-
 function initFooterDropdowns() {
     updateFooterContent();
     document.querySelectorAll('.footer-section').forEach(section => {
@@ -395,7 +400,6 @@ function initFooterDropdowns() {
         });
     });
 }
-
 function updateFooterContent() {
     const fc = document.querySelector('.footer-content');
     if (!fc) return;
@@ -417,7 +421,6 @@ function updateFooterContent() {
             <div class="social-icons"><a href="#">📘</a><a href="#">▶️</a></div>
         </div>`;
 }
-
 /* ============================
    DYNAMIC HOMEPAGE CONTENT LOADING
    ============================ */
@@ -435,43 +438,55 @@ function loadHomepageContent() {
                 loadLehSection([index.latestEditorialHistorical.latest, index.latestEditorialHistorical.editorial, index.latestEditorialHistorical.historical]);
             } else { loadLehFallback(); }
             
-            if (index.jammuKashmir) loadSectionGroup("jk-grid", index.jammuKashmir, "JK");
-            if (index.international) loadSectionGroup("intl-grid", index.international, "INTL");
-            if (index.humanRights) loadSectionGroup("hr-grid", index.humanRights, "HR");
+            if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "JK");
+            if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "INTL");
+            if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "HR");
         })
         .catch(() => {
             initTicker(null);
             loadAllFallback();
         });
 }
-
-function loadSectionGroup(gridId, ids, label) {
+function loadSectionGroup(gridId, archiveGridId, ids, label) {
     const grid = document.getElementById(gridId);
+    const archiveGrid = document.getElementById(archiveGridId);
     if (!grid || !ids) return;
     
     Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
-            grid.innerHTML = articles.map(a => a ? createHomepageCard(a.items ? a.items[0] : a) : createEmptyCard(label)).join('');
+            const validArticles = articles.filter(Boolean);
+            // Splitting logic: Top 2 objects go into standard row view, remainder down below
+            const activeSlice = validArticles.slice(0, 2);
+            const archiveSlice = validArticles.slice(2);
+
+            grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('') : createEmptyCard(label);
+            if (archiveGrid) {
+                archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('') : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
+            }
         });
 }
-
 function loadAllFallback() {
     loadTopStoriesFallback();
     loadLehFallback();
 }
-
 function loadTopStories(ids) {
     const grid = document.getElementById("top-stories-grid");
+    const archiveGrid = document.getElementById("top-stories-archive-grid");
     if (!grid) return;
     Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean);
             if (validArticles.length) {
-                grid.innerHTML = validArticles.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('');
+                const activeSlice = validArticles.slice(0, 3);
+                const archiveSlice = validArticles.slice(3);
+                
+                grid.innerHTML = activeSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('');
+                if (archiveGrid) {
+                    archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('') : '<p style="padding:15px; color:#666;">No older Top Stories archived.</p>';
+                }
             } else { loadTopStoriesFallback(); }
         });
 }
-
 function loadTopStoriesFallback() {
     const grid = document.getElementById("top-stories-grid");
     if (grid) {
@@ -482,22 +497,27 @@ function loadTopStoriesFallback() {
         </article>`;
     }
 }
-
 function loadLehSection(ids) {
     const grid = document.getElementById("leh-grid");
+    const archiveGrid = document.getElementById("leh-archive-grid");
     if (!grid) return;
     const labels = ["LATEST", "EDITORIAL", "HISTORICAL"];
     Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
-            grid.innerHTML = articles.map((a, i) => a ? createHomepageCard(a.items ? a.items[0] : a, labels[i]) : createEmptyCard(labels[i])).join('');
+            const validArticles = articles.filter(Boolean);
+            const activeSlice = validArticles.slice(0, 3);
+            const archiveSlice = validArticles.slice(3);
+
+            grid.innerHTML = activeSlice.map((a, i) => createHomepageCard(a.items ? a.items[0] : a, labels[i])).join('');
+            if (archiveGrid) {
+                archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('') : '<p style="padding:15px; color:#666;">No older updates archived.</p>';
+            }
         });
 }
-
 function loadLehFallback() {
     const grid = document.getElementById("leh-grid");
     if (grid) grid.innerHTML = createEmptyCard("LATEST") + createEmptyCard("EDITORIAL") + createEmptyCard("HISTORICAL");
 }
-
 function createHomepageCard(article, label) {
     if (!article) return '';
     const title = article.title || 'Untitled';
@@ -514,7 +534,6 @@ function createHomepageCard(article, label) {
             </div>
         </article>`;
 }
-
 /* ============================
    ARTICLE SYSTEM & PAGINATION PIPELINE
    ============================ */
@@ -536,7 +555,6 @@ function initArticlePage() {
             document.body.innerHTML = `<div style="text-align:center; padding:50px;"><h2>Article not found: ${id}</h2></div>`;
         });
 }
-
 function renderFullArticlePage(article) {
     if (document.getElementById('loading-state')) document.getElementById('loading-state').style.display = 'none';
     
@@ -568,7 +586,6 @@ function renderFullArticlePage(article) {
             addArticlePagination(article.id, sequence);
         }).catch(() => addArticlePagination(article.id, []));
 }
-
 function addArticlePagination(currentId, sequence) {
     let div = document.querySelector('.article-pagination') || document.createElement('div');
     div.className = 'article-pagination';
@@ -584,21 +601,17 @@ function addArticlePagination(currentId, sequence) {
     
     div.innerHTML = `<a href="index.html" class="pagination-btn home-btn">← Back to Home</a><div class="pagination-nav">${prevHtml}${nextHtml}</div>`;
 }
-
 function updateSocialMetaTags(article) {
     document.title = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
     document.getElementById('og-title')?.setAttribute('content', article.title || '');
     document.getElementById('og-description')?.setAttribute('content', article.excerpt || '');
 }
-
 function createEmptyCard(label = "COMING SOON") {
     return `<article class="card"><div class="card-body"><h3>${label}</h3><p>Content coming soon.</p></div></article>`;
 }
-
 // Fallback empty loaders for dedicated layouts
 function loadAboutPage() {}
 function loadChiefEditorPage() {}
 function loadHistoricalPage() {}
-
 window.copyPageLink = copyPageLink;
 window.playVideo = playVideo;
