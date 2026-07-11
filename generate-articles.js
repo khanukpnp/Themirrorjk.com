@@ -1,6 +1,5 @@
 // generate-articles.js
 // Run with: node generate-articles.js
-
 const fs = require('fs');
 const path = require('path');
 
@@ -27,7 +26,7 @@ function getAllArticles() {
     const articles = [];
     
     files.forEach(file => {
-        if (file.endsWith('.json')) {
+        if (file.endsWith('.json') && file !== 'index.json' && file !== 'youtube.json') {
             try {
                 const filePath = path.join(CONFIG.contentDir, file);
                 const content = fs.readFileSync(filePath, 'utf8');
@@ -117,8 +116,8 @@ function generateArticleHTML(article) {
     <meta name="robots" content="index, follow">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="../styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Source+Sans+Pro:wght=400;600;700&display=swap" rel="stylesheet">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -182,15 +181,11 @@ function generateArticleHTML(article) {
         <div class="next-article-text" id="next-article-suggestion" style="display: none;"></div>
     </main>
     
-    <!-- Share Tooltip -->
+    <!-- Share Tooltip Links Fixed to Match Engine Layout IDs -->
     <div class="share-tooltip" id="share-tooltip">
         <a href="#" id="share-facebook"><span>📘</span> Facebook</a>
         <a href="#" id="share-twitter"><span>🐦</span> X (Twitter)</a>
         <a href="#" id="share-whatsapp"><span>📱</span> WhatsApp</a>
-        <a href="#" id="share-linkedin"><span>🔗</span> LinkedIn</a>
-        <a href="#" id="share-telegram"><span>✈️</span> Telegram</a>
-        <a href="#" id="share-reddit"><span>🤖</span> Reddit</a>
-        <a href="#" id="share-pinterest"><span>📌</span> Pinterest</a>
         <a href="#" id="share-email"><span>📧</span> Email</a>
     </div>
     
@@ -200,11 +195,11 @@ function generateArticleHTML(article) {
     </footer>
     
     <script>
-        // Pass article data to JavaScript
+        // Pass article data globally to JavaScript execution environment
         window.ARTICLE_DATA = ${JSON.stringify(article)};
         window.ARTICLE_ID = "${id}";
     </script>
-    <script src="../script.js"></script>
+    <script src="/script.js"></script>
 </body>
 </html>`;
 }
