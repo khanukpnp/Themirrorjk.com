@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     initLoader();
     initYear();
     initClocks();
-    initWeatherBar();
+    initWeatherBar(); // Fires the live weather automation pipeline
     initNav();
     initContactModal();
     initVlogs();
@@ -39,7 +39,11 @@ document.addEventListener("DOMContentLoaded", function() {
         loadHistoricalPage();
     }
     
+    // Automatically keep clocks and calendars ticking every second
     setInterval(updateClocks, 1000);
+    
+    // Automatically refresh live weather data every 15 minutes (900000 ms)
+    setInterval(initWeatherBar, 900000);
 });
 /* ============================
    LOADER & FOOTER YEAR
@@ -134,18 +138,44 @@ function getBikramiDate() {
     return bikramiDays[today.getDay()] + ", " + bikramiDay + " " + bikramiMonths[bikramiMonth] + " " + bikramiYear + " VS";
 }
 /* ============================
-   WEATHER BAR
+   AUTOMATED REAL-TIME WEATHER BAR
    ============================ */
 function initWeatherBar() {
     const bar = document.getElementById("weather-bar");
     if (!bar) return;
+    
+    // Accurate coordinates for exact automated region parsing
     const cities = [
-        { name: "Zurich", temp: "6°C" }, { name: "Rawalakot", temp: "9°C" },
-        { name: "Jammu", temp: "18°C" }, { name: "Kashmir", temp: "4°C" },
-        { name: "Ladakh", temp: "-2°C" }, { name: "Gilgit", temp: "3°C" },
-        { name: "Baltistan", temp: "-1°C" }, { name: "Muzaffarabad", temp: "10°C" }
+        { name: "Zurich", lat: 47.3769, lon: 8.5417, temp: "6°C" },
+        { name: "Rawalakot", lat: 33.8578, lon: 73.7604, temp: "9°C" },
+        { name: "Jammu", lat: 32.7266, lon: 74.8570, temp: "18°C" },
+        { name: "Kashmir", lat: 34.0837, lon: 74.7973, temp: "4°C" }, // Srinagar Baseline
+        { name: "Ladakh", lat: 34.1526, lon: 77.5771, temp: "-2°C" }, // Leh Baseline
+        { name: "Gilgit", lat: 35.9208, lon: 74.3089, temp: "3°C" },
+        { name: "Baltistan", lat: 35.2974, lon: 75.6329, temp: "-1°C" }, // Skardu Baseline
+        { name: "Muzaffarabad", lat: 34.3700, lon: 73.4711, temp: "10°C" }
     ];
-    bar.innerHTML = cities.map((c, i) => `<span>${c.name}: <strong>${c.temp}</strong></span>`).join('<span class="separator">•</span>');
+
+    // Build batch coordinate query strings for Open-Meteo
+    const lats = cities.map(c => c.lat).join(",");
+    const lons = cities.map(c => c.lon).join(",");
+    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&current_weather=true`;
+
+    fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => {
+            let dataArray = Array.isArray(data) ? data : [data];
+            const updatedHtml = cities.map((city, idx) => {
+                const liveData = dataArray[idx]?.current_weather;
+                const finalTemp = liveData ? `${Math.round(liveData.temperature)}°C` : city.temp;
+                return `<span>${city.name}: <strong>${finalTemp}</strong></span>`;
+            }).join('<span class="separator">•</span>');
+            bar.innerHTML = updatedHtml;
+        })
+        .catch(() => {
+            // Fallback gracefully to standard database visual indicators if API throttle triggers
+            bar.innerHTML = cities.map(c => `<span>${c.name}: <strong>${c.temp}</strong></span>`).join('<span class="separator">•</span>');
+        });
 }
 /* ============================
    DYNAMIC TICKER ENGINE
@@ -154,7 +184,6 @@ function initTicker(jsonData) {
     const tickerItems = document.getElementById("ticker-items");
     if (!tickerItems) return;
     
-    // Connects dynamic properties directly from index.json configurations
     const items = (jsonData && jsonData.ticker) ? jsonData.ticker : [
         "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
         "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES"
@@ -285,7 +314,6 @@ function renderVlogs(videos, mainGrid, archiveGrid) {
     if (!mainGrid) return;
     if (!videos.length) { renderVlogsFallback(); return; }
     
-    // Sort array: newest content on top
     const activeVlogs = videos.slice(0, 3);
     const archivedVlogs = videos.slice(3);
     
@@ -452,24 +480,19 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
     const archiveGrid = document.getElementById(archiveGridId);
     if (!grid || !ids) return;
     
-    // Resolve all specific standalone active json blocks
     Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             let validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
             
-            // Simultaneously read from full compilation file to append historical context items
             fetch("content/article.json")
                 .then(res => res.ok ? res.json() : { items: [] })
                 .then(archiveData => {
                     const archivedItems = archiveData.items || [];
-                    
-                    // Filter down elements belonging to target taxonomy tags
                     const categoryItems = archivedItems.filter(item => 
                         item.category === categoryKey || 
                         item.sectionLabel === categoryKey
                     );
                     
-                    // Cross-reference data tracks smoothly to ensure items do not duplicate
                     let combinedPool = [...validArticles];
                     categoryItems.forEach(oldItem => {
                         if (!combinedPool.some(newItem => newItem.id === oldItem.id)) {
@@ -477,7 +500,6 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
                         }
                     });
 
-                    // Splitting slices: First 2 stay upfront inside display card grid arrays
                     const activeSlice = combinedPool.slice(0, 2);
                     const archiveSlice = combinedPool.slice(2);
 
@@ -489,7 +511,6 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
                     }
                 })
                 .catch(() => {
-                    // Fallback baseline execution pipeline
                     const activeSlice = validArticles.slice(0, 2);
                     const archiveSlice = validArticles.slice(2);
                     grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a)).join('') : createEmptyCard(label);
@@ -585,7 +606,6 @@ function initArticlePage() {
             initShareTooltip();
         })
         .catch(() => {
-            // Check secondary fallback route directly into the master archive index block arrays 
             fetch("content/article.json")
                 .then(r => r.json())
                 .then(archiveData => {
@@ -622,7 +642,6 @@ function renderFullArticlePage(article) {
     
     contentEl.innerHTML = bodyHtml;
     
-    // Connect dynamic next/previous sequence directly from the index.json keys
     fetch("content/index.json")
         .then(r => r.json())
         .then(index => {
@@ -657,7 +676,6 @@ function updateSocialMetaTags(article) {
 function createEmptyCard(label = "COMING SOON") {
     return `<article class="card"><div class="card-body"><h3>${label}</h3><p>Content coming soon.</p></div></article>`;
 }
-// Fallback empty loaders for dedicated layouts
 function loadAboutPage() {}
 function loadChiefEditorPage() {}
 function loadHistoricalPage() {}
