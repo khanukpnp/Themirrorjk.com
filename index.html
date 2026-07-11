@@ -21,7 +21,7 @@
     <meta name="twitter:site" content="@TheMirrorJK">
     
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Source+Sans+Pro:wght=400;600;700&display=swap" rel="stylesheet">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -242,7 +242,6 @@
                 width: auto;
             }
         }
-
         /* Styles for the combined Spotlight, In Focus & Trending row */
         .three-window-row {
             display: grid;
@@ -308,6 +307,33 @@
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
+        }
+
+        /* CUSTOM ADDITIONS FOR ON-PAGE EXPANDABLE ARCHIVES W/ SMOOTH SCROLLING */
+        .inline-section-archive {
+            margin-top: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background: #fdfdfd;
+        }
+        .inline-section-archive summary {
+            padding: 12px 16px;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #800000;
+            cursor: pointer;
+            outline: none;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+        .inline-section-archive summary:hover {
+            background: #f5f5f5;
+            color: #b30000;
+        }
+        .inline-section-archive[open] summary {
+            border-bottom: 1px solid #e0e0e0;
+            background: #fafafa;
         }
     </style>
 </head>
@@ -416,8 +442,11 @@
             <section id="top-stories">
                 <h2 class="section-title modern-title">⭐ Top Stories</h2>
                 <div class="cards three" id="top-stories-grid"></div>
+                <details class="inline-section-archive" id="top-stories-archive-disclosure">
+                    <summary>📁 View Archived Top Stories</summary>
+                    <div class="cards three" id="top-stories-archive-grid"></div>
+                </details>
             </section>
-
             <!-- NEW COMBINED SECTION: SPOTLIGHT, IN FOCUS & TRENDING -->
             <section id="spotlight-focus-trending" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">
@@ -455,16 +484,23 @@
                     </div>
                 </div>
             </section>
-
             <!-- LATEST / EDITORIAL / HISTORICAL -->
             <section id="latest-editorial-historical">
                 <h2 class="section-title modern-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</h2>
                 <div class="cards three" id="leh-grid"></div>
+                <details class="inline-section-archive" id="leh-archive-disclosure">
+                    <summary>📁 View Archived Latest, Editorials & History</summary>
+                    <div class="cards three" id="leh-archive-grid"></div>
+                </details>
             </section>
             <!-- JAMMU KASHMIR -->
             <section id="jammu-kashmir">
                 <h2 class="section-title modern-title">📍 Jammu Kashmir</h2>
                 <div class="cards two" id="jk-grid"></div>
+                <details class="inline-section-archive" id="jk-archive-disclosure">
+                    <summary>📁 View Archived Jammu Kashmir Reports</summary>
+                    <div class="cards two" id="jk-archive-grid"></div>
+                </details>
             </section>
             <!-- VLOGS SECTION -->
             <section id="vlogs">
@@ -473,16 +509,28 @@
                     <button class="btn-red" id="vlog-visit-channel">🎥 Visit Channel</button>
                 </div>
                 <div class="cards three vlogs-grid" id="vlogs-grid"></div>
+                <details class="inline-section-archive" id="vlogs-archive-disclosure">
+                    <summary>📁 View Archived Vlogs</summary>
+                    <div class="cards three vlogs-grid" id="vlogs-archive-grid"></div>
+                </details>
             </section>
             <!-- INTERNATIONAL NEWS -->
             <section id="international">
                 <h2 class="section-title modern-title">🌍 International News</h2>
                 <div class="cards two" id="intl-grid"></div>
+                <details class="inline-section-archive" id="intl-archive-disclosure">
+                    <summary>📁 View Archived International News</summary>
+                    <div class="cards two" id="intl-archive-grid"></div>
+                </details>
             </section>
             <!-- HUMAN RIGHTS -->
             <section id="human-rights">
                 <h2 class="section-title modern-title">❤️ Human Rights</h2>
                 <div class="cards two" id="hr-grid"></div>
+                <details class="inline-section-archive" id="hr-archive-disclosure">
+                    <summary>📁 View Archived Human Rights Entries</summary>
+                    <div class="cards two" id="hr-archive-grid"></div>
+                </details>
             </section>
             <!-- ARCHIVE -->
             <section id="archive">
