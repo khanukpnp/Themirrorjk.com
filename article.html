@@ -822,7 +822,7 @@
     <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
 <script>
-// ===== COMPLETE FIXED CORE PIPELINE SCRIPT =====
+// ===== COMPLETE FIXED CORE PIPELINE SCRIPT WITH COMPLETE ROUTING =====
 document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM loaded - initializing...");
     
@@ -838,10 +838,18 @@ document.addEventListener("DOMContentLoaded", function() {
     
     setInterval(updateClocks, 1000);
     
+    const path = window.location.pathname;
     const params = new URLSearchParams(window.location.search);
     const articleId = params.get("id");
     
-    if (articleId) {
+    // Dynamic Routing Engine matching main application architecture[cite: 3]
+    if (path.includes("about.html") || path.includes("about-001.html")) {
+        loadAboutPage();
+    } else if (path.includes("chief-editor.html") || path.includes("chief-editor-001.html")) {
+        loadChiefEditorPage();
+    } else if (path.includes("historical.html")) {
+        loadHistoricalPage();
+    } else if (articleId) {
         loadArticle(articleId);
     } else {
         const loadingDiv = document.getElementById('loading-state');
@@ -849,10 +857,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if (loadingDiv) loadingDiv.style.display = 'none';
         if (contentDiv) {
             contentDiv.style.display = 'block';
-            contentDiv.innerHTML = '<p style="text-align:center; padding:50px;">No article specified. <a href="index.html">Return to homepage</a></p>';
+            contentDiv.innerHTML = '<p style="text-align:center; padding:50px;">No content specified. <a href="index.html">Return to homepage</a></p>';
         }
     }
 });
+
 function initLoader() {
     const loader = document.getElementById("site-loader");
     if (!loader) return;
@@ -863,10 +872,12 @@ function initLoader() {
         }, 300);
     }, 1500);
 }
+
 function initYear() {
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
+
 function updateClocks() {
     const now = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -892,6 +903,7 @@ function updateClocks() {
         <span>PKT (Gilgit-Baltistan & Azad Kashmir): <strong>${pktTime}</strong></span>
     `;
 }
+
 function getHijriDate() {
     try {
         const now = new Date();
@@ -900,6 +912,7 @@ function getHijriDate() {
         return "Ramadan, 1447 AH";
     }
 }
+
 function getBikramiDate() {
     const today = new Date();
     const day = today.getDate();
@@ -934,6 +947,7 @@ function getBikramiDate() {
     
     return `${dayName}, ${bikramiDay} ${bikramiMonths[bikramiMonth]} ${bikramiYear} VS`;
 }
+
 function initWeatherBar() {
     const bar = document.getElementById("weather-bar");
     if (!bar) return;
@@ -950,6 +964,7 @@ function initWeatherBar() {
     });
     bar.innerHTML = html;
 }
+
 const TICKER_ITEMS = [
     "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
     "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES",
@@ -958,6 +973,7 @@ const TICKER_ITEMS = [
     "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS --- UDHR ARTICLE 1",
     "EQUALITY WITHOUT DISCRIMINATION IS A RIGHT, NOT A PRIVILEGE"
 ];
+
 function initTicker() {
     const tickerItems = document.getElementById("ticker-items");
     if (!tickerItems) return;
@@ -967,6 +983,7 @@ function initTicker() {
     }
     tickerItems.innerHTML = html;
 }
+
 function initReadingProgress() {
     const progressBar = document.getElementById('reading-progress');
     if (!progressBar) return;
@@ -976,6 +993,7 @@ function initReadingProgress() {
         progressBar.style.width = scrolled + '%';
     });
 }
+
 function initNav() {
     const hamburger = document.getElementById("hamburger");
     const navList = document.getElementById("nav-list");
@@ -988,6 +1006,7 @@ function initNav() {
         if (!expanded) mobileMenu.innerHTML = navList.innerHTML;
     });
 }
+
 function initLanguageSelector() {
     const select = document.getElementById("language-select");
     if (!select) return;
@@ -995,6 +1014,7 @@ function initLanguageSelector() {
         alert("Language changed to " + e.target.options[e.target.selectedIndex].text);
     });
 }
+
 function initSearch() {
     const searchForm = document.getElementById("search-form");
     const searchInput = document.getElementById("search-input");
@@ -1005,7 +1025,7 @@ function initSearch() {
     });
 }
 
-// ===== RELIABLE DETAILED ARTICLE LOADING FUNCTION WITH MASTER DB FALLBACK =====
+// ===== RELIABLE DETAILED ARTICLE LOADING FUNCTION =====
 async function loadArticle(articleId) {
     console.log("Loading article:", articleId);
     
@@ -1028,7 +1048,6 @@ async function loadArticle(articleId) {
     // 1. Try loading dedicated individual JSON
     for (const path of pathsToTry) {
         try {
-            console.log("Trying path:", path);
             const response = await fetch(path);
             if (response.ok) {
                 let data = await response.json();
@@ -1049,7 +1068,6 @@ async function loadArticle(articleId) {
     // 2. Try falling back to looking inside content/article.json
     if (!articleData) {
         try {
-            console.log("Falling back to query master file: content/article.json");
             const response = await fetch("content/article.json");
             if (response.ok) {
                 const masterData = await response.json();
@@ -1074,12 +1092,8 @@ async function loadArticle(articleId) {
         return;
     }
     
-    console.log("Article data loaded successfully:", articleData.title);
-    
     updateSocialMetaTags(articleData, articleId);
     renderFullArticlePage(articleData);
-    initSocialButtons(articleId, articleData.title);
-    setupPagination(articleId);
 }
 
 function updateSocialMetaTags(article, articleId) {
@@ -1141,7 +1155,6 @@ function renderFullArticlePage(article) {
         metaEl.innerHTML = metaHtml;
     }
     
-    // Set hero image
     if (heroWrap && heroImg) {
         let imgSrc = '';
         let captionText = '';
@@ -1166,7 +1179,6 @@ function renderFullArticlePage(article) {
         }
     }
     
-    // Inject article body
     if (contentDiv) {
         contentDiv.innerHTML = renderJSONBody(article.body || article.content);
         contentDiv.style.display = 'block';
@@ -1201,6 +1213,88 @@ function renderJSONBody(bodyData) {
         }).join('');
     }
     return '';
+}
+
+// ===== SYSTEM PROSE PAGE LOADING FALLBACKS =====
+function loadAboutPage() {
+    const titleEl = document.getElementById("title");
+    const contentEl = document.getElementById("content");
+    const loadingDiv = document.getElementById('loading-state');
+    
+    if (loadingDiv) loadingDiv.style.display = 'flex';
+    
+    fetch("content/about-001.json")
+        .then(res => res.ok ? res.json() : Promise.reject())
+        .then(data => {
+            const cleanData = data.items ? data.items[0] : data;
+            if (titleEl) titleEl.textContent = cleanData.title || "About Us";
+            if (contentEl) {
+                contentEl.innerHTML = renderJSONBody(cleanData.body);
+                contentEl.style.display = 'block';
+            }
+            if (loadingDiv) loadingDiv.style.display = 'none';
+        })
+        .catch(() => {
+            if (contentEl) {
+                contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to dynamically connect to the 'about-001.json' layout files.</p>`;
+                contentEl.style.display = 'block';
+            }
+            if (loadingDiv) loadingDiv.style.display = 'none';
+        });
+}
+
+function loadChiefEditorPage() {
+    const titleEl = document.getElementById("title");
+    const contentEl = document.getElementById("content");
+    const loadingDiv = document.getElementById('loading-state');
+    
+    if (loadingDiv) loadingDiv.style.display = 'flex';
+    
+    fetch("content/chief-editor-001.json")
+        .then(res => res.ok ? res.json() : Promise.reject())
+        .then(data => {
+            const cleanData = data.items ? data.items[0] : data;
+            if (titleEl) titleEl.textContent = cleanData.title || "Chief Editor";
+            if (contentEl) {
+                contentEl.innerHTML = renderJSONBody(cleanData.body || cleanData.content);
+                contentEl.style.display = 'block';
+            }
+            if (loadingDiv) loadingDiv.style.display = 'none';
+        })
+        .catch(() => {
+            if (contentEl) {
+                contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to dynamically connect to the 'chief-editor-001.json' layout files.</p>`;
+                contentEl.style.display = 'block';
+            }
+            if (loadingDiv) loadingDiv.style.display = 'none';
+        });
+}
+
+function loadHistoricalPage() {
+    const titleEl = document.getElementById("title");
+    const contentEl = document.getElementById("content");
+    const loadingDiv = document.getElementById('loading-state');
+    
+    if (loadingDiv) loadingDiv.style.display = 'flex';
+    
+    fetch("content/historical.json")
+        .then(res => res.ok ? res.json() : Promise.reject())
+        .then(data => {
+            const cleanData = data.items ? data.items[0] : data;
+            if (titleEl) titleEl.textContent = cleanData.title || "Historical Archive";
+            if (contentEl) {
+                contentEl.innerHTML = renderJSONBody(cleanData.body || cleanData.content);
+                contentEl.style.display = 'block';
+            }
+            if (loadingDiv) loadingDiv.style.display = 'none';
+        })
+        .catch(() => {
+            if (contentEl) {
+                contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to dynamically connect to the historical layout files.</p>`;
+                contentEl.style.display = 'block';
+            }
+            if (loadingDiv) loadingDiv.style.display = 'none';
+        });
 }
 
 function initSocialButtons(articleId, title) {}
