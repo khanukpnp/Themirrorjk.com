@@ -1,27 +1,29 @@
 /* ============================================================
-SOCIAL SHARING FIX - No changes to existing script.js
+SOCIAL SHARING FIX - Optimized & Aligned with Modern Article Page
 ============================================================ */
-
 (function() {
     // Wait for article to load
     function waitForArticle() {
         const checkInterval = setInterval(function() {
             const titleEl = document.getElementById('title');
-            if (titleEl && titleEl.textContent && titleEl.textContent !== '') {
+            if (titleEl && titleEl.textContent && titleEl.textContent.trim() !== '') {
                 clearInterval(checkInterval);
                 
-                // Get article data from the page
+                // Get article data directly from the rendered page
                 const articleData = {
                     title: titleEl.textContent,
                     excerpt: document.querySelector('#content p')?.textContent?.substring(0, 160) || 'Read the latest from THE MIRROR JAMMU KASHMIR',
-                    heroImage: document.getElementById('heroImg')?.src || '/content/images/logo.png'
+                    heroImage: document.getElementById('heroImg')?.getAttribute('src') || '/content/images/logo.png'
                 };
                 
                 // Update meta tags for social preview
                 updateMetaTags(articleData);
                 
-                // Fix share buttons
+                // Fix share buttons inside the tooltip
                 fixShareButtons(articleData);
+                
+                // Setup Toggle for Share Buttons
+                setupShareDropdown();
             }
         }, 100);
     }
@@ -33,7 +35,7 @@ SOCIAL SHARING FIX - No changes to existing script.js
         let imageUrl = article.heroImage;
         
         if (imageUrl && !imageUrl.startsWith('http')) {
-            imageUrl = window.location.origin + imageUrl;
+            imageUrl = window.location.origin + (imageUrl.startsWith('/') ? '' : '/') + imageUrl;
         }
         
         // Update Open Graph tags
@@ -73,7 +75,13 @@ SOCIAL SHARING FIX - No changes to existing script.js
         const url = encodeURIComponent(window.location.href);
         const title = encodeURIComponent(article.title);
         const description = encodeURIComponent(article.excerpt);
-        const image = encodeURIComponent(window.location.origin + (article.heroImage.startsWith('/') ? '' : '/') + article.heroImage);
+        
+        // Safely resolve clean complete image source
+        let absoluteImg = article.heroImage;
+        if (absoluteImg && !absoluteImg.startsWith('http')) {
+            absoluteImg = window.location.origin + (absoluteImg.startsWith('/') ? '' : '/') + absoluteImg;
+        }
+        const image = encodeURIComponent(absoluteImg);
         
         const shareLinks = {
             'share-facebook': `https://www.facebook.com/sharer/sharer.php?u=${url}`,
@@ -90,32 +98,43 @@ SOCIAL SHARING FIX - No changes to existing script.js
             const link = document.getElementById(id);
             if (link) {
                 link.href = href;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
             }
         }
         
-        // Also fix the article share button if it exists
-        const articleShareBtn = document.getElementById('article-share-btn');
-        if (articleShareBtn) {
-            articleShareBtn.addEventListener('click', function(e) {
-                const tooltip = document.getElementById('share-tooltip');
-                if (tooltip) {
-                    tooltip.classList.toggle('show');
-                } else {
-                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${decodeURIComponent(url)}`, '_blank');
+        console.log('Share tooltip links initialized successfully.');
+    }
+    
+    function setupShareDropdown() {
+        // Target both old design IDs and the new modern button IDs
+        const actionShareBtn = document.getElementById('action-share') || document.getElementById('article-share-btn');
+        const tooltip = document.getElementById('share-tooltip');
+        
+        if (actionShareBtn && tooltip) {
+            // Remove any old listeners first
+            const clone = actionShareBtn.cloneNode(true);
+            actionShareBtn.parentNode.replaceChild(clone, actionShareBtn);
+            
+            clone.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                tooltip.classList.toggle('show');
+            });
+            
+            // Auto close if clicking anywhere else outside the menu
+            document.addEventListener('click', function(e) {
+                if (!tooltip.contains(e.target) && e.target !== clone) {
+                    tooltip.classList.remove('show');
                 }
             });
         }
-        
-        console.log('Share buttons fixed');
     }
     
-    // Run only on article pages
+    // Run validation only on article pages
     if (window.location.pathname.includes('article.html') || window.location.search.includes('id=')) {
         document.addEventListener('DOMContentLoaded', waitForArticle);
-        // Also try immediately if already loaded
-        if (document.readyState === 'complete') {
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
             waitForArticle();
         }
     }
