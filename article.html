@@ -530,72 +530,129 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .article-actions-bottom {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 2px solid #e0e0e0;
+        
+        /* Modern Bottom Interactions styling */
+        .bottom-toolkit {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            border-top: 2px solid #eee;
+            font-family: 'Source Sans Pro', sans-serif;
         }
-        .article-action-buttons {
+        .social-row-modern {
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
             justify-content: center;
-        }
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .action-btn:hover {
-            background: #b30000;
-            color: white;
-            border-color: #b30000;
-        }
-        .article-pagination {
-            margin-top: 2rem;
-            padding: 1.5rem 0;
-            border-top: 1px solid #e0e0e0;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
-        .pagination-btn {
+        .sa-btn-modern {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             padding: 10px 20px;
-            background-color: #800000;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
+            border-radius: 30px;
+            font-size: 0.95rem;
             font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid #e0e0e0;
+            background: #fff;
+            color: #333;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
         }
-        .pagination-btn:hover {
-            background-color: #b30000;
-            transform: translateX(-2px);
-            color: white;
+        .sa-btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            border-color: #b30000;
+            color: #b30000;
+        }
+        .sa-btn-modern svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+        
+        /* Navigation timeline block */
+        .article-timeline-nav {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+            gap: 10px;
+        }
+        .timeline-link {
             text-decoration: none;
-        }
-        .pagination-btn.next-btn:hover {
-            transform: translateX(2px);
-        }
-        .pagination-nav {
+            color: #333;
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            transition: all 0.2s ease;
+            max-width: 320px;
         }
+        .timeline-link.prev {
+            align-items: flex-start;
+            text-align: left;
+        }
+        .timeline-link.next {
+            align-items: flex-end;
+            text-align: right;
+        }
+        .timeline-link:hover .timeline-dir {
+            color: #b30000;
+        }
+        .timeline-link:hover .timeline-title {
+            text-decoration: underline;
+            color: #111;
+        }
+        .timeline-dir {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #888;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1.3;
+            color: #444;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .timeline-home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid #e0e0e0;
+        }
+        .timeline-home:hover {
+            background: #b30000;
+            color: #fff;
+            border-color: #b30000;
+            transform: scale(1.05);
+        }
+        .timeline-home svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
         .share-tooltip {
             position: fixed;
             bottom: 30px;
@@ -636,59 +693,6 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .read-more-section {
-            margin: 3rem 0;
-            padding: 2rem;
-            background: #f9f9f9;
-            border-radius: 4px;
-            border-left: 4px solid #b30000;
-        }
-        .read-more-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #b30000;
-            margin-bottom: 1.5rem;
-            font-family: 'Playfair Display', serif;
-            position: relative;
-        }
-        .read-more-title::after {
-            content: '';
-            position: absolute;
-            bottom: -0.5rem;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: #b30000;
-        }
-        .read-more-content {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #333;
-        }
-        .read-more-content a {
-            color: #b30000;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .read-more-content a:hover {
-            text-decoration: underline;
-        }
-        .next-article-text {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 1rem;
-            padding: 12px;
-            background: #f5f5f5;
-            border-radius: 4px;
-        }
-        .next-article-text a {
-            color: #b30000;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .next-article-text a:hover {
-            text-decoration: underline;
-        }
         .reading-progress {
             position: fixed;
             top: 0;
@@ -720,16 +724,20 @@
             .hamburger { display: block; }
             .tools-bar { flex-direction: column; align-items: stretch; }
             .search input { width: 100%; }
-            .article-pagination { flex-direction: column; align-items: stretch; }
-            .pagination-nav { width: 100%; justify-content: space-between; }
-            .pagination-btn { flex: 1; justify-content: center; }
-            .article-action-buttons { flex-direction: column; }
-            .action-btn { width: 100%; justify-content: center; }
-            .share-tooltip { bottom: 20px; right: 20px; left: 20px; width: auto; }
-        }
-        @media (max-width: 480px) {
-            .site-title { font-size: 1.8rem; }
-            #title { font-size: 1.8rem; }
+            .article-timeline-nav {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                text-align: center;
+            }
+            .timeline-link.prev, .timeline-link.next {
+                align-items: center;
+                text-align: center;
+                max-width: 100%;
+            }
+            .timeline-home {
+                order: -1;
+                margin: 0 auto;
+            }
         }
     </style>
 </head>
@@ -793,6 +801,7 @@
     </ul>
     <div class="mobile-menu" id="mobile-menu" hidden></div>
 </nav>
+
 <main class="article-page">
     <div id="section-label" class="category-label"></div>
     <h1 id="title"></h1>
@@ -806,8 +815,45 @@
         <p>Loading article...</p>
     </div>
     <div id="content" class="clearfix" style="display: none;"></div>
-    <div class="next-article-text" id="next-article-suggestion" style="display: none;"></div>
 </main>
+
+<!-- Unified Bottom Interaction & Timeline Block -->
+<div class="bottom-toolkit">
+    <div class="social-row-modern">
+        <button class="sa-btn-modern" id="action-like">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span>Like</span>
+        </button>
+        <button class="sa-btn-modern" id="action-subscribe">
+            <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1-1.5-1s-1.5.17-1.5 1v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+            <span>Subscribe</span>
+        </button>
+        <button class="sa-btn-modern" id="action-share">
+            <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+            <span>Share</span>
+        </button>
+        <button class="sa-btn-modern" id="action-copy">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            <span>Copy Link</span>
+        </button>
+    </div>
+
+    <!-- Smart adjacent article navigation timeline -->
+    <div class="article-timeline-nav" id="article-pagination-block" style="display: none;">
+        <a href="#" class="timeline-link prev" id="prev-article-link" style="visibility: hidden;">
+            <span class="timeline-dir">← Previous</span>
+            <span class="timeline-title" id="prev-article-title">...</span>
+        </a>
+        <a href="index.html" class="timeline-home" title="Return to Homepage">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </a>
+        <a href="#" class="timeline-link next" id="next-article-link" style="visibility: hidden;">
+            <span class="timeline-dir">Next →</span>
+            <span class="timeline-title" id="next-article-title">...</span>
+        </a>
+    </div>
+</div>
+
 <div class="share-tooltip" id="share-tooltip">
     <a href="#" id="share-facebook">📘 Facebook</a>
     <a href="#" id="share-twitter">🐦 X (Twitter)</a>
@@ -818,9 +864,11 @@
     <a href="#" id="share-pinterest">📌 Pinterest</a>
     <a href="#" id="share-email">📧 Email</a>
 </div>
+
 <footer class="footer">
     <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
 </footer>
+
 <script>
 // ===== COMPLETE FIXED CORE PIPELINE SCRIPT WITH COMPLETE ROUTING =====
 document.addEventListener("DOMContentLoaded", function() {
@@ -1094,6 +1142,8 @@ async function loadArticle(articleId) {
     
     updateSocialMetaTags(articleData, articleId);
     renderFullArticlePage(articleData);
+    initSocialButtons(articleId, articleData.title);
+    setupPaginationTimeline(articleId);
 }
 
 function updateSocialMetaTags(article, articleId) {
@@ -1223,7 +1273,8 @@ function loadAboutPage() {
     
     if (loadingDiv) loadingDiv.style.display = 'flex';
     
-    fetch("content/about-001.json")
+    // Aligned to fetch directly from 'about.json'[cite: 6]
+    fetch("content/about.json")
         .then(res => res.ok ? res.json() : Promise.reject())
         .then(data => {
             const cleanData = data.items ? data.items[0] : data;
@@ -1236,7 +1287,7 @@ function loadAboutPage() {
         })
         .catch(() => {
             if (contentEl) {
-                contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to dynamically connect to the 'about-001.json' layout files.</p>`;
+                contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to dynamically connect to the 'about.json' layout files.</p>`;
                 contentEl.style.display = 'block';
             }
             if (loadingDiv) loadingDiv.style.display = 'none';
@@ -1250,11 +1301,12 @@ function loadChiefEditorPage() {
     
     if (loadingDiv) loadingDiv.style.display = 'flex';
     
-    fetch("content/chief-editor-001.json")
+    // Aligned to fetch directly from 'chief-editor.json'[cite: 6]
+    fetch("content/chief-editor.json")
         .then(res => res.ok ? res.json() : Promise.reject())
         .then(data => {
             const cleanData = data.items ? data.items[0] : data;
-            if (titleEl) titleEl.textContent = cleanData.title || "Chief Editor";
+            if (titleEl) titleEl.textContent = cleanData.title || "Chief Editor Message";
             if (contentEl) {
                 contentEl.innerHTML = renderJSONBody(cleanData.body || cleanData.content);
                 contentEl.style.display = 'block';
@@ -1263,7 +1315,7 @@ function loadChiefEditorPage() {
         })
         .catch(() => {
             if (contentEl) {
-                contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to dynamically connect to the 'chief-editor-001.json' layout files.</p>`;
+                contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to dynamically connect to the 'chief-editor.json' layout files.</p>`;
                 contentEl.style.display = 'block';
             }
             if (loadingDiv) loadingDiv.style.display = 'none';
@@ -1297,8 +1349,123 @@ function loadHistoricalPage() {
         });
 }
 
-function initSocialButtons(articleId, title) {}
-function setupPagination(articleId) {}
+// ===== MODERN BUTTONS INTERACTION HANDLERS =====
+function initSocialButtons(articleId, title) {
+    const likeBtn = document.getElementById("action-like");
+    const subBtn = document.getElementById("action-subscribe");
+    const shareBtn = document.getElementById("action-share");
+    const copyBtn = document.getElementById("action-copy");
+    
+    if (likeBtn) {
+        likeBtn.onclick = function() {
+            const count = this.getAttribute("data-liked") === "true";
+            if (!count) {
+                this.setAttribute("data-liked", "true");
+                this.style.color = "#b30000";
+                this.style.borderColor = "#b30000";
+                alert("Thank you for liking this article!");
+            } else {
+                this.removeAttribute("data-liked");
+                this.style.color = "";
+                this.style.borderColor = "";
+            }
+        }
+    }
+    
+    if (subBtn) {
+        subBtn.onclick = function() {
+            alert("Thank you for subscribing to The Mirror Jammu Kashmir!");
+        }
+    }
+    
+    if (copyBtn) {
+        copyBtn.onclick = function() {
+            navigator.clipboard.writeText(window.location.href)
+                .then(() => alert("Link successfully copied to clipboard!"))
+                .catch(() => alert("Failed to copy link."));
+        }
+    }
+    
+    if (shareBtn) {
+        shareBtn.onclick = function(e) {
+            e.stopPropagation();
+            const tooltip = document.getElementById("share-tooltip");
+            if (tooltip) {
+                tooltip.classList.toggle("show");
+                
+                // Configure sharing URL parameters dynamically
+                const shareUrl = encodeURIComponent(window.location.href);
+                const shareTitle = encodeURIComponent(title);
+                
+                document.getElementById("share-facebook").href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+                document.getElementById("share-twitter").href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}`;
+                document.getElementById("share-whatsapp").href = `https://api.whatsapp.com/send?text=${shareTitle}%20${shareUrl}`;
+                document.getElementById("share-linkedin").href = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
+                document.getElementById("share-telegram").href = `https://t.me/share/url?url=${shareUrl}&text=${shareTitle}`;
+                document.getElementById("share-reddit").href = `https://reddit.com/submit?url=${shareUrl}&title=${shareTitle}`;
+                document.getElementById("share-pinterest").href = `https://pinterest.com/pin/create/button/?url=${shareUrl}&description=${shareTitle}`;
+                document.getElementById("share-email").href = `mailto:?subject=${shareTitle}&body=${shareUrl}`;
+            }
+        }
+    }
+    
+    document.addEventListener("click", function() {
+        const tooltip = document.getElementById("share-tooltip");
+        if (tooltip) tooltip.classList.remove("show");
+    });
+}
+
+// ===== SMART AUTO-PAGINATION TIMELINE ENGINE =====
+async function setupPaginationTimeline(currentId) {
+    const block = document.getElementById("article-pagination-block");
+    const prevLink = document.getElementById("prev-article-link");
+    const prevTitle = document.getElementById("prev-article-title");
+    const nextLink = document.getElementById("next-article-link");
+    const nextTitle = document.getElementById("next-article-title");
+    
+    if (!block) return;
+    
+    try {
+        const res = await fetch("content/article.json");
+        if (!res.ok) return;
+        
+        const data = await res.json();
+        const articles = data.items || data || [];
+        
+        const idx = articles.findIndex(a => a.id === currentId);
+        
+        if (idx === -1) {
+            block.style.display = "none";
+            return;
+        }
+        
+        block.style.display = "grid";
+        
+        // Setup Previous Article element mapping
+        if (idx > 0) {
+            const prevArticle = articles[idx - 1];
+            prevLink.href = `article.html?id=${prevArticle.id}`;
+            prevTitle.textContent = prevArticle.title;
+            prevLink.style.visibility = "visible";
+        } else {
+            prevLink.style.visibility = "hidden";
+        }
+        
+        // Setup Next Article element mapping
+        if (idx < articles.length - 1) {
+            const nextArticle = articles[idx + 1];
+            nextLink.href = `article.html?id=${nextArticle.id}`;
+            nextTitle.textContent = nextArticle.title;
+            nextLink.style.visibility = "visible";
+        } else {
+            nextLink.style.visibility = "hidden";
+        }
+        
+    } catch (e) {
+        console.warn("Pagination engine could not evaluate timeline indices:", e);
+        block.style.display = "none";
+    }
+}
 </script>
 </body>
 </html>
