@@ -1,6 +1,6 @@
-/* ============================
+/* ==========================================================================
    THE MIRROR JAMMU KASHMIR - INTEGRATED PRODUCTION ENGINE
-   ============================ */
+   ========================================================================== */
 document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM fully loaded - initializing application architecture...");
     
@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", function() {
     setInterval(initWeatherBar, 900000);
 });
 
-/* ============================
+/* ==========================================================================
    LOADER & FOOTER MECHANICAL COMPONENTS
-   ============================ */
+   ========================================================================== */
 function initLoader() {
     const loader = document.getElementById("site-loader");
     if (!loader) return;
@@ -65,9 +65,9 @@ function initYear() {
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
-/* ============================
+/* ==========================================================================
    PRECISION TIMEBAR CALENDAR ARCHITECTURE
-   ============================ */
+   ========================================================================== */
 function initClocks() {
     updateClocks();
 }
@@ -145,9 +145,9 @@ function getBikramiDate() {
     return bikramiDays[today.getDay()] + ", " + bikramiDay + " " + bikramiMonths[bikramiMonth] + " " + bikramiYear + " VS";
 }
 
-/* ============================
+/* ==========================================================================
    AUTOMATED WEATHER PIPELINE
-   ============================ */
+   ========================================================================== */
 function initWeatherBar() {
     const bar = document.getElementById("weather-bar");
     if (!bar) return;
@@ -162,11 +162,9 @@ function initWeatherBar() {
         { name: "Baltistan", lat: 35.2974, lon: 75.6329, temp: "-1°C" }, 
         { name: "Muzaffarabad", lat: 34.3700, lon: 73.4711, temp: "10°C" }
     ];
-
     const lats = cities.map(c => c.lat).join(",");
     const lons = cities.map(c => c.lon).join(",");
     const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&current_weather=true`;
-
     fetch(apiUrl)
         .then(res => res.json())
         .then(data => {
@@ -183,9 +181,9 @@ function initWeatherBar() {
         });
 }
 
-/* ============================
+/* ==========================================================================
    TICKER & INTERACTION CONTROLS
-   ============================ */
+   ========================================================================== */
 function initTicker(jsonData) {
     const tickerItems = document.getElementById("ticker-items");
     if (!tickerItems) return;
@@ -283,9 +281,9 @@ function initDisclosureAutoScroll() {
     });
 }
 
-/* ============================
+/* ==========================================================================
    VLOG REPOSITORY HANDLER
-   ============================ */
+   ========================================================================== */
 function initVlogs() {
     const grid = document.getElementById("vlogs-grid");
     const archiveGrid = document.getElementById("vlogs-archive-grid");
@@ -345,9 +343,9 @@ function renderVlogsFallback() {
 
 function playVideo(id) { if (id) window.open('https://www.youtube.com/watch?v=' + id, '_blank'); }
 
-/* ============================
+/* ==========================================================================
    INTERFACE CONTROLS
-   ============================ */
+   ========================================================================== */
 function initLanguageSelector() {
     document.getElementById("language-select")?.addEventListener("change", e => {
         alert("Language changed to " + e.target.options[e.target.selectedIndex].text);
@@ -405,9 +403,9 @@ function initFooterDropdowns() {
     });
 }
 
-/* ============================
+/* ==========================================================================
    DYNAMIC HOMEPAGE CONTENT INGESTION ENGINE
-   ============================ */
+   ========================================================================== */
 function loadHomepageContent() {
     fetch("content/index.json")
         .then(r => r.ok ? r.json() : Promise.reject())
@@ -453,10 +451,8 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
                             combinedPool.push(oldItem);
                         }
                     });
-
                     const activeSlice = combinedPool.slice(0, 2);
                     const archiveSlice = combinedPool.slice(2);
-
                     grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a)).join('') : createEmptyCard(label);
                     if (archiveGrid) {
                         archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
@@ -545,13 +541,21 @@ function createEmptyCard(label = "COMING SOON") {
     return `<article class="card"><div class="card-body"><h3>${label}</h3><p>Content coming soon.</p></div></article>`;
 }
 
-/* ============================
-   ARTICLE DETAILED VIEW PIPELINE
-   ============================ */
+/* ==========================================================================
+   ARTICLE DETAILED VIEW PIPELINE (UPDATED & SECURED AGAINST RENDERING ISSUES)
+   ========================================================================== */
 function initArticlePage() {
     const id = new URLSearchParams(window.location.search).get("id");
-    if (!id) return;
+    const mainContentEl = document.getElementById("content") || document.getElementById("article-content") || document.body;
     
+    if (!id) {
+        if (mainContentEl) {
+            mainContentEl.innerHTML = `<p style="padding: 20px; text-align: center;">No article target specified. Please return to the home screen.</p>`;
+        }
+        return;
+    }
+    
+    // Step 1: Look for individual item dynamic endpoint file (e.g., content/breaking-001.json)
     fetch(`content/${id}.json`)
         .then(r => r.ok ? r.json() : Promise.reject())
         .then(data => {
@@ -559,43 +563,89 @@ function initArticlePage() {
             renderFullArticlePage(article);
         })
         .catch(() => {
+            // Step 2: Fall back to pulling the matching item block from content/article.json
             fetch("content/article.json")
-                .then(r => r.json())
+                .then(r => r.ok ? r.json() : Promise.reject())
                 .then(archiveData => {
                     const match = (archiveData.items || []).find(item => item.id === id);
-                    if (match) { renderFullArticlePage(match); } 
-                    else { renderArticleFallback(id); }
+                    if (match) { 
+                        renderFullArticlePage(match); 
+                    } else { 
+                        renderArticleFallback(id); 
+                    }
                 })
                 .catch(() => renderArticleFallback(id));
         });
 }
 
 function renderArticleFallback(id) {
-    const contentEl = document.getElementById("content") || document.getElementById("article-content");
+    const contentEl = document.getElementById("content") || document.getElementById("article-content") || document.body;
     if (contentEl) {
-        contentEl.innerHTML = `<p style="padding: 20px; text-align: center;">The target item "${id}" could not be parsed dynamically. Please verify directory configurations.</p>`;
+        contentEl.innerHTML = `
+            <div style="max-width: 800px; margin: 40px auto; padding: 20px; text-align: center; font-family:'Source Sans Pro', sans-serif;">
+                <h2 style="color:#b30000; font-family:'Playfair Display', serif;">Resource Not Loaded</h2>
+                <p style="color:#555; margin-top:10px;">The target item "${id}" could not be parsed dynamically. Please verify directories and file parameters.</p>
+                <a href="index.html" style="display:inline-block; margin-top:20px; background:#b30000; color:#fff; padding:10px 20px; text-decoration:none; font-weight:bold; border-radius:4px;">Return Home</a>
+            </div>`;
     }
 }
 
 function renderFullArticlePage(article) {
+    // Dismiss loading elements
     const loader = document.getElementById('loading-state');
     if (loader) loader.style.display = 'none';
     
-    const contentEl = document.getElementById("content") || document.getElementById("article-content");
+    const contentEl = document.getElementById("content") || document.getElementById("article-content") || document.body;
     if (!contentEl) return;
     contentEl.style.display = 'block';
     
-    const titleEl = document.getElementById("title") || document.getElementById("article-title");
-    if (titleEl) titleEl.textContent = article.title || "Untitled";
-    
+    // Set dynamic page metadata
     document.title = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
     
-    contentEl.innerHTML = renderJSONBody(article.body || article.content);
+    // Generate cleanly formatted, human-readable date
+    let rawDate = article.date || "";
+    let processedDate = rawDate;
+    if (rawDate) {
+        try {
+            processedDate = new Date(rawDate).toLocaleDateString("en-GB", { year: 'numeric', month: 'long', day: 'numeric' });
+        } catch(e) {
+            processedDate = rawDate;
+        }
+    }
+    
+    // Build dynamic structure bypassing element dependencies to avoid crashing layout structures
+    contentEl.innerHTML = `
+        <article class="prose-container" style="max-width: 850px; margin: 40px auto; padding: 0 20px; font-family:'Source Sans Pro', sans-serif; line-height: 1.8;">
+            <header style="margin-bottom: 2.5rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 1.5rem;">
+                <span style="color:#b30000; font-weight:700; text-transform:uppercase; font-size:0.85rem; letter-spacing:1px; display:block; margin-bottom:0.5rem;">
+                    ${article.category || article.sectionLabel || 'News'}
+                </span>
+                <h1 style="font-family:'Playfair Display', serif; font-size: 2.5rem; line-height: 1.25; margin: 0 0 1rem 0; color:#111; font-weight:900;">
+                    ${article.title}
+                </h1>
+                <div style="display:flex; justify-content:space-between; flex-wrap:wrap; font-size:0.9rem; color:#666; gap:10px;">
+                    <div>By <strong style="color:#111;">${article.author || 'Editorial Desk'}</strong> | ${article.location || ''}</div>
+                    <div>${processedDate} | ⏱️ ${article.readTime || '5 min read'}</div>
+                </div>
+            </header>
+
+            ${article.heroImage && (article.heroImage.src || typeof article.heroImage === 'string') ? `
+                <figure style="margin: 0 0 2.5rem 0; text-align:center;">
+                    <img src="${article.heroImage.src || article.heroImage}" alt="${article.title}" style="width:100%; height:auto; max-height:480px; object-fit:cover; border-radius:4px;" onerror="this.style.display='none'">
+                    ${article.heroImage.caption ? `<figcaption style="text-align:left; color:#666; font-size:0.85rem; padding:8px 12px; border-left:3px solid #b30000; background:#f9f9f9; margin-top:8px; font-style:italic;">${article.heroImage.caption}</figcaption>` : ''}
+                </figure>
+            ` : ''}
+
+            <div class="article-body-content" style="font-size:1.15rem; color:#222; line-height:1.8;">
+                ${renderJSONBody(article.body || article.content)}
+            </div>
+        </article>
+    `;
 }
 
-/* ============================
+/* ==========================================================================
    FIX: ADD GLOBAL READ MORE LINKS ROUTING INTERCEPTOR
-   ============================ */
+   ========================================================================== */
 function addGlobalReadMoreInterceptor() {
     // Intercepts explicitly named file links (like "about-001.html") to guide them into dynamic engine
     document.addEventListener("click", function(event) {
@@ -616,9 +666,9 @@ function addGlobalReadMoreInterceptor() {
     });
 }
 
-/* ============================
+/* ==========================================================================
    COMPOSITE PROSE & DOCUMENT RENDERING GENERATOR
-   ============================ */
+   ========================================================================== */
 function renderJSONBody(bodyData) {
     if (!bodyData) return '<p>No document content specified.</p>';
     if (typeof bodyData === 'string') return `<p>${bodyData}</p>`;
@@ -627,18 +677,18 @@ function renderJSONBody(bodyData) {
         return bodyData.map(block => {
             switch (block.type) {
                 case 'paragraph':
-                    return `<p>${block.text}</p>`;
+                    return `<p style="margin-bottom:1.5rem;">${block.text}</p>`;
                 case 'subheading':
                 case 'header':
-                    return `<h2 class="mid-subheading" style="color:#b30000; font-family:'Playfair Display',serif; margin-top:2rem; margin-bottom:1rem;">${block.text}</h2>`;
+                    return `<h2 class="mid-subheading" style="color:#b30000; font-family:'Playfair Display',serif; margin-top:2rem; margin-bottom:1rem; font-size:1.6rem; font-weight:700;">${block.text}</h2>`;
                 case 'pullquote':
-                    return `<div class="pull-quote" style="font-size: 1.3rem; font-weight:600; margin:2rem 0; padding:1.5rem 2rem; background:#f9f9f9; border-left:4px solid #b30000; font-style:italic;">${block.text}</div>`;
+                    return `<div class="pull-quote" style="font-size: 1.3rem; font-weight:600; margin:2rem 0; padding:1.5rem 2rem; background:#f9f9f9; border-left:4px solid #b30000; font-style:italic; color:#333;">${block.text}</div>`;
                 case 'image':
                     const alignClass = block.align ? `img-${block.align}` : 'img-center';
                     return `
-                        <figure class="${alignClass}">
-                            <img src="${block.src}" alt="${block.caption || 'Image'}" onerror="this.style.display='none'">
-                            ${block.caption ? `<figcaption>${block.caption} ${block.credit ? `(${block.credit})` : ''}</figcaption>` : ''}
+                        <figure class="${alignClass}" style="margin:2rem 0; text-align:center;">
+                            <img src="${block.src}" alt="${block.caption || 'Image'}" style="max-width:100%; height:auto; border-radius:4px;" onerror="this.style.display='none'">
+                            ${block.caption ? `<figcaption style="font-size:0.85rem; color:#666; margin-top:5px; font-style:italic;">${block.caption} ${block.credit ? `(${block.credit})` : ''}</figcaption>` : ''}
                         </figure>`;
                 default:
                     return '';
@@ -648,9 +698,9 @@ function renderJSONBody(bodyData) {
     return '';
 }
 
-/* ============================
+/* ==========================================================================
    FULLY MAPPED DYNAMIC CONTENT INGESTION PIPELINES
-   ============================ */
+   ========================================================================== */
 function loadAboutPage() {
     const titleEl = document.getElementById("about-title");
     const subtitleEl = document.getElementById("about-subtitle");
