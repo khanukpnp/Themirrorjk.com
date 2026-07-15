@@ -439,7 +439,7 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
         .then(articles => {
             let validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
             
-            fetch("content/article.json")
+            fetch("content/archive.json")
                 .then(res => res.ok ? res.json() : { items: [] })
                 .then(archiveData => {
                     const archivedItems = archiveData.items || [];
@@ -542,7 +542,7 @@ function createEmptyCard(label = "COMING SOON") {
 }
 
 /* ==========================================================================
-   ARTICLE DETAILED VIEW PIPELINE (UPDATED & SECURED AGAINST RENDERING ISSUES)
+   ARTICLE DETAILED VIEW PIPELINE (UPDATED FOR INDIVIDUAL REPO JSON FILES)
    ========================================================================== */
 function initArticlePage() {
     const id = new URLSearchParams(window.location.search).get("id");
@@ -555,7 +555,7 @@ function initArticlePage() {
         return;
     }
     
-    // Step 1: Look for individual item dynamic endpoint file (e.g., content/breaking-001.json)
+    // Step 1: Attempt to load individual JSON file directly (e.g., content/breaking-001.json)
     fetch(`content/${id}.json`)
         .then(r => r.ok ? r.json() : Promise.reject())
         .then(data => {
@@ -563,8 +563,8 @@ function initArticlePage() {
             renderFullArticlePage(article);
         })
         .catch(() => {
-            // Step 2: Fall back to pulling the matching item block from content/article.json
-            fetch("content/article.json")
+            // Step 2: Fall back to pulling the matching item block from archive.json
+            fetch("content/archive.json")
                 .then(r => r.ok ? r.json() : Promise.reject())
                 .then(archiveData => {
                     const match = (archiveData.items || []).find(item => item.id === id);
@@ -658,7 +658,6 @@ function addGlobalReadMoreInterceptor() {
                     const slug = link.pathname.match(/\/([\w-]+)\.html$/)[1];
                     
                     // Specific mapping logic to convert raw file slugs to dynamic ID parameters
-                    // Examples: "about-001" -> "about-001", "jk-002" -> "jk-002"
                     window.location.href = `article.html?id=${slug}`;
                 }
             }
