@@ -22,322 +22,12 @@
     
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Source+Sans+Pro:wght=400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
-    <style>
-        /* Additional inline styles for article page */
-        .article-page {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-            background: white;
-        }
-        .loading-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
-            text-align: center;
-            color: #666;
-        }
-        .loading-state .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #b30000;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .article-actions-bottom {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 2px solid #e0e0e0;
-        }
-        .article-action-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .action-btn:hover {
-            background: #b30000;
-            color: white;
-            border-color: #b30000;
-        }
-        .article-pagination {
-            margin-top: 2rem;
-            padding: 1.5rem 0;
-            border-top: 1px solid #e0e0e0;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .pagination-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background-color: #800000;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-        .pagination-btn:hover {
-            background-color: #b30000;
-            transform: translateX(-2px);
-            color: white;
-            text-decoration: none;
-        }
-        .pagination-btn.next-btn:hover {
-            transform: translateX(2px);
-        }
-        .pagination-nav {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .share-tooltip {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 8px 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            display: none;
-            z-index: 1000;
-            min-width: 200px;
-            animation: slideUp 0.2s ease;
-        }
-        .share-tooltip.show {
-            display: block;
-        }
-        .share-tooltip a {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            color: #333;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        .share-tooltip a:last-child {
-            border-bottom: none;
-        }
-        .share-tooltip a:hover {
-            background: #f5f5f5;
-            color: #b30000;
-            padding-left: 20px;
-        }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .next-article-text {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 1rem;
-            padding: 12px;
-            background: #f5f5f5;
-            border-radius: 4px;
-        }
-        .next-article-text a {
-            color: #b30000;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .next-article-text a:hover {
-            text-decoration: underline;
-        }
-        .read-more-section {
-            margin: 3rem 0;
-            padding: 2rem;
-            background: #f9f9f9;
-            border-radius: 4px;
-            border-left: 4px solid #b30000;
-        }
-        .read-more-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #b30000;
-            margin-bottom: 1.5rem;
-            font-family: 'Playfair Display', serif;
-            position: relative;
-        }
-        .read-more-title::after {
-            content: '';
-            position: absolute;
-            bottom: -0.5rem;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: #b30000;
-        }
-        .read-more-content {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #333;
-        }
-        .read-more-content a {
-            color: #b30000;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .read-more-content a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 768px) {
-            .article-pagination {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .pagination-nav {
-                width: 100%;
-                justify-content: space-between;
-            }
-            .pagination-btn {
-                flex: 1;
-                justify-content: center;
-            }
-            .article-action-buttons {
-                flex-direction: column;
-            }
-            .action-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            .share-tooltip {
-                bottom: 20px;
-                right: 20px;
-                left: 20px;
-                width: auto;
-            }
-        }
-        /* Styles for the combined Spotlight, In Focus & Trending row */
-        .three-window-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-        .news-card-badge {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            background: #fff;
-        }
-        .card-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.75);
-            color: #fff;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 4px 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 2px;
-        }
-        .spotlight-badge { border-left: 3px solid #b30000; }
-        .focus-badge { border-left: 3px solid #0056b3; }
-        .trending-badge { border-left: 3px solid #28a745; }
-        
-        .news-card-badge .image-container {
-            width: 100%;
-            height: 210px;
-            overflow: hidden;
-            border-radius: 4px;
-        }
-        .news-card-badge .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        .news-card-badge:hover .image-container img {
-            transform: scale(1.03);
-        }
-        .news-card-badge h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            margin: 12px 0 8px 0;
-            color: #111;
-            line-height: 1.4;
-        }
-        .news-card-badge p {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.95rem;
-            color: #555;
-            line-height: 1.6;
-            margin: 0;
-        }
-        @media (max-width: 768px) {
-            .three-window-row {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-        }
-
-        /* CUSTOM ADDITIONS FOR ON-PAGE EXPANDABLE ARCHIVES W/ SMOOTH SCROLLING */
-        .inline-section-archive {
-            margin-top: 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            background: #fdfdfd;
-        }
-        .inline-section-archive summary {
-            padding: 12px 16px;
-            font-family: 'Source Sans Pro', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: #800000;
-            cursor: pointer;
-            outline: none;
-            user-select: none;
-            transition: background 0.2s ease;
-        }
-        .inline-section-archive summary:hover {
-            background: #f5f5f5;
-            color: #b30000;
-        }
-        .inline-section-archive[open] summary {
-            border-bottom: 1px solid #e0e0e0;
-            background: #fafafa;
-        }
-    </style>
 </head>
 <body>
+    <!-- READING PROGRESS BAR -->
+    <div id="reading-progress" class="reading-progress"></div>
+
     <!-- LOADER -->
     <div id="site-loader">
         <div class="loader-inner">
@@ -348,20 +38,24 @@
             <p>Loading newsroom, clocks, calendars and headlines...</p>
         </div>
     </div>
+    
     <div class="page-shell">
         <!-- HEADER -->
         <header class="site-header">
             <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
             <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
         </header>
+
         <!-- CLOCKS AND CALENDARS -->
         <div class="info-bar clocks-calendars">
             <div class="info-items" id="datetime-bar"></div>
         </div>
+
         <!-- WEATHER BAR -->
         <div class="info-bar weather-bar">
             <div class="info-items" id="weather-bar"></div>
         </div>
+
         <!-- BREAKING TICKER -->
         <div class="ticker-wrap">
             <div class="ticker">
@@ -369,6 +63,7 @@
                 <div class="ticker-items" id="ticker-items"></div>
             </div>
         </div>
+
         <!-- LANGUAGE & SEARCH TOOLS -->
         <div class="tools-bar">
             <div class="lang-select">
@@ -387,12 +82,13 @@
                 <button type="submit">🔍</button>
             </form>
         </div>
+
         <!-- NAVIGATION BAR -->
         <nav class="navbar">
             <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
             <ul class="nav-list" id="nav-list">
                 <li class="nav-item has-sub">
-                    <a href="#" class="nav-btn">🏠 Home</a>
+                    <a href="index.html" class="nav-btn">🏠 Home</a>
                     <div class="dropdown">
                         <a href="about.html">About</a>
                         <a href="chief-editor.html">Chief Editor</a>
@@ -406,39 +102,40 @@
                     <div class="dropdown">
                         <a href="editorial.html">Editorial</a>
                         <a href="opinion.html">Opinion</a>
-                        <a href="#latest">Latest Updates</a>
+                        <a href="#latest-editorial-historical">Latest Updates</a>
                     </div>
                 </li>
                 <li class="nav-item has-sub">
-                    <a href="#" class="nav-btn">🎥 Vlog</a>
+                    <a href="#vlogs" class="nav-btn">🎥 Vlog</a>
                     <div class="dropdown">
                         <a href="#vlogs">Latest Vlogs</a>
-                        <a href="archive.html">Archive</a>
+                        <a href="#archive">Archive</a>
                     </div>
                 </li>
                 <li class="nav-item"><a href="#epaper" class="nav-btn">📰 E-Paper</a></li>
                 <li class="nav-item has-sub">
-                    <a href="#" class="nav-btn">📍 Jammu Kashmir</a>
+                    <a href="#jammu-kashmir" class="nav-btn">📍 Jammu Kashmir</a>
                     <div class="dropdown wide">
-                        <a href="#regions">Regions</a>
-                        <a href="#history">History</a>
+                        <a href="#jammu-kashmir">Regions</a>
+                        <a href="historical.html">History</a>
                         <a href="#culture">Culture</a>
                     </div>
                 </li>
                 <li class="nav-item has-sub">
-                    <a href="#" class="nav-btn">🕊️ UN & HR</a>
+                    <a href="#human-rights" class="nav-btn">🕊️ UN & HR</a>
                     <div class="dropdown">
-                        <a href="#unhrc">UNHRC</a>
-                        <a href="#reports">Reports</a>
-                        <a href="#advocacy">Advocacy</a>
+                        <a href="#international">UNHRC</a>
+                        <a href="#human-rights">Reports</a>
+                        <a href="#human-rights">Advocacy</a>
                     </div>
                 </li>
             </ul>
             <div id="mobile-menu" class="mobile-menu" hidden></div>
         </nav>
+
         <!-- MAIN CONTENT -->
         <main class="home-main">
-            <!-- TOP STORIES SECTION -->
+            <!-- TOP STORIES SECTION (6 WINDOWS) -->
             <section id="top-stories">
                 <h2 class="section-title modern-title">⭐ Top Stories</h2>
                 <div class="cards three" id="top-stories-grid"></div>
@@ -447,66 +144,128 @@
                     <div class="cards three" id="top-stories-archive-grid"></div>
                 </details>
             </section>
-            <!-- NEW COMBINED SECTION: SPOTLIGHT, IN FOCUS & TRENDING -->
+
+            <!-- SPOTLIGHT, IN FOCUS & TRENDING (6 WINDOWS) -->
             <section id="spotlight-focus-trending" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">
                     <span class="icon">⚡</span> Spotlight, In Focus &amp; Trending
                 </h2>
+                <!-- Row 1 (3 Windows) -->
                 <div class="three-window-row">
-                    <!-- Window 1: The Spotlight Feature -->
                     <div class="news-card-badge">
                         <span class="card-badge spotlight-badge">SPOTLIGHT</span>
                         <div class="image-container">
                             <img src="content/images/img1.jpg" alt="Spotlight Feature Image">
                         </div>
                         <h3>The Major Investigative Headline</h3>
-                        <p>Deep-dive analysis shining a light on crucial regional issues...</p>
+                        <p>Deep-dive analysis shining a light on crucial regional issues and administrative policy decisions...</p>
+                        <div class="card-nav-options">
+                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
+                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
+                            <a href="article.html?id=spotlight-001" class="card-nav-btn next-link">Read More ➔</a>
+                        </div>
                     </div>
                     
-                    <!-- Window 2: The In Focus Feature -->
                     <div class="news-card-badge">
                         <span class="card-badge focus-badge">IN FOCUS</span>
                         <div class="image-container">
                             <img src="content/images/img2.jpg" alt="In Focus Feature Image">
                         </div>
                         <h3>The Hard News &amp; Policy Headline</h3>
-                        <p>A closer, objective look at today's shifting political landscape...</p>
+                        <p>A closer, objective look at today's shifting political landscape, dialogue channels, and legal frameworks...</p>
+                        <div class="card-nav-options">
+                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
+                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
+                            <a href="article.html?id=infocus-001" class="card-nav-btn next-link">Read More ➔</a>
+                        </div>
                     </div>
                     
-                    <!-- Window 3: The Trending Feature -->
                     <div class="news-card-badge">
                         <span class="card-badge trending-badge">TRENDING NOW</span>
                         <div class="image-container">
                             <img src="content/images/img3.jpg" alt="Trending Feature Image">
                         </div>
                         <h3>The Most Read &amp; Shared Headline</h3>
-                        <p>What readers are actively engaging with and talking about right now...</p>
+                        <p>What readers are actively engaging with and discussing across digital newsrooms today...</p>
+                        <div class="card-nav-options">
+                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
+                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
+                            <a href="article.html?id=trending-001" class="card-nav-btn next-link">Read More ➔</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2 (3 Windows) -->
+                <div class="three-window-row">
+                    <div class="news-card-badge">
+                        <span class="card-badge spotlight-badge">SPOTLIGHT II</span>
+                        <div class="image-container">
+                            <img src="content/images/img2.jpg" alt="Spotlight Feature Image II">
+                        </div>
+                        <h3>Special Report: Civil Rights &amp; Legal Accountability</h3>
+                        <p>Investigating institutional frameworks and public advocacy developments across the territory...</p>
+                        <div class="card-nav-options">
+                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
+                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
+                            <a href="article.html?id=spotlight-002" class="card-nav-btn next-link">Read More ➔</a>
+                        </div>
+                    </div>
+                    
+                    <div class="news-card-badge">
+                        <span class="card-badge focus-badge">IN FOCUS II</span>
+                        <div class="image-container">
+                            <img src="content/images/img3.jpg" alt="In Focus Feature Image II">
+                        </div>
+                        <h3>Regional Economic &amp; Resource Policy Digest</h3>
+                        <p>Examining supply chains, electricity tariffs, and grassroots economic demands...</p>
+                        <div class="card-nav-options">
+                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
+                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
+                            <a href="article.html?id=infocus-002" class="card-nav-btn next-link">Read More ➔</a>
+                        </div>
+                    </div>
+                    
+                    <div class="news-card-badge">
+                        <span class="card-badge trending-badge">TRENDING II</span>
+                        <div class="image-container">
+                            <img src="content/images/img1.jpg" alt="Trending Feature Image II">
+                        </div>
+                        <h3>International Perspectives &amp; Diplomatic Motions</h3>
+                        <p>Global reactions, parliamentary motions, and international watchdogs monitoring developments...</p>
+                        <div class="card-nav-options">
+                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
+                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
+                            <a href="article.html?id=trending-002" class="card-nav-btn next-link">Read More ➔</a>
+                        </div>
                     </div>
                 </div>
             </section>
-            <!-- LATEST / EDITORIAL / HISTORICAL -->
+
+            <!-- LATEST / EDITORIAL / HISTORICAL (6 WINDOWS) -->
             <section id="latest-editorial-historical">
                 <h2 class="section-title modern-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</h2>
                 <div class="cards three" id="leh-grid"></div>
                 <details class="inline-section-archive" id="leh-archive-disclosure">
-                    <summary>📁 View Archived Latest, Editorials & History</summary>
+                    <summary>📁 View Archived Latest, Editorials &amp; History</summary>
                     <div class="cards three" id="leh-archive-grid"></div>
                 </details>
             </section>
-            <!-- JAMMU KASHMIR -->
+
+            <!-- JAMMU KASHMIR (3 EQUAL WINDOWS) -->
             <section id="jammu-kashmir">
                 <h2 class="section-title modern-title">📍 Jammu Kashmir</h2>
-                <div class="cards two" id="jk-grid"></div>
+                <div class="cards three" id="jk-grid"></div>
                 <details class="inline-section-archive" id="jk-archive-disclosure">
                     <summary>📁 View Archived Jammu Kashmir Reports</summary>
-                    <div class="cards two" id="jk-archive-grid"></div>
+                    <div class="cards three" id="jk-archive-grid"></div>
                 </details>
             </section>
-            <!-- VLOGS SECTION -->
+
+            <!-- VIDEO REPORTS & VLOGS (9 WINDOWS: 3 PER ROW x 3 ROWS) -->
             <section id="vlogs">
-                <h2 class="section-title modern-title">🎥 Video Reports & Vlogs</h2>
+                <h2 class="section-title modern-title">🎥 Video Reports &amp; Vlogs</h2>
                 <div class="vlog-toolbar">
-                    <button class="btn-red" id="vlog-visit-channel">🎥 Visit Channel</button>
+                    <button class="btn-red" id="vlog-visit-channel">🎥 Visit Official Channel</button>
                 </div>
                 <div class="cards three vlogs-grid" id="vlogs-grid"></div>
                 <details class="inline-section-archive" id="vlogs-archive-disclosure">
@@ -514,31 +273,35 @@
                     <div class="cards three vlogs-grid" id="vlogs-archive-grid"></div>
                 </details>
             </section>
-            <!-- INTERNATIONAL NEWS -->
+
+            <!-- INTERNATIONAL DIPLOMACY (3 EQUAL WINDOWS) -->
             <section id="international">
-                <h2 class="section-title modern-title">🌍 International News</h2>
-                <div class="cards two" id="intl-grid"></div>
+                <h2 class="section-title modern-title">🌍 International Diplomacy</h2>
+                <div class="cards three" id="intl-grid"></div>
                 <details class="inline-section-archive" id="intl-archive-disclosure">
-                    <summary>📁 View Archived International News</summary>
-                    <div class="cards two" id="intl-archive-grid"></div>
+                    <summary>📁 View Archived International Diplomacy</summary>
+                    <div class="cards three" id="intl-archive-grid"></div>
                 </details>
             </section>
-            <!-- HUMAN RIGHTS -->
+
+            <!-- HUMAN RIGHTS (3 EQUAL WINDOWS) -->
             <section id="human-rights">
                 <h2 class="section-title modern-title">❤️ Human Rights</h2>
-                <div class="cards two" id="hr-grid"></div>
+                <div class="cards three" id="hr-grid"></div>
                 <details class="inline-section-archive" id="hr-archive-disclosure">
                     <summary>📁 View Archived Human Rights Entries</summary>
-                    <div class="cards two" id="hr-archive-grid"></div>
+                    <div class="cards three" id="hr-archive-grid"></div>
                 </details>
             </section>
-            <!-- ARCHIVE -->
+
+            <!-- ARCHIVE (UNLIMITED SCROLL EXPANDABLE) -->
             <section id="archive">
                 <h2 class="section-title modern-title">📁 Archive</h2>
                 <div id="archive-list" class="archive-content">
-                    <p>Archive will appear here.</p>
+                    <p>Archive streaming active. Scroll down for further historical entries.</p>
                 </div>
             </section>
+
             <!-- E-PAPER UPLOAD -->
             <section id="epaper">
                 <h2 class="section-title modern-title">📰 E-Paper Upload</h2>
@@ -549,6 +312,7 @@
                     <button type="submit" class="btn-red">Upload</button>
                 </form>
             </section>
+
             <!-- NEWSLETTER -->
             <section id="newsletter">
                 <h2 class="section-title modern-title">✉️ Newsletter</h2>
@@ -557,13 +321,15 @@
                     <button id="subscribeBtn" class="btn-red">Subscribe</button>
                 </form>
             </section>
+
             <!-- CONTACT -->
             <section id="contact">
                 <h2 class="section-title modern-title">📞 Contact</h2>
                 <p>Email: themirrorjk@gmail.com<br>Phone: +41 783 13 12 13</p>
                 <button id="contact-open" class="btn-red">Open Contact Form</button>
             </section>
-            <!-- SOCIAL ACTIONS -->
+
+            <!-- CLICKABLE MODERN SOCIAL ACTION TOOLBAR -->
             <div class="social-actions">
                 <button class="sa-btn">👍 Like</button>
                 <button class="sa-btn">🔔 Subscribe</button>
@@ -571,6 +337,7 @@
                 <button class="sa-btn" onclick="copyPageLink()">🔗 Copy Link</button>
             </div>
         </main>
+
         <!-- CONTACT MODAL -->
         <div id="contact-modal" class="modal hidden">
             <div class="modal-content">
@@ -602,19 +369,20 @@
                 </form>
             </div>
         </div>
+
         <!-- FOOTER -->
         <footer class="modern-footer">
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>THE MIRROR</h4>
-                    <p>Champion Justice & Amplify the Unheard</p>
+                    <p>Champion Justice &amp; Amplify the Unheard</p>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="#top-stories">Top Stories</a></li>
                         <li><a href="#vlogs">Vlogs</a></li>
-                        <li><a href="#international">International</a></li>
+                        <li><a href="#international">International Diplomacy</a></li>
                         <li><a href="#human-rights">Human Rights</a></li>
                     </ul>
                 </div>
