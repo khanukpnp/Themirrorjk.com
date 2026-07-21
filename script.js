@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
     initFooterDropdowns();
     initReadingProgress();
     initDisclosureAutoScroll();
-    initInfiniteScroll();
     
     // Dynamic Application Routing Engine
     const path = window.location.pathname;
@@ -55,6 +54,7 @@ function initLoader() {
         setTimeout(function() { loader.style.display = "none"; }, 300);
     }, 1200);
 }
+
 function initYear() {
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -66,6 +66,7 @@ function initYear() {
 function initClocks() {
     updateClocks();
 }
+
 function updateClocks() {
     const now = new Date();
     const datetimeBar = document.getElementById("datetime-bar");
@@ -97,6 +98,7 @@ function updateClocks() {
         <span>PKT (Gilgit-Baltistan & Azad Kashmir): <strong>${pktFull}</strong></span>
     `;
 }
+
 function getHijriDate() {
     try {
         return new Intl.DateTimeFormat("en-u-ca-islamic", { day: "numeric", month: "long", year: "numeric" }).format(new Date()) + " AH";
@@ -104,6 +106,7 @@ function getHijriDate() {
         return "Ramadan, 1447 AH";
     }
 }
+
 function getBikramiDate() {
     const today = new Date();
     const day = today.getDate();
@@ -191,6 +194,7 @@ function initTicker(jsonData) {
     }
     tickerItems.innerHTML = html;
 }
+
 function initReadingProgress() {
     const progressBar = document.getElementById('reading-progress');
     if (!progressBar) return;
@@ -200,6 +204,7 @@ function initReadingProgress() {
         progressBar.style.width = scrolled + '%';
     });
 }
+
 function initNav() {
     const hamburger = document.getElementById("hamburger");
     const navList = document.getElementById("nav-list");
@@ -232,6 +237,7 @@ function initNav() {
         }
     });
 }
+
 function initContactModal() {
     const openBtn = document.getElementById("contact-open");
     const closeBtn = document.getElementById("contact-close");
@@ -257,6 +263,7 @@ function initContactModal() {
         });
     }
 }
+
 function initDisclosureAutoScroll() {
     document.querySelectorAll('.inline-section-archive').forEach(disclosure => {
         disclosure.addEventListener('toggle', function() {
@@ -282,16 +289,15 @@ function initVlogs() {
         .then(r => r.ok ? r.json() : Promise.reject())
         .then(data => {
             if (visitBtn && data.channel?.url) {
-                visitBtn.onclick = () => window.open(data.channel.url, "_blank");
-                visitBtn.style.display = 'inline-block';
+                visitBtn.href = data.channel.url;
             }
             renderVlogs(data.videos || [], grid, archiveGrid);
         })
         .catch(() => {
-            if (visitBtn) visitBtn.style.display = 'inline-block';
             renderVlogsFallback();
         });
 }
+
 function renderVlogs(videos, mainGrid, archiveGrid) {
     if (!mainGrid) return;
     if (!videos.length) { renderVlogsFallback(); return; }
@@ -320,6 +326,7 @@ function renderVlogs(videos, mainGrid, archiveGrid) {
         archiveGrid.innerHTML = archivedVlogs.length ? archivedVlogs.map(mapHtml).join('') : '<p style="padding:15px; color:#666;">No older vlogs archived.</p>';
     }
 }
+
 function renderVlogsFallback() {
     const grid = document.getElementById("vlogs-grid");
     const archiveGrid = document.getElementById("vlogs-archive-grid");
@@ -337,6 +344,7 @@ function renderVlogsFallback() {
     ];
     renderVlogs(fallbacks, grid, archiveGrid);
 }
+
 function playVideo(id) { if (id) window.open('https://www.youtube.com/watch?v=' + id, '_blank'); }
 
 /* ==========================================================================
@@ -347,6 +355,7 @@ function initLanguageSelector() {
         showToast("Language set to " + e.target.options[e.target.selectedIndex].text);
     });
 }
+
 function initSearch() {
     document.querySelector(".search")?.addEventListener("submit", e => {
         e.preventDefault();
@@ -354,55 +363,42 @@ function initSearch() {
         if (input) showToast("Searching for: " + input);
     });
 }
+
 function initSocialButtons() {
     let liked = false;
-    document.querySelectorAll(".sa-btn, .sa-btn-modern").forEach(btn => {
-        btn.addEventListener("click", function(e) {
+    document.querySelectorAll(".sa-btn").forEach(btn => {
+        btn.addEventListener("click", function() {
             const text = btn.textContent;
-            const btnId = btn.id;
-
-            if (text.includes("Like") || btnId === "action-like") {
+            if (text.includes("Like")) {
                 liked = !liked;
                 btn.style.background = liked ? "#b30000" : "white";
                 btn.style.color = liked ? "white" : "#222";
                 showToast(liked ? "Thank you for liking!" : "Unliked");
-            } else if (text.includes("Subscribe") || btnId === "action-subscribe") {
-                const newsSection = document.getElementById("newsletter");
-                if (newsSection) {
-                    newsSection.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    showToast("Thank you for subscribing to The Mirror Jammu Kashmir!");
-                }
-            } else if (text.includes("Share") || btnId === "action-share") {
-                e.stopPropagation();
-                const tooltip = document.getElementById("share-tooltip");
-                if (tooltip) {
-                    tooltip.classList.toggle("show");
-                } else if (navigator.share) {
+            } else if (text.includes("Subscribe")) {
+                document.getElementById("newsletter")?.scrollIntoView({ behavior: 'smooth' });
+            } else if (text.includes("Share")) {
+                if (navigator.share) {
                     navigator.share({
-                        title: document.title || 'THE MIRROR JAMMU KASHMIR',
+                        title: 'THE MIRROR JAMMU KASHMIR',
                         text: 'Champion Justice & Amplify the Voices of the Unheard',
                         url: window.location.href,
                     }).catch(() => copyPageLink());
                 } else {
                     copyPageLink();
                 }
-            } else if (text.includes("Copy") || btnId === "action-copy") {
+            } else if (text.includes("Copy")) {
                 copyPageLink();
             }
         });
     });
-
-    document.addEventListener("click", function() {
-        const tooltip = document.getElementById("share-tooltip");
-        if (tooltip) tooltip.classList.remove("show");
-    });
 }
+
 function copyPageLink() {
     navigator.clipboard.writeText(window.location.href)
         .then(() => showToast("Link successfully copied to clipboard!"))
         .catch(() => showToast("Failed to copy link"));
 }
+
 function showToast(message) {
     let toast = document.getElementById("toast-notification");
     if (!toast) {
@@ -415,6 +411,7 @@ function showToast(message) {
     toast.style.opacity = "1";
     setTimeout(() => { toast.style.opacity = "0"; }, 2500);
 }
+
 function initFileUpload() {
     const fileInput = document.getElementById("file-upload");
     const nameSpan = document.querySelector(".file-name");
@@ -424,6 +421,7 @@ function initFileUpload() {
         });
     }
 }
+
 function initNewsletter() {
     document.getElementById("subscribeBtn")?.addEventListener("click", e => {
         e.preventDefault();
@@ -432,6 +430,7 @@ function initNewsletter() {
         else { showToast("Please enter a valid email address."); }
     });
 }
+
 function initFooterDropdowns() {
     document.querySelectorAll('.footer-section').forEach(section => {
         section.querySelector('h4')?.addEventListener('click', e => {
@@ -442,57 +441,6 @@ function initFooterDropdowns() {
 }
 
 /* ==========================================================================
-   UNLIMITED EXPANDING INFINITE SCROLL PIPELINE
-   ========================================================================== */
-function initInfiniteScroll() {
-    let isFetching = false;
-    window.addEventListener("scroll", () => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
-            if (!isFetching) {
-                isFetching = true;
-                appendDynamicStream();
-                setTimeout(() => { isFetching = false; }, 2000);
-            }
-        }
-    });
-}
-function appendDynamicStream() {
-    const archiveContainer = document.getElementById("archive-list");
-    if (!archiveContainer) return;
-    
-    const newCard = document.createElement("div");
-    newCard.className = "cards three";
-    newCard.style.marginTop = "20px";
-    newCard.innerHTML = `
-        <article class="card">
-            <div class="media"><img src="content/images/img1.jpg" alt="Stream News" onerror="this.src='https://via.placeholder.com/640x360?text=Archive+Entry'"></div>
-            <div class="card-body">
-                <h3>Archived Dispatch: Civil Rights &amp; Press Advocacy</h3>
-                <p>Ongoing documentation of civil society reports and human rights advocacy...</p>
-                ${createCardNavOptions('archive-stream')}
-            </div>
-        </article>
-        <article class="card">
-            <div class="media"><img src="content/images/img2.jpg" alt="Stream News" onerror="this.src='https://via.placeholder.com/640x360?text=Archive+Entry'"></div>
-            <div class="card-body">
-                <h3>Regional Economic Perspectives</h3>
-                <p>Analysis of local markets, subsidies, and administrative policy frameworks...</p>
-                ${createCardNavOptions('archive-stream')}
-            </div>
-        </article>
-        <article class="card">
-            <div class="media"><img src="content/images/img3.jpg" alt="Stream News" onerror="this.src='https://via.placeholder.com/640x360?text=Archive+Entry'"></div>
-            <div class="card-body">
-                <h3>International Diplomacy Overview</h3>
-                <p>Digest of global diplomatic discussions and international appeals...</p>
-                ${createCardNavOptions('archive-stream')}
-            </div>
-        </article>
-    `;
-    archiveContainer.appendChild(newCard);
-}
-
-/* ==========================================================================
    DYNAMIC HOMEPAGE CONTENT INGESTION ENGINE
    ========================================================================== */
 function loadHomepageContent() {
@@ -500,23 +448,29 @@ function loadHomepageContent() {
         .then(r => r.ok ? r.json() : Promise.reject())
         .then(index => {
             initTicker(index);
+            
+            // Top Stories: Target 6 windows total (2 rows x 3 columns)
             if (index.topStories) {
                 loadTopStories([
-                    index.topStories.lead, index.topStories.breaking, index.topStories.opinion,
-                    index.topStories.lead, index.topStories.breaking, index.topStories.opinion
+                    index.topStories.lead, 
+                    index.topStories.breaking, 
+                    index.topStories.opinion
                 ]);
             } else { loadTopStoriesFallback(); }
             
+            // Latest / Editorial / Historical: Target 6 windows total (2 rows x 3 columns)
             if (index.latestEditorialHistorical) {
                 loadLehSection([
-                    index.latestEditorialHistorical.latest, index.latestEditorialHistorical.editorial, index.latestEditorialHistorical.historical,
-                    index.latestEditorialHistorical.latest, index.latestEditorialHistorical.editorial, index.latestEditorialHistorical.historical
+                    index.latestEditorialHistorical.latest, 
+                    index.latestEditorialHistorical.editorial, 
+                    index.latestEditorialHistorical.historical
                 ]);
             } else { loadLehFallback(); }
             
-            if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "JK", "Jammu Kashmir", 3);
-            if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "INTL", "International Diplomacy", 3);
-            if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "HR", "Human Rights", 3);
+            // Standard 3-Window Sections (2 Active + 1 Placeholders)
+            if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "JK", "Jammu Kashmir");
+            if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "INTL", "International Diplomacy");
+            if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "HR", "Human Rights");
         })
         .catch(() => {
             initTicker(null);
@@ -524,7 +478,8 @@ function loadHomepageContent() {
             loadLehFallback();
         });
 }
-function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey, count = 3) {
+
+function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
     const grid = document.getElementById(gridId);
     const archiveGrid = document.getElementById(archiveGridId);
     if (!grid || !ids) return;
@@ -545,84 +500,205 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey, count 
                             combinedPool.push(oldItem);
                         }
                     });
+
+                    // Target exactly 3 active slots per row
+                    let activeSlice = combinedPool.slice(0, 3);
+                    let archiveSlice = combinedPool.slice(3);
                     
-                    const activeSlice = combinedPool.slice(0, count);
-                    const archiveSlice = combinedPool.slice(count);
-                    
-                    grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a)).join('') : createEmptyCardSet(label, count);
+                    let cardsHtml = activeSlice.map(a => createHomepageCard(a)).join('');
+
+                    // Fill remaining slots up to 3 with placeholders without content duplication
+                    while (activeSlice.length < 3) {
+                        cardsHtml += createComingSoonCard(label);
+                        activeSlice.push({});
+                    }
+
+                    grid.innerHTML = cardsHtml;
                     if (archiveGrid) {
                         archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
                     }
                 })
                 .catch(() => {
-                    const activeSlice = validArticles.slice(0, count);
-                    const archiveSlice = validArticles.slice(count);
-                    grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a)).join('') : createEmptyCardSet(label, count);
-                    if (archiveGrid) {
-                        archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
+                    let activeSlice = validArticles.slice(0, 3);
+                    let cardsHtml = activeSlice.map(a => createHomepageCard(a)).join('');
+                    while (activeSlice.length < 3) {
+                        cardsHtml += createComingSoonCard(label);
+                        activeSlice.push({});
                     }
+                    grid.innerHTML = cardsHtml;
                 });
         });
 }
+
+/* ==========================================================================
+   TOP STORIES GRID BUILDER (6 WINDOWS TOTAL: TOP ROW ACTIVE, BOTTOM ROW COMING SOON)
+   ========================================================================== */
 function loadTopStories(ids) {
     const grid = document.getElementById("top-stories-grid");
     const archiveGrid = document.getElementById("top-stories-archive-grid");
     if (!grid) return;
+
     Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
-            const validArticles = articles.filter(Boolean);
-            if (validArticles.length) {
-                const activeSlice = validArticles.slice(0, 6);
-                const archiveSlice = validArticles.slice(6);
-                grid.innerHTML = activeSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('');
-                if (archiveGrid) {
-                    archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('') : '<p style="padding:15px; color:#666;">No older Top Stories archived.</p>';
-                }
-            } else { loadTopStoriesFallback(); }
-        });
+            const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
+            
+            let activeSlice = validArticles.slice(0, 3);
+            let archiveSlice = validArticles.slice(3);
+
+            let cardsHtml = activeSlice.map(a => createHomepageCard(a)).join('');
+
+            // Fill row 2 (windows 4, 5, 6) with unique Coming Soon placeholders without duplicating content
+            while (activeSlice.length < 6) {
+                cardsHtml += createComingSoonCard("Top Story Update");
+                activeSlice.push({});
+            }
+
+            grid.innerHTML = cardsHtml;
+            if (archiveGrid) {
+                archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : '<p style="padding:15px; color:#666;">No older Top Stories archived.</p>';
+            }
+        })
+        .catch(() => loadTopStoriesFallback());
 }
+
 function loadTopStoriesFallback() {
     const grid = document.getElementById("top-stories-grid");
-    if (grid) {
-        let cardsHtml = '';
-        for (let i = 1; i <= 6; i++) {
-            cardsHtml += `
-            <article class="card">
-                <div class="media"><img src="content/images/img${(i % 3) + 1}.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=Top+Story'"></div>
-                <div class="card-body">
-                    <h3>Top Story Headline ${i}: Dispatches &amp; Regional Developments</h3>
-                    <p>Comprehensive reporting on local developments, civil rights initiatives, and governance...</p>
-                    ${createCardNavOptions('top-story-' + i)}
-                </div>
-            </article>`;
-        }
-        grid.innerHTML = cardsHtml;
-    }
+    if (!grid) return;
+    
+    let html = `
+        <article class="card">
+            <div class="media"><img src="content/images/img1.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
+            <div class="card-body">
+                <h3>UKPNP Holds Historic Event on 28 April 1949 Karachi Agreement</h3>
+                <p>A comprehensive report detailing the landmark Rawalakot event...</p>
+                ${createCardNavOptions('top-story-001')}
+            </div>
+        </article>
+        <article class="card">
+            <div class="media"><img src="content/images/img2.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
+            <div class="card-body">
+                <h3>High Level UKPNP Delegation Meets Baroness Em</h3>
+                <p>A high level delegation led by Exiled Chairman Sardar Shaukat Ali Kashmiri...</p>
+                ${createCardNavOptions('top-story-002')}
+            </div>
+        </article>
+        <article class="card">
+            <div class="media"><img src="content/images/img3.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
+            <div class="card-body">
+                <h3>UKPNP Delegation Briefs British MPs on Kashmir Crisis</h3>
+                <p>Briefing British Members of Parliament in London on ongoing developments...</p>
+                ${createCardNavOptions('top-story-003')}
+            </div>
+        </article>
+    `;
+
+    // Row 2: 3 Placeholder Windows
+    html += createComingSoonCard("Top Story Feature");
+    html += createComingSoonCard("Top Story Dispatch");
+    html += createComingSoonCard("Top Story Analysis");
+
+    grid.innerHTML = html;
 }
+
+/* ==========================================================================
+   LATEST / EDITORIAL / HISTORICAL GRID BUILDER (6 WINDOWS TOTAL)
+   ========================================================================== */
 function loadLehSection(ids) {
     const grid = document.getElementById("leh-grid");
     const archiveGrid = document.getElementById("leh-archive-grid");
     if (!grid) return;
-    const labels = ["LATEST", "EDITORIAL", "HISTORICAL", "LATEST", "EDITORIAL", "HISTORICAL"];
+
+    const labels = ["LATEST", "EDITORIAL", "HISTORICAL", "LATEST UPDATE", "EDITORIAL DIGEST", "HISTORICAL ARCHIVE"];
+
     Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
-            const validArticles = articles.filter(Boolean);
-            const activeSlice = validArticles.slice(0, 6);
-            const archiveSlice = validArticles.slice(6);
-            grid.innerHTML = activeSlice.map((a, i) => createHomepageCard(a.items ? a.items[0] : a, labels[i])).join('');
-            if (archiveGrid) {
-                archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('') : '<p style="padding:15px; color:#666;">No older updates archived.</p>';
+            const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
+            
+            let activeSlice = validArticles.slice(0, 3);
+            let archiveSlice = validArticles.slice(3);
+
+            let cardsHtml = activeSlice.map((a, i) => createHomepageCard(a, labels[i])).join('');
+
+            // Fill row 2 without duplicating row 1
+            while (activeSlice.length < 6) {
+                const labelIndex = activeSlice.length;
+                cardsHtml += createComingSoonCard(labels[labelIndex] || "Upcoming Feature");
+                activeSlice.push({});
             }
-        });
+
+            grid.innerHTML = cardsHtml;
+            if (archiveGrid) {
+                archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : '<p style="padding:15px; color:#666;">No older updates archived.</p>';
+            }
+        })
+        .catch(() => loadLehFallback());
 }
+
 function loadLehFallback() {
     const grid = document.getElementById("leh-grid");
-    if (grid) {
-        grid.innerHTML = 
-            createEmptyCard("LATEST") + createEmptyCard("EDITORIAL") + createEmptyCard("HISTORICAL") +
-            createEmptyCard("LATEST UPDATE") + createEmptyCard("EDITORIAL DIGEST") + createEmptyCard("HISTORICAL ARCHIVE");
-    }
+    if (!grid) return;
+
+    let html = `
+        <article class="card">
+            <div class="media"><img src="content/images/img1.jpg" alt="Latest" onerror="this.src='https://via.placeholder.com/640x360?text=Latest'"></div>
+            <div class="card-body">
+                <span class="category-label">LATEST</span>
+                <h3>Dangerous Escalation: US–Israel Strikes on Iran</h3>
+                <p>A sharp escalation between the United States, Israel, and Iran...</p>
+                ${createCardNavOptions('latest-001')}
+            </div>
+        </article>
+        <article class="card">
+            <div class="media"><img src="content/images/img2.jpg" alt="Editorial" onerror="this.src='https://via.placeholder.com/640x360?text=Editorial'"></div>
+            <div class="card-body">
+                <span class="category-label">EDITORIAL</span>
+                <h3>Brief History of the State of Jammu and Kashmir, 1819–1953</h3>
+                <p>A comprehensive historical analysis of political evolution...</p>
+                ${createCardNavOptions('editorial-001')}
+            </div>
+        </article>
+        <article class="card">
+            <div class="media"><img src="content/images/img3.jpg" alt="Historical" onerror="this.src='https://via.placeholder.com/640x360?text=Historical'"></div>
+            <div class="card-body">
+                <span class="category-label">HISTORICAL</span>
+                <h3>US and Israel Strikes on Iran and Retaliatory Attacks</h3>
+                <p>Sardar Shaukat Ali Kashmiri warns that recent joint strikes...</p>
+                ${createCardNavOptions('historical-001')}
+            </div>
+        </article>
+    `;
+
+    // Row 2: 3 Placeholder Windows
+    html += createComingSoonCard("LATEST UPDATE");
+    html += createComingSoonCard("EDITORIAL DIGEST");
+    html += createComingSoonCard("HISTORICAL ARCHIVE");
+
+    grid.innerHTML = html;
 }
+
+/* ==========================================================================
+   GENERIC COMING SOON CARD GENERATOR
+   ========================================================================== */
+function createComingSoonCard(customLabel = "Upcoming Feature") {
+    return `
+        <article class="card coming-soon-card">
+            <div class="media empty-media">
+                <div class="coming-soon-badge">${customLabel.toUpperCase()}</div>
+                <span class="placeholder-icon">⌛</span>
+            </div>
+            <div class="card-body" style="text-align: center; justify-content: center;">
+                <h3 style="color: #b30000; font-size: 1.15rem; margin-bottom: 6px;">Coming Soon</h3>
+                <p style="color: #666; font-style: italic; font-size: 0.9rem; margin-bottom: 12px;">
+                    Visit us later for new updates and dispatches.
+                </p>
+                <div class="card-nav-options" style="justify-content: center; padding-top: 8px;">
+                    <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
+                </div>
+            </div>
+        </article>
+    `;
+}
+
 function createCardNavOptions(articleId) {
     return `
         <div class="card-nav-options">
@@ -632,6 +708,7 @@ function createCardNavOptions(articleId) {
         </div>
     `;
 }
+
 function createHomepageCard(article, label) {
     if (!article) return '';
     const title = article.title || 'Untitled Report';
@@ -648,23 +725,6 @@ function createHomepageCard(article, label) {
                 ${createCardNavOptions(article.id)}
             </div>
         </article>`;
-}
-function createEmptyCard(label = "COMING SOON") {
-    return `
-    <article class="card">
-        <div class="card-body">
-            <h3>${label}</h3>
-            <p>Content coming soon.</p>
-            ${createCardNavOptions('')}
-        </div>
-    </article>`;
-}
-function createEmptyCardSet(label = "SECTION", count = 3) {
-    let html = '';
-    for (let i = 0; i < count; i++) {
-        html += createEmptyCard(`${label} ${i + 1}`);
-    }
-    return html;
 }
 
 /* ==========================================================================
@@ -688,11 +748,10 @@ function initArticlePage() {
             renderFullArticlePage(article);
         })
         .catch(() => {
-            fetch("content/article.json")
+            fetch("content/archive.json")
                 .then(r => r.ok ? r.json() : Promise.reject())
-                .then(masterData => {
-                    const articlesList = masterData.items || masterData || [];
-                    const match = articlesList.find(item => item.id === id);
+                .then(archiveData => {
+                    const match = (archiveData.items || []).find(item => item.id === id);
                     if (match) { 
                         renderFullArticlePage(match); 
                     } else { 
@@ -702,6 +761,7 @@ function initArticlePage() {
                 .catch(() => renderArticleFallback(id));
         });
 }
+
 function renderArticleFallback(id) {
     const contentEl = document.getElementById("content") || document.getElementById("article-content") || document.body;
     if (contentEl) {
@@ -713,6 +773,7 @@ function renderArticleFallback(id) {
             </div>`;
     }
 }
+
 function renderFullArticlePage(article) {
     const loader = document.getElementById('loading-state');
     if (loader) loader.style.display = 'none';
@@ -760,6 +821,7 @@ function renderFullArticlePage(article) {
         </article>
     `;
 }
+
 function addGlobalReadMoreInterceptor() {
     document.addEventListener("click", function(event) {
         if (event.target.closest("a") && event.target.tagName === "A" && event.target.closest(".card-body")) {
@@ -774,6 +836,7 @@ function addGlobalReadMoreInterceptor() {
         }
     });
 }
+
 function renderJSONBody(bodyData) {
     if (!bodyData) return '<p>No document content specified.</p>';
     if (typeof bodyData === 'string') return `<p>${bodyData}</p>`;
@@ -803,17 +866,14 @@ function renderJSONBody(bodyData) {
     return '';
 }
 
-/* ==========================================================================
-   SYSTEM PROSE PAGE LOADING FALLBACKS
-   ========================================================================== */
 function loadAboutPage() {
-    const titleEl = document.getElementById("about-title") || document.getElementById("title");
+    const titleEl = document.getElementById("about-title");
     const subtitleEl = document.getElementById("about-subtitle");
-    const metaEl = document.getElementById("about-meta") || document.getElementById("meta");
-    const contentEl = document.getElementById("about-content") || document.getElementById("content");
+    const metaEl = document.getElementById("about-meta");
+    const contentEl = document.getElementById("about-content");
     if (!contentEl) return;
     
-    fetch("content/about.json")
+    fetch("content/about-001.json")
         .then(res => res.ok ? res.json() : Promise.reject())
         .then(data => {
             const cleanData = data.items ? data.items[0] : data;
@@ -829,11 +889,12 @@ function loadAboutPage() {
             if (contentEl) contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to load about page source.</p>`;
         });
 }
+
 function loadChiefEditorPage() {
     const contentEl = document.getElementById("content") || document.getElementById("editor-content") || document.getElementById("about-content");
     if (!contentEl) return;
     
-    fetch("content/chief-editor.json")
+    fetch("content/chief-editor-001.json")
         .then(res => res.ok ? res.json() : Promise.reject())
         .then(data => {
             const cleanData = data.items ? data.items[0] : data;
@@ -848,6 +909,7 @@ function loadChiefEditorPage() {
             contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to load chief editor document.</p>`;
         });
 }
+
 function loadHistoricalPage() {
     const contentEl = document.getElementById("content") || document.getElementById("historical-content") || document.getElementById("about-content");
     if (!contentEl) return;
