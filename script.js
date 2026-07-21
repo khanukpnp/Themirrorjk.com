@@ -55,7 +55,6 @@ function initLoader() {
         setTimeout(function() { loader.style.display = "none"; }, 300);
     }, 1200);
 }
-
 function initYear() {
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -67,7 +66,6 @@ function initYear() {
 function initClocks() {
     updateClocks();
 }
-
 function updateClocks() {
     const now = new Date();
     const datetimeBar = document.getElementById("datetime-bar");
@@ -99,7 +97,6 @@ function updateClocks() {
         <span>PKT (Gilgit-Baltistan & Azad Kashmir): <strong>${pktFull}</strong></span>
     `;
 }
-
 function getHijriDate() {
     try {
         return new Intl.DateTimeFormat("en-u-ca-islamic", { day: "numeric", month: "long", year: "numeric" }).format(new Date()) + " AH";
@@ -107,7 +104,6 @@ function getHijriDate() {
         return "Ramadan, 1447 AH";
     }
 }
-
 function getBikramiDate() {
     const today = new Date();
     const day = today.getDate();
@@ -195,7 +191,6 @@ function initTicker(jsonData) {
     }
     tickerItems.innerHTML = html;
 }
-
 function initReadingProgress() {
     const progressBar = document.getElementById('reading-progress');
     if (!progressBar) return;
@@ -205,7 +200,6 @@ function initReadingProgress() {
         progressBar.style.width = scrolled + '%';
     });
 }
-
 function initNav() {
     const hamburger = document.getElementById("hamburger");
     const navList = document.getElementById("nav-list");
@@ -238,7 +232,6 @@ function initNav() {
         }
     });
 }
-
 function initContactModal() {
     const openBtn = document.getElementById("contact-open");
     const closeBtn = document.getElementById("contact-close");
@@ -264,7 +257,6 @@ function initContactModal() {
         });
     }
 }
-
 function initDisclosureAutoScroll() {
     document.querySelectorAll('.inline-section-archive').forEach(disclosure => {
         disclosure.addEventListener('toggle', function() {
@@ -300,12 +292,10 @@ function initVlogs() {
             renderVlogsFallback();
         });
 }
-
 function renderVlogs(videos, mainGrid, archiveGrid) {
     if (!mainGrid) return;
     if (!videos.length) { renderVlogsFallback(); return; }
     
-    // Updated: Slice 9 items for active display (3 rows x 3 columns)
     const activeVlogs = videos.slice(0, 9);
     const archivedVlogs = videos.slice(9);
     
@@ -330,7 +320,6 @@ function renderVlogs(videos, mainGrid, archiveGrid) {
         archiveGrid.innerHTML = archivedVlogs.length ? archivedVlogs.map(mapHtml).join('') : '<p style="padding:15px; color:#666;">No older vlogs archived.</p>';
     }
 }
-
 function renderVlogsFallback() {
     const grid = document.getElementById("vlogs-grid");
     const archiveGrid = document.getElementById("vlogs-archive-grid");
@@ -348,7 +337,6 @@ function renderVlogsFallback() {
     ];
     renderVlogs(fallbacks, grid, archiveGrid);
 }
-
 function playVideo(id) { if (id) window.open('https://www.youtube.com/watch?v=' + id, '_blank'); }
 
 /* ==========================================================================
@@ -359,7 +347,6 @@ function initLanguageSelector() {
         showToast("Language set to " + e.target.options[e.target.selectedIndex].text);
     });
 }
-
 function initSearch() {
     document.querySelector(".search")?.addEventListener("submit", e => {
         e.preventDefault();
@@ -367,42 +354,55 @@ function initSearch() {
         if (input) showToast("Searching for: " + input);
     });
 }
-
 function initSocialButtons() {
     let liked = false;
-    document.querySelectorAll(".sa-btn").forEach(btn => {
-        btn.addEventListener("click", function() {
+    document.querySelectorAll(".sa-btn, .sa-btn-modern").forEach(btn => {
+        btn.addEventListener("click", function(e) {
             const text = btn.textContent;
-            if (text.includes("Like")) {
+            const btnId = btn.id;
+
+            if (text.includes("Like") || btnId === "action-like") {
                 liked = !liked;
                 btn.style.background = liked ? "#b30000" : "white";
                 btn.style.color = liked ? "white" : "#222";
                 showToast(liked ? "Thank you for liking!" : "Unliked");
-            } else if (text.includes("Subscribe")) {
-                document.getElementById("newsletter")?.scrollIntoView({ behavior: 'smooth' });
-            } else if (text.includes("Share")) {
-                if (navigator.share) {
+            } else if (text.includes("Subscribe") || btnId === "action-subscribe") {
+                const newsSection = document.getElementById("newsletter");
+                if (newsSection) {
+                    newsSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    showToast("Thank you for subscribing to The Mirror Jammu Kashmir!");
+                }
+            } else if (text.includes("Share") || btnId === "action-share") {
+                e.stopPropagation();
+                const tooltip = document.getElementById("share-tooltip");
+                if (tooltip) {
+                    tooltip.classList.toggle("show");
+                } else if (navigator.share) {
                     navigator.share({
-                        title: 'THE MIRROR JAMMU KASHMIR',
+                        title: document.title || 'THE MIRROR JAMMU KASHMIR',
                         text: 'Champion Justice & Amplify the Voices of the Unheard',
                         url: window.location.href,
                     }).catch(() => copyPageLink());
                 } else {
                     copyPageLink();
                 }
-            } else if (text.includes("Copy")) {
+            } else if (text.includes("Copy") || btnId === "action-copy") {
                 copyPageLink();
             }
         });
     });
-}
 
+    document.addEventListener("click", function() {
+        const tooltip = document.getElementById("share-tooltip");
+        if (tooltip) tooltip.classList.remove("show");
+    });
+}
 function copyPageLink() {
     navigator.clipboard.writeText(window.location.href)
         .then(() => showToast("Link successfully copied to clipboard!"))
         .catch(() => showToast("Failed to copy link"));
 }
-
 function showToast(message) {
     let toast = document.getElementById("toast-notification");
     if (!toast) {
@@ -415,7 +415,6 @@ function showToast(message) {
     toast.style.opacity = "1";
     setTimeout(() => { toast.style.opacity = "0"; }, 2500);
 }
-
 function initFileUpload() {
     const fileInput = document.getElementById("file-upload");
     const nameSpan = document.querySelector(".file-name");
@@ -425,7 +424,6 @@ function initFileUpload() {
         });
     }
 }
-
 function initNewsletter() {
     document.getElementById("subscribeBtn")?.addEventListener("click", e => {
         e.preventDefault();
@@ -434,7 +432,6 @@ function initNewsletter() {
         else { showToast("Please enter a valid email address."); }
     });
 }
-
 function initFooterDropdowns() {
     document.querySelectorAll('.footer-section').forEach(section => {
         section.querySelector('h4')?.addEventListener('click', e => {
@@ -459,7 +456,6 @@ function initInfiniteScroll() {
         }
     });
 }
-
 function appendDynamicStream() {
     const archiveContainer = document.getElementById("archive-list");
     if (!archiveContainer) return;
@@ -528,7 +524,6 @@ function loadHomepageContent() {
             loadLehFallback();
         });
 }
-
 function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey, count = 3) {
     const grid = document.getElementById(gridId);
     const archiveGrid = document.getElementById(archiveGridId);
@@ -551,7 +546,6 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey, count 
                         }
                     });
                     
-                    // Updated: Slice 'count' items for display (3 for JK, INTL, HR)
                     const activeSlice = combinedPool.slice(0, count);
                     const archiveSlice = combinedPool.slice(count);
                     
@@ -570,7 +564,6 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey, count 
                 });
         });
 }
-
 function loadTopStories(ids) {
     const grid = document.getElementById("top-stories-grid");
     const archiveGrid = document.getElementById("top-stories-archive-grid");
@@ -579,7 +572,6 @@ function loadTopStories(ids) {
         .then(articles => {
             const validArticles = articles.filter(Boolean);
             if (validArticles.length) {
-                // Updated: 6 cards for Top Stories
                 const activeSlice = validArticles.slice(0, 6);
                 const archiveSlice = validArticles.slice(6);
                 grid.innerHTML = activeSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('');
@@ -589,7 +581,6 @@ function loadTopStories(ids) {
             } else { loadTopStoriesFallback(); }
         });
 }
-
 function loadTopStoriesFallback() {
     const grid = document.getElementById("top-stories-grid");
     if (grid) {
@@ -608,7 +599,6 @@ function loadTopStoriesFallback() {
         grid.innerHTML = cardsHtml;
     }
 }
-
 function loadLehSection(ids) {
     const grid = document.getElementById("leh-grid");
     const archiveGrid = document.getElementById("leh-archive-grid");
@@ -617,7 +607,6 @@ function loadLehSection(ids) {
     Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean);
-            // Updated: 6 cards for Latest / Editorial / Historical
             const activeSlice = validArticles.slice(0, 6);
             const archiveSlice = validArticles.slice(6);
             grid.innerHTML = activeSlice.map((a, i) => createHomepageCard(a.items ? a.items[0] : a, labels[i])).join('');
@@ -626,7 +615,6 @@ function loadLehSection(ids) {
             }
         });
 }
-
 function loadLehFallback() {
     const grid = document.getElementById("leh-grid");
     if (grid) {
@@ -635,7 +623,6 @@ function loadLehFallback() {
             createEmptyCard("LATEST UPDATE") + createEmptyCard("EDITORIAL DIGEST") + createEmptyCard("HISTORICAL ARCHIVE");
     }
 }
-
 function createCardNavOptions(articleId) {
     return `
         <div class="card-nav-options">
@@ -645,7 +632,6 @@ function createCardNavOptions(articleId) {
         </div>
     `;
 }
-
 function createHomepageCard(article, label) {
     if (!article) return '';
     const title = article.title || 'Untitled Report';
@@ -663,7 +649,6 @@ function createHomepageCard(article, label) {
             </div>
         </article>`;
 }
-
 function createEmptyCard(label = "COMING SOON") {
     return `
     <article class="card">
@@ -674,7 +659,6 @@ function createEmptyCard(label = "COMING SOON") {
         </div>
     </article>`;
 }
-
 function createEmptyCardSet(label = "SECTION", count = 3) {
     let html = '';
     for (let i = 0; i < count; i++) {
@@ -704,10 +688,11 @@ function initArticlePage() {
             renderFullArticlePage(article);
         })
         .catch(() => {
-            fetch("content/archive.json")
+            fetch("content/article.json")
                 .then(r => r.ok ? r.json() : Promise.reject())
-                .then(archiveData => {
-                    const match = (archiveData.items || []).find(item => item.id === id);
+                .then(masterData => {
+                    const articlesList = masterData.items || masterData || [];
+                    const match = articlesList.find(item => item.id === id);
                     if (match) { 
                         renderFullArticlePage(match); 
                     } else { 
@@ -717,7 +702,6 @@ function initArticlePage() {
                 .catch(() => renderArticleFallback(id));
         });
 }
-
 function renderArticleFallback(id) {
     const contentEl = document.getElementById("content") || document.getElementById("article-content") || document.body;
     if (contentEl) {
@@ -729,7 +713,6 @@ function renderArticleFallback(id) {
             </div>`;
     }
 }
-
 function renderFullArticlePage(article) {
     const loader = document.getElementById('loading-state');
     if (loader) loader.style.display = 'none';
@@ -777,7 +760,6 @@ function renderFullArticlePage(article) {
         </article>
     `;
 }
-
 function addGlobalReadMoreInterceptor() {
     document.addEventListener("click", function(event) {
         if (event.target.closest("a") && event.target.tagName === "A" && event.target.closest(".card-body")) {
@@ -792,7 +774,6 @@ function addGlobalReadMoreInterceptor() {
         }
     });
 }
-
 function renderJSONBody(bodyData) {
     if (!bodyData) return '<p>No document content specified.</p>';
     if (typeof bodyData === 'string') return `<p>${bodyData}</p>`;
@@ -822,14 +803,17 @@ function renderJSONBody(bodyData) {
     return '';
 }
 
+/* ==========================================================================
+   SYSTEM PROSE PAGE LOADING FALLBACKS
+   ========================================================================== */
 function loadAboutPage() {
-    const titleEl = document.getElementById("about-title");
+    const titleEl = document.getElementById("about-title") || document.getElementById("title");
     const subtitleEl = document.getElementById("about-subtitle");
-    const metaEl = document.getElementById("about-meta");
-    const contentEl = document.getElementById("about-content");
+    const metaEl = document.getElementById("about-meta") || document.getElementById("meta");
+    const contentEl = document.getElementById("about-content") || document.getElementById("content");
     if (!contentEl) return;
     
-    fetch("content/about-001.json")
+    fetch("content/about.json")
         .then(res => res.ok ? res.json() : Promise.reject())
         .then(data => {
             const cleanData = data.items ? data.items[0] : data;
@@ -845,12 +829,11 @@ function loadAboutPage() {
             if (contentEl) contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to load about page source.</p>`;
         });
 }
-
 function loadChiefEditorPage() {
     const contentEl = document.getElementById("content") || document.getElementById("editor-content") || document.getElementById("about-content");
     if (!contentEl) return;
     
-    fetch("content/chief-editor-001.json")
+    fetch("content/chief-editor.json")
         .then(res => res.ok ? res.json() : Promise.reject())
         .then(data => {
             const cleanData = data.items ? data.items[0] : data;
@@ -865,7 +848,6 @@ function loadChiefEditorPage() {
             contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to load chief editor document.</p>`;
         });
 }
-
 function loadHistoricalPage() {
     const contentEl = document.getElementById("content") || document.getElementById("historical-content") || document.getElementById("about-content");
     if (!contentEl) return;
