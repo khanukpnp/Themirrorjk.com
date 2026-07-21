@@ -438,7 +438,6 @@ h1, h2, h3, h4, h5 {
 .cards.two {
     grid-template-columns: repeat(2, 1fr);
 }
-
 .card {
     background: white;
     border: 1px solid #e0e0e0;
@@ -572,7 +571,6 @@ h1, h2, h3, h4, h5 {
 .spotlight-badge { border-left: 3px solid #b30000; }
 .focus-badge { border-left: 3px solid #0056b3; }
 .trending-badge { border-left: 3px solid #28a745; }
-
 .news-card-badge .image-container {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -743,7 +741,7 @@ h1, h2, h3, h4, h5 {
 /* ============================
    CLICKABLE MODERN SOCIAL ACTIONS
    ============================ */
-.social-actions {
+.social-actions, .social-row-modern {
     display: flex;
     justify-content: center;
     gap: 12px;
@@ -753,26 +751,32 @@ h1, h2, h3, h4, h5 {
     border-bottom: 1px solid #e0e0e0;
     flex-wrap: wrap;
 }
-.sa-btn {
+.sa-btn, .sa-btn-modern {
     padding: 10px 20px;
     background: white;
     border: 1px solid #ddd;
     border-radius: 30px;
     font-size: 0.9rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     font-weight: 600;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    color: #333;
 }
-.sa-btn:hover {
+.sa-btn:hover, .sa-btn-modern:hover {
     background: #800000;
     border-color: #800000;
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.sa-btn-modern svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
 }
 
 /* ============================
