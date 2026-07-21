@@ -22,6 +22,8 @@
     
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Source+Sans+Pro:wght=400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
@@ -135,28 +137,18 @@
 
         <!-- MAIN CONTENT -->
         <main class="home-main">
-            <!-- TOP STORIES SECTION (6 WINDOWS) -->
-            <section id="top-stories">
-                <h2 class="section-title modern-title">⭐ Top Stories</h2>
-                <div class="cards three" id="top-stories-grid"></div>
-                <details class="inline-section-archive" id="top-stories-archive-disclosure">
-                    <summary>📁 View Archived Top Stories</summary>
-                    <div class="cards three" id="top-stories-archive-grid"></div>
-                </details>
-            </section>
-
-            <!-- SPOTLIGHT, IN FOCUS & TRENDING (6 WINDOWS) -->
-            <section id="spotlight-focus-trending" style="margin-top: 40px;">
+            
+            <!-- 1. SPOTLIGHT, IN FOCUS & TRENDING (POSITIONED AT TOP) -->
+            <section id="spotlight-focus-trending">
                 <h2 class="section-title modern-title">
                     <span class="icon">⚡</span> Spotlight, In Focus &amp; Trending
                 </h2>
-                <!-- Row 1 (3 Windows) -->
-                <div class="three-window-row">
+                
+                <!-- Row 1: Active Feature Windows -->
+                <div class="cards three">
                     <div class="news-card-badge">
                         <span class="card-badge spotlight-badge">SPOTLIGHT</span>
-                        <div class="image-container">
-                            <img src="content/images/img1.jpg" alt="Spotlight Feature Image">
-                        </div>
+                        <div class="image-container"><img src="content/images/img1.jpg" alt="Spotlight Feature"></div>
                         <h3>The Major Investigative Headline</h3>
                         <p>Deep-dive analysis shining a light on crucial regional issues and administrative policy decisions...</p>
                         <div class="card-nav-options">
@@ -168,11 +160,9 @@
                     
                     <div class="news-card-badge">
                         <span class="card-badge focus-badge">IN FOCUS</span>
-                        <div class="image-container">
-                            <img src="content/images/img2.jpg" alt="In Focus Feature Image">
-                        </div>
+                        <div class="image-container"><img src="content/images/img2.jpg" alt="In Focus Feature"></div>
                         <h3>The Hard News &amp; Policy Headline</h3>
-                        <p>A closer, objective look at today's shifting political landscape, dialogue channels, and legal frameworks...</p>
+                        <p>A closer, objective look at today's shifting political landscape and regional frameworks...</p>
                         <div class="card-nav-options">
                             <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
                             <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
@@ -182,11 +172,9 @@
                     
                     <div class="news-card-badge">
                         <span class="card-badge trending-badge">TRENDING NOW</span>
-                        <div class="image-container">
-                            <img src="content/images/img3.jpg" alt="Trending Feature Image">
-                        </div>
+                        <div class="image-container"><img src="content/images/img3.jpg" alt="Trending Feature"></div>
                         <h3>The Most Read &amp; Shared Headline</h3>
-                        <p>What readers are actively engaging with and discussing across digital newsrooms today...</p>
+                        <p>What readers are actively engaging with and discussing across newsrooms today...</p>
                         <div class="card-nav-options">
                             <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
                             <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
@@ -195,53 +183,63 @@
                     </div>
                 </div>
 
-                <!-- Row 2 (3 Windows) -->
-                <div class="three-window-row">
-                    <div class="news-card-badge">
-                        <span class="card-badge spotlight-badge">SPOTLIGHT II</span>
-                        <div class="image-container">
-                            <img src="content/images/img2.jpg" alt="Spotlight Feature Image II">
+                <!-- Row 2: Empty Placeholder Windows (Coming Soon) -->
+                <div class="cards three" style="margin-top: 20px;">
+                    <article class="card coming-soon-card">
+                        <div class="media empty-media">
+                            <div class="coming-soon-badge">SPOTLIGHT II</div>
+                            <span class="placeholder-icon">⌛</span>
                         </div>
-                        <h3>Special Report: Civil Rights &amp; Legal Accountability</h3>
-                        <p>Investigating institutional frameworks and public advocacy developments across the territory...</p>
-                        <div class="card-nav-options">
-                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
-                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
-                            <a href="article.html?id=spotlight-002" class="card-nav-btn next-link">Read More ➔</a>
+                        <div class="card-body" style="text-align: center; justify-content: center;">
+                            <h3 style="color: #b30000; font-size: 1.15rem; margin-bottom: 6px;">Coming Soon</h3>
+                            <p style="color: #666; font-style: italic; font-size: 0.9rem;">Visit us later for new updates.</p>
+                            <div class="card-nav-options" style="justify-content: center; padding-top: 8px;">
+                                <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="news-card-badge">
-                        <span class="card-badge focus-badge">IN FOCUS II</span>
-                        <div class="image-container">
-                            <img src="content/images/img3.jpg" alt="In Focus Feature Image II">
+                    </article>
+
+                    <article class="card coming-soon-card">
+                        <div class="media empty-media">
+                            <div class="coming-soon-badge">IN FOCUS II</div>
+                            <span class="placeholder-icon">⌛</span>
                         </div>
-                        <h3>Regional Economic &amp; Resource Policy Digest</h3>
-                        <p>Examining supply chains, electricity tariffs, and grassroots economic demands...</p>
-                        <div class="card-nav-options">
-                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
-                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
-                            <a href="article.html?id=infocus-002" class="card-nav-btn next-link">Read More ➔</a>
+                        <div class="card-body" style="text-align: center; justify-content: center;">
+                            <h3 style="color: #b30000; font-size: 1.15rem; margin-bottom: 6px;">Coming Soon</h3>
+                            <p style="color: #666; font-style: italic; font-size: 0.9rem;">Visit us later for new updates.</p>
+                            <div class="card-nav-options" style="justify-content: center; padding-top: 8px;">
+                                <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="news-card-badge">
-                        <span class="card-badge trending-badge">TRENDING II</span>
-                        <div class="image-container">
-                            <img src="content/images/img1.jpg" alt="Trending Feature Image II">
+                    </article>
+
+                    <article class="card coming-soon-card">
+                        <div class="media empty-media">
+                            <div class="coming-soon-badge">TRENDING II</div>
+                            <span class="placeholder-icon">⌛</span>
                         </div>
-                        <h3>International Perspectives &amp; Diplomatic Motions</h3>
-                        <p>Global reactions, parliamentary motions, and international watchdogs monitoring developments...</p>
-                        <div class="card-nav-options">
-                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
-                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
-                            <a href="article.html?id=trending-002" class="card-nav-btn next-link">Read More ➔</a>
+                        <div class="card-body" style="text-align: center; justify-content: center;">
+                            <h3 style="color: #b30000; font-size: 1.15rem; margin-bottom: 6px;">Coming Soon</h3>
+                            <p style="color: #666; font-style: italic; font-size: 0.9rem;">Visit us later for new updates.</p>
+                            <div class="card-nav-options" style="justify-content: center; padding-top: 8px;">
+                                <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
+                            </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </section>
 
-            <!-- LATEST / EDITORIAL / HISTORICAL (6 WINDOWS) -->
+            <!-- 2. TOP STORIES SECTION -->
+            <section id="top-stories" style="margin-top: 40px;">
+                <h2 class="section-title modern-title">⭐ Top Stories</h2>
+                <div class="cards three" id="top-stories-grid"></div>
+                <details class="inline-section-archive" id="top-stories-archive-disclosure">
+                    <summary>📁 View Archived Top Stories</summary>
+                    <div class="cards three" id="top-stories-archive-grid"></div>
+                </details>
+            </section>
+
+            <!-- 3. LATEST / EDITORIAL / HISTORICAL -->
             <section id="latest-editorial-historical">
                 <h2 class="section-title modern-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</h2>
                 <div class="cards three" id="leh-grid"></div>
@@ -251,7 +249,7 @@
                 </details>
             </section>
 
-            <!-- JAMMU KASHMIR (3 EQUAL WINDOWS) -->
+            <!-- 4. JAMMU KASHMIR (3 EQUAL WINDOWS) -->
             <section id="jammu-kashmir">
                 <h2 class="section-title modern-title">📍 Jammu Kashmir</h2>
                 <div class="cards three" id="jk-grid"></div>
@@ -261,11 +259,11 @@
                 </details>
             </section>
 
-            <!-- VIDEO REPORTS & VLOGS (9 WINDOWS: 3 PER ROW x 3 ROWS) -->
+            <!-- 5. VIDEO REPORTS & VLOGS (CLICKABLE CHANNEL LINK) -->
             <section id="vlogs">
                 <h2 class="section-title modern-title">🎥 Video Reports &amp; Vlogs</h2>
                 <div class="vlog-toolbar">
-                    <button class="btn-red" id="vlog-visit-channel">🎥 Visit Official Channel</button>
+                    <a href="https://www.youtube.com/@TheMirrorJK" target="_blank" class="btn-red" id="vlog-visit-channel">🎥 Visit Official Channel</a>
                 </div>
                 <div class="cards three vlogs-grid" id="vlogs-grid"></div>
                 <details class="inline-section-archive" id="vlogs-archive-disclosure">
@@ -274,7 +272,7 @@
                 </details>
             </section>
 
-            <!-- INTERNATIONAL DIPLOMACY (3 EQUAL WINDOWS) -->
+            <!-- 6. INTERNATIONAL DIPLOMACY (3 EQUAL WINDOWS) -->
             <section id="international">
                 <h2 class="section-title modern-title">🌍 International Diplomacy</h2>
                 <div class="cards three" id="intl-grid"></div>
@@ -284,7 +282,7 @@
                 </details>
             </section>
 
-            <!-- HUMAN RIGHTS (3 EQUAL WINDOWS) -->
+            <!-- 7. HUMAN RIGHTS (3 EQUAL WINDOWS) -->
             <section id="human-rights">
                 <h2 class="section-title modern-title">❤️ Human Rights</h2>
                 <div class="cards three" id="hr-grid"></div>
