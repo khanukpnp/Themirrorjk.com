@@ -20,8 +20,9 @@ document.addEventListener("DOMContentLoaded", function() {
     initFooterDropdowns();
     initReadingProgress();
     initDisclosureAutoScroll();
+    initInfiniteScroll();
     
-    // Dynamic Application Routing Engine (Checks exact paths and ID parameters)
+    // Dynamic Application Routing Engine
     const path = window.location.pathname;
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get("id");
@@ -38,13 +39,8 @@ document.addEventListener("DOMContentLoaded", function() {
         loadHomepageContent();
     }
     
-    // NEW: Interceptor to fix explicit "about-001.html" styled Read More links routing
     addGlobalReadMoreInterceptor();
-    
-    // Clock/Calendar Tick Pipeline
     setInterval(updateClocks, 1000);
-    
-    // Automated Weather Refresh Pipeline (Every 15 Minutes)
     setInterval(initWeatherBar, 900000);
 });
 
@@ -261,7 +257,7 @@ function initContactModal() {
         contactForm.addEventListener("submit", function(e) {
             e.preventDefault();
             if (document.getElementById("contact-name")?.value && document.getElementById("contact-email")?.value) {
-                alert("Thank you for your message!");
+                showToast("Thank you for your message!");
                 modal.classList.add("hidden");
                 contactForm.reset();
             }
@@ -282,7 +278,7 @@ function initDisclosureAutoScroll() {
 }
 
 /* ==========================================================================
-   VLOG REPOSITORY HANDLER
+   VLOG REPOSITORY HANDLER (9-WINDOW GRID FORMAT)
    ========================================================================== */
 function initVlogs() {
     const grid = document.getElementById("vlogs-grid");
@@ -300,7 +296,7 @@ function initVlogs() {
             renderVlogs(data.videos || [], grid, archiveGrid);
         })
         .catch(() => {
-            if (visitBtn) visitBtn.style.display = 'none';
+            if (visitBtn) visitBtn.style.display = 'inline-block';
             renderVlogsFallback();
         });
 }
@@ -309,8 +305,9 @@ function renderVlogs(videos, mainGrid, archiveGrid) {
     if (!mainGrid) return;
     if (!videos.length) { renderVlogsFallback(); return; }
     
-    const activeVlogs = videos.slice(0, 3);
-    const archivedVlogs = videos.slice(3);
+    // Updated: Slice 9 items for active display (3 rows x 3 columns)
+    const activeVlogs = videos.slice(0, 9);
+    const archivedVlogs = videos.slice(9);
     
     const mapHtml = v => {
         const thumb = v.youtubeId ? `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg` : 'https://via.placeholder.com/640x360?text=Video';
@@ -321,7 +318,11 @@ function renderVlogs(videos, mainGrid, archiveGrid) {
                     <div class="vlog-play-icon" onclick="playVideo('${v.youtubeId}')">▶</div>
                     <div class="vlog-duration">${v.duration || '00:00'}</div>
                 </div>
-                <div class="card-body"><h3>${v.title}</h3><p>${v.description || ''}</p></div>
+                <div class="card-body">
+                    <h3>${v.title}</h3>
+                    <p>${v.description || ''}</p>
+                    ${createCardNavOptions(v.id)}
+                </div>
             </article>`;
     };
     mainGrid.innerHTML = activeVlogs.map(mapHtml).join('');
@@ -336,7 +337,14 @@ function renderVlogsFallback() {
     if (!grid) return;
     const fallbacks = [
         { title: "Azad Kashmir Under Siege", description: "Communication blackout, curfews, and widespread leadership actions.", duration: "15:32", youtubeId: "lRE5cVWbWmA" },
-        { title: "Kashmiri Leaders Geneva Briefing", description: "Crucial international briefing on human rights developments.", duration: "12:45", youtubeId: "1Sbomv3juT4" }
+        { title: "Kashmiri Leaders Geneva Briefing", description: "Crucial international briefing on human rights developments.", duration: "12:45", youtubeId: "1Sbomv3juT4" },
+        { title: "UN Geneva: Azad Kashmir Under Siege", description: "Protest exposes lethal crackdown and internet blackouts in AJK.", duration: "1:08:24", youtubeId: "FE9farW5M18" },
+        { title: "Rawalakot CMH Incident Coverage", description: "Eyewitness updates and live analysis of the recent events.", duration: "18:10", youtubeId: "lRE5cVWbWmA" },
+        { title: "JAAC Rights Movement Special", description: "Detailed documentary on grassroots public advocacy.", duration: "22:15", youtubeId: "1Sbomv3juT4" },
+        { title: "Diaspora Million March Report", description: "Coverage of overseas demonstrations across major European capitals.", duration: "14:50", youtubeId: "FE9farW5M18" },
+        { title: "Human Rights Forum Geneva", description: "Special addresses at the UNHRC side events.", duration: "19:40", youtubeId: "lRE5cVWbWmA" },
+        { title: "Poonch & Sudhnuti Ground Report", description: "Field reports detailing economic and social developments.", duration: "11:20", youtubeId: "1Sbomv3juT4" },
+        { title: "Press Conference Digest", description: "Statements issued by cross-border civil society leadership.", duration: "16:05", youtubeId: "FE9farW5M18" }
     ];
     renderVlogs(fallbacks, grid, archiveGrid);
 }
@@ -344,11 +352,11 @@ function renderVlogsFallback() {
 function playVideo(id) { if (id) window.open('https://www.youtube.com/watch?v=' + id, '_blank'); }
 
 /* ==========================================================================
-   INTERFACE CONTROLS
+   INTERACTION CONTROLS & MODERN BUTTONS
    ========================================================================== */
 function initLanguageSelector() {
     document.getElementById("language-select")?.addEventListener("change", e => {
-        alert("Language changed to " + e.target.options[e.target.selectedIndex].text);
+        showToast("Language set to " + e.target.options[e.target.selectedIndex].text);
     });
 }
 
@@ -356,24 +364,56 @@ function initSearch() {
     document.querySelector(".search")?.addEventListener("submit", e => {
         e.preventDefault();
         const input = document.getElementById("search-input")?.value.trim();
-        if (input) alert("Searching for: " + input);
+        if (input) showToast("Searching for: " + input);
     });
 }
 
 function initSocialButtons() {
+    let liked = false;
     document.querySelectorAll(".sa-btn").forEach(btn => {
         btn.addEventListener("click", function() {
             const text = btn.textContent;
-            if (text.includes("Like")) alert("Thank you for liking!");
-            else if (text.includes("Share") || text.includes("Copy")) copyPageLink();
+            if (text.includes("Like")) {
+                liked = !liked;
+                btn.style.background = liked ? "#b30000" : "white";
+                btn.style.color = liked ? "white" : "#222";
+                showToast(liked ? "Thank you for liking!" : "Unliked");
+            } else if (text.includes("Subscribe")) {
+                document.getElementById("newsletter")?.scrollIntoView({ behavior: 'smooth' });
+            } else if (text.includes("Share")) {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'THE MIRROR JAMMU KASHMIR',
+                        text: 'Champion Justice & Amplify the Voices of the Unheard',
+                        url: window.location.href,
+                    }).catch(() => copyPageLink());
+                } else {
+                    copyPageLink();
+                }
+            } else if (text.includes("Copy")) {
+                copyPageLink();
+            }
         });
     });
 }
 
 function copyPageLink() {
     navigator.clipboard.writeText(window.location.href)
-        .then(() => alert("Link successfully copied to clipboard!"))
-        .catch(() => alert("Failed to copy link"));
+        .then(() => showToast("Link successfully copied to clipboard!"))
+        .catch(() => showToast("Failed to copy link"));
+}
+
+function showToast(message) {
+    let toast = document.getElementById("toast-notification");
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "toast-notification";
+        toast.style.cssText = "position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#800000; color:white; padding:10px 24px; border-radius:30px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:9999; font-weight:600; font-size:0.9rem; transition:opacity 0.3s ease;";
+        document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.style.opacity = "1";
+    setTimeout(() => { toast.style.opacity = "0"; }, 2500);
 }
 
 function initFileUpload() {
@@ -390,7 +430,8 @@ function initNewsletter() {
     document.getElementById("subscribeBtn")?.addEventListener("click", e => {
         e.preventDefault();
         const email = document.getElementById("subscribeEmail")?.value.trim();
-        if (email && email.includes("@")) { alert("Thank you for subscribing!"); }
+        if (email && email.includes("@")) { showToast("Thank you for subscribing!"); }
+        else { showToast("Please enter a valid email address."); }
     });
 }
 
@@ -404,6 +445,58 @@ function initFooterDropdowns() {
 }
 
 /* ==========================================================================
+   UNLIMITED EXPANDING INFINITE SCROLL PIPELINE
+   ========================================================================== */
+function initInfiniteScroll() {
+    let isFetching = false;
+    window.addEventListener("scroll", () => {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+            if (!isFetching) {
+                isFetching = true;
+                appendDynamicStream();
+                setTimeout(() => { isFetching = false; }, 2000);
+            }
+        }
+    });
+}
+
+function appendDynamicStream() {
+    const archiveContainer = document.getElementById("archive-list");
+    if (!archiveContainer) return;
+    
+    const newCard = document.createElement("div");
+    newCard.className = "cards three";
+    newCard.style.marginTop = "20px";
+    newCard.innerHTML = `
+        <article class="card">
+            <div class="media"><img src="content/images/img1.jpg" alt="Stream News" onerror="this.src='https://via.placeholder.com/640x360?text=Archive+Entry'"></div>
+            <div class="card-body">
+                <h3>Archived Dispatch: Civil Rights &amp; Press Advocacy</h3>
+                <p>Ongoing documentation of civil society reports and human rights advocacy...</p>
+                ${createCardNavOptions('archive-stream')}
+            </div>
+        </article>
+        <article class="card">
+            <div class="media"><img src="content/images/img2.jpg" alt="Stream News" onerror="this.src='https://via.placeholder.com/640x360?text=Archive+Entry'"></div>
+            <div class="card-body">
+                <h3>Regional Economic Perspectives</h3>
+                <p>Analysis of local markets, subsidies, and administrative policy frameworks...</p>
+                ${createCardNavOptions('archive-stream')}
+            </div>
+        </article>
+        <article class="card">
+            <div class="media"><img src="content/images/img3.jpg" alt="Stream News" onerror="this.src='https://via.placeholder.com/640x360?text=Archive+Entry'"></div>
+            <div class="card-body">
+                <h3>International Diplomacy Overview</h3>
+                <p>Digest of global diplomatic discussions and international appeals...</p>
+                ${createCardNavOptions('archive-stream')}
+            </div>
+        </article>
+    `;
+    archiveContainer.appendChild(newCard);
+}
+
+/* ==========================================================================
    DYNAMIC HOMEPAGE CONTENT INGESTION ENGINE
    ========================================================================== */
 function loadHomepageContent() {
@@ -412,16 +505,22 @@ function loadHomepageContent() {
         .then(index => {
             initTicker(index);
             if (index.topStories) {
-                loadTopStories([index.topStories.lead, index.topStories.breaking, index.topStories.opinion]);
+                loadTopStories([
+                    index.topStories.lead, index.topStories.breaking, index.topStories.opinion,
+                    index.topStories.lead, index.topStories.breaking, index.topStories.opinion
+                ]);
             } else { loadTopStoriesFallback(); }
             
             if (index.latestEditorialHistorical) {
-                loadLehSection([index.latestEditorialHistorical.latest, index.latestEditorialHistorical.editorial, index.latestEditorialHistorical.historical]);
+                loadLehSection([
+                    index.latestEditorialHistorical.latest, index.latestEditorialHistorical.editorial, index.latestEditorialHistorical.historical,
+                    index.latestEditorialHistorical.latest, index.latestEditorialHistorical.editorial, index.latestEditorialHistorical.historical
+                ]);
             } else { loadLehFallback(); }
             
-            if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "JK", "Jammu Kashmir");
-            if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "INTL", "International");
-            if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "HR", "Human Rights");
+            if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "JK", "Jammu Kashmir", 3);
+            if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "INTL", "International Diplomacy", 3);
+            if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "HR", "Human Rights", 3);
         })
         .catch(() => {
             initTicker(null);
@@ -430,7 +529,7 @@ function loadHomepageContent() {
         });
 }
 
-function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
+function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey, count = 3) {
     const grid = document.getElementById(gridId);
     const archiveGrid = document.getElementById(archiveGridId);
     if (!grid || !ids) return;
@@ -451,17 +550,20 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
                             combinedPool.push(oldItem);
                         }
                     });
-                    const activeSlice = combinedPool.slice(0, 2);
-                    const archiveSlice = combinedPool.slice(2);
-                    grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a)).join('') : createEmptyCard(label);
+                    
+                    // Updated: Slice 'count' items for display (3 for JK, INTL, HR)
+                    const activeSlice = combinedPool.slice(0, count);
+                    const archiveSlice = combinedPool.slice(count);
+                    
+                    grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a)).join('') : createEmptyCardSet(label, count);
                     if (archiveGrid) {
                         archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
                     }
                 })
                 .catch(() => {
-                    const activeSlice = validArticles.slice(0, 2);
-                    const archiveSlice = validArticles.slice(2);
-                    grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a)).join('') : createEmptyCard(label);
+                    const activeSlice = validArticles.slice(0, count);
+                    const archiveSlice = validArticles.slice(count);
+                    grid.innerHTML = activeSlice.length ? activeSlice.map(a => createHomepageCard(a)).join('') : createEmptyCardSet(label, count);
                     if (archiveGrid) {
                         archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
                     }
@@ -477,8 +579,9 @@ function loadTopStories(ids) {
         .then(articles => {
             const validArticles = articles.filter(Boolean);
             if (validArticles.length) {
-                const activeSlice = validArticles.slice(0, 3);
-                const archiveSlice = validArticles.slice(3);
+                // Updated: 6 cards for Top Stories
+                const activeSlice = validArticles.slice(0, 6);
+                const archiveSlice = validArticles.slice(6);
                 grid.innerHTML = activeSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('');
                 if (archiveGrid) {
                     archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('') : '<p style="padding:15px; color:#666;">No older Top Stories archived.</p>';
@@ -490,11 +593,19 @@ function loadTopStories(ids) {
 function loadTopStoriesFallback() {
     const grid = document.getElementById("top-stories-grid");
     if (grid) {
-        grid.innerHTML = `
-        <article class="card">
-            <div class="media"><img src="https://via.placeholder.com/640x360?text=News" alt="News"></div>
-            <div class="card-body"><h3>Shutter Down Paralyses Rawalakot</h3><p>Protests continue over infrastructure issues...</p><a href="article.html?id=breaking-001" class="btn-red">Read More →</a></div>
-        </article>`;
+        let cardsHtml = '';
+        for (let i = 1; i <= 6; i++) {
+            cardsHtml += `
+            <article class="card">
+                <div class="media"><img src="content/images/img${(i % 3) + 1}.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=Top+Story'"></div>
+                <div class="card-body">
+                    <h3>Top Story Headline ${i}: Dispatches &amp; Regional Developments</h3>
+                    <p>Comprehensive reporting on local developments, civil rights initiatives, and governance...</p>
+                    ${createCardNavOptions('top-story-' + i)}
+                </div>
+            </article>`;
+        }
+        grid.innerHTML = cardsHtml;
     }
 }
 
@@ -502,12 +613,13 @@ function loadLehSection(ids) {
     const grid = document.getElementById("leh-grid");
     const archiveGrid = document.getElementById("leh-archive-grid");
     if (!grid) return;
-    const labels = ["LATEST", "EDITORIAL", "HISTORICAL"];
+    const labels = ["LATEST", "EDITORIAL", "HISTORICAL", "LATEST", "EDITORIAL", "HISTORICAL"];
     Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean);
-            const activeSlice = validArticles.slice(0, 3);
-            const archiveSlice = validArticles.slice(3);
+            // Updated: 6 cards for Latest / Editorial / Historical
+            const activeSlice = validArticles.slice(0, 6);
+            const archiveSlice = validArticles.slice(6);
             grid.innerHTML = activeSlice.map((a, i) => createHomepageCard(a.items ? a.items[0] : a, labels[i])).join('');
             if (archiveGrid) {
                 archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a.items ? a.items[0] : a)).join('') : '<p style="padding:15px; color:#666;">No older updates archived.</p>';
@@ -517,32 +629,62 @@ function loadLehSection(ids) {
 
 function loadLehFallback() {
     const grid = document.getElementById("leh-grid");
-    if (grid) grid.innerHTML = createEmptyCard("LATEST") + createEmptyCard("EDITORIAL") + createEmptyCard("HISTORICAL");
+    if (grid) {
+        grid.innerHTML = 
+            createEmptyCard("LATEST") + createEmptyCard("EDITORIAL") + createEmptyCard("HISTORICAL") +
+            createEmptyCard("LATEST UPDATE") + createEmptyCard("EDITORIAL DIGEST") + createEmptyCard("HISTORICAL ARCHIVE");
+    }
+}
+
+function createCardNavOptions(articleId) {
+    return `
+        <div class="card-nav-options">
+            <button class="card-nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">🏠 Home</button>
+            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
+            <a href="article.html?id=${articleId || ''}" class="card-nav-btn next-link">Read More ➔</a>
+        </div>
+    `;
 }
 
 function createHomepageCard(article, label) {
     if (!article) return '';
-    const title = article.title || 'Untitled';
-    const excerpt = article.excerpt || article.summary || 'Click to view details.';
-    let image = article.heroImage?.src || article.heroImage || article.image || 'https://via.placeholder.com/640x360?text=No+Image';
+    const title = article.title || 'Untitled Report';
+    const excerpt = article.excerpt || article.summary || 'Click below to read full article coverage.';
+    let image = article.heroImage?.src || article.heroImage || article.image || 'content/images/img1.jpg';
     
     return `
         <article class="card">
             <div class="media"><img src="${image}" alt="${title}" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
             <div class="card-body">
+                ${label ? `<span class="category-label">${label}</span>` : ''}
                 <h3>${title.substring(0, 80)}</h3>
                 <p>${excerpt.substring(0, 120)}...</p>
-                <a href="article.html?id=${article.id || ''}" class="btn-red">Read More →</a>
+                ${createCardNavOptions(article.id)}
             </div>
         </article>`;
 }
 
 function createEmptyCard(label = "COMING SOON") {
-    return `<article class="card"><div class="card-body"><h3>${label}</h3><p>Content coming soon.</p></div></article>`;
+    return `
+    <article class="card">
+        <div class="card-body">
+            <h3>${label}</h3>
+            <p>Content coming soon.</p>
+            ${createCardNavOptions('')}
+        </div>
+    </article>`;
+}
+
+function createEmptyCardSet(label = "SECTION", count = 3) {
+    let html = '';
+    for (let i = 0; i < count; i++) {
+        html += createEmptyCard(`${label} ${i + 1}`);
+    }
+    return html;
 }
 
 /* ==========================================================================
-   ARTICLE DETAILED VIEW PIPELINE (UPDATED FOR INDIVIDUAL REPO JSON FILES)
+   ARTICLE DETAILED VIEW PIPELINE
    ========================================================================== */
 function initArticlePage() {
     const id = new URLSearchParams(window.location.search).get("id");
@@ -555,7 +697,6 @@ function initArticlePage() {
         return;
     }
     
-    // Step 1: Attempt to load individual JSON file directly (e.g., content/breaking-001.json)
     fetch(`content/${id}.json`)
         .then(r => r.ok ? r.json() : Promise.reject())
         .then(data => {
@@ -563,7 +704,6 @@ function initArticlePage() {
             renderFullArticlePage(article);
         })
         .catch(() => {
-            // Step 2: Fall back to pulling the matching item block from archive.json
             fetch("content/archive.json")
                 .then(r => r.ok ? r.json() : Promise.reject())
                 .then(archiveData => {
@@ -591,7 +731,6 @@ function renderArticleFallback(id) {
 }
 
 function renderFullArticlePage(article) {
-    // Dismiss loading elements
     const loader = document.getElementById('loading-state');
     if (loader) loader.style.display = 'none';
     
@@ -599,10 +738,8 @@ function renderFullArticlePage(article) {
     if (!contentEl) return;
     contentEl.style.display = 'block';
     
-    // Set dynamic page metadata
     document.title = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
     
-    // Generate cleanly formatted, human-readable date
     let rawDate = article.date || "";
     let processedDate = rawDate;
     if (rawDate) {
@@ -613,7 +750,6 @@ function renderFullArticlePage(article) {
         }
     }
     
-    // Build dynamic structure bypassing element dependencies to avoid crashing layout structures
     contentEl.innerHTML = `
         <article class="prose-container" style="max-width: 850px; margin: 40px auto; padding: 0 20px; font-family:'Source Sans Pro', sans-serif; line-height: 1.8;">
             <header style="margin-bottom: 2.5rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 1.5rem;">
@@ -628,36 +764,28 @@ function renderFullArticlePage(article) {
                     <div>${processedDate} | ⏱️ ${article.readTime || '5 min read'}</div>
                 </div>
             </header>
-
             ${article.heroImage && (article.heroImage.src || typeof article.heroImage === 'string') ? `
                 <figure style="margin: 0 0 2.5rem 0; text-align:center;">
                     <img src="${article.heroImage.src || article.heroImage}" alt="${article.title}" style="width:100%; height:auto; max-height:480px; object-fit:cover; border-radius:4px;" onerror="this.style.display='none'">
                     ${article.heroImage.caption ? `<figcaption style="text-align:left; color:#666; font-size:0.85rem; padding:8px 12px; border-left:3px solid #b30000; background:#f9f9f9; margin-top:8px; font-style:italic;">${article.heroImage.caption}</figcaption>` : ''}
                 </figure>
             ` : ''}
-
             <div class="article-body-content" style="font-size:1.15rem; color:#222; line-height:1.8;">
                 ${renderJSONBody(article.body || article.content)}
             </div>
+            ${createCardNavOptions(article.id)}
         </article>
     `;
 }
 
-/* ==========================================================================
-   FIX: ADD GLOBAL READ MORE LINKS ROUTING INTERCEPTOR
-   ========================================================================== */
 function addGlobalReadMoreInterceptor() {
-    // Intercepts explicitly named file links (like "about-001.html") to guide them into dynamic engine
     document.addEventListener("click", function(event) {
         if (event.target.closest("a") && event.target.tagName === "A" && event.target.closest(".card-body")) {
             const link = event.target;
             if (link.hostname === window.location.hostname && !link.search) {
-                // Filename detection pattern matching suffix "-001.html" or pure "breaking.html" styled raw pages
                 if (link.pathname.match(/\/([\w-]+)\.html$/)) {
                     event.preventDefault();
                     const slug = link.pathname.match(/\/([\w-]+)\.html$/)[1];
-                    
-                    // Specific mapping logic to convert raw file slugs to dynamic ID parameters
                     window.location.href = `article.html?id=${slug}`;
                 }
             }
@@ -665,9 +793,6 @@ function addGlobalReadMoreInterceptor() {
     });
 }
 
-/* ==========================================================================
-   COMPOSITE PROSE & DOCUMENT RENDERING GENERATOR
-   ========================================================================== */
 function renderJSONBody(bodyData) {
     if (!bodyData) return '<p>No document content specified.</p>';
     if (typeof bodyData === 'string') return `<p>${bodyData}</p>`;
@@ -697,9 +822,6 @@ function renderJSONBody(bodyData) {
     return '';
 }
 
-/* ==========================================================================
-   FULLY MAPPED DYNAMIC CONTENT INGESTION PIPELINES
-   ========================================================================== */
 function loadAboutPage() {
     const titleEl = document.getElementById("about-title");
     const subtitleEl = document.getElementById("about-subtitle");
@@ -707,26 +829,20 @@ function loadAboutPage() {
     const contentEl = document.getElementById("about-content");
     if (!contentEl) return;
     
-    // Explicit filename matching from generate-articles configuration parameters
     fetch("content/about-001.json")
         .then(res => res.ok ? res.json() : Promise.reject())
         .then(data => {
-            // Unify dynamic and Items structure mapping
             const cleanData = data.items ? data.items[0] : data;
-            
             if (titleEl) titleEl.textContent = cleanData.title || "About Us";
             if (subtitleEl) subtitleEl.textContent = cleanData.subtitle || "";
             if (metaEl && cleanData.author) {
                 const dateStr = cleanData.date ? new Date(cleanData.date).toLocaleDateString("en-GB", { year: 'numeric', month: 'long', day: 'numeric' }) : '';
                 metaEl.innerHTML = `By <strong>${cleanData.author}</strong> | ${cleanData.location || ''} | ${dateStr} | ⏱️ ${cleanData.readTime || ''}`;
             }
-            if (contentEl) {
-                contentEl.innerHTML = renderJSONBody(cleanData.body);
-            }
+            if (contentEl) contentEl.innerHTML = renderJSONBody(cleanData.body);
         })
         .catch(() => {
-            // Hardcoded structural fallback matching VS1 full text schema signature requirements if fetch stalls 
-            if (contentEl) contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to dynamically connect to the 'about-001.json' layout source configuration files. Please re-verify file pathways inside your content directories.</p>`;
+            if (contentEl) contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to load about page source.</p>`;
         });
 }
 
@@ -746,7 +862,7 @@ function loadChiefEditorPage() {
                 </article>`;
         })
         .catch(() => {
-            contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to dynamically connect to the 'chief-editor-001.json' document object file configurations.</p>`;
+            contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to load chief editor document.</p>`;
         });
 }
 
