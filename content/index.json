@@ -1,4 +1,16 @@
 {
+  "spotlightFocusTrending": {
+    "topRow": [
+      "spotlight-001",
+      "infocus-001",
+      "trending-001"
+    ],
+    "bottomRow": [
+      "spotlight-002",
+      "infocus-002",
+      "trending-002"
+    ]
+  },
   "topStories": {
     "lead": "article-002",
     "breaking": "breaking-001",
