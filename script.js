@@ -54,7 +54,6 @@ function initLoader() {
         setTimeout(function() { loader.style.display = "none"; }, 300);
     }, 1200);
 }
-
 function initYear() {
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -66,7 +65,6 @@ function initYear() {
 function initClocks() {
     updateClocks();
 }
-
 function updateClocks() {
     const now = new Date();
     const datetimeBar = document.getElementById("datetime-bar");
@@ -98,7 +96,6 @@ function updateClocks() {
         <span>PKT (Gilgit-Baltistan & Azad Kashmir): <strong>${pktFull}</strong></span>
     `;
 }
-
 function getHijriDate() {
     try {
         return new Intl.DateTimeFormat("en-u-ca-islamic", { day: "numeric", month: "long", year: "numeric" }).format(new Date()) + " AH";
@@ -106,7 +103,6 @@ function getHijriDate() {
         return "Ramadan, 1447 AH";
     }
 }
-
 function getBikramiDate() {
     const today = new Date();
     const day = today.getDate();
@@ -184,8 +180,9 @@ function initTicker(jsonData) {
     if (!tickerItems) return;
     
     const items = (jsonData && jsonData.ticker) ? jsonData.ticker : [
-        "THE MIRROR JAMMU KASHMIR --- AN INDEPENDENT DIGITAL MEDIA PLATFORM DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
-        "WE CHALLENGE SILENCE, EXPOSE INJUSTICE AND AMPLIFY SUPPRESSED VOICES"
+        "WE DO NOT MANUFACTURE NARRATIVES --- WE REFLECT REALITY",
+        "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH",
+        "GOT NEWS, FEEDBACK OR URGENT UPDATES? CONTACT THE MIRROR JAMMU KASHMIR"
     ];
     
     let html = '';
@@ -194,7 +191,6 @@ function initTicker(jsonData) {
     }
     tickerItems.innerHTML = html;
 }
-
 function initReadingProgress() {
     const progressBar = document.getElementById('reading-progress');
     if (!progressBar) return;
@@ -204,7 +200,6 @@ function initReadingProgress() {
         progressBar.style.width = scrolled + '%';
     });
 }
-
 function initNav() {
     const hamburger = document.getElementById("hamburger");
     const navList = document.getElementById("nav-list");
@@ -237,7 +232,6 @@ function initNav() {
         }
     });
 }
-
 function initContactModal() {
     const openBtn = document.getElementById("contact-open");
     const closeBtn = document.getElementById("contact-close");
@@ -263,7 +257,6 @@ function initContactModal() {
         });
     }
 }
-
 function initDisclosureAutoScroll() {
     document.querySelectorAll('.inline-section-archive').forEach(disclosure => {
         disclosure.addEventListener('toggle', function() {
@@ -297,7 +290,6 @@ function initVlogs() {
             renderVlogsFallback();
         });
 }
-
 function renderVlogs(videos, mainGrid, archiveGrid) {
     if (!mainGrid) return;
     if (!videos.length) { renderVlogsFallback(); return; }
@@ -326,15 +318,14 @@ function renderVlogs(videos, mainGrid, archiveGrid) {
         archiveGrid.innerHTML = archivedVlogs.length ? archivedVlogs.map(mapHtml).join('') : '<p style="padding:15px; color:#666;">No older vlogs archived.</p>';
     }
 }
-
 function renderVlogsFallback() {
     const grid = document.getElementById("vlogs-grid");
     const archiveGrid = document.getElementById("vlogs-archive-grid");
     if (!grid) return;
     const fallbacks = [
+        { title: "UN Geneva: Azad Kashmir Under Siege", description: "Protest exposes lethal crackdown and internet blackouts in AJK.", duration: "1:08:24", youtubeId: "FE9farW5M18" },
         { title: "Azad Kashmir Under Siege", description: "Communication blackout, curfews, and widespread leadership actions.", duration: "15:32", youtubeId: "lRE5cVWbWmA" },
         { title: "Kashmiri Leaders Geneva Briefing", description: "Crucial international briefing on human rights developments.", duration: "12:45", youtubeId: "1Sbomv3juT4" },
-        { title: "UN Geneva: Azad Kashmir Under Siege", description: "Protest exposes lethal crackdown and internet blackouts in AJK.", duration: "1:08:24", youtubeId: "FE9farW5M18" },
         { title: "Rawalakot CMH Incident Coverage", description: "Eyewitness updates and live analysis of the recent events.", duration: "18:10", youtubeId: "lRE5cVWbWmA" },
         { title: "JAAC Rights Movement Special", description: "Detailed documentary on grassroots public advocacy.", duration: "22:15", youtubeId: "1Sbomv3juT4" },
         { title: "Diaspora Million March Report", description: "Coverage of overseas demonstrations across major European capitals.", duration: "14:50", youtubeId: "FE9farW5M18" },
@@ -344,7 +335,6 @@ function renderVlogsFallback() {
     ];
     renderVlogs(fallbacks, grid, archiveGrid);
 }
-
 function playVideo(id) { if (id) window.open('https://www.youtube.com/watch?v=' + id, '_blank'); }
 
 /* ==========================================================================
@@ -355,7 +345,6 @@ function initLanguageSelector() {
         showToast("Language set to " + e.target.options[e.target.selectedIndex].text);
     });
 }
-
 function initSearch() {
     document.querySelector(".search")?.addEventListener("submit", e => {
         e.preventDefault();
@@ -363,7 +352,6 @@ function initSearch() {
         if (input) showToast("Searching for: " + input);
     });
 }
-
 function initSocialButtons() {
     let liked = false;
     document.querySelectorAll(".sa-btn").forEach(btn => {
@@ -392,13 +380,11 @@ function initSocialButtons() {
         });
     });
 }
-
 function copyPageLink() {
     navigator.clipboard.writeText(window.location.href)
         .then(() => showToast("Link successfully copied to clipboard!"))
         .catch(() => showToast("Failed to copy link"));
 }
-
 function showToast(message) {
     let toast = document.getElementById("toast-notification");
     if (!toast) {
@@ -411,7 +397,6 @@ function showToast(message) {
     toast.style.opacity = "1";
     setTimeout(() => { toast.style.opacity = "0"; }, 2500);
 }
-
 function initFileUpload() {
     const fileInput = document.getElementById("file-upload");
     const nameSpan = document.querySelector(".file-name");
@@ -421,7 +406,6 @@ function initFileUpload() {
         });
     }
 }
-
 function initNewsletter() {
     document.getElementById("subscribeBtn")?.addEventListener("click", e => {
         e.preventDefault();
@@ -430,7 +414,6 @@ function initNewsletter() {
         else { showToast("Please enter a valid email address."); }
     });
 }
-
 function initFooterDropdowns() {
     document.querySelectorAll('.footer-section').forEach(section => {
         section.querySelector('h4')?.addEventListener('click', e => {
@@ -449,7 +432,17 @@ function loadHomepageContent() {
         .then(index => {
             initTicker(index);
             
-            // Top Stories: Target 6 windows total (2 rows x 3 columns)
+            // 1. Ingest Spotlight, In Focus & Trending (6 Windows)
+            if (index.spotlightFocusTrending) {
+                loadSpotlightSection(index.spotlightFocusTrending);
+            } else {
+                loadSpotlightSection({
+                    topRow: ["spotlight-001", "infocus-001", "trending-001"],
+                    bottomRow: ["spotlight-002", "infocus-002", "trending-002"]
+                });
+            }
+
+            // 2. Top Stories Grid
             if (index.topStories) {
                 loadTopStories([
                     index.topStories.lead, 
@@ -458,7 +451,7 @@ function loadHomepageContent() {
                 ]);
             } else { loadTopStoriesFallback(); }
             
-            // Latest / Editorial / Historical: Target 6 windows total (2 rows x 3 columns)
+            // 3. Latest / Editorial / Historical Grid
             if (index.latestEditorialHistorical) {
                 loadLehSection([
                     index.latestEditorialHistorical.latest, 
@@ -467,16 +460,69 @@ function loadHomepageContent() {
                 ]);
             } else { loadLehFallback(); }
             
-            // Standard 3-Window Sections (2 Active + 1 Placeholders)
+            // 4. Category Grids
             if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "JK", "Jammu Kashmir");
             if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "INTL", "International Diplomacy");
             if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "HR", "Human Rights");
         })
         .catch(() => {
             initTicker(null);
+            loadSpotlightSection({
+                topRow: ["spotlight-001", "infocus-001", "trending-001"],
+                bottomRow: ["spotlight-002", "infocus-002", "trending-002"]
+            });
             loadTopStoriesFallback();
             loadLehFallback();
         });
+}
+
+/* ==========================================================================
+   SPOTLIGHT, IN FOCUS & TRENDING ENGINE (6 WINDOW LAYOUT)
+   ========================================================================== */
+function loadSpotlightSection(config) {
+    const topRowIds = config.topRow || ["spotlight-001", "infocus-001", "trending-001"];
+    const bottomRowIds = config.bottomRow || ["spotlight-002", "infocus-002", "trending-002"];
+    
+    const badges = {
+        'spotlight': { label: 'SPOTLIGHT', class: 'spotlight-badge' },
+        'infocus': { label: 'IN FOCUS', class: 'focus-badge' },
+        'trending': { label: 'TRENDING NOW', class: 'trending-badge' }
+    };
+
+    const renderRow = (ids, containerId) => {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.ok ? r.json() : null).catch(() => null)))
+            .then(articles => {
+                container.innerHTML = articles.map((item, index) => {
+                    if (!item) return createComingSoonCard(`Window ${index + 1}`);
+                    const article = item.items ? item.items[0] : item;
+                    const idKey = (article.id || ids[index] || '').toLowerCase();
+                    
+                    let badgeInfo = badges['spotlight'];
+                    if (idKey.includes('focus')) badgeInfo = badges['infocus'];
+                    if (idKey.includes('trending')) badgeInfo = badges['trending'];
+
+                    let imgUrl = article.heroImage?.src || article.heroImage || article.image || 'content/images/logo.png';
+
+                    return `
+                        <div class="news-card-badge ${badgeInfo.class}">
+                            <span class="card-badge">${badgeInfo.label}</span>
+                            <div class="image-container">
+                                <img src="${imgUrl}" alt="${article.title}" onerror="this.src='https://via.placeholder.com/640x360?text=News'">
+                            </div>
+                            <h3>${article.title}</h3>
+                            <p>${(article.excerpt || article.summary || '').substring(0, 110)}...</p>
+                            ${createCardNavOptions(article.id)}
+                        </div>
+                    `;
+                }).join('');
+            });
+    };
+
+    renderRow(topRowIds, 'spotlight-top-row');
+    renderRow(bottomRowIds, 'spotlight-bottom-row');
 }
 
 function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
@@ -484,75 +530,38 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
     const archiveGrid = document.getElementById(archiveGridId);
     if (!grid || !ids) return;
     
-    Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
+    Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             let validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
+            let activeSlice = validArticles.slice(0, 3);
+            let archiveSlice = validArticles.slice(3);
             
-            fetch("content/archive.json")
-                .then(res => res.ok ? res.json() : { items: [] })
-                .then(archiveData => {
-                    const archivedItems = archiveData.items || [];
-                    const categoryItems = archivedItems.filter(item => item.category === categoryKey || item.sectionLabel === categoryKey);
-                    
-                    let combinedPool = [...validArticles];
-                    categoryItems.forEach(oldItem => {
-                        if (!combinedPool.some(newItem => newItem.id === oldItem.id)) {
-                            combinedPool.push(oldItem);
-                        }
-                    });
-
-                    // Target exactly 3 active slots per row
-                    let activeSlice = combinedPool.slice(0, 3);
-                    let archiveSlice = combinedPool.slice(3);
-                    
-                    let cardsHtml = activeSlice.map(a => createHomepageCard(a)).join('');
-
-                    // Fill remaining slots up to 3 with placeholders without content duplication
-                    while (activeSlice.length < 3) {
-                        cardsHtml += createComingSoonCard(label);
-                        activeSlice.push({});
-                    }
-
-                    grid.innerHTML = cardsHtml;
-                    if (archiveGrid) {
-                        archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
-                    }
-                })
-                .catch(() => {
-                    let activeSlice = validArticles.slice(0, 3);
-                    let cardsHtml = activeSlice.map(a => createHomepageCard(a)).join('');
-                    while (activeSlice.length < 3) {
-                        cardsHtml += createComingSoonCard(label);
-                        activeSlice.push({});
-                    }
-                    grid.innerHTML = cardsHtml;
-                });
+            let cardsHtml = activeSlice.map(a => createHomepageCard(a)).join('');
+            while (activeSlice.length < 3) {
+                cardsHtml += createComingSoonCard(label);
+                activeSlice.push({});
+            }
+            grid.innerHTML = cardsHtml;
+            if (archiveGrid) {
+                archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
+            }
         });
 }
 
-/* ==========================================================================
-   TOP STORIES GRID BUILDER (6 WINDOWS TOTAL: TOP ROW ACTIVE, BOTTOM ROW COMING SOON)
-   ========================================================================== */
 function loadTopStories(ids) {
     const grid = document.getElementById("top-stories-grid");
     const archiveGrid = document.getElementById("top-stories-archive-grid");
     if (!grid) return;
-
-    Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
+    Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            
             let activeSlice = validArticles.slice(0, 3);
             let archiveSlice = validArticles.slice(3);
-
             let cardsHtml = activeSlice.map(a => createHomepageCard(a)).join('');
-
-            // Fill row 2 (windows 4, 5, 6) with unique Coming Soon placeholders without duplicating content
             while (activeSlice.length < 6) {
                 cardsHtml += createComingSoonCard("Top Story Update");
                 activeSlice.push({});
             }
-
             grid.innerHTML = cardsHtml;
             if (archiveGrid) {
                 archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : '<p style="padding:15px; color:#666;">No older Top Stories archived.</p>';
@@ -564,7 +573,6 @@ function loadTopStories(ids) {
 function loadTopStoriesFallback() {
     const grid = document.getElementById("top-stories-grid");
     if (!grid) return;
-    
     let html = `
         <article class="card">
             <div class="media"><img src="content/images/img1.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
@@ -591,41 +599,28 @@ function loadTopStoriesFallback() {
             </div>
         </article>
     `;
-
-    // Row 2: 3 Placeholder Windows
     html += createComingSoonCard("Top Story Feature");
     html += createComingSoonCard("Top Story Dispatch");
     html += createComingSoonCard("Top Story Analysis");
-
     grid.innerHTML = html;
 }
 
-/* ==========================================================================
-   LATEST / EDITORIAL / HISTORICAL GRID BUILDER (6 WINDOWS TOTAL)
-   ========================================================================== */
 function loadLehSection(ids) {
     const grid = document.getElementById("leh-grid");
     const archiveGrid = document.getElementById("leh-archive-grid");
     if (!grid) return;
-
     const labels = ["LATEST", "EDITORIAL", "HISTORICAL", "LATEST UPDATE", "EDITORIAL DIGEST", "HISTORICAL ARCHIVE"];
-
-    Promise.all(ids.map(id => fetch(`content/${id}.json`).then(r => r.json()).catch(() => null)))
+    Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            
             let activeSlice = validArticles.slice(0, 3);
             let archiveSlice = validArticles.slice(3);
-
             let cardsHtml = activeSlice.map((a, i) => createHomepageCard(a, labels[i])).join('');
-
-            // Fill row 2 without duplicating row 1
             while (activeSlice.length < 6) {
                 const labelIndex = activeSlice.length;
                 cardsHtml += createComingSoonCard(labels[labelIndex] || "Upcoming Feature");
                 activeSlice.push({});
             }
-
             grid.innerHTML = cardsHtml;
             if (archiveGrid) {
                 archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : '<p style="padding:15px; color:#666;">No older updates archived.</p>';
@@ -637,7 +632,6 @@ function loadLehSection(ids) {
 function loadLehFallback() {
     const grid = document.getElementById("leh-grid");
     if (!grid) return;
-
     let html = `
         <article class="card">
             <div class="media"><img src="content/images/img1.jpg" alt="Latest" onerror="this.src='https://via.placeholder.com/640x360?text=Latest'"></div>
@@ -667,18 +661,12 @@ function loadLehFallback() {
             </div>
         </article>
     `;
-
-    // Row 2: 3 Placeholder Windows
     html += createComingSoonCard("LATEST UPDATE");
     html += createComingSoonCard("EDITORIAL DIGEST");
     html += createComingSoonCard("HISTORICAL ARCHIVE");
-
     grid.innerHTML = html;
 }
 
-/* ==========================================================================
-   GENERIC COMING SOON CARD GENERATOR
-   ========================================================================== */
 function createComingSoonCard(customLabel = "Upcoming Feature") {
     return `
         <article class="card coming-soon-card">
@@ -741,7 +729,7 @@ function initArticlePage() {
         return;
     }
     
-    fetch(`content/${id}.json`)
+    fetch(`content/${id.toLowerCase()}.json`)
         .then(r => r.ok ? r.json() : Promise.reject())
         .then(data => {
             const article = data.items ? data.items[0] : data;
@@ -751,7 +739,7 @@ function initArticlePage() {
             fetch("content/archive.json")
                 .then(r => r.ok ? r.json() : Promise.reject())
                 .then(archiveData => {
-                    const match = (archiveData.items || []).find(item => item.id === id);
+                    const match = (archiveData.items || []).find(item => item.id.toLowerCase() === id.toLowerCase());
                     if (match) { 
                         renderFullArticlePage(match); 
                     } else { 
@@ -851,6 +839,8 @@ function renderJSONBody(bodyData) {
                     return `<h2 class="mid-subheading" style="color:#b30000; font-family:'Playfair Display',serif; margin-top:2rem; margin-bottom:1rem; font-size:1.6rem; font-weight:700;">${block.text}</h2>`;
                 case 'pullquote':
                     return `<div class="pull-quote" style="font-size: 1.3rem; font-weight:600; margin:2rem 0; padding:1.5rem 2rem; background:#f9f9f9; border-left:4px solid #b30000; font-style:italic; color:#333;">${block.text}</div>`;
+                case 'points':
+                    return `<ul style="margin-bottom:1.5rem; padding-left:20px;">${(block.items || []).map(item => `<li style="margin-bottom:8px;">${item}</li>`).join('')}</ul>`;
                 case 'image':
                     const alignClass = block.align ? `img-${block.align}` : 'img-center';
                     return `
