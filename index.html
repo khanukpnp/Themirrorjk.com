@@ -20,13 +20,13 @@
     <meta name="twitter:image" content="https://themirrorjk.com/content/images/logo.png">
     
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Source+Sans+Pro:wght=400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
     <!-- READING PROGRESS BAR -->
     <div id="reading-progress" class="reading-progress"></div>
-
+    
     <!-- LOADER -->
     <div id="site-loader">
         <div class="loader-inner">
@@ -42,13 +42,13 @@
             <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
             <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
         </header>
-
+        
         <!-- CLOCKS AND CALENDARS -->
         <div class="info-bar clocks-calendars"><div class="info-items" id="datetime-bar"></div></div>
         
         <!-- WEATHER BAR -->
         <div class="info-bar weather-bar"><div class="info-items" id="weather-bar"></div></div>
-
+        
         <!-- BREAKING TICKER -->
         <div class="ticker-wrap">
             <div class="ticker">
@@ -56,7 +56,7 @@
                 <div class="ticker-items" id="ticker-items"></div>
             </div>
         </div>
-
+        
         <!-- TOOLS BAR -->
         <div class="tools-bar">
             <div class="lang-select">
@@ -75,7 +75,7 @@
                 <button type="submit">🔍</button>
             </form>
         </div>
-
+        
         <!-- NAVIGATION BAR -->
         <nav class="navbar">
             <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
@@ -124,99 +124,21 @@
             </ul>
             <div id="mobile-menu" class="mobile-menu" hidden></div>
         </nav>
-
+        
         <!-- MAIN CONTENT -->
         <main class="home-main">
             
-            <!-- 1. SPOTLIGHT, IN FOCUS & TRENDING (6 WINDOWS: ROW 1 ACTIVE, ROW 2 COMING SOON) -->
+            <!-- 1. SPOTLIGHT, IN FOCUS & TRENDING (6 DYNAMIC WINDOWS) -->
             <section id="spotlight-focus-trending">
                 <h2 class="section-title modern-title">
                     <span class="icon">⚡</span> Spotlight, In Focus &amp; Trending
                 </h2>
                 
-                <!-- Row 1: Active Feature Windows -->
-                <div class="cards three">
-                    <div class="news-card-badge">
-                        <span class="card-badge spotlight-badge">SPOTLIGHT</span>
-                        <div class="image-container"><img src="content/images/img1.jpg" alt="Spotlight Feature"></div>
-                        <h3>The Major Investigative Headline</h3>
-                        <p>Deep-dive analysis shining a light on crucial regional issues and administrative policy decisions...</p>
-                        <div class="card-nav-options">
-                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
-                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
-                            <a href="article.html?id=spotlight-001" class="card-nav-btn next-link">Read More ➔</a>
-                        </div>
-                    </div>
-                    
-                    <div class="news-card-badge">
-                        <span class="card-badge focus-badge">IN FOCUS</span>
-                        <div class="image-container"><img src="content/images/img2.jpg" alt="In Focus Feature"></div>
-                        <h3>The Hard News &amp; Policy Headline</h3>
-                        <p>A closer, objective look at today's shifting political landscape and regional frameworks...</p>
-                        <div class="card-nav-options">
-                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
-                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
-                            <a href="article.html?id=infocus-001" class="card-nav-btn next-link">Read More ➔</a>
-                        </div>
-                    </div>
-                    
-                    <div class="news-card-badge">
-                        <span class="card-badge trending-badge">TRENDING NOW</span>
-                        <div class="image-container"><img src="content/images/img3.jpg" alt="Trending Feature"></div>
-                        <h3>The Most Read &amp; Shared Headline</h3>
-                        <p>What readers are actively engaging with and discussing across newsrooms today...</p>
-                        <div class="card-nav-options">
-                            <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
-                            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
-                            <a href="article.html?id=trending-001" class="card-nav-btn next-link">Read More ➔</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Row 2: Empty Placeholder Windows (Coming Soon) -->
-                <div class="cards three" style="margin-top: 20px;">
-                    <article class="card coming-soon-card">
-                        <div class="media empty-media">
-                            <div class="coming-soon-badge">SPOTLIGHT II</div>
-                            <span class="placeholder-icon">⌛</span>
-                        </div>
-                        <div class="card-body" style="text-align: center; justify-content: center;">
-                            <h3 style="color: #b30000; font-size: 1.15rem; margin-bottom: 6px;">Coming Soon</h3>
-                            <p style="color: #666; font-style: italic; font-size: 0.9rem;">Visit us later for new updates.</p>
-                            <div class="card-nav-options" style="justify-content: center; padding-top: 8px;">
-                                <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="card coming-soon-card">
-                        <div class="media empty-media">
-                            <div class="coming-soon-badge">IN FOCUS II</div>
-                            <span class="placeholder-icon">⌛</span>
-                        </div>
-                        <div class="card-body" style="text-align: center; justify-content: center;">
-                            <h3 style="color: #b30000; font-size: 1.15rem; margin-bottom: 6px;">Coming Soon</h3>
-                            <p style="color: #666; font-style: italic; font-size: 0.9rem;">Visit us later for new updates.</p>
-                            <div class="card-nav-options" style="justify-content: center; padding-top: 8px;">
-                                <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="card coming-soon-card">
-                        <div class="media empty-media">
-                            <div class="coming-soon-badge">TRENDING II</div>
-                            <span class="placeholder-icon">⌛</span>
-                        </div>
-                        <div class="card-body" style="text-align: center; justify-content: center;">
-                            <h3 style="color: #b30000; font-size: 1.15rem; margin-bottom: 6px;">Coming Soon</h3>
-                            <p style="color: #666; font-style: italic; font-size: 0.9rem;">Visit us later for new updates.</p>
-                            <div class="card-nav-options" style="justify-content: center; padding-top: 8px;">
-                                <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+                <!-- Row 1: Top Feature Windows (1, 2, 3) -->
+                <div class="cards three" id="spotlight-top-row"></div>
+                
+                <!-- Row 2: Bottom Feature Windows (4, 5, 6) -->
+                <div class="cards three" id="spotlight-bottom-row" style="margin-top: 20px;"></div>
             </section>
 
             <!-- 2. TOP STORIES SECTION (6 WINDOWS TOTAL) -->
@@ -239,7 +161,7 @@
                 </details>
             </section>
 
-            <!-- 4. JAMMU KASHMIR (3 EQUAL WINDOWS: 2 ACTIVE + 1 COMING SOON) -->
+            <!-- 4. JAMMU KASHMIR SECTION -->
             <section id="jammu-kashmir">
                 <h2 class="section-title modern-title">📍 Jammu Kashmir</h2>
                 <div class="cards three" id="jk-grid"></div>
@@ -249,7 +171,7 @@
                 </details>
             </section>
 
-            <!-- 5. VIDEO REPORTS & VLOGS (9 WINDOWS + CLICKABLE CHANNEL BUTTON) -->
+            <!-- 5. VIDEO REPORTS & VLOGS -->
             <section id="vlogs">
                 <h2 class="section-title modern-title">🎥 Video Reports &amp; Vlogs</h2>
                 <div class="vlog-toolbar">
@@ -262,7 +184,7 @@
                 </details>
             </section>
 
-            <!-- 6. INTERNATIONAL DIPLOMACY (3 EQUAL WINDOWS: 2 ACTIVE + 1 COMING SOON) -->
+            <!-- 6. INTERNATIONAL DIPLOMACY -->
             <section id="international">
                 <h2 class="section-title modern-title">🌍 International Diplomacy</h2>
                 <div class="cards three" id="intl-grid"></div>
@@ -272,7 +194,7 @@
                 </details>
             </section>
 
-            <!-- 7. HUMAN RIGHTS (3 EQUAL WINDOWS: 2 ACTIVE + 1 COMING SOON) -->
+            <!-- 7. HUMAN RIGHTS -->
             <section id="human-rights">
                 <h2 class="section-title modern-title">❤️ Human Rights</h2>
                 <div class="cards three" id="hr-grid"></div>
