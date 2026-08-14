@@ -1,98 +1,109 @@
 {
-    "id": "spotlight-001",
-    "slug": "ukpnp-denounces-denial-of-entry-to-pakistani-opposition-leaders",
-    "title": "UKPNP Denounces Denial of Entry to Pakistani Opposition Leaders Visiting Azad Kashmir Protests",
-    "category": "Spotlight",
-    "sectionLabel": "🔍 SPOTLIGHT",
-    "excerpt": "Exiled rights party condemns federal blockage of National Assembly and Senate delegation to Rawalakot sit-in, warning of severe food and medical shortages under an ongoing security blockade.",
-    "summary": "Exiled rights party condemns federal blockage of National Assembly and Senate delegation to Rawalakot sit-in, warning of severe food and medical shortages under an ongoing security blockade.",
-    "author": "Special Correspondent",
-    "location": "GENEVA / ISLAMABAD",
-    "date": "2026-06-30T09:00:00Z",
-    "readTime": "6 min read",
-    "heroImage": {
-        "src": "content/images/spotlight-001-hero.png",
-        "caption": "UKPNP Denounces Denial of Entry to Pakistani Opposition Leaders Visiting Azad Kashmir Protests — High-level parliamentary delegation blocked at entry checkpoints — The Mirror Jammu Kashmir",
-        "credit": "The Mirror Jammu Kashmir",
-        "align": "center"
+  "id": "spotlight-001",
+  "slug": "ukpnp-denounces-denial-of-entry-to-pakistani-opposition-leaders",
+  "title": "UKPNP Denounces Denial of Entry to Pakistani Opposition Leaders Visiting Azad Kashmir Protests",
+  "category": "Spotlight",
+  "sectionLabel": "🔍 SPOTLIGHT",
+  "excerpt": "Exiled rights party condemns federal blockage of National Assembly and Senate delegation to Rawalakot sit-in, warning of severe food and medical shortages under an ongoing security blockade.",
+  "summary": "Exiled rights party condemns federal blockage of National Assembly and Senate delegation to Rawalakot sit-in, warning of severe food and medical shortages under an ongoing security blockade.",
+  "author": "Special Correspondent",
+  "location": "GENEVA / ISLAMABAD",
+  "date": "2026-06-30T09:00:00Z",
+  "readTime": "6 min read",
+  "heroImage": {
+    "src": "content/images/spotlight-001-hero.jpg",
+    "caption": "UKPNP Denounces Denial of Entry to Pakistani Opposition Leaders Visiting Azad Kashmir Protests — High-level parliamentary delegation blocked at entry checkpoints — The Mirror Jammu Kashmir",
+    "credit": "The Mirror Jammu Kashmir",
+    "align": "center"
+  },
+  "navigation": {
+    "prev": "index.html",
+    "next": "infocus-001",
+    "home": "index.html"
+  },
+  "archive": false,
+  "readMore": "<p>For ongoing dispatches on civil rights, parliamentary interventions, and human rights conditions across Azad Jammu and Kashmir, explore our related primary investigation archives.</p><p>Upcoming updates will track National Assembly and Senate debates, UN Human Rights Council proceedings, and legal petitions filed regarding the June 2026 security siege.</p><p>Recommended reading: <strong>Universal Declaration of Human Rights (UDHR)</strong> — Provisions securing freedom of movement and assembly; <strong>ICCPR Frameworks</strong> — International covenants governing civil liberties and nonviolent dissent.</p>",
+  "tags": [
+    "Spotlight",
+    "UKPNP",
+    "Azad Kashmir",
+    "Rawalakot",
+    "Poonch",
+    "Mehmood Khan Achakzai",
+    "Shahid Khaqan Abbasi",
+    "Raja Nasir Abbas",
+    "Joint Awami Action Committee",
+    "Human Rights Alert"
+  ],
+  "body": [
+    {
+      "type": "subheading",
+      "text": "HIGH-LEVEL PARLIAMENTARY DELEGATION INTERCEPTED AT CHECKPOINTS"
     },
-    "navigation": {
-        "prev": "index.html",
-        "next": "InFocus-001",
-        "home": "index.html"
+    {
+      "type": "paragraph",
+      "text": "The United Kashmir People’s National Party (UKPNP) has strongly condemned Pakistani authorities for preventing a high-level delegation of federal opposition leaders from entering Pakistan-administered Azad Kashmir to express solidarity with civil rights demonstrators."
     },
-    "archive": false,
-    "readMore": "<p>For ongoing dispatches on civil rights, parliamentary interventions, and human rights conditions across Azad Jammu and Kashmir, explore our related primary investigation archives.</p><p>Upcoming updates will track National Assembly and Senate debates, UN Human Rights Council proceedings, and legal petitions filed regarding the June 2026 security siege.</p><p>Recommended reading: <strong>Universal Declaration of Human Rights (UDHR)</strong> — Provisions securing freedom of movement and assembly; <strong>ICCPR Frameworks</strong> — International covenants governing civil liberties and nonviolent dissent.</p>",
-    "tags": ["Spotlight", "UKPNP", "Azad Kashmir", "Rawalakot", "Poonch", "Mehmood Khan Achakzai", "Shahid Khaqan Abbasi", "Raja Nasir Abbas", "Joint Awami Action Committee", "Human Rights Alert"],
-    "body": [
-        {
-            "type": "subheading",
-            "text": "HIGH-LEVEL PARLIAMENTARY DELEGATION INTERCEPTED AT CHECKPOINTS"
-        },
-        {
-            "type": "paragraph",
-            "text": "The United Kashmir People’s National Party (UKPNP) has strongly condemned Pakistani authorities for preventing a high-level delegation of federal opposition leaders from entering Pakistan-administered Azad Kashmir to express solidarity with civil rights demonstrators."
-        },
-        {
-            "type": "paragraph",
-            "text": "The blocked delegation was led by Leader of the Opposition in the National Assembly Mehmood Khan Achakzai, Leader of the Opposition in the Senate Allama Raja Nasir Abbas, and former Prime Minister Shahid Khaqan Abbasi, alongside other prominent political figures."
-        },
-        {
-            "type": "paragraph",
-            "text": "Police and security forces intercepted the delegation at police pickets established on the entry routes connecting Rawalpindi to Azad Kashmir, preventing them from traveling to Rawalakot, where the Joint Awami Action Committee (JAAC) has been holding a massive sit-in (dharna) demanding justice and the return of bodies of slain protesters."
-        },
-        {
-            "type": "pullquote",
-            "text": "Reaffirming its position as a UN-accredited advocacy body, the UKPNP emphasized that as a United Nations member state, Pakistan is bound under international law to respect fundamental freedoms of movement, assembly, and expression in the disputed territory."
-        },
-        {
-            "type": "subheading",
-            "text": "UKPNP CALLS ON OPPOSITION TO RAISE SIEGE IN PARLIAMENT"
-        },
-        {
-            "type": "paragraph",
-            "text": "Issuing an emergency statement from Geneva, London, Brussels, Washington DC, and Ottawa, the UKPNP urged the blocked opposition leaders to formally bring the entry denial and the ongoing security situation in Azad Kashmir before the National Assembly and Senate of Pakistan, while briefing international news outlets and diplomatic missions."
-        },
-        {
-            "type": "paragraph",
-            "text": "The UKPNP reiterated its strongest condemnation of the physical blockade, telecommunications blackout, and security siege enforced across the region since June 5."
-        },
-        {
-            "type": "subheading",
-            "text": "HUMANITARIAN CRISIS AND HEALTHCARE OBSTRUCTIONS"
-        },
-        {
-            "type": "paragraph",
-            "text": "The party raised severe concerns regarding the humanitarian fallout of the blockade, warning that stopping shipments of food, essential medicines, and infant formula poses an immediate threat of starvation and health crises for local residents."
-        },
-        {
-            "type": "paragraph",
-            "text": "According to field reports cited by the UKPNP, security force presence around and within regional medical facilities has severely disrupted critical healthcare delivery:"
-        },
-        {
-            "type": "points",
-            "items": [
-                "Denial of Care to the Vulnerable: Injured demonstrators, elderly patients, and individuals suffering from chronic medical conditions are reportedly being turned away or delayed from receiving essential treatment.",
-                "Disruption of Infant Care: Routine pediatric check-ups and immunization schedules have collapsed, leaving infants unable to receive critical vaccinations.",
-                "Halted Maternal Care: Pregnant women facing severe obstetric complications are cut off from emergency medical attention, endangering both their lives and their unborn children."
-            ]
-        },
-        {
-            "type": "subheading",
-            "text": "KEY DEMANDS TO PAKISTAN AND THE UNITED NATIONS"
-        },
-        {
-            "type": "paragraph",
-            "text": "The UKPNP demanded that the Government of Pakistan immediately execute the following measures:"
-        },
-        {
-            "type": "points",
-            "items": [
-                "End the Siege and Restore Communications: Immediately lift the physical blockade and restore all mobile phone, broadband internet, and landline services across Azad Kashmir.",
-                "UN and International Access: Grant unhindered entry to the United Nations, human rights watchdogs, international observers, and the global press corps to inspect Rawalakot, Poonch, and surrounding districts.",
-                "Decriminalize Civil Dissent: Rescind the executive ban on the Joint Awami Action Committee (JAAC), cease labeling peaceful protesters as criminals or terrorists, and immediately resume structured negotiations to resolve socio-economic grievances.",
-                "Judicial Accountability: Restrain security forces and initiate independent judicial proceedings against personnel responsible for deploying excessive force and committing alleged crimes against humanity against unarmed civilians."
-            ]
-        }
-    ]
+    {
+      "type": "paragraph",
+      "text": "The blocked delegation was led by Leader of the Opposition in the National Assembly Mehmood Khan Achakzai, Leader of the Opposition in the Senate Allama Raja Nasir Abbas, and former Prime Minister Shahid Khaqan Abbasi, alongside other prominent political figures."
+    },
+    {
+      "type": "paragraph",
+      "text": "Police and security forces intercepted the delegation at police pickets established on the entry routes connecting Rawalpindi to Azad Kashmir, preventing them from traveling to Rawalakot, where the Joint Awami Action Committee (JAAC) has been holding a massive sit-in (dharna) demanding justice and the return of bodies of slain protesters."
+    },
+    {
+      "type": "pullquote",
+      "text": "Reaffirming its position as a UN-accredited advocacy body, the UKPNP emphasized that as a United Nations member state, Pakistan is bound under international law to respect fundamental freedoms of movement, assembly, and expression in the disputed territory."
+    },
+    {
+      "type": "subheading",
+      "text": "UKPNP CALLS ON OPPOSITION TO RAISE SIEGE IN PARLIAMENT"
+    },
+    {
+      "type": "paragraph",
+      "text": "Issuing an emergency statement from Geneva, London, Brussels, Washington DC, and Ottawa, the UKPNP urged the blocked opposition leaders to formally bring the entry denial and the ongoing security situation in Azad Kashmir before the National Assembly and Senate of Pakistan, while briefing international news outlets and diplomatic missions."
+    },
+    {
+      "type": "paragraph",
+      "text": "The UKPNP reiterated its strongest condemnation of the physical blockade, telecommunications blackout, and security siege enforced across the region since June 5."
+    },
+    {
+      "type": "subheading",
+      "text": "HUMANITARIAN CRISIS AND HEALTHCARE OBSTRUCTIONS"
+    },
+    {
+      "type": "paragraph",
+      "text": "The party raised severe concerns regarding the humanitarian fallout of the blockade, warning that stopping shipments of food, essential medicines, and infant formula poses an immediate threat of starvation and health crises for local residents."
+    },
+    {
+      "type": "paragraph",
+      "text": "According to field reports cited by the UKPNP, security force presence around and within regional medical facilities has severely disrupted critical healthcare delivery:"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Denial of Care to the Vulnerable: Injured demonstrators, elderly patients, and individuals suffering from chronic medical conditions are reportedly being turned away or delayed from receiving essential treatment.",
+        "Disruption of Infant Care: Routine pediatric check-ups and immunization schedules have collapsed, leaving infants unable to receive critical vaccinations.",
+        "Halted Maternal Care: Pregnant women facing severe obstetric complications are cut off from emergency medical attention, endangering both their lives and their unborn children."
+      ]
+    },
+    {
+      "type": "subheading",
+      "text": "KEY DEMANDS TO PAKISTAN AND THE UNITED NATIONS"
+    },
+    {
+      "type": "paragraph",
+      "text": "The UKPNP demanded that the Government of Pakistan immediately execute the following measures:"
+    },
+    {
+      "type": "points",
+      "items": [
+        "End the Siege and Restore Communications: Immediately lift the physical blockade and restore all mobile phone, broadband internet, and landline services across Azad Kashmir.",
+        "UN and International Access: Grant unhindered entry to the United Nations, human rights watchdogs, international observers, and the global press corps to inspect Rawalakot, Poonch, and surrounding districts.",
+        "Decriminalize Civil Dissent: Rescind the executive ban on the Joint Awami Action Committee (JAAC), cease labeling peaceful protesters as criminals or terrorists, and immediately resume structured negotiations to resolve socio-economic grievances.",
+        "Judicial Accountability: Restrain security forces and initiate independent judicial proceedings against personnel responsible for deploying excessive force and committing alleged crimes against humanity against unarmed civilians."
+      ]
+    }
+  ]
 }
