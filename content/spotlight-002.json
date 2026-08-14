@@ -19,7 +19,7 @@
   "navigation": {
     "prev": "spotlight-001",
     "prevTitle": "UKPNP House of Commons History",
-    "next": "InFocus-002",
+    "next": "infocus-002",
     "nextTitle": "UNHRC 61st Session CIRAC Event",
     "home": "index.html"
   },
@@ -80,7 +80,7 @@
     "next": {
       "label": "NEXT →",
       "title": "UNHRC 61st Session CIRAC Event",
-      "url": "InFocus-002.html",
+      "url": "infocus-002.html",
       "color": "#2563EB",
       "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg>"
     }
