@@ -354,30 +354,37 @@ function initSearch() {
 }
 function initSocialButtons() {
     let liked = false;
-    document.querySelectorAll(".sa-btn").forEach(btn => {
-        btn.addEventListener("click", function() {
-            const text = btn.textContent;
-            if (text.includes("Like")) {
-                liked = !liked;
-                btn.style.background = liked ? "#b30000" : "white";
-                btn.style.color = liked ? "white" : "#222";
-                showToast(liked ? "Thank you for liking!" : "Unliked");
-            } else if (text.includes("Subscribe")) {
-                document.getElementById("newsletter")?.scrollIntoView({ behavior: 'smooth' });
-            } else if (text.includes("Share")) {
-                if (navigator.share) {
-                    navigator.share({
-                        title: 'THE MIRROR JAMMU KASHMIR',
-                        text: 'Champion Justice & Amplify the Voices of the Unheard',
-                        url: window.location.href,
-                    }).catch(() => copyPageLink());
-                } else {
-                    copyPageLink();
-                }
-            } else if (text.includes("Copy")) {
+    document.addEventListener("click", function(e) {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+        
+        const id = btn.id || btn.getAttribute("data-id");
+        if (id === "like") {
+            liked = !liked;
+            btn.style.backgroundColor = liked ? "#E63946" : "#FFEBEB";
+            btn.style.color = liked ? "#FFFFFF" : "#E63946";
+            const svg = btn.querySelector("svg");
+            if (svg) {
+                svg.style.fill = liked ? "#FFFFFF" : "#E63946";
+                svg.style.stroke = liked ? "#FFFFFF" : "#E63946";
+            }
+            showToast(liked ? "Thank you for liking!" : "Unliked");
+        } else if (id === "subscribe") {
+            document.getElementById("newsletter")?.scrollIntoView({ behavior: 'smooth' });
+            showToast("Scrolling to newsletter subscription...");
+        } else if (id === "share") {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    text: 'The Mirror Jammu Kashmir',
+                    url: window.location.href,
+                }).catch(() => copyPageLink());
+            } else {
                 copyPageLink();
             }
-        });
+        } else if (id === "copyLink") {
+            copyPageLink();
+        }
     });
 }
 function copyPageLink() {
@@ -441,7 +448,6 @@ function loadHomepageContent() {
                     bottomRow: ["spotlight-002", "infocus-002", "trending-002"]
                 });
             }
-
             // 2. Top Stories Grid
             if (index.topStories) {
                 loadTopStories([
@@ -488,11 +494,9 @@ function loadSpotlightSection(config) {
         'infocus': { label: 'IN FOCUS', class: 'focus-badge' },
         'trending': { label: 'TRENDING NOW', class: 'trending-badge' }
     };
-
     const renderRow = (ids, containerId) => {
         const container = document.getElementById(containerId);
         if (!container) return;
-
         Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.ok ? r.json() : null).catch(() => null)))
             .then(articles => {
                 container.innerHTML = articles.map((item, index) => {
@@ -503,9 +507,7 @@ function loadSpotlightSection(config) {
                     let badgeInfo = badges['spotlight'];
                     if (idKey.includes('focus')) badgeInfo = badges['infocus'];
                     if (idKey.includes('trending')) badgeInfo = badges['trending'];
-
                     let imgUrl = article.heroImage?.src || article.heroImage || article.image || 'content/images/logo.png';
-
                     return `
                         <div class="news-card-badge ${badgeInfo.class}">
                             <span class="card-badge">${badgeInfo.label}</span>
@@ -520,11 +522,9 @@ function loadSpotlightSection(config) {
                 }).join('');
             });
     };
-
     renderRow(topRowIds, 'spotlight-top-row');
     renderRow(bottomRowIds, 'spotlight-bottom-row');
 }
-
 function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
     const grid = document.getElementById(gridId);
     const archiveGrid = document.getElementById(archiveGridId);
@@ -547,7 +547,6 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
             }
         });
 }
-
 function loadTopStories(ids) {
     const grid = document.getElementById("top-stories-grid");
     const archiveGrid = document.getElementById("top-stories-archive-grid");
@@ -569,7 +568,6 @@ function loadTopStories(ids) {
         })
         .catch(() => loadTopStoriesFallback());
 }
-
 function loadTopStoriesFallback() {
     const grid = document.getElementById("top-stories-grid");
     if (!grid) return;
@@ -604,7 +602,6 @@ function loadTopStoriesFallback() {
     html += createComingSoonCard("Top Story Analysis");
     grid.innerHTML = html;
 }
-
 function loadLehSection(ids) {
     const grid = document.getElementById("leh-grid");
     const archiveGrid = document.getElementById("leh-archive-grid");
@@ -628,7 +625,6 @@ function loadLehSection(ids) {
         })
         .catch(() => loadLehFallback());
 }
-
 function loadLehFallback() {
     const grid = document.getElementById("leh-grid");
     if (!grid) return;
@@ -666,7 +662,6 @@ function loadLehFallback() {
     html += createComingSoonCard("HISTORICAL ARCHIVE");
     grid.innerHTML = html;
 }
-
 function createComingSoonCard(customLabel = "Upcoming Feature") {
     return `
         <article class="card coming-soon-card">
@@ -686,7 +681,6 @@ function createComingSoonCard(customLabel = "Upcoming Feature") {
         </article>
     `;
 }
-
 function createCardNavOptions(articleId) {
     return `
         <div class="card-nav-options">
@@ -696,7 +690,6 @@ function createCardNavOptions(articleId) {
         </div>
     `;
 }
-
 function createHomepageCard(article, label) {
     if (!article) return '';
     const title = article.title || 'Untitled Report';
@@ -716,7 +709,7 @@ function createHomepageCard(article, label) {
 }
 
 /* ==========================================================================
-   ARTICLE DETAILED VIEW PIPELINE
+   ARTICLE DETAILED VIEW PIPELINE & GLOBAL BOTTOM COMPONENT RENDERER
    ========================================================================== */
 function initArticlePage() {
     const id = new URLSearchParams(window.location.search).get("id");
@@ -749,7 +742,6 @@ function initArticlePage() {
                 .catch(() => renderArticleFallback(id));
         });
 }
-
 function renderArticleFallback(id) {
     const contentEl = document.getElementById("content") || document.getElementById("article-content") || document.body;
     if (contentEl) {
@@ -761,7 +753,6 @@ function renderArticleFallback(id) {
             </div>`;
     }
 }
-
 function renderFullArticlePage(article) {
     const loader = document.getElementById('loading-state');
     if (loader) loader.style.display = 'none';
@@ -805,8 +796,62 @@ function renderFullArticlePage(article) {
             <div class="article-body-content" style="font-size:1.15rem; color:#222; line-height:1.8;">
                 ${renderJSONBody(article.body || article.content)}
             </div>
-            ${createCardNavOptions(article.id)}
+            ${generateArticleActionButtons(article.actionButtons)}
+            ${generateArticleBottomNavigation(article.navigation || article.bottomNavigation)}
         </article>
+    `;
+}
+
+/* ==========================================================================
+   GLOBAL COLORED BUTTONS & NAVIGATION GENERATOR
+   ========================================================================== */
+function generateArticleActionButtons(buttons) {
+    return `
+        <div class="action-bar" style="display:flex; justify-content:center; align-items:center; gap:12px; margin:35px 0 20px 0; border-top:1px solid #eaeaea; padding-top:20px;">
+            <button id="like" data-id="like" style="display:inline-flex; align-items:center; gap:6px; background-color:#FFEBEB; color:#E63946; border:1px solid #FFD6D6; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#E63946' stroke='#E63946' stroke-width='2' style='fill:#E63946;stroke:#E63946;'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg> Like
+            </button>
+            <button id="subscribe" data-id="subscribe" style="display:inline-flex; align-items:center; gap:6px; background-color:#FEF3C7; color:#D97706; border:1px solid #FDE68A; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#D97706' stroke='#D97706' stroke-width='2' style='fill:#D97706;stroke:#D97706;'><path d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/><path d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/></svg> Subscribe
+            </button>
+            <button id="share" data-id="share" style="display:inline-flex; align-items:center; gap:6px; background-color:#EEF2FF; color:#4F46E5; border:1px solid #E0E7FF; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4F46E5' stroke-width='2.5' style='stroke:#4F46E5;'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' x2='12' y1='2' y2='15'/></svg> Share
+            </button>
+            <button id="copyLink" data-id="copyLink" style="display:inline-flex; align-items:center; gap:6px; background-color:#CCFBF1; color:#0D9488; border:1px solid #99F6E4; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#0D9488' stroke-width='2.5' style='stroke:#0D9488;'><rect width='14' height='14' x='8' y='8' rx='2' ry='2'/><path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/></svg> Copy Link
+            </button>
+        </div>
+    `;
+}
+
+function generateArticleBottomNavigation(nav) {
+    if (!nav) nav = { prev: "index.html", prevTitle: "Home", next: "index.html", nextTitle: "Home" };
+    
+    const prevTarget = nav.prev ? (nav.prev.includes('.html') ? nav.prev : `article.html?id=${nav.prev}`) : 'index.html';
+    const nextTarget = nav.next ? (nav.next.includes('.html') ? nav.next : `article.html?id=${nav.next}`) : 'index.html';
+    const prevTitle = nav.prevTitle || nav.previous?.title || 'Previous Article';
+    const nextTitle = nav.nextTitle || nav.next?.title || 'Next Article';
+
+    return `
+        <div class="nav-bar" style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #eaeaea; padding-top:15px; margin-top:20px;">
+            <a href="${prevTarget}" style="color:#2563EB; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px; max-width:40%;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='m12 19-7-7 7-7'/><path d='M19 12H5'/></svg>
+                <div>
+                    <div>← PREVIOUS</div>
+                    <span style="font-size:12px; color:#555; font-weight:normal; display:block; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${prevTitle}</span>
+                </div>
+            </a>
+            <a href="index.html" style="display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; background-color:#F3F4F6; border-radius:50%; flex-shrink:0;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='#1F2937' stroke='#1F2937' stroke-width='2' style='fill:#1F2937;stroke:#1F2937;'><path d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>
+            </a>
+            <a href="${nextTarget}" style="color:#2563EB; text-decoration:none; font-weight:bold; text-align:right; display:inline-flex; align-items:center; gap:6px; max-width:40%; justify-content:flex-end;">
+                <div>
+                    <div>NEXT →</div>
+                    <span style="font-size:12px; color:#555; font-weight:normal; display:block; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${nextTitle}</span>
+                </div>
+                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg>
+            </a>
+        </div>
     `;
 }
 
@@ -824,7 +869,6 @@ function addGlobalReadMoreInterceptor() {
         }
     });
 }
-
 function renderJSONBody(bodyData) {
     if (!bodyData) return '<p>No document content specified.</p>';
     if (typeof bodyData === 'string') return `<p>${bodyData}</p>`;
@@ -848,6 +892,8 @@ function renderJSONBody(bodyData) {
                             <img src="${block.src}" alt="${block.caption || 'Image'}" style="max-width:100%; height:auto; border-radius:4px;" onerror="this.style.display='none'">
                             ${block.caption ? `<figcaption style="font-size:0.85rem; color:#666; margin-top:5px; font-style:italic;">${block.caption} ${block.credit ? `(${block.credit})` : ''}</figcaption>` : ''}
                         </figure>`;
+                case 'html':
+                    return block.content || '';
                 default:
                     return '';
             }
@@ -855,7 +901,6 @@ function renderJSONBody(bodyData) {
     }
     return '';
 }
-
 function loadAboutPage() {
     const titleEl = document.getElementById("about-title");
     const subtitleEl = document.getElementById("about-subtitle");
@@ -879,7 +924,6 @@ function loadAboutPage() {
             if (contentEl) contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to load about page source.</p>`;
         });
 }
-
 function loadChiefEditorPage() {
     const contentEl = document.getElementById("content") || document.getElementById("editor-content") || document.getElementById("about-content");
     if (!contentEl) return;
@@ -899,7 +943,6 @@ function loadChiefEditorPage() {
             contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to load chief editor document.</p>`;
         });
 }
-
 function loadHistoricalPage() {
     const contentEl = document.getElementById("content") || document.getElementById("historical-content") || document.getElementById("about-content");
     if (!contentEl) return;
