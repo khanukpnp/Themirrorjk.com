@@ -772,6 +772,14 @@ function renderFullArticlePage(article) {
             processedDate = rawDate;
         }
     }
+
+    // Explicit fallback navigation structure to ensure bottom bar always loads
+    const navData = article.navigation || article.bottomNavigation || {
+        prev: "index.html",
+        prevTitle: "Previous Story",
+        next: "index.html",
+        nextTitle: "Next Story"
+    };
     
     contentEl.innerHTML = `
         <article class="prose-container" style="max-width: 850px; margin: 40px auto; padding: 0 20px; font-family:'Source Sans Pro', sans-serif; line-height: 1.8;">
@@ -797,7 +805,7 @@ function renderFullArticlePage(article) {
                 ${renderJSONBody(article.body || article.content)}
             </div>
             ${generateArticleActionButtons(article.actionButtons)}
-            ${generateArticleBottomNavigation(article.navigation || article.bottomNavigation)}
+            ${generateArticleBottomNavigation(navData)}
         </article>
     `;
 }
@@ -807,49 +815,56 @@ function renderFullArticlePage(article) {
    ========================================================================== */
 function generateArticleActionButtons(buttons) {
     return `
-        <div class="action-bar" style="display:flex; justify-content:center; align-items:center; gap:12px; margin:35px 0 20px 0; border-top:1px solid #eaeaea; padding-top:20px;">
-            <button id="like" data-id="like" style="display:inline-flex; align-items:center; gap:6px; background-color:#FFEBEB; color:#E63946; border:1px solid #FFD6D6; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;">
-                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#E63946' stroke='#E63946' stroke-width='2' style='fill:#E63946;stroke:#E63946;'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg> Like
+        <div class="action-bar" style="display:flex !important; justify-content:center !important; align-items:center !important; gap:12px !important; margin:35px 0 20px 0 !important; border-top:1px solid #eaeaea !important; padding-top:20px !important;">
+            <button id="like" data-id="like" style="display:inline-flex !important; align-items:center !important; gap:6px !important; background-color:#FFEBEB !important; color:#E63946 !important; border:1px solid #FFD6D6 !important; border-radius:30px !important; padding:8px 18px !important; font-weight:600 !important; cursor:pointer !important;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#E63946' stroke='#E63946' stroke-width='2' style='fill:#E63946 !important; stroke:#E63946 !important;'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg> Like
             </button>
-            <button id="subscribe" data-id="subscribe" style="display:inline-flex; align-items:center; gap:6px; background-color:#FEF3C7; color:#D97706; border:1px solid #FDE68A; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;">
-                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#D97706' stroke='#D97706' stroke-width='2' style='fill:#D97706;stroke:#D97706;'><path d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/><path d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/></svg> Subscribe
+            <button id="subscribe" data-id="subscribe" style="display:inline-flex !important; align-items:center !important; gap:6px !important; background-color:#FEF3C7 !important; color:#D97706 !important; border:1px solid #FDE68A !important; border-radius:30px !important; padding:8px 18px !important; font-weight:600 !important; cursor:pointer !important;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#D97706' stroke='#D97706' stroke-width='2' style='fill:#D97706 !important; stroke:#D97706 !important;'><path d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/><path d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/></svg> Subscribe
             </button>
-            <button id="share" data-id="share" style="display:inline-flex; align-items:center; gap:6px; background-color:#EEF2FF; color:#4F46E5; border:1px solid #E0E7FF; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;">
-                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4F46E5' stroke-width='2.5' style='stroke:#4F46E5;'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' x2='12' y1='2' y2='15'/></svg> Share
+            <button id="share" data-id="share" style="display:inline-flex !important; align-items:center !important; gap:6px !important; background-color:#EEF2FF !important; color:#4F46E5 !important; border:1px solid #E0E7FF !important; border-radius:30px !important; padding:8px 18px !important; font-weight:600 !important; cursor:pointer !important;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4F46E5' stroke-width='2.5' style='stroke:#4F46E5 !important;'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' x2='12' y1='2' y2='15'/></svg> Share
             </button>
-            <button id="copyLink" data-id="copyLink" style="display:inline-flex; align-items:center; gap:6px; background-color:#CCFBF1; color:#0D9488; border:1px solid #99F6E4; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;">
-                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#0D9488' stroke-width='2.5' style='stroke:#0D9488;'><rect width='14' height='14' x='8' y='8' rx='2' ry='2'/><path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/></svg> Copy Link
+            <button id="copyLink" data-id="copyLink" style="display:inline-flex !important; align-items:center !important; gap:6px !important; background-color:#CCFBF1 !important; color:#0D9488 !important; border:1px solid #99F6E4 !important; border-radius:30px !important; padding:8px 18px !important; font-weight:600 !important; cursor:pointer !important;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#0D9488' stroke-width='2.5' style='stroke:#0D9488 !important;'><rect width='14' height='14' x='8' y='8' rx='2' ry='2'/><path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/></svg> Copy Link
             </button>
         </div>
     `;
 }
 
 function generateArticleBottomNavigation(nav) {
-    if (!nav) nav = { prev: "index.html", prevTitle: "Home", next: "index.html", nextTitle: "Home" };
+    const prevObj = (nav && nav.previous) ? nav.previous : {};
+    const nextObj = (nav && nav.next) ? nav.next : {};
     
-    const prevTarget = nav.prev ? (nav.prev.includes('.html') ? nav.prev : `article.html?id=${nav.prev}`) : 'index.html';
-    const nextTarget = nav.next ? (nav.next.includes('.html') ? nav.next : `article.html?id=${nav.next}`) : 'index.html';
-    const prevTitle = nav.prevTitle || nav.previous?.title || 'Previous Article';
-    const nextTitle = nav.nextTitle || nav.next?.title || 'Next Article';
+    let prevUrl = (nav && nav.prev) || prevObj.url || "index.html";
+    let nextUrl = (nav && typeof nav.next === "string") ? nav.next : (nextObj.url || "index.html");
+    
+    if (prevUrl && !prevUrl.includes('.html')) prevUrl = `article.html?id=${prevUrl}`;
+    if (nextUrl && !nextUrl.includes('.html')) nextUrl = `article.html?id=${nextUrl}`;
+
+    const prevTitle = (nav && nav.prevTitle) || prevObj.title || "Previous Article";
+    const nextTitle = (nav && nav.nextTitle) || nextObj.title || "Next Article";
 
     return `
-        <div class="nav-bar" style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #eaeaea; padding-top:15px; margin-top:20px;">
-            <a href="${prevTarget}" style="color:#2563EB; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px; max-width:40%;">
-                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='m12 19-7-7 7-7'/><path d='M19 12H5'/></svg>
+        <div class="bottom-article-nav" style="display:flex !important; justify-content:space-between !important; align-items:center !important; border-top:1px solid #eaeaea !important; padding-top:20px !important; margin-top:25px !important; width:100% !important;">
+            <a href="${prevUrl}" style="color:#2563EB !important; text-decoration:none !important; font-weight:bold !important; display:inline-flex !important; align-items:center !important; gap:6px !important; max-width:40% !important;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB !important;'><path d='m12 19-7-7 7-7'/><path d='M19 12H5'/></svg>
                 <div>
-                    <div>← PREVIOUS</div>
-                    <span style="font-size:12px; color:#555; font-weight:normal; display:block; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${prevTitle}</span>
+                    <div style="color:#2563EB !important;">← PREVIOUS</div>
+                    <span style="font-size:12px !important; color:#555 !important; font-weight:normal !important; display:block !important; text-overflow:ellipsis !important; overflow:hidden !important; white-space:nowrap !important;">${prevTitle}</span>
                 </div>
             </a>
-            <a href="index.html" style="display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; background-color:#F3F4F6; border-radius:50%; flex-shrink:0;">
-                <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='#1F2937' stroke='#1F2937' stroke-width='2' style='fill:#1F2937;stroke:#1F2937;'><path d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>
+            
+            <a href="index.html" style="display:inline-flex !important; align-items:center !important; justify-content:center !important; width:42px !important; height:42px !important; background-color:#F3F4F6 !important; border-radius:50% !important; flex-shrink:0 !important; text-decoration:none !important;">
+                <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='#1F2937' stroke='#1F2937' stroke-width='2' style='fill:#1F2937 !important; stroke:#1F2937 !important;'><path d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>
             </a>
-            <a href="${nextTarget}" style="color:#2563EB; text-decoration:none; font-weight:bold; text-align:right; display:inline-flex; align-items:center; gap:6px; max-width:40%; justify-content:flex-end;">
+
+            <a href="${nextUrl}" style="color:#2563EB !important; text-decoration:none !important; font-weight:bold !important; text-align:right !important; display:inline-flex !important; align-items:center !important; gap:6px !important; max-width:40% !important; justify-content:flex-end !important;">
                 <div>
-                    <div>NEXT →</div>
-                    <span style="font-size:12px; color:#555; font-weight:normal; display:block; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${nextTitle}</span>
+                    <div style="color:#2563EB !important;">NEXT →</div>
+                    <span style="font-size:12px !important; color:#555 !important; font-weight:normal !important; display:block !important; text-overflow:ellipsis !important; overflow:hidden !important; white-space:nowrap !important;">${nextTitle}</span>
                 </div>
-                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg>
+                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB !important;'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg>
             </a>
         </div>
     `;
@@ -869,6 +884,7 @@ function addGlobalReadMoreInterceptor() {
         }
     });
 }
+
 function renderJSONBody(bodyData) {
     if (!bodyData) return '<p>No document content specified.</p>';
     if (typeof bodyData === 'string') return `<p>${bodyData}</p>`;
@@ -901,6 +917,7 @@ function renderJSONBody(bodyData) {
     }
     return '';
 }
+
 function loadAboutPage() {
     const titleEl = document.getElementById("about-title");
     const subtitleEl = document.getElementById("about-subtitle");
@@ -924,6 +941,7 @@ function loadAboutPage() {
             if (contentEl) contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to load about page source.</p>`;
         });
 }
+
 function loadChiefEditorPage() {
     const contentEl = document.getElementById("content") || document.getElementById("editor-content") || document.getElementById("about-content");
     if (!contentEl) return;
@@ -943,6 +961,7 @@ function loadChiefEditorPage() {
             contentEl.innerHTML = `<p style='text-align:center; padding:20px; color:#666;'>Failed to load chief editor document.</p>`;
         });
 }
+
 function loadHistoricalPage() {
     const contentEl = document.getElementById("content") || document.getElementById("historical-content") || document.getElementById("about-content");
     if (!contentEl) return;
