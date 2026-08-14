@@ -1,141 +1,102 @@
 /* ============================================================
-SOCIAL SHARING FIX - Optimized & Aligned with Modern Article Page
-============================================================ */
+   THE MIRROR JAMMU KASHMIR - SOCIAL SHARING & META PIPELINE
+   ============================================================ */
 (function() {
-    // Wait for article to load
-    function waitForArticle() {
+    function initSocialMetaData() {
+        // Wait until the dynamic article renderer injects content
         const checkInterval = setInterval(function() {
-            const titleEl = document.getElementById('title');
-            if (titleEl && titleEl.textContent && titleEl.textContent.trim() !== '') {
+            const h1Title = document.querySelector('article.prose-container h1');
+            
+            if (h1Title && h1Title.textContent.trim() !== '') {
                 clearInterval(checkInterval);
                 
-                // Get article data directly from the rendered page
+                const titleText = h1Title.textContent.trim();
+                const firstParagraph = document.querySelector('.article-body-content p')?.textContent?.trim() || 'Read the latest from THE MIRROR JAMMU KASHMIR';
+                const heroImgEl = document.querySelector('article.prose-container figure img');
+                
+                let heroImgSrc = heroImgEl ? heroImgEl.getAttribute('src') : 'content/images/logo.png';
+                if (heroImgSrc && !heroImgSrc.startsWith('http')) {
+                    heroImgSrc = window.location.origin + (heroImgSrc.startsWith('/') ? '' : '/') + heroImgSrc;
+                }
+                
                 const articleData = {
-                    title: titleEl.textContent,
-                    excerpt: document.querySelector('#content p')?.textContent?.substring(0, 160) || 'Read the latest from THE MIRROR JAMMU KASHMIR',
-                    heroImage: document.getElementById('heroImg')?.getAttribute('src') || '/content/images/logo.png'
+                    title: titleText,
+                    excerpt: firstParagraph.substring(0, 160) + '...',
+                    heroImage: heroImgSrc,
+                    url: window.location.href
                 };
                 
-                // Update meta tags for social preview
                 updateMetaTags(articleData);
-                
-                // Fix share buttons inside the tooltip
-                fixShareButtons(articleData);
-                
-                // Setup Toggle for Share Buttons
-                setupShareDropdown();
+                attachShareButtonHandler(articleData);
             }
         }, 100);
     }
-    
+
     function updateMetaTags(article) {
-        const url = window.location.href;
-        const title = article.title;
-        const excerpt = article.excerpt;
-        let imageUrl = article.heroImage;
+        // Standard Title
+        document.title = article.title + ' | THE MIRROR JAMMU KASHMIR';
         
-        if (imageUrl && !imageUrl.startsWith('http')) {
-            imageUrl = window.location.origin + (imageUrl.startsWith('/') ? '' : '/') + imageUrl;
-        }
+        // Open Graph Meta Tags
+        setMetaContent('property', 'og:title', article.title);
+        setMetaContent('property', 'og:description', article.excerpt);
+        setMetaContent('property', 'og:image', article.heroImage);
+        setMetaContent('property', 'og:url', article.url);
         
-        // Update Open Graph tags
-        const ogTitle = document.getElementById('og-title');
-        if (ogTitle) ogTitle.setAttribute('content', title);
+        // Twitter Card Meta Tags
+        setMetaContent('name', 'twitter:title', article.title);
+        setMetaContent('name', 'twitter:description', article.excerpt);
+        setMetaContent('name', 'twitter:image', article.heroImage);
         
-        const ogDesc = document.getElementById('og-description');
-        if (ogDesc) ogDesc.setAttribute('content', excerpt);
+        // General Description
+        setMetaContent('name', 'description', article.excerpt);
         
-        const ogImage = document.getElementById('og-image');
-        if (ogImage) ogImage.setAttribute('content', imageUrl);
-        
-        const ogUrl = document.getElementById('og-url');
-        if (ogUrl) ogUrl.setAttribute('content', url);
-        
-        // Update Twitter tags
-        const twTitle = document.getElementById('twitter-title');
-        if (twTitle) twTitle.setAttribute('content', title);
-        
-        const twDesc = document.getElementById('twitter-description');
-        if (twDesc) twDesc.setAttribute('content', excerpt);
-        
-        const twImage = document.getElementById('twitter-image');
-        if (twImage) twImage.setAttribute('content', imageUrl);
-        
-        // Update standard meta
-        const metaDesc = document.getElementById('meta-description');
-        if (metaDesc) metaDesc.setAttribute('content', excerpt);
-        
-        const pageTitle = document.getElementById('page-title');
-        if (pageTitle) pageTitle.textContent = title + ' | THE MIRROR JAMMU KASHMIR';
-        
-        console.log('Meta tags updated for:', title);
+        console.log('Social preview meta tags updated for:', article.title);
     }
-    
-    function fixShareButtons(article) {
-        const url = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent(article.title);
-        const description = encodeURIComponent(article.excerpt);
-        
-        // Safely resolve clean complete image source
-        let absoluteImg = article.heroImage;
-        if (absoluteImg && !absoluteImg.startsWith('http')) {
-            absoluteImg = window.location.origin + (absoluteImg.startsWith('/') ? '' : '/') + absoluteImg;
+
+    function setMetaContent(attrName, attrValue, content) {
+        let meta = document.querySelector(`meta[${attrName}="${attrValue}"]`);
+        if (!meta) {
+            meta = document.createElement('meta');
+            meta.setAttribute(attrName, attrValue);
+            document.head.appendChild(meta);
         }
-        const image = encodeURIComponent(absoluteImg);
-        
-        const shareLinks = {
-            'share-facebook': `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-            'share-twitter': `https://twitter.com/intent/tweet?url=${url}&text=${title}`,
-            'share-whatsapp': `https://api.whatsapp.com/send?text=${title}%20${url}`,
-            'share-linkedin': `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-            'share-telegram': `https://t.me/share/url?url=${url}&text=${title}`,
-            'share-reddit': `https://www.reddit.com/submit?url=${url}&title=${title}`,
-            'share-pinterest': `https://pinterest.com/pin/create/button/?url=${url}&media=${image}&description=${description}`,
-            'share-email': `mailto:?subject=${title}&body=${description}%0A${url}`
-        };
-        
-        for (const [id, href] of Object.entries(shareLinks)) {
-            const link = document.getElementById(id);
-            if (link) {
-                link.href = href;
-                link.setAttribute('target', '_blank');
-                link.setAttribute('rel', 'noopener noreferrer');
-            }
-        }
-        
-        console.log('Share tooltip links initialized successfully.');
+        meta.setAttribute('content', content);
     }
-    
-    function setupShareDropdown() {
-        // Target both old design IDs and the new modern button IDs
-        const actionShareBtn = document.getElementById('action-share') || document.getElementById('article-share-btn');
-        const tooltip = document.getElementById('share-tooltip');
+
+    function attachShareButtonHandler(article) {
+        const shareBtn = document.getElementById('share') || document.querySelector('button[data-id="share"]');
         
-        if (actionShareBtn && tooltip) {
-            // Remove any old listeners first
-            const clone = actionShareBtn.cloneNode(true);
-            actionShareBtn.parentNode.replaceChild(clone, actionShareBtn);
+        if (shareBtn) {
+            // Replace existing node to strip old listeners
+            const cleanBtn = shareBtn.cloneNode(true);
+            shareBtn.parentNode.replaceChild(cleanBtn, shareBtn);
             
-            clone.addEventListener('click', function(e) {
+            cleanBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                tooltip.classList.toggle('show');
-            });
-            
-            // Auto close if clicking anywhere else outside the menu
-            document.addEventListener('click', function(e) {
-                if (!tooltip.contains(e.target) && e.target !== clone) {
-                    tooltip.classList.remove('show');
+                
+                // If Web Share API is available (Mobile/Safari)
+                if (navigator.share) {
+                    navigator.share({
+                        title: article.title,
+                        text: article.excerpt,
+                        url: article.url
+                    }).catch(err => console.log('Share canceled or failed:', err));
+                } else {
+                    // Fallback to opening Facebook Sharer directly
+                    const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(article.url)}`;
+                    window.open(fbShareUrl, '_blank', 'width=600,height=400');
                 }
             });
         }
     }
-    
-    // Run validation only on article pages
+
+    // Trigger on article page loading
     if (window.location.pathname.includes('article.html') || window.location.search.includes('id=')) {
-        document.addEventListener('DOMContentLoaded', waitForArticle);
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            waitForArticle();
+            initSocialMetaData();
+        } else {
+            document.addEventListener('DOMContentLoaded', initSocialMetaData);
         }
     }
 })();
