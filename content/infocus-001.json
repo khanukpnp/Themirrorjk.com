@@ -7,7 +7,7 @@
   "date": "2026-06-26",
   "location": "GENEVA",
   "heroImage": {
-    "url": "content/images/infocus-hero.png",
+    "url": "content/images/infocus-001-hero.png",
     "caption": "UKPNP and SKHRC members protesting outside the UN headquarters in Geneva during the UNHRC session.",
     "alt": "UKPNP and SKHRC Protest Outside UN Geneva"
   },
@@ -18,7 +18,7 @@
       {
         "heading": "Core Grievances and Diaspora Statements",
         "image": {
-          "url": "content/images/infocus-001.jpg",
+          "url": "content/images/infocus-001-001.jpg",
           "caption": "UKPNP Chairman Sardar Shaukat Ali Kashmiri addressing demonstrators outside the UN in Geneva.",
           "alt": "Sardar Shaukat Ali Kashmiri speaking at UN Geneva protest"
         },
@@ -30,7 +30,7 @@
       {
         "heading": "Key Issues Highlighted in the UN Memorandum",
         "image": {
-          "url": "content/images/infocus-002.jpg",
+          "url": "content/images/infocus-001-002.jpg",
           "caption": "Demonstrators highlighting security deployments and civilian casualties in Azad Kashmir.",
           "alt": "Protestors holding banners highlighting human rights abuses in AJK"
         },
@@ -47,7 +47,7 @@
       {
         "heading": "Demands Submitted to the United Nations",
         "image": {
-          "url": "content/images/infocus-003.jpg",
+          "url": "content/images/infocus-001-003.jpg",
           "caption": "Submission of the urgent memorandum to the UN Secretary-General and OHCHR.",
           "alt": "UKPNP delegation submitting memorandum at UN Geneva"
         },
@@ -64,7 +64,7 @@
       {
         "heading": "Prominent Leadership, Delegates, and Participants",
         "image": {
-          "url": "content/images/infocus-004.jpg",
+          "url": "content/images/infocus-001-004.jpg",
           "caption": "Delegates, activists, and media representatives participating in the Geneva demonstration.",
           "alt": "Group of key leadership and participants at UN Geneva protest"
         },
