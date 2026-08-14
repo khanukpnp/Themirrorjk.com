@@ -1,95 +1,178 @@
 {
-    "id": "trending-001",
-    "slug": "urgent-un-intervention-required-civilians-killed-rawalakot-crackdown",
-    "title": "HUMAN RIGHTS ALERT: Urgent UN Intervention Demanded as Civilians Killed in Rawalakot Crackdown",
-    "category": "trending",
-    "sectionLabel": "⚡ TRENDING NOW",
-    "excerpt": "UKPNP expresses grave concern after Frontier Corps forces open direct fire on peaceful sit-in protesters at Eid Gah Ground in Rawalakot, leaving two civilians dead and several critically injured.",
-    "summary": "UKPNP expresses grave concern after Frontier Corps forces open direct fire on peaceful sit-in protesters at Eid Gah Ground in Rawalakot, leaving two civilians dead and several critically injured.",
-    "author": "Human Rights Desk",
-    "location": "RAWALAKOT, Azad Kashmir",
-    "date": "2026-06-14T07:30:00Z",
-    "readTime": "5 min read",
-    "heroImage": {
-        "src": "content/images/trending-001-hero.png",
-        "caption": "Human Rights Alert: Operations at Eid Gah Ground in Rawalakot trigger global calls for UN intervention — The Mirror Jammu Kashmir",
-        "credit": "The Mirror Jammu Kashmir",
-        "align": "center"
+  "id": "trending-001",
+  "slug": "urgent-un-intervention-required-civilians-killed-rawalakot-crackdown",
+  "title": "HUMAN RIGHTS ALERT: Urgent UN Intervention Demanded as Civilians Killed in Rawalakot Crackdown",
+  "category": "trending",
+  "sectionLabel": "⚡ TRENDING NOW",
+  "excerpt": "UKPNP expresses grave concern after Frontier Corps forces open direct fire on peaceful sit-in protesters at Eid Gah Ground in Rawalakot, leaving two civilians dead and several critically injured.",
+  "summary": "UKPNP expresses grave concern after Frontier Corps forces open direct fire on peaceful sit-in protesters at Eid Gah Ground in Rawalakot, leaving two civilians dead and several critically injured.",
+  "author": "Human Rights Desk",
+  "location": "RAWALAKOT, Azad Kashmir",
+  "date": "2026-06-14T07:30:00Z",
+  "readTime": "5 min read",
+  "heroImage": {
+    "src": "content/images/trending-001-hero.png",
+    "caption": "Human Rights Alert: Operations at Eid Gah Ground in Rawalakot trigger global calls for UN intervention — The Mirror Jammu Kashmir",
+    "credit": "The Mirror Jammu Kashmir",
+    "align": "center"
+  },
+  "navigation": {
+    "prev": "index.html",
+    "prevTitle": "Home",
+    "next": "trending-002",
+    "nextTitle": "Human Rights Alert: Urgent UN Intervention Demanded",
+    "home": "index.html"
+  },
+  "actionButtons": [
+    {
+      "id": "like",
+      "label": "Like",
+      "type": "button",
+      "color": "#E63946",
+      "bgColor": "#FFEBEB",
+      "hoverBgColor": "#FFD6D6",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#E63946' stroke='#E63946' stroke-width='2' style='fill:#E63946;stroke:#E63946;'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg>"
     },
-    "navigation": {
-        "prev": "index.html",
-        "next": "trending-002",
-        "home": "index.html"
+    {
+      "id": "subscribe",
+      "label": "Subscribe",
+      "type": "button",
+      "color": "#D97706",
+      "bgColor": "#FEF3C7",
+      "hoverBgColor": "#FDE68A",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#D97706' stroke='#D97706' stroke-width='2' style='fill:#D97706;stroke:#D97706;'><path d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/><path d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/></svg>"
     },
-    "archive": false,
-    "readMore": "<p>For further dispatches on human rights monitoring, international appeals, and regional governance across Azad Jammu and Kashmir, explore our primary investigation archives.</p><p>Upcoming updates will track independent fact-finding mission appeals, regional legal filings, and UN Human Rights Council proceedings regarding the June 2026 dispatches.</p><p>Recommended reading: <strong>Universal Declaration of Human Rights (UDHR)</strong> — Provisions securing life, dignity, and peaceful assembly; <strong>UNCIP Resolutions</strong> — Historical frameworks safeguarding civilian protection in disputed territories.</p>",
-    "tags": ["Human Rights Alert", "Rawalakot", "UKPNP", "Azad Kashmir", "United Nations", "Frontier Corps", "Poonch", "Kotli", "Enforced Disappearances", "Eid Gah Ground"],
-    "body": [
-        {
-            "type": "subheading",
-            "text": "CRACKDOWN AT EID GAH GROUND IN RAWALAKOT"
-        },
-        {
-            "type": "paragraph",
-            "text": "The United Kashmir People's National Party (UKPNP) has expressed its grave concern following reports that Pakistani Frontier Corps (FC) and other security personnel launched a late-night operation against a peaceful sit-in at Eid Gah Ground in Rawalakot during the early hours of June 14, 2026."
-        },
-        {
-            "type": "paragraph",
-            "text": "According to reports received from the area, security forces opened direct fire on peaceful demonstrators. At least two civilians reportedly lost their lives, while several others sustained serious and critical injuries."
-        },
-        {
-            "type": "pullquote",
-            "text": "Families of the deceased have alleged that authorities are pressuring them to sign written statements labeling their dead relatives as 'terrorists' before the bodies are released to them for burial."
-        },
-        {
-            "type": "subheading",
-            "text": "DENIAL OF BODIES AND ALLEGATIONS OF COERCION"
-        },
-        {
-            "type": "paragraph",
-            "text": "The demonstrators at Eid Gah Ground had been peacefully conducting a sit-in demanding the release and return of the bodies of their loved ones killed during recent incidents across Rawalakot and Kotli since June 5, 2026."
-        },
-        {
-            "type": "paragraph",
-            "text": "UKPNP strongly condemned the use of excessive force, live ammunition, and lethal weapons against unarmed citizens. The party noted that denial of medical treatment to the wounded, strict restrictions on information flow, and the reported mistreatment of deceased persons constitute severe violations of fundamental human rights standards and human dignity."
-        },
-        {
-            "type": "points",
-            "items": [
-                "Multiple peaceful Kashmiri civilians reported killed in targeted operations since June 5, 2026",
-                "Hundreds subjected to alleged enforced disappearance with no information disclosed to families",
-                "Hundreds injured with many systematically prevented from accessing emergency medical facilities",
-                "Continuous communication restrictions hindering field verification by international watchdogs"
-            ]
-        },
-        {
-            "type": "subheading",
-            "text": "CALL FOR INDEPENDENT PROBE AND GLOBAL INTERVENTION"
-        },
-        {
-            "type": "paragraph",
-            "text": "The UKPNP has called for an immediate, independent, impartial, and transparent investigation into all reported killings, injuries, enforced disappearances, and human rights abuses in the region. The party demanded that those responsible for unlawful acts be identified and prosecuted under international law."
-        },
-        {
-            "type": "paragraph",
-            "text": "Furthermore, the UKPNP issued an urgent appeal to the United Nations, international human rights organizations, and the wider international community to take immediate corrective steps:"
-        },
-        {
-            "type": "points",
-            "items": [
-                "Dispatch an independent fact-finding mission to Rawalakot, Kotli, and affected districts to gather first-hand information",
-                "Call upon Pakistan to cease force against peaceful civilians and uphold international human rights standards",
-                "Ensure immediate medical access for all injured individuals and compel the disclosure of information regarding disappeared persons",
-                "Convene a special discussion on the human rights situation in Pakistan-administered Azad Kashmir and maintain close monitoring"
-            ]
-        },
-        {
-            "type": "pullquote",
-            "text": "The people of Jammu and Kashmir are entitled to the full protection of their fundamental human rights, including the rights to life, dignity, peaceful assembly, freedom of expression, and access to justice."
-        },
-        {
-            "type": "paragraph",
-            "text": "The statement concluded by emphasizing that basic human rights covenants guarantee equal dignity to all residents of the historical state, urging global institutions to intervene to prevent further escalation and civilian casualties."
-        }
-    ]
+    {
+      "id": "share",
+      "label": "Share",
+      "type": "button",
+      "color": "#4F46E5",
+      "bgColor": "#EEF2FF",
+      "hoverBgColor": "#E0E7FF",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4F46E5' stroke-width='2.5' style='stroke:#4F46E5;'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' x2='12' y1='2' y2='15'/></svg>"
+    },
+    {
+      "id": "copyLink",
+      "label": "Copy Link",
+      "type": "button",
+      "color": "#0D9488",
+      "bgColor": "#CCFBF1",
+      "hoverBgColor": "#99F6E4",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#0D9488' stroke-width='2.5' style='stroke:#0D9488;'><rect width='14' height='14' x='8' y='8' rx='2' ry='2'/><path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/></svg>"
+    }
+  ],
+  "bottomNavigation": {
+    "previous": {
+      "label": "← PREVIOUS",
+      "title": "Home",
+      "url": "index.html",
+      "color": "#2563EB",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='m12 19-7-7 7-7'/><path d='M19 12H5'/></svg>"
+    },
+    "home": {
+      "label": "Home",
+      "url": "index.html",
+      "color": "#1F2937",
+      "bgColor": "#F3F4F6",
+      "hoverBgColor": "#E5E7EB",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='#1F2937' stroke='#1F2937' stroke-width='2' style='fill:#1F2937;stroke:#1F2937;'><path d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>"
+    },
+    "next": {
+      "label": "NEXT →",
+      "title": "Human Rights Alert: Urgent UN Intervention Demanded",
+      "url": "article.html?id=trending-002",
+      "color": "#2563EB",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg>"
+    }
+  },
+  "archive": false,
+  "readMore": "<p>For further dispatches on human rights monitoring, international appeals, and regional governance across Azad Jammu and Kashmir, explore our primary investigation archives.</p><p>Upcoming updates will track independent fact-finding mission appeals, regional legal filings, and UN Human Rights Council proceedings regarding the June 2026 dispatches.</p><p>Recommended reading: <strong>Universal Declaration of Human Rights (UDHR)</strong> — Provisions securing life, dignity, and peaceful assembly; <strong>UNCIP Resolutions</strong> — Historical frameworks safeguarding civilian protection in disputed territories.</p>",
+  "tags": [
+    "Human Rights Alert",
+    "Rawalakot",
+    "UKPNP",
+    "Azad Kashmir",
+    "United Nations",
+    "Frontier Corps",
+    "Poonch",
+    "Kotli",
+    "Enforced Disappearances",
+    "Eid Gah Ground"
+  ],
+  "body": [
+    {
+      "type": "subheading",
+      "text": "CRACKDOWN AT EID GAH GROUND IN RAWALAKOT"
+    },
+    {
+      "type": "paragraph",
+      "text": "The United Kashmir People's National Party (UKPNP) has expressed its grave concern following reports that Pakistani Frontier Corps (FC) and other security personnel launched a late-night operation against a peaceful sit-in at Eid Gah Ground in Rawalakot during the early hours of June 14, 2026."
+    },
+    {
+      "type": "paragraph",
+      "text": "According to reports received from the area, security forces opened direct fire on peaceful demonstrators. At least two civilians reportedly lost their lives, while several others sustained serious and critical injuries."
+    },
+    {
+      "type": "pullquote",
+      "text": "Families of the deceased have alleged that authorities are pressuring them to sign written statements labeling their dead relatives as 'terrorists' before the bodies are released to them for burial."
+    },
+    {
+      "type": "subheading",
+      "text": "DENIAL OF BODIES AND ALLEGATIONS OF COERCION"
+    },
+    {
+      "type": "paragraph",
+      "text": "The demonstrators at Eid Gah Ground had been peacefully conducting a sit-in demanding the release and return of the bodies of their loved ones killed during recent incidents across Rawalakot and Kotli since June 5, 2026."
+    },
+    {
+      "type": "paragraph",
+      "text": "UKPNP strongly condemned the use of excessive force, live ammunition, and lethal weapons against unarmed citizens. The party noted that denial of medical treatment to the wounded, strict restrictions on information flow, and the reported mistreatment of deceased persons constitute severe violations of fundamental human rights standards and human dignity."
+    },
+    {
+      "type": "points",
+      "items": [
+        "Multiple peaceful Kashmiri civilians reported killed in targeted operations since June 5, 2026",
+        "Hundreds subjected to alleged enforced disappearance with no information disclosed to families",
+        "Hundreds injured with many systematically prevented from accessing emergency medical facilities",
+        "Continuous communication restrictions hindering field verification by international watchdogs"
+      ]
+    },
+    {
+      "type": "subheading",
+      "text": "CALL FOR INDEPENDENT PROBE AND GLOBAL INTERVENTION"
+    },
+    {
+      "type": "paragraph",
+      "text": "The UKPNP has called for an immediate, independent, impartial, and transparent investigation into all reported killings, injuries, enforced disappearances, and human rights abuses in the region. The party demanded that those responsible for unlawful acts be identified and prosecuted under international law."
+    },
+    {
+      "type": "paragraph",
+      "text": "Furthermore, the UKPNP issued an urgent appeal to the United Nations, international human rights organizations, and the wider international community to take immediate corrective steps:"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Dispatch an independent fact-finding mission to Rawalakot, Kotli, and affected districts to gather first-hand information",
+        "Call upon Pakistan to cease force against peaceful civilians and uphold international human rights standards",
+        "Ensure immediate medical access for all injured individuals and compel the disclosure of information regarding disappeared persons",
+        "Convene a special discussion on the human rights situation in Pakistan-administered Azad Kashmir and maintain close monitoring"
+      ]
+    },
+    {
+      "type": "pullquote",
+      "text": "The people of Jammu and Kashmir are entitled to the full protection of their fundamental human rights, including the rights to life, dignity, peaceful assembly, freedom of expression, and access to justice."
+    },
+    {
+      "type": "paragraph",
+      "text": "The statement concluded by emphasizing that basic human rights covenants guarantee equal dignity to all residents of the historical state, urging global institutions to intervene to prevent further escalation and civilian casualties."
+    },
+    {
+      "type": "html",
+      "content": "<div class='action-bar' style='display:flex; justify-content:center; align-items:center; gap:12px; margin:30px 0; border-top:1px solid #eaeaea; padding-top:20px;'><button style='display:inline-flex; align-items:center; gap:6px; background-color:#FFEBEB; color:#E63946; border:1px solid #FFD6D6; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;'><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#E63946' stroke='#E63946' stroke-width='2' style='fill:#E63946;stroke:#E63946;'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg> Like</button><button style='display:inline-flex; align-items:center; gap:6px; background-color:#FEF3C7; color:#D97706; border:1px solid #FDE68A; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;'><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#D97706' stroke='#D97706' stroke-width='2' style='fill:#D97706;stroke:#D97706;'><path d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/><path d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/></svg> Subscribe</button><button style='display:inline-flex; align-items:center; gap:6px; background-color:#EEF2FF; color:#4F46E5; border:1px solid #E0E7FF; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;'><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4F46E5' stroke-width='2.5' style='stroke:#4F46E5;'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' x2='12' y1='2' y2='15'/></svg> Share</button><button style='display:inline-flex; align-items:center; gap:6px; background-color:#CCFBF1; color:#0D9488; border:1px solid #99F6E4; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;'><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#0D9488' stroke-width='2.5' style='stroke:#0D9488;'><rect width='14' height='14' x='8' y='8' rx='2' ry='2'/><path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/></svg> Copy Link</button></div>"
+    },
+    {
+      "type": "html",
+      "content": "<div class='nav-bar' style='display:flex; justify-content:space-between; align-items:center; border-top:1px solid #eaeaea; padding-top:15px; margin-top:20px;'><a href='index.html' style='color:#2563EB; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='m12 19-7-7 7-7'/><path d='M19 12H5'/></svg> ← PREVIOUS<br><span style='font-size:12px; color:#555;'>Home</span></a><a href='index.html' style='display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; background-color:#F3F4F6; border-radius:50%;'><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='#1F2937' stroke='#1F2937' stroke-width='2' style='fill:#1F2937;stroke:#1F2937;'><path d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg></a><a href='article.html?id=trending-002' style='color:#2563EB; text-decoration:none; font-weight:bold; text-align:right; display:inline-flex; align-items:center; gap:6px;'>NEXT →<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg><br><span style='font-size:12px; color:#555;'>Human Rights Alert: Urgent UN Intervention Demanded</span></a></div>"
+    }
+  ]
 }
