@@ -1,116 +1,199 @@
 {
-    "id": "trending-002",
-    "slug": "ukpnp-condemns-fatal-attack-on-activist-vehicle-rawalakot",
-    "title": "UKPNP Condemns Fatal Attack on Activist Vehicle, Calls for Independent Probe in Azad Kashmir",
-    "category": "trending",
-    "sectionLabel": "⚡ TRENDING NOW",
-    "excerpt": "United Kashmir People's National Party strongly condemns the violent attack in Poonch district that killed Shahzaib Habib and injured JAAC leader Umar Nazir, demanding an independent inquiry and reversal of the ban on JAAC.",
-    "summary": "United Kashmir People's National Party strongly condemns the violent attack in Poonch district that killed Shahzaib Habib and injured JAAC leader Umar Nazir, demanding an independent inquiry and reversal of the ban on JAAC.",
-    "author": "Editorial Desk",
-    "location": "RAWALAKOT, Azad Kashmir",
-    "date": "2026-06-06T10:00:00Z",
-    "readTime": "6 min read",
-    "heroImage": {
-        "src": "content/images/trending-002-hero.png",
-        "caption": "Strong Condemnation of the Martyrdom of Shahzeb Habib & Attack on Umar Nazir Kashmiri — Declaring the Awami Action Committee a Terrorist Organization is the Worst Form of Oppression — The Mirror Jammu Kashmir",
-        "credit": "The Mirror Jammu Kashmir",
-        "align": "center"
+  "id": "trending-002",
+  "slug": "ukpnp-condemns-fatal-attack-on-activist-vehicle-rawalakot",
+  "title": "UKPNP Condemns Fatal Attack on Activist Vehicle, Calls for Independent Probe in Azad Kashmir",
+  "category": "trending",
+  "sectionLabel": "⚡ TRENDING NOW",
+  "excerpt": "United Kashmir People's National Party strongly condemns the violent attack in Poonch district that killed Shahzaib Habib and injured JAAC leader Umar Nazir, demanding an independent inquiry and reversal of the ban on JAAC.",
+  "summary": "United Kashmir People's National Party strongly condemns the violent attack in Poonch district that killed Shahzaib Habib and injured JAAC leader Umar Nazir, demanding an independent inquiry and reversal of the ban on JAAC.",
+  "author": "Editorial Desk",
+  "location": "RAWALAKOT, Azad Kashmir",
+  "date": "2026-06-06T10:00:00Z",
+  "readTime": "6 min read",
+  "heroImage": {
+    "src": "content/images/trending-002-hero.png",
+    "caption": "Strong Condemnation of the Martyrdom of Shahzeb Habib & Attack on Umar Nazir Kashmiri — Declaring the Awami Action Committee a Terrorist Organization is the Worst Form of Oppression — The Mirror Jammu Kashmir",
+    "credit": "The Mirror Jammu Kashmir",
+    "align": "center"
+  },
+  "navigation": {
+    "prev": "trending-001",
+    "prevTitle": "HUMAN RIGHTS ALERT: Urgent UN Intervention Demanded as Civilians Killed in Rawalakot Crackdown",
+    "next": "focus-001",
+    "nextTitle": "Home",
+    "home": "index.html"
+  },
+  "actionButtons": [
+    {
+      "id": "like",
+      "label": "Like",
+      "type": "button",
+      "color": "#E63946",
+      "bgColor": "#FFEBEB",
+      "hoverBgColor": "#FFD6D6",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#E63946' stroke='#E63946' stroke-width='2' style='fill:#E63946;stroke:#E63946;'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg>"
     },
-    "navigation": {
-        "prev": "trending-001",
-        "next": "focus-001",
-        "home": "index.html"
+    {
+      "id": "subscribe",
+      "label": "Subscribe",
+      "type": "button",
+      "color": "#D97706",
+      "bgColor": "#FEF3C7",
+      "hoverBgColor": "#FDE68A",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#D97706' stroke='#D97706' stroke-width='2' style='fill:#D97706;stroke:#D97706;'><path d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/><path d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/></svg>"
     },
-    "archive": false,
-    "readMore": "<p>For further coverage on political developments and human rights conditions across Azad Jammu and Kashmir, explore our related investigative reports on civic movements and regional administrative policies.</p><p>Upcoming dispatches will monitor the legal proceedings surrounding the Poonch incident, institutional oversight, and updates regarding peaceful public advocacy frameworks.</p><p>Recommended reading: <strong>Universal Declaration of Human Rights (UDHR)</strong> — Articles protecting freedom of assembly and association; <strong>Joint Awami Action Committee (JAAC) Proceedings</strong> — Public documentation on civil grievances and fundamental rights movement.</p>",
-    "tags": ["Azad Kashmir", "UKPNP", "Rawalakot", "Human Rights", "JAAC", "Poonch", "Sardar Shaukat Ali Kashmiri", "Umar Nazir", "Shahzaib Habib", "Press Freedom"],
-    "body": [
-        {
-            "type": "subheading",
-            "text": "FATAL ASSAULT IN POONCH DISTRICT SPARKS OUTCRY"
-        },
-        {
-            "type": "paragraph",
-            "text": "The United Kashmir People's National Party (UKPNP) has issued a stern statement strongly condemning a fatal armed attack on a vehicle carrying political activists in Poonch district. The assault, which took place on the night of June 5, resulted in the death of one individual and left a prominent civic leader injured."
-        },
-        {
-            "type": "paragraph",
-            "text": "According to verified local dispatches, the vehicle was targeted near Barmanag while returning from Khaigala to Rawalakot. Among the occupants was Umar Nazir, a Core Committee Member of the Joint Awami Action Committee (JAAC), who sustained injuries during the shooting. His close associate, media adviser, and trusted companion, Shahzaib Habib, succumbed to fatal injuries."
-        },
-        {
-            "type": "pullquote",
-            "text": "Declaring the Awami Action Committee a terrorist organization is the worst form of oppression. UKPNP unequivocally opposes violence, whether perpetrated by a state, an institution, a group, or an individual."
-        },
-        {
-            "type": "subheading",
-            "text": "DEMAND FOR TRANSPARENT INDEPENDENT INQUIRY"
-        },
-        {
-            "type": "paragraph",
-            "text": "In an official address, UKPNP Chairman Sardar Shaukat Ali Kashmiri extended his heartfelt condolences to the family of Shahzaib Habib and expressed hopes for the rapid recovery of Umar Nazir. The party chairman called upon relevant law enforcement and judicial authorities to conduct a transparent, impartial, and immediate investigation to prosecute those responsible."
-        },
-        {
-            "type": "points",
-            "items": [
-                "Immediate, independent probe into the Barmanag armed ambush near Rawalakot",
-                "Full accountability and prosecution of perpetrators without administrative delay",
-                "Appeals for public calm and restraint, upholding peaceful democratic engagement",
-                "Adherence to nonviolent political struggle despite severe provocation"
-            ]
-        },
-        {
-            "type": "paragraph",
-            "text": "Kashmiri highlighted that despite the loss of his close companion, Umar Nazir publicly appealed to supporters for calm and nonviolence. The UKPNP chairman praised this response as a testament to mature, peaceful political struggle, reiterating that the JAAC must continue championing fundamental civil rights exclusively through democratic avenues."
-        },
-        {
-            "type": "subheading",
-            "text": "PUSHBACK AGAINST PROSCRIPTION OF THE AWAMI ACTION COMMITTEE"
-        },
-        {
-            "type": "paragraph",
-            "text": "The UKPNP expressed grave concern over recent administrative steps declaring the Joint Awami Action Committee a proscribed entity. Chairman Kashmiri characterized the decree as a draconian and undemocratic measure that directly infringes upon basic international human rights standards."
-        },
-        {
-            "type": "paragraph",
-            "text": "The leadership noted that the decision marks an abrupt policy shift, coming shortly after high-level negotiations took place between representatives of the Government of Pakistan, the Azad Jammu and Kashmir administration, and JAAC delegates."
-        },
-        {
-            "type": "points",
-            "items": [
-                "Direct official dialogue between state authorities and JAAC delegates continued until May 30, 2026",
-                "Government ministers publicly addressed JAAC members in constructive, non-adversarial terms",
-                "No major security infractions or violent incidents were recorded during the dialogue period",
-                "Sudden reclassification of the civic body as a proscribed organization raises urgent legal concerns"
-            ]
-        },
-        {
-            "type": "pullquote",
-            "text": "Freedoms of peaceful assembly, association, and expression are fundamental rights protected under global covenants, including the Universal Declaration of Human Rights and the ICCPR."
-        },
-        {
-            "type": "subheading",
-            "text": "POLICY REVIEW AND FACT-CHECKING DIRECTIVES"
-        },
-        {
-            "type": "paragraph",
-            "text": "Addressing the broader political climate across Azad Jammu and Kashmir, the UKPNP urged authorities to lift arbitrary restrictions on democratic expression. The party stressed that state intimidation and civic suppression serve only to worsen public grievances and heighten regional instability."
-        },
-        {
-            "type": "paragraph",
-            "text": "Simultaneously, the UKPNP advised JAAC leadership to periodically review its operational strategies—including nuanced discussions surrounding the 12 reserved seats for Kashmiri refugees—to ensure public demands remain aligned with inclusive, peaceful, and constitutional principles."
-        },
-        {
-            "type": "points",
-            "items": [
-                "Strict instruction to party cadres to avoid spreading unverified reports or altered media",
-                "Ban on disseminating AI-generated content or speculative rumors surrounding the attack",
-                "Directive to rely exclusively on official UKPNP channels for fact-based developments",
-                "Continuous monitoring of regional legal procedures by international human rights observers"
-            ]
-        },
-        {
-            "type": "paragraph",
-            "text": "The statement concluded with a firm directive to all party members and civil society activists to maintain strict vigilance against disinformation, reaffirming that principled, fact-based journalism remains essential to safeguarding justice and fundamental human dignity."
-        }
-    ]
+    {
+      "id": "share",
+      "label": "Share",
+      "type": "button",
+      "color": "#4F46E5",
+      "bgColor": "#EEF2FF",
+      "hoverBgColor": "#E0E7FF",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4F46E5' stroke-width='2.5' style='stroke:#4F46E5;'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' x2='12' y1='2' y2='15'/></svg>"
+    },
+    {
+      "id": "copyLink",
+      "label": "Copy Link",
+      "type": "button",
+      "color": "#0D9488",
+      "bgColor": "#CCFBF1",
+      "hoverBgColor": "#99F6E4",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#0D9488' stroke-width='2.5' style='stroke:#0D9488;'><rect width='14' height='14' x='8' y='8' rx='2' ry='2'/><path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/></svg>"
+    }
+  ],
+  "bottomNavigation": {
+    "previous": {
+      "label": "← PREVIOUS",
+      "title": "HUMAN RIGHTS ALERT: Urgent UN Intervention Demanded as Civilians Killed in Rawalakot Crackdown",
+      "url": "article.html?id=trending-001",
+      "color": "#2563EB",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='m12 19-7-7 7-7'/><path d='M19 12H5'/></svg>"
+    },
+    "home": {
+      "label": "Home",
+      "url": "index.html",
+      "color": "#1F2937",
+      "bgColor": "#F3F4F6",
+      "hoverBgColor": "#E5E7EB",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='#1F2937' stroke='#1F2937' stroke-width='2' style='fill:#1F2937;stroke:#1F2937;'><path d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>"
+    },
+    "next": {
+      "label": "NEXT →",
+      "title": "Home",
+      "url": "index.html",
+      "color": "#2563EB",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg>"
+    }
+  },
+  "archive": false,
+  "readMore": "<p>For further coverage on political developments and human rights conditions across Azad Jammu and Kashmir, explore our related investigative reports on civic movements and regional administrative policies.</p><p>Upcoming dispatches will monitor the legal proceedings surrounding the Poonch incident, institutional oversight, and updates regarding peaceful public advocacy frameworks.</p><p>Recommended reading: <strong>Universal Declaration of Human Rights (UDHR)</strong> — Articles protecting freedom of assembly and association; <strong>Joint Awami Action Committee (JAAC) Proceedings</strong> — Public documentation on civil grievances and fundamental rights movement.</p>",
+  "tags": [
+    "Azad Kashmir",
+    "UKPNP",
+    "Rawalakot",
+    "Human Rights",
+    "JAAC",
+    "Poonch",
+    "Sardar Shaukat Ali Kashmiri",
+    "Umar Nazir",
+    "Shahzaib Habib",
+    "Press Freedom"
+  ],
+  "body": [
+    {
+      "type": "subheading",
+      "text": "FATAL ASSAULT IN POONCH DISTRICT SPARKS OUTCRY"
+    },
+    {
+      "type": "paragraph",
+      "text": "The United Kashmir People's National Party (UKPNP) has issued a stern statement strongly condemning a fatal armed attack on a vehicle carrying political activists in Poonch district. The assault, which took place on the night of June 5, resulted in the death of one individual and left a prominent civic leader injured."
+    },
+    {
+      "type": "paragraph",
+      "text": "According to verified local dispatches, the vehicle was targeted near Barmanag while returning from Khaigala to Rawalakot. Among the occupants was Umar Nazir, a Core Committee Member of the Joint Awami Action Committee (JAAC), who sustained injuries during the shooting. His close associate, media adviser, and trusted companion, Shahzaib Habib, succumbed to fatal injuries."
+    },
+    {
+      "type": "pullquote",
+      "text": "Declaring the Awami Action Committee a terrorist organization is the worst form of oppression. UKPNP unequivocally opposes violence, whether perpetrated by a state, an institution, a group, or an individual."
+    },
+    {
+      "type": "subheading",
+      "text": "DEMAND FOR TRANSPARENT INDEPENDENT INQUIRY"
+    },
+    {
+      "type": "paragraph",
+      "text": "In an official address, UKPNP Chairman Sardar Shaukat Ali Kashmiri extended his heartfelt condolences to the family of Shahzaib Habib and expressed hopes for the rapid recovery of Umar Nazir. The party chairman called upon relevant law enforcement and judicial authorities to conduct a transparent, impartial, and immediate investigation to prosecute those responsible."
+    },
+    {
+      "type": "points",
+      "items": [
+        "Immediate, independent probe into the Barmanag armed ambush near Rawalakot",
+        "Full accountability and prosecution of perpetrators without administrative delay",
+        "Appeals for public calm and restraint, upholding peaceful democratic engagement",
+        "Adherence to nonviolent political struggle despite severe provocation"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Kashmiri highlighted that despite the loss of his close companion, Umar Nazir publicly appealed to supporters for calm and nonviolence. The UKPNP chairman praised this response as a testament to mature, peaceful political struggle, reiterating that the JAAC must continue championing fundamental civil rights exclusively through democratic avenues."
+    },
+    {
+      "type": "subheading",
+      "text": "PUSHBACK AGAINST PROSCRIPTION OF THE AWAMI ACTION COMMITTEE"
+    },
+    {
+      "type": "paragraph",
+      "text": "The UKPNP expressed grave concern over recent administrative steps declaring the Joint Awami Action Committee a proscribed entity. Chairman Kashmiri characterized the decree as a draconian and undemocratic measure that directly infringes upon basic international human rights standards."
+    },
+    {
+      "type": "paragraph",
+      "text": "The leadership noted that the decision marks an abrupt policy shift, coming shortly after high-level negotiations took place between representatives of the Government of Pakistan, the Azad Jammu and Kashmir administration, and JAAC delegates."
+    },
+    {
+      "type": "points",
+      "items": [
+        "Direct official dialogue between state authorities and JAAC delegates continued until May 30, 2026",
+        "Government ministers publicly addressed JAAC members in constructive, non-adversarial terms",
+        "No major security infractions or violent incidents were recorded during the dialogue period",
+        "Sudden reclassification of the civic body as a proscribed organization raises urgent legal concerns"
+      ]
+    },
+    {
+      "type": "pullquote",
+      "text": "Freedoms of peaceful assembly, association, and expression are fundamental rights protected under global covenants, including the Universal Declaration of Human Rights and the ICCPR."
+    },
+    {
+      "type": "subheading",
+      "text": "POLICY REVIEW AND FACT-CHECKING DIRECTIVES"
+    },
+    {
+      "type": "paragraph",
+      "text": "Addressing the broader political climate across Azad Jammu and Kashmir, the UKPNP urged authorities to lift arbitrary restrictions on democratic expression. The party stressed that state intimidation and civic suppression serve only to worsen public grievances and heighten regional instability."
+    },
+    {
+      "type": "paragraph",
+      "text": "Simultaneously, the UKPNP advised JAAC leadership to periodically review its operational strategies—including nuanced discussions surrounding the 12 reserved seats for Kashmiri refugees—to ensure public demands remain aligned with inclusive, peaceful, and constitutional principles."
+    },
+    {
+      "type": "points",
+      "items": [
+        "Strict instruction to party cadres to avoid spreading unverified reports or altered media",
+        "Ban on disseminating AI-generated content or speculative rumors surrounding the attack",
+        "Directive to rely exclusively on official UKPNP channels for fact-based developments",
+        "Continuous monitoring of regional legal procedures by international human rights observers"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "The statement concluded with a firm directive to all party members and civil society activists to maintain strict vigilance against disinformation, reaffirming that principled, fact-based journalism remains essential to safeguarding justice and fundamental human dignity."
+    },
+    {
+      "type": "html",
+      "content": "<div class='action-bar' style='display:flex; justify-content:center; align-items:center; gap:12px; margin:30px 0; border-top:1px solid #eaeaea; padding-top:20px;'><button style='display:inline-flex; align-items:center; gap:6px; background-color:#FFEBEB; color:#E63946; border:1px solid #FFD6D6; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;'><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#E63946' stroke='#E63946' stroke-width='2' style='fill:#E63946;stroke:#E63946;'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg> Like</button><button style='display:inline-flex; align-items:center; gap:6px; background-color:#FEF3C7; color:#D97706; border:1px solid #FDE68A; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;'><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#D97706' stroke='#D97706' stroke-width='2' style='fill:#D97706;stroke:#D97706;'><path d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/><path d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/></svg> Subscribe</button><button style='display:inline-flex; align-items:center; gap:6px; background-color:#EEF2FF; color:#4F46E5; border:1px solid #E0E7FF; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;'><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4F46E5' stroke-width='2.5' style='stroke:#4F46E5;'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' x2='12' y1='2' y2='15'/></svg> Share</button><button style='display:inline-flex; align-items:center; gap:6px; background-color:#CCFBF1; color:#0D9488; border:1px solid #99F6E4; border-radius:30px; padding:8px 18px; font-weight:600; cursor:pointer;'><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#0D9488' stroke-width='2.5' style='stroke:#0D9488;'><rect width='14' height='14' x='8' y='8' rx='2' ry='2'/><path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/></svg> Copy Link</button></div>"
+    },
+    {
+      "type": "html",
+      "content": "<div class='nav-bar' style='display:flex; justify-content:space-between; align-items:center; border-top:1px solid #eaeaea; padding-top:15px; margin-top:20px;'><a href='article.html?id=trending-001' style='color:#2563EB; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='m12 19-7-7 7-7'/><path d='M19 12H5'/></svg> ← PREVIOUS<br><span style='font-size:12px; color:#555;'>HUMAN RIGHTS ALERT: Urgent UN Intervention Demanded as Civilians Killed in Rawalakot Crackdown</span></a><a href='index.html' style='display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; background-color:#F3F4F6; border-radius:50%;'><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='#1F2937' stroke='#1F2937' stroke-width='2' style='fill:#1F2937;stroke:#1F2937;'><path d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg></a><a href='index.html' style='color:#2563EB; text-decoration:none; font-weight:bold; text-align:right; display:inline-flex; align-items:center; gap:6px;'>NEXT →<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5' style='stroke:#2563EB;'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg><br><span style='font-size:12px; color:#555;'>Home</span></a></div>"
+    }
+  ]
 }
