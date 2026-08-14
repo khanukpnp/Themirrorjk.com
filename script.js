@@ -674,22 +674,20 @@ function createComingSoonCard(customLabel = "Upcoming Feature") {
                 <p style="color: #666; font-style: italic; font-size: 0.9rem; margin-bottom: 12px;">
                     Visit us later for new updates and dispatches.
                 </p>
-                <div class="card-nav-options" style="justify-content: center; padding-top: 8px;">
-                    <button class="card-nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">🏠 Home</button>
-                </div>
             </div>
         </article>
     `;
 }
+
+/* CLEAN HOMEPAGE CARD BUTTON (ONLY READ MORE) */
 function createCardNavOptions(articleId) {
     return `
-        <div class="card-nav-options">
-            <button class="card-nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">🏠 Home</button>
-            <button class="card-nav-btn" onclick="window.history.back()">⬅️ Back</button>
+        <div class="card-nav-options" style="justify-content: flex-end;">
             <a href="article.html?id=${articleId || ''}" class="card-nav-btn next-link">Read More ➔</a>
         </div>
     `;
 }
+
 function createHomepageCard(article, label) {
     if (!article) return '';
     const title = article.title || 'Untitled Report';
@@ -773,7 +771,6 @@ function renderFullArticlePage(article) {
         }
     }
 
-    // Explicit fallback navigation structure to ensure bottom bar always loads
     const navData = article.navigation || article.bottomNavigation || {
         prev: "index.html",
         prevTitle: "Previous Story",
@@ -953,7 +950,7 @@ function loadChiefEditorPage() {
             contentEl.innerHTML = `
                 <article class="prose-container" style="line-height: 1.8;">
                     <h1 class="about-title" style="color:#b30000; font-family:'Playfair Display',serif;">${cleanData.title || 'Chief Editor Message'}</h1>
-                    ${cleanData.subtitle ? `<p class="about-subtitle" style="font-style:italic; color:#666;">${cleanData.subtitle}</p>` : ''}
+                    ${cleanData.subtitle ? `<p class="about-subtitle" style="font-style:italic; color:#666; ">${cleanData.subtitle}</p>` : ''}
                     <div class="about-content" style="margin-top:20px;">${renderJSONBody(cleanData.body || cleanData.content)}</div>
                 </article>`;
         })
