@@ -141,7 +141,6 @@
     </style>
 </head>
 <body>
-
 <div id="site-loader">
     <div class="loader-inner">
         <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
@@ -149,28 +148,23 @@
         <p>Loading Chief Editor Profile...</p>
     </div>
 </div>
-
 <div class="page-shell">
     <header class="site-header">
         <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
         <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
     </header>
-
     <div class="info-bar clocks-calendars">
         <div class="info-items" id="datetime-bar"></div>
     </div>
-
     <div class="info-bar weather-bar">
         <div class="info-items" id="weather-bar"></div>
     </div>
-
     <div class="ticker-wrap">
         <div class="ticker">
             <span class="ticker-label">🆕 BREAKING</span>
             <div class="ticker-items" id="ticker-items"></div>
         </div>
     </div>
-
     <div class="tools-bar">
         <div class="lang-select">
             🌐
@@ -185,11 +179,18 @@
             <button type="submit">🔍</button>
         </form>
     </div>
-
     <nav class="navbar">
         <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
         <ul class="nav-list" id="nav-list">
-            <li class="nav-item"><a href="index.html" class="nav-btn">🏠 Home</a></li>
+            <li class="nav-item has-sub">
+                <a href="index.html" class="nav-btn">🏠 Home ▼</a>
+                <div class="dropdown">
+                    <a href="about-001.html">About</a>
+                    <a href="chief-editor-001.html">Chief Editor</a>
+                    <a href="our-team.html">Our Team</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </li>
             <li class="nav-item"><a href="about-001.html" class="nav-btn">📖 About</a></li>
             <li class="nav-item"><a href="chief-editor-001.html" class="nav-btn" style="background: #b30000;">✍️ Chief Editor</a></li>
             <li class="nav-item"><a href="our-team.html" class="nav-btn">👥 Our Team</a></li>
@@ -197,30 +198,25 @@
         </ul>
         <div id="mobile-menu" class="mobile-menu" hidden></div>
     </nav>
-
     <main class="editor-page-container">
         <h1 id="editor-title" class="editor-title">The Chief Editor — The Mirror Jammu Kashmir</h1>
         <div id="editor-subtitle" class="editor-subtitle">Sardar Nasir Aziz Khan — A Voice for Justice, Rights, and Kashmir</div>
         <div id="editor-meta" class="editor-meta">Location: <strong>Geneva, Switzerland</strong> | Published by <strong>The Mirror Jammu Kashmir</strong></div>
         <div id="editor-content" class="editor-content clearfix"></div>
     </main>
-
     <div class="social-actions" style="display:flex; justify-content:center; gap:12px; margin: 30px 0;">
         <button class="sa-btn" onclick="alert('Thank you for liking!')">👍 Like</button>
         <button class="sa-btn" onclick="alert('Subscribed to updates!')">🔔 Subscribe</button>
         <button class="sa-btn" onclick="alert('Share link generated!')">📤 Share</button>
         <button class="sa-btn" onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied to clipboard!');">🔗 Copy Link</button>
     </div>
-
     <footer class="modern-footer">
         <div class="footer-bottom" style="text-align: center; padding: 20px; background: #800000; color: white;">
             © <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.
         </div>
     </footer>
 </div>
-
 <script src="script.js"></script>
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         if (typeof initLoader === 'function') initLoader();
@@ -229,24 +225,19 @@
         if (typeof initWeatherBar === 'function') initWeatherBar();
         if (typeof initTicker === 'function') initTicker();
         if (typeof initNav === 'function') initNav();
-
         loadChiefEditorJsonData();
     });
-
     async function loadChiefEditorJsonData() {
         const titleEl = document.getElementById("editor-title");
         const subtitleEl = document.getElementById("editor-subtitle");
         const metaEl = document.getElementById("editor-meta");
         const contentEl = document.getElementById("editor-content");
-
         const pathsToTry = [
             "content/chief-editor-001.json",
             "content/chief-editor.json",
             "./content/chief-editor-001.json"
         ];
-
         let cleanData = null;
-
         for (const path of pathsToTry) {
             try {
                 const response = await fetch(path);
@@ -259,12 +250,10 @@
                 console.log("Path failed:", path);
             }
         }
-
         if (!cleanData) {
             console.error("Could not load Chief Editor JSON file.");
             return;
         }
-
         if (titleEl) titleEl.textContent = cleanData.title || "The Chief Editor";
         if (subtitleEl) subtitleEl.textContent = cleanData.subtitle || "";
         
@@ -275,15 +264,12 @@
             if (cleanData.readTime) metaHtml += `| ⏱️ ${cleanData.readTime}`;
             metaEl.innerHTML = metaHtml;
         }
-
         if (contentEl && cleanData.body) {
             contentEl.innerHTML = renderEditorBody(cleanData.body);
         }
     }
-
     function renderEditorBody(bodyBlocks) {
         if (!Array.isArray(bodyBlocks)) return '<p>No content available.</p>';
-
         return bodyBlocks.map(block => {
             switch (block.type) {
                 case 'paragraph':
@@ -308,12 +294,18 @@
                             <img src="${block.src}" alt="${block.caption || 'Chief Editor'}" onerror="this.style.display='none'">
                             ${block.caption ? `<figcaption>${block.caption}</figcaption>` : ''}
                         </figure>`;
+                case 'link':
+                    return `
+                        <p style="margin: 20px 0; font-weight: 700;">
+                            <a href="${block.url}" target="_blank" rel="noopener noreferrer" style="color: #b30000; text-decoration: underline; font-size: 1.1rem;">
+                                ${block.text}
+                            </a>
+                        </p>`;
                 default:
                     return '';
             }
         }).join('');
     }
 </script>
-
 </body>
 </html>
