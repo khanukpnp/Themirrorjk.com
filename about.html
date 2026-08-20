@@ -21,7 +21,7 @@
     <meta name="twitter:site" content="@TheMirrorJK">
     
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Source+Sans+Pro:wght=400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     
     <style>
@@ -41,14 +41,15 @@
         .about-subtitle {
             font-size: 1.2rem;
             color: #666;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-style: italic;
         }
         .about-meta {
             color: #666;
             margin-bottom: 30px;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
             border-bottom: 1px solid #e0e0e0;
+            font-size: 0.95rem;
         }
         .about-content {
             font-family: 'Georgia', serif;
@@ -59,34 +60,67 @@
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
         }
+        .about-content h2.mid-subheading {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+            border-bottom: 2px solid #b30000;
+            padding-bottom: 5px;
+        }
         .about-content .pull-quote {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 600;
             margin: 2rem 0;
             padding: 1.5rem 2rem;
             background: #f9f9f9;
             border-left: 4px solid #b30000;
             font-style: italic;
+            line-height: 1.6;
+        }
+        .about-content .important-points {
+            background: #f8f8f8;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0 2rem;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+        .about-content .important-points ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .about-content .important-points li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 1.05rem;
+        }
+        .about-content .important-points li:last-child {
+            margin-bottom: 0;
+        }
+        .about-content .important-points li::before {
+            content: "•";
+            color: #b30000;
+            font-weight: bold;
+            font-size: 1.3rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
         }
         .about-content .img-right {
             float: right;
-            width: 38%;
-            margin: 0 0 1rem 1.5rem;
+            width: 40%;
+            margin: 0.5rem 0 1.5rem 1.5rem;
         }
-        .about-content .img-left {
-            float: left;
-            width: 38%;
-            margin: 0 1.5rem 1rem 0;
-        }
-        .about-content .img-center {
-            display: block;
-            margin: 2rem auto;
-            text-align: center;
-        }
-        .about-content figure img {
-            max-width: 100%;
+        .about-content .img-right img {
+            width: 100%;
             height: auto;
-            border-radius: 8px;
+            border-radius: 6px;
+        }
+        .about-content figure {
+            margin: 0;
         }
         .about-content figcaption {
             font-size: 0.85rem;
@@ -95,9 +129,13 @@
             font-style: italic;
             text-align: center;
         }
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
         @media (max-width: 768px) {
-            .about-content .img-right,
-            .about-content .img-left {
+            .about-content .img-right {
                 float: none;
                 width: 100%;
                 margin: 1.5rem 0;
@@ -149,7 +187,7 @@
     <!-- LANGUAGE & SEARCH TOOLS -->
     <div class="tools-bar">
         <div class="lang-select">
-            🌍
+            🌐
             <select id="language-select">
                 <option value="en" selected>English</option>
                 <option value="de">German</option>
@@ -212,18 +250,18 @@
 
     <!-- MAIN ABOUT CONTENT -->
     <main class="about-page-container">
-        <h1 id="about-title" class="about-title"></h1>
-        <div id="about-subtitle" class="about-subtitle"></div>
-        <div id="about-meta" class="about-meta"></div>
-        <div id="about-content" class="about-content"></div>
+        <h1 id="about-title" class="about-title">About Us</h1>
+        <div id="about-subtitle" class="about-subtitle">The Mirror Jammu Kashmir — Champion Justice & Amplify the Voices of the Unheard</div>
+        <div id="about-meta" class="about-meta">Location: <strong>State of Jammu and Kashmir</strong> | Published by <strong>Editorial Desk</strong></div>
+        <div id="about-content" class="about-content clearfix"></div>
     </main>
 
     <!-- SOCIAL ACTIONS -->
-    <div class="social-actions">
-        <button class="sa-btn">👍 Like</button>
-        <button class="sa-btn">🔔 Subscribe</button>
-        <button class="sa-btn">📤 Share</button>
-        <button class="sa-btn" onclick="copyPageLink()">🔗 Copy Link</button>
+    <div class="social-actions" style="display:flex; justify-content:center; gap:12px; margin: 30px 0;">
+        <button class="sa-btn" onclick="alert('Thank you for liking!')">👍 Like</button>
+        <button class="sa-btn" onclick="alert('Subscribed to updates!')">🔔 Subscribe</button>
+        <button class="sa-btn" onclick="alert('Share link generated!')">📤 Share</button>
+        <button class="sa-btn" onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied to clipboard!');">🔗 Copy Link</button>
     </div>
 
     <!-- FOOTER -->
@@ -253,10 +291,7 @@
             <div class="footer-section">
                 <h4>Follow</h4>
                 <div class="social-icons">
-                    <a href="#" class="social-icon">📘</a>
-                    <a href="#" class="social-icon">🐦</a>
-                    <a href="#" class="social-icon">📷</a>
-                    <a href="#" class="social-icon">▶️</a>
+                    <a href="https://x.com/NasirKhanUKPNP" target="_blank" class="social-icon">🐦</a>
                 </div>
             </div>
         </div>
@@ -269,9 +304,7 @@
 <script src="script.js"></script>
 
 <script>
-    // Initialize page components and load about content
     document.addEventListener("DOMContentLoaded", function() {
-        // Initialize all components
         if (typeof initLoader === 'function') initLoader();
         if (typeof initYear === 'function') initYear();
         if (typeof initClocks === 'function') initClocks();
@@ -280,21 +313,75 @@
         if (typeof initNav === 'function') initNav();
         if (typeof initLanguageSelector === 'function') initLanguageSelector();
         if (typeof initSearch === 'function') initSearch();
-        if (typeof initSocialButtons === 'function') initSocialButtons();
-        if (typeof initFooterDropdowns === 'function') initFooterDropdowns();
-        
-        // Load about page content
-        if (typeof loadAboutPage === 'function') {
-            loadAboutPage();
-        } else {
-            console.log("loadAboutPage not found, waiting...");
-            setTimeout(function() {
-                if (typeof loadAboutPage === 'function') {
-                    loadAboutPage();
-                }
-            }, 500);
-        }
+
+        // Dedicated fetch function for about.json
+        loadAboutJsonData();
     });
+
+    async function loadAboutJsonData() {
+        const titleEl = document.getElementById("about-title");
+        const subtitleEl = document.getElementById("about-subtitle");
+        const metaEl = document.getElementById("about-meta");
+        const contentEl = document.getElementById("about-content");
+
+        try {
+            const response = await fetch("content/about.json");
+            if (!response.ok) throw new Error("Could not load content/about.json");
+            
+            const data = await response.json();
+            const cleanData = data.items ? data.items[0] : data;
+
+            if (titleEl) titleEl.textContent = cleanData.title || "About Us";
+            if (subtitleEl) subtitleEl.textContent = cleanData.subtitle || "";
+            
+            if (metaEl) {
+                let metaHtml = '';
+                if (cleanData.location) metaHtml += `Location: <strong>${cleanData.location}</strong> `;
+                if (cleanData.author) metaHtml += `| By <strong>${cleanData.author}</strong> `;
+                if (cleanData.readTime) metaHtml += `| ⏱️ ${cleanData.readTime}`;
+                metaEl.innerHTML = metaHtml;
+            }
+
+            if (contentEl && cleanData.body) {
+                contentEl.innerHTML = renderAboutBody(cleanData.body);
+            }
+        } catch (e) {
+            console.error("Error loading about JSON:", e);
+        }
+    }
+
+    function renderAboutBody(bodyBlocks) {
+        if (!Array.isArray(bodyBlocks)) return '<p>No content available.</p>';
+
+        return bodyBlocks.map(block => {
+            switch (block.type) {
+                case 'paragraph':
+                    return `<p>${block.text}</p>`;
+                case 'subheading':
+                case 'header':
+                    return `<h2 class="mid-subheading">${block.text}</h2>`;
+                case 'pullquote':
+                    return `<div class="pull-quote">${block.text}</div>`;
+                case 'points':
+                    return `
+                        <div class="important-points">
+                            <ul>
+                                ${block.items.map(item => `<li>${item}</li>`).join('')}
+                            </ul>
+                        </div>`;
+                case 'image':
+                    const floatClass = block.align === 'right' ? 'img-right' : (block.align === 'left' ? 'img-left' : 'img-center');
+                    const imgWidth = block.width ? `style="width: ${block.width};"` : '';
+                    return `
+                        <figure class="${floatClass}" ${imgWidth}>
+                            <img src="${block.src}" alt="${block.caption || 'Logo'}" onerror="this.style.display='none'">
+                            ${block.caption ? `<figcaption>${block.caption}</figcaption>` : ''}
+                        </figure>`;
+                default:
+                    return '';
+            }
+        }).join('');
+    }
 </script>
 
 </body>
