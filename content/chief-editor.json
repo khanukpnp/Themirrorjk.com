@@ -1,70 +1,173 @@
-,,
 {
-    "id": "chief-editor-001",
-    "slug": "chief-editor-the-mirror-jammu-kashmir",
-    "title": "The Chief Editor — The Mirror Jammu Kashmir",
-    "subtitle": "Sardar Nasir Aziz Khan — A Voice for Justice, Rights, and Kashmir",
-    "category": "About",
-    "sectionLabel": "👤 CHIEF EDITOR",
-    "excerpt": "Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional insight, political clarity, and a firm commitment to principled and rights-based journalism.",
-    "summary": "Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. A Kashmiri human rights defender, political analyst, and columnist, he is originally from Rawalakot in the Poonch region of the historical State of Jammu and Kashmir and is currently based in Switzerland.",
-    "author": "The Mirror Jammu Kashmir",
-    "location": "Geneva, Switzerland",
-    "date": "2026-03-22T09:00:00Z",
-    "readTime": "6 min read",
-    "heroImage": {
-        "src": "content/images/chief-editor.jpg",
-        "caption": "Sardar Nasir Aziz Khan, Chief Editor of The Mirror Jammu Kashmir",
-        "credit": "The Mirror Jammu Kashmir",
-        "align": "center"
+  "id": "chief-editor-001",
+  "slug": "chief-editor-the-mirror-jammu-kashmir",
+  "title": "Chief Editor — Sardar Nasir Aziz Khan",
+  "subtitle": "The Mirror Jammu Kashmir — Editorial Leadership, Human Rights Advocacy & Global Policy Analysis",
+  "category": "Chief Editor",
+  "sectionLabel": "👤 CHIEF EDITOR",
+  "excerpt": "Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. A Kashmiri human rights defender, political analyst, and columnist based in Switzerland, he leads our editorial vision with a firm commitment to principled journalism.",
+  "summary": "Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. A Kashmiri human rights defender, political analyst, and columnist, he is originally from Rawalakot in the Poonch region of the historical State of Jammu and Kashmir and is currently based in Switzerland.",
+  "author": "The Mirror Jammu Kashmir Editorial Desk",
+  "location": "Geneva, Switzerland",
+  "date": "2026-03-22T09:00:00Z",
+  "readTime": "6 min read",
+  "heroImage": {
+    "src": "content/images/chief-editor.jpg",
+    "caption": "Sardar Nasir Aziz Khan, Chief Editor of The Mirror Jammu Kashmir — A Kashmiri human rights defender, political analyst, and columnist based in Switzerland",
+    "credit": "The Mirror Jammu Kashmir",
+    "align": "center"
+  },
+  "navigation": {
+    "prev": "about.html",
+    "prevTitle": "About Us",
+    "next": "index.html",
+    "nextTitle": "Homepage",
+    "home": "index.html"
+  },
+  "actionButtons": [
+    {
+      "id": "like",
+      "label": "Like",
+      "type": "button",
+      "color": "#E63946",
+      "bgColor": "#FFEBEB",
+      "hoverBgColor": "#FFD6D6",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#E63946' stroke='#E63946' stroke-width='2'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg>"
     },
-    "body": [
-        {
-            "type": "image",
-            "src": "content/images/chief-editor.jpg",
-            "align": "right",
-            "caption": "Sardar Nasir Aziz Khan, Chief Editor of The Mirror Jammu Kashmir — A Kashmiri human rights defender, political analyst, and columnist based in Switzerland",
-            "credit": "The Mirror Jammu Kashmir"
-        },
-        {
-            "type": "paragraph",
-            "text": "Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional insight, political clarity, and a firm commitment to principled and rights based journalism. A Kashmiri human rights defender, political analyst, and columnist, he is originally from Rawalakot in the Poonch region of the historical State of Jammu and Kashmir and is currently based in Switzerland."
-        },
-        {
-            "type": "paragraph",
-            "text": "Alongside his editorial leadership, he serves as Central Spokesperson of the United Kashmir People's National Party and as the main representative of affiliated civil society organizations NGOs to the United Nations in Geneva. In this capacity, he regularly engages with United Nations mechanisms, diplomats, parliamentarians, and international media to document and highlight human rights violations, political repression, and socio-economic marginalization across the divided regions of Jammu and Kashmir."
-        },
-        {
-            "type": "pullquote",
-            "text": "There is no military solution to the Jammu Kashmir dispute. Any sustainable resolution must be rooted in the will and rights of the people in accordance with relevant United Nations resolutions."
-        },
-        {
-            "type": "paragraph",
-            "text": "His work focuses on issues that are often ignored or deliberately suppressed. These include enforced disappearances, arbitrary detentions, restrictions on press freedom, militarization, erosion of civil and political rights, and the shrinking space for democratic participation. He has also spoken extensively about prolonged public protests over electricity shortages, taxation policies, lack of basic services, and the targeting of journalists and peaceful activists."
-        },
-        {
-            "type": "paragraph",
-            "text": "As a writer and commentator, Sardar Nasir Aziz Khan contributes to international platforms and policy discussions. His analysis covers the Jammu Kashmir conflict, United Nations human rights mechanisms, freedom of expression, rule of law, governance failures, extremism, security challenges, underdevelopment, gender equality, racial discrimination, environmental concerns, global warming, and the broader impact of regional and global conflicts on ordinary people. His work is grounded in documented facts, field engagement, and direct interaction with affected communities."
-        },
-        {
-            "type": "paragraph",
-            "text": "He has contributed to multiple international advocacy efforts. These include participation and moderation at United Nations forums, moderation and briefings at International forums, public engagements with British Members of Parliament, statements at the United Nations Human Rights Council, and campaigns demanding accountability for the arrest of journalists and the suppression of peaceful dissent. He consistently maintains that there is no military solution to the Jammu Kashmir dispute and that any sustainable resolution must be rooted in the will and rights of the people in accordance with relevant United Nations resolutions."
-        },
-        {
-            "type": "pullquote",
-            "text": "As Chief Editor, he safeguards editorial independence and ensures that journalism remains accountable to truth rather than power. Under his leadership, The Mirror Jammu Kashmir positions itself as an independent digital platform committed to credible reporting, rigorous analysis, and amplifying voices from across all regions of the historical State of Jammu and Kashmir."
-        },
-        {
-            "type": "paragraph",
-            "text": "As Chief Editor, he safeguards editorial independence and ensures that journalism remains accountable to truth rather than power. Under his leadership, The Mirror Jammu Kashmir positions itself as an independent digital platform committed to credible reporting, rigorous analysis, and amplifying voices from across all regions of the historical State of Jammu and Kashmir."
-        },
-        {
-            "type": "paragraph",
-            "text": "Sardar Nasir Aziz Khan continues to act as a bridge between Kashmiri communities, international institutions, and global audiences, using media as a tool for awareness, documentation, and principled advocacy."
-        },
-        {
-            "type": "paragraph",
-            "text": "He can be reached at themirrorjk@gmail.com or by phone at +41 783 13 12 13. On X, he can be followed at @NasirKhanUKPNP."
-        }
-    ]
+    {
+      "id": "subscribe",
+      "label": "Subscribe",
+      "type": "button",
+      "color": "#D97706",
+      "bgColor": "#FEF3C7",
+      "hoverBgColor": "#FDE68A",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#D97706' stroke='#D97706' stroke-width='2'><path d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/><path d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/></svg>"
+    },
+    {
+      "id": "share",
+      "label": "Share",
+      "type": "button",
+      "color": "#4F46E5",
+      "bgColor": "#EEF2FF",
+      "hoverBgColor": "#E0E7FF",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4F46E5' stroke-width='2.5'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' x2='12' y1='2' y2='15'/></svg>"
+    },
+    {
+      "id": "copyLink",
+      "label": "Copy Link",
+      "type": "button",
+      "color": "#0D9488",
+      "bgColor": "#CCFBF1",
+      "hoverBgColor": "#99F6E4",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#0D9488' stroke-width='2.5'><rect width='14' height='14' x='8' y='8' rx='2' ry='2'/><path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/></svg>"
+    }
+  ],
+  "bottomNavigation": {
+    "style": "modern-colored-vectors",
+    "previous": {
+      "label": "← PREVIOUS",
+      "title": "About Us",
+      "url": "about.html",
+      "color": "#2563EB",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5'><path d='m12 19-7-7 7-7'/><path d='M19 12H5'/></svg>"
+    },
+    "home": {
+      "label": "Home",
+      "url": "index.html",
+      "color": "#1F2937",
+      "bgColor": "#F3F4F6",
+      "hoverBgColor": "#E5E7EB",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='#1F2937' stroke='#1F2937' stroke-width='2'><path d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>"
+    },
+    "next": {
+      "label": "NEXT →",
+      "title": "Homepage",
+      "url": "index.html",
+      "color": "#2563EB",
+      "iconSvg": "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2563EB' stroke-width='2.5'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg>"
+    }
+  },
+  "archive": false,
+  "tags": [
+    "Chief Editor",
+    "Sardar Nasir Aziz Khan",
+    "The Mirror Jammu Kashmir",
+    "Human Rights",
+    "UN Geneva",
+    "UKPNP"
+  ],
+  "body": [
+    {
+      "type": "subheading",
+      "text": "Editorial Leadership & Regional Insight"
+    },
+    {
+      "type": "image",
+      "src": "content/images/chief-editor.jpg",
+      "align": "right",
+      "width": "40%",
+      "caption": "Sardar Nasir Aziz Khan, Chief Editor of The Mirror Jammu Kashmir — A Kashmiri human rights defender, political analyst, and columnist based in Switzerland",
+      "credit": "The Mirror Jammu Kashmir"
+    },
+    {
+      "type": "paragraph",
+      "text": "Sardar Nasir Aziz Khan serves as Chief Editor of The Mirror Jammu Kashmir. He brings deep regional insight, political clarity, and a firm commitment to principled and rights based journalism. A Kashmiri human rights defender, political analyst, and columnist, he is originally from Rawalakot in the Poonch region of the historical State of Jammu and Kashmir and is currently based in Switzerland."
+    },
+    {
+      "type": "paragraph",
+      "text": "Alongside his editorial leadership, he serves as Central Spokesperson of the United Kashmir People's National Party and as the main representative of affiliated civil society organizations NGOs to the United Nations in Geneva. In this capacity, he regularly engages with United Nations mechanisms, diplomats, parliamentarians, and international media to document and highlight human rights violations, political repression, and socio-economic marginalization across the divided regions of Jammu and Kashmir."
+    },
+    {
+      "type": "subheading",
+      "text": "Key Areas of Advocacy & Focus"
+    },
+    {
+      "type": "paragraph",
+      "text": "His work focuses on critical issues that are often ignored or deliberately suppressed:"
+    },
+    {
+      "type": "points",
+      "items": [
+        "Human Rights & Civil Liberties: Documenting enforced disappearances, arbitrary detentions, restrictions on press freedom, militarization, and the erosion of civil and political rights.",
+        "Civic Protections & Public Rights: Reporting on prolonged public protests over electricity shortages, taxation policies, lack of basic services, and the targeting of journalists and peaceful activists.",
+        "Global Policy Analysis: Analyzing the Jammu Kashmir conflict, United Nations human rights mechanisms, freedom of expression, rule of law, governance failures, extremism, security challenges, underdevelopment, gender equality, racial discrimination, environmental concerns, global warming, and the broader impact of regional conflicts."
+      ]
+    },
+    {
+      "type": "pullquote",
+      "text": "There is no military solution to the Jammu Kashmir dispute. Any sustainable resolution must be rooted in the will and rights of the people in accordance with relevant United Nations resolutions."
+    },
+    {
+      "type": "subheading",
+      "text": "International Advocacy & Media Engagement"
+    },
+    {
+      "type": "paragraph",
+      "text": "He has contributed to multiple international advocacy efforts. These include participation and moderation at United Nations forums, briefings at international conferences, public engagements with British Members of Parliament, statements at the United Nations Human Rights Council, and campaigns demanding accountability for the arrest of journalists and the suppression of peaceful dissent."
+    },
+    {
+      "type": "paragraph",
+      "text": "As Chief Editor, he safeguards editorial independence and ensures that journalism remains accountable to truth rather than power. Under his leadership, The Mirror Jammu Kashmir positions itself as an independent digital platform committed to credible reporting, rigorous analysis, and amplifying voices from across all regions of the historical State of Jammu and Kashmir."
+    },
+    {
+      "type": "paragraph",
+      "text": "Sardar Nasir Aziz Khan continues to act as a bridge between Kashmiri communities, international institutions, and global audiences, using media as a tool for awareness, documentation, and principled advocacy."
+    },
+    {
+      "type": "subheading",
+      "text": "Media & Profile Video"
+    },
+    {
+      "type": "paragraph",
+      "text": "Watch the profile documentary covering Chief Editor Sardar Nasir Aziz Khan's human rights work and political advocacy:"
+    },
+    {
+      "type": "paragraph",
+      "text": "▶️ <a href=\"https://youtu.be/gRoshSJ6KJo?si=ttfKcCQZwWKrcp7_\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:#b30000; font-weight:bold; text-decoration:underline;\">Brief Intro: Sardar Nasir Aziz Khan Central Spokesperson UKPNP & Human Rights Defender</a> [http://www.youtube.com/watch?v=gRoshSJ6KJo]"
+    },
+    {
+      "type": "paragraph",
+      "text": "He can be reached at <a href=\"mailto:themirrorjk@gmail.com\" style=\"color:#b30000; font-weight:bold; text-decoration:underline;\">themirrorjk@gmail.com</a> or by phone at <strong>+41 783 13 12 13</strong>. On X, he can be followed at <a href=\"https://x.com/NasirKhanUKPNP\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:#b30000; font-weight:bold; text-decoration:underline;\">@NasirKhanUKPNP</a>."
+    }
+  ]
 }
