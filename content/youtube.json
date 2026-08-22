@@ -7,7 +7,8 @@
       "category": "News Report",
       "duration": "00:00",
       "date": "2026-07-05",
-      "youtubeId": "lRE5cVWbWmA"
+      "youtubeId": "lRE5cVWbWmA",
+      "url": "https://www.youtube.com/watch?v=lRE5cVWbWmA"
     },
     {
       "id": "v2",
@@ -16,7 +17,8 @@
       "category": "Conference",
       "duration": "00:00",
       "date": "2026-07-05",
-      "youtubeId": "1Sbomv3juT4"
+      "youtubeId": "1Sbomv3juT4",
+      "url": "https://www.youtube.com/watch?v=1Sbomv3juT4"
     },
     {
       "id": "v3",
@@ -25,7 +27,8 @@
       "category": "Advocacy",
       "duration": "00:00",
       "date": "2026-07-05",
-      "youtubeId": "8ipYncaQNg0"
+      "youtubeId": "8ipYncaQNg0",
+      "url": "https://www.youtube.com/watch?v=8ipYncaQNg0"
     },
     {
       "id": "v4",
@@ -34,7 +37,8 @@
       "category": "News Report",
       "duration": "00:00",
       "date": "2026-07-05",
-      "youtubeId": "FE9farW5M18"
+      "youtubeId": "FE9farW5M18",
+      "url": "https://www.youtube.com/watch?v=FE9farW5M18"
     },
     {
       "id": "v5",
@@ -43,16 +47,47 @@
       "category": "Cultural",
       "duration": "00:00",
       "date": "2026-07-05",
-      "youtubeId": "SCzLOURtCTI"
+      "youtubeId": "SCzLOURtCTI",
+      "url": "https://www.youtube.com/watch?v=SCzLOURtCTI"
     },
     {
       "id": "v6",
-      "title": "The Mirror Jammu Kashmir. Current Affairs, News , Updates, Analysis & Uncovering the Truth.",
-      "description": "Current Affairs, News, Updates, Analysis & Uncovering the Truth from The Mirror Jammu Kashmir.",
-      "category": "Analysis",
-      "duration": "00:00",
+      "title": "The Mirror Jammu Kashmir — Official Channel",
+      "description": "Visit the official YouTube channel of The Mirror Jammu Kashmir for news, analysis, and truth.",
+      "category": "Channel",
+      "duration": "--:--",
       "date": "2026-07-05",
-      "youtubeId": "SNANYXoJxu0"
+      "url": "https://www.youtube.com/@themirrorjammukashmir"
+    },
+    {
+      "id": "v7",
+      "title": "UKPNP Historic Intra Jammu Kashmir Conference | Strongly Condemns Siege & Blockade in Azad Kashmir",
+      "description": "UKPNP virtual conference bringing together leaders across Jammu Kashmir to condemn human rights violations, siege, and communication blackout in AJK.",
+      "category": "Conference",
+      "duration": "03:41:02",
+      "date": "2026-07-13",
+      "youtubeId": "_8MxInq_fmw",
+      "url": "https://www.youtube.com/watch?v=_8MxInq_fmw"
+    },
+    {
+      "id": "v8",
+      "title": "Tarana Jammu Kashmir INQILAAB AAYE GA ترانہ جموں کشمیر انقلاب آئے گا",
+      "description": "Cultural unity anthem calling for dignity, rights, identity, and revolution for Jammu Kashmir.",
+      "category": "Cultural",
+      "duration": "00:09:29",
+      "date": "2026-07-30",
+      "youtubeId": "pDh_myyVnoA",
+      "url": "https://youtu.be/pDh_myyVnoA"
+    },
+    {
+      "id": "v9",
+      "title": "Tarana Jammu Kashmir APNA WATAN APNA RAAJ ترانہ جموں کشمیر | اپنا وطن اپنا راج",
+      "description": "Patriotic anthem advocating for self-rule, freedom, and peaceful resistance across all regions of Jammu & Kashmir.",
+      "category": "Cultural",
+      "duration": "00:06:41",
+      "date": "2026-08-11",
+      "youtubeId": "VEJ6hEH0Wo8",
+      "url": "https://www.youtube.com/watch?v=VEJ6hEH0Wo8"
     }
   ]
 }
