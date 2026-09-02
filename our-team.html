@@ -55,33 +55,39 @@
     padding: 18px;
     text-align: center;
     border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .team-card img {
     width: 100%;
-    height: auto;
+    height: 250px;
+    object-fit: cover;
     border-radius: 6px;
     margin-bottom: 12px;
 }
 
 .team-name {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: 700;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     color: #111;
+    line-height: 1.3;
 }
 
 .team-role {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #800000;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .team-contact {
     font-size: 0.85rem;
     color: #444;
     line-height: 1.5;
+    margin-top: auto;
 }
 
 .team-contact a {
@@ -92,6 +98,14 @@
 .team-contact a:hover {
     text-decoration: underline;
 }
+
+.loading-msg {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    padding: 40px 0;
+}
 </style>
 </head>
 
@@ -99,48 +113,82 @@
 
 <main class="team-shell">
 
-    <h1 class="team-title">Our Team</h1>
-    <p class="team-subtitle">
+    <h1 class="team-title" id="page-title">Our Team</h1>
+    <p class="team-subtitle" id="page-subtitle">
         Meet the dedicated journalists, editors, designers, and human rights advocates behind THE MIRROR JAMMU KASHMIR.
     </p>
 
-    <div class="team-grid">
-
-        <!-- TEAM MEMBER TEMPLATE -->
-        <div class="team-card">
-            <img src="images/team-placeholder.jpg" alt="Team Member">
-            <div class="team-name">Full Name</div>
-            <div class="team-role">Designation / Role</div>
-            <div class="team-contact">
-                Email: <a href="mailto:someone@example.com">someone@example.com</a><br>
-                Phone: +00 000 000 0000
-            </div>
-        </div>
-
-        <!-- Duplicate this block for more members -->
-        <div class="team-card">
-            <img src="images/team-placeholder.jpg" alt="Team Member">
-            <div class="team-name">Full Name</div>
-            <div class="team-role">Designation / Role</div>
-            <div class="team-contact">
-                Email: <a href="mailto:someone@example.com">someone@example.com</a><br>
-                Phone: +00 000 000 0000
-            </div>
-        </div>
-
-        <div class="team-card">
-            <img src="images/team-placeholder.jpg" alt="Team Member">
-            <div class="team-name">Full Name</div>
-            <div class="team-role">Designation / Role</div>
-            <div class="team-contact">
-                Email: <a href="mailto:someone@example.com">someone@example.com</a><br>
-                Phone: +00 000 000 0000
-            </div>
-        </div>
-
+    <div class="team-grid" id="team-container">
+        <!-- Dynamic content will load here from JSON -->
+        <div class="loading-msg">Loading team profiles...</div>
     </div>
 
 </main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Path to your JSON file (adjust relative path if stored in content/ or data/)
+    const jsonPath = 'our-team.json';
+
+    fetch(jsonPath)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("HTTP error! Status: " + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const teamContainer = document.getElementById('team-container');
+            
+            // Clear loading placeholder
+            teamContainer.innerHTML = '';
+
+            // Update page headers dynamically if available in JSON
+            if (data.title) {
+                document.getElementById('page-title').innerText = data.title;
+            }
+
+            const teamArray = data.team || [];
+
+            if (teamArray.length === 0) {
+                teamContainer.innerHTML = '<div class="loading-msg">No profiles found.</div>';
+                return;
+            }
+
+            // Loop through JSON profiles and construct team cards
+            teamArray.forEach(member => {
+                const card = document.createElement('div');
+                card.className = 'team-card';
+
+                const imageSrc = member.image ? member.image : 'images/team-placeholder.jpg';
+                const name = member.name || 'Team Member';
+                const role = member.designation || 'Contributor';
+                const email = member.email || '';
+                const phone = member.phone || '';
+
+                card.innerHTML = `
+                    <img src="${imageSrc}" alt="${name}" onerror="this.onerror=null; this.src='images/team-placeholder.jpg';">
+                    <div class="team-name">${name}</div>
+                    <div class="team-role">${role}</div>
+                    <div class="team-contact">
+                        ${email ? `Email: <a href="mailto:${email}">${email}</a><br>` : ''}
+                        ${phone && phone !== '+00 000 000 0000' ? `Phone: ${phone}` : ''}
+                    </div>
+                `;
+
+                teamContainer.appendChild(card);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching team JSON:', error);
+            document.getElementById('team-container').innerHTML = `
+                <div class="loading-msg" style="color:#800000;">
+                    Unable to load profiles. Please check if <strong>our-team.json</strong> exists in your website directory.
+                </div>
+            `;
+        });
+});
+</script>
 
 </body>
 </html>
