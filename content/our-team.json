@@ -2,40 +2,86 @@
   "id": "our-team-001",
   "title": "Our Team",
   "sectionLabel": "THE MIRROR JAMMU KASHMIR",
-  "date": "2025-01-01",
+  "date": "2026-01-01",
   "author": "Editorial Desk",
   "location": "Global",
   "readTime": "3 min read",
-
   "heroImage": {
     "src": "images/team-banner.jpg",
     "caption": "The dedicated team behind THE MIRROR JAMMU KASHMIR"
   },
-
   "team": [
     {
-      "name": "Full Name",
+      "name": "Sardar Shaukat Ali Kashmiri",
+      "designation": "Senior Human Rights & Geopolitical Analyst",
+      "email": "sg.jkipa@gmail.com",
+      "phone": "+00 000 000 0000",
+      "image": "content/images/sardar-shaukat-ali-kashmiri.jpg"
+    },
+    {
+      "name": "Dr Joseph Ayeah Chongsi",
+      "designation": "Senior Human Rights & Legal Expert",
+      "email": "someone@example.com",
+      "phone": "+00 000 000 0000",
+      "image": "content/images/dr-joseph-ayeah-chongsi.jpg"
+    },
+    {
+      "name": "Columnists",
+      "designation": "Guest Columnists/Writers",
+      "email": "someone@example.com",
+      "phone": "+00 000 000 0000",
+      "image": "images/team-placeholder.jpg"
+    },
+    {
+      "name": "Special Correspondent Jammu, Kashmir, Ladakh",
       "designation": "Designation / Role",
       "email": "someone@example.com",
       "phone": "+00 000 000 0000",
       "image": "images/team-placeholder.jpg"
     },
     {
-      "name": "Full Name",
+      "name": "Special Correspondent Azad Kashmir",
       "designation": "Designation / Role",
       "email": "someone@example.com",
       "phone": "+00 000 000 0000",
       "image": "images/team-placeholder.jpg"
     },
     {
-      "name": "Full Name",
+      "name": "Special Correspondent Gilgit Baltistan",
+      "designation": "Designation / Role",
+      "email": "someone@example.com",
+      "phone": "+00 000 000 0000",
+      "image": "images/team-placeholder.jpg"
+    },
+    {
+      "name": "Special Correspondent United Kingdom",
+      "designation": "Designation / Role",
+      "email": "someone@example.com",
+      "phone": "+00 000 000 0000",
+      "image": "images/team-placeholder.jpg"
+    },
+    {
+      "name": "Special Correspondent Europe",
+      "designation": "Designation / Role",
+      "email": "someone@example.com",
+      "phone": "+00 000 000 0000",
+      "image": "images/team-placeholder.jpg"
+    },
+    {
+      "name": "Special Correspondent United States",
+      "designation": "Designation / Role",
+      "email": "someone@example.com",
+      "phone": "+00 000 000 0000",
+      "image": "images/team-placeholder.jpg"
+    },
+    {
+      "name": "Special Correspondent Canada",
       "designation": "Designation / Role",
       "email": "someone@example.com",
       "phone": "+00 000 000 0000",
       "image": "images/team-placeholder.jpg"
     }
   ],
-
   "body": [
     {
       "type": "paragraph",
