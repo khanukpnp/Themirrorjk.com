@@ -62,7 +62,7 @@
 
 .team-card img {
     width: 100%;
-    height: 250px;
+    height: 260px;
     object-fit: cover;
     border-radius: 6px;
     margin-bottom: 12px;
@@ -119,7 +119,6 @@
     </p>
 
     <div class="team-grid" id="team-container">
-        <!-- Dynamic content will load here from JSON -->
         <div class="loading-msg">Loading team profiles...</div>
     </div>
 
@@ -127,65 +126,120 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    // Path to your JSON file (adjust relative path if stored in content/ or data/)
-    const jsonPath = 'our-team.json';
+    // 1. Embedded JSON Fallback
+    const fallbackData = {
+      "team": [
+        {
+          "name": "Sardar Shaukat Ali Kashmiri",
+          "designation": "Senior Human Rights & Geopolitical Analyst",
+          "email": "sg.jkipa@gmail.com",
+          "image": "content/images/sardar-shaukat-ali-kashmiri.jpg"
+        },
+        {
+          "name": "Dr Joseph Ayeah Chongsi",
+          "designation": "Senior Human Rights & Legal Expert",
+          "email": "someone@example.com",
+          "image": "content/images/dr-joseph-ayeah-chongsi.jpg"
+        },
+        {
+          "name": "Contributing Columnists & Analysts",
+          "designation": "Guest Columnists & Opinion Writers",
+          "email": "editor@themirrorjk.com",
+          "image": "images/team-placeholder.jpg"
+        },
+        {
+          "name": "Special Correspondent — Jammu, Kashmir & Ladakh",
+          "designation": "Regional Bureau Lead",
+          "email": "jk.bureau@themirrorjk.com",
+          "image": "images/team-placeholder.jpg"
+        },
+        {
+          "name": "Special Correspondent — Azad Kashmir",
+          "designation": "Regional Bureau Lead",
+          "email": "ajk.bureau@themirrorjk.com",
+          "image": "images/team-placeholder.jpg"
+        },
+        {
+          "name": "Special Correspondent — Gilgit Baltistan",
+          "designation": "Regional Bureau Lead",
+          "email": "gb.bureau@themirrorjk.com",
+          "image": "images/team-placeholder.jpg"
+        },
+        {
+          "name": "Special Correspondent — United Kingdom",
+          "designation": "UK Bureau Lead",
+          "email": "uk.bureau@themirrorjk.com",
+          "image": "images/team-placeholder.jpg"
+        },
+        {
+          "name": "Special Correspondent — Europe",
+          "designation": "European Affairs Bureau",
+          "email": "eu.bureau@themirrorjk.com",
+          "image": "images/team-placeholder.jpg"
+        },
+        {
+          "name": "Special Correspondent — United States",
+          "designation": "US Bureau Lead",
+          "email": "us.bureau@themirrorjk.com",
+          "image": "images/team-placeholder.jpg"
+        },
+        {
+          "name": "Special Correspondent — Canada",
+          "designation": "Canada Bureau Lead",
+          "email": "ca.bureau@themirrorjk.com",
+          "image": "images/team-placeholder.jpg"
+        },
+        {
+          "name": "Volunteer Research & Reporting Network",
+          "designation": "Grassroots Correspondents & Community Researchers",
+          "email": "volunteers@themirrorjk.com",
+          "image": "images/team-placeholder.jpg"
+        },
+        {
+          "name": "Digital Media & Advocacy Volunteers",
+          "designation": "Digital Content & Media Contributors",
+          "email": "media.volunteer@themirrorjk.com",
+          "image": "images/team-placeholder.jpg"
+        }
+      ]
+    };
 
-    fetch(jsonPath)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("HTTP error! Status: " + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            const teamContainer = document.getElementById('team-container');
-            
-            // Clear loading placeholder
-            teamContainer.innerHTML = '';
+    function renderTeamCards(data) {
+        const teamContainer = document.getElementById('team-container');
+        teamContainer.innerHTML = '';
 
-            // Update page headers dynamically if available in JSON
-            if (data.title) {
-                document.getElementById('page-title').innerText = data.title;
-            }
+        const teamArray = data.team || [];
+        teamArray.forEach(member => {
+            const card = document.createElement('div');
+            card.className = 'team-card';
 
-            const teamArray = data.team || [];
+            const imageSrc = member.image || 'images/team-placeholder.jpg';
+            const name = member.name || 'Team Member';
+            const role = member.designation || 'Contributor';
+            const email = member.email || '';
 
-            if (teamArray.length === 0) {
-                teamContainer.innerHTML = '<div class="loading-msg">No profiles found.</div>';
-                return;
-            }
-
-            // Loop through JSON profiles and construct team cards
-            teamArray.forEach(member => {
-                const card = document.createElement('div');
-                card.className = 'team-card';
-
-                const imageSrc = member.image ? member.image : 'images/team-placeholder.jpg';
-                const name = member.name || 'Team Member';
-                const role = member.designation || 'Contributor';
-                const email = member.email || '';
-                const phone = member.phone || '';
-
-                card.innerHTML = `
-                    <img src="${imageSrc}" alt="${name}" onerror="this.onerror=null; this.src='images/team-placeholder.jpg';">
-                    <div class="team-name">${name}</div>
-                    <div class="team-role">${role}</div>
-                    <div class="team-contact">
-                        ${email ? `Email: <a href="mailto:${email}">${email}</a><br>` : ''}
-                        ${phone && phone !== '+00 000 000 0000' ? `Phone: ${phone}` : ''}
-                    </div>
-                `;
-
-                teamContainer.appendChild(card);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching team JSON:', error);
-            document.getElementById('team-container').innerHTML = `
-                <div class="loading-msg" style="color:#800000;">
-                    Unable to load profiles. Please check if <strong>our-team.json</strong> exists in your website directory.
+            card.innerHTML = `
+                <img src="${imageSrc}" alt="${name}" onerror="this.onerror=null; this.src='images/team-placeholder.jpg';">
+                <div class="team-name">${name}</div>
+                <div class="team-role">${role}</div>
+                <div class="team-contact">
+                    ${email ? `Email: <a href="mailto:${email}">${email}</a>` : ''}
                 </div>
             `;
+            teamContainer.appendChild(card);
+        });
+    }
+
+    // 2. Fetch content/our-team.json; if failed or offline, fall back instantly to embedded data
+    fetch('content/our-team.json')
+        .then(response => {
+            if (!response.ok) throw new Error("File path error");
+            return response.json();
+        })
+        .then(data => renderTeamCards(data))
+        .catch(err => {
+            console.warn("Fetching content/our-team.json failed, loading fallback data:", err);
+            renderTeamCards(fallbackData);
         });
 });
 </script>
