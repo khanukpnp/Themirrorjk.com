@@ -15,89 +15,103 @@
       "name": "Sardar Shaukat Ali Kashmiri",
       "designation": "Senior Human Rights & Geopolitical Analyst",
       "email": "sg.jkipa@gmail.com",
-      "phone": "+00 000 000 0000",
+      "phone": "",
       "image": "content/images/sardar-shaukat-ali-kashmiri.jpg"
     },
     {
       "name": "Dr Joseph Ayeah Chongsi",
       "designation": "Senior Human Rights & Legal Expert",
       "email": "someone@example.com",
-      "phone": "+00 000 000 0000",
+      "phone": "",
       "image": "content/images/dr-joseph-ayeah-chongsi.jpg"
     },
     {
-      "name": "Columnists",
-      "designation": "Guest Columnists/Writers",
-      "email": "someone@example.com",
-      "phone": "+00 000 000 0000",
+      "name": "Contributing Columnists & Analysts",
+      "designation": "Guest Columnists & Opinion Writers",
+      "email": "editor@themirrorjk.com",
+      "phone": "",
       "image": "images/team-placeholder.jpg"
     },
     {
-      "name": "Special Correspondent Jammu, Kashmir, Ladakh",
-      "designation": "Designation / Role",
-      "email": "someone@example.com",
-      "phone": "+00 000 000 0000",
+      "name": "Special Correspondent — Jammu, Kashmir & Ladakh",
+      "designation": "Regional Bureau Lead",
+      "email": "jk.bureau@themirrorjk.com",
+      "phone": "",
       "image": "images/team-placeholder.jpg"
     },
     {
-      "name": "Special Correspondent Azad Kashmir",
-      "designation": "Designation / Role",
-      "email": "someone@example.com",
-      "phone": "+00 000 000 0000",
+      "name": "Special Correspondent — Azad Kashmir",
+      "designation": "Regional Bureau Lead",
+      "email": "ajk.bureau@themirrorjk.com",
+      "phone": "",
       "image": "images/team-placeholder.jpg"
     },
     {
-      "name": "Special Correspondent Gilgit Baltistan",
-      "designation": "Designation / Role",
-      "email": "someone@example.com",
-      "phone": "+00 000 000 0000",
+      "name": "Special Correspondent — Gilgit Baltistan",
+      "designation": "Regional Bureau Lead",
+      "email": "gb.bureau@themirrorjk.com",
+      "phone": "",
       "image": "images/team-placeholder.jpg"
     },
     {
-      "name": "Special Correspondent United Kingdom",
-      "designation": "Designation / Role",
-      "email": "someone@example.com",
-      "phone": "+00 000 000 0000",
+      "name": "Special Correspondent — United Kingdom",
+      "designation": "UK Bureau Lead",
+      "email": "uk.bureau@themirrorjk.com",
+      "phone": "",
       "image": "images/team-placeholder.jpg"
     },
     {
-      "name": "Special Correspondent Europe",
-      "designation": "Designation / Role",
-      "email": "someone@example.com",
-      "phone": "+00 000 000 0000",
+      "name": "Special Correspondent — Europe",
+      "designation": "European Affairs Bureau",
+      "email": "eu.bureau@themirrorjk.com",
+      "phone": "",
       "image": "images/team-placeholder.jpg"
     },
     {
-      "name": "Special Correspondent United States",
-      "designation": "Designation / Role",
-      "email": "someone@example.com",
-      "phone": "+00 000 000 0000",
+      "name": "Special Correspondent — United States",
+      "designation": "US Bureau Lead",
+      "email": "us.bureau@themirrorjk.com",
+      "phone": "",
       "image": "images/team-placeholder.jpg"
     },
     {
-      "name": "Special Correspondent Canada",
-      "designation": "Designation / Role",
-      "email": "someone@example.com",
-      "phone": "+00 000 000 0000",
+      "name": "Special Correspondent — Canada",
+      "designation": "Canada Bureau Lead",
+      "email": "ca.bureau@themirrorjk.com",
+      "phone": "",
+      "image": "images/team-placeholder.jpg"
+    },
+    {
+      "name": "Volunteer Research & Reporting Network",
+      "designation": "Grassroots Correspondents & Community Researchers",
+      "email": "volunteers@themirrorjk.com",
+      "phone": "",
+      "image": "images/team-placeholder.jpg"
+    },
+    {
+      "name": "Digital Media & Advocacy Volunteers",
+      "designation": "Digital Content & Media Contributors",
+      "email": "media.volunteer@themirrorjk.com",
+      "phone": "",
       "image": "images/team-placeholder.jpg"
     }
   ],
   "body": [
     {
       "type": "paragraph",
-      "text": "THE MIRROR JAMMU KASHMIR is powered by a diverse team of journalists, editors, designers, researchers, and human rights advocates committed to truth, justice, and dignity."
+      "text": "THE MIRROR JAMMU KASHMIR is powered by a diverse team of journalists, editors, legal experts, human rights advocates, and dedicated volunteer researchers committed to truth, justice, and dignity."
     },
     {
       "type": "paragraph",
-      "text": "Our team works across continents, bringing global perspectives and local insights to every story we publish."
+      "text": "Our newsroom works across continents, uniting senior geopolitical analysts, regional correspondents, and grassroots volunteers to bring global perspectives and ground insights to every story."
     },
     {
       "type": "subheading",
-      "text": "Meet Our Team"
+      "text": "Meet Our Team & Contributors"
     },
     {
       "type": "paragraph",
-      "text": "Below is a list of our core team members. More profiles will be added as our newsroom expands."
+      "text": "Below is an overview of our editorial leads, regional bureaus, and key volunteer networks."
     }
   ]
 }
