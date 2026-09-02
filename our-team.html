@@ -228,9 +228,9 @@ body {
 <main class="team-shell">
 
     <div class="team-header">
-        <h1 class="team-title" id="page-title">Our Team</h1>
+        <h1 class="team-title" id="page-title">Our Team & Editorial Board</h1>
         <p class="team-subtitle" id="page-subtitle">
-            Meet the dedicated journalists, editors, experts, designers, and human rights advocates behind THE MIRROR JAMMU KASHMIR.
+            Meet the dedicated journalists, editors, experts, media persons, designers, and human rights advocates behind THE MIRROR JAMMU KASHMIR.
         </p>
     </div>
 
@@ -258,6 +258,7 @@ body {
 document.addEventListener("DOMContentLoaded", function () {
     // Embedded JSON Fallback
     const fallbackData = {
+      "title": "Our Team & Editorial Board",
       "team": [
         {
           "name": "Sardar Shaukat Ali Kashmiri",
@@ -323,6 +324,11 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     function renderTeamCards(data) {
+        // Dynamic title update from JSON data
+        if (data.title) {
+            document.getElementById('page-title').innerText = data.title;
+        }
+
         const teamContainer = document.getElementById('team-container');
         teamContainer.innerHTML = '';
 
@@ -353,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Attempt to load JSON from content folder, fallback to embedded array if missing
+    // Fetch content/our-team.json; if failed, fall back instantly
     fetch('content/our-team.json')
         .then(response => {
             if (!response.ok) throw new Error("Path error");
