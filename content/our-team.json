@@ -1,6 +1,6 @@
 {
   "id": "our-team-001",
-  "title": "Our Team",
+  "title": "Our Team & Editorial Board",
   "sectionLabel": "THE MIRROR JAMMU KASHMIR",
   "date": "2026-01-01",
   "author": "Editorial Desk",
@@ -78,20 +78,6 @@
       "name": "Special Correspondent — Canada",
       "designation": "Canada Bureau Lead",
       "email": "ca.bureau@themirrorjk.com",
-      "phone": "",
-      "image": "images/team-placeholder.jpg"
-    },
-    {
-      "name": "Volunteer Research & Reporting Network",
-      "designation": "Grassroots Correspondents & Community Researchers",
-      "email": "volunteers@themirrorjk.com",
-      "phone": "",
-      "image": "images/team-placeholder.jpg"
-    },
-    {
-      "name": "Digital Media & Advocacy Volunteers",
-      "designation": "Digital Content & Media Contributors",
-      "email": "media.volunteer@themirrorjk.com",
       "phone": "",
       "image": "images/team-placeholder.jpg"
     }
