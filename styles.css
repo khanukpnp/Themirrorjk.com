@@ -1,4 +1,3 @@
-,,
 /* ============================================================
    THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
    16:9 RATIO FOR ALL CARDS AND HERO IMAGES
@@ -465,6 +464,7 @@ h1, h2, h3, h4, h5 {
     font-size: 1rem;
     border-bottom: 1px solid #eee;
     overflow: hidden;
+    position: relative;
 }
 .media img {
     width: 100%;
@@ -601,6 +601,30 @@ h1, h2, h3, h4, h5 {
     color: #555;
     line-height: 1.6;
     margin-bottom: 15px;
+}
+
+/* ============================
+   COMING SOON / PLACEHOLDER CARDS
+   ============================ */
+.coming-soon-card .empty-media {
+    background: #fdfdfd;
+    flex-direction: column;
+    gap: 8px;
+}
+.coming-soon-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #eee;
+    color: #666;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 2px;
+}
+.placeholder-icon {
+    font-size: 2rem;
+    opacity: 0.6;
 }
 
 /* ============================
@@ -742,7 +766,6 @@ h1, h2, h3, h4, h5 {
 /* =========================================================
    GLOBAL ACTION BUTTONS & ARTICLE BOTTOM NAVIGATION
    ========================================================= */
-
 /* Action Bar Container */
 .action-buttons-container, 
 .action-bar {
@@ -755,7 +778,6 @@ h1, h2, h3, h4, h5 {
   border-top: 1px solid #eaeaea !important;
   flex-wrap: wrap !important;
 }
-
 /* Individual Action Buttons */
 .action-btn, 
 .action-buttons-container button,
@@ -771,7 +793,6 @@ h1, h2, h3, h4, h5 {
   cursor: pointer !important;
   transition: all 0.2s ease-in-out !important;
 }
-
 /* Force Colors Per Button Type */
 .action-btn[data-id="like"], button#like {
   background-color: #FFEBEB !important;
@@ -782,7 +803,6 @@ h1, h2, h3, h4, h5 {
   fill: #E63946 !important;
   stroke: #E63946 !important;
 }
-
 .action-btn[data-id="subscribe"], button#subscribe {
   background-color: #FEF3C7 !important;
   color: #D97706 !important;
@@ -792,7 +812,6 @@ h1, h2, h3, h4, h5 {
   fill: #D97706 !important;
   stroke: #D97706 !important;
 }
-
 .action-btn[data-id="share"], button#share {
   background-color: #EEF2FF !important;
   color: #4F46E5 !important;
@@ -801,7 +820,6 @@ h1, h2, h3, h4, h5 {
 .action-btn[data-id="share"] svg, button#share svg {
   stroke: #4F46E5 !important;
 }
-
 .action-btn[data-id="copyLink"], button#copyLink {
   background-color: #CCFBF1 !important;
   color: #0D9488 !important;
@@ -821,7 +839,6 @@ h1, h2, h3, h4, h5 {
   margin-top: 25px !important;
   border-top: 1px solid #eaeaea !important;
 }
-
 .bottom-nav-link {
   color: #2563EB !important;
   text-decoration: none !important;
@@ -830,7 +847,6 @@ h1, h2, h3, h4, h5 {
   align-items: center !important;
   gap: 6px !important;
 }
-
 .bottom-nav-home {
   display: inline-flex !important;
   align-items: center !important;
@@ -840,7 +856,6 @@ h1, h2, h3, h4, h5 {
   background-color: #F3F4F6 !important;
   border-radius: 50% !important;
 }
-
 .bottom-nav-home svg {
   fill: #1F2937 !important;
   stroke: #1F2937 !important;
