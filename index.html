@@ -1,4 +1,3 @@
-,,
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,8 +128,18 @@
         <!-- MAIN CONTENT -->
         <main class="home-main">
             
-            <!-- 1. SPOTLIGHT, IN FOCUS & TRENDING (6 DYNAMIC WINDOWS) -->
-            <section id="spotlight-focus-trending">
+            <!-- 1. TOP STORIES SECTION (MOVED TO TOP POSITION - 6 WINDOWS TOTAL) -->
+            <section id="top-stories" style="margin-top: 10px;">
+                <h2 class="section-title modern-title">⭐ Top Stories</h2>
+                <div class="cards three" id="top-stories-grid"></div>
+                <details class="inline-section-archive" id="top-stories-archive-disclosure">
+                    <summary>📁 View Archived Top Stories</summary>
+                    <div class="cards three" id="top-stories-archive-grid"></div>
+                </details>
+            </section>
+
+            <!-- 2. SPOTLIGHT, IN FOCUS & TRENDING (POSITIONED DIRECTLY AFTER TOP STORIES) -->
+            <section id="spotlight-focus-trending" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">
                     <span class="icon">⚡</span> Spotlight, In Focus &amp; Trending
                 </h2>
@@ -142,18 +151,8 @@
                 <div class="cards three" id="spotlight-bottom-row" style="margin-top: 20px;"></div>
             </section>
 
-            <!-- 2. TOP STORIES SECTION (6 WINDOWS TOTAL) -->
-            <section id="top-stories" style="margin-top: 40px;">
-                <h2 class="section-title modern-title">⭐ Top Stories</h2>
-                <div class="cards three" id="top-stories-grid"></div>
-                <details class="inline-section-archive" id="top-stories-archive-disclosure">
-                    <summary>📁 View Archived Top Stories</summary>
-                    <div class="cards three" id="top-stories-archive-grid"></div>
-                </details>
-            </section>
-
             <!-- 3. LATEST / EDITORIAL / HISTORICAL (6 WINDOWS TOTAL) -->
-            <section id="latest-editorial-historical">
+            <section id="latest-editorial-historical" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</h2>
                 <div class="cards three" id="leh-grid"></div>
                 <details class="inline-section-archive" id="leh-archive-disclosure">
@@ -163,7 +162,7 @@
             </section>
 
             <!-- 4. JAMMU KASHMIR SECTION -->
-            <section id="jammu-kashmir">
+            <section id="jammu-kashmir" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">📍 Jammu Kashmir</h2>
                 <div class="cards three" id="jk-grid"></div>
                 <details class="inline-section-archive" id="jk-archive-disclosure">
@@ -172,8 +171,8 @@
                 </details>
             </section>
 
-            <!-- 5. VIDEO REPORTS & VLOGS -->
-            <section id="vlogs">
+            <!-- 5. VIDEO REPORTS & VLOGS (UNTOUCHED - KEPT IN EXACT ORIGINAL POSITION) -->
+            <section id="vlogs" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">🎥 Video Reports &amp; Vlogs</h2>
                 <div class="vlog-toolbar">
                     <a href="https://www.youtube.com/@themirrorjammukashmir" target="_blank" class="btn-red" id="vlog-visit-channel">🎥 Visit Official Channel</a>
@@ -186,7 +185,7 @@
             </section>
 
             <!-- 6. INTERNATIONAL DIPLOMACY -->
-            <section id="international">
+            <section id="international" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">🌍 International Diplomacy</h2>
                 <div class="cards three" id="intl-grid"></div>
                 <details class="inline-section-archive" id="intl-archive-disclosure">
@@ -196,7 +195,7 @@
             </section>
 
             <!-- 7. HUMAN RIGHTS -->
-            <section id="human-rights">
+            <section id="human-rights" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">❤️ Human Rights</h2>
                 <div class="cards three" id="hr-grid"></div>
                 <details class="inline-section-archive" id="hr-archive-disclosure">
@@ -206,7 +205,7 @@
             </section>
 
             <!-- E-PAPER UPLOAD -->
-            <section id="epaper">
+            <section id="epaper" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">📰 E-Paper Upload</h2>
                 <form class="epaper-form">
                     <input type="file" id="file-upload" accept=".pdf,.jpg,.jpeg,.png">
@@ -217,7 +216,7 @@
             </section>
 
             <!-- NEWSLETTER -->
-            <section id="newsletter">
+            <section id="newsletter" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">✉️ Newsletter</h2>
                 <form class="newsletter-form">
                     <input id="subscribeEmail" type="email" placeholder="your@email.com" required>
@@ -226,7 +225,7 @@
             </section>
 
             <!-- CONTACT -->
-            <section id="contact">
+            <section id="contact" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">📞 Contact</h2>
                 <p>Email: themirrorjk@gmail.com<br>Phone: +41 783 13 12 13</p>
                 <button id="contact-open" class="btn-red">Open Contact Form</button>
