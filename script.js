@@ -270,7 +270,7 @@ function initDisclosureAutoScroll() {
 }
 
 /* ==========================================================================
-   VLOG REPOSITORY HANDLER (9-WINDOW GRID FORMAT WITH TOP EMPTY SLOTS)
+   VLOG REPOSITORY HANDLER (6-WINDOW MAIN GRID FORMAT WITH TOP EMPTY SLOTS)
    ========================================================================== */
 function initVlogs() {
     const grid = document.getElementById("vlogs-grid");
@@ -310,17 +310,21 @@ function renderVlogs(videos, mainGrid, archiveGrid) {
             </article>`;
     };
 
-    // Row 1: 3 Empty "Coming Soon" slots ready for immediate new vlog uploads
-    let mainHtml = createComingSoonCard("New Vlog Upload");
-    mainHtml += createComingSoonCard("New Vlog Upload");
-    mainHtml += createComingSoonCard("New Vlog Upload");
+    // Row 1: Empty slot sitting top-left
+    let mainHtml = createComingSoonCard("NEW VLOG UPLOAD");
     
-    // Row 2: First 3 published vlogs
-    mainHtml += videos.slice(0, 3).map(mapHtml).join('');
+    // Add published vlogs up to complete 6 main slots
+    const activeSlice = videos.slice(0, 5);
+    mainHtml += activeSlice.map(mapHtml).join('');
+
+    // Fill remaining if needed to keep 6 slots
+    for (let i = 1 + activeSlice.length; i < 6; i++) {
+        mainHtml += createComingSoonCard("NEW VLOG UPLOAD");
+    }
     mainGrid.innerHTML = mainHtml;
 
     // Remaining existing vlogs push down to archive
-    const archivedVlogs = videos.slice(3);
+    const archivedVlogs = videos.slice(5);
     if (archiveGrid) {
         archiveGrid.innerHTML = archivedVlogs.length ? archivedVlogs.map(mapHtml).join('') : '<p style="padding:15px; color:#666;">No older vlogs archived.</p>';
     }
@@ -443,7 +447,7 @@ function loadHomepageContent() {
         .then(index => {
             initTicker(index);
             
-            // 1. Top Stories Grid (6 windows total: 3 empty top row + 3 published bottom row)
+            // 1. Top Stories Grid (6 main windows: empty top slot + published items)
             if (index.topStories) {
                 loadTopStories([
                     index.topStories.lead, 
@@ -452,7 +456,7 @@ function loadHomepageContent() {
                 ]);
             } else { loadTopStoriesFallback(); }
 
-            // 2. Spotlight, In Focus & Trending (6 windows total: 3 top row + 3 bottom row)
+            // 2. Spotlight, In Focus & Trending (6 main windows: top row + bottom row)
             if (index.spotlightFocusTrending) {
                 loadSpotlightSection(index.spotlightFocusTrending);
             } else {
@@ -462,7 +466,7 @@ function loadHomepageContent() {
                 });
             }
 
-            // 3. Latest / Editorial / Historical Grid (6 windows total: 3 empty top row + 3 published bottom row)
+            // 3. Latest / Editorial / Historical Grid (6 main windows)
             if (index.latestEditorialHistorical) {
                 loadLehSection([
                     index.latestEditorialHistorical.latest, 
@@ -471,7 +475,7 @@ function loadHomepageContent() {
                 ]);
             } else { loadLehFallback(); }
             
-            // 4. Category Grids (6 windows total: 3 empty top row + 3 published bottom row)
+            // 4. Category Grids (6 main windows each)
             if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "Jammu Kashmir");
             if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "International Diplomacy");
             if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "Human Rights");
@@ -532,7 +536,82 @@ function loadSpotlightSection(config) {
 }
 
 /* ==========================================================================
-   CATEGORY SECTION GROUPS (3 TOP EMPTY SLOTS + 3 BOTTOM PUBLISHED SLOTS)
+   TOP STORIES ENGINE (STRICT 6 MAIN WINDOWS / 3x2 GRID + ARCHIVE)
+   ========================================================================== */
+function loadTopStories(ids) {
+    const grid = document.getElementById("top-stories-grid");
+    const archiveGrid = document.getElementById("top-stories-archive-grid");
+    if (!grid) return;
+
+    Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
+        .then(articles => {
+            const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
+            
+            // Empty slot sits top-left
+            let cardsHtml = createComingSoonCard("NEW TOP STORY");
+            
+            // Render up to 5 published articles into the 6 main windows
+            const activeArticles = validArticles.slice(0, 5);
+            cardsHtml += activeArticles.map(a => createHomepageCard(a)).join('');
+
+            // Fill remaining main slots with Coming Soon if total is under 6
+            for (let i = 1 + activeArticles.length; i < 6; i++) {
+                cardsHtml += createComingSoonCard("TOP STORY UPDATE");
+            }
+
+            grid.innerHTML = cardsHtml;
+
+            // 6th item onwards goes into the expandable archive
+            const archiveSlice = validArticles.slice(5);
+            if (archiveGrid) {
+                archiveGrid.innerHTML = archiveSlice.length 
+                    ? archiveSlice.map(a => createHomepageCard(a)).join('') 
+                    : '<p style="padding:15px; color:#666;">No older Top Stories archived.</p>';
+            }
+        })
+        .catch(() => loadTopStoriesFallback());
+}
+
+function loadTopStoriesFallback() {
+    const grid = document.getElementById("top-stories-grid");
+    if (!grid) return;
+
+    // 6-window main grid (3 columns x 2 rows)
+    let html = createComingSoonCard("NEW TOP STORY");
+    html += `
+        <article class="card">
+            <div class="media"><img src="content/images/img1.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
+            <div class="card-body">
+                <h3>UKPNP Holds Historic Event on 28 April 1949 Karachi Agreement with Great Turnout</h3>
+                <p>A comprehensive press release detailing the UKPNP's landmark Rawalakot event commemorating the Karachi Agreement, featur...</p>
+                ${createCardNavOptions('top-story-001')}
+            </div>
+        </article>
+        <article class="card">
+            <div class="media"><img src="content/images/img2.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
+            <div class="card-body">
+                <h3>High Level UKPNP Delegation Led by Sardar Shaukat Ali Kashmiri Meets Baroness Em</h3>
+                <p>A high level delegation of the United Kashmir People's National Party (UKPNP) led by its Exiled Chairman Sardar Shaukat ...</p>
+                ${createCardNavOptions('top-story-002')}
+            </div>
+        </article>
+        <article class="card">
+            <div class="media"><img src="content/images/img3.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
+            <div class="card-body">
+                <h3>UKPNP Delegation Briefs British MPs on Kashmir Crisis at the House of Parliament</h3>
+                <p>A high level delegation of the United Kashmir People's National Party briefed British Members of Parliament in London on...</p>
+                ${createCardNavOptions('top-story-003')}
+            </div>
+        </article>
+    `;
+    html += createComingSoonCard("TOP STORY UPDATE");
+    html += createComingSoonCard("TOP STORY UPDATE");
+
+    grid.innerHTML = html;
+}
+
+/* ==========================================================================
+   CATEGORY SECTION GROUPS (6 MAIN WINDOWS EACH)
    ========================================================================== */
 function loadSectionGroup(gridId, archiveGridId, ids, label) {
     const grid = document.getElementById(gridId);
@@ -542,16 +621,16 @@ function loadSectionGroup(gridId, archiveGridId, ids, label) {
     Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             let validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            let activeSlice = validArticles.slice(0, 3);
-            let archiveSlice = validArticles.slice(3);
+            let activeSlice = validArticles.slice(0, 5);
+            let archiveSlice = validArticles.slice(5);
             
-            // Row 1: 3 Empty slots at top
+            // Empty slot sits top-left
             let cardsHtml = createComingSoonCard(`New ${label} Entry`);
-            cardsHtml += createComingSoonCard(`New ${label} Entry`);
-            cardsHtml += createComingSoonCard(`New ${label} Entry`);
-            
-            // Row 2: Published content
             cardsHtml += activeSlice.map(a => createHomepageCard(a)).join('');
+
+            for (let i = 1 + activeSlice.length; i < 6; i++) {
+                cardsHtml += createComingSoonCard(`New ${label} Entry`);
+            }
 
             grid.innerHTML = cardsHtml;
             if (archiveGrid) {
@@ -560,85 +639,23 @@ function loadSectionGroup(gridId, archiveGridId, ids, label) {
         });
 }
 
-function loadTopStories(ids) {
-    const grid = document.getElementById("top-stories-grid");
-    const archiveGrid = document.getElementById("top-stories-archive-grid");
-    if (!grid) return;
-    Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
-        .then(articles => {
-            const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            let activeSlice = validArticles.slice(0, 3);
-            let archiveSlice = validArticles.slice(3);
-            
-            // Row 1: 3 Empty slots at top
-            let cardsHtml = createComingSoonCard("TOP STORY UPDATE");
-            cardsHtml += createComingSoonCard("TOP STORY UPDATE");
-            cardsHtml += createComingSoonCard("TOP STORY UPDATE");
-            
-            // Row 2: Published content
-            cardsHtml += activeSlice.map(a => createHomepageCard(a)).join('');
-
-            grid.innerHTML = cardsHtml;
-            if (archiveGrid) {
-                archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : '<p style="padding:15px; color:#666;">No older Top Stories archived.</p>';
-            }
-        })
-        .catch(() => loadTopStoriesFallback());
-}
-
-function loadTopStoriesFallback() {
-    const grid = document.getElementById("top-stories-grid");
-    if (!grid) return;
-    let html = createComingSoonCard("TOP STORY UPDATE");
-    html += createComingSoonCard("TOP STORY UPDATE");
-    html += createComingSoonCard("TOP STORY UPDATE");
-    html += `
-        <article class="card">
-            <div class="media"><img src="content/images/img1.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
-            <div class="card-body">
-                <h3>UKPNP Holds Historic Event on 28 April 1949 Karachi Agreement</h3>
-                <p>A comprehensive report detailing the landmark Rawalakot event...</p>
-                ${createCardNavOptions('top-story-001')}
-            </div>
-        </article>
-        <article class="card">
-            <div class="media"><img src="content/images/img2.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
-            <div class="card-body">
-                <h3>High Level UKPNP Delegation Meets Baroness Em</h3>
-                <p>A high level delegation led by Exiled Chairman Sardar Shaukat Ali Kashmiri...</p>
-                ${createCardNavOptions('top-story-002')}
-            </div>
-        </article>
-        <article class="card">
-            <div class="media"><img src="content/images/img3.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
-            <div class="card-body">
-                <h3>UKPNP Delegation Briefs British MPs on Kashmir Crisis</h3>
-                <p>Briefing British Members of Parliament in London on ongoing developments...</p>
-                ${createCardNavOptions('top-story-003')}
-            </div>
-        </article>
-    `;
-    grid.innerHTML = html;
-}
-
 function loadLehSection(ids) {
     const grid = document.getElementById("leh-grid");
     const archiveGrid = document.getElementById("leh-archive-grid");
     if (!grid) return;
-    const labels = ["LATEST", "EDITORIAL", "HISTORICAL"];
+    const labels = ["LATEST", "EDITORIAL", "HISTORICAL", "LATEST UPDATE", "EDITORIAL DIGEST", "HISTORICAL ARCHIVE"];
     Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            let activeSlice = validArticles.slice(0, 3);
-            let archiveSlice = validArticles.slice(3);
+            let activeSlice = validArticles.slice(0, 5);
+            let archiveSlice = validArticles.slice(5);
             
-            // Row 1: 3 Empty slots at top
-            let cardsHtml = createComingSoonCard("LATEST UPDATE");
-            cardsHtml += createComingSoonCard("EDITORIAL DIGEST");
-            cardsHtml += createComingSoonCard("HISTORICAL ARCHIVE");
-            
-            // Row 2: Published content
+            let cardsHtml = createComingSoonCard("NEW PUBLICATION");
             cardsHtml += activeSlice.map((a, i) => createHomepageCard(a, labels[i])).join('');
+
+            for (let i = 1 + activeSlice.length; i < 6; i++) {
+                cardsHtml += createComingSoonCard("COMING SOON");
+            }
 
             grid.innerHTML = cardsHtml;
             if (archiveGrid) {
@@ -651,9 +668,7 @@ function loadLehSection(ids) {
 function loadLehFallback() {
     const grid = document.getElementById("leh-grid");
     if (!grid) return;
-    let html = createComingSoonCard("LATEST UPDATE");
-    html += createComingSoonCard("EDITORIAL DIGEST");
-    html += createComingSoonCard("HISTORICAL ARCHIVE");
+    let html = createComingSoonCard("NEW PUBLICATION");
     html += `
         <article class="card">
             <div class="media"><img src="content/images/img1.jpg" alt="Latest" onerror="this.src='https://via.placeholder.com/640x360?text=Latest'"></div>
@@ -683,6 +698,8 @@ function loadLehFallback() {
             </div>
         </article>
     `;
+    html += createComingSoonCard("EDITORIAL DIGEST");
+    html += createComingSoonCard("HISTORICAL ARCHIVE");
     grid.innerHTML = html;
 }
 
@@ -696,7 +713,7 @@ function createComingSoonCard(customLabel = "Upcoming Feature") {
             <div class="card-body" style="text-align: center; justify-content: center;">
                 <h3 style="color: #b30000; font-size: 1.15rem; margin-bottom: 6px;">Coming Soon</h3>
                 <p style="color: #666; font-style: italic; font-size: 0.9rem; margin-bottom: 12px;">
-                    Visit us later for new updates and dispatches.
+                    Ready for new publications.
                 </p>
             </div>
         </article>
