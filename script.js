@@ -270,7 +270,7 @@ function initDisclosureAutoScroll() {
 }
 
 /* ==========================================================================
-   VLOG REPOSITORY HANDLER (9-WINDOW GRID FORMAT)
+   VLOG REPOSITORY HANDLER (9-WINDOW GRID FORMAT WITH TOP EMPTY SLOTS)
    ========================================================================== */
 function initVlogs() {
     const grid = document.getElementById("vlogs-grid");
@@ -292,9 +292,7 @@ function initVlogs() {
 }
 function renderVlogs(videos, mainGrid, archiveGrid) {
     if (!mainGrid) return;
-    if (!videos.length) { renderVlogsFallback(); return; }
     
-    // Position empty card at the top for new uploads
     const mapHtml = v => {
         const thumb = v.youtubeId ? `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg` : 'https://via.placeholder.com/640x360?text=Video';
         return `
@@ -312,11 +310,17 @@ function renderVlogs(videos, mainGrid, archiveGrid) {
             </article>`;
     };
 
+    // Row 1: 3 Empty "Coming Soon" slots ready for immediate new vlog uploads
     let mainHtml = createComingSoonCard("New Vlog Upload");
-    mainHtml += videos.slice(0, 8).map(mapHtml).join('');
+    mainHtml += createComingSoonCard("New Vlog Upload");
+    mainHtml += createComingSoonCard("New Vlog Upload");
+    
+    // Row 2: First 3 published vlogs
+    mainHtml += videos.slice(0, 3).map(mapHtml).join('');
     mainGrid.innerHTML = mainHtml;
 
-    const archivedVlogs = videos.slice(8);
+    // Remaining existing vlogs push down to archive
+    const archivedVlogs = videos.slice(3);
     if (archiveGrid) {
         archiveGrid.innerHTML = archivedVlogs.length ? archivedVlogs.map(mapHtml).join('') : '<p style="padding:15px; color:#666;">No older vlogs archived.</p>';
     }
@@ -331,9 +335,7 @@ function renderVlogsFallback() {
         { title: "Kashmiri Leaders Geneva Briefing", description: "Crucial international briefing on human rights developments.", duration: "12:45", youtubeId: "1Sbomv3juT4" },
         { title: "Rawalakot CMH Incident Coverage", description: "Eyewitness updates and live analysis of the recent events.", duration: "18:10", youtubeId: "lRE5cVWbWmA" },
         { title: "JAAC Rights Movement Special", description: "Detailed documentary on grassroots public advocacy.", duration: "22:15", youtubeId: "1Sbomv3juT4" },
-        { title: "Diaspora Million March Report", description: "Coverage of overseas demonstrations across major European capitals.", duration: "14:50", youtubeId: "FE9farW5M18" },
-        { title: "Human Rights Forum Geneva", description: "Special addresses at the UNHRC side events.", duration: "19:40", youtubeId: "lRE5cVWbWmA" },
-        { title: "Poonch & Sudhnuti Ground Report", description: "Field reports detailing economic and social developments.", duration: "11:20", youtubeId: "1Sbomv3juT4" }
+        { title: "Diaspora Million March Report", description: "Coverage of overseas demonstrations across major European capitals.", duration: "14:50", youtubeId: "FE9farW5M18" }
     ];
     renderVlogs(fallbacks, grid, archiveGrid);
 }
@@ -441,7 +443,7 @@ function loadHomepageContent() {
         .then(index => {
             initTicker(index);
             
-            // 1. Top Stories Grid
+            // 1. Top Stories Grid (6 windows total: 3 empty top row + 3 published bottom row)
             if (index.topStories) {
                 loadTopStories([
                     index.topStories.lead, 
@@ -450,7 +452,7 @@ function loadHomepageContent() {
                 ]);
             } else { loadTopStoriesFallback(); }
 
-            // 2. Spotlight, In Focus & Trending
+            // 2. Spotlight, In Focus & Trending (6 windows total: 3 top row + 3 bottom row)
             if (index.spotlightFocusTrending) {
                 loadSpotlightSection(index.spotlightFocusTrending);
             } else {
@@ -460,7 +462,7 @@ function loadHomepageContent() {
                 });
             }
 
-            // 3. Latest / Editorial / Historical Grid
+            // 3. Latest / Editorial / Historical Grid (6 windows total: 3 empty top row + 3 published bottom row)
             if (index.latestEditorialHistorical) {
                 loadLehSection([
                     index.latestEditorialHistorical.latest, 
@@ -469,7 +471,7 @@ function loadHomepageContent() {
                 ]);
             } else { loadLehFallback(); }
             
-            // 4. Category Grids
+            // 4. Category Grids (6 windows total: 3 empty top row + 3 published bottom row)
             if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "Jammu Kashmir");
             if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "International Diplomacy");
             if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "Human Rights");
@@ -529,6 +531,9 @@ function loadSpotlightSection(config) {
     renderRow(bottomRowIds, 'spotlight-bottom-row');
 }
 
+/* ==========================================================================
+   CATEGORY SECTION GROUPS (3 TOP EMPTY SLOTS + 3 BOTTOM PUBLISHED SLOTS)
+   ========================================================================== */
 function loadSectionGroup(gridId, archiveGridId, ids, label) {
     const grid = document.getElementById(gridId);
     const archiveGrid = document.getElementById(archiveGridId);
@@ -537,11 +542,15 @@ function loadSectionGroup(gridId, archiveGridId, ids, label) {
     Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             let validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            let activeSlice = validArticles.slice(0, 2);
-            let archiveSlice = validArticles.slice(2);
+            let activeSlice = validArticles.slice(0, 3);
+            let archiveSlice = validArticles.slice(3);
             
-            // Empty window is placed FIRST at the top position
+            // Row 1: 3 Empty slots at top
             let cardsHtml = createComingSoonCard(`New ${label} Entry`);
+            cardsHtml += createComingSoonCard(`New ${label} Entry`);
+            cardsHtml += createComingSoonCard(`New ${label} Entry`);
+            
+            // Row 2: Published content
             cardsHtml += activeSlice.map(a => createHomepageCard(a)).join('');
 
             grid.innerHTML = cardsHtml;
@@ -558,11 +567,15 @@ function loadTopStories(ids) {
     Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            let activeSlice = validArticles.slice(0, 2);
-            let archiveSlice = validArticles.slice(2);
+            let activeSlice = validArticles.slice(0, 3);
+            let archiveSlice = validArticles.slice(3);
             
-            // Empty window placed FIRST at the top position
-            let cardsHtml = createComingSoonCard("New Top Story");
+            // Row 1: 3 Empty slots at top
+            let cardsHtml = createComingSoonCard("TOP STORY UPDATE");
+            cardsHtml += createComingSoonCard("TOP STORY UPDATE");
+            cardsHtml += createComingSoonCard("TOP STORY UPDATE");
+            
+            // Row 2: Published content
             cardsHtml += activeSlice.map(a => createHomepageCard(a)).join('');
 
             grid.innerHTML = cardsHtml;
@@ -576,7 +589,9 @@ function loadTopStories(ids) {
 function loadTopStoriesFallback() {
     const grid = document.getElementById("top-stories-grid");
     if (!grid) return;
-    let html = createComingSoonCard("New Top Story");
+    let html = createComingSoonCard("TOP STORY UPDATE");
+    html += createComingSoonCard("TOP STORY UPDATE");
+    html += createComingSoonCard("TOP STORY UPDATE");
     html += `
         <article class="card">
             <div class="media"><img src="content/images/img1.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
@@ -594,6 +609,14 @@ function loadTopStoriesFallback() {
                 ${createCardNavOptions('top-story-002')}
             </div>
         </article>
+        <article class="card">
+            <div class="media"><img src="content/images/img3.jpg" alt="Top Story" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
+            <div class="card-body">
+                <h3>UKPNP Delegation Briefs British MPs on Kashmir Crisis</h3>
+                <p>Briefing British Members of Parliament in London on ongoing developments...</p>
+                ${createCardNavOptions('top-story-003')}
+            </div>
+        </article>
     `;
     grid.innerHTML = html;
 }
@@ -606,11 +629,15 @@ function loadLehSection(ids) {
     Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            let activeSlice = validArticles.slice(0, 2);
-            let archiveSlice = validArticles.slice(2);
+            let activeSlice = validArticles.slice(0, 3);
+            let archiveSlice = validArticles.slice(3);
             
-            // Empty window placed FIRST at top position
-            let cardsHtml = createComingSoonCard("New Editorial / Dispatch");
+            // Row 1: 3 Empty slots at top
+            let cardsHtml = createComingSoonCard("LATEST UPDATE");
+            cardsHtml += createComingSoonCard("EDITORIAL DIGEST");
+            cardsHtml += createComingSoonCard("HISTORICAL ARCHIVE");
+            
+            // Row 2: Published content
             cardsHtml += activeSlice.map((a, i) => createHomepageCard(a, labels[i])).join('');
 
             grid.innerHTML = cardsHtml;
@@ -624,7 +651,9 @@ function loadLehSection(ids) {
 function loadLehFallback() {
     const grid = document.getElementById("leh-grid");
     if (!grid) return;
-    let html = createComingSoonCard("New Editorial / Dispatch");
+    let html = createComingSoonCard("LATEST UPDATE");
+    html += createComingSoonCard("EDITORIAL DIGEST");
+    html += createComingSoonCard("HISTORICAL ARCHIVE");
     html += `
         <article class="card">
             <div class="media"><img src="content/images/img1.jpg" alt="Latest" onerror="this.src='https://via.placeholder.com/640x360?text=Latest'"></div>
@@ -644,6 +673,15 @@ function loadLehFallback() {
                 ${createCardNavOptions('editorial-001')}
             </div>
         </article>
+        <article class="card">
+            <div class="media"><img src="content/images/img3.jpg" alt="Historical" onerror="this.src='https://via.placeholder.com/640x360?text=Historical'"></div>
+            <div class="card-body">
+                <span class="category-label">HISTORICAL</span>
+                <h3>US and Israel Strikes on Iran and Retaliatory Attacks</h3>
+                <p>Sardar Shaukat Ali Kashmiri warns that recent joint strikes...</p>
+                ${createCardNavOptions('historical-001')}
+            </div>
+        </article>
     `;
     grid.innerHTML = html;
 }
@@ -658,7 +696,7 @@ function createComingSoonCard(customLabel = "Upcoming Feature") {
             <div class="card-body" style="text-align: center; justify-content: center;">
                 <h3 style="color: #b30000; font-size: 1.15rem; margin-bottom: 6px;">Coming Soon</h3>
                 <p style="color: #666; font-style: italic; font-size: 0.9rem; margin-bottom: 12px;">
-                    Ready for new publications.
+                    Visit us later for new updates and dispatches.
                 </p>
             </div>
         </article>
