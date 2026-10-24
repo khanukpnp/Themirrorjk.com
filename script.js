@@ -270,7 +270,7 @@ function initDisclosureAutoScroll() {
 }
 
 /* ==========================================================================
-   VLOG REPOSITORY HANDLER (6-WINDOW MAIN GRID FORMAT WITH TOP EMPTY SLOTS)
+   VLOG REPOSITORY HANDLER (3x3 - 9 WINDOW GRID FORMAT)
    ========================================================================== */
 function initVlogs() {
     const grid = document.getElementById("vlogs-grid");
@@ -310,21 +310,12 @@ function renderVlogs(videos, mainGrid, archiveGrid) {
             </article>`;
     };
 
-    // Row 1: Empty slot sitting top-left
-    let mainHtml = createComingSoonCard("NEW VLOG UPLOAD");
-    
-    // Add published vlogs up to complete 6 main slots
-    const activeSlice = videos.slice(0, 5);
-    mainHtml += activeSlice.map(mapHtml).join('');
+    // Render 9 main video windows across 3 rows
+    const activeSlice = videos.slice(0, 9);
+    mainGrid.innerHTML = activeSlice.map(mapHtml).join('');
 
-    // Fill remaining if needed to keep 6 slots
-    for (let i = 1 + activeSlice.length; i < 6; i++) {
-        mainHtml += createComingSoonCard("NEW VLOG UPLOAD");
-    }
-    mainGrid.innerHTML = mainHtml;
-
-    // Remaining existing vlogs push down to archive
-    const archivedVlogs = videos.slice(5);
+    // Remaining existing vlogs push down to archive disclosure
+    const archivedVlogs = videos.slice(9);
     if (archiveGrid) {
         archiveGrid.innerHTML = archivedVlogs.length ? archivedVlogs.map(mapHtml).join('') : '<p style="padding:15px; color:#666;">No older vlogs archived.</p>';
     }
@@ -334,12 +325,15 @@ function renderVlogsFallback() {
     const archiveGrid = document.getElementById("vlogs-archive-grid");
     if (!grid) return;
     const fallbacks = [
-        { title: "UN Geneva: Azad Kashmir Under Siege", description: "Protest exposes lethal crackdown and internet blackouts in AJK.", duration: "1:08:24", youtubeId: "FE9farW5M18" },
-        { title: "Azad Kashmir Under Siege", description: "Communication blackout, curfews, and widespread leadership actions.", duration: "15:32", youtubeId: "lRE5cVWbWmA" },
-        { title: "Kashmiri Leaders Geneva Briefing", description: "Crucial international briefing on human rights developments.", duration: "12:45", youtubeId: "1Sbomv3juT4" },
-        { title: "Rawalakot CMH Incident Coverage", description: "Eyewitness updates and live analysis of the recent events.", duration: "18:10", youtubeId: "lRE5cVWbWmA" },
-        { title: "JAAC Rights Movement Special", description: "Detailed documentary on grassroots public advocacy.", duration: "22:15", youtubeId: "1Sbomv3juT4" },
-        { title: "Diaspora Million March Report", description: "Coverage of overseas demonstrations across major European capitals.", duration: "14:50", youtubeId: "FE9farW5M18" }
+        { title: "Kashmiri Leaders Geneva Briefing on Human Rights", description: "Crucial international briefing on human rights developments.", duration: "00:00", youtubeId: "5jxVX6bF48E" },
+        { title: "Rawalakot Ground Report and Civil Society Updates", description: "Eyewitness reports, civil society discussions, and live ground analysis.", duration: "00:00", youtubeId: "SxRg2qczE84" },
+        { title: "UN Act Now: Azad Kashmir Siege & Protests", description: "International conference coverage addressing civil rights.", duration: "00:00", youtubeId: "O_M8myMzMB8" },
+        { title: "UN Geneva: Azad Kashmir Under Siege Special Report", description: "Coverage highlighting internet blackouts and curfews.", duration: "00:00", youtubeId: "M3yiIEcScVM" },
+        { title: "Grassroots Rights Movement & Public Forum", description: "Documentary coverage and public forum discussions.", duration: "00:00", youtubeId: "gWvKQ3jK0Zs" },
+        { title: "Diaspora Mobilization & International Advocacy", description: "Reports on overseas demonstrations across European capitals.", duration: "00:00", youtubeId: "Pqm9GezkoV0" },
+        { title: "UKPNP Historic Intra Jammu Kashmir Conference", description: "UKPNP virtual conference bringing together leaders across Jammu Kashmir.", duration: "03:41:02", youtubeId: "_8MxInq_fmw" },
+        { title: "Tarana Jammu Kashmir INQILAAB AAYE GA", description: "Cultural unity anthem calling for dignity and rights.", duration: "00:09:29", youtubeId: "pDh_myyVnoA" },
+        { title: "Tarana Jammu Kashmir APNA WATAN APNA RAAJ", description: "Patriotic anthem advocating for self-rule and freedom.", duration: "00:06:41", youtubeId: "VEJ6hEH0Wo8" }
     ];
     renderVlogs(fallbacks, grid, archiveGrid);
 }
@@ -447,7 +441,7 @@ function loadHomepageContent() {
         .then(index => {
             initTicker(index);
             
-            // 1. Top Stories Grid (6 main windows: empty top slot + published items)
+            // 1. Top Stories Grid
             if (index.topStories) {
                 loadTopStories([
                     index.topStories.lead, 
@@ -456,7 +450,7 @@ function loadHomepageContent() {
                 ]);
             } else { loadTopStoriesFallback(); }
 
-            // 2. Spotlight, In Focus & Trending (6 main windows: top row + bottom row)
+            // 2. Spotlight, In Focus & Trending
             if (index.spotlightFocusTrending) {
                 loadSpotlightSection(index.spotlightFocusTrending);
             } else {
@@ -466,7 +460,7 @@ function loadHomepageContent() {
                 });
             }
 
-            // 3. Latest / Editorial / Historical Grid (6 main windows)
+            // 3. Latest / Editorial / Historical Grid
             if (index.latestEditorialHistorical) {
                 loadLehSection([
                     index.latestEditorialHistorical.latest, 
@@ -475,7 +469,7 @@ function loadHomepageContent() {
                 ]);
             } else { loadLehFallback(); }
             
-            // 4. Category Grids (6 main windows each)
+            // 4. Category Grids
             if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "Jammu Kashmir");
             if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "International Diplomacy");
             if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "Human Rights");
@@ -576,7 +570,6 @@ function loadTopStoriesFallback() {
     const grid = document.getElementById("top-stories-grid");
     if (!grid) return;
 
-    // 6-window main grid (3 columns x 2 rows)
     let html = createComingSoonCard("NEW TOP STORY");
     html += `
         <article class="card">
