@@ -439,7 +439,16 @@ function loadHomepageContent() {
         .then(index => {
             initTicker(index);
             
-            // 1. Ingest Spotlight, In Focus & Trending (6 Windows)
+            // 1. Top Stories Grid (MOVED TO TOP POSITION)
+            if (index.topStories) {
+                loadTopStories([
+                    index.topStories.lead, 
+                    index.topStories.breaking, 
+                    index.topStories.opinion
+                ]);
+            } else { loadTopStoriesFallback(); }
+
+            // 2. Spotlight, In Focus & Trending (POSITIONED DIRECTLY AFTER TOP STORIES)
             if (index.spotlightFocusTrending) {
                 loadSpotlightSection(index.spotlightFocusTrending);
             } else {
@@ -448,15 +457,7 @@ function loadHomepageContent() {
                     bottomRow: ["spotlight-002", "infocus-002", "trending-002"]
                 });
             }
-            // 2. Top Stories Grid
-            if (index.topStories) {
-                loadTopStories([
-                    index.topStories.lead, 
-                    index.topStories.breaking, 
-                    index.topStories.opinion
-                ]);
-            } else { loadTopStoriesFallback(); }
-            
+
             // 3. Latest / Editorial / Historical Grid
             if (index.latestEditorialHistorical) {
                 loadLehSection([
@@ -473,11 +474,11 @@ function loadHomepageContent() {
         })
         .catch(() => {
             initTicker(null);
+            loadTopStoriesFallback();
             loadSpotlightSection({
                 topRow: ["spotlight-001", "infocus-001", "trending-001"],
                 bottomRow: ["spotlight-002", "infocus-002", "trending-002"]
             });
-            loadTopStoriesFallback();
             loadLehFallback();
         });
 }
@@ -525,6 +526,7 @@ function loadSpotlightSection(config) {
     renderRow(topRowIds, 'spotlight-top-row');
     renderRow(bottomRowIds, 'spotlight-bottom-row');
 }
+
 function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
     const grid = document.getElementById(gridId);
     const archiveGrid = document.getElementById(archiveGridId);
@@ -547,6 +549,7 @@ function loadSectionGroup(gridId, archiveGridId, ids, label, categoryKey) {
             }
         });
 }
+
 function loadTopStories(ids) {
     const grid = document.getElementById("top-stories-grid");
     const archiveGrid = document.getElementById("top-stories-archive-grid");
@@ -568,6 +571,7 @@ function loadTopStories(ids) {
         })
         .catch(() => loadTopStoriesFallback());
 }
+
 function loadTopStoriesFallback() {
     const grid = document.getElementById("top-stories-grid");
     if (!grid) return;
@@ -602,6 +606,7 @@ function loadTopStoriesFallback() {
     html += createComingSoonCard("Top Story Analysis");
     grid.innerHTML = html;
 }
+
 function loadLehSection(ids) {
     const grid = document.getElementById("leh-grid");
     const archiveGrid = document.getElementById("leh-archive-grid");
@@ -625,6 +630,7 @@ function loadLehSection(ids) {
         })
         .catch(() => loadLehFallback());
 }
+
 function loadLehFallback() {
     const grid = document.getElementById("leh-grid");
     if (!grid) return;
@@ -662,6 +668,7 @@ function loadLehFallback() {
     html += createComingSoonCard("HISTORICAL ARCHIVE");
     grid.innerHTML = html;
 }
+
 function createComingSoonCard(customLabel = "Upcoming Feature") {
     return `
         <article class="card coming-soon-card">
@@ -740,6 +747,7 @@ function initArticlePage() {
                 .catch(() => renderArticleFallback(id));
         });
 }
+
 function renderArticleFallback(id) {
     const contentEl = document.getElementById("content") || document.getElementById("article-content") || document.body;
     if (contentEl) {
@@ -751,6 +759,7 @@ function renderArticleFallback(id) {
             </div>`;
     }
 }
+
 function renderFullArticlePage(article) {
     const loader = document.getElementById('loading-state');
     if (loader) loader.style.display = 'none';
@@ -770,7 +779,6 @@ function renderFullArticlePage(article) {
             processedDate = rawDate;
         }
     }
-
     const navData = article.navigation || article.bottomNavigation || {
         prev: "index.html",
         prevTitle: "Previous Story",
@@ -838,10 +846,8 @@ function generateArticleBottomNavigation(nav) {
     
     if (prevUrl && !prevUrl.includes('.html')) prevUrl = `article.html?id=${prevUrl}`;
     if (nextUrl && !nextUrl.includes('.html')) nextUrl = `article.html?id=${nextUrl}`;
-
     const prevTitle = (nav && nav.prevTitle) || prevObj.title || "Previous Article";
     const nextTitle = (nav && nav.nextTitle) || nextObj.title || "Next Article";
-
     return `
         <div class="bottom-article-nav" style="display:flex !important; justify-content:space-between !important; align-items:center !important; border-top:1px solid #eaeaea !important; padding-top:20px !important; margin-top:25px !important; width:100% !important;">
             <a href="${prevUrl}" style="color:#2563EB !important; text-decoration:none !important; font-weight:bold !important; display:inline-flex !important; align-items:center !important; gap:6px !important; max-width:40% !important;">
@@ -855,7 +861,6 @@ function generateArticleBottomNavigation(nav) {
             <a href="index.html" style="display:inline-flex !important; align-items:center !important; justify-content:center !important; width:42px !important; height:42px !important; background-color:#F3F4F6 !important; border-radius:50% !important; flex-shrink:0 !important; text-decoration:none !important;">
                 <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='#1F2937' stroke='#1F2937' stroke-width='2' style='fill:#1F2937 !important; stroke:#1F2937 !important;'><path d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>
             </a>
-
             <a href="${nextUrl}" style="color:#2563EB !important; text-decoration:none !important; font-weight:bold !important; text-align:right !important; display:inline-flex !important; align-items:center !important; gap:6px !important; max-width:40% !important; justify-content:flex-end !important;">
                 <div>
                     <div style="color:#2563EB !important;">NEXT →</div>
