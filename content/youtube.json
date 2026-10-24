@@ -1,69 +1,73 @@
 {
+  "channel": {
+    "name": "THE MIRROR JAMMU KASHMIR",
+    "url": "https://www.youtube.com/@themirrorjammukashmir"
+  },
   "videos": [
     {
       "id": "v1",
-      "title": "SHAUKAT Nawaz Mir Arrested: Azad Kashmir Under Siege, Communication Blackout, Curfews & Arrests",
-      "description": "Ground updates on the arrest of Shaukat Nawaz Mir, curfews, and communication blackouts in Azad Kashmir.",
-      "category": "News Report",
+      "title": "Kashmiri Leaders Geneva Briefing on Human Rights",
+      "description": "Crucial international briefing on human rights developments and regional updates in Azad Kashmir.",
+      "category": "Advocacy",
       "duration": "00:00",
-      "date": "2026-07-05",
-      "youtubeId": "lRE5cVWbWmA",
-      "url": "https://www.youtube.com/watch?v=lRE5cVWbWmA"
+      "date": "2026-10-24",
+      "youtubeId": "5jxVX6bF48E",
+      "url": "https://youtu.be/5jxVX6bF48E?si=dGfFqvAtj2yfcftZ"
     },
     {
       "id": "v2",
-      "title": "Azad Kashmir Crisis: Kashmiri Leaders Crucial Meeting in Geneva Strongly Condemned Brutalities.",
-      "description": "Coverage of the crucial meeting of Kashmiri leaders in Geneva condemning regional brutalities.",
-      "category": "Conference",
+      "title": "Rawalakot Ground Report and Civil Society Updates",
+      "description": "Eyewitness reports, civil society discussions, and live ground analysis.",
+      "category": "News Report",
       "duration": "00:00",
-      "date": "2026-07-05",
-      "youtubeId": "1Sbomv3juT4",
-      "url": "https://www.youtube.com/watch?v=1Sbomv3juT4"
+      "date": "2026-10-24",
+      "youtubeId": "SxRg2qczE84",
+      "url": "https://youtu.be/SxRg2qczE84?si=8UYfh-Ya8VQDHukR"
     },
     {
       "id": "v3",
-      "title": "UN Act Now : Azad Kashmir Siege Blockade & Massive Protests | UKPNP International Conference Geneva",
-      "description": "UKPNP International Conference in Geneva calling for UN intervention amidst massive protests and blockades.",
-      "category": "Advocacy",
+      "title": "UN Act Now: Azad Kashmir Siege & Protests",
+      "description": "International conference coverage addressing civil rights and regional developments.",
+      "category": "Conference",
       "duration": "00:00",
-      "date": "2026-07-05",
-      "youtubeId": "8ipYncaQNg0",
-      "url": "https://www.youtube.com/watch?v=8ipYncaQNg0"
+      "date": "2026-10-24",
+      "youtubeId": "O_M8myMzMB8",
+      "url": "https://youtu.be/O_M8myMzMB8?si=dHYeBMw3nxxck0oJ"
     },
     {
       "id": "v4",
-      "title": "UN Geneva: Azad Kashmir Under Siege: Protest Exposes Lethal Crackdown & Internet Blackouts in AJK",
-      "description": "Protests at UN Geneva exposing the lethal crackdown and ongoing internet blackouts in AJK.",
-      "category": "News Report",
+      "title": "UN Geneva: Azad Kashmir Under Siege Special Report",
+      "description": "Coverage highlighting internet blackouts, curfews, and public advocacy at UN Geneva.",
+      "category": "Special Report",
       "duration": "00:00",
-      "date": "2026-07-05",
-      "youtubeId": "FE9farW5M18",
-      "url": "https://www.youtube.com/watch?v=FE9farW5M18"
+      "date": "2026-10-24",
+      "youtubeId": "M3yiIEcScVM",
+      "url": "https://youtu.be/M3yiIEcScVM?si=fcthoU14SrxXv8Am"
     },
     {
       "id": "v5",
-      "title": "Tarana ترانہ Kashmiri Bedar Hoge ترانہ کشمیری بیدار ہو گئے. Kashmiris Stand United",
-      "description": "A unity anthem and cultural video reflecting the solidarity and awakening of the Kashmiri people.",
-      "category": "Cultural",
+      "title": "Grassroots Rights Movement & Public Forum",
+      "description": "Documentary coverage and public forum discussions on fundamental freedoms.",
+      "category": "Documentary",
       "duration": "00:00",
-      "date": "2026-07-05",
-      "youtubeId": "SCzLOURtCTI",
-      "url": "https://www.youtube.com/watch?v=SCzLOURtCTI"
+      "date": "2026-10-24",
+      "youtubeId": "gWvKQ3jK0Zs",
+      "url": "https://youtu.be/gWvKQ3jK0Zs?si=wHU7l-ZWrQatlUKw"
     },
     {
       "id": "v6",
-      "title": "AJK Conspiracy or Reform? The Battle Over 12 Refugee Seats in Azad Kashmir.",
-      "description": "Sardar Shaukat Ali Kashmiri discusses the debate over 12 refugee seats, reform vs. conspiracy, and political representation in Azad Kashmir.",
-      "category": "Analysis",
-      "duration": "00:23:05",
-      "date": "2026-06-03",
-      "youtubeId": "EC8wCtwTgjo",
-      "url": "https://youtu.be/EC8wCtwTgjo"
+      "title": "Diaspora Mobilization & International Advocacy",
+      "description": "Reports on overseas demonstrations and advocacy across major European capitals.",
+      "category": "Advocacy",
+      "duration": "00:00",
+      "date": "2026-10-24",
+      "youtubeId": "Pqm9GezkoV0",
+      "url": "https://youtu.be/Pqm9GezkoV0?si=sm2z-caimYL89Y3m"
     },
     {
       "id": "v7",
-      "title": "UKPNP Historic Intra Jammu Kashmir Conference | Strongly Condemns Siege & Blockade in Azad Kashmir",
-      "description": "UKPNP virtual conference bringing together leaders across Jammu Kashmir to condemn human rights violations, siege, and communication blackout in AJK.",
+      "title": "UKPNP Historic Intra Jammu Kashmir Conference",
+      "description": "UKPNP virtual conference bringing together leaders across Jammu Kashmir to condemn human rights violations.",
       "category": "Conference",
       "duration": "03:41:02",
       "date": "2026-07-13",
