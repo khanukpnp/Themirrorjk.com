@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get("id");
 
-    // ROUTER logic
+    // ROUTING ENGINE
     if (path.includes("article.html") || articleId) {
         if (!articleId && path.includes("article.html")) {
-            // If user directly opened article.html without ?id=, redirect to homepage
+            // Redirect to home if article.html is accessed directly without ?id=
             window.location.href = "index.html";
             return;
         }
@@ -107,7 +107,8 @@ function loadHomepageContent() {
             if (index.jammuKashmir) loadSectionGroup("jk-grid", index.jammuKashmir, "Jammu Kashmir");
             if (index.international) loadSectionGroup("intl-grid", index.international, "International Diplomacy");
             if (index.humanRights) loadSectionGroup("hr-grid", index.humanRights, "Human Rights");
-        });
+        })
+        .catch(err => console.error("Index load error:", err));
         
     loadVlogs();
 }
