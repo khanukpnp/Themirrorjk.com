@@ -1,5 +1,5 @@
 /* ============================================================
-   THE MIRROR JAMMU KASHMIR - COMPLETE STYLESHEET
+   THE MIRROR JAMMU KASHMIR - INTEGRATED PRODUCTION STYLESHEET
    ============================================================ */
 
 * {
@@ -24,9 +24,7 @@ h1, h2, h3, h4, h5 {
     font-weight: 700;
 }
 
-/* ============================
-   PAGE SHELL & READER PROSE
-   ============================ */
+/* PAGE SHELL & READER PROSE */
 .page-shell {
     max-width: 1400px;
     margin: 0 auto;
@@ -41,9 +39,7 @@ h1, h2, h3, h4, h5 {
     background: white;
 }
 
-/* ============================
-   LOADER & PROGRESS BAR
-   ============================ */
+/* LOADER & PROGRESS BAR */
 #site-loader {
     position: fixed;
     top: 0;
@@ -58,15 +54,11 @@ h1, h2, h3, h4, h5 {
     z-index: 9999;
     transition: opacity 0.3s ease;
 }
-.loader-inner {
-    text-align: center;
-    width: 300px;
-}
+.loader-inner { text-align: center; width: 300px; }
 .loader-title {
     font-size: 1.8rem;
     font-weight: 800;
     margin-bottom: 20px;
-    letter-spacing: 0.5px;
     color: #fff;
     font-family: 'Playfair Display', serif;
 }
@@ -84,16 +76,9 @@ h1, h2, h3, h4, h5 {
     background: #b30000;
     animation: loader-progress 1.5s ease forwards;
 }
-@keyframes loader-progress {
-    0% { width: 0%; }
-    100% { width: 100%; }
-}
-#site-loader p {
-    font-size: 0.85rem;
-    opacity: 0.9;
-    margin-top: 8px;
-    color: #ccc;
-}
+@keyframes loader-progress { 0% { width: 0%; } 100% { width: 100%; } }
+#site-loader p { font-size: 0.85rem; color: #ccc; margin-top: 8px; }
+
 .reading-progress {
     position: fixed;
     top: 0;
@@ -105,9 +90,7 @@ h1, h2, h3, h4, h5 {
     transition: width 0.1s ease;
 }
 
-/* ============================
-   HEADER & BARS
-   ============================ */
+/* HEADER & BARS */
 .site-header {
     text-align: center;
     padding: 30px 20px 20px;
@@ -122,17 +105,14 @@ h1, h2, h3, h4, h5 {
     color: #000;
     margin-bottom: 8px;
     text-transform: uppercase;
-    line-height: 1.2;
     font-family: 'Playfair Display', serif;
 }
 .subheading {
     font-size: 1.1rem;
     color: #b30000;
     font-weight: 600;
-    letter-spacing: 0.3px;
     text-transform: uppercase;
     margin-bottom: 5px;
-    font-family: 'Source Sans Pro', sans-serif;
 }
 .info-bar {
     background: #f8f8f8;
@@ -143,37 +123,19 @@ h1, h2, h3, h4, h5 {
 }
 .info-items {
     display: flex;
-    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     gap: 8px;
     max-width: 1400px;
     margin: 0 auto;
     overflow-x: auto;
-    padding: 2px 0;
     white-space: nowrap;
 }
-.info-items span {
-    color: #333;
-    white-space: nowrap;
-    font-size: 0.8rem;
-}
-.info-items .separator {
-    color: #999;
-    font-weight: 300;
-    font-size: 0.7rem;
-    margin: 0 2px;
-}
-.info-items strong {
-    font-weight: 600;
-    color: #b30000;
-    font-size: 0.8rem;
-}
-.weather-bar {
-    background: #fff;
-    border-bottom: 2px solid #b30000;
-    padding: 5px 20px;
-}
+.info-items span { color: #333; font-size: 0.8rem; }
+.info-items .separator { color: #999; margin: 0 2px; }
+.info-items strong { color: #b30000; font-weight: 600; }
+.weather-bar { background: #fff; border-bottom: 2px solid #b30000; padding: 5px 20px; }
+
 .ticker-wrap {
     background: #111;
     color: white;
@@ -185,10 +147,8 @@ h1, h2, h3, h4, h5 {
 .ticker {
     display: flex;
     align-items: center;
-    white-space: nowrap;
     max-width: 1400px;
     margin: 0 auto;
-    position: relative;
     padding: 0 20px;
 }
 .ticker-label {
@@ -196,7 +156,6 @@ h1, h2, h3, h4, h5 {
     padding: 4px 14px;
     font-weight: bold;
     margin-right: 15px;
-    display: inline-block;
     font-size: 0.85rem;
     text-transform: uppercase;
     z-index: 2;
@@ -206,21 +165,10 @@ h1, h2, h3, h4, h5 {
     gap: 40px;
     animation: ticker-scroll 440s linear infinite;
 }
-.ticker-items span {
-    display: inline;
-    font-size: 0.85rem;
-    color: #fff;
-    opacity: 0.95;
-    white-space: nowrap;
-}
-@keyframes ticker-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
+.ticker-items span { font-size: 0.85rem; color: #fff; }
+@keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-/* ============================
-   TOOLS & NAVIGATION
-   ============================ */
+/* TOOLS & NAVIGATION */
 .tools-bar {
     display: flex;
     justify-content: flex-end;
@@ -228,14 +176,12 @@ h1, h2, h3, h4, h5 {
     padding: 6px 20px;
     background: #f8f8f8;
     border-bottom: 1px solid #ddd;
-    width: 100%;
 }
 .lang-select select, .search input {
     padding: 3px 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 0.8rem;
-    background: white;
 }
 .search button {
     padding: 3px 12px;
@@ -244,15 +190,8 @@ h1, h2, h3, h4, h5 {
     border: none;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
-    font-size: 0.8rem;
 }
-.search button:hover { background: #8a0000; }
-
-.navbar {
-    background: #800000;
-    border-bottom: 2px solid #b30000;
-    width: 100%;
-}
+.navbar { background: #800000; border-bottom: 2px solid #b30000; }
 .nav-list {
     display: flex;
     list-style: none;
@@ -260,13 +199,7 @@ h1, h2, h3, h4, h5 {
     flex-wrap: wrap;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 10px;
 }
-.nav-item {
-    position: relative;
-    border-right: 1px solid #660000;
-}
-.nav-item:first-child { border-left: 1px solid #660000; }
 .nav-btn {
     display: block;
     padding: 12px 18px;
@@ -274,40 +207,11 @@ h1, h2, h3, h4, h5 {
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
-    background: #800000;
 }
 .nav-btn:hover { background: #990000; }
-.dropdown {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: #222;
-    border: 1px solid #b30000;
-    min-width: 200px;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-.dropdown.wide { min-width: 250px; }
-.dropdown a {
-    display: block;
-    padding: 10px 16px;
-    color: white;
-    text-decoration: none;
-    border-bottom: 1px solid #444;
-    font-size: 0.9rem;
-}
-.dropdown a:hover { background: #b30000; padding-left: 22px; }
-.nav-item:hover .dropdown { display: block; }
 
-/* ============================
-   MAIN CONTENT & HOMEPAGE CARDS
-   ============================ */
-.home-main {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 5px 20px 20px;
-}
+/* MAIN HOMEPAGE CARDS */
+.home-main { max-width: 1400px; margin: 0 auto; padding: 5px 20px 20px; }
 .modern-title {
     font-size: 1.6rem;
     font-weight: 700;
@@ -351,17 +255,8 @@ h1, h2, h3, h4, h5 {
     background: #f5f5f5;
     overflow: hidden;
 }
-.media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.card-body {
-    padding: 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
+.media img { width: 100%; height: 100%; object-fit: cover; }
+.card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
 .card-body h3 {
     font-size: 1.2rem;
     margin-bottom: 12px;
@@ -382,10 +277,7 @@ h1, h2, h3, h4, h5 {
     overflow: hidden;
 }
 
-/* =========================================================
-   HERO vs INLINE TEXT IMAGE PRECISION FIX
-   ========================================================= */
-/* Hero Header Image Covers Full Area of Article Container */
+/* HERO IMAGE FULL AREA vs INLINE TEXT WRAPPING (60%) */
 .hero-image-container {
     width: 100% !important;
     max-width: 100% !important;
@@ -402,31 +294,27 @@ h1, h2, h3, h4, h5 {
     display: block;
 }
 
-/* Inline Text Body Images: 60% Width, Text Wraps Flowing Around Empty Side Space */
-.article-body-content figure.img-center,
-#content figure.img-center {
+/* INLINE TEXT IMAGES: 60% WIDTH WITH FLOWING MARGINS */
+.article-body-content figure.img-center, #content figure.img-center {
     width: 60% !important;
     max-width: 60% !important;
     margin: 20px auto !important;
     text-align: center;
     clear: both;
 }
-.article-body-content figure.img-left,
-#content figure.img-left {
+.article-body-content figure.img-left, #content figure.img-left {
     float: left !important;
     width: 60% !important;
     max-width: 60% !important;
     margin: 10px 25px 20px 0 !important;
 }
-.article-body-content figure.img-right,
-#content figure.img-right {
+.article-body-content figure.img-right, #content figure.img-right {
     float: right !important;
     width: 60% !important;
     max-width: 60% !important;
     margin: 10px 0 20px 25px !important;
 }
-.article-body-content figure img,
-#content figure img {
+.article-body-content figure img, #content figure img {
     width: 100% !important;
     height: auto !important;
     max-height: 420px !important;
@@ -444,16 +332,13 @@ figcaption, #heroCaption {
     text-align: left !important;
 }
 
-/* Clears floating images inside paragraphs */
 .article-body-content::after, #content::after {
     content: "";
     display: table;
     clear: both;
 }
 
-/* =========================================================
-   ACTION TOOLBAR & BOTTOM ARTICLE NAVIGATION
-   ========================================================= */
+/* ACTION BAR & BOTTOM NAVIGATION */
 .action-bar {
   display: flex !important;
   justify-content: center !important;
@@ -475,7 +360,6 @@ figcaption, #heroCaption {
   font-weight: 600 !important;
   border: 1px solid transparent !important;
   cursor: pointer !important;
-  transition: all 0.2s ease-in-out !important;
 }
 button#like { background-color: #FFEBEB !important; color: #E63946 !important; border-color: #FFD6D6 !important; }
 button#subscribe { background-color: #FEF3C7 !important; color: #D97706 !important; border-color: #FDE68A !important; }
@@ -503,9 +387,7 @@ button#copyLink { background-color: #CCFBF1 !important; color: #0D9488 !importan
   border: 1px solid #e0e0e0 !important;
 }
 
-/* ============================
-   SPOTLIGHT & VLOGS
-   ============================ */
+/* SPOTLIGHT & BADGES */
 .news-card-badge {
     position: relative;
     background: #fff;
@@ -565,19 +447,8 @@ button#copyLink { background-color: #CCFBF1 !important; color: #0D9488 !importan
     color: white;
     cursor: pointer;
 }
-.vlog-duration {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    background: rgba(0,0,0,0.8);
-    color: white;
-    padding: 2px 6px;
-    font-size: 0.75rem;
-}
 
-/* ============================
-   FORMS, MODALS & FOOTER
-   ============================ */
+/* FOOTER & ARCHIVE DISCLOSURES */
 .inline-section-archive {
     margin-top: 15px;
     border: 1px solid #e0e0e0;
