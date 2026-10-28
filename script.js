@@ -14,12 +14,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get("id");
 
-    // ROUTER ENGINE FIX
+    // ROUTER ENGINE
     if (articleId) {
         // A specific article ID is present -> render single article
         initArticlePage(articleId);
     } else {
-        // No article ID -> render homepage content regardless of file name
+        // No article ID -> render homepage content
         loadHomepageContent();
     }
     
@@ -96,7 +96,6 @@ function initNav() {
 function loadHomepageContent() {
     const loadingDiv = document.getElementById('loading-state');
     if (loadingDiv) loadingDiv.style.display = 'none';
-
     const cb = "?v=" + new Date().getTime();
     fetch("content/index.json" + cb)
         .then(r => r.json())
