@@ -2,244 +2,96 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:url" content="" id="og-url">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="" id="og-title">
-    <meta property="og:description" content="" id="og-description">
-    <meta property="og:image" content="" id="og-image">
-    <meta property="og:site_name" content="THE MIRROR JAMMU KASHMIR">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="" id="twitter-title">
-    <meta name="twitter:description" content="" id="twitter-description">
-    <meta name="twitter:image" content="" id="twitter-image">
-    <meta name="twitter:site" content="@TheMirrorJK">
-    <meta name="description" content="" id="meta-description">
-    <meta name="keywords" content="Jammu Kashmir, news, editorial, history, human rights">
-    <meta name="author" content="THE MIRROR JAMMU KASHMIR">
-    <title id="page-title">THE MIRROR JAMMU KASHMIR</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>THE MIRROR JAMMU KASHMIR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css?v=8.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="reading-progress" id="reading-progress"></div>
-
-<div id="site-loader">
-    <div class="loader-inner">
-        <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
-        <div class="loader-bar"><div class="loader-progress"></div></div>
-        <p>Loading document and headlines...</p>
-    </div>
-</div>
-
-<div class="page-shell">
-    <header class="site-header">
-        <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
-        <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
-    </header>
-
-    <!-- CLOCKS & WEATHER -->
-    <div class="info-bar clocks-calendars"><div class="info-items" id="datetime-bar"></div></div>
-    <div class="info-bar weather-bar"><div class="info-items" id="weather-bar"></div></div>
-
-    <!-- TICKER -->
-    <div class="ticker-wrap">
-        <div class="ticker">
-            <span class="ticker-label">🆕 BREAKING</span>
-            <div class="ticker-items" id="ticker-items"></div>
+    <div id="reading-progress" class="reading-progress"></div>
+    
+    <div id="site-loader">
+        <div class="loader-inner">
+            <div class="loader-title">THE MIRROR JAMMU KASHMIR</div>
+            <div class="loader-bar"><div class="loader-progress"></div></div>
+            <p>Loading headlines...</p>
         </div>
     </div>
-
-    <!-- TOOLBAR -->
-    <div class="tools-bar">
-        <div class="lang-select">
-            🌍
-            <select id="language-select">
-                <option value="en" selected>English</option>
-                <option value="de">German</option>
-                <option value="fr">French</option>
-                <option value="ur">Urdu</option>
-            </select>
-        </div>
-        <form class="search" onsubmit="event.preventDefault();">
-            <input id="search-input" type="search" placeholder="Search...">
-            <button type="submit">🔍</button>
-        </form>
-    </div>
-
-    <!-- NAVIGATION -->
-    <nav class="navbar">
-        <ul class="nav-list">
-            <li class="nav-item"><a href="index.html" class="nav-btn">🏠 Home</a></li>
-            <li class="nav-item"><a href="about.html" class="nav-btn">📖 About Us</a></li>
-            <li class="nav-item"><a href="chief-editor.html" class="nav-btn">✍️ Chief Editor</a></li>
-        </ul>
-    </nav>
-
-    <!-- ARTICLE BODY -->
-    <main class="article-page">
-        <div id="section-label" class="category-label"></div>
-        <h1 id="title" style="font-family:'Playfair Display', serif; font-size: 2.3rem; margin-bottom: 15px; font-weight: 900; color: #111;"></h1>
-        <div id="meta" class="article-meta"></div>
-
-        <div id="heroWrap" class="hero-image-container" style="display: none;">
-            <img id="heroImg" src="" alt="">
-            <div id="heroCaption"></div>
+    
+    <div class="page-shell">
+        <header class="site-header">
+            <h1 class="site-title">THE MIRROR JAMMU KASHMIR</h1>
+            <div class="subheading">CHAMPION JUSTICE & AMPLIFY THE VOICES OF THE UNHEARD</div>
+        </header>
+        
+        <div class="info-bar clocks-calendars"><div class="info-items" id="datetime-bar"></div></div>
+        <div class="info-bar weather-bar"><div class="info-items" id="weather-bar"></div></div>
+        
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <span class="ticker-label">🆕 BREAKING</span>
+                <div class="ticker-items" id="ticker-items"></div>
+            </div>
         </div>
         
-        <div id="loading-state" class="loading-state">
-            <div class="spinner"></div>
-            <p>Loading document content...</p>
-        </div>
-        <div id="content" class="article-body-content" style="display: none;"></div>
-
-        <!-- COLOURED ACTION BUTTONS -->
-        <div class="action-bar">
-            <button id="like" data-id="like">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#E63946" stroke="#E63946" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Like
-            </button>
-            <button id="subscribe" data-id="subscribe">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#D97706" stroke="#D97706" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg> Subscribe
-            </button>
-            <button id="share" data-id="share">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg> Share
-            </button>
-            <button id="copyLink" data-id="copyLink">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg> Copy Link
-            </button>
-        </div>
-
-        <!-- BOTTOM ARTICLE NAVIGATION -->
-        <div class="bottom-article-nav" id="article-nav">
-            <a href="index.html" id="prev-btn" style="color:#b30000;">← PREVIOUS</a>
-            <a href="index.html" class="bottom-nav-home" title="Return Home">🏠</a>
-            <a href="index.html" id="next-btn" style="color:#b30000;">NEXT →</a>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
-    </footer>
-</div>
-
-<script src="script.js?v=8.0"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const params = new URLSearchParams(window.location.search);
-    const articleId = params.get("id");
-    if (articleId) {
-        loadArticle(articleId.toLowerCase());
-    } else {
-        showError("No target article specified.");
-    }
-});
-
-async function loadArticle(articleId) {
-    const loadingDiv = document.getElementById('loading-state');
-    const contentDiv = document.getElementById('content');
-    const cb = "?v=" + new Date().getTime();
+        <nav class="navbar">
+            <ul class="nav-list" id="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-btn">🏠 Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-btn">📖 About Us</a></li>
+                <li class="nav-item"><a href="chief-editor.html" class="nav-btn">✍️ Chief Editor</a></li>
+            </ul>
+        </nav>
+        
+        <main class="home-main">
+            <!-- 1. LATEST / EDITORIAL / HISTORICAL -->
+            <section id="latest-editorial-historical">
+                <h2 class="section-title modern-title">🕒 Latest · 🖋️ Editorial · 🏛️ Historical</h2>
+                <div class="cards three" id="leh-grid"></div>
+            </section>
+            
+            <!-- 2. TOP STORIES -->
+            <section id="top-stories">
+                <h2 class="section-title modern-title">⭐ Top Stories</h2>
+                <div class="cards three" id="top-stories-grid"></div>
+            </section>
+            
+            <!-- 3. SPOTLIGHT, IN FOCUS & TRENDING -->
+            <section id="spotlight-focus-trending">
+                <h2 class="section-title modern-title">⚡ Spotlight, In Focus & Trending</h2>
+                <div class="cards three" id="spotlight-top-row"></div>
+                <div class="cards three" id="spotlight-bottom-row" style="margin-top: 20px;"></div>
+            </section>
+            
+            <!-- 4. JAMMU KASHMIR -->
+            <section id="jammu-kashmir">
+                <h2 class="section-title modern-title">📍 Jammu Kashmir</h2>
+                <div class="cards three" id="jk-grid"></div>
+            </section>
+            
+            <!-- 5. VLOGS -->
+            <section id="vlogs">
+                <h2 class="section-title modern-title">🎥 Video Reports & Vlogs</h2>
+                <div class="cards three vlogs-grid" id="vlogs-grid"></div>
+            </section>
+            
+            <!-- 6. INTERNATIONAL DIPLOMACY -->
+            <section id="international">
+                <h2 class="section-title modern-title">🌍 International Diplomacy</h2>
+                <div class="cards three" id="intl-grid"></div>
+            </section>
+            
+            <!-- 7. HUMAN RIGHTS -->
+            <section id="human-rights">
+                <h2 class="section-title modern-title">❤️ Human Rights</h2>
+                <div class="cards three" id="hr-grid"></div>
+            </section>
+        </main>
+        
+        <footer class="footer">
+            <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
+        </footer>
+    </div>
     
-    let articleData = null;
-    
-    try {
-        const response = await fetch(`content/${articleId}.json${cb}`);
-        if (response.ok) {
-            const data = await response.json();
-            articleData = data.items ? data.items[0] : data;
-        }
-    } catch (e) { console.warn("Direct fetch failed, trying master..."); }
-    
-    if (!articleData) {
-        try {
-            const response = await fetch(`content/article.json${cb}`);
-            if (response.ok) {
-                const master = await response.json();
-                const items = master.items || master || [];
-                articleData = items.find(a => a.id && a.id.toLowerCase() === articleId);
-            }
-        } catch (e) { console.error("Master database fetch failed."); }
-    }
-    
-    if (!articleData) {
-        showError(`Article "${articleId}" could not be loaded.`);
-        return;
-    }
-    renderArticle(articleData);
-}
-
-function renderArticle(article) {
-    const loadingDiv = document.getElementById('loading-state');
-    const contentDiv = document.getElementById('content');
-    const heroWrap = document.getElementById('heroWrap');
-    const heroImg = document.getElementById('heroImg');
-    const heroCaption = document.getElementById('heroCaption');
-    const titleEl = document.getElementById('title');
-    const sectionLabel = document.getElementById('section-label');
-    const metaEl = document.getElementById('meta');
-    
-    document.title = `${article.title || 'Article'} | THE MIRROR JAMMU KASHMIR`;
-    if (titleEl) titleEl.textContent = article.title || '';
-    if (sectionLabel) sectionLabel.textContent = article.category || article.sectionLabel || 'REPORT';
-    if (metaEl) {
-        let dateStr = article.date ? new Date(article.date).toLocaleDateString("en-GB", { year: 'numeric', month: 'long', day: 'numeric' }) : '';
-        metaEl.innerHTML = `By <strong>${article.author || 'Editorial Desk'}</strong> ${article.location ? '| ' + article.location : ''} | ${dateStr} | ⏱️ ${article.readTime || '5 min read'}`;
-    }
-    
-    if (article.heroImage && heroWrap && heroImg) {
-        let src = typeof article.heroImage === 'string' ? article.heroImage : article.heroImage.src;
-        let cap = article.heroImage.caption || '';
-        if (src) {
-            heroImg.src = src;
-            heroWrap.style.display = 'block';
-            if (heroCaption) heroCaption.textContent = cap;
-        }
-    }
-    
-    if (contentDiv) {
-        contentDiv.innerHTML = renderJSONBody(article.body || article.content);
-        contentDiv.style.display = 'block';
-    }
-    
-    if (article.navigation) {
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        if (prevBtn && article.navigation.prev) prevBtn.href = `article.html?id=${article.navigation.prev}`;
-        if (nextBtn && article.navigation.next) nextBtn.href = `article.html?id=${article.navigation.next}`;
-    }
-    
-    if (loadingDiv) loadingDiv.style.display = 'none';
-}
-
-function renderJSONBody(body) {
-    if (!body) return '<p>No content text provided.</p>';
-    if (typeof body === 'string') return `<p>${body}</p>`;
-    
-    if (Array.isArray(body)) {
-        return body.map(block => {
-            switch (block.type) {
-                case 'paragraph': return `<p style="margin-bottom:1.5rem;">${block.text}</p>`;
-                case 'subheading':
-                case 'header': return `<h2 style="color:#b30000; font-family:'Playfair Display',serif; margin:2rem 0 1rem; font-size:1.6rem; font-weight:700;">${block.text}</h2>`;
-                case 'pullquote': return `<div style="font-size:1.25rem; font-weight:600; margin:2rem 0; padding:1.2rem 1.5rem; background:#f9f9f9; border-left:4px solid #b30000; font-style:italic; color:#333;">${block.text}</div>`;
-                case 'image':
-                    const alignClass = block.align === 'left' ? 'img-left' : (block.align === 'right' ? 'img-right' : 'img-center');
-                    return `<figure class="${alignClass}"><img src="${block.src}" alt="Media"><figcaption>${block.caption || ''}</figcaption></figure>`;
-                default: return '';
-            }
-        }).join('');
-    }
-    return '';
-}
-
-function showError(msg) {
-    const loadingDiv = document.getElementById('loading-state');
-    const contentDiv = document.getElementById('content');
-    if (loadingDiv) loadingDiv.style.display = 'none';
-    if (contentDiv) {
-        contentDiv.style.display = 'block';
-        contentDiv.innerHTML = `<div style="text-align:center; padding:40px;"><h3 style="color:#b30000;">Publication Loading Error</h3><p style="color:#666; margin:10px 0;">${msg}</p><a href="index.html" style="display:inline-block; margin-top:15px; background:#b30000; color:#fff; padding:8px 16px; border-radius:4px; text-decoration:none;">Return to Homepage</a></div>`;
-    }
-}
-</script>
+    <script src="script.js?v=8.0"></script>
 </body>
 </html>
