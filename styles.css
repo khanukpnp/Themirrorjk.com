@@ -5,7 +5,6 @@
 html, body { width: 100%; min-height: 100%; background: white; }
 body { font-family: 'Source Sans Pro', sans-serif; background: white; color: #222; line-height: 1.5; overflow-x: hidden; }
 h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; font-weight: 700; }
-
 .page-shell { max-width: 1400px; margin: 0 auto; background: white; width: 100%; }
 .prose-container, .article-page { max-width: 850px; margin: 30px auto; padding: 0 20px; background: white; }
 
@@ -31,7 +30,7 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; font-weight: 700; }
 .info-items strong { color: #b30000; font-weight: 600; }
 .weather-bar { background: #fff; border-bottom: 2px solid #b30000; padding: 5px 20px; }
 
-/* TICKER SCROLLING FIX */
+/* TICKER SCROLLING */
 .ticker-wrap { background: #111; color: white; padding: 8px 0; border-bottom: 2px solid #b30000; overflow: hidden; width: 100%; }
 .ticker { display: flex; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 20px; white-space: nowrap; }
 .ticker-label { background: #b30000; padding: 4px 14px; font-weight: bold; margin-right: 15px; font-size: 0.85rem; text-transform: uppercase; z-index: 2; flex-shrink: 0; }
@@ -46,7 +45,6 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; font-weight: 700; }
 .nav-item { position: relative; }
 .nav-btn { display: block; padding: 12px 18px; color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem; }
 .nav-btn:hover { background: #990000; }
-
 .dropdown {
     display: none; position: absolute; top: 100%; left: 0; background: #222;
     border: 1px solid #b30000; min-width: 200px; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -70,13 +68,12 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; font-weight: 700; }
 /* HERO vs INLINE IMAGES */
 .hero-image-container { width: 100% !important; max-width: 100% !important; margin: 0 0 25px 0 !important; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 6px; }
 .hero-image-container img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
-
 .article-body-content figure.img-center { width: 60% !important; margin: 20px auto !important; }
 .article-body-content figure.img-left { float: left !important; width: 60% !important; margin: 10px 25px 20px 0 !important; }
 .article-body-content figure.img-right { float: right !important; width: 60% !important; margin: 10px 0 20px 25px !important; }
 .article-body-content figure img { width: 100% !important; height: auto !important; border-radius: 6px !important; }
 
-/* COLOURED ACTION BUTTONS MATCHING CHIEF EDITOR PAGE */
+/* ACTION BUTTONS & ARTICLE NAV */
 .action-bar { display: flex !important; justify-content: center !important; align-items: center !important; gap: 12px !important; margin: 35px auto 20px auto !important; border-top: 1px solid #eaeaea !important; padding-top: 25px !important; flex-wrap: wrap !important; }
 .action-bar button { display: inline-flex !important; align-items: center !important; gap: 8px !important; border-radius: 30px !important; padding: 10px 22px !important; font-size: 14px !important; font-weight: 600 !important; border: 1px solid transparent !important; cursor: pointer !important; transition: all 0.2s ease; }
 button#like { background-color: #FFEBEB !important; color: #E63946 !important; border-color: #FFD6D6 !important; }
@@ -87,6 +84,6 @@ button#copyLink { background-color: #CCFBF1 !important; color: #0D9488 !importan
 .bottom-article-nav { display: flex !important; justify-content: space-between !important; align-items: center !important; border-top: 1px solid #eaeaea !important; padding-top: 20px !important; margin: 20px auto 40px auto !important; width: 100% !important; }
 .bottom-article-nav a { text-decoration: none !important; font-weight: 700 !important; }
 .bottom-nav-home { display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: 44px !important; background-color: #F3F4F6 !important; border-radius: 50% !important; border: 1px solid #e0e0e0 !important; }
-
 .footer { background: #800000; color: white; text-align: center; padding: 20px; margin-top: 40px; font-size: 0.85rem; }
+
 @media (max-width: 768px) { .cards.three { grid-template-columns: 1fr; } }
