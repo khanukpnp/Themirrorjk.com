@@ -4,6 +4,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM fully loaded - initializing application architecture...");
     
+    // Core Components
     initLoader();
     initYear();
     initClocks();
@@ -18,7 +19,9 @@ document.addEventListener("DOMContentLoaded", function() {
     initNewsletter();
     initFooterDropdowns();
     initReadingProgress();
+    initDisclosureAutoScroll();
     
+    // Application Routing Engine
     const path = window.location.pathname;
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get("id");
@@ -35,16 +38,20 @@ document.addEventListener("DOMContentLoaded", function() {
         loadHomepageContent();
     }
     
+    addGlobalReadMoreInterceptor();
     setInterval(updateClocks, 1000);
     setInterval(initWeatherBar, 900000);
 });
 
+/* ==========================================================================
+   LOADER & CLOCK CALENDARS
+   ========================================================================== */
 function initLoader() {
     const loader = document.getElementById("site-loader");
     if (!loader) return;
-    setTimeout(() => {
+    setTimeout(function() {
         loader.style.opacity = "0";
-        setTimeout(() => { loader.style.display = "none"; }, 300);
+        setTimeout(function() { loader.style.display = "none"; }, 300);
     }, 1000);
 }
 function initYear() {
@@ -56,38 +63,90 @@ function updateClocks() {
     const now = new Date();
     const datetimeBar = document.getElementById("datetime-bar");
     if (!datetimeBar) return;
+    
     const fullDate = now.toLocaleDateString("en-GB", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const zurichTime = now.toLocaleTimeString("en-GB", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit", second: "2-digit" });
-    datetimeBar.innerHTML = `<span>${fullDate} at ${zurichTime}</span>`;
+    const cestText = fullDate + " at " + zurichTime;
+    
+    const istTime = now.toLocaleTimeString("en-GB", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    const pktTime = now.toLocaleTimeString("en-GB", { timeZone: "Asia/Karachi", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    
+    datetimeBar.innerHTML = `
+        <span>${cestText}</span>
+        <span class="separator">•</span>
+        <span id="cal-hijri">${getHijriDate()}</span>
+        <span class="separator">•</span>
+        <span id="cal-bikrami">${getBikramiDate()}</span>
+        <span class="separator">•</span>
+        <span>IST (Jammu-Kashmir-Ladakh): <strong>${istTime}</strong></span>
+        <span class="separator">•</span>
+        <span>PKT (Gilgit-Baltistan & Azad Kashmir): <strong>${pktTime}</strong></span>
+    `;
 }
+function getHijriDate() {
+    try {
+        return new Intl.DateTimeFormat("en-u-ca-islamic", { day: "numeric", month: "long", year: "numeric" }).format(new Date()) + " AH";
+    } catch(e) { return "Ramadan, 1447 AH"; }
+}
+function getBikramiDate() {
+    const today = new Date();
+    const day = today.getDate();
+    const bikramiMonths = ["Chet", "Vaisakh", "Jeth", "Harh", "Sawan", "Bhadon", "Assu", "Kattak", "Maghar", "Poh", "Magh", "Phagun"];
+    return `${day} ${bikramiMonths[today.getMonth() % 12]} ${today.getFullYear() + 57} VS`;
+}
+
+/* ==========================================================================
+   WEATHER BAR PIPELINE
+   ========================================================================== */
 function initWeatherBar() {
     const bar = document.getElementById("weather-bar");
-    if (bar) bar.innerHTML = `<span>Zurich: <strong>6°C</strong></span> • <span>Rawalakot: <strong>9°C</strong></span> • <span>Muzaffarabad: <strong>10°C</strong></span>`;
+    if (!bar) return;
+    const cities = [
+        { name: "Zurich", temp: "6°C" }, { name: "Rawalakot", temp: "9°C" },
+        { name: "Jammu", temp: "18°C" }, { name: "Kashmir", temp: "4°C" }, 
+        { name: "Ladakh", temp: "-2°C" }, { name: "Gilgit", temp: "3°C" },
+        { name: "Baltistan", temp: "-1°C" }, { name: "Muzaffarabad", temp: "10°C" }
+    ];
+    bar.innerHTML = cities.map(c => `<span>${c.name}: <strong>${c.temp}</strong></span>`).join('<span class="separator">•</span>');
 }
+
+/* ==========================================================================
+   TICKER & INTERACTION CONTROLS
+   ========================================================================== */
 function initTicker(jsonData) {
     const tickerItems = document.getElementById("ticker-items");
     if (!tickerItems) return;
-    tickerItems.innerHTML = `<span>WE DO NOT MANUFACTURE NARRATIVES --- WE REFLECT REALITY • </span><span>THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH • </span>`;
+    const items = (jsonData && jsonData.ticker) ? jsonData.ticker : [
+        "WE DO NOT MANUFACTURE NARRATIVES --- WE REFLECT REALITY",
+        "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH"
+    ];
+    let html = '';
+    for (let i = 0; i < 2; i++) {
+        items.forEach(item => { html += '<span>' + item + ' • </span>'; });
+    }
+    tickerItems.innerHTML = html;
 }
 function initReadingProgress() {
     const progressBar = document.getElementById('reading-progress');
     if (!progressBar) return;
-    window.addEventListener('scroll', () => {
-        const h = document.documentElement.scrollHeight - window.innerHeight;
-        progressBar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+    window.addEventListener('scroll', function() {
+        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = windowHeight > 0 ? (window.scrollY / windowHeight) * 100 : 0;
+        progressBar.style.width = scrolled + '%';
     });
 }
 function initNav() {
     const hamburger = document.getElementById("hamburger");
     const mobileMenu = document.getElementById("mobile-menu");
     if (hamburger && mobileMenu) {
-        hamburger.addEventListener("click", () => {
+        hamburger.addEventListener("click", function() {
             const hidden = mobileMenu.hidden;
             mobileMenu.hidden = !hidden;
         });
     }
 }
 function initContactModal() {}
+function initDisclosureAutoScroll() {}
 function initVlogs() {}
 function initLanguageSelector() {}
 function initSearch() {}
@@ -96,31 +155,31 @@ function initNewsletter() {}
 function initFooterDropdowns() {}
 
 /* ==========================================================================
-   DYNAMIC HOMEPAGE CONTENT ENGINE (LATEST SECTION LOADED FIRST AT THE TOP)
+   DYNAMIC HOMEPAGE CONTENT INGESTION ENGINE
    ========================================================================== */
 function loadHomepageContent() {
     const cb = "?v=" + new Date().getTime();
     fetch("content/index.json" + cb)
-        .then(r => r.json())
+        .then(r => r.ok ? r.json() : Promise.reject())
         .then(index => {
             initTicker(index);
             
-            // 1. LATEST / EDITORIAL / HISTORICAL GRID (MOVED TO VERY TOP)
+            // 1. Latest / Editorial / Historical Grid (At Top)
             if (index.latestEditorialHistorical) {
                 loadLehSection(index.latestEditorialHistorical);
             } else { loadLehFallback(); }
             
-            // 2. TOP STORIES GRID
+            // 2. Top Stories Grid
             if (index.topStories) {
                 loadTopStories([index.topStories.lead, index.topStories.breaking, index.topStories.opinion]);
             } else { loadTopStoriesFallback(); }
             
-            // 3. SPOTLIGHT, IN FOCUS & TRENDING
+            // 3. Spotlight, In Focus & Trending
             if (index.spotlightFocusTrending) {
                 loadSpotlightSection(index.spotlightFocusTrending);
             }
             
-            // 4. CATEGORY GRIDS
+            // 4. Category Grids
             if (index.jammuKashmir) loadSectionGroup("jk-grid", "jk-archive-grid", index.jammuKashmir, "Jammu Kashmir");
             if (index.international) loadSectionGroup("intl-grid", "intl-archive-grid", index.international, "International Diplomacy");
             if (index.humanRights) loadSectionGroup("hr-grid", "hr-archive-grid", index.humanRights, "Human Rights");
@@ -137,9 +196,7 @@ function loadLehSection(ids) {
     Promise.all(idList.map(id => fetch(`content/${id.toLowerCase()}.json${cb}`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            let activeSlice = validArticles.slice(0, 6);
-            
-            grid.innerHTML = activeSlice.map((a, i) => createHomepageCard(a, a.sectionLabel || "REPORT")).join('');
+            grid.innerHTML = validArticles.slice(0, 6).map((a, i) => createHomepageCard(a, a.sectionLabel || "REPORT")).join('');
         });
 }
 
@@ -150,12 +207,42 @@ function loadTopStories(ids) {
     Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json${cb}`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            grid.innerHTML = validArticles.map(a => createHomepageCard(a)).join('');
+            grid.innerHTML = validArticles.slice(0, 6).map(a => createHomepageCard(a)).join('');
         });
 }
 
-function loadSpotlightSection(config) {}
-function loadSectionGroup(g, ag, ids, label) {}
+function loadSpotlightSection(config) {
+    const topRowIds = config.topRow || ["spotlight-001", "infocus-001", "trending-001"];
+    const container = document.getElementById("spotlight-top-row");
+    if (!container) return;
+    const cb = "?v=" + new Date().getTime();
+    
+    Promise.all(topRowIds.map(id => fetch(`content/${id.toLowerCase()}.json${cb}`).then(r => r.json()).catch(() => null)))
+        .then(articles => {
+            const valid = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
+            container.innerHTML = valid.map(a => `
+                <div class="news-card-badge spotlight-badge">
+                    <span class="card-badge">FEATURED</span>
+                    <div class="media"><img src="${a.heroImage?.src || a.heroImage || 'content/images/img1.jpg'}" alt="${a.title}"></div>
+                    <h3>${a.title}</h3>
+                    <p>${(a.excerpt || a.summary || '').substring(0, 100)}...</p>
+                    <a href="article.html?id=${a.id}" class="btn-red" style="margin-top:auto;">Read More ➔</a>
+                </div>
+            `).join('');
+        });
+}
+
+function loadSectionGroup(gridId, archiveGridId, ids, label) {
+    const grid = document.getElementById(gridId);
+    if (!grid || !ids) return;
+    const cb = "?v=" + new Date().getTime();
+    Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json${cb}`).then(r => r.json()).catch(() => null)))
+        .then(articles => {
+            const valid = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
+            grid.innerHTML = valid.map(a => createHomepageCard(a, label)).join('');
+        });
+}
+
 function loadLehFallback() {}
 function loadTopStoriesFallback() {}
 
@@ -169,23 +256,22 @@ function createHomepageCard(article, label) {
         <article class="card">
             <div class="media"><img src="${image}" alt="${title}" onerror="this.src='https://via.placeholder.com/640x360?text=News'"></div>
             <div class="card-body">
-                ${label ? `<span class="category-label" style="background:#b30000; color:#fff; font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:2px; display:inline-block; margin-bottom:8px;">${label}</span>` : ''}
+                ${label ? `<span class="category-label">${label}</span>` : ''}
                 <h3>${title.substring(0, 80)}</h3>
                 <p>${excerpt.substring(0, 120)}...</p>
-                <div class="card-nav-options" style="margin-top:auto; padding-top:12px; text-align:right;">
-                    <a href="article.html?id=${article.id || ''}" style="background:#b30000; color:#fff; padding:6px 12px; border-radius:4px; text-decoration:none; font-weight:bold; font-size:0.8rem;">Read More ➔</a>
+                <div style="margin-top:auto; text-align:right;">
+                    <a href="article.html?id=${article.id || ''}" class="btn-red">Read More ➔</a>
                 </div>
             </div>
         </article>`;
 }
 
 /* ==========================================================================
-   ARTICLE PAGE RENDERER WITH GUARANTEED BOTTOM ACTION & NAVIGATION BAR
+   ARTICLE PAGE VIEW PIPELINE
    ========================================================================== */
 function initArticlePage() {
     const id = new URLSearchParams(window.location.search).get("id");
     const cb = "?v=" + new Date().getTime();
-    
     if (!id) return;
     
     fetch(`content/${id.toLowerCase()}.json${cb}`)
@@ -213,7 +299,6 @@ function renderFullArticlePage(article) {
     contentEl.style.display = 'block';
     
     document.title = (article.title || "Article") + " | THE MIRROR JAMMU KASHMIR";
-    
     let processedDate = article.date ? new Date(article.date).toLocaleDateString("en-GB", { year: 'numeric', month: 'long', day: 'numeric' }) : '';
     
     contentEl.innerHTML = `
@@ -231,6 +316,7 @@ function renderFullArticlePage(article) {
                 </div>
             </header>
 
+            <!-- HERO IMAGE FULL CONTAINER -->
             ${article.heroImage ? `
                 <figure class="hero-image-container">
                     <img src="${article.heroImage.src || article.heroImage}" alt="${article.title}">
@@ -238,14 +324,15 @@ function renderFullArticlePage(article) {
                 </figure>
             ` : ''}
 
+            <!-- BODY CONTENT WITH 60% INLINE FLOATING IMAGES -->
             <div class="article-body-content">
                 ${renderJSONBody(article.body || article.content)}
             </div>
 
-            <!-- RESTORED COLORED MODERN ACTION BUTTONS -->
+            <!-- ACTION BAR -->
             ${generateArticleActionButtons()}
             
-            <!-- RESTORED PREVIOUS / HOME / NEXT NAVIGATION BAR -->
+            <!-- BOTTOM NAVIGATION -->
             ${generateArticleBottomNavigation(article.navigation)}
         </article>
     `;
@@ -256,18 +343,10 @@ function renderFullArticlePage(article) {
 function generateArticleActionButtons() {
     return `
         <div class="action-bar">
-            <button id="like" data-id="like">
-                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#E63946' stroke='#E63946' stroke-width='2'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg> Like
-            </button>
-            <button id="subscribe" data-id="subscribe">
-                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='#D97706' stroke='#D97706' stroke-width='2'><path d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/><path d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/></svg> Subscribe
-            </button>
-            <button id="share" data-id="share">
-                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#4F46E5' stroke-width='2.5'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' x2='12' y1='2' y2='15'/></svg> Share
-            </button>
-            <button id="copyLink" data-id="copyLink">
-                <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#0D9488' stroke-width='2.5'><rect width='14' height='14' x='8' y='8' rx='2' ry='2'/><path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/></svg> Copy Link
-            </button>
+            <button id="like" data-id="like"><svg width='18' height='18' viewBox='0 0 24 24' fill='#E63946'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg> Like</button>
+            <button id="subscribe" data-id="subscribe"><svg width='18' height='18' viewBox='0 0 24 24' fill='#D97706'><path d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/></svg> Subscribe</button>
+            <button id="share" data-id="share"><svg width='18' height='18' viewBox='0 0 24 24' stroke='#4F46E5' stroke-width='2.5' fill='none'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/></svg> Share</button>
+            <button id="copyLink" data-id="copyLink"><svg width='18' height='18' viewBox='0 0 24 24' stroke='#0D9488' stroke-width='2.5' fill='none'><rect width='14' height='14' x='8' y='8' rx='2'/></svg> Copy Link</button>
         </div>
     `;
 }
@@ -275,56 +354,29 @@ function generateArticleActionButtons() {
 function generateArticleBottomNavigation(nav) {
     const prevUrl = (nav && nav.prev) ? `article.html?id=${nav.prev}` : "index.html";
     const nextUrl = (nav && nav.next) ? `article.html?id=${nav.next}` : "index.html";
-    const prevTitle = (nav && nav.prevTitle) || "Previous Article";
-    const nextTitle = (nav && nav.nextTitle) || "Next Article";
-    
     return `
         <div class="bottom-article-nav">
-            <a href="${prevUrl}" style="color:#b30000; display:inline-flex; align-items:center; gap:6px; max-width:40%;">
-                <div>
-                    <div style="font-size:0.75rem; color:#888; text-transform:uppercase;">← PREVIOUS</div>
-                    <span style="font-size:0.85rem; color:#333; font-weight:normal; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${prevTitle}</span>
-                </div>
-            </a>
-            
-            <a href="index.html" class="bottom-nav-home" title="Return Home">
-                <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='#1F2937' stroke='#1F2937' stroke-width='2'><path d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>
-            </a>
-
-            <a href="${nextUrl}" style="color:#b30000; text-align:right; display:inline-flex; align-items:center; gap:6px; max-width:40%; justify-content:flex-end;">
-                <div>
-                    <div style="font-size:0.75rem; color:#888; text-transform:uppercase;">NEXT →</div>
-                    <span style="font-size:0.85rem; color:#333; font-weight:normal; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${nextTitle}</span>
-                </div>
-            </a>
+            <a href="${prevUrl}" style="color:#b30000;">← PREVIOUS</a>
+            <a href="index.html" class="bottom-nav-home" title="Return Home">🏠</a>
+            <a href="${nextUrl}" style="color:#b30000;">NEXT →</a>
         </div>
     `;
 }
 
 function initSocialButtons() {
-    let liked = false;
     document.addEventListener("click", (e) => {
         const btn = e.target.closest("button");
         if (!btn) return;
         const id = btn.id || btn.getAttribute("data-id");
-        if (id === "like") {
-            liked = !liked;
-            btn.style.backgroundColor = liked ? "#E63946" : "#FFEBEB";
-            btn.style.color = liked ? "#FFFFFF" : "#E63946";
-            alert(liked ? "Thank you for liking!" : "Unliked");
-        } else if (id === "copyLink") {
+        if (id === "like") alert("Thank you for liking!");
+        if (id === "copyLink") {
             navigator.clipboard.writeText(window.location.href);
             alert("Link copied to clipboard!");
-        } else if (id === "share") {
-            if (navigator.share) {
-                navigator.share({ title: document.title, url: window.location.href });
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert("Link copied to clipboard!");
-            }
         }
     });
 }
+
+function addGlobalReadMoreInterceptor() {}
 
 function renderJSONBody(body) {
     if (!body) return '<p>No document text specified.</p>';
@@ -334,11 +386,11 @@ function renderJSONBody(body) {
             switch (block.type) {
                 case 'paragraph': return `<p style="margin-bottom:1.5rem;">${block.text}</p>`;
                 case 'subheading':
-                case 'header': return `<h2 class="mid-subheading" style="color:#b30000; font-family:'Playfair Display',serif; margin-top:2rem; margin-bottom:1rem; font-size:1.6rem; font-weight:700;">${block.text}</h2>`;
-                case 'pullquote': return `<div class="pull-quote" style="font-size:1.25rem; font-weight:600; margin:2rem 0; padding:1.2rem 1.5rem; background:#f9f9f9; border-left:4px solid #b30000; font-style:italic; color:#333;">${block.text}</div>`;
-                case 'points': return `<ul style="margin-bottom:1.5rem; padding-left:20px;">${(block.items || []).map(i => `<li style="margin-bottom:8px;">${i}</li>`).join('')}</ul>`;
+                case 'header': return `<h2 style="color:#b30000; font-family:'Playfair Display',serif; margin:2rem 0 1rem; font-size:1.6rem; font-weight:700;">${block.text}</h2>`;
+                case 'pullquote': return `<div style="font-size:1.25rem; font-weight:600; margin:2rem 0; padding:1.2rem 1.5rem; background:#f9f9f9; border-left:4px solid #b30000; font-style:italic; color:#333;">${block.text}</div>`;
                 case 'image':
-                    return `<figure class="img-center"><img src="${block.src}" alt="Media"><figcaption>${block.caption || ''}</figcaption></figure>`;
+                    const alignClass = block.align === 'left' ? 'img-left' : (block.align === 'right' ? 'img-right' : 'img-center');
+                    return `<figure class="${alignClass}"><img src="${block.src}" alt="Media"><figcaption>${block.caption || ''}</figcaption></figure>`;
                 default: return '';
             }
         }).join('');
