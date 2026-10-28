@@ -8,9 +8,21 @@ document.addEventListener("DOMContentLoaded", function() {
     initWeatherBar(); 
     initTicker();
     initSocialButtons();
+    initNav();
     
     const path = window.location.pathname;
-    if (path.includes("index.html") || path === "/" || path === "") {
+    const urlParams = new URLSearchParams(window.location.search);
+    const articleId = urlParams.get("id");
+
+    // ROUTER logic
+    if (path.includes("article.html") || articleId) {
+        if (!articleId && path.includes("article.html")) {
+            // If user directly opened article.html without ?id=, redirect to homepage
+            window.location.href = "index.html";
+            return;
+        }
+        initArticlePage(articleId);
+    } else {
         loadHomepageContent();
     }
     
@@ -76,6 +88,14 @@ function initTicker() {
     tickerItems.innerHTML = html;
 }
 
+function initNav() {
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (hamburger && mobileMenu) {
+        hamburger.addEventListener("click", () => mobileMenu.hidden = !mobileMenu.hidden);
+    }
+}
+
 function loadHomepageContent() {
     const cb = "?v=" + new Date().getTime();
     fetch("content/index.json" + cb)
@@ -89,11 +109,9 @@ function loadHomepageContent() {
             if (index.humanRights) loadSectionGroup("hr-grid", index.humanRights, "Human Rights");
         });
         
-    // LOAD 9 VLOGS FROM YOUTUBE.JSON
     loadVlogs();
 }
 
-/* 9 WINDOW VIDEO REPORTS & VLOGS (3 ROWS OF 3) */
 function loadVlogs() {
     const grid = document.getElementById("vlogs-grid");
     if (!grid) return;
@@ -191,6 +209,101 @@ function createHomepageCard(article, label) {
                 </div>
             </div>
         </article>`;
+}
+
+async function initArticlePage(articleId) {
+    const loadingDiv = document.getElementById('loading-state');
+    const contentDiv = document.getElementById('content');
+    const cb = "?v=" + new Date().getTime();
+    
+    let articleData = null;
+    
+    try {
+        const response = await fetch(`content/${articleId.toLowerCase()}.json${cb}`);
+        if (response.ok) {
+            const data = await response.json();
+            articleData = data.items ? data.items[0] : data;
+        }
+    } catch (e) { console.warn("Direct fetch failed, trying master..."); }
+    
+    if (!articleData) {
+        try {
+            const response = await fetch(`content/article.json${cb}`);
+            if (response.ok) {
+                const master = await response.json();
+                const items = master.items || master || [];
+                articleData = items.find(a => a.id && a.id.toLowerCase() === articleId.toLowerCase());
+            }
+        } catch (e) { console.error("Master database fetch failed."); }
+    }
+    
+    if (articleData) {
+        renderArticle(articleData);
+    }
+}
+
+function renderArticle(article) {
+    const loadingDiv = document.getElementById('loading-state');
+    const contentDiv = document.getElementById('content');
+    const heroWrap = document.getElementById('heroWrap');
+    const heroImg = document.getElementById('heroImg');
+    const heroCaption = document.getElementById('heroCaption');
+    const titleEl = document.getElementById('title');
+    const sectionLabel = document.getElementById('section-label');
+    const metaEl = document.getElementById('meta');
+    
+    document.title = `${article.title || 'Article'} | THE MIRROR JAMMU KASHMIR`;
+    if (titleEl) titleEl.textContent = article.title || '';
+    if (sectionLabel) sectionLabel.textContent = article.category || article.sectionLabel || 'REPORT';
+    if (metaEl) {
+        let dateStr = article.date ? new Date(article.date).toLocaleDateString("en-GB", { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+        metaEl.innerHTML = `By <strong>${article.author || 'Editorial Desk'}</strong> ${article.location ? '| ' + article.location : ''} | ${dateStr} | ⏱️ ${article.readTime || '5 min read'}`;
+    }
+    
+    if (article.heroImage && heroWrap && heroImg) {
+        let src = typeof article.heroImage === 'string' ? article.heroImage : article.heroImage.src;
+        let cap = article.heroImage.caption || '';
+        if (src) {
+            heroImg.src = src;
+            heroWrap.style.display = 'block';
+            if (heroCaption) heroCaption.textContent = cap;
+        }
+    }
+    
+    if (contentDiv) {
+        contentDiv.innerHTML = renderJSONBody(article.body || article.content);
+        contentDiv.style.display = 'block';
+    }
+    
+    if (article.navigation) {
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        if (prevBtn && article.navigation.prev) prevBtn.href = `article.html?id=${article.navigation.prev}`;
+        if (nextBtn && article.navigation.next) nextBtn.href = `article.html?id=${article.navigation.next}`;
+    }
+    
+    if (loadingDiv) loadingDiv.style.display = 'none';
+}
+
+function renderJSONBody(body) {
+    if (!body) return '<p>No content text provided.</p>';
+    if (typeof body === 'string') return `<p>${body}</p>`;
+    
+    if (Array.isArray(body)) {
+        return body.map(block => {
+            switch (block.type) {
+                case 'paragraph': return `<p style="margin-bottom:1.5rem;">${block.text}</p>`;
+                case 'subheading':
+                case 'header': return `<h2 style="color:#b30000; font-family:'Playfair Display',serif; margin:2rem 0 1rem; font-size:1.6rem; font-weight:700;">${block.text}</h2>`;
+                case 'pullquote': return `<div style="font-size:1.25rem; font-weight:600; margin:2rem 0; padding:1.2rem 1.5rem; background:#f9f9f9; border-left:4px solid #b30000; font-style:italic; color:#333;">${block.text}</div>`;
+                case 'image':
+                    const alignClass = block.align === 'left' ? 'img-left' : (block.align === 'right' ? 'img-right' : 'img-center');
+                    return `<figure class="${alignClass}"><img src="${block.src}" alt="Media"><figcaption>${block.caption || ''}</figcaption></figure>`;
+                default: return '';
+            }
+        }).join('');
+    }
+    return '';
 }
 
 function initSocialButtons() {
