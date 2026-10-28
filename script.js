@@ -1,20 +1,16 @@
 /* ==========================================================================
-   THE MIRROR JAMMU KASHMIR - INTEGRATED PRODUCTION ENGINE
+   THE MIRROR JAMMU KASHMIR - CORE SCRIPT ENGINE
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", function() {
     initLoader();
     initYear();
     initClocks();
     initWeatherBar(); 
-    initNav();
+    initTicker();
+    initSocialButtons();
     
     const path = window.location.pathname;
-    const urlParams = new URLSearchParams(window.location.search);
-    const articleId = urlParams.get("id");
-    
-    if (path.includes("article.html") || articleId) {
-        initArticlePage();
-    } else {
+    if (path.includes("index.html") || path === "/" || path === "") {
         loadHomepageContent();
     }
     
@@ -27,11 +23,14 @@ function initLoader() {
     if (!loader) return;
     setTimeout(() => { loader.style.opacity = "0"; setTimeout(() => loader.style.display = "none", 300); }, 800);
 }
+
 function initYear() {
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
+
 function initClocks() { updateClocks(); }
+
 function updateClocks() {
     const now = new Date();
     const datetimeBar = document.getElementById("datetime-bar");
@@ -39,7 +38,6 @@ function updateClocks() {
     
     const fullDate = now.toLocaleDateString("en-GB", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const zurichTime = now.toLocaleTimeString("en-GB", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit", second: "2-digit" });
-    
     const istTime = now.toLocaleTimeString("en-GB", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit" });
     const pktTime = now.toLocaleTimeString("en-GB", { timeZone: "Asia/Karachi", hour: "2-digit", minute: "2-digit", second: "2-digit" });
     
@@ -59,15 +57,23 @@ function updateClocks() {
 function initWeatherBar() {
     const bar = document.getElementById("weather-bar");
     if (!bar) return;
-    bar.innerHTML = `<span>Zurich: <strong>9°C</strong></span> • <span>Rawalakot: <strong>13°C</strong></span> • <span>Jammu: <strong>15°C</strong></span> • <span>Kashmir: <strong>6°C</strong></span> • <span>Ladakh: <strong>-1°C</strong></span> • <span>Gilgit: <strong>10°C</strong></span> • <span>Baltistan: <strong>7°C</strong></span> • <span>Muzaffarabad: <strong>13°C</strong></span>`;
+    bar.innerHTML = `<span>Zurich: <strong>9°C</strong></span> <span class="separator">•</span> <span>Rawalakot: <strong>13°C</strong></span> <span class="separator">•</span> <span>Jammu: <strong>15°C</strong></span> <span class="separator">•</span> <span>Kashmir: <strong>6°C</strong></span> <span class="separator">•</span> <span>Ladakh: <strong>-1°C</strong></span> <span class="separator">•</span> <span>Gilgit: <strong>10°C</strong></span> <span class="separator">•</span> <span>Baltistan: <strong>7°C</strong></span> <span class="separator">•</span> <span>Muzaffarabad: <strong>13°C</strong></span>`;
 }
 
-function initNav() {
-    const hamburger = document.getElementById("hamburger");
-    const mobileMenu = document.getElementById("mobile-menu");
-    if (hamburger && mobileMenu) {
-        hamburger.addEventListener("click", () => mobileMenu.hidden = !mobileMenu.hidden);
+function initTicker() {
+    const tickerItems = document.getElementById("ticker-items");
+    if (!tickerItems) return;
+    const headlines = [
+        "WE DO NOT MANUFACTURE NARRATIVES --- WE REFLECT REALITY",
+        "THE MIRROR JAMMU KASHMIR HOLDS UP A MIRROR TO POWER, POLICY, HISTORY AND TRUTH",
+        "GOT NEWS, FEEDBACK OR URGENT UPDATES? CONTACT THE MIRROR JAMMU KASHMIR",
+        "FOLLOW US ON YOUTUBE --- THE MIRROR JAMMU KASHMIR --- SUBSCRIBE, LIKE AND SHARE"
+    ];
+    let html = '';
+    for (let i = 0; i < 2; i++) {
+        headlines.forEach(text => { html += `<span>${text} &nbsp;•&nbsp; </span>`; });
     }
+    tickerItems.innerHTML = html;
 }
 
 function loadHomepageContent() {
@@ -82,9 +88,40 @@ function loadHomepageContent() {
             if (index.international) loadSectionGroup("intl-grid", index.international, "International Diplomacy");
             if (index.humanRights) loadSectionGroup("hr-grid", index.humanRights, "Human Rights");
         });
+        
+    // LOAD 9 VLOGS FROM YOUTUBE.JSON
+    loadVlogs();
 }
 
-/* 6 WINDOW SPOTLIGHT ENGINE FIX */
+/* 9 WINDOW VIDEO REPORTS & VLOGS (3 ROWS OF 3) */
+function loadVlogs() {
+    const grid = document.getElementById("vlogs-grid");
+    if (!grid) return;
+    const cb = "?v=" + new Date().getTime();
+    
+    fetch("content/youtube.json" + cb)
+        .then(r => r.json())
+        .then(data => {
+            const videos = data.videos || [];
+            grid.innerHTML = videos.slice(0, 9).map(v => `
+                <article class="card">
+                    <div class="media">
+                        <img src="https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg" alt="${v.title}">
+                        <a href="${v.url}" target="_blank" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#b30000; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; text-decoration:none; font-size:1.2rem;">▶</a>
+                    </div>
+                    <div class="card-body">
+                        <span class="category-label">${v.category || 'VLOG'}</span>
+                        <h3>${v.title}</h3>
+                        <p>${v.description}</p>
+                        <div style="margin-top:auto; text-align:right;">
+                            <a href="${v.url}" target="_blank" style="background:#b30000; color:#fff; padding:6px 12px; border-radius:4px; text-decoration:none; font-weight:bold; font-size:0.8rem;">Watch Video ➔</a>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        });
+}
+
 function loadSpotlightSection(config) {
     const topRowIds = config.topRow || ["spotlight-001", "infocus-001", "trending-001"];
     const bottomRowIds = config.bottomRow || ["spotlight-002", "infocus-002", "trending-002"];
@@ -96,9 +133,7 @@ function loadSpotlightSection(config) {
         Promise.all(rowIds.map(id => fetch(`content/${id.toLowerCase()}.json${cb}`).then(r => r.json()).catch(() => null)))
             .then(articles => {
                 const valid = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-                let html = valid.map(a => createHomepageCard(a)).join('');
-                for (let i = valid.length; i < 3; i++) html += createComingSoonCard("SPOTLIGHT");
-                container.innerHTML = html;
+                container.innerHTML = valid.map(a => createHomepageCard(a)).join('');
             });
     };
     renderRow(topRowIds, "spotlight-top-row");
@@ -138,19 +173,6 @@ function loadSectionGroup(gridId, ids, label) {
         });
 }
 
-function createComingSoonCard(label = "COMING SOON") {
-    return `
-        <article class="card">
-            <div class="media" style="display:flex; align-items:center; justify-content:center; background:#f9f9f9;">
-                <span style="font-weight:bold; color:#888;">${label}</span>
-            </div>
-            <div class="card-body" style="text-align:center;">
-                <h3 style="color:#b30000;">Coming Soon</h3>
-                <p>Ready for new publications.</p>
-            </div>
-        </article>`;
-}
-
 function createHomepageCard(article, label) {
     if (!article) return '';
     const title = article.title || 'Untitled Report';
@@ -171,51 +193,15 @@ function createHomepageCard(article, label) {
         </article>`;
 }
 
-function initArticlePage() {
-    const id = new URLSearchParams(window.location.search).get("id");
-    const cb = "?v=" + new Date().getTime();
-    if (!id) return;
-    
-    fetch(`content/${id.toLowerCase()}.json${cb}`)
-        .then(r => r.json())
-        .then(data => renderFullArticlePage(data.items ? data.items[0] : data));
-}
-
-function renderFullArticlePage(article) {
-    const contentEl = document.getElementById("content") || document.getElementById("article-content") || document.body;
-    if (!contentEl) return;
-    contentEl.style.display = 'block';
-    
-    contentEl.innerHTML = `
-        <article class="prose-container">
-            <h1>${article.title}</h1>
-            ${article.heroImage ? `<figure class="hero-image-container"><img src="${article.heroImage.src || article.heroImage}"></figure>` : ''}
-            <div class="article-body-content">${renderJSONBody(article.body || article.content)}</div>
-            
-            <div class="action-bar">
-                <button id="like" data-id="like">❤️ Like</button>
-                <button id="subscribe" data-id="subscribe">🔔 Subscribe</button>
-                <button id="share" data-id="share">🔗 Share</button>
-                <button id="copyLink" data-id="copyLink">📋 Copy Link</button>
-            </div>
-            
-            <div class="bottom-article-nav">
-                <a href="index.html" style="color:#b30000;">← PREVIOUS</a>
-                <a href="index.html" class="bottom-nav-home">🏠</a>
-                <a href="index.html" style="color:#b30000;">NEXT →</a>
-            </div>
-        </article>`;
-}
-
-function renderJSONBody(body) {
-    if (!body) return '';
-    if (typeof body === 'string') return `<p>${body}</p>`;
-    if (Array.isArray(body)) {
-        return body.map(block => {
-            if (block.type === 'paragraph') return `<p style="margin-bottom:1.5rem;">${block.text}</p>`;
-            if (block.type === 'image') return `<figure class="img-center"><img src="${block.src}"><figcaption>${block.caption || ''}</figcaption></figure>`;
-            return '';
-        }).join('');
-    }
-    return '';
+function initSocialButtons() {
+    document.addEventListener("click", (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+        const id = btn.id || btn.getAttribute("data-id");
+        if (id === "like") alert("Thank you for liking!");
+        if (id === "copyLink") {
+            navigator.clipboard.writeText(window.location.href);
+            alert("Link copied to clipboard!");
+        }
+    });
 }
