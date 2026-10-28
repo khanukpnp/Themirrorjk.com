@@ -1,4 +1,17 @@
 {
+  "latestEditorialHistorical": [
+    "latest-003",
+    "conference-001",
+    "latest-002",
+    "latest-001",
+    "editorial-001",
+    "historical-001"
+  ],
+  "topStories": {
+    "lead": "article-002",
+    "breaking": "breaking-001",
+    "opinion": "blog-001"
+  },
   "spotlightFocusTrending": {
     "topRow": [
       "spotlight-001",
@@ -11,19 +24,6 @@
       "trending-002"
     ]
   },
-  "topStories": {
-    "lead": "article-002",
-    "breaking": "breaking-001",
-    "opinion": "blog-001"
-  },
-  "latestEditorialHistorical": [
-    "latest-003",
-    "conference-001",
-    "latest-002",
-    "latest-001",
-    "editorial-001",
-    "historical-001"
-  ],
   "jammuKashmir": [
     "jk-001",
     "jk-002"
