@@ -1,0 +1,97 @@
+{
+  "items": [
+    {
+      "id": "latest-002",
+      "category": "Latest News",
+      "sectionLabel": "LATEST",
+      "title": "Thousands Mobilize for JAAC 'Long March' to Muzaffarabad Amid Ongoing Security Deployment in Azad Kashmir",
+      "subtitle": "UKPNP invokes Universal Declaration of Human Rights, urging international intervention over reported enforced disappearances and communications blackout.",
+      "excerpt": "Thousands of demonstrators began advancing toward Muzaffarabad as the Joint Awami Action Committee initiated its scheduled Long March across Azad Kashmir...",
+      "summary": "Thousands of demonstrators began advancing toward Muzaffarabad as the Joint Awami Action Committee initiated its scheduled Long March across Azad Kashmir, defying heavy security deployments and telecommunications blockades.",
+      "author": "The Mirror Jammu Kashmir Special Correspondent",
+      "location": "RAWALAKOT / MUZAFFARABAD",
+      "date": "2026-07-15",
+      "readTime": "5 min read",
+      "heroImage": {
+        "src": "content/images/latest-002-hero.png",
+        "alt": "Thousands Mobilize for JAAC Long March to Muzaffarabad",
+        "caption": "Demonstrators converge along primary transit routes heading toward Muzaffarabad despite heavy paramilitary checkpoints and ongoing telecommunications blockades."
+      },
+      "body": [
+        {
+          "type": "paragraph",
+          "text": "RAWALAKOT / MUZAFFARABAD, July 15, 2026 — Thousands of demonstrators began advancing toward Muzaffarabad on Wednesday as the Joint Awami Action Committee (JAAC) initiated its scheduled 'Long March' across Pakistan-administered Azad Kashmir, defying heavy paramilitary deployments and an ongoing telecommunications blockade."
+        },
+        {
+          "type": "paragraph",
+          "text": "Convoys from Rawalakot, Sudhnuti, and surrounding districts converged along primary transit routes heading toward the regional capital. Local human rights groups reported that security forces, including the Frontier Corps (FC), Punjab Rangers, and local police units, have established multi-layered checkpoints to restrict the advance."
+        },
+        {
+          "type": "paragraph",
+          "text": "The United Kashmir People’s National Party (UKPNP) issued a parallel statement from Geneva, warning of a deepening humanitarian crisis and calling on the international community to hold Pakistani authorities accountable to international covenants."
+        },
+        {
+          "type": "subheading",
+          "text": "Allegations of Severe Human Rights Violations"
+        },
+        {
+          "type": "paragraph",
+          "text": "Rights advocates and field observers reported a dramatic escalation in state security measures following the proscription of the JAAC under anti-terrorism laws on June 5:"
+        },
+        {
+          "type": "points",
+          "items": [
+            "<strong>Excessive Use of Force:</strong> Repeated live-fire dispersals, tear gas deployments, and physical clashes have resulted in dozens of civilian fatalities and hundreds of injuries across Poonch and Sudhnuti districts since early June.",
+            "<strong>Enforced Disappearances and Mass Detentions:</strong> Hundreds of political activists, youth leaders, and civil society organizers remain unaccounted for following night raids. Families report a complete lack of information regarding detention facilities or formal legal filings.",
+            "<strong>Withholding of Deceased Bodies:</strong> Local community representatives allege that authorities have delayed or conditioned the release of mortuary remains to prevent public funeral processions, demanding that families sign documentation characterizing the deceased as militant actors.",
+            "<strong>Digital and Physical Siege:</strong> Prolonged blockades of cellular, broadband, and mobile internet infrastructure continue to prevent the flow of information, leaving local populations cut off from emergency healthcare, supply chains, and the global diaspora."
+          ]
+        },
+        {
+          "type": "pullquote",
+          "text": "UKPNP invokes Universal Declaration of Human Rights, urging international intervention over reported enforced disappearances and communications blackout."
+        },
+        {
+          "type": "subheading",
+          "text": "Appeals to Universal Human Rights Frameworks"
+        },
+        {
+          "type": "paragraph",
+          "text": "In its official submission to international monitoring bodies, the UKPNP cited specific articles of the Universal Declaration of Human Rights (UDHR), asserting that current security practices directly violate fundamental international norms:"
+        },
+        {
+          "type": "points",
+          "items": [
+            "<strong>Right to Life (UDHR Article 3):</strong> Demanding an immediate halt to the use of lethal force against nonviolent assemblies.",
+            "<strong>Right to Food and Healthcare (UDHR Article 25):</strong> Calling for the unblocking of supply corridors to alleviate critical shortages of food, clean drinking water, and essential medical supplies caused by road seals.",
+            "<strong>Freedom of Expression & Communication (UDHR Article 19):</strong> Demanding the immediate restoration of mobile and internet networks to uphold the digital right to seek and receive information.",
+            "<strong>Freedom of Movement (UDHR Article 13):</strong> Urging an immediate end to curfews, road blockades, and arbitrary transit restrictions across Azad Kashmir.",
+            "<strong>Right to Peaceful Assembly and Association (UDHR Article 20):</strong> Calling for the immediate revocation of the executive order proscribing the JAAC and restoring the right of civil groups to organize peacefully."
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "UKPNP Urges Immediate UN, EU, and Western Intervention"
+        },
+        {
+          "type": "paragraph",
+          "text": "The UKPNP urged the United Nations, the European Union, the United Kingdom, and the United States to intervene diplomatically to prevent further escalation."
+        },
+        {
+          "type": "paragraph",
+          "text": "The party emphasized that as a UN member state, Pakistan is bound to uphold its commitments under international human rights treaties, including the International Covenant on Civil and Political Rights (ICCPR)."
+        },
+        {
+          "type": "paragraph",
+          "text": "The UKPNP reiterated its call for the Government of Pakistan to immediately suspend military-style security operations, lift administrative bans on civic coalitions, release all arbitrarily detained persons, and return to structured, peaceful negotiations to resolve the fundamental political and socio-economic demands of the Kashmiri people."
+        }
+      ],
+      "navigation": {
+        "prev": "latest-001",
+        "prevTitle": "Dangerous Escalation: US–Israel Strikes on Iran",
+        "next": "editorial-001",
+        "nextTitle": "Brief History of the State of Jammu and Kashmir"
+      }
+    }
+  ]
+}
