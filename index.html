@@ -19,7 +19,8 @@
     <meta name="twitter:description" content="Champion Justice & Amplify the Voices of the Unheard">
     <meta name="twitter:image" content="https://themirrorjk.com/content/images/logo.png">
     
-    <link rel="stylesheet" href="styles.css">
+    <!-- STYLESHEET WITH CACHE BUSTING -->
+    <link rel="stylesheet" href="styles.css?v=3.0">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
@@ -128,7 +129,7 @@
         <!-- MAIN CONTENT -->
         <main class="home-main">
             
-            <!-- 1. TOP STORIES SECTION (MOVED TO TOP POSITION - 6 WINDOWS TOTAL) -->
+            <!-- 1. TOP STORIES SECTION (6 WINDOWS TOTAL) -->
             <section id="top-stories" style="margin-top: 10px;">
                 <h2 class="section-title modern-title">⭐ Top Stories</h2>
                 <div class="cards three" id="top-stories-grid"></div>
@@ -137,8 +138,8 @@
                     <div class="cards three" id="top-stories-archive-grid"></div>
                 </details>
             </section>
-
-            <!-- 2. SPOTLIGHT, IN FOCUS & TRENDING (POSITIONED DIRECTLY AFTER TOP STORIES) -->
+            
+            <!-- 2. SPOTLIGHT, IN FOCUS & TRENDING -->
             <section id="spotlight-focus-trending" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">
                     <span class="icon">⚡</span> Spotlight, In Focus &amp; Trending
@@ -171,7 +172,7 @@
                 </details>
             </section>
 
-            <!-- 5. VIDEO REPORTS & VLOGS (UNTOUCHED - KEPT IN EXACT ORIGINAL POSITION) -->
+            <!-- 5. VIDEO REPORTS & VLOGS -->
             <section id="vlogs" style="margin-top: 40px;">
                 <h2 class="section-title modern-title">🎥 Video Reports &amp; Vlogs</h2>
                 <div class="vlog-toolbar">
@@ -316,6 +317,8 @@
             </div>
         </footer>
     </div>
-    <script src="script.js"></script>
+
+    <!-- SCRIPT WITH CACHE BUSTING PARAMETER -->
+    <script src="script.js?v=3.0"></script>
 </body>
 </html>
