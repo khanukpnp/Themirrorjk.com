@@ -19,108 +19,52 @@
     <meta name="author" content="THE MIRROR JAMMU KASHMIR">
     <title id="page-title">THE MIRROR JAMMU KASHMIR</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Source+Sans+Pro:wght=400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=3.0">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; min-height: 100%; background: white; }
         body { font-family: 'Source Sans Pro', sans-serif; background: white; color: #222; line-height: 1.5; overflow-x: hidden; }
         h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; font-weight: 700; }
+        .page-shell { max-width: 1400px; margin: 0 auto; background: white; width: 100%; }
         #site-loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111; color: #fff; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.3s ease; }
         .loader-inner { text-align: center; width: 300px; }
-        .loader-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; letter-spacing: 0.5px; color: #fff; font-family: 'Playfair Display', serif; }
+        .loader-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; color: #fff; font-family: 'Playfair Display', serif; }
         .loader-bar { width: 100%; height: 3px; background: #333; border-radius: 2px; overflow: hidden; margin-bottom: 12px; }
         .loader-progress { width: 0%; height: 100%; background: #b30000; animation: loader-progress 1.5s ease forwards; }
         @keyframes loader-progress { 0% { width: 0%; } 100% { width: 100%; } }
-        #site-loader p { font-size: 0.85rem; opacity: 0.9; margin-top: 8px; color: #ccc; }
+        #site-loader p { font-size: 0.85rem; color: #ccc; margin-top: 8px; }
         .site-header { text-align: center; padding: 30px 20px 20px; background: white; border-bottom: 2px solid #b30000; width: 100%; }
-        .site-title { font-size: 3rem; font-weight: 900; letter-spacing: -0.5px; color: #000; margin-bottom: 8px; text-transform: uppercase; line-height: 1.2; font-family: 'Playfair Display', serif; }
-        .subheading { font-size: 1.1rem; color: #b30000; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; margin-bottom: 5px; font-family: 'Source Sans Pro', sans-serif; }
+        .site-title { font-size: 3rem; font-weight: 900; color: #000; text-transform: uppercase; font-family: 'Playfair Display', serif; }
+        .subheading { font-size: 1.1rem; color: #b30000; font-weight: 600; text-transform: uppercase; margin-bottom: 5px; }
         .info-bar { background: #f8f8f8; padding: 6px 20px; border-bottom: 1px solid #ddd; font-size: 0.8rem; width: 100%; }
-        .info-items { display: flex; flex-wrap: nowrap; justify-content: center; align-items: center; gap: 8px; max-width: 1400px; margin: 0 auto; overflow-x: auto; padding: 2px 0; white-space: nowrap; }
-        .info-items span { color: #333; white-space: nowrap; font-size: 0.8rem; }
-        .info-items .separator { color: #999; font-weight: 300; font-size: 0.7rem; margin: 0 2px; }
-        .info-items strong { font-weight: 600; color: #b30000; font-size: 0.8rem; }
+        .info-items { display: flex; justify-content: center; align-items: center; gap: 8px; max-width: 1400px; margin: 0 auto; overflow-x: auto; white-space: nowrap; }
+        .info-items span { color: #333; font-size: 0.8rem; }
+        .info-items .separator { color: #999; margin: 0 2px; }
+        .info-items strong { color: #b30000; }
         .weather-bar { background: #fff; border-bottom: 2px solid #b30000; padding: 5px 20px; }
-        .weather-bar .info-items span { display: inline-flex; align-items: center; gap: 2px; font-size: 0.8rem; }
-        .weather-bar .info-items strong { color: #b30000; font-weight: 700; margin-left: 2px; font-size: 0.8rem; }
-        .ticker-wrap { background: #111; color: white; padding: 8px 0; border-bottom: 2px solid #b30000; overflow: hidden; width: 100%; }
-        .ticker { display: flex; align-items: center; white-space: nowrap; max-width: 1400px; margin: 0 auto; position: relative; padding: 0 20px; }
-        .ticker-label { background: #b30000; padding: 4px 14px; font-weight: bold; margin-right: 15px; display: inline-block; font-size: 0.85rem; text-transform: uppercase; z-index: 2; }
+        .ticker-wrap { background: #111; color: white; padding: 8px 0; border-bottom: 2px solid #b30000; overflow: hidden; }
+        .ticker { display: flex; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        .ticker-label { background: #b30000; padding: 4px 14px; font-weight: bold; margin-right: 15px; font-size: 0.85rem; text-transform: uppercase; }
         .ticker-items { display: inline-flex; gap: 40px; animation: ticker-scroll 440s linear infinite; }
-        .ticker-items span { display: inline; font-size: 0.85rem; color: #fff; opacity: 0.95; white-space: nowrap; }
         @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .tools-bar { display: flex; justify-content: flex-end; gap: 15px; padding: 6px 20px; background: #f8f8f8; border-bottom: 1px solid #ddd; width: 100%; }
-        .lang-select { display: flex; align-items: center; gap: 5px; font-size: 0.85rem; }
-        .lang-select select { padding: 3px 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.8rem; background: white; cursor: pointer; }
-        .search { display: flex; }
-        .search input { padding: 3px 10px; border: 1px solid #ddd; border-right: none; border-radius: 4px 0 0 4px; font-size: 0.8rem; width: 180px; }
-        .search button { padding: 3px 12px; background: #b30000; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; font-size: 0.8rem; }
-        .search button:hover { background: #8a0000; }
-        .navbar { background: #800000; border-bottom: 2px solid #b30000; padding: 0; position: relative; width: 100%; }
-        .nav-list { display: flex; list-style: none; justify-content: center; flex-wrap: wrap; max-width: 1400px; margin: 0 auto; padding: 0 10px; }
-        .nav-item { position: relative; border-right: 1px solid #660000; }
-        .nav-item:first-child { border-left: 1px solid #660000; }
-        .nav-btn { display: block; padding: 12px 18px; color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: background-color 0.2s; white-space: nowrap; background: #800000; }
-        .nav-btn:hover { background: #990000; color: white; }
-        .dropdown { display: none; position: absolute; top: 100%; left: 0; background: #222; border: 1px solid #b30000; min-width: 200px; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-        .dropdown.wide { min-width: 250px; }
-        .dropdown a { display: block; padding: 10px 16px; color: white; text-decoration: none; border-bottom: 1px solid #444; font-size: 0.9rem; transition: all 0.2s; }
-        .dropdown a:last-child { border-bottom: none; }
-        .dropdown a:hover { background: #b30000; color: white; padding-left: 22px; }
-        .nav-item:hover .dropdown { display: block; }
-        .hamburger { display: none; width: 100%; padding: 12px; background: #800000; color: white; border: none; font-size: 1rem; font-weight: 600; cursor: pointer; text-align: left; }
-        .hamburger:hover { background: #990000; }
-        .mobile-menu { background: #800000; border-top: 1px solid #660000; padding: 10px 0; }
-        .mobile-menu[hidden] { display: none; }
-        .mobile-menu a { display: block; padding: 12px 20px; color: white; text-decoration: none; border-bottom: 1px solid #660000; background: #800000; }
-        .mobile-menu a:hover { background: #990000; }
-        .article-page { max-width: 900px; margin: 40px auto; padding: 0 20px; background: white; }
-        .category-label { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; color: #b30000; letter-spacing: 0.5px; }
-        #title { font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 15px; font-family: 'Playfair Display', serif; color: #1a1a1a; }
-        .article-meta { font-size: 0.95rem; color: #666; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #e0e0e0; }
-        .article-meta strong { color: #b30000; font-weight: 600; }
-        .hero-image-container { margin-bottom: 30px; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 4px; }
+        .navbar { background: #800000; border-bottom: 2px solid #b30000; }
+        .nav-list { display: flex; list-style: none; justify-content: center; max-width: 1400px; margin: 0 auto; }
+        .nav-btn { display: block; padding: 12px 18px; color: white; text-decoration: none; font-weight: 600; }
+        .article-page { max-width: 850px; margin: 40px auto; padding: 0 20px; background: white; }
+        .category-label { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; color: #b30000; letter-spacing: 1px; }
+        #title { font-size: 2.5rem; font-weight: 900; line-height: 1.25; margin-bottom: 15px; font-family: 'Playfair Display', serif; color: #111; }
+        .article-meta { font-size: 0.9rem; color: #666; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #e0e0e0; }
+        .article-meta strong { color: #111; }
+        .hero-image-container { margin-bottom: 25px; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 4px; }
         #heroImg { width: 100%; height: 100%; object-fit: cover; }
-        #heroCaption { font-size: 0.85rem; color: #666; margin-top: 8px; font-style: italic; }
-        #content { font-family: 'Georgia', serif; line-height: 1.8; color: #333; }
-        #content p { font-size: 1.1rem; margin-bottom: 1.5rem; font-family: 'Georgia', serif; }
-        #content .mid-subheading { font-size: 1.5rem; font-weight: 700; margin: 2rem 0 1rem; font-family: 'Playfair Display', serif; color: #1a1a1a; }
-        #content .pull-quote { font-size: 1.3rem; font-weight: 600; line-height: 1.6; margin: 2rem 0; padding: 1.5rem 2rem; background: #f9f9f9; border-left: 4px solid #b30000; font-family: 'Playfair Display', serif; color: #1a1a1a; font-style: italic; }
-        #content .important-points { background: #f5f5f5; padding: 1.5rem 2rem; margin: 2rem 0; border-radius: 4px; }
-        #content .important-points ul { list-style: none; padding: 0; }
-        #content .important-points li { margin-bottom: 1rem; padding-left: 1.5rem; position: relative; font-size: 1.1rem; }
-        #content .important-points li:before { content: "•"; color: #b30000; font-weight: bold; position: absolute; left: 0; }
-        #content .img-center { width: 100%; margin: 2rem 0; text-align: center; }
-        #content figure { margin: 1.5rem 0; }
-        #content figure img { width: 100%; height: auto; border-radius: 4px; }
-        #content figcaption { font-size: 0.85rem; color: #666; margin-top: 0.5rem; font-style: italic; }
-        .clearfix::after { content: ""; display: table; clear: both; }
+        #heroCaption { font-size: 0.85rem; color: #666; margin-top: 8px; font-style: italic; border-left: 3px solid #b30000; padding-left: 10px; }
+        #content { font-family: 'Source Sans Pro', sans-serif; font-size: 1.15rem; line-height: 1.8; color: #222; }
+        #content p { margin-bottom: 1.5rem; }
+        #content .mid-subheading { font-size: 1.6rem; font-weight: 700; margin: 2rem 0 1rem; font-family: 'Playfair Display', serif; color: #b30000; }
+        #content .pull-quote { font-size: 1.3rem; font-weight: 600; margin: 2rem 0; padding: 1.5rem 2rem; background: #f9f9f9; border-left: 4px solid #b30000; font-style: italic; color: #333; }
         .loading-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; color: #666; }
-        .loading-state .spinner { width: 50px; height: 50px; border: 4px solid #f3f3f3; border-top: 4px solid #b30000; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        .loading-state .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #b30000; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        /* Modern Bottom Interactions Styling */
-        .bottom-toolkit { max-width: 900px; margin: 30px auto; padding: 20px 0; border-top: 2px solid #eee; font-family: 'Source Sans Pro', sans-serif; }
-        .social-row-modern { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 25px; }
-        .sa-btn-modern { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 30px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border: 1px solid #e0e0e0; background: #fff; color: #333; transition: all 0.25s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
-        .sa-btn-modern:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.08); border-color: #b30000; color: #b30000; }
-        .sa-btn-modern svg { width: 18px; height: 18px; fill: currentColor; }
-        
-        .article-timeline-nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 15px 0; gap: 10px; }
-        .timeline-link { text-decoration: none; color: #333; display: flex; flex-direction: column; transition: all 0.2s ease; max-width: 320px; }
-        .timeline-link.prev { align-items: flex-start; text-align: left; }
-        .timeline-link.next { align-items: flex-end; text-align: right; }
-        .timeline-dir { font-size: 0.8rem; text-transform: uppercase; font-weight: 700; color: #b30000; letter-spacing: 1px; margin-bottom: 4px; }
-        .timeline-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.95rem; line-height: 1.3; color: #444; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .timeline-home { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: #f5f5f5; color: #333; text-decoration: none; transition: all 0.2s ease; border: 1px solid #e0e0e0; }
-        .timeline-home:hover { background: #b30000; color: #fff; border-color: #b30000; transform: scale(1.05); }
-        .timeline-home svg { width: 18px; height: 18px; fill: currentColor; }
-        
-        .share-tooltip { position: fixed; bottom: 30px; right: 30px; background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 8px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.15); display: none; z-index: 1000; min-width: 200px; animation: slideUp 0.2s ease; }
-        .share-tooltip.show { display: block; }
-        .share-tooltip a { display: flex; align-items: center; gap: 8px; padding: 10px 16px; color: #333; text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid #f0f0f0; }
-        .share-tooltip a:hover { background: #f5f5f5; color: #b30000; padding-left: 20px; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: #b30000; z-index: 9999; }
         .footer { background: #800000; color: white; text-align: center; padding: 20px; margin-top: 40px; font-size: 0.85rem; }
     </style>
 </head>
@@ -145,67 +89,29 @@
         <div class="ticker-items" id="ticker-items"></div>
     </div>
 </div>
-<div class="tools-bar">
-    <div class="lang-select">
-        <span>🌐</span>
-        <select id="language-select">
-            <option>English</option>
-            <option>اردو</option>
-            <option>हिंदी</option>
-        </select>
-    </div>
-    <form class="search" id="search-form">
-        <input type="text" id="search-input" placeholder="Search...">
-        <button type="submit">🔍</button>
-    </form>
-</div>
 <nav class="navbar">
-    <button class="hamburger" id="hamburger" aria-expanded="false">☰ Menu</button>
-    <ul class="nav-list" id="nav-list">
+    <ul class="nav-list">
         <li class="nav-item"><a href="index.html" class="nav-btn">🏠 Home</a></li>
         <li class="nav-item"><a href="about.html" class="nav-btn">📖 About Us</a></li>
         <li class="nav-item"><a href="chief-editor.html" class="nav-btn">✍️ Chief Editor</a></li>
-        <li class="nav-item has-sub">
-            <a href="#" class="nav-btn">📂 Categories ▼</a>
-            <div class="dropdown wide">
-                <a href="index.html#jammu-kashmir">📍 Jammu Kashmir</a>
-                <a href="index.html#international">🌍 International</a>
-                <a href="index.html#human-rights">❤️ Human Rights</a>
-                <a href="index.html#historical">🏛️ Historical</a>
-                <a href="index.html#editorial">✍️ Editorial</a>
-                <a href="index.html#vlogs">📹 Vlogs</a>
-            </div>
-        </li>
-        <li class="nav-item"><a href="#" class="nav-btn" id="contact-open">📞 Contact</a></li>
     </ul>
-    <div class="mobile-menu" id="mobile-menu" hidden></div>
 </nav>
 
 <main class="article-page">
-    <div id="section-label" class="category-label"></div>
-    <h1 id="title"></h1>
-    <div id="meta" class="article-meta"></div>
     <div id="heroWrap" class="hero-image-container" style="display: none;">
         <img id="heroImg" src="" alt="">
         <div id="heroCaption"></div>
     </div>
+    <div id="section-label" class="category-label"></div>
+    <h1 id="title"></h1>
+    <div id="meta" class="article-meta"></div>
+    
     <div id="loading-state" class="loading-state">
         <div class="spinner"></div>
-        <p>Loading article...</p>
+        <p>Loading document content...</p>
     </div>
-    <div id="content" class="clearfix" style="display: none;"></div>
+    <div id="content" style="display: none;"></div>
 </main>
-
-<div class="share-tooltip" id="share-tooltip">
-    <a href="#" id="share-facebook">📘 Facebook</a>
-    <a href="#" id="share-twitter">🐦 X (Twitter)</a>
-    <a href="#" id="share-whatsapp">📱 WhatsApp</a>
-    <a href="#" id="share-linkedin">🔗 LinkedIn</a>
-    <a href="#" id="share-telegram">✈️ Telegram</a>
-    <a href="#" id="share-reddit">🤖 Reddit</a>
-    <a href="#" id="share-pinterest">📌 Pinterest</a>
-    <a href="#" id="share-email">📧 Email</a>
-</div>
 
 <footer class="footer">
     <p>© <span id="year"></span> THE MIRROR JAMMU KASHMIR. All rights reserved.</p>
@@ -218,175 +124,81 @@ document.addEventListener("DOMContentLoaded", function() {
     updateClocks();
     initWeatherBar();
     initTicker();
-    initNav();
-    initLanguageSelector();
-    initSearch();
-    initReadingProgress();
-    
-    setInterval(updateClocks, 1000);
     
     const params = new URLSearchParams(window.location.search);
     const articleId = params.get("id");
     
     if (articleId) {
-        loadArticle(articleId);
+        loadArticle(articleId.toLowerCase());
     } else {
-        const loadingDiv = document.getElementById('loading-state');
-        const contentDiv = document.getElementById('content');
-        if (loadingDiv) loadingDiv.style.display = 'none';
-        if (contentDiv) {
-            contentDiv.style.display = 'block';
-            contentDiv.innerHTML = '<p style="text-align:center; padding:50px;">No article specified. <a href="index.html">Return to homepage</a></p>';
-        }
+        showError("No target article specified.");
     }
 });
 
 function initLoader() {
     const loader = document.getElementById("site-loader");
-    if (!loader) return;
-    setTimeout(() => {
-        loader.style.opacity = "0";
-        setTimeout(() => loader.style.display = "none", 300);
-    }, 1200);
+    if (loader) setTimeout(() => { loader.style.opacity = "0"; setTimeout(() => loader.style.display = "none", 300); }, 800);
 }
-
 function initYear() {
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
-
 function updateClocks() {
     const now = new Date();
-    const datetimeBar = document.getElementById("datetime-bar");
-    if (!datetimeBar) return;
-    
-    const zurichTime = now.toLocaleTimeString("en-GB", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit", second: "2-digit" });
-    const fullDate = now.toLocaleDateString("en-GB", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    const istTime = now.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit" });
-    const pktTime = now.toLocaleTimeString("en-PK", { timeZone: "Asia/Karachi", hour: "2-digit", minute: "2-digit", second: "2-digit" });
-    
-    datetimeBar.innerHTML = `
-        <span>${fullDate} at ${zurichTime}</span>
-        <span class="separator">•</span>
-        <span>IST (Jammu-Kashmir-Ladakh): <strong>${istTime}</strong></span>
-        <span class="separator">•</span>
-        <span>PKT (Gilgit-Baltistan & Azad Kashmir): <strong>${pktTime}</strong></span>
-    `;
+    const bar = document.getElementById("datetime-bar");
+    if (bar) bar.innerHTML = `<span>${now.toLocaleDateString("en-GB", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`;
 }
-
 function initWeatherBar() {
     const bar = document.getElementById("weather-bar");
-    if (!bar) return;
-    const cities = [
-        { name: "Zurich", temp: "6°C" }, { name: "Rawalakot", temp: "9°C" },
-        { name: "Jammu", temp: "18°C" }, { name: "Kashmir", temp: "4°C" },
-        { name: "Ladakh", temp: "-2°C" }, { name: "Gilgit", temp: "3°C" },
-        { name: "Baltistan", temp: "-1°C" }, { name: "Muzaffarabad", temp: "10°C" }
-    ];
-    bar.innerHTML = cities.map((c, i) => 
-        `<span>${c.name}: <strong>${c.temp}</strong></span>${i < cities.length - 1 ? '<span class="separator">•</span>' : ''}`
-    ).join('');
+    if (bar) bar.innerHTML = `<span>Zurich: <strong>6°C</strong></span> • <span>Rawalakot: <strong>9°C</strong></span> • <span>Muzaffarabad: <strong>10°C</strong></span>`;
 }
-
-const TICKER_ITEMS = [
-    "THE MIRROR JAMMU KASHMIR --- DEDICATED TO TRUTH, JUSTICE AND HUMAN DIGNITY",
-    "OUR MISSION: CHAMPION JUSTICE AND SPEAK TRUTH WITHOUT FEAR",
-    "ALL HUMAN BEINGS ARE BORN FREE AND EQUAL IN DIGNITY AND RIGHTS --- UDHR ARTICLE 1"
-];
-
 function initTicker() {
-    const tickerItems = document.getElementById("ticker-items");
-    if (!tickerItems) return;
-    tickerItems.innerHTML = TICKER_ITEMS.concat(TICKER_ITEMS).map(item => `<span>${item} • </span>`).join('');
-}
-
-function initReadingProgress() {
-    const progressBar = document.getElementById('reading-progress');
-    if (!progressBar) return;
-    window.addEventListener('scroll', () => {
-        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrolled = (windowHeight > 0) ? (window.scrollY / windowHeight) * 100 : 0;
-        progressBar.style.width = scrolled + '%';
-    });
-}
-
-function initNav() {
-    const hamburger = document.getElementById("hamburger");
-    const navList = document.getElementById("nav-list");
-    const mobileMenu = document.getElementById("mobile-menu");
-    if (!hamburger || !navList || !mobileMenu) return;
-    hamburger.addEventListener("click", () => {
-        const expanded = hamburger.getAttribute("aria-expanded") === "true";
-        hamburger.setAttribute("aria-expanded", String(!expanded));
-        mobileMenu.hidden = expanded;
-        if (!expanded) mobileMenu.innerHTML = navList.innerHTML;
-    });
-}
-
-function initLanguageSelector() {
-    const select = document.getElementById("language-select");
-    if (!select) return;
-    select.addEventListener("change", (e) => alert("Language changed to " + e.target.options[e.target.selectedIndex].text));
-}
-
-function initSearch() {
-    const searchForm = document.getElementById("search-form");
-    const searchInput = document.getElementById("search-input");
-    if (!searchForm || !searchInput) return;
-    searchForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        if (searchInput.value.trim()) alert("Searching for: " + searchInput.value.trim());
-    });
+    const items = document.getElementById("ticker-items");
+    if (items) items.innerHTML = `<span>THE MIRROR JAMMU KASHMIR --- CHAMPION JUSTICE & AMPLIFY UNHEARD VOICES • </span>`;
 }
 
 async function loadArticle(articleId) {
     const loadingDiv = document.getElementById('loading-state');
     const contentDiv = document.getElementById('content');
-    const heroWrap = document.getElementById('heroWrap');
-    
-    if (loadingDiv) loadingDiv.style.display = 'flex';
-    if (contentDiv) contentDiv.style.display = 'none';
-    if (heroWrap) heroWrap.style.display = 'none';
+    const cb = "?v=" + new Date().getTime(); // Cache buster
     
     let articleData = null;
-    const pathsToTry = [`content/${articleId}.json`, `./content/${articleId}.json`, `/content/${articleId}.json`];
     
-    for (const path of pathsToTry) {
-        try {
-            const response = await fetch(path);
-            if (response.ok) {
-                let data = await response.json();
-                articleData = (data.items && Array.isArray(data.items)) ? data.items[0] : (Array.isArray(data) ? data[0] : data);
-                break;
-            }
-        } catch (e) {}
-    }
-    
-    if (!articleData) {
-        try {
-            const response = await fetch("content/article.json");
-            if (response.ok) {
-                const masterData = await response.json();
-                const articlesList = masterData.items || masterData || [];
-                articleData = articlesList.find(item => item.id === articleId);
-            }
-        } catch (e) {}
-    }
-    
-    if (!articleData) {
-        if (loadingDiv) loadingDiv.style.display = 'none';
-        if (contentDiv) {
-            contentDiv.style.display = 'block';
-            contentDiv.innerHTML = `<p style="text-align:center; padding:50px;">Article not found. <a href="index.html">Return to homepage</a></p>`;
+    // 1. Fetch direct JSON file from content/
+    try {
+        const response = await fetch(`content/${articleId}.json${cb}`);
+        if (response.ok) {
+            const data = await response.json();
+            articleData = data.items ? data.items[0] : data;
         }
+    } catch (e) {
+        console.warn("Direct JSON fetch failed, checking master array...");
+    }
+    
+    // 2. Fallback: Search inside master article array if direct fetch fails
+    if (!articleData) {
+        try {
+            const response = await fetch(`content/article.json${cb}`);
+            if (response.ok) {
+                const master = await response.json();
+                const items = master.items || master || [];
+                articleData = items.find(a => a.id && a.id.toLowerCase() === articleId);
+            }
+        } catch (e) {
+            console.error("Master database fetch failed.");
+        }
+    }
+
+    if (!articleData) {
+        showError(`Article target "${articleId}" could not be loaded.`);
         return;
     }
-    
-    renderFullArticlePage(articleData);
-    initSocialButtons(articleId, articleData.title);
+
+    renderArticle(articleData);
 }
 
-function renderFullArticlePage(article) {
+function renderArticle(article) {
+    const loadingDiv = document.getElementById('loading-state');
     const contentDiv = document.getElementById('content');
     const heroWrap = document.getElementById('heroWrap');
     const heroImg = document.getElementById('heroImg');
@@ -394,92 +206,50 @@ function renderFullArticlePage(article) {
     const titleEl = document.getElementById('title');
     const sectionLabel = document.getElementById('section-label');
     const metaEl = document.getElementById('meta');
-    const loadingDiv = document.getElementById('loading-state');
-    
-    if (titleEl) titleEl.textContent = article.title || 'Untitled';
-    if (sectionLabel) sectionLabel.textContent = article.sectionLabel || article.category || 'ARTICLE';
-    
+
+    document.title = `${article.title || 'Article'} | THE MIRROR JAMMU KASHMIR`;
+
+    if (titleEl) titleEl.textContent = article.title || '';
+    if (sectionLabel) sectionLabel.textContent = article.category || article.sectionLabel || 'REPORT';
+
     if (metaEl) {
-        let metaHtml = '';
-        if (article.location) metaHtml += `<strong>${article.location}</strong> `;
-        if (article.date) {
-            const formattedDate = new Date(article.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
-            metaHtml += `| Published: ${formattedDate} `;
-        }
-        if (article.author) metaHtml += `| By <strong>${article.author}</strong> `;
-        if (article.readTime) metaHtml += `| ⏱️ ${article.readTime}`;
-        metaEl.innerHTML = metaHtml;
+        let dateStr = article.date ? new Date(article.date).toLocaleDateString("en-GB", { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+        metaEl.innerHTML = `By <strong>${article.author || 'Editorial Desk'}</strong> ${article.location ? '| ' + article.location : ''} | ${dateStr} | ⏱️ ${article.readTime || '5 min read'}`;
     }
-    
-    if (heroWrap && heroImg && article.heroImage) {
-        const imgSrc = typeof article.heroImage === 'string' ? article.heroImage : article.heroImage.src;
-        const captionText = article.heroImage.caption || '';
-        if (imgSrc) {
-            heroImg.src = imgSrc;
-            heroImg.alt = article.title || '';
+
+    if (article.heroImage && heroWrap && heroImg) {
+        let src = typeof article.heroImage === 'string' ? article.heroImage : article.heroImage.src;
+        let cap = article.heroImage.caption || '';
+        if (src) {
+            heroImg.src = src;
             heroWrap.style.display = 'block';
-            if (heroCaption) {
-                heroCaption.textContent = captionText;
-                heroCaption.style.display = captionText ? 'block' : 'none';
-            }
+            if (heroCaption) heroCaption.textContent = cap;
         }
     }
-    
+
     if (contentDiv) {
-        let bodyHtml = renderJSONBody(article.body || article.content);
-        
-        // Navigation targets resolution
-        const prevUrl = article.bottomNavigation?.previous?.url || (article.navigation?.prev ? `article.html?id=${article.navigation.prev}` : 'index.html');
-        const prevTitle = article.bottomNavigation?.previous?.title || article.navigation?.prevTitle || 'Previous Article';
-        const nextUrl = article.bottomNavigation?.next?.url || (article.navigation?.next ? `article.html?id=${article.navigation.next}` : 'index.html');
-        const nextTitle = article.bottomNavigation?.next?.title || article.navigation?.nextTitle || 'Next Article';
-
-        bodyHtml += `
-            <div class="bottom-toolkit">
-                <div class="social-row-modern">
-                    <button class="sa-btn-modern" id="action-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Like</button>
-                    <button class="sa-btn-modern" id="action-subscribe"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1-1.5-1s-1.5.17-1.5 1v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg> Subscribe</button>
-                    <button class="sa-btn-modern" id="action-share"><svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg> Share</button>
-                    <button class="sa-btn-modern" id="action-copy"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copy Link</button>
-                </div>
-                
-                <div class="article-timeline-nav">
-                    <a href="${prevUrl}" class="timeline-link prev">
-                        <span class="timeline-dir">← PREVIOUS</span>
-                        <span class="timeline-title">${prevTitle}</span>
-                    </a>
-                    <a href="index.html" class="timeline-home" title="Return to Homepage">
-                        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                    </a>
-                    <a href="${nextUrl}" class="timeline-link next">
-                        <span class="timeline-dir">NEXT →</span>
-                        <span class="timeline-title">${nextTitle}</span>
-                    </a>
-                </div>
-            </div>
-        `;
-
-        contentDiv.innerHTML = bodyHtml;
+        contentDiv.innerHTML = renderJSONBody(article.body || article.content);
         contentDiv.style.display = 'block';
     }
-    
+
     if (loadingDiv) loadingDiv.style.display = 'none';
 }
 
-function renderJSONBody(bodyData) {
-    if (!bodyData) return '<p>No content available.</p>';
-    if (typeof bodyData === 'string') return `<p>${bodyData}</p>`;
+function renderJSONBody(body) {
+    if (!body) return '<p>No content text provided.</p>';
+    if (typeof body === 'string') return `<p>${body}</p>`;
     
-    if (Array.isArray(bodyData)) {
-        return bodyData.map(block => {
+    if (Array.isArray(body)) {
+        return body.map(block => {
             switch (block.type) {
                 case 'paragraph': return `<p>${block.text}</p>`;
                 case 'subheading':
                 case 'header': return `<h2 class="mid-subheading">${block.text}</h2>`;
                 case 'pullquote': return `<div class="pull-quote">${block.text}</div>`;
-                case 'points': return `<div class="important-points"><ul>${block.items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
+                case 'points':
+                    return `<ul>${(block.items || []).map(i => `<li>${i}</li>`).join('')}</ul>`;
                 case 'image':
-                    return `<figure class="img-center"><img src="${block.src}" alt=""><figcaption>${block.caption || ''}</figcaption></figure>`;
+                    return `<figure><img src="${block.src}" alt="Media"><figcaption>${block.caption || ''}</figcaption></figure>`;
                 default: return '';
             }
         }).join('');
@@ -487,39 +257,14 @@ function renderJSONBody(bodyData) {
     return '';
 }
 
-function initSocialButtons(articleId, title) {
-    const likeBtn = document.getElementById("action-like");
-    const subBtn = document.getElementById("action-subscribe");
-    const shareBtn = document.getElementById("action-share");
-    const copyBtn = document.getElementById("action-copy");
-    
-    if (likeBtn) likeBtn.onclick = function() { alert("Thank you for liking this article!"); };
-    if (subBtn) subBtn.onclick = function() { alert("Thank you for subscribing to The Mirror Jammu Kashmir!"); };
-    if (copyBtn) copyBtn.onclick = function() {
-        navigator.clipboard.writeText(window.location.href)
-            .then(() => alert("Link successfully copied!"))
-            .catch(() => alert("Failed to copy link."));
-    };
-    
-    if (shareBtn) {
-        shareBtn.onclick = function(e) {
-            e.stopPropagation();
-            const tooltip = document.getElementById("share-tooltip");
-            if (tooltip) {
-                tooltip.classList.toggle("show");
-                const shareUrl = encodeURIComponent(window.location.href);
-                const shareTitle = encodeURIComponent(title);
-                document.getElementById("share-facebook").href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
-                document.getElementById("share-twitter").href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}`;
-                document.getElementById("share-whatsapp").href = `https://api.whatsapp.com/send?text=${shareTitle}%20${shareUrl}`;
-            }
-        };
+function showError(msg) {
+    const loadingDiv = document.getElementById('loading-state');
+    const contentDiv = document.getElementById('content');
+    if (loadingDiv) loadingDiv.style.display = 'none';
+    if (contentDiv) {
+        contentDiv.style.display = 'block';
+        contentDiv.innerHTML = `<div style="text-align:center; padding:40px;"><h3 style="color:#b30000;">Publication Loading Error</h3><p style="color:#666; margin:10px 0;">${msg}</p><a href="index.html" style="display:inline-block; margin-top:15px; background:#b30000; color:#fff; padding:8px 16px; border-radius:4px; text-decoration:none;">Return to Homepage</a></div>`;
     }
-    
-    document.addEventListener("click", () => {
-        const tooltip = document.getElementById("share-tooltip");
-        if (tooltip) tooltip.classList.remove("show");
-    });
 }
 </script>
 </body>
