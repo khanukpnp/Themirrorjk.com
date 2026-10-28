@@ -16,11 +16,14 @@
     "breaking": "breaking-001",
     "opinion": "blog-001"
   },
-  "latestEditorialHistorical": {
-    "latest": "latest-001",
-    "editorial": "editorial-001",
-    "historical": "historical-001"
-  },
+  "latestEditorialHistorical": [
+    "latest-003",
+    "conference-001",
+    "latest-002",
+    "latest-001",
+    "editorial-001",
+    "historical-001"
+  ],
   "jammuKashmir": [
     "jk-001",
     "jk-002"
