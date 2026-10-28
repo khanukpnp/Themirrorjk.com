@@ -4,7 +4,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM fully loaded - initializing application architecture...");
     
-    // Core Components
+    // Core Mechanical Components
     initLoader();
     initYear();
     initClocks();
@@ -43,9 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
     setInterval(initWeatherBar, 900000);
 });
 
-/* ==========================================================================
-   LOADER & CLOCK CALENDARS
-   ========================================================================== */
+/* LOADER & TIME CALENDARS */
 function initLoader() {
     const loader = document.getElementById("site-loader");
     if (!loader) return;
@@ -95,9 +93,7 @@ function getBikramiDate() {
     return `${day} ${bikramiMonths[today.getMonth() % 12]} ${today.getFullYear() + 57} VS`;
 }
 
-/* ==========================================================================
-   WEATHER BAR PIPELINE
-   ========================================================================== */
+/* WEATHER BAR PIPELINE */
 function initWeatherBar() {
     const bar = document.getElementById("weather-bar");
     if (!bar) return;
@@ -110,9 +106,7 @@ function initWeatherBar() {
     bar.innerHTML = cities.map(c => `<span>${c.name}: <strong>${c.temp}</strong></span>`).join('<span class="separator">•</span>');
 }
 
-/* ==========================================================================
-   TICKER & INTERACTION CONTROLS
-   ========================================================================== */
+/* TICKER & INTERACTION CONTROLS */
 function initTicker(jsonData) {
     const tickerItems = document.getElementById("ticker-items");
     if (!tickerItems) return;
@@ -154,9 +148,7 @@ function initFileUpload() {}
 function initNewsletter() {}
 function initFooterDropdowns() {}
 
-/* ==========================================================================
-   DYNAMIC HOMEPAGE CONTENT INGESTION ENGINE
-   ========================================================================== */
+/* HOMEPAGE INGESTION ENGINE */
 function loadHomepageContent() {
     const cb = "?v=" + new Date().getTime();
     fetch("content/index.json" + cb)
@@ -164,15 +156,15 @@ function loadHomepageContent() {
         .then(index => {
             initTicker(index);
             
-            // 1. Latest / Editorial / Historical Grid (At Top)
+            // 1. Latest / Editorial / Historical (At Top)
             if (index.latestEditorialHistorical) {
                 loadLehSection(index.latestEditorialHistorical);
-            } else { loadLehFallback(); }
+            }
             
             // 2. Top Stories Grid
             if (index.topStories) {
                 loadTopStories([index.topStories.lead, index.topStories.breaking, index.topStories.opinion]);
-            } else { loadTopStoriesFallback(); }
+            }
             
             // 3. Spotlight, In Focus & Trending
             if (index.spotlightFocusTrending) {
@@ -196,7 +188,11 @@ function loadLehSection(ids) {
     Promise.all(idList.map(id => fetch(`content/${id.toLowerCase()}.json${cb}`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            grid.innerHTML = validArticles.slice(0, 6).map((a, i) => createHomepageCard(a, a.sectionLabel || "REPORT")).join('');
+            let cardsHtml = validArticles.slice(0, 6).map((a, i) => createHomepageCard(a, a.sectionLabel || "REPORT")).join('');
+            for (let i = validArticles.length; i < 6; i++) {
+                cardsHtml += createComingSoonCard("COMING SOON");
+            }
+            grid.innerHTML = cardsHtml;
         });
 }
 
@@ -207,29 +203,42 @@ function loadTopStories(ids) {
     Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json${cb}`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            grid.innerHTML = validArticles.slice(0, 6).map(a => createHomepageCard(a)).join('');
+            let cardsHtml = validArticles.slice(0, 6).map(a => createHomepageCard(a)).join('');
+            for (let i = validArticles.length; i < 6; i++) {
+                cardsHtml += createComingSoonCard("TOP STORY UPDATE");
+            }
+            grid.innerHTML = cardsHtml;
         });
 }
 
 function loadSpotlightSection(config) {
     const topRowIds = config.topRow || ["spotlight-001", "infocus-001", "trending-001"];
-    const container = document.getElementById("spotlight-top-row");
-    if (!container) return;
+    const bottomRowIds = config.bottomRow || ["spotlight-002", "infocus-002", "trending-002"];
     const cb = "?v=" + new Date().getTime();
     
-    Promise.all(topRowIds.map(id => fetch(`content/${id.toLowerCase()}.json${cb}`).then(r => r.json()).catch(() => null)))
-        .then(articles => {
-            const valid = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            container.innerHTML = valid.map(a => `
-                <div class="news-card-badge spotlight-badge">
-                    <span class="card-badge">FEATURED</span>
-                    <div class="media"><img src="${a.heroImage?.src || a.heroImage || 'content/images/img1.jpg'}" alt="${a.title}"></div>
-                    <h3>${a.title}</h3>
-                    <p>${(a.excerpt || a.summary || '').substring(0, 100)}...</p>
-                    <a href="article.html?id=${a.id}" class="btn-red" style="margin-top:auto;">Read More ➔</a>
-                </div>
-            `).join('');
-        });
+    const renderRow = (rowIds, containerId) => {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        Promise.all(rowIds.map(id => fetch(`content/${id.toLowerCase()}.json${cb}`).then(r => r.json()).catch(() => null)))
+            .then(articles => {
+                const valid = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
+                let cardsHtml = valid.map(a => `
+                    <div class="news-card-badge spotlight-badge">
+                        <span class="card-badge">FEATURED</span>
+                        <div class="media"><img src="${a.heroImage?.src || a.heroImage || 'content/images/img1.jpg'}" alt="${a.title}"></div>
+                        <h3>${a.title}</h3>
+                        <p>${(a.excerpt || a.summary || '').substring(0, 100)}...</p>
+                        <a href="article.html?id=${a.id}" class="btn-red" style="margin-top:auto;">Read More ➔</a>
+                    </div>
+                `).join('');
+                for (let i = valid.length; i < 3; i++) {
+                    cardsHtml += createComingSoonCard("SPOTLIGHT UPDATE");
+                }
+                container.innerHTML = cardsHtml;
+            });
+    };
+    renderRow(topRowIds, "spotlight-top-row");
+    renderRow(bottomRowIds, "spotlight-bottom-row");
 }
 
 function loadSectionGroup(gridId, archiveGridId, ids, label) {
@@ -239,12 +248,27 @@ function loadSectionGroup(gridId, archiveGridId, ids, label) {
     Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json${cb}`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const valid = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            grid.innerHTML = valid.map(a => createHomepageCard(a, label)).join('');
+            let cardsHtml = valid.map(a => createHomepageCard(a, label)).join('');
+            for (let i = valid.length; i < 6; i++) {
+                cardsHtml += createComingSoonCard(`${label} UPDATE`);
+            }
+            grid.innerHTML = cardsHtml;
         });
 }
 
-function loadLehFallback() {}
-function loadTopStoriesFallback() {}
+function createComingSoonCard(customLabel = "Upcoming Feature") {
+    return `
+        <article class="card coming-soon-card">
+            <div class="media empty-media" style="display:flex; align-items:center; justify-content:center; background:#f9f9f9; height:180px;">
+                <span class="coming-soon-badge">${customLabel.toUpperCase()}</span>
+            </div>
+            <div class="card-body" style="text-align: center; justify-content: center;">
+                <h3 style="color: #b30000; font-size: 1.15rem; margin-bottom: 6px;">Coming Soon</h3>
+                <p style="color: #666; font-style: italic; font-size: 0.9rem;">Ready for new publications.</p>
+            </div>
+        </article>
+    `;
+}
 
 function createHomepageCard(article, label) {
     if (!article) return '';
@@ -266,9 +290,7 @@ function createHomepageCard(article, label) {
         </article>`;
 }
 
-/* ==========================================================================
-   ARTICLE PAGE VIEW PIPELINE
-   ========================================================================== */
+/* ARTICLE PAGE PIPELINE */
 function initArticlePage() {
     const id = new URLSearchParams(window.location.search).get("id");
     const cb = "?v=" + new Date().getTime();
@@ -316,7 +338,7 @@ function renderFullArticlePage(article) {
                 </div>
             </header>
 
-            <!-- HERO IMAGE FULL CONTAINER -->
+            <!-- HERO IMAGE CONTAINER -->
             ${article.heroImage ? `
                 <figure class="hero-image-container">
                     <img src="${article.heroImage.src || article.heroImage}" alt="${article.title}">
@@ -324,7 +346,7 @@ function renderFullArticlePage(article) {
                 </figure>
             ` : ''}
 
-            <!-- BODY CONTENT WITH 60% INLINE FLOATING IMAGES -->
+            <!-- BODY CONTENT WITH FLOATING IMAGES (60%) -->
             <div class="article-body-content">
                 ${renderJSONBody(article.body || article.content)}
             </div>
