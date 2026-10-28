@@ -309,12 +309,8 @@ function renderVlogs(videos, mainGrid, archiveGrid) {
                 </div>
             </article>`;
     };
-
-    // Render 9 main video windows across 3 rows
     const activeSlice = videos.slice(0, 9);
     mainGrid.innerHTML = activeSlice.map(mapHtml).join('');
-
-    // Remaining existing vlogs push down to archive disclosure
     const archivedVlogs = videos.slice(9);
     if (archiveGrid) {
         archiveGrid.innerHTML = archivedVlogs.length ? archivedVlogs.map(mapHtml).join('') : '<p style="padding:15px; color:#666;">No older vlogs archived.</p>';
@@ -449,7 +445,7 @@ function loadHomepageContent() {
                     index.topStories.opinion
                 ]);
             } else { loadTopStoriesFallback(); }
-
+            
             // 2. Spotlight, In Focus & Trending
             if (index.spotlightFocusTrending) {
                 loadSpotlightSection(index.spotlightFocusTrending);
@@ -459,14 +455,10 @@ function loadHomepageContent() {
                     bottomRow: ["spotlight-002", "infocus-002", "trending-002"]
                 });
             }
-
+            
             // 3. Latest / Editorial / Historical Grid
             if (index.latestEditorialHistorical) {
-                loadLehSection([
-                    index.latestEditorialHistorical.latest, 
-                    index.latestEditorialHistorical.editorial, 
-                    index.latestEditorialHistorical.historical
-                ]);
+                loadLehSection(index.latestEditorialHistorical);
             } else { loadLehFallback(); }
             
             // 4. Category Grids
@@ -536,26 +528,19 @@ function loadTopStories(ids) {
     const grid = document.getElementById("top-stories-grid");
     const archiveGrid = document.getElementById("top-stories-archive-grid");
     if (!grid) return;
-
     Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
             
-            // Empty slot sits top-left
             let cardsHtml = createComingSoonCard("NEW TOP STORY");
-            
-            // Render up to 5 published articles into the 6 main windows
             const activeArticles = validArticles.slice(0, 5);
             cardsHtml += activeArticles.map(a => createHomepageCard(a)).join('');
-
-            // Fill remaining main slots with Coming Soon if total is under 6
+            
             for (let i = 1 + activeArticles.length; i < 6; i++) {
                 cardsHtml += createComingSoonCard("TOP STORY UPDATE");
             }
-
             grid.innerHTML = cardsHtml;
-
-            // 6th item onwards goes into the expandable archive
+            
             const archiveSlice = validArticles.slice(5);
             if (archiveGrid) {
                 archiveGrid.innerHTML = archiveSlice.length 
@@ -565,11 +550,9 @@ function loadTopStories(ids) {
         })
         .catch(() => loadTopStoriesFallback());
 }
-
 function loadTopStoriesFallback() {
     const grid = document.getElementById("top-stories-grid");
     if (!grid) return;
-
     let html = createComingSoonCard("NEW TOP STORY");
     html += `
         <article class="card">
@@ -599,7 +582,6 @@ function loadTopStoriesFallback() {
     `;
     html += createComingSoonCard("TOP STORY UPDATE");
     html += createComingSoonCard("TOP STORY UPDATE");
-
     grid.innerHTML = html;
 }
 
@@ -617,14 +599,11 @@ function loadSectionGroup(gridId, archiveGridId, ids, label) {
             let activeSlice = validArticles.slice(0, 5);
             let archiveSlice = validArticles.slice(5);
             
-            // Empty slot sits top-left
             let cardsHtml = createComingSoonCard(`New ${label} Entry`);
             cardsHtml += activeSlice.map(a => createHomepageCard(a)).join('');
-
             for (let i = 1 + activeSlice.length; i < 6; i++) {
                 cardsHtml += createComingSoonCard(`New ${label} Entry`);
             }
-
             grid.innerHTML = cardsHtml;
             if (archiveGrid) {
                 archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : `<p style="padding:15px; color:#666;">No older ${label} entries archived.</p>`;
@@ -636,23 +615,35 @@ function loadLehSection(ids) {
     const grid = document.getElementById("leh-grid");
     const archiveGrid = document.getElementById("leh-archive-grid");
     if (!grid) return;
-    const labels = ["LATEST", "EDITORIAL", "HISTORICAL", "LATEST UPDATE", "EDITORIAL DIGEST", "HISTORICAL ARCHIVE"];
-    Promise.all(ids.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
+    
+    // Support both Array and Object mappings from index.json
+    const idList = Array.isArray(ids) ? ids : Object.values(ids || {});
+    const labels = ["LATEST", "CONFERENCE", "LATEST NEWS", "EDITORIAL", "HISTORICAL", "ARCHIVE"];
+    
+    Promise.all(idList.map(id => fetch(`content/${id.toLowerCase()}.json`).then(r => r.json()).catch(() => null)))
         .then(articles => {
             const validArticles = articles.filter(Boolean).map(a => a.items ? a.items[0] : a);
-            let activeSlice = validArticles.slice(0, 5);
-            let archiveSlice = validArticles.slice(5);
             
-            let cardsHtml = createComingSoonCard("NEW PUBLICATION");
-            cardsHtml += activeSlice.map((a, i) => createHomepageCard(a, labels[i])).join('');
+            let activeSlice = validArticles.slice(0, 6);
+            let archiveSlice = validArticles.slice(6);
+            
+            // Render articles starting from Window 1 (Top-Left)
+            let cardsHtml = activeSlice.map((a, i) => {
+                const itemLabel = a.sectionLabel || a.category || labels[i] || "REPORT";
+                return createHomepageCard(a, itemLabel);
+            }).join('');
 
-            for (let i = 1 + activeSlice.length; i < 6; i++) {
-                cardsHtml += createComingSoonCard("COMING SOON");
+            // Fill remaining empty windows with Coming Soon placeholders if total is under 6
+            for (let i = activeSlice.length; i < 6; i++) {
+                cardsHtml += createComingSoonCard(labels[i] || "COMING SOON");
             }
 
             grid.innerHTML = cardsHtml;
+            
             if (archiveGrid) {
-                archiveGrid.innerHTML = archiveSlice.length ? archiveSlice.map(a => createHomepageCard(a)).join('') : '<p style="padding:15px; color:#666;">No older updates archived.</p>';
+                archiveGrid.innerHTML = archiveSlice.length 
+                    ? archiveSlice.map(a => createHomepageCard(a)).join('') 
+                    : '<p style="padding:15px; color:#666;">No older updates archived.</p>';
             }
         })
         .catch(() => loadLehFallback());
@@ -661,8 +652,7 @@ function loadLehSection(ids) {
 function loadLehFallback() {
     const grid = document.getElementById("leh-grid");
     if (!grid) return;
-    let html = createComingSoonCard("NEW PUBLICATION");
-    html += `
+    let html = `
         <article class="card">
             <div class="media"><img src="content/images/img1.jpg" alt="Latest" onerror="this.src='https://via.placeholder.com/640x360?text=Latest'"></div>
             <div class="card-body">
@@ -693,6 +683,7 @@ function loadLehFallback() {
     `;
     html += createComingSoonCard("EDITORIAL DIGEST");
     html += createComingSoonCard("HISTORICAL ARCHIVE");
+    html += createComingSoonCard("COMING SOON");
     grid.innerHTML = html;
 }
 
@@ -713,7 +704,6 @@ function createComingSoonCard(customLabel = "Upcoming Feature") {
     `;
 }
 
-/* CLEAN HOMEPAGE CARD BUTTON (ONLY READ MORE) */
 function createCardNavOptions(articleId) {
     return `
         <div class="card-nav-options" style="justify-content: flex-end;">
@@ -815,6 +805,15 @@ function renderFullArticlePage(article) {
     
     contentEl.innerHTML = `
         <article class="prose-container" style="max-width: 850px; margin: 40px auto; padding: 0 20px; font-family:'Source Sans Pro', sans-serif; line-height: 1.8;">
+            
+            <!-- HERO IMAGE RENDERED FIRST ABOVE TITLE HEADING -->
+            ${article.heroImage && (article.heroImage.src || typeof article.heroImage === 'string') ? `
+                <figure style="margin: 0 0 2rem 0; text-align:center;">
+                    <img src="${article.heroImage.src || article.heroImage}" alt="${article.title}" style="width:100%; height:auto; max-height:480px; object-fit:cover; border-radius:6px;" onerror="this.style.display='none'">
+                    ${article.heroImage.caption ? `<figcaption style="text-align:left; color:#666; font-size:0.85rem; padding:8px 12px; border-left:3px solid #b30000; background:#f9f9f9; margin-top:8px; font-style:italic;">${article.heroImage.caption}</figcaption>` : ''}
+                </figure>
+            ` : ''}
+
             <header style="margin-bottom: 2.5rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 1.5rem;">
                 <span style="color:#b30000; font-weight:700; text-transform:uppercase; font-size:0.85rem; letter-spacing:1px; display:block; margin-bottom:0.5rem;">
                     ${article.category || article.sectionLabel || 'News'}
@@ -827,15 +826,11 @@ function renderFullArticlePage(article) {
                     <div>${processedDate} | ⏱️ ${article.readTime || '5 min read'}</div>
                 </div>
             </header>
-            ${article.heroImage && (article.heroImage.src || typeof article.heroImage === 'string') ? `
-                <figure style="margin: 0 0 2.5rem 0; text-align:center;">
-                    <img src="${article.heroImage.src || article.heroImage}" alt="${article.title}" style="width:100%; height:auto; max-height:480px; object-fit:cover; border-radius:4px;" onerror="this.style.display='none'">
-                    ${article.heroImage.caption ? `<figcaption style="text-align:left; color:#666; font-size:0.85rem; padding:8px 12px; border-left:3px solid #b30000; background:#f9f9f9; margin-top:8px; font-style:italic;">${article.heroImage.caption}</figcaption>` : ''}
-                </figure>
-            ` : ''}
+
             <div class="article-body-content" style="font-size:1.15rem; color:#222; line-height:1.8;">
                 ${renderJSONBody(article.body || article.content)}
             </div>
+
             ${generateArticleActionButtons(article.actionButtons)}
             ${generateArticleBottomNavigation(navData)}
         </article>
