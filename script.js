@@ -14,15 +14,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get("id");
 
-    // ROUTING ENGINE
-    if (path.includes("article.html") || articleId) {
-        if (!articleId && path.includes("article.html")) {
-            // Redirect to home if article.html is accessed directly without ?id=
-            window.location.href = "index.html";
-            return;
-        }
+    // ROUTER ENGINE FIX
+    if (articleId) {
+        // A specific article ID is present -> render single article
         initArticlePage(articleId);
     } else {
+        // No article ID -> render homepage content regardless of file name
         loadHomepageContent();
     }
     
@@ -97,6 +94,9 @@ function initNav() {
 }
 
 function loadHomepageContent() {
+    const loadingDiv = document.getElementById('loading-state');
+    if (loadingDiv) loadingDiv.style.display = 'none';
+
     const cb = "?v=" + new Date().getTime();
     fetch("content/index.json" + cb)
         .then(r => r.json())
@@ -108,7 +108,7 @@ function loadHomepageContent() {
             if (index.international) loadSectionGroup("intl-grid", index.international, "International Diplomacy");
             if (index.humanRights) loadSectionGroup("hr-grid", index.humanRights, "Human Rights");
         })
-        .catch(err => console.error("Index load error:", err));
+        .catch(err => console.error("Index fetch error:", err));
         
     loadVlogs();
 }
@@ -225,7 +225,7 @@ async function initArticlePage(articleId) {
             const data = await response.json();
             articleData = data.items ? data.items[0] : data;
         }
-    } catch (e) { console.warn("Direct fetch failed, trying master..."); }
+    } catch (e) { console.warn("Direct fetch failed, checking master..."); }
     
     if (!articleData) {
         try {
