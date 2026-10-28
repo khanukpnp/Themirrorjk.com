@@ -14,6 +14,24 @@
         "src": "content/images/spotlight-001-hero.jpg",
         "caption": "UKPNP Denounces Denial of Entry to Pakistani Opposition Leaders Visiting Azad Kashmir Protests — High-level parliamentary delegation blocked at entry checkpoints — The Mirror Jammu Kashmir"
       },
+      "body": [
+        {
+          "type": "paragraph",
+          "text": "GENEVA / ISLAMABAD — The United Kashmir People's National Party (UKPNP) has issued a stinging condemnation of Pakistani authorities following the blockage of a high-level parliamentary delegation attempting to visit protest sites in Azad Kashmir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Federal security forces turned back members of the National Assembly and Senate at key entry checkpoints leading into Rawalakot, where local civil society and activist groups have been conducting prolonged sit-in demonstrations against regional administrative policies and resource allocation."
+        },
+        {
+          "type": "pullquote",
+          "text": "Blocking elected representatives from observing the situation on the ground only deepens the sense of isolation and severe governance deficit across the region."
+        },
+        {
+          "type": "paragraph",
+          "text": "Local leadership has reported acute shortages of basic medical supplies and essential food items as security blockades surrounding the district remain enforced for the third consecutive week."
+        }
+      ],
       "navigation": {
         "prev": "spotlight-002",
         "prevTitle": "UKPNP Demands End to Unrest and Lethal Crackdown",
@@ -35,6 +53,24 @@
         "src": "content/images/spotlight-002-hero.png",
         "caption": "UKPNP Demands End to Unrest and Lethal Crackdown in Azad Kashmir — Protests expand across Kotli and Rawalakot amid total communications blackout — The Mirror Jammu Kashmir"
       },
+      "body": [
+        {
+          "type": "paragraph",
+          "text": "GENEVA / RAWALAKOT — Expanding civil unrest across Kotli and Rawalakot has prompted urgent calls for restraint after reports emerged of lethal force being used against civilian demonstrations."
+        },
+        {
+          "type": "paragraph",
+          "text": "The United Kashmir People's National Party called for an immediate suspension of security operations and advocated for the restoration of internet and mobile telecommunication feeds that have remained disrupted across major urban centers."
+        },
+        {
+          "type": "subheading",
+          "text": "Calls for Judicial Accountability"
+        },
+        {
+          "type": "paragraph",
+          "text": "Human rights defenders have emphasized that a high-level, independent judicial commission must be established to investigate extrajudicial casualties and compensate affected civilian families without delay."
+        }
+      ],
       "navigation": {
         "prev": "trending-001",
         "prevTitle": "HUMAN RIGHTS ALERT: Urgent UN Intervention Demanded",
@@ -56,6 +92,16 @@
         "src": "content/images/infocus-hero.png",
         "caption": "UKPNP and SKHRC members protesting outside the UN headquarters in Geneva during the UNHRC session."
       },
+      "body": [
+        {
+          "type": "paragraph",
+          "text": "GENEVA — Parallel to the ongoing 62nd Session of the United Nations Human Rights Council, human rights advocates and Kashmiri diaspora members gathered at the Place des Nations outside the UN headquarters."
+        },
+        {
+          "type": "paragraph",
+          "text": "Holding banners highlighting fundamental rights violations, delegates formally submitted a memorandum addressed to the UN High Commissioner for Human Rights calling for a dedicated fact-finding delegation to inspect ground realities in Azad Kashmir."
+        }
+      ],
       "navigation": {
         "prev": "spotlight-001",
         "prevTitle": "UKPNP Denounces Denial of Entry to Pakistani Opposition Leaders",
@@ -77,6 +123,16 @@
         "src": "content/images/InFocus-002.png",
         "caption": "Escalating Violent Crackdown in Azad Kashmir — Deadly firing outside Rawalakot CMH sparks international outcry and demands for media access — The Mirror Jammu Kashmir"
       },
+      "body": [
+        {
+          "type": "paragraph",
+          "text": "RAWALAKOT — Global human rights monitors have voiced deep alarm following incidents of direct firing outside the Combined Military Hospital (CMH) in Rawalakot, following the death of local activist Shahzaib Habib."
+        },
+        {
+          "type": "paragraph",
+          "text": "International press freedom organizations have urged federal authorities to grant immediate, unhindered access to independent journalists and international media crews to ensure factual reporting from the region."
+        }
+      ],
       "navigation": {
         "prev": "infocus-001",
         "prevTitle": "UKPNP AND SKHRC STAGE PROTEST OUTSIDE UN GENEVA",
@@ -98,6 +154,16 @@
         "src": "content/images/trending-001-hero.png",
         "caption": "Human Rights Alert: Operations at Eid Gah Ground in Rawalakot trigger global calls for UN intervention — The Mirror Jammu Kashmir"
       },
+      "body": [
+        {
+          "type": "paragraph",
+          "text": "RAWALAKOT — An urgent human rights dispatch has been circulated to international mechanisms after security forces intervened at the Eid Gah Ground sit-in demonstration in Rawalakot."
+        },
+        {
+          "type": "paragraph",
+          "text": "Reports confirm two civilian casualties and multiple injuries following the escalation, sparking renewed appeals for immediate diplomatic and humanitarian oversight."
+        }
+      ],
       "navigation": {
         "prev": "infocus-002",
         "prevTitle": "Escalating Violent Crackdown in Azad Kashmir Triggers Global Calls",
@@ -119,6 +185,16 @@
         "src": "content/images/trending-002-hero.png",
         "caption": "Strong Condemnation of the Martyrdom of Shahzeb Habib & Attack on Umar Nazir Kashmiri — The Mirror Jammu Kashmir"
       },
+      "body": [
+        {
+          "type": "paragraph",
+          "text": "POONCH / RAWALAKOT — Political representatives and community organizations have united in condemning a targeted attack on an activist vehicle traveling through Poonch district."
+        },
+        {
+          "type": "paragraph",
+          "text": "The incident resulted in the fatal shooting of Shahzaib Habib and critical injuries to Joint Awami Action Committee (JAAC) activist Umar Nazir. Civil society bodies have reiterated demands for an impartial inquiry into the circumstances surrounding the violence."
+        }
+      ],
       "navigation": {
         "prev": "trending-001",
         "prevTitle": "HUMAN RIGHTS ALERT: Urgent UN Intervention Demanded",
