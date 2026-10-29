@@ -1,3 +1,4 @@
+
 {
   "items": [
     {
@@ -44,7 +45,7 @@
         },
         {
           "type": "quote",
-          "text": "The Joint Awami Action Committee, or the JAAC  a movement behind the protests comprising traders, transporters, students, lawyers, activists and others — has been banned under anti-terrorism laws for allegedly threatening public order and security. Some of the group's leaders have subsequently been arrested."
+          "text": "The Joint Awami Action Committee, or the JAAC a movement behind the protests comprising traders, transporters, students, lawyers, activists and others — has been banned under anti-terrorism laws for allegedly threatening public order and security. Some of the group's leaders have subsequently been arrested."
         },
         {
           "type": "paragraph",
@@ -88,11 +89,11 @@
         },
         {
           "type": "paragraph",
-          "text": "OHCHR Press Briefing Note: https://www.ohchr.org/en/press-briefing-notes/2026/07/wave-unrest-pakistan-administered-kashmir"
+          "text": "<a href=\"https://www.ohchr.org/en/press-briefing-notes/2026/07/wave-unrest-pakistan-administered-kashmir\" target=\"_blank\" rel=\"noopener noreferrer\"><strong>OHCHR Press Briefing Note</strong></a>"
         },
         {
           "type": "paragraph",
-          "text": "UN Video Briefing and Media Assets: https://media.un.org/unifeed/en/asset/d360/d3609420"
+          "text": "<a href=\"https://media.un.org/unifeed/en/asset/d360/d3609420\" target=\"_blank\" rel=\"noopener noreferrer\"><strong>UN Video Briefing and Media Assets</strong></a>"
         },
         {
           "type": "paragraph",
@@ -108,4 +109,3 @@
     }
   ]
 }
-
