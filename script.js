@@ -1,5 +1,5 @@
 /* ==========================================================================
-   THE MIRROR JAMMU KASHMIR - CORE SCRIPT ENGINE
+   THE MIRROR JAMMU KASHMIR - INTEGRATED PRODUCTION SCRIPT
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", function() {
     initLoader();
@@ -16,10 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // ROUTER ENGINE
     if (articleId) {
-        // A specific article ID is present -> render single article
         initArticlePage(articleId);
     } else {
-        // No article ID -> render homepage content
         loadHomepageContent();
     }
     
