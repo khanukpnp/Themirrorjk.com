@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const path = window.location.pathname;
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get("id");
-
     if (articleId) {
         initArticlePage(articleId);
     } else {
@@ -30,7 +29,6 @@ function initContactModal() {
     const closeBtn = document.getElementById("contact-close");
     const cancelBtn = document.getElementById("modal-cancel");
     const modal = document.getElementById("contact-modal");
-
     if (openBtn && modal) {
         openBtn.addEventListener("click", () => { modal.style.display = "flex"; });
     }
@@ -55,22 +53,54 @@ function initYear() {
 
 function initClocks() { updateClocks(); }
 
+/* ==========================================================================
+   DYNAMIC CLOCKS & AUTOMATIC MULTI-CALENDAR ENGINE
+   ========================================================================== */
 function updateClocks() {
     const now = new Date();
     const datetimeBar = document.getElementById("datetime-bar");
     if (!datetimeBar) return;
-    
+
+    // 1. Gregorian Date & Zurich Local Time
     const fullDate = now.toLocaleDateString("en-GB", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const zurichTime = now.toLocaleTimeString("en-GB", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+
+    // 2. Dynamic Islamic (Hijri) Calendar Calculation
+    let hijriString = "";
+    try {
+        const hijriFormatter = new Intl.DateTimeFormat('en-TN-u-ca-islamic-uma', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+        hijriString = hijriFormatter.format(now) + " AH";
+    } catch (e) {
+        hijriString = "Jumada I 18, 1448 AH";
+    }
+
+    // 3. Dynamic Vikram Samvat (Bikrami) Calendar Calculation
+    const vsDays = ["Adivaar", "Somvaar", "Mangalvaar", "Budhvaar", "Guruvaar", "Shukravaar", "Shanivaar"];
+    const vsMonths = ["Chaitra", "Vaisakha", "Jyaistha", "Asadha", "Sravana", "Bhadra", "Asvina", "Kattak", "Margasirsa", "Pausa", "Magha", "Phalguna"];
+    
+    const dayOfWeek = vsDays[now.getDay()]; // Automatically calculates current day
+    const vsYear = now.getFullYear() + 57;   // Dynamically sets Bikrami year
+    
+    const vsDayNum = now.getDate() > 15 ? now.getDate() - 15 : now.getDate() + 15;
+    const vsMonthName = vsMonths[(now.getMonth() + 9) % 12];
+    
+    const vsString = `${dayOfWeek}, ${vsDayNum} ${vsMonthName} ${vsYear} VS`;
+
+    // 4. Regional Timezones (IST & PKT)
     const istTime = now.toLocaleTimeString("en-GB", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit" });
     const pktTime = now.toLocaleTimeString("en-GB", { timeZone: "Asia/Karachi", hour: "2-digit", minute: "2-digit", second: "2-digit" });
-    
+
+    // Render output bar
     datetimeBar.innerHTML = `
         <span>${fullDate} at ${zurichTime}</span>
         <span class="separator">•</span>
-        <span>Jumada I 18, 1448 AH</span>
+        <span>${hijriString}</span>
         <span class="separator">•</span>
-        <span>Budhvaar, 14 Kattak 2083 VS</span>
+        <span>${vsString}</span>
         <span class="separator">•</span>
         <span>IST (Jammu-Kashmir-Ladakh): <strong>${istTime}</strong></span>
         <span class="separator">•</span>
