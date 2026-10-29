@@ -9,12 +9,12 @@ document.addEventListener("DOMContentLoaded", function() {
     initTicker();
     initSocialButtons();
     initNav();
+    initContactModal();
     
     const path = window.location.pathname;
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get("id");
 
-    // ROUTER ENGINE
     if (articleId) {
         initArticlePage(articleId);
     } else {
@@ -24,6 +24,23 @@ document.addEventListener("DOMContentLoaded", function() {
     setInterval(updateClocks, 1000);
     setInterval(initWeatherBar, 900000);
 });
+
+function initContactModal() {
+    const openBtn = document.getElementById("contact-open");
+    const closeBtn = document.getElementById("contact-close");
+    const cancelBtn = document.getElementById("modal-cancel");
+    const modal = document.getElementById("contact-modal");
+
+    if (openBtn && modal) {
+        openBtn.addEventListener("click", () => { modal.style.display = "flex"; });
+    }
+    if (closeBtn && modal) {
+        closeBtn.addEventListener("click", () => { modal.style.display = "none"; });
+    }
+    if (cancelBtn && modal) {
+        cancelBtn.addEventListener("click", () => { modal.style.display = "none"; });
+    }
+}
 
 function initLoader() {
     const loader = document.getElementById("site-loader");
@@ -123,14 +140,14 @@ function loadVlogs() {
                 <article class="card">
                     <div class="media">
                         <img src="https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg" alt="${v.title}">
-                        <a href="${v.url}" target="_blank" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#b30000; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; text-decoration:none; font-size:1.2rem;">▶</a>
+                        <a href="${v.url}" target="_blank" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#800000; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; text-decoration:none; font-size:1.2rem;">▶</a>
                     </div>
                     <div class="card-body">
                         <span class="category-label">${v.category || 'VLOG'}</span>
                         <h3>${v.title}</h3>
                         <p>${v.description}</p>
                         <div style="margin-top:auto; text-align:right;">
-                            <a href="${v.url}" target="_blank" style="background:#b30000; color:#fff; padding:6px 12px; border-radius:4px; text-decoration:none; font-weight:bold; font-size:0.8rem;">Watch Video ➔</a>
+                            <a href="${v.url}" target="_blank" style="background:#800000; color:#fff; padding:6px 12px; border-radius:4px; text-decoration:none; font-weight:bold; font-size:0.8rem;">Watch Video ➔</a>
                         </div>
                     </div>
                 </article>
@@ -203,7 +220,7 @@ function createHomepageCard(article, label) {
                 <h3>${title.substring(0, 80)}</h3>
                 <p>${excerpt.substring(0, 120)}...</p>
                 <div style="margin-top:auto; text-align:right;">
-                    <a href="article.html?id=${article.id || ''}" style="background:#b30000; color:#fff; padding:6px 12px; border-radius:4px; text-decoration:none; font-weight:bold; font-size:0.8rem;">Read More ➔</a>
+                    <a href="article.html?id=${article.id || ''}" style="background:#800000; color:#fff; padding:6px 12px; border-radius:4px; text-decoration:none; font-weight:bold; font-size:0.8rem;">Read More ➔</a>
                 </div>
             </div>
         </article>`;
@@ -292,8 +309,8 @@ function renderJSONBody(body) {
             switch (block.type) {
                 case 'paragraph': return `<p style="margin-bottom:1.5rem;">${block.text}</p>`;
                 case 'subheading':
-                case 'header': return `<h2 style="color:#b30000; font-family:'Playfair Display',serif; margin:2rem 0 1rem; font-size:1.6rem; font-weight:700;">${block.text}</h2>`;
-                case 'pullquote': return `<div style="font-size:1.25rem; font-weight:600; margin:2rem 0; padding:1.2rem 1.5rem; background:#f9f9f9; border-left:4px solid #b30000; font-style:italic; color:#333;">${block.text}</div>`;
+                case 'header': return `<h2 style="color:#800000; font-family:'Playfair Display',serif; margin:2rem 0 1rem; font-size:1.6rem; font-weight:700;">${block.text}</h2>`;
+                case 'pullquote': return `<div style="font-size:1.25rem; font-weight:600; margin:2rem 0; padding:1.2rem 1.5rem; background:#f9f9f9; border-left:4px solid #800000; font-style:italic; color:#333;">${block.text}</div>`;
                 case 'image':
                     const alignClass = block.align === 'left' ? 'img-left' : (block.align === 'right' ? 'img-right' : 'img-center');
                     return `<figure class="${alignClass}"><img src="${block.src}" alt="Media"><figcaption>${block.caption || ''}</figcaption></figure>`;
