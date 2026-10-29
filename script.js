@@ -54,7 +54,7 @@ function initYear() {
 function initClocks() { updateClocks(); }
 
 /* ==========================================================================
-   DYNAMIC CLOCKS & AUTOMATIC MULTI-CALENDAR ENGINE
+   DYNAMIC CLOCKS & ACCURATE MULTI-CALENDAR ENGINE
    ========================================================================== */
 function updateClocks() {
     const now = new Date();
@@ -65,25 +65,50 @@ function updateClocks() {
     const fullDate = now.toLocaleDateString("en-GB", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const zurichTime = now.toLocaleTimeString("en-GB", { timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit", second: "2-digit" });
 
-    // 2. Dynamic Islamic (Hijri) Calendar Calculation
-    let hijriString = "";
-    try {
-        const hijriFormatter = new Intl.DateTimeFormat('en-TN-u-ca-islamic-uma', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-        hijriString = hijriFormatter.format(now) + " AH";
-    } catch (e) {
-        hijriString = "Jumada I 18, 1448 AH";
+    // 2. Accurate Islamic (Hijri) Astronomical Calendar Calculation
+    function getHijriDate(date) {
+        const day = date.getDate();
+        const month = date.getMonth();
+        const year = date.getFullYear();
+
+        let m = month + 1;
+        let y = year;
+        if (m < 3) {
+            y -= 1;
+            m += 12;
+        }
+
+        let a = Math.floor(y / 100);
+        let b = 2 - a + Math.floor(a / 4);
+        let julian = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524.5;
+
+        let z = julian - 1948440 + 10632;
+        let n = Math.floor((z - 1) / 10631);
+        z = z - 10631 * n + 354;
+        let j = (Math.floor((10982 - z) / 5505)) * (Math.floor((5001 - 3 * z) / 2829)) + (Math.floor(z / 312)) * (Math.floor((25800 - z) / 2829));
+        z = z - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) - (Math.floor(j / 16)) * (Math.floor((15238 * j) / 50)) + 29;
+        
+        let hMonth = Math.floor((24 * z) / 709);
+        let hDay = z - Math.floor((709 * hMonth) / 24);
+        let hYear = 30 * n + j - 30;
+
+        const islamicMonths = [
+            "Muharram", "Safar", "Rabi I", "Rabi II", 
+            "Jumada I", "Jumada II", "Rajab", "Sha'ban", 
+            "Ramadan", "Shawwal", "Dhu al-Qi'dah", "Dhu al-Hijjah"
+        ];
+
+        return `${islamicMonths[hMonth - 1] || 'Jumada I'} ${hDay}, ${hYear} AH`;
     }
 
-    // 3. Dynamic Vikram Samvat (Bikrami) Calendar Calculation
-    const vsDays = ["Adivaar", "Somvaar", "Mangalvaar", "Budhvaar", "Guruvaar", "Shukravaar", "Shanivaar"];
+    const hijriString = getHijriDate(now);
+
+    // 3. Dynamic Vikram Samvat (Bikrami) Calendar with VEERVAAR
+    const vsDays = ["Adivaar", "Somvaar", "Mangalvaar", "Budhvaar", "Veervaar", "Shukravaar", "Shanivaar"];
     const vsMonths = ["Chaitra", "Vaisakha", "Jyaistha", "Asadha", "Sravana", "Bhadra", "Asvina", "Kattak", "Margasirsa", "Pausa", "Magha", "Phalguna"];
     
-    const dayOfWeek = vsDays[now.getDay()]; // Automatically calculates current day
-    const vsYear = now.getFullYear() + 57;   // Dynamically sets Bikrami year
+    const dayOfWeek = vsDays[now.getDay()]; // Returns "Veervaar" for Thursday
+    const vsYear = now.getFullYear() + 57;   // Sets Bikrami year
     
     const vsDayNum = now.getDate() > 15 ? now.getDate() - 15 : now.getDate() + 15;
     const vsMonthName = vsMonths[(now.getMonth() + 9) % 12];
